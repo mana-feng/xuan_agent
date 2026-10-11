@@ -10,17 +10,14 @@ import { defineStore } from 'pinia';
 import { useYunStore } from '@/store/yun';
 import { Solar, Yun } from 'lunar-javascript';
 import utils from '@/libs/utils/utils';
+import { chartCalculationKey, emptyChartInput, persistChartInput, readChartInput, snapshotChartInput } from '@/utils/chartInput';
+import type { ChartPullData } from '@/utils/chartInput';
 import {
 	enhanceBaziAnalysis,
 	BaziEnhancedData,
 	calculateShenShaForGanZhi,
 	calculateKongWangForGanZhi,
 } from '@/libs/utils/bazi-enhanced';
-
-interface PullData {
-	timestamp: number;
-	gender: number;
-}
 
 interface DateTimeFields {
 	year: string | null;
@@ -84,6 +81,8 @@ interface TableRow {
 export const useBaziStore = defineStore('bazi', {
 	state: () => {
 		return {
+			input: emptyChartInput(),
+			calculatedFor: '',
 			yun: null as Yun | null,
 			yinli: null as string | null,
 			yangli: null as string | null,
@@ -172,8 +171,22 @@ export const useBaziStore = defineStore('bazi', {
 		};
 	},
 	actions: {
-		pull(data: PullData) {
-			const { timestamp, gender } = data;
+		restoreInput() {
+			if (this.input.timestamp !== null) return;
+			const input = readChartInput('bazi_last_context');
+			if (input) this.input = input;
+		},
+		persistInput() {
+			persistChartInput('bazi_last_context', this.input);
+		},
+		ensureComputed() {
+			if (this.input.timestamp === null) return;
+			if (this.calculatedFor === chartCalculationKey(this.input) && this.solar.year) return;
+			this.pull({ ...this.input, timestamp: this.input.timestamp });
+		},
+		pull(data: ChartPullData) {
+			const input = snapshotChartInput(data);
+			const { timestamp, gender } = input;
 
 			const solar = Solar.fromDate(new Date(timestamp));
 			const lunar = solar.getLunar();
@@ -465,6 +478,9 @@ export const useBaziStore = defineStore('bazi', {
 			this.table = table;
 
 			useYunStore().pull(yun.getDaYun());
+			this.input = input;
+			this.calculatedFor = chartCalculationKey(input);
+			this.persistInput();
 		},
 	},
 });

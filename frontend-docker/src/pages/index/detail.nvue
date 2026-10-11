@@ -20,7 +20,7 @@
 							<view class="section__body info-grid">
 								<view class="info-tile">
 									<tm-text :font-size="24" color="#718096" label="姓名"></tm-text>
-									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="(user_store.realname || '').trim() || '佚名'"></tm-text>
+									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="(bazi_store.input.realname || '').trim() || '佚名'"></tm-text>
 								</view>
 								<view class="info-tile">
 									<tm-text :font-size="24" color="#718096" label="性别"></tm-text>
@@ -36,7 +36,7 @@
 								</view>
 								<view class="info-tile full-width">
 									<tm-text :font-size="24" color="#718096" label="阳历"></tm-text>
-									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="bazi_store.yangli || utils.HideSecond(user_store.timestamp)"></tm-text>
+									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="bazi_store.yangli || utils.HideSecond(bazi_store.input.timestamp)"></tm-text>
 								</view>
 								<view class="info-tile full-width">
 									<tm-text :font-size="24" color="#718096" label="阴历"></tm-text>
@@ -220,52 +220,16 @@ const baziRelationData = computed(() => {
   return { list, labels };
 });
 
-const BAZI_LAST_CONTEXT_KEY = 'bazi_last_context';
-
 function restoreBaziContext() {
-	if (user_store.timestamp !== null && user_store.timestamp !== undefined) return;
-	try {
-		const raw = uni.getStorageSync(BAZI_LAST_CONTEXT_KEY);
-		if (!raw) return;
-		const data = typeof raw === 'string' ? JSON.parse(raw) : raw;
-		const ts = Number(data?.timestamp);
-		if (!Number.isFinite(ts) || ts <= 0) return;
-		const gender = data?.gender === 1 || data?.gender === '1' ? 1 : 0;
-		user_store.realname = data?.realname ?? user_store.realname;
-		user_store.gender = gender ?? user_store.gender ?? 0;
-		user_store.timestamp = ts;
-		user_store.recordId = data?.recordId ?? user_store.recordId ?? null;
-	} catch (e) {
-		void e;
-	}
+	bazi_store.restoreInput();
 }
 
 function ensureBaziComputed() {
-	const ts = user_store.timestamp;
-	if (!ts) return;
-	if (bazi_store.solar?.year) return;
-	bazi_store.pull({
-		timestamp: Number(ts),
-		gender: Number(user_store.gender ?? 0)
-	});
+	bazi_store.ensureComputed();
 }
 
 function persistBaziContext() {
-	const ts = user_store.timestamp;
-	if (!ts) return;
-	try {
-		uni.setStorageSync(
-			BAZI_LAST_CONTEXT_KEY,
-			JSON.stringify({
-				realname: user_store.realname ?? null,
-				gender: user_store.gender ?? 0,
-				timestamp: Number(ts),
-				recordId: user_store.recordId ?? null
-			})
-		);
-	} catch (e) {
-		void e;
-	}
+	bazi_store.persistInput();
 }
 
 restoreBaziContext();
@@ -316,9 +280,9 @@ function isLocalDuplicate(entry: { name: string | null; birthDatetime: number | 
 	});
 }
 
-if (user_store.timestamp === null) {
+if (bazi_store.input.timestamp === null) {
 	restoreBaziContext();
-	if (!user_store.timestamp) {
+	if (!bazi_store.input.timestamp) {
 		uni.redirectTo({
 			url: '/pages/index/index'
 		});
@@ -334,7 +298,7 @@ onShow(() => {
 function getGenderLabel() {
 	// 统一标准：0=男，1=女
 	// 需要严格比较，因为可能是数字或字符串
-	const gender = user_store.gender;
+	const gender = bazi_store.input.gender;
 	if (gender === 0 || gender === '0') {
 		return '男';
 	} else if (gender === 1 || gender === '1') {
@@ -356,7 +320,7 @@ function saveToAccount() {
 		return;
 	}
 
-	if (!user_store.timestamp) {
+	if (!bazi_store.input.timestamp) {
 		uni.showToast({
 			title: '缺少出生时间，无法保存',
 			icon: 'none',
@@ -367,6 +331,7 @@ function saveToAccount() {
 
 	saving.value = true;
 	saveError.value = '';
+	const savingInput = bazi_store.input;
 
 	// 注意：排盘计算完全在前端完成，后端只存储必要数据
 	// rawPayload 是可选的，主要用于前端恢复数据，不包含敏感信息
@@ -377,9 +342,9 @@ function saveToAccount() {
 		rawPayload = {
 			lite: true,
 			user: {
-				realname: user_store.realname,
-				gender: user_store.gender,
-				timestamp: user_store.timestamp
+				realname: bazi_store.input.realname,
+				gender: bazi_store.input.gender,
+				timestamp: bazi_store.input.timestamp
 			}
 		};
 	} catch (e) {
@@ -387,9 +352,9 @@ function saveToAccount() {
 		// 如果序列化失败，使用最小数据集
 		rawPayload = {
 			user: {
-				realname: user_store.realname,
-				gender: user_store.gender,
-				timestamp: user_store.timestamp
+				realname: bazi_store.input.realname,
+				gender: bazi_store.input.gender,
+				timestamp: bazi_store.input.timestamp
 			},
 			bazi: {
 				solar: bazi_store.solar,
@@ -400,9 +365,9 @@ function saveToAccount() {
 	}
 
 	const requestData = {
-		name: (user_store.realname || '').trim() || '佚名',
-		gender: user_store.gender !== undefined && user_store.gender !== null ? String(user_store.gender) : null,
-		birthDatetime: user_store.timestamp !== undefined && user_store.timestamp !== null ? Number(user_store.timestamp) : null,
+		name: (bazi_store.input.realname || '').trim() || '佚名',
+		gender: bazi_store.input.gender !== undefined && bazi_store.input.gender !== null ? String(bazi_store.input.gender) : null,
+		birthDatetime: bazi_store.input.timestamp !== undefined && bazi_store.input.timestamp !== null ? Number(bazi_store.input.timestamp) : null,
 		calendarType: 'solar',
 		rawPayload: rawPayload
 	};
@@ -417,7 +382,7 @@ function saveToAccount() {
 	}
 
 	// 根据是否有 recordId 决定是更新还是新建
-	const recordId = user_store.recordId;
+	const recordId = bazi_store.input.recordId;
 	const isUpdate = !!recordId;
 	const apiUrl = isUpdate ? `/api/bazi/${recordId}` : '/api/bazi';
 	const method = isUpdate ? 'PUT' : 'POST';
@@ -452,11 +417,12 @@ function saveToAccount() {
 		// 或者直接返回：{id, updated: true/false}
 		const responseData = res?.data || res;
 		const recordId = responseData?.id;
-		const isUpdate = responseData?.updated === true || !!user_store.recordId;
+		const isUpdate = responseData?.updated === true || !!savingInput.recordId;
 		
 		// 保存记录ID到store
-		if (recordId) {
-			user_store.recordId = recordId;
+		if (recordId && bazi_store.input === savingInput) {
+			bazi_store.input.recordId = recordId;
+			persistBaziContext();
 		}
 		
 		const successMsg = isUpdate ? '记录已更新' : '已保存到账号';
@@ -475,8 +441,9 @@ function saveToAccount() {
 		// 处理409错误（记录已存在，但后端可能未自动更新）
 		if (err?.error?.includes('已存在') || err?.error?.includes('重复')) {
 			// 如果后端返回了已存在记录的 ID，保存到 store
-			if (err?.id) {
-				user_store.recordId = err.id;
+			if (err?.id && bazi_store.input === savingInput) {
+				bazi_store.input.recordId = err.id;
+				persistBaziContext();
 			}
 			uni.showToast({
 				title: '记录已存在，已自动更新',
@@ -491,9 +458,10 @@ function saveToAccount() {
 			return;
 		}
 		
-		// 如果是更新操作失败，清除 recordId，下次保存时重新创建
-		if (isUpdate) {
-			user_store.recordId = null;
+		// Only a confirmed missing record permits creating a new one on retry.
+		if (isUpdate && err?.code === 'NOT_FOUND' && bazi_store.input === savingInput) {
+			bazi_store.input.recordId = null;
+			persistBaziContext();
 		}
 		
 		const msg = err?.error || err?.message || '网络错误，请检查后端是否已启动';
@@ -509,12 +477,12 @@ function saveToAccount() {
 }
 
 function buildExportPayload() {
-	return buildBaziExportPayload(user_store, bazi_store, yun_store);
+	return buildBaziExportPayload(bazi_store.input, bazi_store, yun_store);
 }
 
 function exportToon() {
 	exportError.value = '';
-	if (!user_store.timestamp) {
+	if (!bazi_store.input.timestamp) {
 		uni.showToast({
 			title: '缺少出生时间，无法导出',
 			icon: 'none',
@@ -539,7 +507,7 @@ function exportToon() {
 		return;
 	}
 
-	const filename = `bazi-${(utils.HideSecond(user_store.timestamp) || '').replace(/[^0-9]/g, '') || 'export'}.toon`;
+	const filename = `bazi-${(utils.HideSecond(bazi_store.input.timestamp) || '').replace(/[^0-9]/g, '') || 'export'}.toon`;
 
 	// #ifdef H5
 	try {
@@ -591,16 +559,16 @@ function goToHome() {
 function editBazi() {
 	// 将当前数据保存到缓存，供主页读取
 	// 统一标准：0=男，1=女（数字）
-	// user_store.gender 和表单 gender 都使用统一标准，无需转换
-	const formGender = user_store.gender !== undefined && user_store.gender !== null 
-		? user_store.gender 
+	// bazi_store.input.gender 和表单 gender 都使用统一标准，无需转换
+	const formGender = bazi_store.input.gender !== undefined && bazi_store.input.gender !== null
+		? bazi_store.input.gender
 		: 0;
 	
 	const editData = {
-		realname: user_store.realname || '',
+		realname: bazi_store.input.realname || '',
 		gender: formGender,
-		timestamp: user_store.timestamp,
-		recordId: user_store.recordId, // 传递记录ID
+		timestamp: bazi_store.input.timestamp,
+		recordId: bazi_store.input.recordId, // 传递记录ID
 		// 标记为编辑模式
 		isEdit: true
 	};
@@ -625,9 +593,9 @@ function editBazi() {
 		
 		// 延迟跳转，确保数据保存完成
 		setTimeout(() => {
-			// 跳转到主页
+			// 跳转到八字输入页，读取 edit_bazi_data 回填。
 			uni.reLaunch({
-				url: '/pages/agent/index'
+				url: '/pages/index/index'
 			});
 		}, 500);
 	} catch (err) {

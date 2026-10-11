@@ -1,6 +1,6 @@
 <template>
 	<view class="user-avatar-dropdown">
-		<view class="user-avatar" @tap="toggleDropdown">
+		<view ref="avatarTrigger" class="user-avatar" v-bind="h5Button(toggleDropdown)" aria-label="用户菜单" :aria-expanded="showDropdown" @tap="toggleDropdown" @keydown.esc.stop.prevent="closeDropdown">
 			<tm-icon
 				v-if="!isLoggedIn"
 				name="tmicon-md-person"
@@ -18,7 +18,7 @@
 			></tm-icon>
 		</view>
 
-		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown">
+		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown" @keydown.esc.stop.prevent="closeDropdown">
 			<view class="dropdown-menu" @tap.stop>
 				<view v-if="isLoggedIn" class="user-info-section">
 					<view class="avatar-large">
@@ -38,28 +38,29 @@
 					<view
 						v-if="!isLoggedIn"
 						class="menu-item"
+						v-bind="h5Button(handleLogin)"
 						@click="handleLogin"
 					>
 						<tm-icon name="tmicon-md-login" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">登录/注册</text>
 					</view>
 
-					<view class="menu-item" @click="handleAnnouncements">
+					<view class="menu-item" v-bind="h5Button(handleAnnouncements)" @click="handleAnnouncements">
 						<tm-icon name="tmicon-bullhorn" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">公告</text>
 					</view>
 
-					<view class="menu-item" @click="handleHistory">
+					<view class="menu-item" v-bind="h5Button(handleHistory)" @click="handleHistory">
 						<tm-icon name="tmicon-history" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">历史记录</text>
 					</view>
 
-					<view class="menu-item" @click="handleAbout">
+					<view class="menu-item" v-bind="h5Button(handleAbout)" @click="handleAbout">
 						<tm-icon name="tmicon-info-circle" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">关于</text>
 					</view>
 
-					<view v-if="isLoggedIn" class="menu-item menu-item--danger" @click="handleLogout">
+					<view v-if="isLoggedIn" class="menu-item menu-item--danger" v-bind="h5Button(handleLogout)" @click="handleLogout">
 						<tm-icon name="tmicon-logout" :font-size="20" color="#f56565"></tm-icon>
 						<text class="menu-label">注销</text>
 					</view>
@@ -70,11 +71,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import { useUserStore } from '@/store/user';
+import { h5Button } from '@/utils/keyboard';
 
 const userStore = useUserStore();
 const showDropdown = ref(false);
+const avatarTrigger = ref<HTMLElement | { $el: HTMLElement } | null>(null);
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const username = computed(() => userStore.username);
@@ -91,6 +94,13 @@ function toggleDropdown() {
 
 function closeDropdown() {
 	showDropdown.value = false;
+	// #ifdef H5
+	nextTick(() => {
+		const trigger = avatarTrigger.value;
+		const element = trigger && ('$el' in trigger ? trigger.$el : trigger);
+		element?.focus();
+	});
+	// #endif
 }
 
 function handleLogin() {
@@ -319,4 +329,16 @@ function handleLogout() {
 .menu-item--danger .menu-label {
 	color: #f56565;
 }
+
+/* #ifdef H5 */
+.user-avatar:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 3px;
+}
+.menu-item:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: -4px;
+	background: #eff6ff;
+}
+/* #endif */
 </style>

@@ -70,3 +70,7 @@ start-local.bat
 stop-local.bat
 stop-local.ps1
 
+
+# Branch-local frontend build output
+/dist/
+/unpackage/

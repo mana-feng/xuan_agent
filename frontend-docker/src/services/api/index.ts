@@ -92,7 +92,7 @@ let refreshingPromise: Promise<void> | null = null;
 /**
  * 刷新 access token（带锁机制）
  */
-async function refreshAccessToken(): Promise<void> {
+export async function refreshAccessToken(): Promise<void> {
 	if (refreshingPromise) {
 		return refreshingPromise;
 	}
@@ -190,9 +190,10 @@ export function request<T = any>(
 		header?: Record<string, string>;
 		needAuth?: boolean;
 		sanitizeData?: boolean;
+		timeout?: number;
 	} = {}
 ): Promise<ApiResponse<T>> {
-	const { method = 'GET', data, header = {}, needAuth = false, sanitizeData = true } = options;
+	const { method = 'GET', data, header = {}, needAuth = false, sanitizeData = true, timeout } = options;
 
 	return new Promise((resolve, reject) => {
 		let retryCount = 0;
@@ -228,6 +229,7 @@ export function request<T = any>(
 				method,
 				data: sanitizedData,
 				header: requestHeaders,
+				...(timeout === undefined ? {} : { timeout }),
 				// H5 需要 withCredentials 来发送 cookie
 				// #ifdef H5
 				withCredentials: true,

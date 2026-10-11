@@ -6,6 +6,7 @@
 import type { Store } from 'pinia';
 import { calculateShenShaForGanZhi } from '@/libs/utils/bazi-enhanced';
 import utils from '@/libs/utils/utils';
+import type { ChartInput } from '@/utils/chartInput';
 
 interface UserStore {
 	realname: string | null;
@@ -14,6 +15,7 @@ interface UserStore {
 }
 
 interface BaziStore {
+	input: ChartInput;
 	solar: {
 		year: number | null;
 		month: number | null;
@@ -154,12 +156,14 @@ interface YunStore {
 }
 
 export function buildBaziExportPayload(
-	userStore: Store & UserStore,
+	_profile: UserStore,
 	baziStore: Store & BaziStore,
 	yunStore: Store & YunStore
 ): any | null {
+	// Read the chart's calculation snapshot even if an older caller passes the shared user store.
+	const input = baziStore.input;
 	// 检查必要数据
-	if (!userStore.timestamp) {
+	if (input.timestamp === null) {
 		return null;
 	}
 
@@ -201,10 +205,10 @@ export function buildBaziExportPayload(
 
 需要你分析的八字信息如下（我将提供在下方）`,
 		basic: {
-			name: userStore.realname || null,
-			gender: userStore.gender === 0 ? '男' : userStore.gender === 1 ? '女' : null,
-			birthTimestamp: userStore.timestamp,
-			solar: userStore.timestamp ? new Date(userStore.timestamp).toISOString() : null,
+			name: input.realname || null,
+			gender: input.gender === 0 ? '男' : input.gender === 1 ? '女' : null,
+			birthTimestamp: input.timestamp,
+			solar: new Date(input.timestamp).toISOString(),
 			solarString: baziStore.yangli || null,
 			lunar: baziStore.yinli || null,
 			constellation: baziStore.xinzuo || null,

@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import ChatPanel from '@/chat/ChatPanel.vue';
-import { request } from '@/services/api/index';
+import { request, refreshAccessToken } from '@/services/api/index';
+import { LLM_REQUEST_TIMEOUT_MS, supportsLLMStreaming } from '@/features/llm/requestPolicy';
 import { API_BASE_URL } from '@/config/config';
 import { signRequest } from '@/utils/api-signature';
 import { getAccessToken } from '@/utils/tokenStore';
@@ -44,8 +45,8 @@ type ParsedHttpError = {
 const panelRef = ref<any>(null);
 const chatContext = ref<ChatContext>('bazi');
 const shouldDisableRestore = ref(false);
-let firstSendDone = false;
-let streamEnabled = true;
+let activeStreamController: AbortController | null = null;
+onUnmounted(() => activeStreamController?.abort());
 
 const userStore = useUserStore();
 const baziStore = useBaziStore();
@@ -58,6 +59,17 @@ onLoad((options: Record<string, unknown>) => {
 	if (from === 'bazi' || from === 'liuyao' || from === 'ziwei') {
 		chatContext.value = from as ChatContext;
 		shouldDisableRestore.value = true;
+		// Direct links and reloads start with empty stores. Restore only the
+		// requested chart; the store guards preserve an already active result.
+		if (from === 'bazi') {
+			baziStore.restoreInput();
+			baziStore.ensureComputed();
+		} else if (from === 'ziwei') {
+			ziweiStore.restoreInput();
+			ziweiStore.ensureComputed();
+		} else {
+			liuyaoStore.restoreLastResult();
+		}
 	}
 });
 
@@ -158,12 +170,12 @@ function buildContextSystemPrompt(): string | null {
 		}
 
 		if (chatContext.value === 'ziwei') {
-			const payload = buildZiweiExportPayload(userStore, ziweiStore);
+			const payload = buildZiweiExportPayload(ziweiStore.input, ziweiStore);
 			const toon = payload ? encodeTOON(payload) : '';
 			return toon ? `User Ziwei profile (TOON):\n${toon}` : null;
 		}
 
-		const payload = buildBaziExportPayload(userStore, baziStore, yunStore);
+		const payload = buildBaziExportPayload(baziStore.input, baziStore, yunStore);
 		const toon = payload ? encodeTOON(payload) : '';
 		return toon ? `User Bazi profile (TOON):\n${toon}` : null;
 	} catch (err) {
@@ -177,21 +189,17 @@ function buildMessages(inputText: string): ChatMessage[] {
 	const text = inputText.trim();
 	if (!text) return messages;
 
-	if (!firstSendDone) {
-		const systemPrompt = buildContextSystemPrompt();
-		if (systemPrompt) {
-			messages.push({
-				role: 'system',
-				content: systemPrompt,
-			});
-		}
-		firstSendDone = true;
+	// Each backend request is stateless; chart context belongs in every request,
+	// once, without appending it to the user's visible conversation history.
+	const systemPrompt = buildContextSystemPrompt();
+	if (systemPrompt) {
+		messages.push({ role: 'system', content: systemPrompt });
 	}
 
 	const historyMessages = panelRef.value?.getMessages?.() || [];
 	for (const msg of historyMessages) {
 		if (msg?.id === 'm-1') continue;
-		if (msg?.status === 'waiting' || msg?.status === 'stream') continue;
+		if (msg?.status === 'waiting' || msg?.status === 'stream' || msg?.status === 'error') continue;
 		const historyText = String(msg?.text || '').trim();
 		if (!historyText) continue;
 
@@ -201,9 +209,9 @@ function buildMessages(inputText: string): ChatMessage[] {
 		});
 	}
 
-	const lastHistory = historyMessages[historyMessages.length - 1];
+	const lastHistory = messages[messages.length - 1];
 	const hasSameLatestUser =
-		lastHistory?.role === 'user' && String(lastHistory?.text || '').trim() === text;
+		lastHistory?.role === 'user' && lastHistory.content === text;
 	if (!hasSameLatestUser) {
 		messages.push({ role: 'user', content: text });
 	}
@@ -272,15 +280,10 @@ async function sendToLLM(text: string) {
 		}
 
 		// #ifdef H5
-		if (streamEnabled) {
-			try {
-				await sendWithHttpStream(messages);
-			} catch (streamErr) {
-				streamEnabled = false;
-				const normalizedErr = normalizeClientError(streamErr);
-				console.warn('http stream failed, fallback to normal request:', normalizedErr.message);
-				await sendWithHttp(messages);
-			}
+		if (supportsLLMStreaming()) {
+			// Once sent, a failed response may already have consumed quota. Never
+			// silently start another generation on a network or upstream error.
+			await sendWithHttpStream(messages);
 		} else {
 			await sendWithHttp(messages);
 		}
@@ -306,6 +309,7 @@ async function sendWithHttp(messages: ChatMessage[]) {
 	const res = await request('/api/llm/chat', {
 		method: 'POST',
 		needAuth: true,
+		timeout: LLM_REQUEST_TIMEOUT_MS,
 		data: {
 			stream: false,
 			messages,
@@ -343,99 +347,103 @@ async function sendWithHttpStream(messages: ChatMessage[]) {
 		messages,
 	};
 
-	const headers: Record<string, string> = {
-		'Content-Type': 'application/json',
-	};
-	const accessToken = getAccessToken();
-	if (accessToken) {
-		headers.Authorization = `Bearer ${accessToken}`;
-	}
-	const signed = await signRequest(payload, headers);
-	Object.assign(headers, signed.headers);
-
-	const response = await fetch(`${API_BASE_URL}/api/llm/chat`, {
-		method: 'POST',
-		headers,
-		body: JSON.stringify(payload),
-	});
-
-	if (!response.ok) {
-		const bodyText = await response.text();
-		const parsed = parseHttpErrorText(bodyText, response.status);
-		const err: any = new Error(parsed.message);
-		if (parsed.code) err.code = parsed.code;
-		throw err;
-	}
-	if (!response.body) {
-		throw new Error('流式响应不可用');
-	}
-
-	const reader = response.body.getReader();
-	const decoder = new TextDecoder();
-	let buffer = '';
-	let streamError = '';
-	let streamErrorCode = '';
-
-	const processLine = (line: string) => {
-		const trimmed = line.trim();
-		if (!trimmed || trimmed.startsWith(':') || trimmed.startsWith('event:')) return;
-		if (trimmed === 'data: [DONE]' || trimmed === '[DONE]') return;
-
-		const payloadText = trimmed.startsWith('data:') ? trimmed.slice(5).trim() : trimmed;
-		if (!payloadText) return;
-
-		let data: any;
-		try {
-			data = JSON.parse(payloadText);
-		} catch (err) {
-			void err;
-			return;
+	const controller = new AbortController();
+	activeStreamController = controller;
+	const timer = setTimeout(() => controller.abort(), LLM_REQUEST_TIMEOUT_MS);
+	let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+	try {
+		const sendAttempt = async () => {
+			controller.signal.throwIfAborted();
+			const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+			const accessToken = getAccessToken();
+			if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+			const signed = await signRequest(payload, headers);
+			Object.assign(headers, signed.headers);
+			return fetch(`${API_BASE_URL}/api/llm/chat`, {
+				method: 'POST', headers, body: JSON.stringify(payload), signal: controller.signal,
+			});
+		};
+		let response = await sendAttempt();
+		if (response.status === 401) {
+			const authError = parseHttpErrorText(await response.clone().text(), 401);
+			// Local authentication rejects these before generation. Upstream model
+			// authentication failures must not cause another generation request.
+			if (authError.message === '未登录' || authError.message === '登录已失效，请重新登录') {
+				await response.body?.cancel();
+				await refreshAccessToken();
+				response = await sendAttempt();
+			}
 		}
 
-		const serverError = normalizeError(data?.error || data?.message);
-		const serverCode = typeof data?.code === 'string' ? data.code : '';
-		if (serverError) {
-			streamError = serverError;
-			streamErrorCode = serverCode;
-			return;
+		if (!response.ok) {
+			const bodyText = await response.text();
+			const parsed = parseHttpErrorText(bodyText, response.status);
+			const err: any = new Error(parsed.message);
+			if (parsed.code) err.code = parsed.code;
+			throw err;
 		}
+		if (!response.body) throw new Error('流式响应不可用');
 
-		const text = extractTextFromPayload(data);
-		if (text) {
-			panel.appendAssistant(stripHtml(text), 'stream');
+		reader = response.body.getReader();
+		const decoder = new TextDecoder();
+		let buffer = '';
+		let streamDone = false;
+		let hasVisibleText = false;
+
+		const processLine = (line: string) => {
+			const trimmed = line.trim();
+			if (!trimmed || trimmed.startsWith(':') || trimmed.startsWith('event:')) return;
+			if (trimmed === 'data: [DONE]' || trimmed === '[DONE]') {
+				streamDone = true;
+				return;
+			}
+			const payloadText = trimmed.startsWith('data:') ? trimmed.slice(5).trim() : trimmed;
+			if (!payloadText) return;
+			let data: any;
+			try {
+				data = JSON.parse(payloadText);
+			} catch (_) {
+				throw new Error('模型响应格式异常，请稍后手动重试');
+			}
+			const serverError = normalizeError(data?.error || data?.message);
+			if (serverError) {
+				const err: any = new Error(serverError);
+				if (typeof data?.code === 'string') err.code = data.code;
+				throw err;
+			}
+			const text = stripHtml(extractTextFromPayload(data));
+			if (text) {
+				hasVisibleText ||= Boolean(text.trim());
+				panel.appendAssistant(text, 'stream');
+			}
+		};
+
+		for (;;) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			if (!value) continue;
+			buffer += decoder.decode(value, { stream: true });
+			const lines = buffer.split('\n');
+			buffer = lines.pop() || '';
+			for (const line of lines) {
+				processLine(line);
+				if (streamDone) break;
+			}
+			if (streamDone) break;
 		}
-	};
+		buffer += decoder.decode();
+		if (!streamDone && buffer.trim()) processLine(buffer);
+		if (!streamDone) throw new Error('模型响应中断，未收到完成确认；请检查额度后手动重试');
+		if (!hasVisibleText) throw new Error('模型未返回可显示内容');
 
-	for (;;) {
-		const { done, value } = await reader.read();
-		if (done) break;
-		if (!value) continue;
-
-		buffer += decoder.decode(value, { stream: true });
-		const lines = buffer.split('\n');
-		buffer = lines.pop() || '';
-
-		for (const line of lines) {
-			processLine(line);
-			if (streamError) break;
-		}
-		if (streamError) break;
+		panel.finishStreaming();
+		setTimeout(() => { void loadQuotaInfo(); }, 300);
+	} finally {
+		clearTimeout(timer);
+		await reader?.cancel().catch(() => {});
+		reader?.releaseLock();
+		if (activeStreamController === controller) activeStreamController = null;
 	}
-
-	if (!streamError && buffer.trim()) {
-		processLine(buffer);
-	}
-
-	if (streamError) {
-		const err: any = new Error(streamError);
-		if (streamErrorCode) err.code = streamErrorCode;
-		throw err;
-	}
-
-	panel.finishStreaming();
-	setTimeout(() => {
-		void loadQuotaInfo();
-	}, 300);
 }
 // #endif
 </script>

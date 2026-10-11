@@ -163,6 +163,7 @@ const bazi_label = ref('');
 
 const user_store = useUserStore();
 const bazi_store = useBaziStore();
+const recordId = ref<number | null>(null);
 
 const canSubmit = computed(() => timestamp.value !== null);
 
@@ -236,9 +237,7 @@ onLoad((options: any) => {
 				gender.value = editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
 
-				if (editData.recordId) {
-					user_store.recordId = editData.recordId;
-				}
+				recordId.value = editData.recordId ?? null;
 
 				editDataProcessed = true;
 
@@ -262,7 +261,7 @@ onLoad((options: any) => {
 
 	realname.value = '';
 	gender.value = 0;
-	user_store.recordId = null;
+	recordId.value = null;
 	initCurrentTime();
 });
 
@@ -280,9 +279,7 @@ onShow(() => {
 				realname.value = editData.realname === '佚名' ? '' : (editData.realname || '');
 				gender.value = editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
-				if (editData.recordId) {
-					user_store.recordId = editData.recordId;
-				}
+				recordId.value = editData.recordId ?? null;
 				uni.removeStorageSync('edit_bazi_data');
 				nextTick(() => {
 					PullDatatimeLabel();
@@ -295,7 +292,6 @@ onShow(() => {
 		}
 	}
 
-	if (!editDataStr) user_store.recordId = null;
 });
 
 function SelectTime() {
@@ -392,20 +388,13 @@ function PullDatatimeLabel() {
 			realname: (realname.value || '').trim(),
 			timestamp: datetime,
 			gender: Number(gender.value),
+			recordId: recordId.value,
 		};
 	uni.showLoading({
 		title: '排盘中，请稍后！',
 	});
 
 	try {
-		const currentRecordId = user_store.recordId;
-		user_store.set(params);
-		if (currentRecordId) {
-			user_store.recordId = currentRecordId;
-		} else {
-			user_store.recordId = null;
-		}
-
 		bazi_store.pull(params);
 
 		setTimeout(() => {

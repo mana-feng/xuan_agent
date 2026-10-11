@@ -15,6 +15,8 @@ export interface LiuyaoResultPayload {
 	display: any;
 	profile: LiuyaoProfile;
 	createdAt: number;
+	castingAt?: number;
+	recordId?: number | null;
 }
 
 interface State {
@@ -22,6 +24,8 @@ interface State {
 	display: any | null;
 	profile: LiuyaoProfile | null;
 	createdAt: number | null;
+	castingAt: number | null;
+	recordId: number | null;
 }
 
 const LIUYAO_LAST_RESULT_KEY = 'liuyao_last_result';
@@ -36,7 +40,7 @@ function readLastResult(): LiuyaoResultPayload | null {
 		const profile = (data as any).profile;
 		const createdAt = (data as any).createdAt;
 		if (!compiled || !display || !profile || !createdAt) return null;
-		return { compiled, display, profile, createdAt } as LiuyaoResultPayload;
+		return { compiled, display, profile, createdAt, castingAt: data.castingAt, recordId: data.recordId } as LiuyaoResultPayload;
 	} catch (e) {
 		return null;
 	}
@@ -63,7 +67,9 @@ export const useLiuyaoStore = defineStore('liuyao', {
 		compiled: null,
 		display: null,
 		profile: null,
-		createdAt: null
+		createdAt: null,
+		castingAt: null,
+		recordId: null
 	}),
 	actions: {
 		setResult(payload: LiuyaoResultPayload) {
@@ -71,22 +77,40 @@ export const useLiuyaoStore = defineStore('liuyao', {
 			this.display = payload.display;
 			this.profile = payload.profile;
 			this.createdAt = payload.createdAt;
-			writeLastResult(payload);
+			// Older local caches only kept the chosen time in the displayed profile.
+			const profileTime = new Date(payload.profile.timeLabel.replace(/-/g, '/')).getTime();
+			this.castingAt = payload.castingAt ?? (Number.isFinite(profileTime) ? profileTime : payload.createdAt);
+			this.recordId = payload.recordId ?? null;
+			this.persistResult();
+		},
+		setRecordId(recordId: number) {
+			this.recordId = recordId;
+			this.persistResult();
+		},
+		persistResult() {
+			if (!this.compiled || !this.display || !this.profile || this.createdAt === null) return;
+			writeLastResult({
+				compiled: this.compiled,
+				display: this.display,
+				profile: this.profile,
+				createdAt: this.createdAt,
+				castingAt: this.castingAt ?? undefined,
+				recordId: this.recordId
+			});
 		},
 		restoreLastResult() {
 			if (this.compiled && this.display && this.profile && this.createdAt) return;
 			const cached = readLastResult();
 			if (!cached) return;
-			this.compiled = cached.compiled;
-			this.display = cached.display;
-			this.profile = cached.profile;
-			this.createdAt = cached.createdAt;
+			this.setResult(cached);
 		},
 		clear() {
 			this.compiled = null;
 			this.display = null;
 			this.profile = null;
 			this.createdAt = null;
+			this.castingAt = null;
+			this.recordId = null;
 			clearLastResult();
 		}
 	}
