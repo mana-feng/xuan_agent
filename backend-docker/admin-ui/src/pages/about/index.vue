@@ -5,7 +5,7 @@
 				<view class="diploma-wrapper">
 					<image class="diploma-image" src="@/static/icons/diploma.png" mode="widthFix"></image>
 				</view>
-				<tm-text class="about-text" :font-size="26" color="#334155" label="作者在 Wild Chinken University 完成玄学方向博士（PhD）学习，主攻传统命理的现代化表达与应用。"></tm-text>
+				<tm-text class="about-text" :font-size="26" color="#334155" label="作者在 Wild Chicken University 完成玄学方向博士（PhD）学习，主攻传统命理的现代化表达与应用。"></tm-text>
 				<tm-text class="about-text" :font-size="24" color="#64748b" label="这段求学历程强调“古法与现代工具结合”，在严谨的学术训练中，将八字、六爻的经典体系与可视化表达融合。"></tm-text>
 				<tm-text class="about-text" :font-size="24" color="#64748b" label="如今，玄学 AI 便是这段研究的延伸：让排盘与解析更易用、更清晰，也更具可解释性。"></tm-text>
 			</SectionBlock>
