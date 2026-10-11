@@ -1,0 +1,127 @@
+(node:239068) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ primary download uses downloadable UTF-8 bytes even when the native save picker exists (91.7787ms)
+✔ primary import uses input selection even when the native open picker exists and blocks changes while reading (37.5374ms)
+✔ primary import cancel preserves conversation, draft and cached archive with native picker support (16.0072ms)
+✔ primary import invalid JSON preserves conversation, draft and cached archive with native picker support (17.8989ms)
+✔ primary import invalid schema preserves conversation, draft and cached archive with native picker support (15.1698ms)
+✔ primary import read error preserves conversation, draft and cached archive with native picker support (17.93ms)
+✖ input archive picker stays in the document while choosing and cleans up after success (11.8667ms)
+✖ input archive picker stays in the document while choosing and cleans up after cancel (11.392ms)
+✖ input archive picker stays in the document while choosing and cleans up after read failure (10.7377ms)
+✖ input archive picker stays in the document while choosing and cleans up after click failure (11.1326ms)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (21.0104ms)
+✔ manual native import selects archive B after remembering valid archive A (24.6958ms)
+✔ manual native import selects archive B after remembering malformed archive A (17.3326ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (11.6696ms)
+✔ manual input import selects archive B after remembering valid archive A (25.2998ms)
+✔ manual input import selects archive B after remembering malformed archive A (18.6905ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (11.8266ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (11.6242ms)
+✔ native import remains the latest archive after its handle cache update fails (18.3796ms)
+✔ input import remains the latest archive after its handle cache update fails (19.025ms)
+✔ native save remains the latest archive after its handle cache update fails (18.365ms)
+✔ download save remains the latest archive after its handle cache update fails (18.2658ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty import (11.3399ms)
+✔ pending auto-restore cannot replace the conversation after a manual cancelled import (8.5593ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty save (16.048ms)
+✔ successfully remembered native archive still follows later changes to its file (15.6923ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (19.4425ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (10.9113ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (10.9827ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (10.9952ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (10.3232ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (10.6779ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (11.2855ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (19.9701ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (10.2141ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (8.1101ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (8.8075ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (15.9996ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (7.5363ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (7.5714ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (10.5481ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (6.9494ms)
+✔ native save write preserves the last saved backup and unlocks the panel (7.1739ms)
+✔ successful native file save remains successful when remembering its handle fails (9.6529ms)
+✔ chat download reports browser handoff without claiming a completed file save (7.6585ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (8.8538ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (7.9041ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 43
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1244.501
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:153:3
+✖ input archive picker stays in the document while choosing and cleans up after success (11.8667ms)
+  AssertionError [ERR_ASSERTION]: the browser filechooser needs a live DOM node while choosing a file
+  
+  false !== true
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:176:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:153:3
+✖ input archive picker stays in the document while choosing and cleans up after cancel (11.392ms)
+  AssertionError [ERR_ASSERTION]: the browser filechooser needs a live DOM node while choosing a file
+  
+  false !== true
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:176:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:153:3
+✖ input archive picker stays in the document while choosing and cleans up after read failure (10.7377ms)
+  AssertionError [ERR_ASSERTION]: the browser filechooser needs a live DOM node while choosing a file
+  
+  false !== true
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:176:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:153:3
+✖ input archive picker stays in the document while choosing and cleans up after click failure (11.1326ms)
+  AssertionError [ERR_ASSERTION]: the browser filechooser needs a live DOM node while choosing a file
+  
+  false !== true
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:176:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,243 @@
+✖ page handleRestoreArchive stays busy past 300ms and blocks both archive actions until its delegate settles (1943.356ms)
+✖ page handleRestoreArchive unlocks when its child completes and permits the next operation (8.2116ms)
+✖ page handleRestoreArchive unlocks after cancellation without losing the rejection (7.1149ms)
+✖ page handleRestoreArchive unlocks after asynchronous failure without losing the rejection (7.5114ms)
+✖ page handleRestoreArchive unlocks if invoking the child throws synchronously (6.8481ms)
+✖ page handleRestoreArchive does not leave a busy lock when its panel is unavailable (5.9253ms)
+✖ page handleSaveArchive stays busy past 300ms and blocks both archive actions until its delegate settles (363.65ms)
+✖ page handleSaveArchive unlocks when its child completes and permits the next operation (9.2167ms)
+✖ page handleSaveArchive unlocks after cancellation without losing the rejection (7.384ms)
+✖ page handleSaveArchive unlocks after asynchronous failure without losing the rejection (6.6028ms)
+✖ page handleSaveArchive unlocks if invoking the child throws synchronously (6.1258ms)
+✖ page handleSaveArchive does not leave a busy lock when its panel is unavailable (6.3904ms)
+✔ page refuses both archive actions while a chat response is being sent (6.2418ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 1
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4360.4479
+
+✖ failing tests:
+
+test at tests\ai-chat-page-archive.test.cjs:36:3
+✖ page handleRestoreArchive stays busy past 300ms and blocks both archive actions until its delegate settles (1943.356ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   busyWhilePending: false,
+  -   busyWhilePending: true,
+      calls: [
+        'handleRestoreArchive',
+  +     'handleRestoreArchive'
+      ]
+    }
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:51:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { busyWhilePending: false, calls: [ 'handleRestoreArchive', 'handleRestoreArchive' ] },
+    expected: { busyWhilePending: true, calls: [ 'handleRestoreArchive' ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:55:3
+✖ page handleRestoreArchive unlocks when its child completes and permits the next operation (8.2116ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:60:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:70:5
+✖ page handleRestoreArchive unlocks after cancellation without losing the rejection (7.1149ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:77:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:70:5
+✖ page handleRestoreArchive unlocks after asynchronous failure without losing the rejection (7.5114ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:77:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:82:3
+✖ page handleRestoreArchive unlocks if invoking the child throws synchronously (6.8481ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:86:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:89:3
+✖ page handleRestoreArchive does not leave a busy lock when its panel is unavailable (5.9253ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:92:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:36:3
+✖ page handleSaveArchive stays busy past 300ms and blocks both archive actions until its delegate settles (363.65ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   busyWhilePending: false,
+  -   busyWhilePending: true,
+      calls: [
+        'handleSaveArchive',
+  +     'handleRestoreArchive'
+      ]
+    }
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:51:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { busyWhilePending: false, calls: [ 'handleSaveArchive', 'handleRestoreArchive' ] },
+    expected: { busyWhilePending: true, calls: [ 'handleSaveArchive' ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:55:3
+✖ page handleSaveArchive unlocks when its child completes and permits the next operation (9.2167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:60:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:70:5
+✖ page handleSaveArchive unlocks after cancellation without losing the rejection (7.384ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:77:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:70:5
+✖ page handleSaveArchive unlocks after asynchronous failure without losing the rejection (6.6028ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:77:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:82:3
+✖ page handleSaveArchive unlocks if invoking the child throws synchronously (6.1258ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:86:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-page-archive.test.cjs:89:3
+✖ page handleSaveArchive does not leave a busy lock when its panel is unavailable (6.3904ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-page-archive.test.cjs:92:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

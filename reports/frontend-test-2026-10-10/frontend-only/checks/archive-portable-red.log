@@ -1,0 +1,111 @@
+(node:248516) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✖ primary download uses downloadable UTF-8 bytes even when the native save picker exists (90.8387ms)
+✖ primary import uses input selection even when the native open picker exists and blocks changes while reading (21.7897ms)
+✖ primary import cancel preserves conversation, draft and cached archive with native picker support (18.3018ms)
+✖ primary import invalid JSON preserves conversation, draft and cached archive with native picker support (15.4692ms)
+✖ primary import invalid schema preserves conversation, draft and cached archive with native picker support (15.4731ms)
+✖ primary import read error preserves conversation, draft and cached archive with native picker support (13.0042ms)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (24.2874ms)
+✔ manual native import selects archive B after remembering valid archive A (26.7825ms)
+✔ manual native import selects archive B after remembering malformed archive A (21.4346ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (14.1709ms)
+✔ manual input import selects archive B after remembering valid archive A (29.4346ms)
+✔ manual input import selects archive B after remembering malformed archive A (20.0755ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (11.6053ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (11.4329ms)
+✔ native import remains the latest archive after its handle cache update fails (17.7628ms)
+✔ input import remains the latest archive after its handle cache update fails (23.4895ms)
+✔ native save remains the latest archive after its handle cache update fails (17.6096ms)
+✔ download save remains the latest archive after its handle cache update fails (17.7691ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty import (11.6692ms)
+✔ pending auto-restore cannot replace the conversation after a manual cancelled import (7.7615ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty save (11.1495ms)
+✔ successfully remembered native archive still follows later changes to its file (18.6016ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (27.3749ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (10.9136ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (9.5769ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (10.0621ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (10.317ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (10.8986ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (9.4209ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (10.3625ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (9.8899ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (15.6026ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (8.2438ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (12.2903ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (8.3278ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (7.9461ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (11.0365ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (8.4762ms)
+✔ native save write preserves the last saved backup and unlocks the panel (7.6505ms)
+✔ successful native file save remains successful when remembering its handle fails (11.2205ms)
+✔ chat download reports browser handoff without claiming a completed file save (7.3172ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (8.9024ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (8.3271ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 37
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1232.3859
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:72:1
+✖ primary download uses downloadable UTF-8 bytes even when the native save picker exists (90.8387ms)
+  TypeError: panel.handleDownloadArchive is not a function
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:81:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests\ai-chat-archive.test.cjs:91:1
+✖ primary import uses input selection even when the native open picker exists and blocks changes while reading (21.7897ms)
+  TypeError: panel.handleImportArchive is not a function
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:98:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests\ai-chat-archive.test.cjs:123:3
+✖ primary import cancel preserves conversation, draft and cached archive with native picker support (18.3018ms)
+  TypeError: panel.handleImportArchive is not a function
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:132:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests\ai-chat-archive.test.cjs:123:3
+✖ primary import invalid JSON preserves conversation, draft and cached archive with native picker support (15.4692ms)
+  TypeError: panel[handler] is not a function
+      at chooseInput (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:64:33)
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:139:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests\ai-chat-archive.test.cjs:123:3
+✖ primary import invalid schema preserves conversation, draft and cached archive with native picker support (15.4731ms)
+  TypeError: panel[handler] is not a function
+      at chooseInput (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:64:33)
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:139:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests\ai-chat-archive.test.cjs:123:3
+✖ primary import read error preserves conversation, draft and cached archive with native picker support (13.0042ms)
+  TypeError: panel[handler] is not a function
+      at chooseInput (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:64:33)
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:139:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

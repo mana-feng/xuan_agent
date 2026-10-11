@@ -1,0 +1,22 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "关于" [level=1]
+- paragraph: 一段关于作者的玄学求学故事
+- banner:
+  - heading "作者经历" [level=2]
+- generic: 作者在 Wild Chinken University 完成玄学方向博士（PhD）学习，主攻传统命理的现代化表达与应用。
+- generic: 这段求学历程强调“古法与现代工具结合”，在严谨的学术训练中，将八字、六爻的经典体系与可视化表达融合。
+- generic: 如今，玄学 AI 便是这段研究的延伸：让排盘与解析更易用、更清晰，也更具可解释性。
+- banner:
+  - heading "学习片段" [level=2]
+- generic: • 在校期间完成《传统命理的结构化表达》与《六爻信息层级模型》两门核心课题。
+- generic: • 建立“排盘一致性标准”，确保不同历法与算法下的输出稳定可追溯。
+- generic: • 以“人可读”的方式呈现推演逻辑，让分析过程更透明。
+- banner:
+  - heading "温馨提示" [level=2]
+- generic: 以上内容均为娱乐性质，仅供娱乐。
+- generic: 玄学文化源远流长，但请勿过度依赖或迷信。
+- generic: 生活中的重要决策，请结合实际情况理性判断。
+- document

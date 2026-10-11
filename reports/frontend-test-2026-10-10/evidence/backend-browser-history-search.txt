@@ -1,0 +1,28 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: E
+  - generic: 
+- heading "历史排盘" [level=1]
+- paragraph: 查看、筛选并管理已保存的排盘
+- generic: 刷新
+- banner:
+  - heading "筛选与排序" [level=2]
+- textbox [active]: 后台验收紫微乙
+- generic: 性别：
+- generic: 全部
+- generic: 男
+- generic: 女
+- generic: 排序：
+- generic: 时间
+- generic: 姓名
+- generic: ↓ 降序
+- generic: 清除筛选
+- generic: 共找到1 条记录
+- generic: 后台验收紫微乙
+- generic: 出生：2026/10/10 16:53
+- generic: 紫微斗数
+- generic: 保存时间：2026/10/10 16:54
+- generic: 女
+- generic: 查看
+- generic: 删除
+- document

@@ -1,0 +1,15 @@
+✔ direct bazi chat restores its cached chart before building the first request (85.3753ms)
+✔ bazi chat preserves the active chart without recalculating or replacing it from cache (19.0407ms)
+✔ direct ziwei chat restores its cached chart before building the first request (316.4868ms)
+✔ ziwei chat preserves the active chart without recalculating or replacing it from cache (283.4513ms)
+✔ direct Liuyao chat restores the saved result after a cold start (11.2971ms)
+✔ Liuyao chat preserves the current result when its local cache differs (9.4055ms)
+✔ a direct chat with no valid cache stays usable without inventing chart context (8.5858ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1219.2055

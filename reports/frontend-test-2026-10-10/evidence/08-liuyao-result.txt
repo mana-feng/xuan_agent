@@ -1,0 +1,100 @@
+- generic: 
+- generic: 
+- heading "六爻排盘结果" [level=1]
+- paragraph: 查看卦象、六爻明细与卦辞
+- banner:
+  - heading "起卦概要" [level=2]
+- generic: 起卦主题
+- generic: 功能测试：本周项目能否完成？
+- generic: 性别
+- generic: 女
+- generic: 起卦时间
+- generic: 2026-10-10 08:29
+- generic: 保存到账号
+- generic: 复制排盘
+- generic: AI解读
+- banner:
+  - heading "卦象总览" [level=2]
+- paragraph: 本卦
+- heading "水天需" [level=3]
+- paragraph: 坤 · 游魂
+- generic: 主卦
+- generic: 卦宫：坤 · 五行：土
+- generic: 世：四爻 · 应：初爻
+- generic: 可结合世应、动爻与变卦解读
+- paragraph: 变卦
+- heading "雷天大壮" [level=3]
+- paragraph: 坤 · 六冲
+- generic: 变卦
+- generic: 卦宫：坤 · 五行：土
+- generic: 变卦已生成
+- generic: 动爻生成的变卦，建议结合世应及动爻解读
+- generic: 已加载卦辞，可结合 AI 解读使用
+- banner:
+  - heading "六爻明细" [level=2]
+- generic: 干支：
+- text: 丙午年
+- generic: 戊戌月
+- generic: 丁巳日
+- text: 甲辰时
+- generic: 空亡：
+- text: 子丑
+- generic: 爻位
+- generic: 六神
+- generic: 原卦六亲
+- generic: 原卦
+- generic: 变卦六亲
+- generic: 变卦爻
+- generic: 上爻
+- generic: 青龙
+- generic: 妻财戊子水
+- generic: —
+- generic: ━ ━
+- generic: 兄弟 庚戌土
+- generic: ━ ━
+- generic: 五爻
+- generic: 玄武
+- generic: 兄弟戊戌土
+- generic: —
+- generic: ━━━○
+- generic: 动
+- generic: 子孙 庚申金
+- generic: ━ ━
+- generic: 四爻
+- generic: 白虎
+- generic: 子孙戊申金
+- generic: —
+- generic: ━ ━×
+- generic: 世
+- generic: 动
+- generic: 父母 庚午火
+- generic: ━━━
+- generic: 世
+- generic: 三爻
+- generic: 螣蛇
+- generic: 兄弟甲辰土
+- generic: —
+- generic: ━━━
+- generic: 兄弟 甲辰土
+- generic: ━━━
+- generic: 二爻
+- generic: 勾陈
+- generic: 官鬼甲寅木
+- generic: 父母乙巳火
+- generic: ━━━
+- generic: 官鬼 甲寅木
+- generic: ━━━
+- generic: 初爻
+- generic: 朱雀
+- generic: 妻财甲子水
+- generic: —
+- generic: ━━━
+- generic: 应
+- generic: 妻财 甲子水
+- generic: ━━━
+- generic: 应
+- banner:
+  - heading "卦辞与解读" [level=2]
+- generic: 水天需:有孚，光亨，贞：吉，利涉大川。 彖曰：需，须也；险在前也。刚健而不陷，其义不困穷矣。需有孚，光亨，贞吉。位乎天位，以正中也。利涉大川，往有功也。 象曰：云上於天，需；君子以饮食宴乐。 初九:需于郊，利用恒。无咎。 九二:需于沙，小有言，终吉。 九三:需于泥，致寇至。 六四:需于血，出自穴。 九五:需于酒食。贞：吉。 上六:入于穴，有不速之客三人来，敬之，终吉。
+- paragraph: 排盘完成
+- document

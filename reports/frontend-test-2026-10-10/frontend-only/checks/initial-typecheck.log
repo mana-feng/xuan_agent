@@ -1,0 +1,146 @@
+frontend-only/node_modules/dayjs/esm/locale/index.d.ts(10,12): error TS2300: Duplicate identifier 'locale'.
+frontend-only/node_modules/dayjs/locale/index.d.ts(10,12): error TS2300: Duplicate identifier 'locale'.
+frontend-only/src/chat/AdvancedChatPanelH5.vue(28,26): error TS2307: Cannot find module 'vue-advanced-chat' or its corresponding type declarations.
+frontend-only/src/features/liuyao/dateNajia.ts(2,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/features/liuyao/executor.ts(1,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/features/liuyao/qiGua.ts(1,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/libs/tmui/components/tm-drawer/tm-drawer.vue(264,20): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-drawer/tm-drawer.vue(385,17): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-overlay/tm-overlay.vue(89,17): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-overlay/tm-overlay.vue(96,20): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-overlay/tm-overlay.vue(97,26): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-overlay/tm-overlay.vue(97,49): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-radio-group/tm-radio-group.vue(14,8): error TS2339: Property 'proxy' does not exist on type 'ComponentInternalInstance | null'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(84,169): error TS2365: Operator '<' cannot be applied to types 'string | number' and 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(117,174): error TS2365: Operator '<' cannot be applied to types 'string | number' and 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(210,34): error TS2339: Property 'detail' does not exist on type 'Event'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(221,72): error TS2339: Property 'detail' does not exist on type 'Event'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(225,27): error TS7006: Parameter 'index' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(282,16): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(286,15): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(286,62): error TS2551: Property 'color' does not exist on type 'headresItem'. Did you mean 'bgColor'?
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(287,15): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(291,19): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(291,41): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(291,52): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(292,19): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(292,48): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(298,16): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(299,24): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(354,22): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(354,30): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(358,22): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-table/tm-table.vue(358,30): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(13,5): error TS2322: Type 'string | number' is not assignable to type 'number | undefined'.
+  Type 'string' is not assignable to type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(22,5): error TS2322: Type 'unknown[]' is not assignable to type 'number[]'.
+  Type 'unknown' is not assignable to type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(30,6): error TS2322: Type 'string | number' is not assignable to type 'number | undefined'.
+  Type 'string' is not assignable to type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(37,8): error TS2322: Type 'string | number' is not assignable to type 'number | undefined'.
+  Type 'string' is not assignable to type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(44,127): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(47,82): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(167,9): error TS2339: Property 'proxy' does not exist on type 'ComponentInternalInstance | null'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(190,2): error TS2322: Type 'string | boolean' is not assignable to type 'boolean'.
+  Type 'string' is not assignable to type 'boolean'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(192,3): error TS2322: Type 'string | boolean' is not assignable to type 'boolean'.
+  Type 'string' is not assignable to type 'boolean'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(200,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(201,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(206,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(207,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(212,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(213,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(218,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(219,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(224,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(225,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(230,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(231,17): error TS2345: Argument of type '{}' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(236,16): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(237,16): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(242,19): error TS7006: Parameter 'e' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-tag/tm-tag.vue(254,20): error TS7006: Parameter 'e' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(34,16): error TS2665: Invalid module name in augmentation. Module 'lunar-javascript' resolves to an untyped module at 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js', which cannot be augmented.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(60,30): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(64,14): error TS2345: Argument of type 'PluginFunc' is not assignable to parameter of type 'PluginFunc<unknown>'.
+  Types of parameters 'c' and 'c' are incompatible.
+    Type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs' is not assignable to type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs'.
+      Types of construct signatures are incompatible.
+        Type 'new (config?: string | number | Date | Dayjs | null | undefined) => Dayjs' is not assignable to type 'new (config?: ConfigType) => Dayjs'.
+          Types of parameters 'config' and 'config' are incompatible.
+            Type 'ConfigType' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+              Type 'Dayjs' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+                Type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs' is not assignable to type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs'.
+                  The types returned by 'year(...)' are incompatible between these types.
+                    Type 'number' is not assignable to type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(65,14): error TS2345: Argument of type 'PluginFunc' is not assignable to parameter of type 'PluginFunc<unknown>'.
+  Types of parameters 'c' and 'c' are incompatible.
+    Type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs' is not assignable to type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs'.
+      Types of construct signatures are incompatible.
+        Type 'new (config?: string | number | Date | Dayjs | null | undefined) => Dayjs' is not assignable to type 'new (config?: ConfigType) => Dayjs'.
+          Types of parameters 'config' and 'config' are incompatible.
+            Type 'ConfigType' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+              Type 'Dayjs' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+                Type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs' is not assignable to type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs'.
+                  The types returned by 'year(...)' are incompatible between these types.
+                    Type 'number' is not assignable to type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(66,14): error TS2345: Argument of type 'PluginFunc' is not assignable to parameter of type 'PluginFunc<unknown>'.
+  Types of parameters 'c' and 'c' are incompatible.
+    Type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs' is not assignable to type 'typeof import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs'.
+      Types of construct signatures are incompatible.
+        Type 'new (config?: string | number | Date | Dayjs | null | undefined) => Dayjs' is not assignable to type 'new (config?: ConfigType) => Dayjs'.
+          Types of parameters 'config' and 'config' are incompatible.
+            Type 'ConfigType' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+              Type 'Dayjs' is not assignable to type 'string | number | Date | Dayjs | null | undefined'.
+                Type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/dayjs/esm/index").Dayjs' is not assignable to type 'import("F:/github/xuanxue_AI-chat-agent/frontend-only/src/libs/tmui/tool/dayjs/esm/index").Dayjs'.
+                  The types returned by 'year(...)' are incompatible between these types.
+                    Type 'number' is not assignable to type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(381,32): error TS2339: Property 'isSameOrBefore' does not exist on type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(386,38): error TS2339: Property 'isSameOrAfter' does not exist on type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-time-view/time-panel.vue(388,38): error TS2339: Property 'isBetween' does not exist on type 'Dayjs'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(2,3): error TS2345: Argument of type '{ style: (string | object)[]; class: string[]; ref: string; onClick: (e: any) => void; }' is not assignable to parameter of type 'SVGAttributes & ReservedProps & Record<string, unknown>'.
+  Type '{ style: (string | object)[]; class: string[]; ref: string; onClick: (e: any) => void; }' is not assignable to type 'SVGAttributes'.
+    Types of property 'style' are incompatible.
+      Type '(string | object)[]' is not assignable to type 'StyleValue'.
+        Type '(string | object)[]' is not assignable to type 'StyleValue[]'.
+          Type 'string | object' is not assignable to type 'StyleValue'.
+            Type 'object' is not assignable to type 'StyleValue'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(90,19): error TS7006: Parameter 'e' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(93,9): error TS2339: Property 'proxy' does not exist on type 'ComponentInternalInstance | null'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(129,30): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(186,17): error TS7006: Parameter 'el' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(188,7): error TS2304: Cannot find name 'WXEnvironment'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(203,37): error TS7006: Parameter 'res' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(289,16): error TS7006: Parameter 'res' implicitly has an 'any' type.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(324,26): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(329,26): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(334,26): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(339,26): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(345,21): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(360,27): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(363,27): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(366,27): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(369,27): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+frontend-only/src/libs/tmui/components/tm-translate/tm-translate.vue(373,22): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+frontend-only/src/libs/tmui/tool/dayjs/esm/locale/index.d.ts(10,12): error TS2300: Duplicate identifier 'locale'.
+frontend-only/src/libs/tmui/tool/dayjs/locale/index.d.ts(10,12): error TS2300: Duplicate identifier 'locale'.
+frontend-only/src/libs/tmui/tool/function/preview.ts(13,7): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/tmui/tool/function/preview.ts(45,7): error TS2339: Property '$tm' does not exist on type 'Uni'.
+frontend-only/src/libs/utils/bazi-enhanced.ts(7,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/libs/utils/utils.ts(2,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/store/bazi.ts(11,28): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/store/yun.ts(2,30): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/store/ziwei.ts(8,23): error TS7016: Could not find a declaration file for module 'lunar-javascript'. 'F:/github/xuanxue_AI-chat-agent/frontend-only/node_modules/lunar-javascript/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/lunar-javascript` if it exists or add a new declaration (.d.ts) file containing `declare module 'lunar-javascript';`
+frontend-only/src/store/ziwei.ts(88,4): error TS2578: Unused '@ts-expect-error' directive.
+frontend-only/src/store/ziwei.ts(98,5): error TS2578: Unused '@ts-expect-error' directive.

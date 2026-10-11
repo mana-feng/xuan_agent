@@ -1,0 +1,25 @@
+frontend-only 独立最终审查
+审查日期：2026-10-10
+范围：frontend-only 当前未提交改动及新增 tests。未修改业务代码；未审查 frontend-docker/backend-docker；未运行模型、浏览器或真实网络请求。
+
+结论：发现 1 个需要修复的回归（P2）。未发现其他有充分证据的新增数据丢失、自动重发或跨盘保存身份污染缺陷。
+
+[P2] 取消聊天归档文件选择后永久锁住会话
+位置：frontend-only/src/chat/ChatPanel.vue:154（新增发送门禁）；关联 :304-319、:355-413。
+复现条件：浏览器没有 window.showOpenFilePicker；此前没有可读的归档文件 handle。聊天页点击“恢复”，在 input[type=file] 弹窗中点击取消，再尝试发送或保存当前对话。
+原因：pickFileTextByInput 仅监听 onchange，取消文件选择不会触发该处理器；Promise 永不 settle。handleRestoreArchive 的 finally 无法执行，archiveBusy 永久为 true。新增 archiveBusy 发送门禁使该旧挂起路径变成用户无法继续聊天的新回归。恢复/保存也一直被同一个锁拒绝，只能离开页面，未保存会话面临丢失。
+证据：使用 tests/helpers/load-ai-source.cjs 加载真实 ChatPanel.vue 的 script，仅模拟 DOM 文件输入及 IndexedDB 返回空；派发取消路径后输出：
+{"cancelHandler":"undefined","restoreSettled":false,"archiveBusy":true,"emittedMessages":0,"messageCount":1}
+修复建议：文件输入取消时显式结束 Promise，并清理监听器/释放 archiveBusy；取消恢复应保留当前消息。新增真实源码用例：取消选择 -> 恢复函数返回 -> archiveBusy=false -> 原会话仍在 -> 可再次发送/保存。
+
+测试真实性审查
+- chart-records.test.cjs 通过 load-chart-source.cjs 转译实际 .ts，并提取实际 .vue/.nvue script；Pinia 与排盘库使用真实依赖。实际执行 store、保存/打开/删除/编辑函数，不是复制实现的替身。
+- ai-config、ai-transport、ai-chat-agent、ai-chat-panel 通过 load-ai-source.cjs 加载实际配置、传输、页面、Agent 源码；网络和 uni 平台对象模拟。可验证单次请求、消息体、错误/取消/超时处理及脚本层状态。
+- ui-accessibility.test.cjs 读取真实组件并使用 Vue compiler-sfc 编译、JSDOM 挂载；从安装的 uni runtime 源码提取实际事件 normalizer。覆盖已测试组件的键盘事件路径，没有独立重写被测业务逻辑。
+- 边界：页面 script 测试没有编译页面 template，Vue/uni 生命周期由 helper 模拟，子组件 imports 为 stub；它们不能证明真实路由生命周期、文件选择弹窗、浏览器 CORS 或实际提供商流协议兼容。UI 测试也不等于完整浏览器端到端验证。本次没有重新运行整套测试，仅执行上面的离线源码级缺陷复现。
+
+其余重点核对
+- AI callAi 在单次调用中只选择一个传输；网络/流失败后没有重发回退。检测流式结束标志、空内容、解析失败与长度截断，超时/外部取消会 abort。
+- 聊天和 Agent 在请求进行中抑制重复提交，并过滤失败/未完成助手回复；卸载取消及晚到回调保护有实际源码测试。
+- 八字/紫微身份来自各自 input，历史回放重新计算库对象；六爻记录携带独立 ID 和起卦时间；保存后才分配 ID。
+- 历史记录不再按 200 条截断；永久读取不删除过期旧记录，无法解码/非数组记录会阻止覆盖。不同盘型相同 ID 删除的隔离有真实源码测试。

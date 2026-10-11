@@ -1,0 +1,737 @@
+[
+  {
+    "name": "input chooser pending: all three archive controls and input disabled",
+    "checkedAt": "2026-10-11T13:33:31.254Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "true",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "true",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "true",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": true,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:33"
+        }
+      ]
+    }
+  },
+  {
+    "name": "first actual import attempt",
+    "checkedAt": "2026-10-11T13:35:54.416Z",
+    "outcome": "file chooser event received; setFiles rejected before selection with No node found for given backend id",
+    "boundary": "No file import succeeded in this attempt. The dynamically created input was detached from the document."
+  },
+  {
+    "name": "actual input import A after lifecycle fix",
+    "checkedAt": "2026-10-11T13:37:13.942Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:36"
+        },
+        {
+          "id": "msg-2-1791725815888",
+          "role": "user",
+          "text": "原生档案甲：中文 😀第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725815888",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    }
+  },
+  {
+    "name": "actual input import A: rendered text including br line breaks",
+    "checkedAt": "2026-10-11T13:37:38.352Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:36"
+        },
+        {
+          "id": "msg-2-1791725815888",
+          "role": "user",
+          "text": "原生档案甲：中文 😀第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725815888",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "note": "Initial reader closure still used textContent, which omits br. Corrected innerText observation follows."
+  },
+  {
+    "name": "actual import A exact rendered roles/text/times",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:38:21.533Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:36"
+        },
+        {
+          "id": "msg-2-1791725815888",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725815888",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    }
+  },
+  {
+    "name": "switch actual file A to B",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:39:11.739Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-B.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725951585",
+          "role": "user",
+          "text": "原生档案乙：已切换另一份文件。",
+          "time": "18:03"
+        },
+        {
+          "id": "msg-3-1791725951585",
+          "role": "assistant",
+          "text": "原生档案答乙\n换行和中文保留。",
+          "time": "18:04"
+        }
+      ]
+    },
+    "remainingFileInputs": 0
+  },
+  {
+    "name": "re-import the actual downloaded A file after B",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:39:12.536Z",
+    "selectedFile": "F:/download/ai-chat-2026-10-11.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725952434",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725952434",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "remainingFileInputs": 0
+  },
+  {
+    "name": "zero-byte file rejected without replacement",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:39:59.882Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-empty.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725952434",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725952434",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:39\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：下载与导入不应丢失。 第二行 😀\n- button \"发送\"\n- document\n- paragraph: Unexpected end of JSON input"
+  },
+  {
+    "name": "broken JSON rejected without replacement",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:40:00.884Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-broken.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725952434",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725952434",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:39\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：下载与导入不应丢失。 第二行 😀\n- button \"发送\"\n- document\n- paragraph: Expected double-quoted property name in JSON at position 21 (line 1 column 22)"
+  },
+  {
+    "name": "system role rejected without replacement",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:40:01.899Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-invalid-role.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725952434",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725952434",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:39\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：下载与导入不应丢失。 第二行 😀\n- button \"发送\"\n- document\n- paragraph: 记录格式不正确"
+  },
+  {
+    "name": "unsupported version rejected without replacement",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:40:02.901Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-invalid-version.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：下载与导入不应丢失。\n第二行 😀",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:39"
+        },
+        {
+          "id": "msg-2-1791725952434",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791725952434",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:39\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：下载与导入不应丢失。 第二行 😀\n- button \"发送\"\n- document\n- paragraph: 记录格式不正确"
+  },
+  {
+    "name": "native chooser cancellation boundary",
+    "checkedAt": "2026-10-11T13:41:26.222Z",
+    "result": "not_verified",
+    "reason": "The supported chooser API rejected setFiles([]): requires at least one file. No native Cancel/Escape was automated; refresh is used only to recover the synthetic test page."
+  },
+  {
+    "name": "valid empty conversation replaces A",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:41:26.866Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-empty-conversation.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:41"
+        }
+      ]
+    },
+    "remainingFileInputs": 0
+  },
+  {
+    "name": "reload retains the empty imported conversation",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:41:48.596Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:41"
+        }
+      ]
+    }
+  },
+  {
+    "name": "restore downloaded A after empty archive",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:41:49.106Z",
+    "selectedFile": "F:/download/ai-chat-2026-10-11.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:41"
+        },
+        {
+          "id": "msg-2-1791726108924",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791726108924",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "remainingFileInputs": 0
+  },
+  {
+    "name": "reload restores the last imported downloaded file",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:42:04.761Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:41"
+        },
+        {
+          "id": "msg-2-1791726109360",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791726109360",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    }
+  },
+  {
+    "name": "zero-byte file shows clear Chinese error",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:43:22.624Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-empty.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：出错时保持这段文字。",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:42"
+        },
+        {
+          "id": "msg-2-1791726142270",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791726142270",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:42\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：出错时保持这段文字。\n- button \"发送\"\n- document\n- paragraph: 档案文件为空"
+  },
+  {
+    "name": "broken JSON shows clear Chinese error",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:43:23.623Z",
+    "selectedFile": "F:/github/xuanxue_AI-chat-agent/reports/frontend-test-2026-10-10/frontend-only/evidence/native-files/archive-broken.json",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：出错时保持这段文字。",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:42"
+        },
+        {
+          "id": "msg-2-1791726142270",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791726142270",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    },
+    "page": "- button \"返回首页\":\n- button \"用户菜单\":\n  - generic: U\n  - generic: \n- heading \"AI 聊天\" [level=1]\n- paragraph: 结合排盘，聊聊你关心的问题\n- generic: 下载为 JSON 文件，导入会替换当前对话。\n- button \"选择位置保存\"\n- button \"下载档案\"\n- button \"导入档案\" [active]\n- generic: AI\n- generic: 你好，我是你的 AI 助手，可以随时发问。\n- generic: 21:42\n- generic: 我\n- text: 原生档案甲：中文 😀\n- text: 第二行保留 两个空格与\"引号\"。\n- generic: 18:01\n- generic: AI\n- generic: 原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。\n- generic: 18:02\n- generic \"聊天消息\":\n  - textbox: 文件测试草稿：出错时保持这段文字。\n- button \"发送\"\n- document\n- paragraph: 档案内容无法解析，请选择有效的 JSON 文件"
+  },
+  {
+    "name": "Enter activates import and restores actual downloaded file",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:43:34.740Z",
+    "observed": {
+      "buttons": [
+        {
+          "disabled": "false",
+          "text": "选择位置保存"
+        },
+        {
+          "disabled": "false",
+          "text": "下载档案"
+        },
+        {
+          "disabled": "false",
+          "text": "导入档案"
+        }
+      ],
+      "draft": "文件测试草稿：出错时保持这段文字。",
+      "inputDisabled": false,
+      "messages": [
+        {
+          "id": "m-1",
+          "role": "assistant",
+          "text": "你好，我是你的 AI 助手，可以随时发问。",
+          "time": "21:43"
+        },
+        {
+          "id": "msg-2-1791726214666",
+          "role": "user",
+          "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+          "time": "18:01"
+        },
+        {
+          "id": "msg-3-1791726214666",
+          "role": "assistant",
+          "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+          "time": "18:02"
+        }
+      ]
+    }
+  },
+  {
+    "name": "actual downloaded file found and independently verified on disk",
+    "result": "pass",
+    "checkedAt": "2026-10-11T13:46:25.147Z",
+    "downloadClickedAt": "2026-10-11T13:38:21.534Z",
+    "source": "F:/download/ai-chat-2026-10-11.json",
+    "bytes": 318,
+    "verification": "chat-browser-download-verification.json",
+    "note": "Browser download event timed out; fresh file mtime, UTF-8 JSON bytes, role/text/time equality and SHA-256 established completion."
+  }
+]

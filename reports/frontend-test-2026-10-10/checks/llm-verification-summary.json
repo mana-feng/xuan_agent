@@ -1,0 +1,45 @@
+{
+  "startedAt": "2026-10-10T10:05:22.472Z",
+  "cwd": "F:\\github\\xuanxue_AI-chat-agent\\frontend-docker",
+  "runtime": "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+  "mode": "Direct installed Node CLI; sequential checks; no package-manager install",
+  "checks": [
+    {
+      "name": "tests",
+      "command": "\"C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe\" \"--test\" \"--test-concurrency=1\" \"tests/accessibility.test.cjs\" \"tests/agent-auth.test.cjs\" \"tests/auth-credentials.test.cjs\" \"tests/auth-protocol.test.cjs\" \"tests/chart-input.test.cjs\" \"tests/chat-restore.test.cjs\" \"tests/llm-request-policy.test.cjs\" \"tests/saved-history.test.cjs\"",
+      "exitCode": 0,
+      "startedAt": "2026-10-10T10:05:22.473Z",
+      "completedAt": "2026-10-10T10:05:29.441Z",
+      "log": "checks/llm-final-tests.log",
+      "testCount": 84,
+      "passed": 84,
+      "failed": 0
+    },
+    {
+      "name": "typecheck",
+      "command": "\"C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe\" \"node_modules/vue-tsc/bin/vue-tsc.js\" \"--noEmit\"",
+      "exitCode": 0,
+      "startedAt": "2026-10-10T10:05:29.443Z",
+      "completedAt": "2026-10-10T10:05:31.624Z",
+      "log": "checks/llm-final-typecheck.log"
+    },
+    {
+      "name": "lint",
+      "command": "\"C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe\" \"node_modules/eslint/bin/eslint.js\" \"--resolve-plugins-relative-to\" \"./node_modules\" \"src/features/llm/requestPolicy.ts\" \"src/services/api/index.ts\" \"src/features/agent/useAgentPage.ts\" \"src/pages/chat/index.nvue\"",
+      "exitCode": 0,
+      "startedAt": "2026-10-10T10:05:31.625Z",
+      "completedAt": "2026-10-10T10:05:33.265Z",
+      "log": "checks/llm-final-lint.log"
+    },
+    {
+      "name": "h5-build",
+      "command": "\"C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe\" \"node_modules/@dcloudio/vite-plugin-uni/bin/uni.js\" \"build\" \"-p\" \"h5\"",
+      "exitCode": 0,
+      "startedAt": "2026-10-10T10:05:33.266Z",
+      "completedAt": "2026-10-10T10:05:45.384Z",
+      "log": "checks/llm-final-h5-build.log"
+    }
+  ],
+  "completedAt": "2026-10-10T10:05:45.384Z",
+  "allPassed": true
+}

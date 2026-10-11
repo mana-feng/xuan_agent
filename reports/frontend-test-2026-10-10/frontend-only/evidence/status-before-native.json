@@ -1,0 +1,421 @@
+{
+  "updatedAt": "2026-10-10 22:08:12 Asia/Singapore",
+  "summary": "本轮补修已完成：在前轮13组问题基础上，新增修复TOON导出异常清理、聊天档案数据保护及28条Lint警告（O-14～O-16）。最终137/137回归通过；严格类型检查、H5构建与零警告Lint均通过。真实浏览器外部文件往返仍保留验证缺口。",
+  "environment": "代码目录 frontend-only；独立H5开发服务 http://127.0.0.1:3050/#/，报告 http://127.0.0.1:3002/report.html#frontend-only。本轮已恢复这两个服务，使用当前连接的Edge扩展做补验；前轮Chrome桌面/390×844、全部11个页面及本地Qwen3.8实测证据保留。本轮未重新启动或重测模型、3000/3001后端与数据库。纯前端使用浏览器本地记录和模型设置，不提供服务端登录、MySQL保存或账户额度；完整前后端结果在其他章节。",
+  "evidenceBoundary": "137项回归加载真实源码，网络、生命周期、存储及文件API故障在边界受控模拟；新归档测试使用真实UTF-8临时文件与Blob字节验证序列化往返。Edge已验证两类TOON发起下载提示和菜单键盘操作；下载事件未返回文件，原生文件选择器未被工具接管，未核验真实浏览器下载落盘、外部文件回导或原生对话框取消。前轮本地Qwen3.8回复结果属历史实测，本轮未重跑；云模型、App/小程序、真实手机、全部历法组合、安全认证与永久删除不在验收范围内。",
+  "items": [
+    {
+      "id": "O-01",
+      "title": "跨盘身份与编辑入口",
+      "status": "已修复并验证",
+      "problem": "八字与紫微共用当前用户信息，可能混用姓名、性别和盘面；八字编辑跳错页面。",
+      "change": "各盘保存自己的输入快照和记录ID，显示、导出、保存、AI统一读取；编辑回到对应表单。",
+      "validation": "真实Chrome：八字甲男2023、紫微乙女2026分别生成保存，再回放八字仍保留甲/男/2023；源码回归覆盖更新与导出。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/cross-bazi-replay.txt",
+          "label": "Chrome跨盘回放"
+        },
+        {
+          "path": "frontend-only/checks/chart-green.txt",
+          "label": "盘面与历史回归"
+        }
+      ]
+    },
+    {
+      "id": "O-02",
+      "title": "历史日期与三类盘面回放",
+      "status": "已修复并验证",
+      "problem": "毫秒字符串被当日期字符串导致无效日期；紫微回放回到空表单，六爻恢复参数未应用；八字缓存方法无法JSON还原。",
+      "change": "统一解析数字/旧毫秒字符串/ISO日期；三类历史回放重新计算真实盘面和运势对象。",
+      "validation": "23项盘面/历史源码回归通过；Chrome三类历史均直达各自结果，紫微与六爻冷刷新仍恢复。六爻保留原18:39时间和坎为水→风水涣。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/chart-green.txt",
+          "label": "盘面历史回归"
+        },
+        {
+          "path": "frontend-only/evidence/history-ziwei-replay.txt",
+          "label": "紫微回放"
+        },
+        {
+          "path": "frontend-only/evidence/liuyao-cold-reload.txt",
+          "label": "六爻冷刷新"
+        }
+      ]
+    },
+    {
+      "id": "O-03",
+      "title": "重复保存与历史稳定标识",
+      "status": "已修复并验证",
+      "problem": "六爻重复保存新增记录、起卦时间可能变成保存时间；同毫秒新纪录可能撞ID。",
+      "change": "统一记录合并逻辑、保留createdAt与起卦时间、稳定recordId，按类型加ID区分记录。",
+      "validation": "Chrome八字与六爻各连续保存两次，三种盘历史合计仍3条；源码回归覆盖同ID不同类型删除和同毫秒新记录。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/history-three.txt",
+          "label": "三类历史列表"
+        }
+      ]
+    },
+    {
+      "id": "O-04",
+      "title": "本地历史保留与损坏数据保护",
+      "status": "已修复并验证",
+      "problem": "超过200条静默丢弃、旧TTL到期删除历史；损坏JSON可能被空数组覆盖。",
+      "change": "保存历史不设自动过期和200条裁剪；保留旧过期记录；损坏存储保留原值并阻止覆盖。",
+      "validation": "实际源码故障回归验证201条、过期数据、损坏JSON与更新时间。",
+      "boundary": "未模拟真实磁盘耗尽；已被旧版本删除的数据无法恢复。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/chart-green.txt",
+          "label": "数据保留回归"
+        }
+      ]
+    },
+    {
+      "id": "O-05",
+      "title": "空童限导致运势计算崩溃",
+      "status": "已修复并验证",
+      "problem": "1960-02-03 04:05女性等合法输入首段大运无流年，访问getLiuYue失败。",
+      "change": "选择首个有流年的周期，缺少年份时清空关联行并保护访问。",
+      "validation": "真实lunar库运行该边界及1970年前时间，源码回归通过。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/chart-green.txt",
+          "label": "日期边界回归"
+        }
+      ]
+    },
+    {
+      "id": "O-06",
+      "title": "键盘操作与uni-h5事件边界",
+      "status": "已修复并验证",
+      "problem": "菜单、工具、发送与宫位放大缺少键盘语义；uni归一化事件导致重复或失效。",
+      "change": "补角色、焦点、Enter/Space/Escape与禁用语义；通过实际焦点元素保持按键状态。",
+      "validation": "使用真实uni-h5运行时测试；Chrome Enter/Space打开菜单、Escape关闭恢复焦点，Enter可打开宫位。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/keyboard-menu-after.txt",
+          "label": "Chrome键盘"
+        },
+        {
+          "path": "frontend-only/checks/ui-green.txt",
+          "label": "UI回归"
+        }
+      ]
+    },
+    {
+      "id": "O-07",
+      "title": "移动紫微宫位放大与视口定位",
+      "status": "已修复并验证",
+      "problem": "窄屏年龄文本拥挤；放大层被变换祖先限制，滚动后关闭按钮移出视口。",
+      "change": "宫格文本换行并增加放大入口；H5宫位弹层Teleport到body，限制视口高度，内部滚动，补关闭焦点/Tab/Escape。",
+      "validation": "390×844真实Chrome：弹层x16/y76/w343/h692，关闭键在屏内；Escape关闭并恢复官禄按钮焦点。实际源码18项UI回归通过。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/ziwei-mobile-geometry.json",
+          "label": "Chrome实际几何"
+        },
+        {
+          "path": "frontend-only/checks/ui-green.txt",
+          "label": "18项UI回归"
+        }
+      ],
+      "screenshot": "frontend-only/screenshots/ziwei-mobile-fixed.jpg"
+    },
+    {
+      "id": "O-08",
+      "title": "依赖与严格类型门禁",
+      "status": "已修复并验证",
+      "problem": "缺失已导入的vue-advanced-chat依赖；初始类型检查95项报错，nvue覆盖不明确。",
+      "change": "锁定所缺依赖与测试依赖；补具体类型声明，显式检查.vue和.nvue并保持strict；清理业务类型错误。",
+      "validation": "生产H5构建通过；严格类型检查退出0，包含12个nvue；第三方TMUI根文件不纳入完整检查，直接导入仍参与。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/initial-typecheck.log",
+          "label": "初始类型失败"
+        },
+        {
+          "path": "frontend-only/checks/final-typecheck.log",
+          "label": "最终类型检查"
+        },
+        {
+          "path": "frontend-only/checks/final-build.log",
+          "label": "H5生产构建"
+        }
+      ]
+    },
+    {
+      "id": "O-09",
+      "title": "AI流协议、重复请求与取消",
+      "status": "已修复并验证",
+      "problem": "流失败后自动重发可能重复生成；空白/截断/错误报文被当成功；缺少全程取消超时。",
+      "change": "单次生成不盲目重发，增300秒整体超时和卸载取消；解析跨片UTF8/SSE终止标记及提供商错误，拒绝空/截断输出。",
+      "validation": "实际源码受控HTTP回归覆盖网络断开、401、部分流、超时取消、OpenAI兼容/Anthropic/Gemini格式；真实本地模型已返回流式内容。",
+      "boundary": "云供应商未进行联网兼容性验证。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/ai-green.txt",
+          "label": "AI回归"
+        },
+        {
+          "path": "frontend-only/evidence/agent-local-final.txt",
+          "label": "本地真实回复"
+        }
+      ]
+    },
+    {
+      "id": "O-10",
+      "title": "模型配置验证与本地无Key服务",
+      "status": "已修复并验证",
+      "problem": "坏配置未验证、存储失败仍可能提示成功；本地服务被不必要地要求Key。",
+      "change": "读取与写入统一验证地址/模型/供应商，按端点判定Key需求，切换供应商清理旧Key，报告存储失败。",
+      "validation": "Chrome空地址被阻止；选择Ollama自动填充，修改11439和Qwen模型并空Key保存，刷新仍保留。稳定页面的供应商选择通过，热更新期间现象未计入缺陷。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/settings-local-reload.txt",
+          "label": "真实设置持久化"
+        }
+      ]
+    },
+    {
+      "id": "O-11",
+      "title": "聊天冷启动上下文与消息去重",
+      "status": "已修复并验证",
+      "problem": "冷刷新丢失当前盘上下文、追问不带盘、用户消息重复；错误消息混入后续请求。",
+      "change": "每轮恢复所选盘及独立身份，过滤等待/失败消息并去重；禁止并发发送并在卸载时取消。",
+      "validation": "Chrome先冷刷新八字聊天，再请求本地Qwen：首轮回答纯前端八字甲/男/2023/辛丑；追问回答纯前端八字甲/癸卯。输入恢复，未混用紫微资料；源码验证去重和异常过滤。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/chat-local-followup-result.txt",
+          "label": "本地模型两轮实测"
+        },
+        {
+          "path": "frontend-only/checks/ai-green.txt",
+          "label": "AI实际源码回归"
+        }
+      ],
+      "screenshot": "frontend-only/screenshots/chat-local-followup-result.jpg"
+    },
+    {
+      "id": "O-12",
+      "title": "Agent动作边界与模型目标冲突",
+      "status": "已修复并验证",
+      "problem": "无动作/截断动作可能回退成执行；不明确时间被猜测；真实Qwen把明确打开紫微输入页误选八字。",
+      "change": "显式无动作不执行、拒绝残缺动作与非法路由、校验日期时间；明确输入页目标与模型动作冲突时拦截并提供正确手动入口。",
+      "validation": "明确目标冲突回归红8项→绿28项；同句真实Qwen复测显示紫微输入页按钮，点击到正确输入表单。本次模型正确返回，错误模型响应拦截由受控源码测试覆盖。",
+      "evidence": [
+        {
+          "path": "frontend-only/evidence/agent-target-retest-result.txt",
+          "label": "真实模型复测回复"
+        },
+        {
+          "path": "frontend-only/evidence/agent-target-manual-navigation.txt",
+          "label": "正确入口执行"
+        },
+        {
+          "path": "frontend-only/checks/ai-target-green.txt",
+          "label": "冲突与动作回归"
+        }
+      ],
+      "boundary": "已保护明确工具输入页请求；模型解释和模糊推荐仍可能出错，不宣称本地模型质量问题已解决。"
+    },
+    {
+      "id": "O-13",
+      "title": "聊天归档竞态与文件取消锁死",
+      "status": "已修复并验证",
+      "problem": "错误流卡住、恢复覆盖新消息、归档与发送并发；独立审查发现文件选择取消后archiveBusy一直为真。",
+      "change": "错误流标记失败并排除错误归档；防止异步恢复覆盖新消息；归档与发送互斥；文件cancel/空change抛AbortError，finally释放锁并保留当前对话。",
+      "validation": "独立审查复现cancel锁死后补修；真实ChatPanel源码9项回归通过，包括cancel/空change/有效文件、错误流和异步恢复。前轮全套105项通过。 本轮继续补查并修复档案格式、缓存故障与文件失败保护，详见O-15；原有9项ChatPanel用例仍全部通过。",
+      "boundary": "原生文件选择与目录授权的外部档案内容不等同于源码平台模拟。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/archive-cancel-green.txt",
+          "label": "9项ChatPanel回归"
+        },
+        {
+          "path": "frontend-only/checks/final-review.txt",
+          "label": "独立审查原始发现"
+        },
+        {
+          "path": "frontend-only/checks/ui-repair-notes.txt",
+          "label": "修复与验证说明"
+        }
+      ]
+    },
+    {
+      "id": "O-14",
+      "title": "TOON导出异常资源清理与准确提示",
+      "status": "已修复并验证",
+      "problem": "TOON导出在创建/点击下载链接异常时泄漏Blob URL，正常分支立即释放URL，并将发起下载误报为“已下载”。",
+      "change": "八字、紫微共用下载辅助函数，finally延后释放URL，保留失败时复制内容的路径；提示改为“已发起 TOON 下载，请查看下载列表”。",
+      "validation": "新增10项真实源码回归通过：两类盘面UTF-8内容、姓名/性别/出生时间与文件名、URL生命周期、下载异常、剪贴板异常；Edge两类盘均显示新提示。已纳入最终137项全套。",
+      "boundary": "已验证源码Blob字节和浏览器发起提示；尚未取得真实浏览器下载文件。立即释放URL导致实际浏览器失败未被复现，不据此宣称修复了已观察到的落盘失败。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/only-export-followup-red.txt",
+          "label": "修复前失败"
+        },
+        {
+          "path": "frontend-only/checks/only-export-followup-green.txt",
+          "label": "10项导出回归"
+        },
+        {
+          "path": "frontend-only/evidence/followup-bazi-export.txt",
+          "label": "Edge八字提示"
+        },
+        {
+          "path": "frontend-only/evidence/followup-ziwei-export.txt",
+          "label": "Edge紫微提示"
+        }
+      ],
+      "screenshot": "frontend-only/screenshots/followup-bazi-export.png"
+    },
+    {
+      "id": "O-15",
+      "title": "聊天档案格式校验与导入失败保护",
+      "status": "已修复并验证",
+      "problem": "坏格式被隐式转换；读取失败或空文件可用旧备份覆盖当前聊天；可选缓存异常阻断恢复或误报保存失败；取消/失败保存提前替换旧备份；聊天下载也可能泄漏URL并误报已保存。",
+      "change": "完整校验v1档案及每条role/text/time后才替换会话；手动读取失败保留当前内容，自动恢复可安全使用有效备份；导入更新备份并清理旧句柄；缓存故障隔离，原生文件写入完成后才更新备份；下载复用共享清理逻辑并明确提示仅已发起下载。",
+      "validation": "归档新增22项和原有ChatPanel9项全部通过：格式拒绝、空文件/读取失败、取消保存、缓存故障、真实UTF-8文件/Blob字节往返及唯一消息ID。与TOON10项联合41/41，最终全套137/137。",
+      "boundary": "文件API句柄受控，字节来自真实临时文件；不能等同于真实浏览器OS文件选择器往返。Edge触发恢复后工具未取得选择器，Escape后页面仍忙碌，随后刷新合成测试页；该路径未标通过。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/only-archive-followup-red.txt",
+          "label": "档案修复前失败"
+        },
+        {
+          "path": "frontend-only/checks/only-archive-followup-download-red.txt",
+          "label": "下载补充失败"
+        },
+        {
+          "path": "frontend-only/checks/only-archive-followup-download-green.txt",
+          "label": "41项联合回归"
+        },
+        {
+          "path": "frontend-only/evidence/followup-archive-cancel.txt",
+          "label": "原生选择器验证限制"
+        }
+      ]
+    },
+    {
+      "id": "O-16",
+      "title": "清理28条模板属性顺序警告",
+      "status": "已修复并验证",
+      "problem": "紫微结果4处PalaceContent的@expand位于绑定属性之前，触发28条vue/attributes-order警告。",
+      "change": "调整属性顺序，保留全部事件与传参；未禁用规则。",
+      "validation": "全部78个业务源码文件：0错误、0警告，--max-warnings 0退出0；未屏蔽规则。严格类型检查和H5构建同时通过。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-eslint.json",
+          "label": "逐文件Lint结果"
+        },
+        {
+          "path": "frontend-only/checks/followup-exits.json",
+          "label": "所有检查退出码"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "title": "源码自动回归",
+      "status": "通过",
+      "detail": "最终137/137：前轮105项 + 归档22项 + TOON导出10项。真实源码执行；网络、平台、存储、文件API在边界模拟。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-tests.log",
+          "label": "最终137项日志"
+        },
+        {
+          "path": "frontend-only/checks/followup-exits.json",
+          "label": "退出码"
+        },
+        {
+          "path": "frontend-only/evidence/status-before-followup.json",
+          "label": "保留前轮基线"
+        }
+      ]
+    },
+    {
+      "title": "严格类型检查",
+      "status": "通过",
+      "detail": "vue-tsc --noEmit，strict=true，包含.vue/.nvue（12个业务nvue），最终退出0。TMUI第三方根文件排除，直接导入仍检查。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-typecheck.log",
+          "label": "类型检查日志"
+        },
+        {
+          "path": "frontend-only/checks/followup-exits.json",
+          "label": "退出码"
+        }
+      ]
+    },
+    {
+      "title": "H5生产构建",
+      "status": "通过",
+      "detail": "uni build -p h5，最终退出0。仅确认H5产物生成；3050继续运行本地开发服务。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-build.log",
+          "label": "构建日志"
+        }
+      ]
+    },
+    {
+      "title": "ESLint业务源码检查",
+      "status": "通过",
+      "detail": "78个文件，0错误、0警告（原28条已清零）。沿用frontend-docker已安装的ESLint CLI和仓库配置，排除第三方TMUI。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-eslint.json",
+          "label": "逐文件结果"
+        }
+      ]
+    },
+    {
+      "title": "键盘回归测试稳定性",
+      "status": "通过",
+      "detail": "定位JSDOM同毫秒事件被uni-h5-vue过滤的测试时钟问题；每个独立用户事件推进受控时钟，保留原断言与运行时。冻结时钟红→绿，目标重复10/10，移除Escape处理器的变异仍失败；真实Edge关闭与焦点恢复通过。未修改产品键盘逻辑。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/only-ui-followup-frozen-red.txt",
+          "label": "冻结时钟失败"
+        },
+        {
+          "path": "frontend-only/checks/only-ui-followup-frozen-green.txt",
+          "label": "受控事件时钟通过"
+        },
+        {
+          "path": "frontend-only/checks/only-ui-followup-mutation-red.txt",
+          "label": "变异仍能检出缺陷"
+        },
+        {
+          "path": "frontend-only/checks/only-ui-followup-repeat.txt",
+          "label": "10次验证"
+        },
+        {
+          "path": "frontend-only/evidence/followup-menu-keyboard.json",
+          "label": "Edge真实键盘状态"
+        }
+      ]
+    },
+    {
+      "title": "整合审查与差异检查",
+      "status": "通过",
+      "detail": "3个agent分别完成导出、归档和测试时钟处理；主agent复核代码并独立跑最终全套。git diff --check frontend-only退出0。既有前后端改动与原报告证据保留，未提交。",
+      "evidence": [
+        {
+          "path": "frontend-only/checks/followup-review.txt",
+          "label": "整合审查与边界"
+        },
+        {
+          "path": "frontend-only/checks/followup-diff-check.log",
+          "label": "差异检查"
+        }
+      ]
+    }
+  ]
+}

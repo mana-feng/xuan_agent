@@ -1,0 +1,297 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: E
+  - generic: 
+- heading "紫微排盘结果" [level=1]
+- paragraph: 查看命盘、保存记录、导出与 AI 解读
+- banner:
+  - generic: 
+  - heading "基础信息" [level=2]
+- generic: 姓名
+- generic: 后台验收紫微乙
+- generic: 性别
+- generic: 女
+- generic: 阳历
+- generic: 2026-10-10
+- generic: 阴历
+- generic: 二〇二六年九月初一
+- generic: 五行局
+- generic: 木三局
+- generic: 命主 / 身主
+- generic: 禄存 / 火星
+- generic: 保存到账号
+- generic: 编辑信息
+- generic: 导出 TOON
+- generic: AI 解答
+- banner:
+  - heading "命盘总览" [level=2]
+- generic: 博士
+- generic: 亡神
+- generic: 病符
+- generic: 天梁
+- generic: 陷
+- generic: 田宅
+- generic: 病
+- generic: 大限93-102
+- generic: 小限12,24,36,48,60,72,84,96,108,120
+- generic: 禄存
+- generic: 天巫
+- generic: 天官
+- generic: 空亡
+- generic: 破碎
+- generic: 天刑
+- generic: 癸
+- button "放大查看田宅": 放大
+- generic: 巳
+- generic: 官府
+- generic: 将星
+- generic: 岁建
+- generic: 七杀
+- generic: 旺
+- generic: 官禄
+- generic: 身宫
+- generic: 衰
+- generic: 大限83-92
+- generic: 小限11,23,35,47,59,71,83,95,107,119
+- generic: 擎羊
+- generic: 陷
+- generic: 甲
+- button "放大查看官禄": 放大
+- generic: 午
+- generic: 伏兵
+- generic: 攀鞍
+- generic: 晦气
+- generic: 交友
+- generic: 帝旺
+- generic: 大限73-82
+- generic: 小限10,22,34,46,58,70,82,94,106,118
+- generic: 地劫
+- generic: 天空
+- generic: 天伤
+- generic: 乙
+- button "放大查看交友": 放大
+- generic: 未
+- generic: 大耗
+- generic: 岁驿
+- generic: 丧门
+- generic: 廉贞
+- generic: 庙
+- generic: 忌
+- generic: 迁移
+- generic: 临官
+- generic: 大限63-72
+- generic: 小限9,21,33,45,57,69,81,93,105,117
+- generic: 天马
+- generic: 天才
+- generic: 孤辰
+- generic: 丙
+- button "放大查看迁移": 放大
+- generic: 申
+- generic: 力士
+- generic: 月煞
+- generic: 吊客
+- generic: 紫微
+- generic: 得
+- generic: 天相
+- generic: 得
+- generic: 福德
+- generic: 死
+- generic: 大限103-112
+- generic: 小限1,13,25,37,49,61,73,85,97,109
+- generic: 陀罗
+- generic: 庙
+- generic: 解神
+- generic: 凤阁
+- generic: 截路
+- generic: 寡宿
+- generic: 年解
+- generic: 壬
+- button "放大查看福德": 放大
+- generic: 辰
+- generic: 青龙
+- generic: 咸池
+- generic: 天德
+- generic: 天机
+- generic: 旺
+- generic: 权
+- generic: 巨门
+- generic: 庙
+- generic: 父母
+- generic: 墓
+- generic: 大限113-122
+- generic: 小限2,14,26,38,50,62,74,86,98,110
+- generic: 地空
+- generic: 天喜
+- generic: 咸池
+- generic: 天德
+- generic: 辛
+- button "放大查看父母": 放大
+- generic: 卯
+- generic: 后台验收紫微乙
+- generic: 女
+- generic: 阴历：
+- generic: 二〇二六年九月初一
+- generic: 阳历：
+- generic: 2026-10-10
+- generic: 五行局：
+- generic: 木三局
+- generic: 申时
+- generic: 命主：
+- generic: 禄存
+- generic: 身主：
+- generic: 火星
+- generic: 四化标记
+- generic: 禄
+- generic: 权
+- generic: 科
+- generic: 忌
+- generic: 病符
+- generic: 息神
+- generic: 贯索
+- generic: 疾厄
+- generic: 冠带
+- generic: 大限53-62
+- generic: 小限8,20,32,44,56,68,80,92,104,116
+- generic: 天钺
+- generic: 火星
+- generic: 得
+- generic: 红鸾
+- generic: 天姚
+- generic: 天使
+- generic: 丁
+- button "放大查看疾厄": 放大
+- generic: 酉
+- generic: 喜神
+- generic: 华盖
+- generic: 官符
+- generic: 破军
+- generic: 旺
+- generic: 财帛
+- generic: 沐浴
+- generic: 大限43-52
+- generic: 小限7,19,31,43,55,67,79,91,103,115
+- generic: 龙池
+- generic: 封诰
+- generic: 华盖
+- generic: 阴煞
+- generic: 戊
+- button "放大查看财帛": 放大
+- generic: 戌
+- generic: 小耗
+- generic: 指背
+- generic: 白虎
+- generic: 贪狼
+- generic: 平
+- generic: 命宫
+- generic: 绝
+- generic: 大限3-12
+- generic: 小限3,15,27,39,51,63,75,87,99,111
+- generic: 右弼
+- generic: 文昌
+- generic: 陷
+- generic: 科
+- generic: 八座
+- generic: 台辅
+- generic: 天月
+- generic: 旬空
+- generic: 蜚廉
+- generic: 庚
+- button "放大查看命宫": 放大
+- generic: 寅
+- generic: 将军
+- generic: 天煞
+- generic: 龙德
+- generic: 太阳
+- generic: 不
+- generic: 太阴
+- generic: 庙
+- generic: 兄弟
+- generic: 胎
+- generic: 大限13-22
+- generic: 小限4,16,28,40,52,64,76,88,100,112
+- generic: 恩光
+- generic: 辛
+- button "放大查看兄弟": 放大
+- generic: 丑
+- generic: 奏书
+- generic: 灾煞
+- generic: 大耗
+- generic: 武曲
+- generic: 旺
+- generic: 天府
+- generic: 庙
+- generic: 夫妻
+- generic: 养
+- generic: 大限23-32
+- generic: 小限5,17,29,41,53,65,77,89,101,113
+- generic: 左辅
+- generic: 文曲
+- generic: 得
+- generic: 三台
+- generic: 天寿
+- generic: 天福
+- generic: 天厨
+- generic: 天哭
+- generic: 天虚
+- generic: 庚
+- button "放大查看夫妻": 放大
+- generic: 子
+- generic: 飞廉
+- generic: 劫煞
+- generic: 小耗
+- generic: 天同
+- generic: 庙
+- generic: 禄
+- generic: 子女
+- generic: 长生
+- generic: 大限33-42
+- generic: 小限6,18,30,42,54,66,78,90,102,114
+- generic: 天魁
+- generic: 铃星
+- generic: 利
+- generic: 天贵
+- generic: 月德
+- generic: 己
+- button "放大查看子女": 放大
+- generic: 亥
+- banner:
+  - heading "运限时间轴" [level=2]
+- generic: 大限
+- generic: 解析
+- generic: 3-12
+- generic: 庚寅
+- generic: 命宫
+- generic: 13-22
+- generic: 辛丑
+- generic: 兄弟
+- generic: 23-32
+- generic: 庚子
+- generic: 夫妻
+- generic: 33-42
+- generic: 己亥
+- generic: 子女
+- generic: 43-52
+- generic: 戊戌
+- generic: 财帛
+- generic: 53-62
+- generic: 丁酉
+- generic: 疾厄
+- generic: 63-72
+- generic: 丙申
+- generic: 迁移
+- generic: 73-82
+- generic: 乙未
+- generic: 交友
+- generic: 83-92
+- generic: 甲午
+- generic: 官禄
+- generic: 93-102
+- generic: 癸巳
+- generic: 田宅
+- generic: 103-112
+- generic: 壬辰
+- generic: 福德
+- generic: 113-122
+- generic: 辛卯
+- generic: 父母
+- document

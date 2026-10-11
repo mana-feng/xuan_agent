@@ -1,0 +1,23 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "AI 聊天" [level=1]
+- paragraph: 对接大模型的专用界面
+- generic: 恢复
+- generic: 保存
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 18:40
+- generic: ready
+- generic: 我
+- generic: 仅核对当前排盘：请用一句话回答姓名、性别、出生年份和日柱，不要推断运势。
+- generic: 18:41
+- generic: AI
+- generic: 主人，您的姓名是纯前端八字甲，性别男，出生于2023年，日柱为辛丑。
+- generic: 18:41
+- generic: ready
+- generic: 输入消息，回车发送
+- textbox
+- generic: 发送
+- document

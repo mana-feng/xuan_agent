@@ -1,0 +1,33 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "AI API 设置" [level=1]
+- paragraph: 配置将保存在浏览器本地存储中
+- generic: "*"
+- text: AI 提供商
+- generic: Ollama (本地)
+- generic: "*"
+- text: API 地址
+- generic: 选择提供商后自动填充
+- textbox
+- generic: API Key（可选）
+- generic: 请输入 API Key
+- textbox
+- generic: 显示
+- generic: "*"
+- text: 模型名称
+- generic: 选择提供商后自动填充
+- textbox
+- generic: 保存配置
+- generic: 清除配置
+- generic: OpenAI
+- generic: Claude
+- generic: Google Gemini
+- generic: 通义千问
+- generic: DeepSeek
+- generic: Kimi
+- generic: 智谱
+- generic: Ollama (本地)
+- generic: 自定义
+- document

@@ -1,0 +1,94 @@
+{
+  "startedAt": "2026-10-10T08:58:47.64Z",
+  "requestedModel": "qwen3.8:latest",
+  "endpoint": "http://127.0.0.1:11439",
+  "runtime": {
+    "arguments": [
+      "-m",
+      "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "11439",
+      "-c",
+      "8192",
+      "-b",
+      "128",
+      "-ub",
+      "128",
+      "-np",
+      "1",
+      "-t",
+      "8",
+      "-ngl",
+      "40",
+      "--device",
+      "Vulkan0",
+      "--no-repack",
+      "--load-mode",
+      "mmap",
+      "--no-warmup",
+      "--no-ui",
+      "--reasoning",
+      "off"
+    ],
+    "pid": 194712,
+    "contextSize": 8192,
+    "device": "Vulkan0",
+    "officialArchive": "https://github.com/ggml-org/llama.cpp/releases/download/b11429/llama-b11429-bin-win-vulkan-x64.zip",
+    "gpuLayers": 40,
+    "archiveSha256": "1bfe78ad9168b79fa02bf67f6af9f5e17a966d824d77238517f7bef12ac73b36",
+    "startedAt": "2026-10-10T08:58:03.2203186Z",
+    "executable": "F:\\github\\xuanxue_AI-chat-agent\\.local-dev\\llama-b11429-win-vulkan\\llama-server.exe",
+    "port": 11439
+  },
+  "status": "failed",
+  "boundaries": [
+    "This is an isolated text-only llama.cpp process using the existing qwen3.8 GGUF language-model blob; its vision projector is not loaded.",
+    "A roughly 512-token input and short completion are tested at context 8192, concurrency 1; this does not establish full-capacity context performance, concurrent throughput or domain answer quality.",
+    "The original Ollama service, existing other-project containers, project database configuration and global security configuration are not changed."
+  ],
+  "references": [
+    "https://github.com/ggml-org/llama.cpp/releases/expanded_assets/b11429",
+    "https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md"
+  ],
+  "identity": {
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M"
+    },
+    "architecture": "qwen35",
+    "originalContext": 262144,
+    "modelFile": "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+    "modelBytes": 16810714464,
+    "matchesOllamaBlob": true
+  },
+  "lastHealth": {
+    "http": 200,
+    "time": "2026-10-10T08:58:49.106Z"
+  },
+  "readyAt": "2026-10-10T08:58:49.106Z",
+  "inputTokensBeforeChatTemplate": 479,
+  "request": {
+    "prompt": "This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. \n以上仅为长度测试材料。请忽略其内容，只回复四个汉字：验证通过。",
+    "maxTokens": 12,
+    "temperature": 0,
+    "reasoning": false
+  },
+  "completion": {
+    "http": 500,
+    "elapsedMs": 13998,
+    "text": null,
+    "finishReason": null,
+    "usage": null,
+    "timings": null
+  },
+  "finishedAt": "2026-10-10T08:59:03.76Z",
+  "observedFailure": "40 GPU layers with CPU fallback simultaneously resident: prefill reached 491 tokens, then std::bad_alloc and server GGML_ASSERT; Vulkan process exited. Dedicated CPU fallback was subsequently stopped by PID/path validation to release memory."
+}

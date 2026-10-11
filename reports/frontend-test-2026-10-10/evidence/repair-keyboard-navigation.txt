@@ -1,0 +1,38 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: 
+  - generic: 
+- heading "八字排盘" [level=1]
+- paragraph: 请填写以下信息进行八字排盘
+- banner:
+  - generic: 
+  - heading "基础信息" [level=2]
+- generic: 
+- generic: 请输入姓名（可选）
+- textbox
+- generic: 
+- generic: 性别
+- generic: 男
+- generic: 女
+- banner:
+  - heading "出生时间" [level=2]
+  - paragraph: 支持阳历/阴历，精确到分钟
+- generic: 
+- generic: 日历类型
+- generic: 阳历
+- generic: 阴历
+- generic: 
+- generic: 2026/10/10 15:19
+- generic: 
+- generic: 对应阴历
+- generic: 二〇二六年九月初一 申时
+- generic: 四柱八字
+- generic: 丙午
+- generic: 戊戌
+- generic: 丁巳
+- generic: 戊申
+- generic: 
+- generic: 开始排盘
+- document
+
+Avatar Space opened menu; Tab moved to 登录/注册; Escape closed and returned focus to 用户菜单; tool Enter opened 八字排盘. Blank send aria-disabled=true tabIndex=-1.

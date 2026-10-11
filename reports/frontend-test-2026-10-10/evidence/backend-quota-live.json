@@ -1,0 +1,306 @@
+{
+  "startedAt": "2026-10-10T08:52:38.029Z",
+  "boundary": "Real running backend HTTP/WebSocket, real MySQL InnoDB; controlled loopback upstream fixture, NOT real AI inference.",
+  "backend": "http://127.0.0.1:3001",
+  "testUsers": [
+    {
+      "label": "quota",
+      "id": 6
+    },
+    {
+      "label": "zero",
+      "id": 4
+    },
+    {
+      "label": "failure",
+      "id": 5
+    }
+  ],
+  "chatScopeModified": false,
+  "cases": [
+    {
+      "name": "HTTP zero quota rejects without invoking fixture",
+      "passed": true,
+      "durationMs": 650,
+      "transport": "HTTP",
+      "status": 429,
+      "before": {
+        "remaining": 0,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 0,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 0
+    },
+    {
+      "name": "WebSocket zero quota rejects without generating",
+      "passed": true,
+      "durationMs": 11,
+      "transport": "WebSocket",
+      "events": [
+        {
+          "event": "error",
+          "code": "QUOTA_EXHAUSTED"
+        }
+      ],
+      "before": {
+        "remaining": 0,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 0,
+        "usageRecords": 0
+      }
+    },
+    {
+      "name": "HTTP http-error rolls back without usage",
+      "passed": true,
+      "durationMs": 212,
+      "transport": "HTTP",
+      "status": 503,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP empty rolls back without usage",
+      "passed": true,
+      "durationMs": 139,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP non-stream-empty rolls back without usage",
+      "passed": true,
+      "durationMs": 178,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP error-event rolls back without usage",
+      "passed": true,
+      "durationMs": 99,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP malformed rolls back without usage",
+      "passed": true,
+      "durationMs": 45,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP truncated rolls back without usage",
+      "passed": true,
+      "durationMs": 69,
+      "transport": "HTTP",
+      "status": 200,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP abrupt rolls back without usage",
+      "passed": true,
+      "durationMs": 107,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false
+    },
+    {
+      "name": "HTTP client disconnect aborts upstream and releases row lock",
+      "passed": true,
+      "durationMs": 542,
+      "transport": "HTTP",
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "rowLockReleasedWithinSeconds": 3
+    },
+    {
+      "name": "HTTP completed stream commits exactly one usage before DONE",
+      "passed": true,
+      "durationMs": 322,
+      "transport": "HTTP",
+      "before": {
+        "remaining": 2,
+        "usageRecords": 3
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 4
+      },
+      "done": true,
+      "outputKind": "controlled fixture"
+    },
+    {
+      "name": "HTTP non-stream completion commits exactly one usage",
+      "passed": true,
+      "durationMs": 256,
+      "transport": "HTTP",
+      "before": {
+        "remaining": 1,
+        "usageRecords": 4
+      },
+      "after": {
+        "remaining": 0,
+        "usageRecords": 5
+      },
+      "outputKind": "controlled fixture"
+    },
+    {
+      "name": "Overlapping HTTP and WebSocket cannot both spend the last slot",
+      "passed": true,
+      "durationMs": 723,
+      "transport": "HTTP + WebSocket",
+      "overlapEstablished": true,
+      "successes": 1,
+      "fixtureCalls": 1,
+      "httpStatus": 200,
+      "websocketCodes": [
+        "QUOTA_EXHAUSTED"
+      ],
+      "before": {
+        "remaining": 1,
+        "usageRecords": 5
+      },
+      "after": {
+        "remaining": 0,
+        "usageRecords": 6
+      }
+    },
+    {
+      "name": "HTTP server upstream timeout restores quota and releases row lock",
+      "passed": true,
+      "durationMs": 181451,
+      "transport": "HTTP",
+      "status": 502,
+      "before": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "after": {
+        "remaining": 1,
+        "usageRecords": 0
+      },
+      "fixtureCalls": 1,
+      "done": false,
+      "rowLockReleased": true
+    }
+  ],
+  "agentConfigRestored": true,
+  "fixtureStopped": true,
+  "database": {
+    "engine": "MySQL",
+    "version": "8.4.11"
+  },
+  "initialQuotas": {
+    "quota": {
+      "remaining": 0,
+      "usageRecords": 3
+    },
+    "zero": {
+      "remaining": 0,
+      "usageRecords": 0
+    },
+    "failure": {
+      "remaining": 1,
+      "usageRecords": 0
+    }
+  },
+  "fixture": {
+    "url": "http://127.0.0.1:62971",
+    "providerProtocol": "Ollama NDJSON",
+    "model": "controlled-quota-fixture"
+  },
+  "finalQuotas": {
+    "quota": {
+      "remaining": 0,
+      "usageRecords": 6
+    },
+    "zero": {
+      "remaining": 0,
+      "usageRecords": 0
+    },
+    "failure": {
+      "remaining": 1,
+      "usageRecords": 0
+    }
+  },
+  "finishedAt": "2026-10-10T08:55:46.350Z",
+  "summary": {
+    "passed": 14,
+    "failed": 0
+  }
+}

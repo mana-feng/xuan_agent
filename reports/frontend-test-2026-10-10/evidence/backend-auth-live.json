@@ -1,0 +1,259 @@
+{
+  "startedAt": "2026-10-10T08:47:15.332Z",
+  "target": {
+    "http": "http://127.0.0.1:3001",
+    "mysql": "127.0.0.1:13306"
+  },
+  "fixture": "New isolated synthetic auth account; no primary/other account changes",
+  "boundaries": [
+    "Verification codes are seeded directly into the local database; SMTP sending and receipt are not tested.",
+    "Cookie attributes and cookie-based refresh are checked over HTTP; this script does not exercise browser cookie storage or document.cookie.",
+    "Rollback fault injection calls the production transaction helper against real MySQL, not an HTTP route failure injection.",
+    "Logout validation covers refresh revocation; existing access tokens retain their configured expiry."
+  ],
+  "checks": [
+    {
+      "id": "register_without_code",
+      "expected": {
+        "http": 400,
+        "accounts": 0
+      },
+      "actual": {
+        "http": 400,
+        "accounts": 0
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.369Z"
+    },
+    {
+      "id": "register_wrong_code",
+      "expected": {
+        "http": 400,
+        "accounts": 0
+      },
+      "actual": {
+        "http": 400,
+        "accounts": 0
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.502Z"
+    },
+    {
+      "id": "mysql_registration_transaction_rollback",
+      "expected": {
+        "injectedFailure": true,
+        "codeUsed": 0,
+        "accounts": 0
+      },
+      "actual": {
+        "injectedFailure": true,
+        "codeUsed": 0,
+        "accounts": 0
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.540Z",
+      "note": "Production transaction helper with a controlled failure after two writes; no global schema changes."
+    },
+    {
+      "id": "register_after_rollback",
+      "expected": {
+        "http": 200,
+        "codeUsed": 1,
+        "accountPresent": true,
+        "accessTokenPresent": true,
+        "refreshTokenPresent": true
+      },
+      "actual": {
+        "http": 200,
+        "codeUsed": 1,
+        "accountPresent": true,
+        "accessTokenPresent": true,
+        "refreshTokenPresent": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.664Z"
+    },
+    {
+      "id": "register_code_replay",
+      "expected": 400,
+      "actual": 400,
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.719Z"
+    },
+    {
+      "id": "trimmed_password_is_rejected",
+      "expected": 401,
+      "actual": 401,
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.766Z"
+    },
+    {
+      "id": "special_character_password_login",
+      "expected": {
+        "http": 200,
+        "ownUser": true,
+        "accessTokenPresent": true
+      },
+      "actual": {
+        "http": 200,
+        "ownUser": true,
+        "accessTokenPresent": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.874Z",
+      "note": "Submitted password includes angle brackets, double quote, single quote, and leading/trailing spaces; credential values are not recorded."
+    },
+    {
+      "id": "h5_refresh_cookie",
+      "expected": {
+        "refreshCookie": true,
+        "httpOnly": true,
+        "sameSiteLax": true,
+        "responseBodyHidesRefresh": true
+      },
+      "actual": {
+        "refreshCookie": true,
+        "httpOnly": true,
+        "sameSiteLax": true,
+        "responseBodyHidesRefresh": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.875Z"
+    },
+    {
+      "id": "me_anonymous",
+      "expected": 401,
+      "actual": 401,
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.892Z"
+    },
+    {
+      "id": "me_authenticated",
+      "expected": {
+        "http": 200,
+        "ownUser": true
+      },
+      "actual": {
+        "http": 200,
+        "ownUser": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.894Z"
+    },
+    {
+      "id": "cookie_refresh_rotation",
+      "expected": {
+        "http": 200,
+        "newRefresh": true,
+        "oldRevoked": true,
+        "httpOnly": true,
+        "bodyHidesRefresh": true
+      },
+      "actual": {
+        "http": 200,
+        "newRefresh": true,
+        "oldRevoked": true,
+        "httpOnly": true,
+        "bodyHidesRefresh": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.960Z"
+    },
+    {
+      "id": "old_refresh_rejected",
+      "expected": 401,
+      "actual": 401,
+      "status": "passed",
+      "time": "2026-10-10T08:47:15.993Z"
+    },
+    {
+      "id": "concurrent_same_refresh",
+      "expected": [
+        200,
+        401
+      ],
+      "actual": [
+        200,
+        401
+      ],
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.069Z"
+    },
+    {
+      "id": "concurrent_winner_persisted",
+      "expected": 1,
+      "actual": 1,
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.071Z"
+    },
+    {
+      "id": "logout_revokes_and_clears_cookie",
+      "expected": {
+        "http": 200,
+        "revoked": true,
+        "cleared": true
+      },
+      "actual": {
+        "http": 200,
+        "revoked": true,
+        "cleared": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.148Z"
+    },
+    {
+      "id": "logged_out_refresh_rejected",
+      "expected": 401,
+      "actual": 401,
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.169Z"
+    },
+    {
+      "id": "mysql_refresh_transaction_rollback",
+      "expected": {
+        "injectedFailure": true,
+        "remainsActive": true
+      },
+      "actual": {
+        "injectedFailure": true,
+        "remainsActive": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.196Z",
+      "note": "Production transaction helper with a controlled failure after revocation; route-level insertion failure is covered by the isolated regression suite."
+    },
+    {
+      "id": "refresh_after_rollback",
+      "expected": {
+        "http": 200,
+        "replacementPresent": true
+      },
+      "actual": {
+        "http": 200,
+        "replacementPresent": true
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.513Z"
+    },
+    {
+      "id": "synthetic_sessions_closed",
+      "expected": {
+        "http": 200,
+        "activeTokens": 0
+      },
+      "actual": {
+        "http": 200,
+        "activeTokens": 0
+      },
+      "status": "passed",
+      "time": "2026-10-10T08:47:16.569Z"
+    }
+  ],
+  "finishedAt": "2026-10-10T08:47:16.570Z",
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0
+  },
+  "syntheticAccountId": 10
+}

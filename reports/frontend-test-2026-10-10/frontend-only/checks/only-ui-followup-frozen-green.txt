@@ -1,0 +1,11 @@
+ESCAPE {"className":"menu-item","attached":1002,"now":1003}
+ESCAPE {"className":"dropdown-panel","attached":1002,"vts":1003,"now":1003}
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (241.5773ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 610.3833

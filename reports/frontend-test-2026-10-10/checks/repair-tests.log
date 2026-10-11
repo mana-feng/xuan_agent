@@ -1,0 +1,43 @@
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (151.4774ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (7.9434ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (18.0058ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (13.4901ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (38.2885ms)
+✔ an activation key cannot leak to a document listener installed by the action (1.4282ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (1.219ms)
+✔ anonymous free input is blocked before API traffic and retains the draft and conversation (4.2828ms)
+✔ anonymous quick prompts share the guard and confirmed guidance opens login without sending (1.5382ms)
+✔ canceling login guidance stays on the page and repeated clicks do not stack dialogs (0.7206ms)
+✔ authenticated input uses the real API client with Bearer credentials and displays the reply (2.6538ms)
+✔ a removed token cannot send even when the reactive login label was previously evaluated (0.9996ms)
+✔ empty input does not send or prompt for login (1.1975ms)
+✔ Agent sends the independent identities of both charts in its model context (48.7316ms)
+✔ Agent initialization restores both chart caches with their matching identities (56.2127ms)
+✔ 用户服务协议 opens readable scrollable content and closes back to the registration form (136.6497ms)
+✔ 隐私权政策 opens readable scrollable content and closes back to the registration form (22.6005ms)
+✔ agreement controls use their wrapper for keyboard activation and Escape closes the reader (33.4507ms)
+✔ Bazi export keeps the input that generated its pillars after a Ziwei chart (61.307ms)
+✔ Ziwei export keeps its own identity after a Bazi chart (387.57ms)
+✔ Bazi direct result restores the Bazi cache despite another module having a profile (36.3934ms)
+✔ Bazi result fully recalculates changed birth time and gender with an existing solar year (15.8582ms)
+✔ Bazi edit opens its input page and carries the displayed chart identity (33.3019ms)
+✔ saving Bazi uses the displayed chart input and record instead of the latest other chart (39.0666ms)
+✔ saving Ziwei uses its displayed chart identity and record after Bazi input changes (49.1045ms)
+✔ a Bazi save response cannot attach the previous chart record to a newly generated chart (16.6069ms)
+✔ a Ziwei save response cannot attach the previous chart record to a newly generated chart (66.7665ms)
+✔ an edited Bazi form keeps its record when the existing page is shown again (12.5738ms)
+✔ an edited Ziwei form keeps its record when the existing page is shown again (26.5848ms)
+✔ changing only Bazi gender recalculates the gender-dependent chart rows (11.979ms)
+✔ Ziwei direct result restores only its own cached profile (30.0397ms)
+✔ changing only Ziwei gender recomputes its chart when the result page is shown (44.5597ms)
+✔ Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation (104.0955ms)
+✔ Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation (372.0416ms)
+✔ history replay rebuilds from record identity even when cached Bazi contains another input (38.979ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2102.0115

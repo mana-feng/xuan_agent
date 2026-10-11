@@ -1,0 +1,428 @@
+{
+  "verifiedAt": "2026-10-10T14:44:09.380Z",
+  "method": "Exact supplied source paths only; read from disk, fatal UTF-8 decoder, structural decoding for this repository encoder, page expectation checks, SHA-256 and byte-identical evidence copy.",
+  "boundary": "Browser actions and page expectations are supplied by the parent agent. This script does not itself establish browser click provenance, validate standardized TOON interoperability, or independently prove astrology calculations.",
+  "files": [
+    {
+      "type": "ziwei",
+      "sourcePath": "F:/download/ziwei-202610102206 (1).toon",
+      "provenance": "Parent observed native page export at 2026-10-10 22:25 +08; supplied exact path and page facts. Source was not created by this audit.",
+      "checks": [
+        {
+          "name": "nonempty regular disk file",
+          "passed": true
+        },
+        {
+          "name": "browser filename including duplicate suffix",
+          "passed": true
+        },
+        {
+          "name": "observed disk size",
+          "passed": true
+        },
+        {
+          "name": "no decoding replacement or invalid serializer markers",
+          "passed": true
+        },
+        {
+          "name": "all TOON fields and table rows decode completely",
+          "passed": true
+        },
+        {
+          "name": "chart name and gender match native page",
+          "passed": true
+        },
+        {
+          "name": "other chart name is absent",
+          "passed": true
+        },
+        {
+          "name": "birth timestamp and ISO agree",
+          "passed": true
+        },
+        {
+          "name": "birth minute matches page and generated filename",
+          "passed": true
+        },
+        {
+          "name": "metadata export time belongs to observed download minute",
+          "passed": true
+        },
+        {
+          "name": "ziwei module and page chart facts",
+          "passed": true
+        },
+        {
+          "name": "12 unique palaces and body palace",
+          "passed": true
+        },
+        {
+          "name": "12 decadal timeline rows and 12 complete charts",
+          "passed": true
+        },
+        {
+          "name": "yearly range count, continuous years and compact scopes",
+          "passed": true
+        },
+        {
+          "name": "focus palace and native three-direction relationships",
+          "passed": true
+        },
+        {
+          "name": "evidence copy is byte identical",
+          "passed": true
+        }
+      ],
+      "file": {
+        "basename": "ziwei-202610102206 (1).toon",
+        "bytes": 50990,
+        "sha256": "b469bdc4d73a78ba81e12a6d7c4556df23449f40da374574cff815c07aaeccd8",
+        "mtime": "2026-10-10T14:25:21.263Z",
+        "birthtime": "2026-10-10T14:25:21.250Z",
+        "utf8Strict": true,
+        "bom": false
+      },
+      "lineCount": 260,
+      "tables": [
+        {
+          "path": "basicChart.palaces",
+          "headerLine": 30,
+          "declaredRows": 12,
+          "actualRows": 12,
+          "columns": 16
+        },
+        {
+          "path": "newSchoolChart.timeline.decadal",
+          "headerLine": 49,
+          "declaredRows": 12,
+          "actualRows": 12,
+          "columns": 7
+        },
+        {
+          "path": "newSchoolChart.scopes.decadal.starsByPalace",
+          "headerLine": 77,
+          "declaredRows": 8,
+          "actualRows": 8,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.scopes.yearly.starsByPalace",
+          "headerLine": 102,
+          "declaredRows": 7,
+          "actualRows": 7,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.scopes.monthly.starsByPalace",
+          "headerLine": 120,
+          "declaredRows": 7,
+          "actualRows": 7,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.scopes.daily.starsByPalace",
+          "headerLine": 135,
+          "declaredRows": 7,
+          "actualRows": 7,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.scopes.hourly.starsByPalace",
+          "headerLine": 150,
+          "declaredRows": 8,
+          "actualRows": 8,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.allDecadalCharts",
+          "headerLine": 177,
+          "declaredRows": 12,
+          "actualRows": 12,
+          "columns": 9
+        },
+        {
+          "path": "newSchoolChart.yearlyRangeCharts.charts",
+          "headerLine": 198,
+          "declaredRows": 29,
+          "actualRows": 29,
+          "columns": 4
+        },
+        {
+          "path": "newSchoolChart.focus.surrounded.natal.mutagenFlags",
+          "headerLine": 251,
+          "declaredRows": 4,
+          "actualRows": 4,
+          "columns": 2
+        },
+        {
+          "path": "newSchoolChart.focus.flyMutagens",
+          "headerLine": 257,
+          "declaredRows": 3,
+          "actualRows": 3,
+          "columns": 4
+        }
+      ],
+      "profile": {
+        "name": "导出补验乙",
+        "gender": "女",
+        "birthTimestamp": 1791641165529,
+        "birthSolarISO": "2026-10-10T14:06:05.529Z"
+      },
+      "exportTime": "2026-10-10T14:25:21.194Z",
+      "birthTimeSingapore": "2026-10-10T22:06:05.529+08:00",
+      "chart": {
+        "gender": "女",
+        "solarDate": "2026-10-10",
+        "chineseDate": "丙午 戊戌 丁巳 辛亥",
+        "time": "亥时",
+        "soul": "巨门",
+        "body": "火星",
+        "fiveElementsClass": "木三局"
+      },
+      "selection": {
+        "viewMode": "origin",
+        "targetDateISO": "2026-10-10T14:06:10.771Z",
+        "currentScopeLabel": null
+      },
+      "focus": {
+        "palace": {
+          "index": 2,
+          "name": "仆役",
+          "displayName": "交友"
+        },
+        "surrounded": {
+          "natal": {
+            "target": {
+              "index": 2,
+              "name": "仆役",
+              "displayName": "交友"
+            },
+            "opposite": {
+              "index": 8,
+              "name": "兄弟",
+              "displayName": "兄弟"
+            },
+            "wealth": {
+              "index": 10,
+              "name": "父母",
+              "displayName": "父母"
+            },
+            "career": {
+              "index": 6,
+              "name": "子女",
+              "displayName": "子女"
+            },
+            "mutagenFlags": [
+              {
+                "active": false,
+                "mutagen": "禄"
+              },
+              {
+                "active": false,
+                "mutagen": "权"
+              },
+              {
+                "active": false,
+                "mutagen": "科"
+              },
+              {
+                "active": true,
+                "mutagen": "忌"
+              }
+            ]
+          },
+          "scope": null
+        },
+        "flyMutagens": [
+          {
+            "displayName": "交友",
+            "mutagens": [
+              "权"
+            ],
+            "palaceIndex": 2,
+            "palaceName": "仆役"
+          },
+          {
+            "displayName": "迁移",
+            "mutagens": [
+              "禄"
+            ],
+            "palaceIndex": 3,
+            "palaceName": "迁移"
+          },
+          {
+            "displayName": "父母",
+            "mutagens": [
+              "科",
+              "忌"
+            ],
+            "palaceIndex": 10,
+            "palaceName": "父母"
+          }
+        ]
+      },
+      "yearlyRange": {
+        "beforeYears": 20,
+        "afterYears": 30,
+        "requestedStartYear": 2006,
+        "minStartYearByDecadal": 2028,
+        "startYear": 2028,
+        "endYear": 2056,
+        "totalYears": 29
+      },
+      "evidenceCopy": "F:\\github\\xuanxue_AI-chat-agent\\reports\\frontend-test-2026-10-10\\frontend-only\\evidence\\native-files\\ziwei-202610102206 (1).toon",
+      "passed": true
+    },
+    {
+      "type": "bazi",
+      "sourcePath": "F:/download/bazi-202610102157 (2).toon",
+      "provenance": "Parent observed native page export at 2026-10-10 22:41:51 +08; supplied exact path and page facts. Source was not created by this audit. Native UI evidence: native-download-bazi-ui.txt.",
+      "checks": [
+        {
+          "name": "nonempty regular disk file",
+          "passed": true
+        },
+        {
+          "name": "browser filename including duplicate suffix",
+          "passed": true
+        },
+        {
+          "name": "observed disk size",
+          "passed": true
+        },
+        {
+          "name": "no decoding replacement or invalid serializer markers",
+          "passed": true
+        },
+        {
+          "name": "all TOON fields and table rows decode completely",
+          "passed": true
+        },
+        {
+          "name": "chart name and gender match native page",
+          "passed": true
+        },
+        {
+          "name": "other chart name is absent",
+          "passed": true
+        },
+        {
+          "name": "birth timestamp and ISO agree",
+          "passed": true
+        },
+        {
+          "name": "birth minute matches page and generated filename",
+          "passed": true
+        },
+        {
+          "name": "birth second matches native page",
+          "passed": true
+        },
+        {
+          "name": "metadata export time belongs to observed download minute",
+          "passed": true
+        },
+        {
+          "name": "bazi four pillars match native page",
+          "passed": true
+        },
+        {
+          "name": "four pillars agree with stems and branches",
+          "passed": true
+        },
+        {
+          "name": "nonempty decadal and annual charts, indices and year count",
+          "passed": true
+        },
+        {
+          "name": "evidence copy is byte identical",
+          "passed": true
+        }
+      ],
+      "file": {
+        "basename": "bazi-202610102157 (2).toon",
+        "bytes": 15399,
+        "sha256": "950c57ec5191a10af80a72d833f5d56054e33d650c5d381b83407b05d030ed5b",
+        "mtime": "2026-10-10T14:41:51.214Z",
+        "birthtime": "2026-10-10T14:41:51.213Z",
+        "utf8Strict": true,
+        "bom": false
+      },
+      "lineCount": 248,
+      "tables": [
+        {
+          "path": "table",
+          "headerLine": 80,
+          "declaredRows": 9,
+          "actualRows": 9,
+          "columns": 5
+        },
+        {
+          "path": "dayun",
+          "headerLine": 132,
+          "declaredRows": 10,
+          "actualRows": 10,
+          "columns": 6
+        },
+        {
+          "path": "liunian",
+          "headerLine": 144,
+          "declaredRows": 100,
+          "actualRows": 100,
+          "columns": 7
+        }
+      ],
+      "profile": {
+        "name": "导出补验甲",
+        "gender": "男",
+        "birthTimestamp": 1791640632724,
+        "solar": "2026-10-10T13:57:12.724Z",
+        "solarString": "2026/10/10 21:57:12",
+        "lunar": "2026年九月初一  亥时",
+        "constellation": "天秤"
+      },
+      "exportTime": "2026-10-10T14:41:51.191Z",
+      "birthTimeSingapore": "2026-10-10T21:57:12.724+08:00",
+      "chart": {
+        "sizhu": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "丁巳",
+          "time": "辛亥"
+        },
+        "solar": {
+          "year": 2026,
+          "month": 10,
+          "day": 10,
+          "time": "21:57"
+        },
+        "start_yun": {
+          "year": 9,
+          "month": 3,
+          "day": 10,
+          "hour": null,
+          "solar": "2036-01-20"
+        },
+        "currentDayunIndex": 0,
+        "currentLiunianIndex": 0,
+        "liunianRange": {
+          "dayunIndices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "totalYears": 100
+        }
+      },
+      "evidenceCopy": "F:\\github\\xuanxue_AI-chat-agent\\reports\\frontend-test-2026-10-10\\frontend-only\\evidence\\native-files\\bazi-202610102157 (2).toon",
+      "passed": true
+    }
+  ]
+}

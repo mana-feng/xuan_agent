@@ -1,0 +1,7 @@
+Command: "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe" "node_modules/vue-tsc/bin/vue-tsc.js" "--noEmit"
+WorkingDirectory: F:\github\xuanxue_AI-chat-agent\frontend-docker
+StartedAt: 2026-10-10T10:05:29.443Z
+
+
+ExitCode: 0
+CompletedAt: 2026-10-10T10:05:31.624Z

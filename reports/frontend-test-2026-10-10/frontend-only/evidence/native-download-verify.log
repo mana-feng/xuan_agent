@@ -1,0 +1,24 @@
+[
+  {
+    "type": "ziwei",
+    "path": "F:/download/ziwei-202610102206 (1).toon",
+    "passed": true,
+    "bytes": 50990,
+    "sha256": "b469bdc4d73a78ba81e12a6d7c4556df23449f40da374574cff815c07aaeccd8",
+    "lineCount": 260,
+    "tables": 11,
+    "checks": 16,
+    "failures": []
+  },
+  {
+    "type": "bazi",
+    "path": "F:/download/bazi-202610102157 (2).toon",
+    "passed": true,
+    "bytes": 15399,
+    "sha256": "950c57ec5191a10af80a72d833f5d56054e33d650c5d381b83407b05d030ed5b",
+    "lineCount": 248,
+    "tables": 3,
+    "checks": 15,
+    "failures": []
+  }
+]

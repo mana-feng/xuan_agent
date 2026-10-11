@@ -1,0 +1,122 @@
+{
+  "recordedAt": "2026-10-10T09:04:17Z",
+  "status": "passed_for_reviewed_snapshot",
+  "runtime": "Bundled Node.js v24.19.0 on Windows",
+  "snapshotBoundary": "Includes B-09 save retry fix. The concurrent LLM request policy, chat context and nginx timeout follow-up is not covered by this build/typecheck snapshot and must be validated separately.",
+  "checks": [
+    {
+      "name": "Frontend original full suite including B-09",
+      "packageScript": "frontend-docker: test (serialized to reduce memory usage)",
+      "command": "node --test --test-concurrency=1 tests/accessibility.test.cjs tests/agent-auth.test.cjs tests/auth-credentials.test.cjs tests/auth-protocol.test.cjs tests/chart-input.test.cjs tests/saved-history.test.cjs",
+      "cwd": "frontend-docker",
+      "exitCode": 0,
+      "passed": 62,
+      "failed": 0,
+      "log": "frontend-final-tests.log"
+    },
+    {
+      "name": "Frontend typecheck",
+      "packageScript": "frontend-docker: typecheck",
+      "command": "node node_modules/vue-tsc/bin/vue-tsc.js --noEmit",
+      "cwd": "frontend-docker",
+      "exitCode": 0,
+      "log": "frontend-final-typecheck.log"
+    },
+    {
+      "name": "Frontend H5 production build",
+      "packageScript": "frontend-docker: build:h5",
+      "command": "node node_modules/@dcloudio/vite-plugin-uni/bin/uni.js build -p h5",
+      "cwd": "frontend-docker",
+      "exitCode": 0,
+      "log": "frontend-final-build.log",
+      "warnings": ["Browserslist caniuse-lite data is outdated; the build completed successfully."]
+    },
+    {
+      "name": "Frontend save result pages lint",
+      "command": "node node_modules/eslint/bin/eslint.js --resolve-plugins-relative-to ./node_modules src/pages/index/detail.nvue src/pages/ziwei/result.nvue",
+      "cwd": "frontend-docker",
+      "exitCode": 0,
+      "log": "frontend-final-eslint-save-retry.log"
+    },
+    {
+      "name": "Backend full suite",
+      "packageScript": null,
+      "command": "node --test tests/*.test.cjs",
+      "cwd": "backend-docker",
+      "exitCode": 0,
+      "passed": 59,
+      "failed": 0,
+      "log": "backend-final-tests.log",
+      "note": "Backend package.json has no test script; all existing backend test files were run directly."
+    },
+    {
+      "name": "Backend full lint",
+      "packageScript": "backend-docker: lint",
+      "command": "node node_modules/eslint/bin/eslint.js --resolve-plugins-relative-to ../frontend-docker/node_modules \"**/*.js\"",
+      "cwd": "backend-docker",
+      "exitCode": 0,
+      "log": "backend-final-eslint.log"
+    },
+    {
+      "name": "Backend changed files lint",
+      "command": "node node_modules/eslint/bin/eslint.js --resolve-plugins-relative-to ../frontend-docker/node_modules routes/auth.js routes/llm.js services/llm.js services/quota.js websocket/server.js utils/transaction.js",
+      "cwd": "backend-docker",
+      "exitCode": 0,
+      "log": "backend-final-eslint-changed.log"
+    },
+    {
+      "name": "Affected chart tests",
+      "command": "node --test tests/saved-history.test.cjs tests/chart-input.test.cjs",
+      "cwd": "frontend-docker",
+      "exitCode": 0,
+      "passed": 40,
+      "failed": 0,
+      "log": "frontend-final-save-retry.log"
+    }
+  ],
+  "review": {
+    "areas": ["Registration verification and refresh token transactions", "Quota reservation, commit and rollback", "HTTP and WebSocket streaming lifecycle", "Typed chart persistence and history restoration", "Chart identity isolation and failed-save retries"],
+    "confirmedFinding": {
+      "id": "B-09",
+      "severity": "P2",
+      "problem": "Bazi and Ziwei cleared their saved record ID after any failed PUT, so a retry after timeout or HTTP 500 could insert a duplicate record.",
+      "status": "fixed",
+      "fix": "Clear the record ID only for the API's NOT_FOUND error, and only if the same input object is still displayed.",
+      "files": ["frontend-docker/src/pages/index/detail.nvue:462", "frontend-docker/src/pages/ziwei/result.nvue:489"],
+      "regressionsAdded": 8,
+      "beforeFix": { "total": 8, "passed": 4, "failed": 4, "log": "frontend-final-save-retry-red.log" },
+      "afterFix": "All eight regressions pass in the final 62-test run."
+    },
+    "additionalConfirmedDefects": 0
+  },
+  "environmentIncidents": [
+    {
+      "id": "B-08",
+      "classification": "Agent-caused verification environment incident, not an original product defect",
+      "description": "Bundled pnpm run implicitly invoked dependency installation and moved npm-managed dependencies into node_modules/.ignored; restricted network prevented that installation from finishing.",
+      "resolution": "Stopped the verification invocations and restored 54 original package directories in frontend and backend. No packages were upgraded and no lockfile changes were introduced by recovery. Verified Dart Sass 1.97.1 compilation, then used direct local CLI entry points only.",
+      "status": "resolved",
+      "logs": ["frontend-final-build-environment-interruption.log", "frontend-final-tests-environment-interruption.log", "frontend-final-typecheck-environment-interruption.log", "backend-final-eslint-environment-interruption.log", "backend-final-tests-environment-interruption.log"]
+    },
+    {
+      "classification": "Test fixture isolation",
+      "description": "A new retry assertion sometimes queried a stale globally active Pinia after async work. Diagnostic output confirmed that the store captured by the page still held recordId 11.",
+      "resolution": "The new tests now assert against the store captured before page creation, plus persisted cache and outgoing request method/URL.",
+      "status": "resolved",
+      "logs": ["frontend-final-save-retry-diagnostic.log", "frontend-final-tests-pinia-diagnostic.log"]
+    },
+    {
+      "classification": "Verification resource pressure",
+      "description": "One parallel frontend test run failed because esbuild could not allocate a Go heap arena at startup.",
+      "resolution": "The original six test files were rerun with --test-concurrency=1 and passed 62/62.",
+      "status": "resolved",
+      "log": "frontend-final-tests-memory-interruption.log"
+    }
+  ],
+  "boundaries": [
+    "These engineering checks do not establish model answer quality or all provider runtime behavior.",
+    "Backend unit tests exercise controlled upstream and database test boundaries; real MySQL and HTTP chart evidence is in ../evidence/backend-records-live.json (30/30).",
+    "No deployment, service restart or HTML report edit was performed in this verification task.",
+    "The concurrent LLM request policy follow-up introduces further changes and tests after this reviewed snapshot."
+  ]
+}

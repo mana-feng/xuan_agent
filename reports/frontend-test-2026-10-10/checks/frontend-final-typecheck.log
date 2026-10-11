@@ -1,0 +1,4 @@
+
+Command: node node_modules/vue-tsc/bin/vue-tsc.js --noEmit
+ExitCode: 0
+SummaryRecordedAt: 2026-10-10T09:00:23.4681884Z

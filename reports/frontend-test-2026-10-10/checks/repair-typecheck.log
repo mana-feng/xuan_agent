@@ -1,0 +1,3 @@
+Command: vue-tsc --noEmit
+Observed process exit code: 0
+Compiler diagnostics: none (stdout/stderr empty).

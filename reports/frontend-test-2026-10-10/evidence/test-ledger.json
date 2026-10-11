@@ -1,0 +1,886 @@
+{
+  "testRuns": [
+    {
+      "id": "NAV-01",
+      "module": "首页",
+      "title": "Chrome 加载首页",
+      "status": "通过",
+      "actual": "首页标题、三张工具卡、快捷指令和输入框均显示",
+      "expected": "首页完整可操作",
+      "evidence": "01-agent-home"
+    },
+    {
+      "id": "LAY-01",
+      "module": "布局",
+      "title": "桌面首页无整页横向溢出",
+      "status": "通过",
+      "actual": "页面宽 1211px，视口宽 1211px",
+      "expected": "页面宽度不超过视口",
+      "evidence": "01-agent-home"
+    },
+    {
+      "id": "AG-01",
+      "module": "Agent",
+      "title": "空消息提交",
+      "status": "通过",
+      "actual": "未创建空消息，页面保持可用",
+      "expected": "忽略空输入",
+      "evidence": ""
+    },
+    {
+      "id": "AG-02",
+      "module": "Agent",
+      "title": "快捷指令与错误恢复",
+      "status": "阻塞",
+      "actual": "快捷指令进入对话，但返回请求失败(500)，输入框恢复可用",
+      "expected": "模型返回推荐并执行动作",
+      "evidence": "02-agent-anonymous-error"
+    },
+    {
+      "id": "BZ-01",
+      "module": "八字",
+      "title": "首页进入八字输入页",
+      "status": "通过",
+      "actual": "姓名、性别、历法、时间和四柱预览均显示",
+      "expected": "完整输入页面",
+      "evidence": "03-bazi-input"
+    },
+    {
+      "id": "BZ-02",
+      "module": "八字",
+      "title": "切换阴历展示",
+      "status": "通过",
+      "actual": "切换为二〇二六年九月初一，并显示对应阳历2026/10/10，四柱保持一致",
+      "expected": "历法切换不改变同一时刻",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-03",
+      "module": "八字",
+      "title": "农历年份选择并确认",
+      "status": "通过",
+      "actual": "2025年九月初一应用为2025/10/21 08:00，四柱预览更新",
+      "expected": "新日期应用并关闭选择器",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-04",
+      "module": "八字",
+      "title": "姓名、女性、农历输入生成完整结果",
+      "status": "通过",
+      "actual": "结果姓名功能测试甲，性别女，时间2025/10/21 08:00，四柱乙巳/丙戌/癸亥/丙辰",
+      "expected": "输入字段与结果一致",
+      "evidence": "04-bazi-result"
+    },
+    {
+      "id": "BZ-06",
+      "module": "八字",
+      "title": "大运选择联动流年",
+      "status": "通过",
+      "actual": "2031大运使流年列表更新为2031至2040",
+      "expected": "大运、流年及详情同步更新",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-05",
+      "module": "八字",
+      "title": "TOON 导出实际文件",
+      "status": "未验证",
+      "actual": "按钮点击无页面报错；下载事件等待超时，Chrome内部下载页不允许自动访问",
+      "expected": "核对实际下载文件内容",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-07",
+      "module": "八字",
+      "title": "流年和流月联动流日",
+      "status": "通过",
+      "actual": "选择2032与惊蛰后，流日变为3月5日至4月3日",
+      "expected": "下级时间线跟随选择",
+      "evidence": "05-bazi-timeline"
+    },
+    {
+      "id": "BZ-08",
+      "module": "八字",
+      "title": "流日选择",
+      "status": "通过",
+      "actual": "可选择3月6日，页面继续显示排盘与时间线",
+      "expected": "点击流日可更新选中状态",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-09",
+      "module": "八字",
+      "title": "未登录保存拦截",
+      "status": "通过",
+      "actual": "显示请先登录账号后再保存",
+      "expected": "明确登录提示且不虚报保存成功",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-10",
+      "module": "八字",
+      "title": "编辑按钮返回输入表单",
+      "status": "失败",
+      "actual": "点击编辑后回到Agent首页，未直接进入八字编辑表单",
+      "expected": "进入原输入表单并回填原始数据",
+      "evidence": "06-bazi-edit-wrong-route"
+    },
+    {
+      "id": "BZ-11",
+      "module": "八字",
+      "title": "再次进入输入页回填",
+      "status": "通过",
+      "actual": "姓名与2025/10/21 08:00可恢复，显示已加载数据",
+      "expected": "编辑数据不丢失",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-12",
+      "module": "八字",
+      "title": "阳历选择取消",
+      "status": "通过",
+      "actual": "取消后日期仍为08:00",
+      "expected": "取消不应用修改",
+      "evidence": ""
+    },
+    {
+      "id": "BZ-13",
+      "module": "八字",
+      "title": "阳历分钟滚轮确认",
+      "status": "通过",
+      "actual": "拖动分钟滚轮后确认，日期更新为08:01",
+      "expected": "所选分钟应用到输入值",
+      "evidence": ""
+    },
+    {
+      "id": "LY-01",
+      "module": "六爻",
+      "title": "空问题与未生成卦象提交",
+      "status": "通过",
+      "actual": "两次提交均留在输入页，不生成不完整结果",
+      "expected": "缺少必填项时阻止排盘",
+      "evidence": ""
+    },
+    {
+      "id": "LY-02",
+      "module": "六爻",
+      "title": "电脑自动生成六爻",
+      "status": "通过",
+      "actual": "显示第1至第6爻与少阳老阴等状态",
+      "expected": "生成六项爻象",
+      "evidence": "07-liuyao-auto"
+    },
+    {
+      "id": "LY-03",
+      "module": "六爻",
+      "title": "生成完整结果并保留问题性别",
+      "status": "通过",
+      "actual": "女性、问题、六神六亲、本卦变卦和卦辞正常显示",
+      "expected": "输入与结果一致",
+      "evidence": "08-liuyao-result"
+    },
+    {
+      "id": "LY-04",
+      "module": "六爻",
+      "title": "复制排盘",
+      "status": "通过",
+      "actual": "剪贴板含问题、时间、本卦变卦及六爻",
+      "expected": "复制完整文本",
+      "evidence": "liuyao-copy.txt"
+    },
+    {
+      "id": "LY-05",
+      "module": "六爻",
+      "title": "未登录保存提示",
+      "status": "通过",
+      "actual": "提示请先登录账号",
+      "expected": "拦截匿名保存",
+      "evidence": ""
+    },
+    {
+      "id": "AU-01",
+      "module": "登录注册",
+      "title": "空表单与缺少密码登录",
+      "status": "通过",
+      "actual": "两种无效提交都留在登录页",
+      "expected": "必填不足时阻止登录",
+      "evidence": "09-auth-empty"
+    },
+    {
+      "id": "AU-02",
+      "module": "登录注册",
+      "title": "合成凭据登录请求",
+      "status": "阻塞",
+      "actual": "服务器错误，请稍后重试；后台未运行",
+      "expected": "服务端返回可解释的登录结果",
+      "evidence": "10-auth-server-error"
+    },
+    {
+      "id": "AU-03",
+      "module": "登录注册",
+      "title": "注册非法邮箱验证码校验",
+      "status": "通过",
+      "actual": "邮箱格式不正确，未发送验证码",
+      "expected": "非法邮箱应被拒绝",
+      "evidence": ""
+    },
+    {
+      "id": "AU-04",
+      "module": "登录注册",
+      "title": "用户协议与隐私政策入口",
+      "status": "失败",
+      "actual": "两个入口均只有页面开发中提示，无正文",
+      "expected": "注册前可以查阅协议正文",
+      "evidence": "47-protocol-confirmed"
+    },
+    {
+      "id": "LY-06",
+      "module": "六爻",
+      "title": "在线逐次摇卦",
+      "status": "通过",
+      "actual": "连续6次点击生成六爻，显示在线起卦完成",
+      "expected": "每次增加一爻，六次完成",
+      "evidence": "12-liuyao-online"
+    },
+    {
+      "id": "LY-07",
+      "module": "六爻",
+      "title": "手工指定与动爻变卦",
+      "status": "通过",
+      "actual": "上爻老阳其余少阳，生成乾为天与泽天夬",
+      "expected": "指定爻象影响本卦变卦",
+      "evidence": "13-liuyao-manual-result"
+    },
+    {
+      "id": "LY-08",
+      "module": "六爻",
+      "title": "AI 解读页面携带排盘入口",
+      "status": "通过",
+      "actual": "跳到聊天页并显示已加载六爻排盘结果",
+      "expected": "展示当前盘的解读上下文",
+      "evidence": ""
+    },
+    {
+      "id": "LY-09",
+      "module": "六爻",
+      "title": "时间起卦完整流程",
+      "status": "通过",
+      "actual": "heading \"天水讼\" [level=3]；heading \"风水涣\" [level=3]",
+      "expected": "按选定时间生成本卦变卦",
+      "evidence": "15-liuyao-time-result"
+    },
+    {
+      "id": "LY-10",
+      "module": "六爻",
+      "title": "单数空值校验",
+      "status": "通过",
+      "actual": "空输入不生成参数",
+      "expected": "缺少数字时拒绝生成",
+      "evidence": ""
+    },
+    {
+      "id": "LY-11",
+      "module": "六爻",
+      "title": "单数2652完整流程",
+      "status": "通过",
+      "actual": "heading \"泽雷随\" [level=3]；heading \"天雷无妄\" [level=3]",
+      "expected": "数字转六爻并生成结果",
+      "evidence": "16-liuyao-single-result"
+    },
+    {
+      "id": "LY-12",
+      "module": "六爻",
+      "title": "双数缺少第二组校验",
+      "status": "通过",
+      "actual": "未生成六爻预览",
+      "expected": "缺少第二组时拒绝生成",
+      "evidence": ""
+    },
+    {
+      "id": "LY-13",
+      "module": "六爻",
+      "title": "双数123和456完整流程",
+      "status": "通过",
+      "actual": "heading \"火地晋\" [level=3]；heading \"火山旅\" [level=3]",
+      "expected": "两组数字生成结果",
+      "evidence": "17-liuyao-double-result"
+    },
+    {
+      "id": "LY-14",
+      "module": "六爻",
+      "title": "非汉字生成拦截",
+      "status": "通过",
+      "actual": "abc不生成六爻预览",
+      "expected": "无汉字时拒绝生成",
+      "evidence": ""
+    },
+    {
+      "id": "LY-15",
+      "module": "六爻",
+      "title": "汉字天地完整流程",
+      "status": "通过",
+      "actual": "heading \"雷水解\" [level=3]；heading \"地水师\" [level=3]",
+      "expected": "有效汉字生成六爻结果",
+      "evidence": "18-liuyao-chars-result"
+    },
+    {
+      "id": "LY-16",
+      "module": "六爻",
+      "title": "卦名指定乾为天变坤为地",
+      "status": "通过",
+      "actual": "结果主卦乾为天、变卦坤为地",
+      "expected": "结果与所选卦名一致",
+      "evidence": "19-liuyao-gua-result"
+    },
+    {
+      "id": "ZW-01",
+      "module": "紫微",
+      "title": "姓名女性生成十二宫命盘",
+      "status": "通过",
+      "actual": "功能测试乙、女、金四局与十二宫显示完整",
+      "expected": "输入与结果一致，命盘可见",
+      "evidence": "20-ziwei-result"
+    },
+    {
+      "id": "ZW-02",
+      "module": "紫微",
+      "title": "点击官禄宫聚焦",
+      "status": "通过",
+      "actual": "宫位出现cell-focused与highlight-bg可视类",
+      "expected": "点击宫位可以高亮",
+      "evidence": ""
+    },
+    {
+      "id": "ZW-03",
+      "module": "紫微",
+      "title": "大限14至23联动流年",
+      "status": "通过",
+      "actual": "当前运限癸巳大限，流年2039至2048",
+      "expected": "时间轴下一级正确更新",
+      "evidence": ""
+    },
+    {
+      "id": "ZW-04",
+      "module": "紫微",
+      "title": "流年2040与二月选择",
+      "status": "通过",
+      "actual": "显示十二个月，选择二月后运限与宫位标记改变",
+      "expected": "流年及流月可以切换",
+      "evidence": "21-ziwei-timeline"
+    },
+    {
+      "id": "ZW-05",
+      "module": "紫微",
+      "title": "编辑信息回填",
+      "status": "通过",
+      "actual": "返回紫微输入页，姓名功能测试乙、时间仍保留",
+      "expected": "回到紫微输入并回填",
+      "evidence": "22-ziwei-edit"
+    },
+    {
+      "id": "ZW-06",
+      "module": "紫微",
+      "title": "TOON 导出按钮",
+      "status": "未验证",
+      "actual": "点击后无页面错误；实际下载内容未验证",
+      "expected": "有效文件下载及内容一致",
+      "evidence": ""
+    },
+    {
+      "id": "ZW-07",
+      "module": "紫微",
+      "title": "阴历显示与重排",
+      "status": "通过",
+      "actual": "阴历与阳历显示同步，重新排盘成功",
+      "expected": "日历切换不改变同一时刻",
+      "evidence": ""
+    },
+    {
+      "id": "ZW-08",
+      "module": "紫微",
+      "title": "AI 解答入口",
+      "status": "通过",
+      "actual": "聊天页显示已加载紫微命盘",
+      "expected": "导航与上下文提示完整",
+      "evidence": "23-chat-ziwei-context"
+    },
+    {
+      "id": "CH-01",
+      "module": "聊天",
+      "title": "空消息提交",
+      "status": "通过",
+      "actual": "空提交未增加消息",
+      "expected": "空输入不发送",
+      "evidence": ""
+    },
+    {
+      "id": "CH-02",
+      "module": "聊天",
+      "title": "合成消息请求与错误恢复",
+      "status": "阻塞",
+      "actual": "显示请求失败500，发送状态恢复且输入可用",
+      "expected": "得到AI回复",
+      "evidence": "24-chat-error"
+    },
+    {
+      "id": "CH-03",
+      "module": "聊天",
+      "title": "保存聊天文件",
+      "status": "未验证",
+      "actual": "触发保存文件选择流程后显示用户取消请求",
+      "expected": "保存文件并核对内容",
+      "evidence": ""
+    },
+    {
+      "id": "HI-01",
+      "module": "历史记录",
+      "title": "匿名空状态、刷新和去登录",
+      "status": "通过",
+      "actual": "明确登录提示，刷新正常，去登录进入认证页",
+      "expected": "未登录不显示他人记录",
+      "evidence": "25-history-anonymous"
+    },
+    {
+      "id": "NAV-02",
+      "module": "导航公告",
+      "title": "头像菜单展开与公告",
+      "status": "阻塞",
+      "actual": "菜单完整，公告弹窗可开关；内容请求500",
+      "expected": "公告可以加载",
+      "evidence": "26-announcement"
+    },
+    {
+      "id": "AB-01",
+      "module": "关于",
+      "title": "内容及图片加载",
+      "status": "通过",
+      "actual": "作者经历、娱乐提示与两张图片正常加载",
+      "expected": "文字图片完整",
+      "evidence": "27-about"
+    },
+    {
+      "id": "BZ-14",
+      "module": "八字",
+      "title": "带本地缓存直接打开结果页",
+      "status": "通过",
+      "actual": "新标签页可恢复功能测试甲四柱及时间",
+      "expected": "已有缓存可恢复结果",
+      "evidence": "28-bazi-direct-result"
+    },
+    {
+      "id": "LY-17",
+      "module": "六爻",
+      "title": "带缓存直接打开结果页",
+      "status": "通过",
+      "actual": "新标签可恢复乾为天与坤为地结果",
+      "expected": "已有缓存可恢复",
+      "evidence": "29-liuyao-direct-result"
+    },
+    {
+      "id": "ZW-09",
+      "module": "紫微",
+      "title": "无命盘状态直接打开结果页",
+      "status": "通过",
+      "actual": "新标签提示暂无排盘数据，并提供返回排盘入口",
+      "expected": "无内存命盘时提供恢复入口",
+      "evidence": "30-ziwei-direct-result"
+    },
+    {
+      "id": "RS-01",
+      "module": "移动布局",
+      "title": "首页390×844",
+      "status": "通过",
+      "actual": "整页宽度390，无横向溢出，卡片垂直排列",
+      "expected": "手机宽度可阅读",
+      "evidence": "31-mobile-home"
+    },
+    {
+      "id": "RS-02",
+      "module": "移动布局",
+      "title": "八字输入390×844",
+      "status": "通过",
+      "actual": "整页宽度390，标题与字段仍显示",
+      "expected": "手机输入表单无全页横向溢出",
+      "evidence": "32-mobile-bazi"
+    },
+    {
+      "id": "RS-03",
+      "module": "移动布局",
+      "title": "八字结果390×844",
+      "status": "通过",
+      "actual": "整页390，详情表局部693宽可横向滚动",
+      "expected": "全页不横向溢出，宽表局部滚动",
+      "evidence": "33-mobile-bazi-result"
+    },
+    {
+      "id": "BZ-15",
+      "module": "八字",
+      "title": "AI 解答跳转聊天页",
+      "status": "通过",
+      "actual": "跳到from=bazi聊天页，显示通用问候与输入框",
+      "expected": "进入八字聊天入口",
+      "evidence": "34-mobile-chat"
+    },
+    {
+      "id": "RS-04",
+      "module": "移动布局",
+      "title": "聊天390×844",
+      "status": "通过",
+      "actual": "宽度390，输入可用，聊天上下文可读",
+      "expected": "手机聊天布局可操作",
+      "evidence": "34-mobile-chat"
+    },
+    {
+      "id": "RS-05",
+      "module": "移动布局",
+      "title": "六爻输入390×844",
+      "status": "通过",
+      "actual": "整页宽度390，卦名与基础信息可见",
+      "expected": "手机表单无整页横向溢出",
+      "evidence": "35-mobile-liuyao"
+    },
+    {
+      "id": "RS-06",
+      "module": "移动布局",
+      "title": "六爻结果390×844",
+      "status": "通过",
+      "actual": "手机生成结果成功，整页宽390",
+      "expected": "手机可排盘且无全页横向溢出",
+      "evidence": "36-mobile-liuyao-result"
+    },
+    {
+      "id": "RS-07",
+      "module": "移动布局",
+      "title": "紫微输入390×844",
+      "status": "通过",
+      "actual": "整页宽度390",
+      "expected": "手机输入无全页横向溢出",
+      "evidence": "37-mobile-ziwei"
+    },
+    {
+      "id": "RS-08",
+      "module": "移动布局",
+      "title": "紫微结果390×844",
+      "status": "失败",
+      "actual": "页面无横向溢出，但十二宫每格约75.5px，小限数字溢出并相互挤压",
+      "expected": "宫位文字应可读且不覆盖相邻宫格",
+      "evidence": "39-mobile-ziwei-chart"
+    },
+    {
+      "id": "ZW-10",
+      "module": "紫微",
+      "title": "未登录保存拦截",
+      "status": "通过",
+      "actual": "显示请先登录并进入认证页",
+      "expected": "匿名用户不虚报保存成功",
+      "evidence": ""
+    },
+    {
+      "id": "RS-09",
+      "module": "移动布局",
+      "title": "登录和注册390×844",
+      "status": "通过",
+      "actual": "两页整页宽度390，字段可见",
+      "expected": "手机认证布局无全页横向溢出",
+      "evidence": "40-mobile-auth"
+    },
+    {
+      "id": "RS-10",
+      "module": "移动布局",
+      "title": "历史390×844",
+      "status": "通过",
+      "actual": "空状态与登录按钮可见，宽度390",
+      "expected": "手机空状态可阅读",
+      "evidence": "41-mobile-history"
+    },
+    {
+      "id": "RS-11",
+      "module": "移动布局",
+      "title": "关于390×844",
+      "status": "通过",
+      "actual": "整页宽390，正文与图片宽度适配",
+      "expected": "手机内容无横向溢出",
+      "evidence": "42-mobile-about"
+    },
+    {
+      "id": "ZW-11",
+      "module": "紫微",
+      "title": "双击宫位放大及关闭",
+      "status": "通过",
+      "actual": "双击官禄打开宫位详情；手机面板约374px，年龄文字14px",
+      "expected": "可放大查看密集宫位信息",
+      "evidence": "43-mobile-ziwei-zoom"
+    },
+    {
+      "id": "KB-01",
+      "module": "键盘可访问性",
+      "title": "首页 Tab 焦点到发送按钮",
+      "status": "失败",
+      "actual": "输入框按Tab后焦点回到body；发送控件tabIndex=-1、无button角色；可见可聚焦控件仅textarea",
+      "expected": "Tab可到达发送及导航操作",
+      "evidence": "44-keyboard-home"
+    },
+    {
+      "id": "SC-01",
+      "module": "工程检查",
+      "title": "H5生产构建",
+      "status": "通过",
+      "actual": "命令退出0，生成H5产物",
+      "expected": "生产构建可完成",
+      "evidence": "../checks/build.log"
+    },
+    {
+      "id": "SC-02",
+      "module": "工程检查",
+      "title": "TypeScript类型检查",
+      "status": "失败",
+      "actual": "ziwei.ts第88、98行存在两处未使用ts-expect-error，退出2",
+      "expected": "typecheck退出0",
+      "evidence": "../checks/typecheck.log"
+    },
+    {
+      "id": "SC-03",
+      "module": "工程检查",
+      "title": "ESLint全量配置检查",
+      "status": "通过",
+      "actual": "84个文件，0错误0警告，退出0",
+      "expected": "lint检查通过",
+      "evidence": "../checks/eslint.json"
+    },
+    {
+      "id": "AU-05",
+      "module": "登录注册",
+      "title": "用户名不足2字符",
+      "status": "通过",
+      "actual": "合成验证码和密码已填，用户名a被明确拒绝",
+      "expected": "用户名长度校验",
+      "evidence": ""
+    },
+    {
+      "id": "AU-06",
+      "module": "登录注册",
+      "title": "少于6位密码",
+      "status": "通过",
+      "actual": "123使注册UNI-BUTTON disabled=true，提交未发出",
+      "expected": "短密码阻止注册",
+      "evidence": ""
+    },
+    {
+      "id": "AU-07",
+      "module": "登录注册",
+      "title": "两次密码不同",
+      "status": "通过",
+      "actual": "确认密码不一致时disabled=true，不提交",
+      "expected": "密码一致性校验",
+      "evidence": "45-register-validation"
+    },
+    {
+      "id": "AU-08",
+      "module": "登录注册",
+      "title": "邮箱验证码及注册成功",
+      "status": "阻塞",
+      "actual": "无后端和邮件服务；未创建真实账户",
+      "expected": "有效验证码与账号创建完成",
+      "evidence": ""
+    },
+    {
+      "id": "HI-02",
+      "module": "历史记录",
+      "title": "登录后筛选、查看、修改和删除记录",
+      "status": "阻塞",
+      "actual": "无法登录，服务端记录读写不能端到端执行",
+      "expected": "记录可正常管理",
+      "evidence": ""
+    },
+    {
+      "id": "SC-04",
+      "module": "工程检查",
+      "title": "Agent匿名使用文案与鉴权一致性",
+      "status": "失败",
+      "actual": "源码证明Agent无token时将被401拒绝，与首页文案不符；运行时仍被500挡住",
+      "expected": "文案与鉴权一致",
+      "evidence": "01-agent-home"
+    },
+    {
+      "id": "CH-04",
+      "module": "聊天",
+      "title": "恢复当前测试保存的本地会话",
+      "status": "通过",
+      "actual": "恢复功能测试消息及当时的500回复，输入仍可用",
+      "expected": "本地备份恢复合成测试会话",
+      "evidence": "46-chat-restore"
+    },
+    {
+      "id": "CH-05",
+      "module": "聊天",
+      "title": "外部聊天档案文件导入",
+      "status": "未验证",
+      "actual": "仅验证本地备份恢复，未选择外部加密档案文件",
+      "expected": "文件导入可解密并还原",
+      "evidence": ""
+    },
+    {
+      "id": "CR-01",
+      "module": "跨模块一致性",
+      "title": "生成不同人物紫微后回看八字",
+      "status": "失败",
+      "actual": "姓名与性别被紫微乙/女覆盖，日期仍为2026/10/10，主星仍元男；紫微日期为2022/10/10",
+      "expected": "已有结果应保持自身输入信息或整体同步重算",
+      "evidence": "51-cross-bazi-after"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-07",
+      "priority": "P1",
+      "title": "八字与紫微共享人物状态导致结果信息混用",
+      "actual": "先生成跨模块八字甲/男/2026-10-10，再生成跨模块紫微乙/女/2022-10-10，回看八字时姓名和性别为紫微乙/女，日期与四柱仍为旧2026男性八字。",
+      "source": "frontend-docker/src/pages/index/detail.nvue:23;frontend-docker/src/pages/index/detail.nvue:243;frontend-docker/src/pages/ziwei/index.nvue:383",
+      "evidence": "51-cross-bazi-after"
+    },
+    {
+      "id": "F-01",
+      "priority": "P2",
+      "title": "八字编辑按钮跳到 Agent 首页",
+      "actual": "结果页编辑将路由重置为Agent首页，用户需要再次点击八字立即打开。",
+      "source": "frontend-docker/src/pages/index/detail.nvue:630",
+      "evidence": "06-bazi-edit-wrong-route"
+    },
+    {
+      "id": "F-02",
+      "priority": "P2",
+      "title": "注册协议和隐私政策尚未实现",
+      "actual": "点击两项协议仅提示页面开发中，无法查看正文。",
+      "source": "frontend-docker/src/pages/auth/auth.nvue:408",
+      "evidence": "47-protocol-confirmed"
+    },
+    {
+      "id": "F-03",
+      "priority": "P2",
+      "title": "手机紫微十二宫文字过密且跨格",
+      "actual": "390px宽度下宫格约75.5px，小限年龄长列表跨格挤压，部分文字难以阅读。 双击宫位可打开14px文字的放大面板，作为当前绕行方案。",
+      "source": "frontend-docker/src/pages/ziwei/components/PalaceContent.nvue:299",
+      "evidence": "39-mobile-ziwei-chart"
+    },
+    {
+      "id": "F-04",
+      "priority": "P2",
+      "title": "首页核心操作无法通过 Tab 访问",
+      "actual": "实际按Tab跳出输入框后未到发送按钮；首页可见焦点控件仅textarea。",
+      "source": "frontend-docker/src/components/agent/AgentConsolePanel.vue:62",
+      "evidence": "44-keyboard-home"
+    },
+    {
+      "id": "F-05",
+      "priority": "P2",
+      "title": "紫微模块类型检查不通过",
+      "actual": "TS2578两处，类型检查退出码2。",
+      "source": "frontend-docker/src/store/ziwei.ts:88",
+      "evidence": "../checks/typecheck.log"
+    },
+    {
+      "id": "F-06",
+      "priority": "P2",
+      "title": "Agent匿名使用文案与接口鉴权不一致",
+      "actual": "首页宣称无需登录；agent请求设置needAuth=true，后端agent路由authMiddleware在无token时返回401。此项为源码确认，当前500未能运行验证401。",
+      "source": "frontend-docker/src/features/agent/useAgentPage.ts:57;backend-docker/routes/llm.js:332;backend-docker/middleware/auth.js:15",
+      "evidence": "01-agent-home"
+    }
+  ],
+  "browserEvidence": {
+    "initialInfo": {
+      "h1": "玄学AI - 排盘 Agent",
+      "pageWidth": 1211,
+      "sheets": 38,
+      "url": "http://127.0.0.1:3000/#/",
+      "viewport": {
+        "height": 922,
+        "width": 1211
+      }
+    },
+    "apiEvents": [
+      {
+        "method": "Network.requestWillBeSent",
+        "requestId": "179196.153",
+        "url": "http://127.0.0.1:3000/api/llm/agent"
+      },
+      {
+        "method": "Network.responseReceived",
+        "requestId": "179196.153",
+        "url": "http://127.0.0.1:3000/api/llm/agent",
+        "status": 500
+      },
+      {
+        "sequence": 508,
+        "event": "Network.requestWillBeSent",
+        "requestId": "179196.226",
+        "method": "POST",
+        "url": "http://127.0.0.1:3000/api/auth/login"
+      },
+      {
+        "sequence": 511,
+        "event": "Network.responseReceived",
+        "requestId": "179196.226",
+        "url": "http://127.0.0.1:3000/api/auth/login",
+        "status": 500
+      },
+      {
+        "sequence": 942,
+        "event": "Network.requestWillBeSent",
+        "requestId": "179196.277",
+        "method": "POST",
+        "url": "http://127.0.0.1:3000/api/llm/chat"
+      },
+      {
+        "sequence": 943,
+        "event": "Network.responseReceived",
+        "requestId": "179196.277",
+        "url": "http://127.0.0.1:3000/api/llm/chat",
+        "status": 500
+      },
+      {
+        "sequence": 946,
+        "event": "Network.requestWillBeSent",
+        "requestId": "179196.278",
+        "method": "POST",
+        "url": "http://127.0.0.1:3000/api/llm/chat"
+      },
+      {
+        "sequence": 949,
+        "event": "Network.responseReceived",
+        "requestId": "179196.278",
+        "url": "http://127.0.0.1:3000/api/llm/chat",
+        "status": 500
+      },
+      {
+        "sequence": 1013,
+        "event": "Network.requestWillBeSent",
+        "requestId": "179196.288",
+        "method": "GET",
+        "url": "http://127.0.0.1:3000/api/announcements?onlyMeta=true"
+      },
+      {
+        "sequence": 1016,
+        "event": "Network.responseReceived",
+        "requestId": "179196.288",
+        "url": "http://127.0.0.1:3000/api/announcements?onlyMeta=true",
+        "status": 500
+      }
+    ],
+    "screenshotFailures": [
+      "33-mobile-bazi-result",
+      "34-mobile-chat",
+      "40-mobile-auth"
+    ],
+    "consoleSummary": {
+      "errors": 0,
+      "warnings": 98,
+      "uniqueMessages": [
+        "加载运行时配置失败，继续使用默认配置 Object",
+        "Do not nest other components in the text component, as there may be display differences on different platforms.",
+        "http stream failed, fallback to normal request: HTTP 500"
+      ]
+    }
+  }
+}

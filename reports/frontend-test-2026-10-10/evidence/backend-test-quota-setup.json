@@ -1,0 +1,20 @@
+{
+  "time": "2026-10-10T10:03:26.044Z",
+  "scope": "Only synthetic primary account in bazi_e2e; no usage rows changed",
+  "reason": "Explicit test setup and remaining quota for user manual testing. This adjustment is not counted as application quota behavior.",
+  "before": [
+    {
+      "remaining_daily_count": 2
+    }
+  ],
+  "after": [
+    {
+      "remaining_daily_count": 20
+    }
+  ],
+  "usage": [
+    {
+      "count": 3
+    }
+  ]
+}

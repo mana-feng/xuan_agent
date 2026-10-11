@@ -1,0 +1,13 @@
+- generic: 连接服务器超时，点击屏幕重试
+- document
+- generic: "[plugin:vite:css] Preprocessor dependency \"sass-embedded\" not found. Did you install it? Try `npm install -D sass-embedded`."
+- generic: F:/github/xuanxue_AI-chat-agent/frontend-docker/src/components/yx-yun-scroll-list/yx-yun-scroll-list.vue
+- generic: at loadPreprocessorPath (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:37292:13) at loadSassPackage (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:37307:19) at process (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:37553:27) at compileCSSPreprocessors (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36742:34) at compileCSS (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36796:38) at process.processTicksAndRejections (node:internal/process/task_queues:104:5) at async TransformPluginContext.transform (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11) at async PluginContainer.transform (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18) at async loadAndTransform (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27) at async viteTransformMiddleware (file:///F:/github/xuanxue_AI-chat-agent/frontend-docker/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24
+- text: Click outside, press Esc key, or fix the code to dismiss.
+- text: You can also disable this overlay by setting
+- code: server.hmr.overlay
+- text: to
+- code: "false"
+- text: in
+- code: vite.config.ts
+- text: .

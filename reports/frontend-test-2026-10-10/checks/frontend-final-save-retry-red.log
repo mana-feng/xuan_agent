@@ -1,0 +1,90 @@
+✖ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (478.6489ms)
+✖ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (34.9418ms)
+✔ bazi: HTTP 404 clears only the missing record ID so the next save can create it (41.7899ms)
+✔ bazi: a late HTTP 404 cannot clear a new chart's record ID (32.1632ms)
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (191.2109ms)
+✖ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (66.2274ms)
+✔ ziwei: HTTP 404 clears only the missing record ID so the next save can create it (60.4276ms)
+✔ ziwei: a late HTTP 404 cannot clear a new chart's record ID (102.4862ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 4
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9137.2696
+
+✖ failing tests:
+
+test at tests\saved-history.test.cjs:210:5
+✖ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (478.6489ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 11
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:216:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\saved-history.test.cjs:210:5
+✖ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (34.9418ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 11
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:216:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\saved-history.test.cjs:210:5
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (191.2109ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 11
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:216:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\saved-history.test.cjs:210:5
+✖ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (66.2274ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 11
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:216:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+Command: node --test --test-name-pattern="retrying|HTTP 404" tests/saved-history.test.cjs (before fix)
+ExitCode: 1
+SummaryRecordedAt: 2026-10-10T09:00:23.4995364Z

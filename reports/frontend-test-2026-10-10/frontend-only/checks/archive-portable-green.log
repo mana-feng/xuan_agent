@@ -1,0 +1,53 @@
+(node:249144) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ primary download uses downloadable UTF-8 bytes even when the native save picker exists (95.1185ms)
+✔ primary import uses input selection even when the native open picker exists and blocks changes while reading (35.1344ms)
+✔ primary import cancel preserves conversation, draft and cached archive with native picker support (16.7306ms)
+✔ primary import invalid JSON preserves conversation, draft and cached archive with native picker support (16.9967ms)
+✔ primary import invalid schema preserves conversation, draft and cached archive with native picker support (13.5834ms)
+✔ primary import read error preserves conversation, draft and cached archive with native picker support (15.0634ms)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (25.4918ms)
+✔ manual native import selects archive B after remembering valid archive A (22.6226ms)
+✔ manual native import selects archive B after remembering malformed archive A (22.2493ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (14.4536ms)
+✔ manual input import selects archive B after remembering valid archive A (24.4366ms)
+✔ manual input import selects archive B after remembering malformed archive A (20.7897ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (11.1885ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (11.6999ms)
+✔ native import remains the latest archive after its handle cache update fails (26.1969ms)
+✔ input import remains the latest archive after its handle cache update fails (19.2581ms)
+✔ native save remains the latest archive after its handle cache update fails (18.6198ms)
+✔ download save remains the latest archive after its handle cache update fails (18.2182ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty import (12.4895ms)
+✔ pending auto-restore cannot replace the conversation after a manual cancelled import (8.2324ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty save (10.0883ms)
+✔ successfully remembered native archive still follows later changes to its file (19.3662ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (30.1985ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (16.4185ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (11.0567ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (10.5153ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (10.3052ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (11.7177ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (11.8097ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (12.9348ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (10.3788ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (18.0324ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (8.3948ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (17.6359ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (9.131ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (7.778ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (14.1123ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (7.4863ms)
+✔ native save write preserves the last saved backup and unlocks the panel (8.1056ms)
+✔ successful native file save remains successful when remembering its handle fails (10.016ms)
+✔ chat download reports browser handoff without claiming a completed file save (7.6788ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (9.2172ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (7.9916ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1259.5812

@@ -1,0 +1,172 @@
+{
+  "time": "2026-10-10T09:06:31.614Z",
+  "source": "Real MySQL rows after Chrome UI saves",
+  "user": "primary",
+  "records": {
+    "bazi": [
+      {
+        "id": 2,
+        "name": "后台验收八字甲已编辑",
+        "gender": "0",
+        "birth_datetime": "2026-10-10T08:49:24.147Z",
+        "raw_payload": {
+          "lite": true,
+          "user": {
+            "realname": "后台验收八字甲已编辑",
+            "gender": 0,
+            "timestamp": 1791622164147
+          }
+        }
+      }
+    ],
+    "ziwei": [
+      {
+        "id": 2,
+        "name": "后台验收紫微乙",
+        "gender": "1",
+        "birth_datetime": "2026-10-10T08:53:32.457Z",
+        "raw_payload": {
+          "lite": true,
+          "module": "ziwei",
+          "user": {
+            "realname": "后台验收紫微乙",
+            "gender": 1,
+            "timestamp": 1791622412457
+          },
+          "selection": {
+            "viewMode": "origin",
+            "targetDate": "2026-10-10T08:53:45.371Z",
+            "focusPalaceIndex": null
+          },
+          "summary": {
+            "solarDate": "2026-10-10",
+            "lunarDate": "二〇二六年九月初一",
+            "time": "申时",
+            "fiveElementsClass": "木三局",
+            "soul": "禄存",
+            "body": "火星",
+            "palaces": [
+              {
+                "index": 0,
+                "name": "命宫",
+                "heavenlyStem": "庚",
+                "earthlyBranch": "寅"
+              },
+              {
+                "index": 1,
+                "name": "父母",
+                "heavenlyStem": "辛",
+                "earthlyBranch": "卯"
+              },
+              {
+                "index": 2,
+                "name": "福德",
+                "heavenlyStem": "壬",
+                "earthlyBranch": "辰"
+              },
+              {
+                "index": 3,
+                "name": "田宅",
+                "heavenlyStem": "癸",
+                "earthlyBranch": "巳"
+              },
+              {
+                "index": 4,
+                "name": "官禄",
+                "heavenlyStem": "甲",
+                "earthlyBranch": "午"
+              },
+              {
+                "index": 5,
+                "name": "仆役",
+                "heavenlyStem": "乙",
+                "earthlyBranch": "未"
+              },
+              {
+                "index": 6,
+                "name": "迁移",
+                "heavenlyStem": "丙",
+                "earthlyBranch": "申"
+              },
+              {
+                "index": 7,
+                "name": "疾厄",
+                "heavenlyStem": "丁",
+                "earthlyBranch": "酉"
+              },
+              {
+                "index": 8,
+                "name": "财帛",
+                "heavenlyStem": "戊",
+                "earthlyBranch": "戌"
+              },
+              {
+                "index": 9,
+                "name": "子女",
+                "heavenlyStem": "己",
+                "earthlyBranch": "亥"
+              },
+              {
+                "index": 10,
+                "name": "夫妻",
+                "heavenlyStem": "庚",
+                "earthlyBranch": "子"
+              },
+              {
+                "index": 11,
+                "name": "兄弟",
+                "heavenlyStem": "辛",
+                "earthlyBranch": "丑"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "liuyao": [
+      {
+        "id": 2,
+        "name": "后台验收六爻保存",
+        "gender": null,
+        "birth_datetime": "2026-10-10T08:54:00.000Z",
+        "raw_payload": {
+          "lite": true,
+          "params": [
+            1,
+            0,
+            0,
+            4,
+            0,
+            1
+          ],
+          "options": {
+            "gender": "未填写",
+            "title": "后台验收六爻保存",
+            "date": "2026-10-10T08:54:00.000Z",
+            "dayGz": "丁巳"
+          },
+          "profile": {
+            "title": "后台验收六爻保存",
+            "method": "电脑自动",
+            "gender": "未填写",
+            "dayGanZhi": "丁巳",
+            "timeLabel": "2026-10-10 16:54",
+            "focus": "后台验收六爻保存",
+            "note": "八字：丙午 戊戌 丁巳 戊申"
+          },
+          "ts": 1791622440000
+        }
+      }
+    ]
+  },
+  "quota": [
+    {
+      "remaining_daily_count": 4
+    }
+  ],
+  "usage": [
+    {
+      "count": 1
+    }
+  ]
+}

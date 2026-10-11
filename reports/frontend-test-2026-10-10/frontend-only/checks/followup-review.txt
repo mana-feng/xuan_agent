@@ -1,0 +1,10 @@
+2026-10-10 frontend-only follow-up review
+Scope: frontend-only only. Earlier frontend-docker/backend-docker source changes and their report evidence retained.
+Reviewed: ChatPanel.vue schema validation before mutation; explicit read/parse failure cannot fall through to a stale backup; archive lock finally; cache failures isolated; native save caches only after writable.close.
+Reviewed: shared downloadTextFile optional MIME default remains text/plain, ChatPanel uses application/json; finally schedules URL cleanup after handoff even when anchor creation/click fails; native save and download-initiation toasts are distinct.
+Reviewed: both chart export handlers retain source chart snapshots and clipboard fallback; four Ziwei PalaceContent event attributes reordered without changing listeners/props.
+Test harness only: ui-accessibility.test.cjs uses a per-test restored Date.now mock and an increment per independent user event. Production keyboard components and assertions unchanged. Frozen-time RED/GREEN plus mutation RED preserve failure detection.
+Final independent integrated run: 137/137, strict typecheck exit 0, ESLint 78 files 0 errors 0 warnings, H5 build exit 0, git diff --check frontend-only exit 0.
+Browser this turn: Edge extension. Both chart export-initiation toasts verified; Enter opens menu, Escape from menu item closes and restores trigger focus.
+Boundary: browser download event timed out without a file path. Native restore picker was not exposed as a tool filechooser; Escape did not release the pending picker in the observed page. Synthetic page was reloaded. No real browser file roundtrip or OS dialog cancellation claimed.
+Archive tests exercise the actual component with controlled file API handles backed by real UTF-8 temporary file bytes and real Blob bytes. These tests do not prove browser OS download completion or persistent permissions.

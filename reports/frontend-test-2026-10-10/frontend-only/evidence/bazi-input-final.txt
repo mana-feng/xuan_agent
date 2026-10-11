@@ -1,0 +1,35 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "八字排盘" [level=1]
+- paragraph: 请填写以下信息进行八字排盘
+- banner:
+  - generic: 
+  - heading "基础信息" [level=2]
+- generic: 
+- textbox: 纯前端八字甲
+- generic: 
+- generic: 性别
+- generic: 男
+- generic: 女
+- banner:
+  - heading "出生时间" [level=2]
+  - paragraph: 支持阳历/阴历，精确到分钟
+- generic: 
+- generic: 日历类型
+- generic: 阳历
+- generic: 阴历
+- generic: 
+- generic: 2023/10/10 18:30
+- generic: 
+- generic: 对应阴历
+- generic: 二〇二三年八月廿六 酉时
+- generic: 四柱八字
+- generic: 癸卯
+- generic: 壬戌
+- generic: 辛丑
+- generic: 丁酉
+- generic: 
+- generic: 开始排盘
+- document

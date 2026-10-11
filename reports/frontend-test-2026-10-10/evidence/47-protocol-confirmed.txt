@@ -1,0 +1,20 @@
+- generic: 
+- generic: 返回首页
+- generic: 八字排盘
+- generic: 登录后可在多设备同步查看您的排盘历史
+- generic: 登录
+- generic: 注册
+- generic: 填写以下信息完成注册
+- textbox: testreport
+- textbox: test-report@example.invalid
+- spinbutton: "000000"
+- generic: 发送验证码
+- textbox: <redacted>
+- textbox: <redacted>
+- generic: 注册即表示同意
+- generic: 《用户服务协议》
+- generic: 和
+- generic: 《隐私权政策》
+- generic: 注册并登录
+- paragraph: 隐私权政策页面开发中
+- document

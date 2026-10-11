@@ -1,0 +1,204 @@
+✖ HTTP chat: upstream 401 with stream=false cannot masquerade as user login expiry (133.5166ms)
+✖ HTTP chat: upstream 403 with stream=false cannot masquerade as user login expiry (10.5362ms)
+✖ HTTP chat: upstream 401 with stream=true cannot masquerade as user login expiry (7.0558ms)
+✖ HTTP chat: upstream 403 with stream=true cannot masquerade as user login expiry (6.6873ms)
+✖ HTTP agent: upstream 401 with stream=false cannot masquerade as user login expiry (6.6675ms)
+✖ HTTP agent: upstream 403 with stream=false cannot masquerade as user login expiry (6.3179ms)
+✖ HTTP agent: upstream 401 with stream=true cannot masquerade as user login expiry (5.597ms)
+✖ HTTP agent: upstream 403 with stream=true cannot masquerade as user login expiry (5.2085ms)
+✖ WebSocket: upstream 401 reports provider credentials without suggesting user login expiry (8.7697ms)
+✖ WebSocket: upstream 403 reports provider credentials without suggesting user login expiry (4.9601ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2474.82
+
+✖ failing tests:
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP chat: upstream 401 with stream=false cannot masquerade as user login expiry (133.5166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  401 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 401,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP chat: upstream 403 with stream=false cannot masquerade as user login expiry (10.5362ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  403 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 403,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP chat: upstream 401 with stream=true cannot masquerade as user login expiry (7.0558ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  401 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 401,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP chat: upstream 403 with stream=true cannot masquerade as user login expiry (6.6873ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  403 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 403,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP agent: upstream 401 with stream=false cannot masquerade as user login expiry (6.6675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  401 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 401,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP agent: upstream 403 with stream=false cannot masquerade as user login expiry (6.3179ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  403 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 403,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP agent: upstream 401 with stream=true cannot masquerade as user login expiry (5.597ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  401 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 401,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:200:7
+✖ HTTP agent: upstream 403 with stream=true cannot masquerade as user login expiry (5.2085ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  403 !== 502
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:203:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 403,
+    expected: 502,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:217:3
+✖ WebSocket: upstream 401 reports provider credentials without suggesting user login expiry (8.7697ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'LLM_REQUEST_FAILED'
+  - 'LLM_UPSTREAM_AUTH_FAILED'
+         ^
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:222:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'LLM_REQUEST_FAILED',
+    expected: 'LLM_UPSTREAM_AUTH_FAILED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-quota.test.cjs:217:3
+✖ WebSocket: upstream 403 reports provider credentials without suggesting user login expiry (4.9601ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'LLM_REQUEST_FAILED'
+  - 'LLM_UPSTREAM_AUTH_FAILED'
+         ^
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\backend-docker\tests\llm-quota.test.cjs:222:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'LLM_REQUEST_FAILED',
+    expected: 'LLM_UPSTREAM_AUTH_FAILED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

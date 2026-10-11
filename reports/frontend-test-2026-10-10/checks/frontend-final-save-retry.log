@@ -1,0 +1,52 @@
+✔ Bazi export keeps the input that generated its pillars after a Ziwei chart (91.9972ms)
+✔ Ziwei export keeps its own identity after a Bazi chart (675.5015ms)
+✔ Bazi direct result restores the Bazi cache despite another module having a profile (70.003ms)
+✔ Bazi result fully recalculates changed birth time and gender with an existing solar year (30.4472ms)
+✔ Bazi edit opens its input page and carries the displayed chart identity (61.8989ms)
+✔ saving Bazi uses the displayed chart input and record instead of the latest other chart (69.0021ms)
+✔ saving Ziwei uses its displayed chart identity and record after Bazi input changes (62.8439ms)
+✔ a Bazi save response cannot attach the previous chart record to a newly generated chart (29.9523ms)
+✔ a Ziwei save response cannot attach the previous chart record to a newly generated chart (93.5673ms)
+✔ an edited Bazi form keeps its record when the existing page is shown again (28.1752ms)
+✔ an edited Ziwei form keeps its record when the existing page is shown again (50.1298ms)
+✔ changing only Bazi gender recalculates the gender-dependent chart rows (24.2061ms)
+✔ Ziwei direct result restores only its own cached profile (56.5888ms)
+✔ changing only Ziwei gender recomputes its chart when the result page is shown (89.5933ms)
+✔ Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation (172.9198ms)
+✔ Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation (679.0018ms)
+✔ history replay rebuilds from record identity even when cached Bazi contains another input (74.0518ms)
+✔ saving a Liuyao result twice creates once then updates its own returned ID (58.4975ms)
+✔ saving Liuyao preserves the chosen casting time instead of when the page was generated (25.2009ms)
+✔ a cached Liuyao result retains its casting time and saved identity after reload (46.6919ms)
+✔ concurrent Liuyao save clicks create only one record (19.2216ms)
+✔ a rejected Liuyao save is not reported as successful or assigned a record ID (18.5307ms)
+✔ legacy Liuyao local cache restores the chosen profile time without inventing a saved ID (21.7082ms)
+✔ generating a new Liuyao chart after a saved chart creates a fresh record (20.9949ms)
+✔ a late Liuyao save response cannot give its record ID to a newly generated result (29.3889ms)
+✔ history loads all three types with equal numeric IDs and sorts across types (22.0379ms)
+✔ opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged (90.0691ms)
+✔ opening a saved Liuyao record recomputes the saved parameters and keeps its record identity (25.861ms)
+✔ a saved Liuyao record saves back to the same typed record after being reopened (36.4029ms)
+✔ opening Bazi lite history recomputes it without changing the current Ziwei input (64.5696ms)
+✔ malformed Liuyao history is rejected without overwriting the current result (23.2571ms)
+✔ deleting a Ziwei record sends its type and preserves same-ID records of other types (18.6942ms)
+✔ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (70.3066ms)
+✔ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (30.5376ms)
+✔ bazi: HTTP 404 clears only the missing record ID so the next save can create it (37.42ms)
+✔ bazi: a late HTTP 404 cannot clear a new chart's record ID (34.3839ms)
+✔ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (89.2691ms)
+✔ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (63.5371ms)
+✔ ziwei: HTTP 404 clears only the missing record ID so the next save can create it (69.0246ms)
+✔ ziwei: a late HTTP 404 cannot clear a new chart's record ID (76.0129ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9429.7236
+
+Command: node --test tests/saved-history.test.cjs tests/chart-input.test.cjs
+ExitCode: 0
+SummaryRecordedAt: 2026-10-10T09:00:23.4945904Z

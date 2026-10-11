@@ -1,0 +1,31 @@
+✔ Bazi export keeps chart name and gender after Ziwei updates the shared user (45.9576ms)
+✔ Ziwei export keeps chart name and gender after Bazi updates the shared user (426.2145ms)
+✔ Bazi save uses displayed chart, preserves its ID and original save time on update (32.1149ms)
+✔ Ziwei save uses displayed chart and original save time after another chart (29.8994ms)
+✔ bazi result survives reload and saves into the same local record (17.6935ms)
+✔ bazi edited form retains ID after repeated onShow and another module's profile (24.946ms)
+✔ bazi history replays legacy numeric-string timestamps directly to a computed result (13.2176ms)
+✔ ziwei result survives reload and saves into the same local record (51.1369ms)
+✔ ziwei edited form retains ID after repeated onShow and another module's profile (24.4668ms)
+✔ ziwei history replays legacy numeric-string timestamps directly to a computed result (23.7605ms)
+✔ Bazi edit routes to Bazi form and carries Bazi identity after Ziwei (24.6484ms)
+✔ Liuyao save retains casting date, repeated save updates, reload/replay preserves all six lines (31.7121ms)
+✔ deleting one chart leaves a different type with the same legacy ID visible and stored (7.3946ms)
+✔ saving a new chart does not silently drop the oldest existing local record (11.5099ms)
+✔ history reading expired legacy user records preserves and displays them (6.0789ms)
+✔ a malformed local history cannot be silently erased by reading or a new save (17.2875ms)
+✔ Liuyao direct reload preserves its saved record ID and subsequent save updates (13.602ms)
+✔ bazi restores epoch and pre-1970 input and recalculates gender on show (12.2209ms)
+✔ ziwei restores epoch and pre-1970 input and recalculates gender on show (41.9983ms)
+✔ birth with an empty pre-luck period selects a valid initial year instead of rejecting month calculation (4.2051ms)
+✔ a rejected local save reports failure without assigning a record ID or changing stored records (8.0999ms)
+✔ new charts saved in the same millisecond receive distinct IDs and never overwrite a previous chart (9.7821ms)
+✔ history recalculates Bazi and its Yun library objects instead of trusting mismatched serialized data (10.8447ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1394.5369

@@ -1,0 +1,260 @@
+(node:245544) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (110.2751ms)
+✔ manual native import selects archive B after remembering valid archive A (34.2143ms)
+✔ manual native import selects archive B after remembering malformed archive A (24.584ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (14.1723ms)
+✔ manual input import selects archive B after remembering valid archive A (29.163ms)
+✔ manual input import selects archive B after remembering malformed archive A (20.4803ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (13.5519ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (12.1456ms)
+✖ native import remains the latest archive after its handle cache update fails (22.0665ms)
+✖ input import remains the latest archive after its handle cache update fails (26.0449ms)
+✖ native save remains the latest archive after its handle cache update fails (19.0423ms)
+✖ download save remains the latest archive after its handle cache update fails (18.4909ms)
+✖ pending auto-restore cannot replace the conversation after a manual empty import (19.2936ms)
+✖ pending auto-restore cannot replace the conversation after a manual cancelled import (8.3975ms)
+✖ pending auto-restore cannot replace the conversation after a manual empty save (10.8255ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (21.2416ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (10.3488ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (10.0604ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (12.7884ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (12.0457ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (13.4239ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (11.3259ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (10.4133ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (10.2568ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (14.846ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (8.4441ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (10.5558ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (7.6438ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (8.4557ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (10.4285ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (8.6765ms)
+✔ native save write preserves the last saved backup and unlocks the panel (8.7657ms)
+✔ successful native file save remains successful when remembering its handle fails (12.3067ms)
+✔ chat download reports browser handoff without claiming a completed file save (8.6544ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (9.003ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (8.738ms)
+✔ page handleRestoreArchive stays busy past 300ms and blocks both archive actions until its delegate settles (643.2279ms)
+✔ page handleRestoreArchive unlocks when its child completes and permits the next operation (7.4276ms)
+✔ page handleRestoreArchive unlocks after cancellation without losing the rejection (7.6982ms)
+✔ page handleRestoreArchive unlocks after asynchronous failure without losing the rejection (8.4677ms)
+✔ page handleRestoreArchive unlocks if invoking the child throws synchronously (7.1754ms)
+✔ page handleRestoreArchive does not leave a busy lock when its panel is unavailable (10.1048ms)
+✔ page handleSaveArchive stays busy past 300ms and blocks both archive actions until its delegate settles (356.998ms)
+✔ page handleSaveArchive unlocks when its child completes and permits the next operation (6.5413ms)
+✔ page handleSaveArchive unlocks after cancellation without losing the rejection (6.3044ms)
+✔ page handleSaveArchive unlocks after asynchronous failure without losing the rejection (6.8071ms)
+✔ page handleSaveArchive unlocks if invoking the child throws synchronously (6.1319ms)
+✔ page handleSaveArchive does not leave a busy lock when its panel is unavailable (7.0448ms)
+✔ page refuses both archive actions while a chat response is being sent (6.3709ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 42
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1378.3923
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:147:3
+✖ native import remains the latest archive after its handle cache update fails (22.0665ms)
+  AssertionError [ERR_ASSERTION]: a stale handle must not override the latest backup
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:167:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:147:3
+✖ input import remains the latest archive after its handle cache update fails (26.0449ms)
+  AssertionError [ERR_ASSERTION]: a stale handle must not override the latest backup
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:167:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:147:3
+✖ native save remains the latest archive after its handle cache update fails (19.0423ms)
+  AssertionError [ERR_ASSERTION]: a stale handle must not override the latest backup
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:167:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:147:3
+✖ download save remains the latest archive after its handle cache update fails (18.4909ms)
+  AssertionError [ERR_ASSERTION]: a stale handle must not override the latest backup
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:167:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:173:3
+✖ pending auto-restore cannot replace the conversation after a manual empty import (19.2936ms)
+  AssertionError [ERR_ASSERTION]: an older pending read must not override the later manual action
+  + actual - expected
+  
+  + [
+  +   {
+  +     role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:197:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:173:3
+✖ pending auto-restore cannot replace the conversation after a manual cancelled import (8.3975ms)
+  AssertionError [ERR_ASSERTION]: an older pending read must not override the later manual action
+  + actual - expected
+  
+  + [
+  +   {
+  +     role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:197:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:173:3
+✖ pending auto-restore cannot replace the conversation after a manual empty save (10.8255ms)
+  AssertionError [ERR_ASSERTION]: an older pending read must not override the later manual action
+  + actual - expected
+  
+  + [
+  +   {
+  +     role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:197:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

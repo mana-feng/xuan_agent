@@ -1,0 +1,307 @@
+[
+  {
+    "id": "O-T01",
+    "area": "首页",
+    "test": "独立3050首页无记录冷启动",
+    "status": "通过",
+    "actual": "三类工具、五个快捷指令、Agent区均可见；无缓存提示明确，无服务端账号额度控件。",
+    "evidence": "evidence/home-empty.txt"
+  },
+  {
+    "id": "O-T02",
+    "area": "Agent",
+    "test": "未配置AI发送",
+    "status": "通过",
+    "actual": "显示请先在设置页面配置AI API，输入恢复可用。",
+    "evidence": "evidence/agent-no-config.txt"
+  },
+  {
+    "id": "O-T03",
+    "area": "设置",
+    "test": "空配置保存",
+    "status": "通过",
+    "actual": "阻止空地址保存，显示请输入API地址。",
+    "evidence": "evidence/settings-empty-validation.txt"
+  },
+  {
+    "id": "O-T04",
+    "area": "设置",
+    "test": "供应商切换",
+    "status": "通过",
+    "actual": "早期热更新期间两次选择未更新；代码稳定后冷刷新复测正常选择Ollama并填充地址/模型。不计为确认缺陷。",
+    "evidence": "settings-picker-retest.txt"
+  },
+  {
+    "id": "O-T05",
+    "area": "键盘",
+    "test": "菜单Enter/Space/Escape",
+    "status": "通过",
+    "actual": "修复uni-h5事件归一化边界后，Enter与Space展开，Escape关闭并恢复焦点。",
+    "evidence": "evidence/keyboard-menu-after.txt"
+  },
+  {
+    "id": "O-T06",
+    "area": "关于",
+    "test": "关于页访问与内容",
+    "status": "通过",
+    "actual": "三段介绍和娱乐提示显示，键盘菜单可导航进入。",
+    "evidence": "evidence/about.txt"
+  },
+  {
+    "id": "O-T07",
+    "title": "八字排盘、编辑与重复保存",
+    "status": "通过",
+    "actual": "姓名纯前端八字甲、男、2023/10/10；编辑回到正确输入页；保存两次历史仍仅1条。",
+    "evidence": "history-bazi.txt"
+  },
+  {
+    "id": "O-T08",
+    "title": "TOON 导出",
+    "status": "通过",
+    "actual": "原Chrome页面点击记录保留；后续Edge实际下载文件已读取并核验，两类盘31项内容检查全部通过。下载事件超时是工具未返回路径，未影响此处已验收文件落盘。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/native-download-content-verification.json",
+        "label": "实际落盘及内容"
+      },
+      {
+        "path": "frontend-only/evidence/native-download-bazi-ui.txt",
+        "label": "后续下载点击"
+      }
+    ]
+  },
+  {
+    "id": "O-T09",
+    "title": "设置本地供应商与刷新持久化",
+    "status": "通过",
+    "actual": "冷刷新后 Ollama 正常选中并填充默认地址；改为本机11439、qwen3.8:latest，空Key保存成功；刷新仍保留。O-T04未复现，归于修复过程热更新干扰。",
+    "evidence": "settings-local-reload.txt"
+  },
+  {
+    "id": "O-T10",
+    "title": "真实本地 Agent 请求",
+    "status": "通过",
+    "actual": "首次真实Qwen误选工具，已加明确输入页目标冲突校验。复测同句返回紫微入口并实际导航成功，参见O-T17；模型质量并非全域保证。",
+    "evidence": "agent-target-retest-result.txt"
+  },
+  {
+    "id": "O-T11",
+    "title": "三类保存与跨盘回放",
+    "status": "通过",
+    "actual": "分别生成八字甲男2023、紫微乙女2026、六爻丙；八字和六爻重复保存均不新增，历史3条；搜索八字后回放仍为甲/男/2023。",
+    "evidence": "history-three.txt"
+  },
+  {
+    "id": "O-T12",
+    "title": "六爻排盘与真实复制",
+    "status": "通过",
+    "actual": "电脑自动6爻生成坎为水→风水涣；复制文本包含原起卦时间、主题和6行爻象。",
+    "evidence": "liuyao-copy.txt"
+  },
+  {
+    "id": "O-T13",
+    "title": "冷刷新聊天与本地模型两轮上下文",
+    "status": "通过",
+    "actual": "第一轮准确回复纯前端八字甲/男/2023/辛丑；第二轮继续回复甲/癸卯，输入恢复可用，未混用紫微资料。",
+    "evidence": "chat-local-followup-result.txt"
+  },
+  {
+    "id": "O-T14",
+    "title": "紫微历史回放与冷刷新",
+    "status": "通过",
+    "actual": "历史查看直接到结果，女/2026/10/10/土五局/巨门火星保持；冷刷新同样恢复。",
+    "evidence": "ziwei-cold-reload.txt"
+  },
+  {
+    "id": "O-T15",
+    "title": "390px紫微放大弹层与键盘关闭",
+    "status": "通过",
+    "actual": "修复后官禄对话框x16,y76,w343,h692，完整位于390×844；Escape关闭、焦点恢复放大按钮；无页面横向溢出。",
+    "evidence": "ziwei-mobile-geometry.json"
+  },
+  {
+    "id": "O-T16",
+    "title": "六爻历史回放与冷刷新",
+    "status": "通过",
+    "actual": "历史直达坎为水→风水涣结果，原主题和18:39起卦时间保持，冷刷新仍有完整六爻结果。",
+    "evidence": "liuyao-cold-reload.txt"
+  },
+  {
+    "id": "O-T17",
+    "title": "Agent明确目标复测及执行入口",
+    "status": "通过",
+    "actual": "同句再次调用真实Qwen，显示打开紫微排盘输入页按钮，点击进入正确紫微输入表单；错误目标拦截由源码受控回归验证，本次模型正确返回。",
+    "evidence": "agent-target-manual-navigation.txt"
+  },
+  {
+    "id": "O-T18",
+    "title": "六爻手工、时间、单数、双数、汉字、卦名、在线分支",
+    "status": "通过",
+    "actual": "自动以外7种方式均经Chrome实际生成结果：手工6少阳→乾为天静卦；时间→天火同人/天雷无妄；2652→泽雷随/天雷无妄；12与34→雷泽归妹/地泽临；天地→雷水解/地水师；卦名地雷复→对应静卦；在线6次摇卦→乾为天/天泽履。仅验证代表样本流程，非全域算法准确性。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/liuyao-manual.txt",
+        "label": "手工全阳"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-time.txt",
+        "label": "时间起卦"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-single.txt",
+        "label": "单数2652"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-double.txt",
+        "label": "双数12与34"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-chinese.txt",
+        "label": "汉字天地"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-named.txt",
+        "label": "卦名地雷复"
+      },
+      {
+        "path": "frontend-only/evidence/liuyao-online.txt",
+        "label": "在线六次"
+      }
+    ]
+  },
+  {
+    "id": "O-T19",
+    "area": "Edge补验 / 导出",
+    "test": "八字与紫微下载发起提示",
+    "status": "通过",
+    "actual": "分别生成合成甲男/乙女盘，点击导出后均显示“已发起 TOON 下载，请查看下载列表”。该项仅验证页面提示，不计为文件落盘。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/followup-bazi-export.txt",
+        "label": "八字"
+      },
+      {
+        "path": "frontend-only/evidence/followup-ziwei-export.txt",
+        "label": "紫微"
+      }
+    ]
+  },
+  {
+    "id": "O-T20",
+    "area": "Edge补验 / 键盘",
+    "test": "菜单Enter打开、Escape关闭及焦点返回",
+    "status": "通过",
+    "actual": "Enter后aria-expanded=true；聚焦AI设置按Escape后菜单消失、aria-expanded=false、activeElement的aria-label为用户菜单。",
+    "evidence": "evidence/followup-menu-keyboard.json"
+  },
+  {
+    "id": "O-T21",
+    "area": "Edge补验 / 档案",
+    "test": "真实原生文件选择与取消",
+    "status": "部分验证",
+    "actual": "恢复时草稿保持、输入禁用；等待filechooser超时，工具Escape未解除页面忙碌，随后刷新合成测试页恢复。工具未接管原生对话框，未选择/导入外部文件，未标为通过。文件与取消逻辑另有22+9项源码边界回归。",
+    "evidence": "evidence/followup-archive-cancel.txt"
+  },
+  {
+    "id": "O-T22",
+    "area": "Chrome / 聊天UI",
+    "test": "最终桌面、390px、320px与键盘布局",
+    "status": "通过",
+    "actual": "最终Chrome桌面1211×922、390×844、320×640均无页面横向或纵向溢出；窄屏消息区独立滚动，输入和按钮仍可见。Enter实际打开导入并成功恢复文件，控制台无warning/error。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-desktop.jpg",
+        "label": "最终桌面"
+      },
+      {
+        "path": "frontend-only/evidence/chat-portable-mobile.jpg",
+        "label": "390px最终布局"
+      },
+      {
+        "path": "frontend-only/evidence/chat-portable-narrow.jpg",
+        "label": "320px独立滚动"
+      },
+      {
+        "path": "frontend-only/evidence/chat-portable-layout.json",
+        "label": "最终DOM尺寸"
+      },
+      {
+        "path": "frontend-only/evidence/chat-portable-console.json",
+        "label": "控制台检查"
+      }
+    ]
+  },
+  {
+    "id": "O-T23",
+    "area": "Chrome / 实际聊天档案",
+    "test": "实际下载、另选B、重新导入下载A",
+    "status": "通过",
+    "actual": "导入A后点击下载档案，F:/download/ai-chat-2026-10-11.json实际新增318字节；9项文件核验通过。另选B后重新导入原下载A，角色/文本/时间完全一致，草稿保留。下载事件超时未据此判失败。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-browser.json",
+        "label": "Chrome逐步实际操作"
+      },
+      {
+        "path": "frontend-only/evidence/chat-browser-download-verification.json",
+        "label": "磁盘字节与SHA-256校验"
+      },
+      {
+        "path": "frontend-only/evidence/native-files/chat-browser-roundtrip-20261011.json",
+        "label": "实际下载文件的逐字节副本"
+      }
+    ]
+  },
+  {
+    "id": "O-T24",
+    "area": "Chrome / 无效文件",
+    "test": "零字节、损坏JSON、错误角色、错误版本",
+    "status": "通过",
+    "actual": "4类实际磁盘文件均被拒绝；会话消息ID、内容和草稿不变，控件恢复可操作。空/损坏JSON的英文异常已修复并看到中文提示。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-browser.json",
+        "label": "Chrome逐步实际操作"
+      }
+    ]
+  },
+  {
+    "id": "O-T25",
+    "area": "Chrome / 空会话",
+    "test": "合法messages空数组导入与重新打开",
+    "status": "通过",
+    "actual": "合法空档案替换A，只显示欢迎消息；刷新后仍为空会话；随后重新导入实际下载A成功。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-browser.json",
+        "label": "Chrome逐步实际操作"
+      }
+    ]
+  },
+  {
+    "id": "O-T26",
+    "area": "Chrome / 自动恢复",
+    "test": "刷新自动恢复最后导入档案",
+    "status": "通过",
+    "actual": "重新导入磁盘下载A后刷新，两条实际消息自动恢复，中文、表情、换行、角色与时间精确一致。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-browser.json",
+        "label": "Chrome逐步实际操作"
+      }
+    ]
+  },
+  {
+    "id": "O-T27",
+    "area": "Chrome / 键盘",
+    "test": "Enter打开导入并完成真实文件选择",
+    "status": "通过",
+    "actual": "在导入档案按钮按Enter成功触发filechooser；选择实际下载文件后恢复A，消息一致，按钮解锁。",
+    "evidence": [
+      {
+        "path": "frontend-only/evidence/chat-portable-browser.json",
+        "label": "Chrome逐步实际操作"
+      }
+    ]
+  }
+]

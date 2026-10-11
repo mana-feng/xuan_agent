@@ -1,0 +1,462 @@
+(node:190748) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (286.327ms)
+✖ downloaded Blob bytes roundtrip through input selection and become the latest local archive (120.9577ms)
+✖ invalid archive unsupported version preserves current conversation and never remembers its file (45.4787ms)
+✖ invalid archive wrong kind preserves current conversation and never remembers its file (42.3008ms)
+✖ invalid archive non-array messages preserves current conversation and never remembers its file (33.4373ms)
+✖ invalid archive null message preserves current conversation and never remembers its file (36.1398ms)
+✖ invalid archive unknown role preserves current conversation and never remembers its file (47.2586ms)
+✖ invalid archive object text preserves current conversation and never remembers its file (33.6828ms)
+✖ invalid archive missing time preserves current conversation and never remembers its file (35.9884ms)
+✖ invalid archive object time preserves current conversation and never remembers its file (35.2579ms)
+✖ selected input read error preserves current conversation instead of restoring unrelated backup (43.4781ms)
+✖ selected input empty file preserves current conversation instead of restoring unrelated backup (29.147ms)
+✖ unavailable IndexedDB does not block an explicit valid file import (31.754ms)
+✖ auto-restore still reads its valid local backup with unavailable IndexedDB (25.9465ms)
+✖ auto-restore still reads its valid local backup with unreadable remembered file (23.4784ms)
+✖ auto-restore still reads its valid local backup with invalid remembered file (33.6162ms)
+✖ native save cancel preserves the last saved backup and unlocks the panel (25.9495ms)
+✖ native save write preserves the last saved backup and unlocks the panel (42.9335ms)
+✖ successful native file save remains successful when remembering its handle fails (41.8137ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 1
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2192.9752
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:85:1
+✖ downloaded Blob bytes roundtrip through input selection and become the latest local archive (120.9577ms)
+  AssertionError [ERR_ASSERTION]: a later open must restore the imported archive, not the stale local backup
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:97:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive unsupported version preserves current conversation and never remembers its file (45.4787ms)
+  AssertionError [ERR_ASSERTION]: invalid file must not replace the reusable archive handle
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:117:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive wrong kind preserves current conversation and never remembers its file (42.3008ms)
+  AssertionError [ERR_ASSERTION]: invalid file must not replace the reusable archive handle
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:117:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive non-array messages preserves current conversation and never remembers its file (33.4373ms)
+  AssertionError [ERR_ASSERTION]: invalid file must not replace the reusable archive handle
+  
+  true !== false
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:117:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive null message preserves current conversation and never remembers its file (36.1398ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     role: 'user',
+  -     text: '保留当前对话',
+  -     time: '13:14'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:116:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive unknown role preserves current conversation and never remembers its file (47.2586ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+  +     role: 'assistant',
+  +     text: '不可伪装成 AI 回复',
+  +     time: '12:00'
+  -     role: 'user',
+  -     text: '保留当前对话',
+  -     time: '13:14'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:116:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'assistant', text: '不可伪装成 AI 回复', time: '12:00' } ],
+    expected: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive object text preserves current conversation and never remembers its file (33.6828ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '[object Object]',
+  +     time: '12:00'
+  -     text: '保留当前对话',
+  -     time: '13:14'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:116:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '[object Object]', time: '12:00' } ],
+    expected: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive missing time preserves current conversation and never remembers its file (35.9884ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '字段缺失',
+  +     time: '21:57'
+  -     text: '保留当前对话',
+  -     time: '13:14'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:116:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '字段缺失', time: '21:57' } ],
+    expected: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ invalid archive object time preserves current conversation and never remembers its file (35.2579ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '错误时间',
+  +     time: {}
+  -     text: '保留当前对话',
+  -     time: '13:14'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:116:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [Array],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:127:3
+✖ selected input read error preserves current conversation instead of restoring unrelated backup (43.4781ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '旧归档' !== '保留当前对话'
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:131:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '旧归档',
+    expected: '保留当前对话',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:127:3
+✖ selected input empty file preserves current conversation instead of restoring unrelated backup (29.147ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '旧归档' !== '保留当前对话'
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:131:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '旧归档',
+    expected: '保留当前对话',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:138:1
+✖ unavailable IndexedDB does not block an explicit valid file import (31.754ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     role: 'user',
+  -     text: '旧归档',
+  -     time: '12:00'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:144:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:150:3
+✖ auto-restore still reads its valid local backup with unavailable IndexedDB (25.9465ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     role: 'user',
+  -     text: '旧归档',
+  -     time: '12:00'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:158:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:150:3
+✖ auto-restore still reads its valid local backup with unreadable remembered file (23.4784ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     role: 'user',
+  -     text: '旧归档',
+  -     time: '12:00'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:158:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:150:3
+✖ auto-restore still reads its valid local backup with invalid remembered file (33.6162ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     role: 'user',
+  -     text: '旧归档',
+  -     time: '12:00'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:158:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:164:3
+✖ native save cancel preserves the last saved backup and unlocks the panel (25.9495ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      kind: 'chat',
+      messages: [
+        {
+          role: 'user',
+  +       text: '保留当前对话',
+  +       time: '13:14'
+  -       text: '旧归档',
+  -       time: '12:00'
+        }
+      ],
+  +   savedAt: '2026-10-10T13:57:17.573Z',
+  -   savedAt: '2026-10-10T00:00:00.000Z',
+      v: 1
+    }
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:172:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { v: 1, kind: 'chat', savedAt: '2026-10-10T13:57:17.573Z', messages: [ [Object] ] },
+    expected: { v: 1, kind: 'chat', savedAt: '2026-10-10T00:00:00.000Z', messages: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:164:3
+✖ native save write preserves the last saved backup and unlocks the panel (42.9335ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      kind: 'chat',
+      messages: [
+        {
+          role: 'user',
+  +       text: '保留当前对话',
+  +       time: '13:14'
+  -       text: '旧归档',
+  -       time: '12:00'
+        }
+      ],
+  +   savedAt: '2026-10-10T13:57:17.614Z',
+  -   savedAt: '2026-10-10T00:00:00.000Z',
+      v: 1
+    }
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:172:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { v: 1, kind: 'chat', savedAt: '2026-10-10T13:57:17.614Z', messages: [ [Object] ] },
+    expected: { v: 1, kind: 'chat', savedAt: '2026-10-10T00:00:00.000Z', messages: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:179:1
+✖ successful native file save remains successful when remembering its handle fails (41.8137ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'IndexedDB unavailable'
+  -   '已保存'
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:185:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'IndexedDB unavailable' ],
+    expected: [ '已保存' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

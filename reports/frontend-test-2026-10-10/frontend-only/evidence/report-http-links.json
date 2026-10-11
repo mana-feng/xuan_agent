@@ -1,0 +1,1302 @@
+{
+  "checkedAt": "2026-10-11T13:48:33.302Z",
+  "count": 259,
+  "passed": 259,
+  "results": [
+    {
+      "ref": "frontend-only/evidence/native-download-content-verification.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-download-manifest.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-download-verify.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-exits.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-exits.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-exits.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-archive-full-suite.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-exits.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/status-before-followup.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-ui-followup-frozen-red.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-ui-followup-frozen-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-ui-followup-mutation-red.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-ui-followup-repeat.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/followup-menu-keyboard.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-portable-final-diff-check.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chat-ui-final-diff-check.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-final-diff-check.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-review.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/followup-diff-check.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-browser.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-browser-download-verification.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-files/chat-browser-roundtrip-20261011.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/cross-bazi-replay.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/chart-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/history-ziwei-replay.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-cold-reload.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/history-three.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/keyboard-menu-after.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/ui-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/ziwei-mobile-geometry.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/screenshots/ziwei-mobile-fixed.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/checks/initial-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/final-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/final-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/ai-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/agent-local-final.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/settings-local-reload.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-local-followup-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/screenshots/chat-local-followup-result.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/agent-target-retest-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/agent-target-manual-navigation.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/ai-target-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-cancel-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/final-review.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/ui-repair-notes.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-export-followup-red.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-export-followup-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/followup-bazi-export.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/followup-ziwei-export.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-download-bazi-ui.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-files/bazi-202610102157%20(2).toon",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-files/ziwei-202610102206%20(1).toon",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/screenshots/followup-bazi-export.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "ref": "frontend-only/checks/only-archive-followup-red.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-archive-followup-download-red.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/only-archive-followup-download-green.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/followup-archive-cancel.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-archive-formal-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-archive-targeted-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/native-archive-audit.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-page-archive-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/native-page-archive-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-flow-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-flow-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-flow-full-suite.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/archive-ui-flow-review.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-desktop.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-mobile.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-narrow.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-layout.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-portable-console.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-ui-before.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-ui-desktop.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-ui-mobile.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-ui-narrow.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "frontend-only/evidence/chat-ui-layout.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-portable-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-portable-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-input-lifecycle-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-input-lifecycle-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-parse-message-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/checks/archive-parse-message-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/home-empty.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/agent-no-config.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/settings-empty-validation.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/settings-picker-retest.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/about.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/history-bazi.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-copy.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/ziwei-cold-reload.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-manual.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-time.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-single.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-double.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-chinese.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-named.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/liuyao-online.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/status.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "frontend-only/evidence/browser-ledger.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-auth-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-records-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-quota-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-login.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/backend-browser-login.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/backend-browser-db.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-history.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-history-search.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/backend-browser-history.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/qwen38-cpu-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/qwen38-context-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/qwen38-vulkan-2048-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-model-config.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-agent-reply.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-agent-action.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-chat-reply.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-db-after-chat1.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/qwen38-browser-runtime.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-final-chat2.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-db-after-final-chat2.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/services-live.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/qwen38-final-browser-runtime.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/backend-browser-chat-reply.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/backend-browser-sass-failure.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-bazi-save.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/verification-summary.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "checks/frontend-final-save-retry-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/frontend-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-verification-summary.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-final-chat1.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/backend-browser-final-chat2.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "checks/llm-final-duplicate-prompt-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-auth-refresh-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-auth-refresh-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/upstream-auth-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/backend-final-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-direct-chat-no-chart.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/chat-restore-red.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/chat-restore-green.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-browser-history-gender.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-test-quota-setup.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-final-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-final-lint.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/llm-final-h5-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/backend-final-verification.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "checks/backend-final-eslint.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/frontend-final-eslint-save-retry.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/backend-status.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-cross-bazi-after.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-bazi-edit.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-bazi-recompute.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-service-protocol.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-protocol-scroll.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-mobile-ziwei.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-mobile-ziwei-zoom.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-keyboard-enter.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-keyboard-space.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-keyboard-navigation.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-textarea-enter.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-agent-anonymous.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repairs.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-cross-bazi-before.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-cross-ziwei.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-cross-ziwei-after.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/repair-tests.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/repair-cross-bazi-after.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/51-cross-bazi-after.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/49-cross-bazi-before.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/50-cross-ziwei-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/51-cross-bazi-after.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/repair-bazi-edit.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/06-bazi-edit-wrong-route.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/06-bazi-edit-wrong-route.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/repair-privacy-protocol.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/repair-service-protocol.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/47-protocol-confirmed.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-ziwei-double-click.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/repair-mobile-ziwei-zoom.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/39-mobile-ziwei-chart.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/43-mobile-ziwei-zoom.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/39-mobile-ziwei-chart.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/repair-keyboard-enter.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/44-keyboard-home.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/repair-typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/repair-build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/repair-eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "checks/typecheck.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/repair-agent-quick-guard.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/repair-agent-anonymous.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/01-agent-home.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/api-events.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/02-agent-anonymous-error.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/03-bazi-input.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/04-bazi-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/05-bazi-timeline.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/07-liuyao-auto.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/08-liuyao-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/liuyao-copy.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/09-auth-empty.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/10-auth-server-error.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/12-liuyao-online.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/13-liuyao-manual-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/15-liuyao-time-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/16-liuyao-single-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/17-liuyao-double-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/18-liuyao-chars-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/19-liuyao-gua-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/20-ziwei-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/21-ziwei-timeline.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/22-ziwei-edit.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/23-chat-ziwei-context.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/24-chat-error.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/25-history-anonymous.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/26-announcement.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/27-about.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/28-bazi-direct-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/29-liuyao-direct-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/30-ziwei-direct-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/31-mobile-home.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/32-mobile-bazi.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/33-mobile-bazi-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/34-mobile-chat.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/35-mobile-liuyao.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/36-mobile-liuyao-result.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/37-mobile-ziwei.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/40-mobile-auth.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/41-mobile-history.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/42-mobile-about.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/build.log",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "checks/eslint.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "evidence/45-register-validation.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/46-chat-restore.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "ref": "evidence/browser-console.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "screenshots/05-bazi-timeline.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/12-liuyao-online.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/21-ziwei-timeline.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/24-chat-error.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/25-history-anonymous.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/26-announcement.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/31-mobile-home.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "screenshots/46-chat-restore.jpg",
+      "status": 200,
+      "type": "image/jpeg"
+    },
+    {
+      "ref": "evidence/test-ledger.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "ref": "report.md",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    }
+  ]
+}

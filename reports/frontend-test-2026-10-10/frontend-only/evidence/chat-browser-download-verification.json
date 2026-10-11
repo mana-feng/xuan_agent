@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-11T13:38:47.079Z",
+  "source": "F:\\download\\ai-chat-2026-10-11.json",
+  "copy": "evidence/native-files/chat-browser-roundtrip-20261011.json",
+  "bytes": 318,
+  "modifiedAt": "2026-10-11T13:38:22.563Z",
+  "sha256": "07c9f82892cde03db262ca3632f3860d3c86f36b90395fd736717960454c924e",
+  "archiveSavedAt": "2026-10-11T13:38:22.561Z",
+  "checks": [
+    "strict UTF-8",
+    "version 1",
+    "chat kind",
+    "savedAt ISO parse",
+    "exact role/text/time equality",
+    "two messages",
+    "greeting excluded",
+    "unsent draft excluded",
+    "evidence copy byte equality"
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "text": "原生档案甲：中文 😀\n第二行保留  两个空格与\"引号\"。",
+      "time": "18:01"
+    },
+    {
+      "role": "assistant",
+      "text": "原生档案答甲：<script>只显示文本</script>；路径 C:\\测试\\档案。",
+      "time": "18:02"
+    }
+  ],
+  "boundary": "A real browser download was inspected from disk. Re-import and rendered message verification are recorded separately in chat-portable-browser.json. Native choose-location dialog is not covered."
+}

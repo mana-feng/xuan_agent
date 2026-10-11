@@ -1,0 +1,20 @@
+Command: & C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe --test frontend-only/tests/ai-chat-panel.test.cjs
+(node:204372) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ partial stream becomes an error with no dangling generating bubble (57.7673ms)
+✔ archive does not promote failed assistant output into successful conversation history (13.0967ms)
+✔ slow auto-restore cannot overwrite a conversation started while storage was loading (10.3809ms)
+✔ auto-restore rechecks direct-chart restore disablement after asynchronous storage access (13.195ms)
+✔ archive restore is ignored during generation (9.1752ms)
+✔ sending is ignored while a manual archive operation is active (7.0318ms)
+✔ fallback file cancel without a file preserves conversation and unlocks save/send (36.8735ms)
+✔ fallback file change without a file preserves conversation and unlocks save/send (12.3975ms)
+✔ fallback file selection still restores a valid archive and releases its busy lock (11.6706ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 643.8868

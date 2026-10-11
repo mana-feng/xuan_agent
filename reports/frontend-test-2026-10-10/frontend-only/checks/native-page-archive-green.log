@@ -1,0 +1,21 @@
+✔ page handleRestoreArchive stays busy past 300ms and blocks both archive actions until its delegate settles (625.0117ms)
+✔ page handleRestoreArchive unlocks when its child completes and permits the next operation (7.2251ms)
+✔ page handleRestoreArchive unlocks after cancellation without losing the rejection (6.5995ms)
+✔ page handleRestoreArchive unlocks after asynchronous failure without losing the rejection (6.6769ms)
+✔ page handleRestoreArchive unlocks if invoking the child throws synchronously (7.098ms)
+✔ page handleRestoreArchive does not leave a busy lock when its panel is unavailable (5.9716ms)
+✔ page handleSaveArchive stays busy past 300ms and blocks both archive actions until its delegate settles (365.3138ms)
+✔ page handleSaveArchive unlocks when its child completes and permits the next operation (6.1025ms)
+✔ page handleSaveArchive unlocks after cancellation without losing the rejection (6.0055ms)
+✔ page handleSaveArchive unlocks after asynchronous failure without losing the rejection (6.7884ms)
+✔ page handleSaveArchive unlocks if invoking the child throws synchronously (6.6259ms)
+✔ page handleSaveArchive does not leave a busy lock when its panel is unavailable (6.2185ms)
+✔ page refuses both archive actions while a chat response is being sent (6.3706ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1293.2333

@@ -1,0 +1,40 @@
+Frontend-only chart identity and local history audit, 2026-10-10
+
+Scope: frontend-only/src/store/{bazi,ziwei,yun,liuyao}.ts; pages/index/{index,detail}.nvue;
+pages/ziwei/{index,result}.nvue; pages/liuyao/result.nvue; pages/history/list.nvue;
+utils/{baziExport,ziweiExport,persistentStorage,chartContext,localChartRecords}.ts.
+No frontend-docker/backend-docker changes, dependency installs, builds, browser calls or model calls by this agent.
+
+Confirmed defects and repairs:
+1. Bazi and Ziwei result identity, export, save and edit read shared user fields. Creating a second chart relabelled the first and could attach another record ID. Each store now owns full input (realname, gender, timestamp, recordId). Results/exports/save/edit read that input. Form record IDs remain local through repeated onShow calls. New form submissions do not inherit another module's ID.
+2. Result restore was incomplete: Bazi cache lost priority to shared user, Ziwei had no result cache restore, saved IDs were not durably attached. Stores now expose restoreLastContext(), ensureComputed(), setRecordId(); pull and successful record-ID assignment persist their own last context. Store recalculation checks timestamp and gender.
+3. Bazi edit navigated to the agent home. It now opens /pages/index/index with that chart's identity.
+4. Bazi/Ziwei saves wrote milliseconds as strings; history used new Date(string), producing Invalid Date. chartTimestamp accepts legacy millisecond text, epoch zero, negative timestamps and ISO strings; new saves store numeric birth timestamps.
+5. Ziwei history opened a resetting blank input form; Liuyao history routed restore parameters into an input page that never consumed them. History now recalculates Bazi/Ziwei from authoritative record identity and Liuyao from saved six-line parameters, then opens the result directly. Bazi history rebuilds Yun library objects instead of patching serialized snapshots lacking methods.
+6. Liuyao saved a fresh ID on every click and used createdAt (generation/save time) for the casting time. It now stores/restores recordId and uses the profile's original casting time. Legacy records prioritize profile.timeLabel over old incorrect options.date. All six params, profile and day Ganzhi survive replay.
+7. Updating any chart replaced the original createdAt; saving silently discarded history beyond 200 entries. A shared local save helper updates by ID, preserves createdAt, allocates a distinct ID for same-millisecond new saves and retains older records.
+8. Reading expired local history deleted saved records. Malformed records were removed and could be silently overwritten by a new save. Saved-history reads now opt into permanent retention and fail without changing unreadable bytes. New saved records have no TTL. Ordinary transient persistentStorage callers retain existing default TTL behavior.
+9. Merged history already supported three types before this work. Its Vue keys and in-memory deletion used bare IDs, so deleting one type hid another type sharing an ID. Both operations now use type plus ID. History refreshes onShow.
+10. A valid 1960-02-03 04:05 female chart has an empty pre-luck LiuNian period. Original Yun selected that period and threw an unhandled rejection on getLiuYue. Initial selection now chooses a nonempty period; month resolution guards missing years and clears dependent rows.
+11. Coordinated with UI agent: Ziwei result connects four PalaceContent expand events to the existing zoom view, marks modal content expanded, and retains double-click behavior. UI agent owns child behavior and root owns browser verification.
+12. Strict nvue compiler errors in owned files corrected: nullable chart relation strings, normalized gender comparisons, implicit parameters, redundant ts-expect-error comments, literal Mutagen union and boolean cache values. No tsconfig/declaration changes by this agent.
+
+Behavior test command (PowerShell, repository root):
+& 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe' --test frontend-only/tests/chart-records.test.cjs
+
+Evidence:
+- .local-dev/only-chart-red.txt: initial 14 tests, 0 passed, 14 failed on assertions against original frontend-only code.
+- .local-dev/only-chart-green-1.txt: those 14 tests passed after the chart/history changes.
+- .local-dev/only-chart-red-2.txt: expired/malformed preservation tests failed; epoch/pre-1970 case exposed Yun unhandled getLiuYue error.
+- .local-dev/only-chart-red-3.txt: explicit empty-period test failed, with the same Yun rejection.
+- .local-dev/only-chart-green-2.txt: 20 tests passed, 0 failed, no Yun unhandled rejection. One expected malformed-storage diagnostic printed by that test.
+- .local-dev/only-chart-green-final.txt: 23 tests passed, 0 failed; expected malformed diagnostic scoped/captured. Added quota failure, same-millisecond allocation and mismatched serialized Bazi/Yun replay checks.
+- frontend-only/tests/helpers/load-chart-source.cjs executes actual TS stores/utilities and nvue setup scripts through TypeScript transpilation with real Vue, Pinia, lunar-javascript and iztro. Only uni storage/navigation/lifecycle and UI mount hooks are platform doubles. Storage uses JSON serialization like uni storage; timer callbacks are queued so navigation callbacks can be explicitly flushed.
+
+Typecheck command:
+& 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe' frontend-only/node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p frontend-only/tsconfig.json
+Last own run (.local-dev/only-chart-typecheck-final.txt) had only another agent's pending chat onLoad optional parameter error. No error remained in chart/history owned files. Root must rerun consolidated typecheck after AI fix.
+
+git diff --check for owned tracked source paths passed after removing four trailing spaces; only Windows LF/CRLF notices remained.
+
+Validation boundary: Node tests establish chart identity, records, serialization, restore/navigation decisions and library object rebuilds. They do not establish browser layout, device-storage quota behavior beyond explicit failure injection, calendar/astrology mathematical correctness, or AI answer quality. No live model was called. Root owns combined test/build and browser passes. Older data already deleted/truncated by prior versions cannot be recovered by these changes.

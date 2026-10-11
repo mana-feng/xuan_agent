@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-10-11T10:30:03.627Z",
+  "commands": [
+    {
+      "name": "tests",
+      "command": [
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "--test",
+        "tests/*.test.cjs"
+      ],
+      "cwd": "F:\\github\\xuanxue_AI-chat-agent\\frontend-only",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vue-tsc/bin/vue-tsc.js",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "F:\\github\\xuanxue_AI-chat-agent\\frontend-only",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "eslint",
+      "command": [
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "frontend-docker/node_modules/eslint/bin/eslint.js",
+        "--resolve-plugins-relative-to",
+        "frontend-docker/node_modules",
+        "frontend-only/src/**/*.{ts,vue,nvue}",
+        "--ignore-pattern",
+        "**/libs/tmui/**",
+        "--max-warnings",
+        "0",
+        "-f",
+        "json",
+        "-o",
+        "F:\\github\\xuanxue_AI-chat-agent\\reports\\frontend-test-2026-10-10\\frontend-only\\checks\\native-final-eslint.json"
+      ],
+      "cwd": "F:\\github\\xuanxue_AI-chat-agent",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "build",
+      "command": [
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/@dcloudio/vite-plugin-uni/bin/uni.js",
+        "build",
+        "-p",
+        "h5"
+      ],
+      "cwd": "F:\\github\\xuanxue_AI-chat-agent\\frontend-only",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "diff-check",
+      "exitCode": 0
+    }
+  ]
+}

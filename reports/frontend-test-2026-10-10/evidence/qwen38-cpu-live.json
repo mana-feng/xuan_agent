@@ -1,0 +1,121 @@
+{
+  "startedAt": "2026-10-10T08:51:47.243Z",
+  "requestedModel": "qwen3.8:latest",
+  "endpoint": "http://127.0.0.1:11438",
+  "runtime": {
+    "archiveSha256": "1283323272b04cd07905816a597a0da810918102de958f4ff6f7bbaa70ed2efe",
+    "pid": 208760,
+    "arguments": [
+      "-m",
+      "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "11438",
+      "-c",
+      "512",
+      "-b",
+      "32",
+      "-ub",
+      "32",
+      "-np",
+      "1",
+      "-t",
+      "4",
+      "-ngl",
+      "0",
+      "--no-repack",
+      "--load-mode",
+      "mmap",
+      "--no-warmup",
+      "--no-ui",
+      "--reasoning",
+      "off"
+    ],
+    "startedAt": "2026-10-10T08:50:48.1939438Z",
+    "officialArchive": "https://github.com/ggml-org/llama.cpp/releases/download/b11429/llama-b11429-bin-win-cpu-x64.zip",
+    "port": 11438,
+    "executable": "F:\\github\\xuanxue_AI-chat-agent\\.local-dev\\llama-b11429-win-cpu\\llama-server.exe"
+  },
+  "status": "passed",
+  "boundaries": [
+    "This is an isolated text-only llama.cpp process using the existing qwen3.8 GGUF language-model blob; its vision projector is not loaded.",
+    "Only a short completion at context 512 and concurrency 1 is tested; this does not establish full project chat context, throughput or answer quality.",
+    "The original Ollama service, existing other-project containers, project database configuration and global security configuration are not changed."
+  ],
+  "references": [
+    "https://github.com/ggml-org/llama.cpp/releases/expanded_assets/b11429",
+    "https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md"
+  ],
+  "identity": {
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M"
+    },
+    "architecture": "qwen35",
+    "originalContext": 262144,
+    "modelFile": "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+    "modelBytes": 16810714464,
+    "matchesOllamaBlob": true
+  },
+  "lastHealth": {
+    "http": 200,
+    "time": "2026-10-10T08:51:47.367Z"
+  },
+  "readyAt": "2026-10-10T08:51:47.367Z",
+  "request": {
+    "prompt": "只回复中文短句：你好。",
+    "maxTokens": 8,
+    "temperature": 0,
+    "reasoning": false
+  },
+  "completion": {
+    "http": 200,
+    "elapsedMs": 4371,
+    "text": "你好",
+    "finishReason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 19,
+      "total_tokens": 21,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 19,
+      "prompt_ms": 3397.761,
+      "prompt_per_token_ms": 178.82952631578948,
+      "prompt_per_second": 5.591917736415246,
+      "predicted_n": 2,
+      "predicted_ms": 714.819,
+      "predicted_per_token_ms": 714.819,
+      "predicted_per_second": 1.39895553979399
+    }
+  },
+  "finishedAt": "2026-10-10T08:51:51.738Z",
+  "resourcesAfterInference": {
+    "time": "2026-10-10T08:52:32.1855114Z",
+    "process": {
+      "Id": 208760,
+      "ProcessName": "llama-server",
+      "WorkingSet64": 16211947520,
+      "PrivateMemorySize64": 1104883712,
+      "VirtualMemorySize64": 22356832256,
+      "CPU": 30.625
+    },
+    "system": {
+      "TotalVisibleMemorySize": 33338440,
+      "FreePhysicalMemory": 1462148,
+      "TotalVirtualMemorySize": 54902968,
+      "FreeVirtualMemory": 8340612
+    }
+  }
+}

@@ -1,0 +1,8 @@
+- generic: 
+- generic: 
+- heading "历史排盘" [level=1]
+- paragraph: 查看、筛选并管理已保存的排盘
+- generic: 刷新
+- generic: 登录后可查看和管理您保存的八字排盘记录
+- generic: 去登录
+- document

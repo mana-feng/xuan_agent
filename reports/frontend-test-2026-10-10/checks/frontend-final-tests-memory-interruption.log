@@ -1,0 +1,123 @@
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (159.3656ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (4.2236ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (20.2156ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (27.4979ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (37.9648ms)
+✔ an activation key cannot leak to a document listener installed by the action (1.4379ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (1.6081ms)
+fatal error: out of memory allocating heap arena map
+
+runtime stack:
+runtime.throw({0x113a60d?, 0x0?})
+	runtime/panic.go:1073 +0x4d fp=0x95105ff300 sp=0x95105ff2d0 pc=0xb6f4cd
+runtime.(*mheap).sysAlloc(0x14ff780, 0x0?, 0x150fb80, 0x1)
+	runtime/malloc.go:757 +0x3e9 fp=0x95105ff3b8 sp=0x95105ff300 pc=0xb0d609
+runtime.(*mheap).grow(0x14ff780, 0x2625a00000000?)
+	runtime/mheap.go:1491 +0x76 fp=0x95105ff438 sp=0x95105ff3b8 pc=0xb276f6
+runtime.(*mheap).allocSpan(0x14ff780, 0x1, 0x0, 0x1c)
+	runtime/mheap.go:1244 +0x1b0 fp=0x95105ff4e0 sp=0x95105ff438 pc=0xb26f10
+runtime.(*mheap).alloc.func1()
+	runtime/mheap.go:962 +0x5c fp=0x95105ff528 sp=0x95105ff4e0 pc=0xb2699c
+runtime.(*mheap).alloc(0x87ffff00000001?, 0x10000?, 0xa8?)
+	runtime/mheap.go:956 +0x5b fp=0x95105ff570 sp=0x95105ff528 pc=0xb268fb
+runtime.(*mcentral).grow(0xffda645667d4?)
+	runtime/mcentral.go:252 +0x36 fp=0x95105ff5a0 sp=0x95105ff570 pc=0xb14256
+runtime.(*mcentral).cacheSpan(0x1511100)
+	runtime/mcentral.go:170 +0x405 fp=0x95105ff618 sp=0x95105ff5a0 pc=0xb140e5
+runtime.(*mcache).refill(0x1c139d80108, 0x90?)
+	runtime/mcache.go:182 +0x153 fp=0x95105ff658 sp=0x95105ff618 pc=0xb13713
+runtime.(*mcache).nextFree(0x1c139d80108, 0x1c)
+	runtime/malloc.go:945 +0x85 fp=0x95105ff690 sp=0x95105ff658 pc=0xb0dc45
+runtime.mallocgc(0xc0, 0x1093560, 0x1)
+	runtime/malloc.go:1161 +0x4cd fp=0x95105ff730 sp=0x95105ff690 pc=0xb6a8ad
+runtime.newobject(0x95105ff790?)
+	runtime/malloc.go:1386 +0x25 fp=0x95105ff758 sp=0x95105ff730 pc=0xb0df05
+internal/cpu.doinit()
+	internal/cpu/cpu_x86.go:51 +0x1e fp=0x95105ff7b8 sp=0x95105ff758 pc=0xb0227e
+internal/cpu.Initialize({0x0, 0x0})
+	internal/cpu/cpu.go:139 +0x1d fp=0x95105ff7d8 sp=0x95105ff7b8 pc=0xb01cdd
+runtime.cpuinit(...)
+	runtime/proc.go:727
+runtime.schedinit()
+	runtime/proc.go:820 +0xdd fp=0x95105ff830 sp=0x95105ff7d8 pc=0xb3c41d
+runtime.rt0_go()
+	runtime/asm_amd64.s:349 +0x13c fp=0x95105ff838 sp=0x95105ff830 pc=0xb7557c
+F:\github\xuanxue_AI-chat-agent\frontend-docker\node_modules\esbuild\lib\main.js:2146
+      throw reject;
+      ^
+
+Error: The service was stopped
+    at F:\github\xuanxue_AI-chat-agent\frontend-docker\node_modules\esbuild\lib\main.js:949:34
+    at responseCallbacks.<computed> (F:\github\xuanxue_AI-chat-agent\frontend-docker\node_modules\esbuild\lib\main.js:603:9)
+    at Socket.afterClose (F:\github\xuanxue_AI-chat-agent\frontend-docker\node_modules\esbuild\lib\main.js:594:28)
+    at Socket.emit (node:events:521:24)
+    at endReadableNT (node:internal/streams/readable:1736:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+Node.js v24.19.0
+✖ tests\agent-auth.test.cjs (4068.8356ms)
+✔ login preserves punctuation in the submitted credential (1249.2765ms)
+✔ login preserves boundary whitespace in the submitted credential (1088.6072ms)
+✔ login preserves ordinary characters in the submitted credential (104.7152ms)
+✔ registration sends the code with the account request so verification and creation are atomic (9.1484ms)
+✔ 用户服务协议 opens readable scrollable content and closes back to the registration form (291.9611ms)
+✔ 隐私权政策 opens readable scrollable content and closes back to the registration form (15.484ms)
+✔ agreement controls use their wrapper for keyboard activation and Escape closes the reader (18.1191ms)
+✔ Bazi export keeps the input that generated its pillars after a Ziwei chart (85.2789ms)
+✔ Ziwei export keeps its own identity after a Bazi chart (635.6547ms)
+✔ Bazi direct result restores the Bazi cache despite another module having a profile (78.0591ms)
+✔ Bazi result fully recalculates changed birth time and gender with an existing solar year (32.2025ms)
+✔ Bazi edit opens its input page and carries the displayed chart identity (57.773ms)
+✔ saving Bazi uses the displayed chart input and record instead of the latest other chart (57.2853ms)
+✔ saving Ziwei uses its displayed chart identity and record after Bazi input changes (101.0992ms)
+✔ a Bazi save response cannot attach the previous chart record to a newly generated chart (28.5531ms)
+✔ a Ziwei save response cannot attach the previous chart record to a newly generated chart (73.849ms)
+✔ an edited Bazi form keeps its record when the existing page is shown again (95.0309ms)
+✔ an edited Ziwei form keeps its record when the existing page is shown again (57.6977ms)
+✔ changing only Bazi gender recalculates the gender-dependent chart rows (24.3504ms)
+✔ Ziwei direct result restores only its own cached profile (52.6834ms)
+✔ changing only Ziwei gender recomputes its chart when the result page is shown (76.5087ms)
+✔ Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation (181.3032ms)
+✔ Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation (669.1881ms)
+✔ history replay rebuilds from record identity even when cached Bazi contains another input (50.3094ms)
+✔ saving a Liuyao result twice creates once then updates its own returned ID (111.5994ms)
+✔ saving Liuyao preserves the chosen casting time instead of when the page was generated (25.1396ms)
+✔ a cached Liuyao result retains its casting time and saved identity after reload (49.4759ms)
+✔ concurrent Liuyao save clicks create only one record (18.6892ms)
+✔ a rejected Liuyao save is not reported as successful or assigned a record ID (20.9636ms)
+✔ legacy Liuyao local cache restores the chosen profile time without inventing a saved ID (17.1317ms)
+✔ generating a new Liuyao chart after a saved chart creates a fresh record (20.5552ms)
+✔ a late Liuyao save response cannot give its record ID to a newly generated result (31.0635ms)
+✔ history loads all three types with equal numeric IDs and sorts across types (46.0272ms)
+✔ opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged (82.4039ms)
+✔ opening a saved Liuyao record recomputes the saved parameters and keeps its record identity (24.1944ms)
+✔ a saved Liuyao record saves back to the same typed record after being reopened (26.9157ms)
+✔ opening Bazi lite history recomputes it without changing the current Ziwei input (59.8488ms)
+✔ malformed Liuyao history is rejected without overwriting the current result (23.4547ms)
+✔ deleting a Ziwei record sends its type and preserves same-ID records of other types (14.8725ms)
+✔ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (116.4891ms)
+✔ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (27.6221ms)
+✔ bazi: HTTP 404 clears only the missing record ID so the next save can create it (36.6164ms)
+✔ bazi: a late HTTP 404 cannot clear a new chart's record ID (27.2176ms)
+✔ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (164.6938ms)
+✔ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (52.4396ms)
+✔ ziwei: HTTP 404 clears only the missing record ID so the next save can create it (56.6257ms)
+✔ ziwei: a late HTTP 404 cannot clear a new chart's record ID (89.8524ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 54
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20944.937
+
+✖ failing tests:
+
+test at tests\agent-auth.test.cjs:1:1
+✖ tests\agent-auth.test.cjs (4068.8356ms)
+  'test failed'
+
+Command: node --test tests/*.test.cjs
+ExitCode: 1
+CompletedAt: 2026-10-10T09:02:53.2631800Z

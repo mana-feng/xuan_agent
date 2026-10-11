@@ -1,0 +1,89 @@
+(node:211856) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✖ chat download reports browser handoff without claiming a completed file save (157.7772ms)
+✖ chat download handoff failure releases its Blob and preserves the last archive (36.9129ms)
+✖ chat save without a browser reports unsupported export and preserves the last archive (35.8352ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1081.0975
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:191:1
+✖ chat download reports browser handoff without claiming a completed file save (157.7772ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /下载/. Input:
+  
+  '已保存'
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:196:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '已保存',
+    expected: /下载/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:201:1
+✖ chat download handoff failure releases its Blob and preserves the last archive (36.9129ms)
+  AssertionError [ERR_ASSERTION]: a failed download handoff must release its object URL
+  + actual - expected
+  
+  + Blob {
+  +   Symbol(kHandle): Blob {},
+  +   Symbol(kLength): 130,
+  +   Symbol(kType): 'application/json;charset=utf-8',
+  +   constructor: [class Blob]
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:210:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Blob],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:216:1
+✖ chat save without a browser reports unsupported export and preserves the last archive (35.8352ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      kind: 'chat',
+      messages: [
+        {
+          role: 'user',
+  +       text: '保留当前对话',
+  +       time: '13:14'
+  -       text: '旧归档',
+  -       time: '12:00'
+        }
+      ],
+  +   savedAt: '2026-10-10T14:02:04.380Z',
+  -   savedAt: '2026-10-10T00:00:00.000Z',
+      v: 1
+    }
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:221:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { v: 1, kind: 'chat', savedAt: '2026-10-10T14:02:04.380Z', messages: [ [Object] ] },
+    expected: { v: 1, kind: 'chat', savedAt: '2026-10-10T00:00:00.000Z', messages: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

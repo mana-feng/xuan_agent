@@ -1,0 +1,7 @@
+- generic: 
+- generic: 
+- heading "紫微排盘结果" [level=1]
+- paragraph: 查看命盘、保存记录、导出与 AI 解读
+- generic: 暂无排盘数据，请先返回排盘主页生成命盘。
+- generic: 返回排盘
+- document

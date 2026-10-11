@@ -1,0 +1,33 @@
+{
+  "reviewedAt": "2026-10-11",
+  "scope": "frontend-only ChatPanel archive script and archive regression tests",
+  "status": "two_confirmed_bugs_fixed",
+  "findings": [
+    {
+      "id": "stale-handle-after-cache-write-failure",
+      "reproduction": "Remember archive A, import or save B, allow the local backup write but reject the IndexedDB handle update, reopen the panel. Before the fix it restored A despite backup B.",
+      "fix": "Persist a stale-handle marker before replacing the local backup; only clear it after the IndexedDB write succeeds. Auto-restore skips marked handles. If marker persistence fails, the backup replacement is skipped too.",
+      "coverage": ["native import", "input import", "native save", "download save"]
+    },
+    {
+      "id": "pending-auto-restore-overrides-manual-action",
+      "reproduction": "Delay auto-restore reading archive A, complete a manual empty import, cancelled import, or empty save, then finish the older read. Before the fix A replaced the current empty conversation.",
+      "fix": "Capture an operation counter for auto-restore; both manual archive entry points increment it. Every apply path rechecks that counter after asynchronous reads.",
+      "coverage": ["empty import", "cancelled import", "empty save"]
+    }
+  ],
+  "additionalRegression": "A successfully remembered native file still takes precedence over its older local backup when the file is edited later.",
+  "verification": {
+    "red": {"tests": 49, "passed": 42, "failed": 7, "log": ".local-dev/archive-flow-red.log"},
+    "initialGreen": {"tests": 49, "passed": 49, "failed": 0, "log": ".local-dev/archive-flow-green.log"},
+    "fullSuite": {"tests": 165, "passed": 165, "failed": 0, "command": "node --test tests/*.test.cjs", "log": ".local-dev/archive-flow-full-suite.log"},
+    "diffCheck": "passed for modified source and test files",
+    "environmentNote": "npm was unavailable on PATH; ran the package.json test script directly with node. The existing punycode deprecation warning remains."
+  },
+  "boundaries": [
+    "Regression tests execute production archive logic and real UTF-8 temporary file bytes, while replacing browser picker and IndexedDB boundaries.",
+    "This agent did not use browser or native UI tools and does not claim proof of native Windows picker behavior or an actual browser download/import roundtrip.",
+    "If all cache writes are unavailable, completed file operations remain successful; re-opening is not guaranteed to recover the latest file without selecting it again.",
+    "Only ChatPanel script and archive tests were edited. No report, template, or style was changed by this agent."
+  ]
+}

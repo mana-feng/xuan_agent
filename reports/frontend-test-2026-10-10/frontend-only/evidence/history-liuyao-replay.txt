@@ -1,0 +1,82 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "六爻排盘结果" [level=1]
+- paragraph: 查看卦象、六爻明细与卦辞
+- banner:
+  - heading "起卦概要" [level=2]
+- generic: 起卦主题
+- generic: 纯前端六爻丙：本次测试能否顺利完成？
+- generic: 性别
+- generic: 未填写
+- generic: 起卦时间
+- generic: 2026-10-10 18:39
+- generic: 保存到本地
+- generic: 复制排盘
+- generic: AI解读
+- banner:
+  - heading "卦象总览" [level=2]
+- paragraph: 本卦
+- heading "坎为水" [level=3]
+- paragraph: 坎 · 六冲
+- generic: 主卦
+- generic: 卦宫：坎 · 五行：水
+- generic: 世：上爻 · 应：三爻
+- generic: 可结合世应、动爻与变卦解读
+- paragraph: 变卦
+- heading "风水涣" [level=3]
+- paragraph: 离 · —
+- generic: 变卦
+- generic: 卦宫：离 · 五行：火
+- generic: 变卦已生成
+- generic: 动爻生成的变卦，建议结合世应及动爻解读
+- generic: 已加载卦辞，可结合 AI 解读使用
+- banner:
+  - heading "六爻明细" [level=2]
+- generic: 干支：
+- text: 丙午年
+- generic: 戊戌月
+- generic: 丁巳日
+- text: 己酉时
+- generic: 空亡：
+- text: 子丑
+- generic: 六神
+- generic: 本卦
+- generic: 变卦
+- generic: 上爻
+- generic: 青龙
+- generic: 兄弟戊子水
+- generic: ×
+- generic: 世
+- generic: 子孙 辛卯木
+- generic: 五爻
+- generic: 玄武
+- generic: 官鬼戊戌土
+- generic: 妻财 辛巳火
+- generic: 世
+- generic: 四爻
+- generic: 白虎
+- generic: 父母戊申金
+- generic: 官鬼 辛未土
+- generic: 三爻
+- generic: 螣蛇
+- generic: 妻财戊午火
+- generic: 应
+- generic: 妻财 戊午火
+- generic: 二爻
+- generic: 勾陈
+- generic: 官鬼戊辰土
+- generic: 官鬼 戊辰土
+- generic: 应
+- generic: 初爻
+- generic: 朱雀
+- generic: 子孙戊寅木
+- generic: 子孙 戊寅木
+- generic: ▬▬ 阳爻
+- generic: ▬ ▬ 阴爻
+- generic: ○ / × 动爻
+- banner:
+  - heading "卦辞与解读" [level=2]
+- generic: 坎为水:有孚维心，亨，行有尚。 彖曰：习坎，重险也。水流而不盈，行险而不失其信。维心亨，乃以刚中也。行有尚，往有功也。天险不可升也，地险山川丘陵也，王公设险以守其国，坎之时用大矣哉！ 象曰：水洊至，习坎；君子以常德行，习教事。 初六:习坎，入于坎窑。凶。 九二:坎有险，求小得。 六三:来之坎，坎险且枕，入于坎窑。勿用。 六四:樽酒簋贰，用缶纳约自牖。终无咎。 九五:坎不盈，祗既平。无咎。 上六:系用徽嘿，置于丛棘，三岁不得。凶。
+- document

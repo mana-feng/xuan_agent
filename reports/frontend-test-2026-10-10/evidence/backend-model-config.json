@@ -1,0 +1,11 @@
+{
+  "time": "2026-10-10T09:04:46.381Z",
+  "provider": "openai",
+  "model": "qwen3.8:latest",
+  "baseUrl": "http://127.0.0.1:11439/v1/chat/completions",
+  "scopes": [
+    "chat",
+    "agent"
+  ],
+  "note": "Local same Qwen3.8 GGUF; API-key placeholder required by app config schema, no external provider"
+}

@@ -1,0 +1,186 @@
+✔ bazi export hands off UTF-8 TOON bytes and filename for the displayed chart (215.0379ms)
+✖ bazi export keeps the Blob URL valid through browser handoff then releases it (73.1372ms)
+✖ bazi export reports handoff without claiming the browser finished saving (64.4941ms)
+✖ bazi failed download releases its Blob URL and copies the same chart (64.1344ms)
+✖ bazi failed download and clipboard report an error without a success toast (64.5695ms)
+✔ ziwei export hands off UTF-8 TOON bytes and filename for the displayed chart (892.2928ms)
+✖ ziwei export keeps the Blob URL valid through browser handoff then releases it (797.9004ms)
+✖ ziwei export reports handoff without claiming the browser finished saving (849.0402ms)
+✖ ziwei failed download releases its Blob URL and copies the same chart (778.5194ms)
+✖ ziwei failed download and clipboard report an error without a success toast (745.4405ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 2
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6607.9099
+
+✖ failing tests:
+
+test at tests\toon-export.test.cjs:58:3
+✖ bazi export keeps the Blob URL valid through browser handoff then releases it (73.1372ms)
+  AssertionError [ERR_ASSERTION]: the URL must remain readable after the click handler returns
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:61:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:66:3
+✖ bazi export reports handoff without claiming the browser finished saving (64.4941ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /已下载|下载成功|下载完成/. Input:
+  
+  '已下载 TOON 文件'
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:71:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '已下载 TOON 文件',
+    expected: /已下载|下载成功|下载完成/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:74:3
+✖ bazi failed download releases its Blob URL and copies the same chart (64.1344ms)
+  AssertionError [ERR_ASSERTION]: failed handoff must not leak the export Blob
+  + actual - expected
+  
+  + Blob {
+  +   Symbol(kHandle): Blob {},
+  +   Symbol(kLength): 15349,
+  +   Symbol(kType): 'text/plain;charset=utf-8',
+  +   constructor: [class Blob]
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:78:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Blob],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:87:3
+✖ bazi failed download and clipboard report an error without a success toast (64.5695ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + Blob {
+  +   Symbol(kHandle): Blob {},
+  +   Symbol(kLength): 15349,
+  +   Symbol(kType): 'text/plain;charset=utf-8',
+  +   constructor: [class Blob]
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:93:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Blob],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:58:3
+✖ ziwei export keeps the Blob URL valid through browser handoff then releases it (797.9004ms)
+  AssertionError [ERR_ASSERTION]: the URL must remain readable after the click handler returns
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:61:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:66:3
+✖ ziwei export reports handoff without claiming the browser finished saving (849.0402ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /已下载|下载成功|下载完成/. Input:
+  
+  '已下载 TOON 文件'
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:71:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '已下载 TOON 文件',
+    expected: /已下载|下载成功|下载完成/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:74:3
+✖ ziwei failed download releases its Blob URL and copies the same chart (778.5194ms)
+  AssertionError [ERR_ASSERTION]: failed handoff must not leak the export Blob
+  + actual - expected
+  
+  + Blob {
+  +   Symbol(kHandle): Blob {},
+  +   Symbol(kLength): 70465,
+  +   Symbol(kType): 'text/plain;charset=utf-8',
+  +   constructor: [class Blob]
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:78:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Blob],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toon-export.test.cjs:87:3
+✖ ziwei failed download and clipboard report an error without a success toast (745.4405ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + Blob {
+  +   Symbol(kHandle): Blob {},
+  +   Symbol(kLength): 70465,
+  +   Symbol(kType): 'text/plain;charset=utf-8',
+  +   constructor: [class Blob]
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\toon-export.test.cjs:93:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Blob],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

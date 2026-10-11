@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-10-10T10:07:41.7622625Z",
+  "hostPid": 215124,
+  "hostParent": null,
+  "hostStartedAt": "2026-10-10T10:05:19.148Z",
+  "heartbeat": "2026-10-10T10:07:29.01Z",
+  "listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 13306,
+      "OwningProcess": 205712
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 11439,
+      "OwningProcess": 179112
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3002,
+      "OwningProcess": 191752
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3001,
+      "OwningProcess": 196500
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3000,
+      "OwningProcess": 195448
+    }
+  ],
+  "http": [
+    {
+      "url": "http://127.0.0.1:3000/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3001/api/health",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3002/report.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:11439/health",
+      "status": 200
+    }
+  ],
+  "allHealthy": true,
+  "boundary": "Detached local WMI-launched host. No login/startup task and no restart-on-crash policy; OS reboot persistence not claimed. MySQL listener is checked here; SQL round trips are covered separately."
+}

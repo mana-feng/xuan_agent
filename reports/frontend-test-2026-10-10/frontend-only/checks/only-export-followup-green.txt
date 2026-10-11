@@ -1,0 +1,18 @@
+✔ bazi export hands off UTF-8 TOON bytes and filename for the displayed chart (287.9954ms)
+✔ bazi export keeps the Blob URL valid through browser handoff then releases it (103.3319ms)
+✔ bazi export reports handoff without claiming the browser finished saving (83.4078ms)
+✔ bazi failed download releases its Blob URL and copies the same chart (93.885ms)
+✔ bazi failed download and clipboard report an error without a success toast (85.6335ms)
+✔ ziwei export hands off UTF-8 TOON bytes and filename for the displayed chart (1184.4611ms)
+✔ ziwei export keeps the Blob URL valid through browser handoff then releases it (786.1542ms)
+✔ ziwei export reports handoff without claiming the browser finished saving (795.6605ms)
+✔ ziwei failed download releases its Blob URL and copies the same chart (929.7736ms)
+✔ ziwei failed download and clipboard report an error without a success toast (1002.6375ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6941.2188

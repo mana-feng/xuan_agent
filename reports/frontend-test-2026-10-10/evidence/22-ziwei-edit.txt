@@ -1,0 +1,30 @@
+- generic: 
+- generic: 
+- heading "紫微排盘" [level=1]
+- paragraph: 请填写以下信息进行紫微排盘
+- banner:
+  - generic: 
+  - heading "基础信息" [level=2]
+- generic: 
+- textbox: 功能测试乙
+- generic: 
+- generic: 性别
+- generic: 男
+- generic: 女
+- banner:
+  - heading "出生时间" [level=2]
+  - paragraph: 支持阳历/阴历，精确到分钟
+- generic: 
+- generic: 日历类型
+- generic: 阳历
+- generic: 阴历
+- generic: 
+- generic: 2026/10/10 08:33
+- generic: 
+- generic: 对应阴历
+- generic: 二〇二六年九月初一 辰时
+- generic: 排盘时间
+- generic: 2026/10/10 08:33
+- generic: 
+- generic: 开始排盘
+- document

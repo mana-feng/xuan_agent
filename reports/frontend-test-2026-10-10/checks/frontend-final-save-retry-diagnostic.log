@@ -1,0 +1,50 @@
+✔ saving a Liuyao result twice creates once then updates its own returned ID (78.391ms)
+✔ saving Liuyao preserves the chosen casting time instead of when the page was generated (12.4705ms)
+✔ a cached Liuyao result retains its casting time and saved identity after reload (23.8518ms)
+✔ concurrent Liuyao save clicks create only one record (8.7277ms)
+✔ a rejected Liuyao save is not reported as successful or assigned a record ID (11.391ms)
+✔ legacy Liuyao local cache restores the chosen profile time without inventing a saved ID (10.4724ms)
+✔ generating a new Liuyao chart after a saved chart creates a fresh record (10.5892ms)
+✔ a late Liuyao save response cannot give its record ID to a newly generated result (14.2761ms)
+✔ history loads all three types with equal numeric IDs and sorts across types (53.9902ms)
+✔ opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged (47.3933ms)
+✔ opening a saved Liuyao record recomputes the saved parameters and keeps its record identity (13.7463ms)
+✔ a saved Liuyao record saves back to the same typed record after being reopened (16.9345ms)
+✔ opening Bazi lite history recomputes it without changing the current Ziwei input (54.1703ms)
+✔ malformed Liuyao history is rejected without overwriting the current result (16.7912ms)
+✔ deleting a Ziwei record sends its type and preserves same-ID records of other types (12.4044ms)
+✔ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (142.4861ms)
+✔ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (42.3213ms)
+✔ bazi: HTTP 404 clears only the missing record ID so the next save can create it (29.2584ms)
+✔ bazi: a late HTTP 404 cannot clear a new chart's record ID (22.2734ms)
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (127.5623ms)
+✔ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (28.1455ms)
+✔ ziwei: HTTP 404 clears only the missing record ID so the next save can create it (34.1832ms)
+✔ ziwei: a late HTTP 404 cannot clear a new chart's record ID (43.6874ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 22
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8781.5269
+
+✖ failing tests:
+
+test at tests\saved-history.test.cjs:210:5
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (127.5623ms)
+  AssertionError [ERR_ASSERTION]: active Pinia changed; captured page recordId=11
+  
+  false !== true
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:217:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

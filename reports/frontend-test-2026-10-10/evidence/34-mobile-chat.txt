@@ -1,0 +1,12 @@
+- generic: AI 聊天
+- generic: "次数: --"
+- generic: 恢复
+- generic: 保存
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 08:37
+- generic: ready
+- generic: 输入消息，回车发送
+- textbox
+- generic: 发送
+- document

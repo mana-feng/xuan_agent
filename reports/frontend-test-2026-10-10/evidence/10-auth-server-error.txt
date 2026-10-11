@@ -1,0 +1,10 @@
+- generic: 
+- generic: 返回首页
+- generic: 八字排盘
+- generic: 登录后可在多设备同步查看您的排盘历史
+- generic: 登录
+- generic: 注册
+- textbox: test-report@example.invalid
+- textbox: <redacted>
+- generic: 登录
+- document

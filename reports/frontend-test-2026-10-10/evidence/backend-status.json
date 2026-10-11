@@ -1,0 +1,567 @@
+{
+  "updatedAt": "2026/10/10 18:10:51 UTC+8",
+  "summary": "真实认证19/19、记录与隔离30/30、额度故障14/14通过；Chrome真实Qwen Agent动作、流式聊天及刷新后的连续两轮上下文通过。前端84/84、后端69/69，类型检查、相关ESLint和H5构建通过。",
+  "environment": "前端 127.0.0.1:3000，后台 127.0.0.1:3001，独立 MySQL 8.4.11 在 127.0.0.1:13306/bazi_e2e，HTML 报告 127.0.0.1:3002。仅使用本机合成测试账号，未使用真实个人资料。后端启用请求签名和认证，前端保留既有开发 CSP 配置。 Qwen3.8同一27B模型通过Vulkan运行于127.0.0.1:11439；五个服务由独立本机后台进程保持运行，无开机启动注册。",
+  "evidenceBoundary": "三组在线验收使用实际应用和 MySQL；工程回归中部分使用替身，见各项边界。额度故障测试的模型上游是本机受控夹具，不能作为真实 Qwen 回复证据；真实模型回复和扣费已另列。验证码直接写入测试数据库，未验收 SMTP 发信与收件。",
+  "items": [
+    {
+      "id": "B-01",
+      "title": "密码被清理导致真实登录失败",
+      "status": "已修复并验证",
+      "problem": "通用文本清理会改变密码中的尖括号、引号及首尾空格。",
+      "change": "认证密码作为原始凭据保留；邮箱、用户名继续按各自规则处理。",
+      "validation": "真实 MySQL 账号使用含特殊符号与空格密码登录成功；错误地 trim 后的密码被拒绝 401。Chrome primary 账号登录成功。",
+      "evidence": [
+        {
+          "path": "evidence/backend-auth-live.json",
+          "label": "认证 19 项"
+        },
+        {
+          "path": "evidence/backend-browser-login.txt",
+          "label": "Chrome 登录"
+        }
+      ],
+      "screenshot": "screenshots/backend-browser-login.jpg"
+    },
+    {
+      "id": "B-02",
+      "title": "注册验证码未在服务端原子校验",
+      "status": "已修复并验证",
+      "problem": "注册接口本身缺少验证码约束；客户端先消费验证码容易造成注册失败后无法重试。",
+      "change": "注册请求直接提交 verification_code；服务端锁定同邮箱、同用途、未过期且未使用的验证码，消费与创建账号放在同一事务。",
+      "validation": "真实注册无码与错码 400、有效码注册成功、复用失败；生产事务助手在真实 MySQL 故障注入回滚后可正常注册。",
+      "boundary": "验证码由测试脚本播种；SMTP 投递未测试。",
+      "evidence": [
+        {
+          "path": "evidence/backend-auth-live.json",
+          "label": "真实注册与回滚"
+        }
+      ]
+    },
+    {
+      "id": "B-03",
+      "title": "刷新令牌并发重复使用",
+      "status": "已修复并验证",
+      "problem": "刷新时读取、撤销与新令牌写入缺少原子互斥。",
+      "change": "事务内 FOR UPDATE 锁定旧令牌，条件撤销且核对更新行数，再写入新令牌。",
+      "validation": "同一 refresh token 并发请求结果为 200 与 401；旧令牌不能复用，logout 清 cookie 并撤销；回滚后原令牌仍可正常刷新。",
+      "boundary": "已有 access token 在其配置有效期内保持有效。",
+      "evidence": [
+        {
+          "path": "evidence/backend-auth-live.json",
+          "label": "刷新轮换与退出"
+        }
+      ]
+    },
+    {
+      "id": "B-04",
+      "title": "六爻重复保存与历史类型遗漏",
+      "status": "已修复并验证",
+      "problem": "六爻保存缺少记录 ID 与起卦时间快照；历史页只读取八字记录，紫微与六爻无法完整管理。",
+      "change": "六爻首次 POST 后复用 ID 执行 PUT，防止重复点击与迟到响应污染新盘；历史合并三类记录并按类型回放。",
+      "validation": "真实接口30/30通过。Chrome三类各连续保存两次，MySQL确认每类仅一条且ID均为2；编辑八字后仍为原ID。历史三类型正确回放，六爻刷新后保留原起卦时间；搜索仅显示匹配的紫微记录。",
+      "evidence": [
+        {
+          "path": "evidence/backend-records-live.json",
+          "label": "真实记录 30 项"
+        },
+        {
+          "path": "evidence/backend-browser-db.json",
+          "label": "Chrome操作后的数据库记录"
+        },
+        {
+          "path": "evidence/backend-browser-history.txt",
+          "label": "三类历史"
+        },
+        {
+          "path": "evidence/backend-browser-history-search.txt",
+          "label": "真实搜索"
+        }
+      ],
+      "screenshot": "screenshots/backend-browser-history.jpg"
+    },
+    {
+      "id": "B-05",
+      "title": "并发额度超扣与失败计费",
+      "status": "已修复并验证",
+      "problem": "先检查后扣减存在竞态；模型失败可能仍记账。",
+      "change": "HTTP/WS 共用事务预留额度，成功后提交扣减及使用记录，失败、断开、超时回滚；数据库错误时拒绝继续生成。",
+      "validation": "真实MySQL + HTTP/WebSocket 14/14通过：零额度拒绝；失败、空回复、截断、断流、取消、约181秒超时均不扣额度；最后1份混合并发仅1成功且usage仅加1。",
+      "boundary": "生成期间持有连接和用户行锁；尚未进行生产负载测试。",
+      "evidence": [
+        {
+          "path": "evidence/backend-quota-live.json",
+          "label": "额度实时验收证据"
+        }
+      ]
+    },
+    {
+      "id": "B-06",
+      "title": "流式协议、截断与中文解码",
+      "status": "已修复并验证",
+      "problem": "Ollama WebSocket 文本提取和 UTF-8 跨块解码不完整；空响应或截断可能被当成成功。",
+      "change": "统一供应商解析器、UTF-8 StringDecoder、完成标识与非空响应校验；提交记账后才发送完成事件。",
+      "validation": "31个服务端LLM回归与真实数据库受控Ollama上游用例通过，涵盖中文跨块、完成标识、空内容及截断；真实Qwen网站流式路径单列B-07。",
+      "evidence": [
+        {
+          "path": "evidence/backend-quota-live.json",
+          "label": "受控上游故障场景"
+        }
+      ]
+    },
+    {
+      "id": "B-07",
+      "title": "本机 Qwen3.8 运行配置",
+      "status": "已修复并验证",
+      "problem": "Ollama qwen3.8:latest 已存在，但默认推理出现 GGML 内存分配失败，CPU 路径出现 CPU_REPACK 分配失败。",
+      "change": "同一qwen3.8 27B Q4_K_M GGUF通过官方llama.cpp运行；关闭repack、启用mmap、8192上下文，RX9070XT Vulkan卸载30层。后台chat/agent使用127.0.0.1:11439 OpenAI兼容完整端点。",
+      "validation": "真实Agent777输入/56输出，模型处理约29.7秒，Chrome显示回复并成功执行历史导航；数据库5→4且usage0→1。八字流式聊天6722输入/16输出约123.4秒，答对盘主姓名与性别，页面额度4→3且数据库usage1→2。 最终冷启动双轮均收到正确盘面字段；额度20→19→18，usage3→4→5。 最终两轮模型处理分别约73.8秒和78.0秒，输入6702/6742、输出18/23 token。",
+      "boundary": "仅本机文字单并发，8192上下文，单次输出上限192token；本轮观察长回答约1.5–3token/s。未做命理领域答案准确率、长期稳定性或负载验收；不同时加载CPU副本。",
+      "evidence": [
+        {
+          "path": "evidence/qwen38-cpu-live.json",
+          "label": "Qwen短句"
+        },
+        {
+          "path": "evidence/qwen38-context-live.json",
+          "label": "8192上下文实验"
+        },
+        {
+          "path": "evidence/qwen38-vulkan-2048-live.json",
+          "label": "Vulkan2072token实测"
+        },
+        {
+          "path": "evidence/backend-model-config.json",
+          "label": "实际网站模型配置"
+        },
+        {
+          "path": "evidence/backend-browser-agent-reply.txt",
+          "label": "Agent回复"
+        },
+        {
+          "path": "evidence/backend-browser-agent-action.txt",
+          "label": "执行导航"
+        },
+        {
+          "path": "evidence/backend-browser-chat-reply.txt",
+          "label": "真实流式回复"
+        },
+        {
+          "path": "evidence/backend-browser-db-after-chat1.json",
+          "label": "实际扣费"
+        },
+        {
+          "path": "evidence/qwen38-browser-runtime.log",
+          "label": "模型实际处理时序"
+        },
+        {
+          "path": "evidence/backend-browser-final-chat2.txt",
+          "label": "最终连续两轮"
+        },
+        {
+          "path": "evidence/backend-browser-db-after-final-chat2.json",
+          "label": "最终数据库扣减"
+        },
+        {
+          "path": "evidence/services-live.json",
+          "label": "五个服务实际健康状态"
+        },
+        {
+          "path": "evidence/qwen38-final-browser-runtime.log",
+          "label": "最终两轮模型处理时序"
+        }
+      ],
+      "screenshot": "screenshots/backend-browser-chat-reply.jpg"
+    },
+    {
+      "id": "B-08",
+      "title": "验收环境依赖整理中断（工具操作）",
+      "status": "已修复并验证",
+      "problem": "验证命令经pnpm run触发自动依赖整理，将原npm依赖移入.ignored后安装未完成，造成临时Sass解析失败；不是原网站产品缺陷。",
+      "change": "恢复54个原依赖目录；后续直调本地CLI，不触发包管理器安装或升级。",
+      "validation": "sass解析和编译恢复，Chrome已可进入三类结果并保存；原lockfile未因恢复升级。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-sass-failure.txt",
+          "label": "原始 Chrome 错误"
+        },
+        {
+          "path": "evidence/backend-browser-bazi-save.txt",
+          "label": "恢复后八字结果"
+        }
+      ]
+    },
+    {
+      "id": "B-09",
+      "title": "保存失败重试可能创建重复记录",
+      "status": "已修复并验证",
+      "problem": "任意PUT失败后清空ID，下一次保存可能POST新增。",
+      "change": "仅明确NOT_FOUND时清空ID；网络/500保留原记录ID。",
+      "validation": "新增8例：修复前4失败，修复后全部通过，覆盖两页网络/500保留ID、NOT_FOUND清ID、迟到响应隔离。完整前端62项快照通过。",
+      "evidence": [
+        {
+          "path": "checks/verification-summary.json",
+          "label": "独立审查与工程验证"
+        },
+        {
+          "path": "checks/frontend-final-save-retry-red.log",
+          "label": "修前失败"
+        },
+        {
+          "path": "checks/frontend-final-tests.log",
+          "label": "修后62项快照"
+        }
+      ]
+    },
+    {
+      "id": "B-10",
+      "title": "AI前后端超时时限不一致",
+      "status": "已修复并验证",
+      "problem": "uni.request默认60秒，早于后台180秒，慢模型在回复前被客户端取消。",
+      "change": "仅LLM请求显式设置协调的超时，普通API保持默认；同步nginx API读超时。",
+      "validation": "195秒LLM超时已生效；Chrome完整八字调用约123秒正常完成，未在默认60秒被取消。默认普通API时限不变；nginx仅静态配置验证。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-chat-reply.txt",
+          "label": "大于60秒的真实完成回复"
+        },
+        {
+          "path": "checks/llm-verification-summary.json",
+          "label": "最终84项及工程检查"
+        },
+        {
+          "path": "checks/llm-final-tests.log",
+          "label": "完整回归日志"
+        }
+      ]
+    },
+    {
+      "id": "B-11",
+      "title": "流式失败自动重发造成重复调用风险",
+      "status": "已修复并验证",
+      "problem": "已发送SSE遇到任何错误都会再发普通HTTP，首个请求可能已计费。",
+      "change": "发送前判断流式支持；已发送后的网络、流式和模型上游错误不自动重发。仅应用认证中间件明确拒绝的401允许共享刷新后重试一次，见B-14。",
+      "validation": "新增策略回归验证已发SSE遇错误、网络失败或缺DONE时不产生第二请求；定时abort和正常完成均通过。最终前端84/84。",
+      "evidence": [
+        {
+          "path": "checks/llm-verification-summary.json",
+          "label": "最终84项及工程检查"
+        },
+        {
+          "path": "checks/llm-final-tests.log",
+          "label": "完整回归日志"
+        }
+      ]
+    },
+    {
+      "id": "B-12",
+      "title": "多轮聊天丢失盘面上下文",
+      "status": "已修复并验证",
+      "problem": "仅首次请求加入盘面system信息，后续无状态请求无法继续看到该盘。",
+      "change": "每次请求都附当前盘面上下文，避免重复污染可见聊天记录。",
+      "validation": "首轮与后续轮均包含当前盘面system上下文。Chrome刷新聊天页后，第一轮正确回答盘主姓名、男；第二轮未重述资料，仅追问出生日期和性别，模型正确回答2026年10月10日、男。两次各扣1次额度且usage各加1。",
+      "evidence": [
+        {
+          "path": "checks/llm-verification-summary.json",
+          "label": "最终84项及工程检查"
+        },
+        {
+          "path": "checks/llm-final-tests.log",
+          "label": "完整回归日志"
+        },
+        {
+          "path": "evidence/backend-browser-final-chat1.txt",
+          "label": "第一轮"
+        },
+        {
+          "path": "evidence/backend-browser-final-chat2.txt",
+          "label": "第二轮"
+        },
+        {
+          "path": "evidence/backend-browser-db-after-final-chat2.json",
+          "label": "实际扣减"
+        }
+      ],
+      "screenshot": "screenshots/backend-browser-final-chat2.jpg"
+    },
+    {
+      "id": "B-13",
+      "title": "聊天请求重复附加本轮用户消息",
+      "status": "已修复并验证",
+      "problem": "面板先加入本轮user及waiting，buildMessages使用未过滤的历史末条做去重，导致本轮user重复发送。",
+      "change": "根据过滤后的实际请求历史判断末条消息，并补面板真实调用顺序回归。",
+      "validation": "模拟面板真实user→waiting→send顺序，修复前本轮用户消息2条导致失败；修后仅1条。最终84/84通过。",
+      "evidence": [
+        {
+          "path": "checks/llm-verification-summary.json",
+          "label": "最终84项及工程检查"
+        },
+        {
+          "path": "checks/llm-final-tests.log",
+          "label": "完整回归日志"
+        },
+        {
+          "path": "checks/llm-final-duplicate-prompt-red.log",
+          "label": "修复前实际失败"
+        }
+      ]
+    },
+    {
+      "id": "B-14",
+      "title": "流式聊天未复用过期登录刷新",
+      "status": "已修复并验证",
+      "problem": "流式fetch未共享登录刷新；进一步审查发现上游模型401被服务端转换成用户登录过期文案，仍可能误刷新并重复调用。",
+      "change": "流式请求仅遇应用认证中间件明确401时共享刷新锁，更新token与签名并最多重试一次；模型上游401/403在HTTP和WS统一映射为502及LLM_UPSTREAM_AUTH_FAILED，与用户会话区分。",
+      "validation": "前端5项认证边界用例通过；后端新增10项loopback HTTP/WS用例修复前失败，修复后全部通过。后端69/69，最终前端84/84通过。已重载后台，真实Qwen成功路径再次通过。",
+      "evidence": [
+        {
+          "path": "checks/llm-auth-refresh-red.log",
+          "label": "前端修前"
+        },
+        {
+          "path": "checks/llm-auth-refresh-green.log",
+          "label": "前端认证边界"
+        },
+        {
+          "path": "checks/upstream-auth-red.log",
+          "label": "真实错误映射修前失败"
+        },
+        {
+          "path": "checks/backend-final-tests.log",
+          "label": "后端69项"
+        },
+        {
+          "path": "checks/llm-verification-summary.json",
+          "label": "最终前端工程验证"
+        }
+      ],
+      "boundary": "过期/并发刷新与上游鉴权失败由自动化夹具验证；未在Chrome等待完整access token有效期再验收。新10项回归使用受控上游和数据库替身；真实MySQL认证19项及额度14项证据独立列出。"
+    },
+    {
+      "id": "B-15",
+      "title": "直接打开或刷新聊天页未恢复盘面",
+      "status": "已修复并验证",
+      "problem": "新标签直接访问带from的聊天页时store为空，只有进入首页才恢复本地盘面，模型因此未收到盘面。",
+      "change": "按from仅恢复对应八字、紫微或六爻；已有激活盘面不被缓存覆盖，已计算盘面不重算，无缓存不虚构数据。",
+      "validation": "新增7例：三类冷启动修前失败，修后7/7；最终前端84/84通过。Chrome刷新聊天页后真实双轮正确回答缓存盘主姓名、出生日期与性别。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-direct-chat-no-chart.txt",
+          "label": "修前直接访问实际回复"
+        },
+        {
+          "path": "checks/chat-restore-red.log",
+          "label": "修前失败"
+        },
+        {
+          "path": "checks/chat-restore-green.log",
+          "label": "修后7项"
+        },
+        {
+          "path": "evidence/backend-browser-final-chat2.txt",
+          "label": "刷新后真实双轮"
+        }
+      ],
+      "screenshot": "screenshots/backend-browser-final-chat2.jpg"
+    }
+  ],
+  "browser": [
+    {
+      "title": "真实登录",
+      "status": "通过",
+      "actual": "Chrome 使用 primary 合成账号登录后显示用户名、注销菜单，Agent 输入提示切为已登录。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-login.txt",
+          "label": "DOM"
+        }
+      ]
+    },
+    {
+      "title": "三类保存与重复保存",
+      "status": "通过",
+      "actual": "每类保存两次，真实MySQL各1条；八字编辑后保持ID2。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-db.json",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "三类历史与回放",
+      "status": "通过",
+      "actual": "列表同时显示八字/紫微/六爻；回放姓名、性别及时间对应，六爻刷新保持。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-history.txt",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "历史搜索",
+      "status": "通过",
+      "actual": "搜索紫微标题仅显示1条匹配记录。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-history-search.txt",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "真实Agent与页面动作",
+      "status": "通过",
+      "actual": "777输入/56输出约29.7秒，生成历史导航按钮，点击后进入三类历史；额度仅扣1次。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-agent-reply.txt",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "真实Qwen流式聊天",
+      "status": "通过",
+      "actual": "收到正确盘主姓名与性别；模型123.4秒完成；额度4→3，usage1→2。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-chat-reply.txt",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "历史性别筛选",
+      "status": "通过",
+      "actual": "选择女后仅显示紫微乙1条。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-history-gender.txt",
+          "label": "实际证据"
+        }
+      ]
+    },
+    {
+      "title": "冷启动恢复与真实两轮追问",
+      "status": "通过",
+      "actual": "刷新聊天页，首轮正确姓名/性别，第二轮正确日期/性别；额度20→19→18，usage3→4→5。",
+      "evidence": [
+        {
+          "path": "evidence/backend-browser-final-chat2.txt",
+          "label": "Chrome实际回复"
+        },
+        {
+          "path": "evidence/backend-browser-db-after-final-chat2.json",
+          "label": "数据库"
+        }
+      ]
+    },
+    {
+      "title": "人工测试额度准备",
+      "status": "通过",
+      "actual": "在最终双轮前，仅将合成primary账号额度2调整为20，未改变usage；该设置不作为应用计费测试结果。真实扣减从20开始单列，剩余额度供用户手动操作。",
+      "evidence": [
+        {
+          "path": "evidence/backend-test-quota-setup.json",
+          "label": "调整前后审计"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "title": "前端行为回归",
+      "status": "通过",
+      "detail": "84/84通过，0失败；串行执行全部8个测试文件。",
+      "evidence": [
+        {
+          "path": "checks/llm-final-tests.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "前端类型检查",
+      "status": "通过",
+      "detail": "退出0。",
+      "evidence": [
+        {
+          "path": "checks/llm-final-typecheck.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "本轮LLM相关ESLint",
+      "status": "通过",
+      "detail": "退出0。",
+      "evidence": [
+        {
+          "path": "checks/llm-final-lint.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "最终H5生产构建",
+      "status": "通过",
+      "detail": "退出0；Browserslist旧数据提示仍存在，未影响构建。",
+      "evidence": [
+        {
+          "path": "checks/llm-final-h5-build.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "后端行为回归",
+      "status": "通过",
+      "detail": "69/69通过；包含最后新增的模型401/403错误映射回归。",
+      "evidence": [
+        {
+          "path": "checks/backend-final-tests.log",
+          "label": "命令与退出码"
+        },
+        {
+          "path": "checks/backend-final-verification.json",
+          "label": "执行命令及范围"
+        }
+      ]
+    },
+    {
+      "title": "后端本轮修改文件ESLint",
+      "status": "通过",
+      "detail": "routes/llm.js、websocket/server.js退出0；本次检查范围为这两个修改文件。",
+      "evidence": [
+        {
+          "path": "checks/backend-final-eslint.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "保存页面ESLint",
+      "status": "通过",
+      "detail": "退出0。",
+      "evidence": [
+        {
+          "path": "checks/frontend-final-eslint-save-retry.log",
+          "label": "命令与退出码"
+        }
+      ]
+    },
+    {
+      "title": "五个服务运行状态",
+      "status": "通过",
+      "detail": "前端、后台、报告、MySQL和Qwen均监听127.0.0.1；四个HTTP健康检查200。独立进程保持运行，未设置开机自启。",
+      "evidence": [
+        {
+          "path": "evidence/services-live.json",
+          "label": "实际端口与健康检查"
+        }
+      ]
+    }
+  ]
+}

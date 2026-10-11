@@ -1,0 +1,126 @@
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/pnpm: fetch failed
+
+   ╭────────────────────────────────────────────────────────────────────────╮
+   │                                                                        │
+   │                  Update available! 11.25.0 → 12.6.0.                   │
+   │                  Changelog: https://pnpm.io/v/12.6.0                   │
+   │   To update, run: Invoke-WebRequest https://get.pnpm.io/install.ps1    │
+   │                 -UseBasicParsing | Invoke-Expression                   │
+   │                                                                        │
+   ╰────────────────────────────────────────────────────────────────────────╯
+
+Progress: resolved 1, reused 0, downloaded 0, added 0
+[WARN] GET https://registry.npmjs.org/autoprefixer error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-import error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-vue error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/sass-loader error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/unplugin-vue-components error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vite-plugin-progress error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vue-eslint-parser error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vue-tsc error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/iztro error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/pinia error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/cnchar error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/lunar-javascript error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vue error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vue-i18n error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vue-advanced-chat error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-stacktracey error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-automator error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Ftypes error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Fvite-plugin-uni error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@vue%2Fcompiler-sfc error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-cli-shared error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/esbuild error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/vite error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-app error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-app-plus error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-i18n error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-mp-weixin error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-components error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-h5 error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@types%2Fnode error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@typescript-eslint%2Fparser error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-prettier error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/sass error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/prettier error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/typescript error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-config-prettier error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/jsdom/-/jsdom-16.7.0.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/autoprefixer error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-import error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-vue error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/sass-loader error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/unplugin-vue-components error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vite-plugin-progress error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vue-eslint-parser error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vue-tsc error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/iztro error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/pinia error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/cnchar error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/lunar-javascript error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vue error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vue-i18n error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vue-advanced-chat error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-stacktracey error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-automator error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Ftypes error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Fvite-plugin-uni error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@vue%2Fcompiler-sfc error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-cli-shared error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/esbuild error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/vite error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-app error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-app-plus error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-i18n error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-mp-weixin error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-components error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@dcloudio%2Funi-h5 error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@types%2Fnode error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/@typescript-eslint%2Fparser error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-prettier error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/sass error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/prettier error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/typescript error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-config-prettier error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/jsdom/-/jsdom-16.7.0.tgz error (EACCES). Will retry in 1 minute. 1 retries left.
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/sass: fetch failed
+Progress: resolved 2, reused 0, downloaded 0, added 0
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/prettier: fetch failed
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/eslint-config-prettier: fetch failed
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/eslint-plugin-prettier: fetch failed
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/eslint: fetch failed
+[WARN] deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/@types%2Fnode: fetch failed
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin: fetch failed
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/@typescript-eslint%2Fparser: fetch failed
+[WARN] GET https://registry.npmjs.org/sass/-/sass-1.105.0.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/prettier/-/prettier-3.9.9.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint-plugin-prettier/-/eslint-plugin-prettier-5.5.6.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint/-/eslint-8.57.1.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@types/node/-/node-25.9.8.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/typescript: fetch failed
+[WARN] GET https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-7.18.0.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/@typescript-eslint/parser/-/parser-7.18.0.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/autoprefixer: fetch failed
+
+This error happened while installing a direct dependency of F:\github\xuanxue_AI-chat-agent\frontend-docker
+[WARN] GET https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz error (EACCES). Will retry in 10 seconds. 2 retries left.
+[ERROR] Command failed with exit code 1: pnpm install
+
+pnpm: Command failed with exit code 1: pnpm install
+    at getFinalError (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:89986:14)
+    at makeError (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:92293:21)
+    at getSyncResult (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94137:10)
+    at spawnSubprocessSync (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94097:14)
+    at execaCoreSync (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94027:23)
+    at callBoundExeca (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96555:23)
+    at boundExeca (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96532:49)
+    at sync2 (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96687:14)
+    at runPnpmCli (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:276906:5)
+    at runDepsStatusCheck (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:278122:7)

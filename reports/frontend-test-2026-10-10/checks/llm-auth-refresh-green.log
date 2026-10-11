@@ -1,0 +1,23 @@
+✔ Agent can finish a 90 second non-stream response before its LLM deadline (1181.0616ms)
+✔ non-stream chat also waits for slow LLM responses while ordinary APIs keep their default (7.7351ms)
+✔ an error after an SSE POST never automatically issues a second chargeable generation (20.8877ms)
+✔ a failed stream transport does not automatically retry even when the server may have committed (5.871ms)
+✔ lack of streaming capability selects ordinary HTTP before any stream request is sent (6.3739ms)
+✔ stream EOF without DONE is rejected and never marked as a completed answer (6.669ms)
+✔ completed SSE uses an abort signal and finishes once (5.5452ms)
+✔ SSE deadline aborts the pending request without automatically retrying (7.4926ms)
+✔ every stateless chat turn includes one current chart context without writing it into UI history (36.8733ms)
+✔ the UI send order of user then waiting includes the current user prompt only once (5.879ms)
+✔ SSE auth 401 refreshes once and rebuilds headers with the new access token (7.0305ms)
+✔ SSE auth 401 does not send another generation when refresh fails (5.7654ms)
+✔ SSE repeated auth 401 stops after one refresh and one retry (6.7793ms)
+✔ SSE upstream 401 cannot be mistaken for local login expiry or retried (5.691ms)
+✔ simultaneous SSE auth 401 responses share the existing refresh lock (31.2076ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3437.5758

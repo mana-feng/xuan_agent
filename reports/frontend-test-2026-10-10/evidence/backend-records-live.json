@@ -1,0 +1,548 @@
+{
+  "runId": "records-20261010T084634064Z",
+  "startedAt": "2026-10-10T08:46:34.065Z",
+  "environment": {
+    "api": "http://127.0.0.1:3001",
+    "database": "MySQL on 127.0.0.1:13306",
+    "frontend": "Not exercised by this HTTP/DB script"
+  },
+  "scope": "Synthetic chart records owned by the other fixture; primary used only for login and negative read/update checks.",
+  "checks": [
+    {
+      "name": "real MySQL connection",
+      "expected": "A live MySQL server responds",
+      "actual": {
+        "version": "8.4.11"
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.077Z"
+    },
+    {
+      "name": "other authenticated session",
+      "expected": {
+        "httpStatus": 200,
+        "authenticated": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "authenticated": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.178Z"
+    },
+    {
+      "name": "primary authenticated session",
+      "expected": {
+        "httpStatus": 200,
+        "authenticated": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "authenticated": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.264Z"
+    },
+    {
+      "name": "bazi POST creates owned record",
+      "expected": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.364Z"
+    },
+    {
+      "name": "bazi MySQL insert persistence",
+      "expected": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "actual": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.366Z"
+    },
+    {
+      "name": "bazi PUT 1 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.427Z"
+    },
+    {
+      "name": "bazi PUT 2 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.440Z"
+    },
+    {
+      "name": "bazi GET round-trip typed list",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.442Z"
+    },
+    {
+      "name": "bazi primary cannot read other's typed list record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.454Z"
+    },
+    {
+      "name": "bazi GET round-trip unified history",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.471Z"
+    },
+    {
+      "name": "bazi primary cannot read other's unified history record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.485Z"
+    },
+    {
+      "name": "bazi primary cannot update other's record",
+      "expected": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "actual": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.515Z"
+    },
+    {
+      "name": "ziwei POST creates owned record",
+      "expected": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.593Z"
+    },
+    {
+      "name": "ziwei MySQL insert persistence",
+      "expected": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "actual": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.594Z"
+    },
+    {
+      "name": "ziwei PUT 1 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.671Z"
+    },
+    {
+      "name": "ziwei PUT 2 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.687Z"
+    },
+    {
+      "name": "ziwei GET round-trip typed list",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.703Z"
+    },
+    {
+      "name": "ziwei primary cannot read other's typed list record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.717Z"
+    },
+    {
+      "name": "ziwei GET round-trip unified history",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.733Z"
+    },
+    {
+      "name": "ziwei primary cannot read other's unified history record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.749Z"
+    },
+    {
+      "name": "ziwei primary cannot update other's record",
+      "expected": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "actual": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.771Z"
+    },
+    {
+      "name": "liuyao POST creates owned record",
+      "expected": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "updated": false,
+        "validId": true,
+        "correctOwner": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.848Z"
+    },
+    {
+      "name": "liuyao MySQL insert persistence",
+      "expected": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "actual": {
+        "rowDelta": 1,
+        "ownerMatches": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.849Z"
+    },
+    {
+      "name": "liuyao PUT 1 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.904Z"
+    },
+    {
+      "name": "liuyao PUT 2 updates the same MySQL row",
+      "expected": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "sameId": true,
+        "updated": true,
+        "rowCountUnchanged": true,
+        "nameUpdated": true,
+        "payloadExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.919Z"
+    },
+    {
+      "name": "liuyao GET round-trip typed list",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.934Z"
+    },
+    {
+      "name": "liuyao primary cannot read other's typed list record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.948Z"
+    },
+    {
+      "name": "liuyao GET round-trip unified history",
+      "expected": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "recordPresent": true,
+        "nameExact": true,
+        "payloadExact": true,
+        "birthDatetimeExact": true,
+        "typeExact": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.964Z"
+    },
+    {
+      "name": "liuyao primary cannot read other's unified history record",
+      "expected": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "actual": {
+        "httpStatus": 200,
+        "otherRecordHidden": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.979Z"
+    },
+    {
+      "name": "liuyao primary cannot update other's record",
+      "expected": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "actual": {
+        "httpStatus": 404,
+        "mysqlRecordUnchanged": true
+      },
+      "status": "pass",
+      "time": "2026-10-10T08:46:34.995Z"
+    }
+  ],
+  "createdRecords": [
+    {
+      "type": "bazi",
+      "id": 1,
+      "ownerScope": "other",
+      "syntheticPrefix": "records-20261010T084634064Z",
+      "retained": true
+    },
+    {
+      "type": "ziwei",
+      "id": 1,
+      "ownerScope": "other",
+      "syntheticPrefix": "records-20261010T084634064Z",
+      "retained": true
+    },
+    {
+      "type": "liuyao",
+      "id": 1,
+      "ownerScope": "other",
+      "syntheticPrefix": "records-20261010T084634064Z",
+      "retained": true
+    }
+  ],
+  "finishedAt": "2026-10-10T08:46:34.995Z",
+  "summary": {
+    "total": 30,
+    "passed": 30,
+    "failed": 0,
+    "syntheticRecordsRetained": 3
+  }
+}

@@ -1,0 +1,176 @@
+(node:206964) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (914.6247ms)
+✖ manual native import selects archive B after remembering valid archive A (35.1879ms)
+✖ manual native import selects archive B after remembering malformed archive A (35.6053ms)
+✖ cancelled manual native import preserves remembered A, its backup and current conversation (31.0231ms)
+✖ manual input import selects archive B after remembering valid archive A (46.1208ms)
+✖ manual input import selects archive B after remembering malformed archive A (47.4618ms)
+✖ cancelled manual input import preserves remembered A, its backup and current conversation (36.0506ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (29.0549ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (62.827ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (29.8915ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (28.874ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (43.6927ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (24.5878ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (25.0806ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (24.2518ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (19.6394ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (30.4256ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (26.5929ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (18.2346ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (21.147ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (18.8594ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (22.5749ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (25.1096ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (25.7884ms)
+✔ native save write preserves the last saved backup and unlocks the panel (24.8228ms)
+✔ successful native file save remains successful when remembering its handle fails (29.5411ms)
+✔ chat download reports browser handoff without claiming a completed file save (25.3667ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (28.1994ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (21.8405ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 23
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8523.3068
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:89:5
+✖ manual native import selects archive B after remembering valid archive A (35.1879ms)
+  AssertionError [ERR_ASSERTION]: the explicitly selected B must replace the conversation
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:102:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:89:5
+✖ manual native import selects archive B after remembering malformed archive A (35.6053ms)
+  AssertionError [ERR_ASSERTION]: the explicitly selected B must replace the conversation
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '保留当前对话',
+  +     time: '13:14'
+  -     text: '八字问题：甲子\n保留空格  和引号 "原文" 😀',
+  -     time: '01:02'
+      },
+  -   {
+  -     role: 'assistant',
+  -     text: '第一行\n第二行 <script>仅文本</script> \\ 路径',
+  -     time: '23:59'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:102:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    expected: [ { role: 'user', text: '八字问题：甲子\n保留空格  和引号 "原文" 😀', time: '01:02' }, { role: 'assistant', text: '第一行\n第二行 <script>仅文本</script> \\ 路径', time: '23:59' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ cancelled manual native import preserves remembered A, its backup and current conversation (31.0231ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        role: 'user',
+  +     text: '旧归档',
+  +     time: '12:00'
+  -     text: '保留当前对话',
+  -     time: '13:14'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:127:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { role: 'user', text: '旧归档', time: '12:00' } ],
+    expected: [ { role: 'user', text: '保留当前对话', time: '13:14' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:89:5
+✖ manual input import selects archive B after remembering valid archive A (46.1208ms)
+  AssertionError [ERR_ASSERTION]: restore opens the input fallback
+      at chooseInput (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:64:10)
+      at async TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:100:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:89:5
+✖ manual input import selects archive B after remembering malformed archive A (47.4618ms)
+  AssertionError [ERR_ASSERTION]: restore opens the input fallback
+      at chooseInput (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:64:10)
+      at async TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:100:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:111:3
+✖ cancelled manual input import preserves remembered A, its backup and current conversation (36.0506ms)
+  AssertionError [ERR_ASSERTION]: manual restore must offer a file choice even with remembered A
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:123:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

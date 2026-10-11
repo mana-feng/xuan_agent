@@ -1,0 +1,13 @@
+Compiler version: 4.87（vue3）
+Compiling...
+
+​Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme​
+
+
+Build successful. Please see F:\github\xuanxue_AI-chat-agent\frontend-docker\dist\build\h5 directory
+
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+DONE  Build complete.

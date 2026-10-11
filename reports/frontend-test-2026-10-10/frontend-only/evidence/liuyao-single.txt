@@ -1,0 +1,83 @@
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "六爻排盘结果" [level=1]
+- paragraph: 查看卦象、六爻明细与卦辞
+- banner:
+  - heading "起卦概要" [level=2]
+- generic: 起卦主题
+- generic: 纯前端手工卦测试
+- generic: 性别
+- generic: 未填写
+- generic: 起卦时间
+- generic: 2026-10-10 18:45
+- generic: 保存到本地
+- generic: 复制排盘
+- generic: AI解读
+- banner:
+  - heading "卦象总览" [level=2]
+- paragraph: 本卦
+- heading "泽雷随" [level=3]
+- paragraph: 震 · 归魂
+- generic: 主卦
+- generic: 卦宫：震 · 五行：木
+- generic: 世：三爻 · 应：上爻
+- generic: 可结合世应、动爻与变卦解读
+- paragraph: 变卦
+- heading "天雷无妄" [level=3]
+- paragraph: 巽 · 六冲
+- generic: 变卦
+- generic: 卦宫：巽 · 五行：木
+- generic: 变卦已生成
+- generic: 动爻生成的变卦，建议结合世应及动爻解读
+- generic: 已加载卦辞，可结合 AI 解读使用
+- banner:
+  - heading "六爻明细" [level=2]
+- generic: 干支：
+- text: 丙午年
+- generic: 戊戌月
+- generic: 丁巳日
+- text: 己酉时
+- generic: 空亡：
+- text: 子丑
+- generic: 六神
+- generic: 本卦
+- generic: 变卦
+- generic: 上爻
+- generic: 青龙
+- generic: 妻财丁未土
+- generic: ×
+- generic: 应
+- generic: 妻财 壬戌土
+- generic: 五爻
+- generic: 玄武
+- generic: 官鬼丁酉金
+- generic: 官鬼 壬申金
+- generic: 四爻
+- generic: 白虎
+- generic: 父母丁亥水
+- generic: 伏 子孙庚午火
+- generic: 子孙 壬午火
+- generic: 世
+- generic: 三爻
+- generic: 螣蛇
+- generic: 妻财庚辰土
+- generic: 世
+- generic: 妻财 庚辰土
+- generic: 二爻
+- generic: 勾陈
+- generic: 兄弟庚寅木
+- generic: 兄弟 庚寅木
+- generic: 初爻
+- generic: 朱雀
+- generic: 父母庚子水
+- generic: 父母 庚子水
+- generic: 应
+- generic: ▬▬ 阳爻
+- generic: ▬ ▬ 阴爻
+- generic: ○ / × 动爻
+- banner:
+  - heading "卦辞与解读" [level=2]
+- generic: 泽雷随:元亨，利贞。无咎。 彖曰：随，刚来而下柔，动而说，随。大亨贞，无咎，而天下随时，随之时义大矣哉！ 象曰：泽中有雷，随；君子以晦入宴息。 初九:官有渝：贞吉、出门交有功。 六二:系小子，失丈夫。 六三:系丈夫，失小子。随有求得。利居贞。 九四:随有获。贞：凶。有孚在道，以明何咎。 九五:孚于嘉。吉。 上六:拘系之，乃从维之，王用亨于西山。
+- document

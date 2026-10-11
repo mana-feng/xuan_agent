@@ -1,0 +1,34 @@
+- button "返回首页":
+- button "用户菜单" [expanded] [active]:
+  - generic: U
+  - generic: 
+- generic: U
+- generic: user
+- button "AI 设置":
+  - generic: AI 设置
+- button "历史记录":
+  - generic: 历史记录
+- button " 关于":
+  - generic: 
+  - generic: 关于
+- heading "AI API 设置" [level=1]
+- paragraph: 配置将保存在浏览器本地存储中
+- generic: "*"
+- text: AI 提供商
+- generic: OpenAI
+- generic: "*"
+- text: API 地址
+- generic: 选择提供商后自动填充
+- textbox
+- generic: "*"
+- text: API Key
+- generic: 请输入 API Key
+- textbox
+- generic: 显示
+- generic: "*"
+- text: 模型名称
+- generic: 选择提供商后自动填充
+- textbox
+- generic: 保存配置
+- generic: 清除配置
+- document

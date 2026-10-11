@@ -1,0 +1,12 @@
+{
+  "browser": "Edge extension",
+  "steps": [
+    "Enter on 用户菜单: aria-expanded=true",
+    "Escape on AI 设置"
+  ],
+  "afterEscape": {
+    "expanded": "false",
+    "focusedLabel": "用户菜单",
+    "menuPresent": false
+  }
+}

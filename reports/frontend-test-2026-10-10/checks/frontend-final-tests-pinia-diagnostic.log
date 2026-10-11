@@ -1,0 +1,93 @@
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (328.0313ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (4.46ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (28.1183ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (28.6601ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (967.278ms)
+✔ an activation key cannot leak to a document listener installed by the action (1.2915ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (1.1374ms)
+✔ anonymous free input is blocked before API traffic and retains the draft and conversation (8.0723ms)
+✔ anonymous quick prompts share the guard and confirmed guidance opens login without sending (3.8116ms)
+✔ canceling login guidance stays on the page and repeated clicks do not stack dialogs (1.3336ms)
+✔ authenticated input uses the real API client with Bearer credentials and displays the reply (4.07ms)
+✔ a removed token cannot send even when the reactive login label was previously evaluated (1.267ms)
+✔ empty input does not send or prompt for login (1.0336ms)
+✔ Agent sends the independent identities of both charts in its model context (5065.9632ms)
+✔ Agent initialization restores both chart caches with their matching identities (33.9771ms)
+✔ login preserves punctuation in the submitted credential (204.77ms)
+✔ login preserves boundary whitespace in the submitted credential (606.1547ms)
+✔ login preserves ordinary characters in the submitted credential (11.3863ms)
+✔ registration sends the code with the account request so verification and creation are atomic (10.4443ms)
+✔ 用户服务协议 opens readable scrollable content and closes back to the registration form (2006.3771ms)
+✔ 隐私权政策 opens readable scrollable content and closes back to the registration form (12.2467ms)
+✔ agreement controls use their wrapper for keyboard activation and Escape closes the reader (20.0264ms)
+✔ Bazi export keeps the input that generated its pillars after a Ziwei chart (2059.6726ms)
+✔ Ziwei export keeps its own identity after a Bazi chart (3401.1974ms)
+✔ Bazi direct result restores the Bazi cache despite another module having a profile (116.861ms)
+✔ Bazi result fully recalculates changed birth time and gender with an existing solar year (20.2887ms)
+✔ Bazi edit opens its input page and carries the displayed chart identity (32.0103ms)
+✔ saving Bazi uses the displayed chart input and record instead of the latest other chart (36.1775ms)
+✔ saving Ziwei uses its displayed chart identity and record after Bazi input changes (71.7458ms)
+✔ a Bazi save response cannot attach the previous chart record to a newly generated chart (14.794ms)
+✔ a Ziwei save response cannot attach the previous chart record to a newly generated chart (62.3889ms)
+✔ an edited Bazi form keeps its record when the existing page is shown again (58.2807ms)
+✔ an edited Ziwei form keeps its record when the existing page is shown again (38.4972ms)
+✔ changing only Bazi gender recalculates the gender-dependent chart rows (15.3466ms)
+✔ Ziwei direct result restores only its own cached profile (37.3783ms)
+✔ changing only Ziwei gender recomputes its chart when the result page is shown (51.9465ms)
+✔ Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation (471.617ms)
+✔ Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation (327.2866ms)
+✔ history replay rebuilds from record identity even when cached Bazi contains another input (2358.4371ms)
+✔ saving a Liuyao result twice creates once then updates its own returned ID (4103.5025ms)
+✔ saving Liuyao preserves the chosen casting time instead of when the page was generated (1053.9952ms)
+✔ a cached Liuyao result retains its casting time and saved identity after reload (39.3406ms)
+✔ concurrent Liuyao save clicks create only one record (11.3546ms)
+✔ a rejected Liuyao save is not reported as successful or assigned a record ID (14.7512ms)
+✔ legacy Liuyao local cache restores the chosen profile time without inventing a saved ID (17.2352ms)
+✔ generating a new Liuyao chart after a saved chart creates a fresh record (16.0607ms)
+✔ a late Liuyao save response cannot give its record ID to a newly generated result (20.4222ms)
+✔ history loads all three types with equal numeric IDs and sorts across types (41.5196ms)
+✔ opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged (47.8193ms)
+✔ opening a saved Liuyao record recomputes the saved parameters and keeps its record identity (11.7602ms)
+✔ a saved Liuyao record saves back to the same typed record after being reopened (15.0209ms)
+✔ opening Bazi lite history recomputes it without changing the current Ziwei input (42.2747ms)
+✔ malformed Liuyao history is rejected without overwriting the current result (16.6135ms)
+✔ deleting a Ziwei record sends its type and preserves same-ID records of other types (8.6304ms)
+✔ bazi: retrying a failed PUT after network error keeps the saved ID and updates again (90.3007ms)
+✔ bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (27.9937ms)
+✔ bazi: HTTP 404 clears only the missing record ID so the next save can create it (15.6851ms)
+✔ bazi: a late HTTP 404 cannot clear a new chart's record ID (17.7449ms)
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (127.2575ms)
+✔ ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again (30.7769ms)
+✔ ziwei: HTTP 404 clears only the missing record ID so the next save can create it (33.2289ms)
+✔ ziwei: a late HTTP 404 cannot clear a new chart's record ID (50.8982ms)
+ℹ tests 62
+ℹ suites 0
+ℹ pass 61
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74627.6835
+
+✖ failing tests:
+
+test at tests\saved-history.test.cjs:210:5
+✖ ziwei: retrying a failed PUT after network error keeps the saved ID and updates again (127.2575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 11
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\saved-history.test.cjs:216:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+Command: node --test tests/*.test.cjs
+ExitCode: 1
+CompletedAt: 2026-10-10T09:00:00.3317502Z

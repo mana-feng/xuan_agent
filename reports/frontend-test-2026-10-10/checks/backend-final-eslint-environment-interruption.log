@@ -1,0 +1,72 @@
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/pnpm: fetch failed
+
+   ╭────────────────────────────────────────────────────────────────────────╮
+   │                                                                        │
+   │                  Update available! 11.25.0 → 12.6.0.                   │
+   │                  Changelog: https://pnpm.io/v/12.6.0                   │
+   │   To update, run: Invoke-WebRequest https://get.pnpm.io/install.ps1    │
+   │                 -UseBasicParsing | Invoke-Expression                   │
+   │                                                                        │
+   ╰────────────────────────────────────────────────────────────────────────╯
+
+[WARN] Moving eslint that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving cookie-parser that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving dotenv that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving cors that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving bcryptjs that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving express that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving jsonwebtoken that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving express-rate-limit that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving mysql2 that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving exceljs that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving node-cron that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving nodemailer that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving node-fetch that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving redis that was installed by a different package manager to "node_modules/.ignored"
+[WARN] Moving ws that was installed by a different package manager to "node_modules/.ignored"
+[WARN] GET https://registry.npmjs.org/cors error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/cookie-parser error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/bcryptjs error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/exceljs error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/express error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/express-rate-limit error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/jsonwebtoken error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/mysql2 error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/node-cron error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/node-fetch error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/nodemailer error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/redis error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/eslint error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/dotenv error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/ws error (EACCES). Will retry in 10 seconds. 2 retries left.
+[WARN] GET https://registry.npmjs.org/cors error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/cookie-parser error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/bcryptjs error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/exceljs error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/express error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/express-rate-limit error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/jsonwebtoken error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/mysql2 error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/node-cron error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/node-fetch error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/nodemailer error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/redis error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/eslint error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/dotenv error (EACCES). Will retry in 1 minute. 1 retries left.
+[WARN] GET https://registry.npmjs.org/ws error (EACCES). Will retry in 1 minute. 1 retries left.
+[ERR_PNPM_META_FETCH_FAIL] GET https://registry.npmjs.org/cors: fetch failed
+
+This error happened while installing a direct dependency of F:\github\xuanxue_AI-chat-agent\backend-docker
+[ERROR] Command failed with exit code 1: pnpm install
+
+pnpm: Command failed with exit code 1: pnpm install
+    at getFinalError (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:89986:14)
+    at makeError (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:92293:21)
+    at getSyncResult (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94137:10)
+    at spawnSubprocessSync (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94097:14)
+    at execaCoreSync (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:94027:23)
+    at callBoundExeca (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96555:23)
+    at boundExeca (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96532:49)
+    at sync2 (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:96687:14)
+    at runPnpmCli (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:276906:5)
+    at runDepsStatusCheck (file:///C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pnpm/dist/pnpm.mjs:278122:7)

@@ -1,0 +1,4 @@
+
+Command: node node_modules/eslint/bin/eslint.js --resolve-plugins-relative-to ./node_modules src/pages/index/detail.nvue src/pages/ziwei/result.nvue
+ExitCode: 0
+SummaryRecordedAt: 2026-10-10T09:00:23.4938396Z

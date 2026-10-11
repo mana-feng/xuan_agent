@@ -1,0 +1,34 @@
+Browser: Edge extension, 3050
+Action: fill synthetic draft; click 恢复; press Escape.
+Before Escape:
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "AI 聊天" [level=1]
+- paragraph: 对接大模型的专用界面
+- generic: 恢复
+- generic: 保存
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 22:02
+- generic: ready
+- textbox [disabled]: 归档取消测试草稿
+- generic: 发送
+After Escape:
+- button "返回首页":
+- button "用户菜单":
+  - generic: U
+  - generic: 
+- heading "AI 聊天" [level=1]
+- paragraph: 对接大模型的专用界面
+- generic: 恢复
+- generic: 保存
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 22:02
+- generic: ready
+- textbox [disabled]: 归档取消测试草稿
+- generic: 发送
+Boundary: native dialog contents not captured; no file selected.
+Final observation: textarea still disabled after Escape. Tool could not control/dismiss native picker; cancellation NOT verified. Reloading synthetic test page to continue unrelated export checks.

@@ -1,0 +1,100 @@
+Run 1
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (221.9063ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1574.3155
+Run 2
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (201.7077ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1692.4434
+Run 3
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (192.7753ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1493.456
+Run 4
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (173.7795ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1308.9637
+Run 5
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (158.6262ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1320.9316
+Run 6
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (150.0839ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1287.5687
+Run 7
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (186.3207ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1265.8821
+Run 8
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (156.5129ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1361.689
+Run 9
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (178.1475ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1381.7668
+Run 10
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (151.424ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1362.0112

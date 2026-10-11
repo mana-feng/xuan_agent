@@ -1,0 +1,74 @@
+✖ SSE auth 401 refreshes once and rebuilds headers with the new access token (1476.0304ms)
+✖ SSE auth 401 does not send another generation when refresh fails (11.0505ms)
+✖ SSE repeated auth 401 stops after one refresh and one retry (9.1091ms)
+✔ SSE upstream 401 cannot be mistaken for local login expiry or retried (5.9197ms)
+✖ simultaneous SSE auth 401 responses share the existing refresh lock (6.3133ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2975.76
+
+✖ failing tests:
+
+test at tests\llm-request-policy.test.cjs:200:1
+✖ SSE auth 401 refreshes once and rebuilds headers with the new access token (1476.0304ms)
+  Error: 登录已失效，请重新登录
+      at Object.sendWithHttpStream (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:42371:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:210:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'UNAUTHORIZED'
+  }
+
+test at tests\llm-request-policy.test.cjs:216:1
+✖ SSE auth 401 does not send another generation when refresh fails (11.0505ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:221:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-request-policy.test.cjs:224:1
+✖ SSE repeated auth 401 stops after one refresh and one retry (9.1091ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:229:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\llm-request-policy.test.cjs:239:1
+✖ simultaneous SSE auth 401 responses share the existing refresh lock (6.3133ms)
+  Error: 登录已失效，请重新登录
+      at Object.sendWithHttpStream (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:42371:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Promise.all (index 0)
+      at async TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-docker\tests\llm-request-policy.test.cjs:246:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    code: 'UNAUTHORIZED'
+  }

@@ -1,0 +1,53 @@
+(node:183688) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (218.1694ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (100.6349ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (35.6627ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (37.3113ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (36.6541ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (41.9756ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (31.4087ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (27.024ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (25.6486ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (25.6018ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (32.0523ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (19.0648ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (27.8294ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (18.1912ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (22.1385ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (26.576ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (21.0406ms)
+✔ native save write preserves the last saved backup and unlocks the panel (34.8522ms)
+✔ successful native file save remains successful when remembering its handle fails (26.4808ms)
+✔ chat download reports browser handoff without claiming a completed file save (17.5963ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (22.1464ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (17.8303ms)
+(node:200084) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ partial stream becomes an error with no dangling generating bubble (121.4456ms)
+✔ archive does not promote failed assistant output into successful conversation history (32.4734ms)
+✔ slow auto-restore cannot overwrite a conversation started while storage was loading (28.2848ms)
+✔ auto-restore rechecks direct-chart restore disablement after asynchronous storage access (33.2884ms)
+✔ archive restore is ignored during generation (24.3015ms)
+✔ sending is ignored while a manual archive operation is active (22.4302ms)
+✔ fallback file cancel without a file preserves conversation and unlocks save/send (89.9075ms)
+✔ fallback file change without a file preserves conversation and unlocks save/send (28.1183ms)
+✔ fallback file selection still restores a valid archive and releases its busy lock (30.5945ms)
+✔ bazi export hands off UTF-8 TOON bytes and filename for the displayed chart (248.2433ms)
+✔ bazi export keeps the Blob URL valid through browser handoff then releases it (80.4699ms)
+✔ bazi export reports handoff without claiming the browser finished saving (60.1237ms)
+✔ bazi failed download releases its Blob URL and copies the same chart (50.3843ms)
+✔ bazi failed download and clipboard report an error without a success toast (49.3462ms)
+✔ ziwei export hands off UTF-8 TOON bytes and filename for the displayed chart (913.6959ms)
+✔ ziwei export keeps the Blob URL valid through browser handoff then releases it (833.434ms)
+✔ ziwei export reports handoff without claiming the browser finished saving (707.8068ms)
+✔ ziwei failed download releases its Blob URL and copies the same chart (785.1282ms)
+✔ ziwei failed download and clipboard report an error without a success toast (775.5447ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6077.4211

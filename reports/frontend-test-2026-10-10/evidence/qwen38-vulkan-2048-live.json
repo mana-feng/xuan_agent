@@ -1,0 +1,150 @@
+{
+  "startedAt": "2026-10-10T09:03:34.588Z",
+  "requestedModel": "qwen3.8:latest",
+  "endpoint": "http://127.0.0.1:11439",
+  "runtime": {
+    "archiveSha256": "1bfe78ad9168b79fa02bf67f6af9f5e17a966d824d77238517f7bef12ac73b36",
+    "officialArchive": "https://github.com/ggml-org/llama.cpp/releases/download/b11429/llama-b11429-bin-win-vulkan-x64.zip",
+    "pid": 207668,
+    "arguments": [
+      "-m",
+      "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "11439",
+      "-c",
+      "8192",
+      "-b",
+      "128",
+      "-ub",
+      "128",
+      "-np",
+      "1",
+      "-t",
+      "8",
+      "-ngl",
+      "30",
+      "--device",
+      "Vulkan0",
+      "--no-repack",
+      "--load-mode",
+      "mmap",
+      "--no-warmup",
+      "--no-ui",
+      "--reasoning",
+      "off"
+    ],
+    "executable": "F:\\github\\xuanxue_AI-chat-agent\\.local-dev\\llama-b11429-win-vulkan\\llama-server.exe",
+    "contextSize": 8192,
+    "device": "Vulkan0",
+    "startedAt": "2026-10-10T09:02:03.5387656Z",
+    "port": 11439,
+    "gpuLayers": 30
+  },
+  "status": "passed",
+  "boundaries": [
+    "This is an isolated text-only llama.cpp process using the existing qwen3.8 GGUF language-model blob; its vision projector is not loaded.",
+    "A roughly 2048-token input and short completion are tested at context 8192, concurrency 1; this does not establish full-capacity context performance, concurrent throughput or domain answer quality.",
+    "The original Ollama service, existing other-project containers, project database configuration and global security configuration are not changed."
+  ],
+  "references": [
+    "https://github.com/ggml-org/llama.cpp/releases/expanded_assets/b11429",
+    "https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md"
+  ],
+  "identity": {
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M"
+    },
+    "architecture": "qwen35",
+    "originalContext": 262144,
+    "modelFile": "E:\\ollama-model\\blobs\\sha256-f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+    "modelBytes": 16810714464,
+    "matchesOllamaBlob": true
+  },
+  "lastHealth": {
+    "http": 200,
+    "time": "2026-10-10T09:03:34.631Z"
+  },
+  "readyAt": "2026-10-10T09:03:34.631Z",
+  "inputTokensBeforeChatTemplate": 2060,
+  "request": {
+    "prompt": "This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. This is synthetic local inference test data. The sequence repeats only to test input length. \n以上仅为长度测试材料。请忽略其内容，只回复四个汉字：验证通过。",
+    "maxTokens": 12,
+    "temperature": 0,
+    "reasoning": false,
+    "cachePrompt": false
+  },
+  "completion": {
+    "http": 200,
+    "elapsedMs": 21593,
+    "text": "验证通过",
+    "finishReason": "stop",
+    "usage": {
+      "completion_tokens": 3,
+      "prompt_tokens": 2072,
+      "total_tokens": 2075,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 2072,
+      "prompt_ms": 20881.734,
+      "prompt_per_token_ms": 10.07805694980695,
+      "prompt_per_second": 99.22547619848045,
+      "predicted_n": 3,
+      "predicted_ms": 685.843,
+      "predicted_per_token_ms": 342.9215,
+      "predicted_per_second": 2.916119286775545
+    }
+  },
+  "finishedAt": "2026-10-10T09:03:56.237Z",
+  "resourcesAfterInference": {
+    "time": "2026-10-10T09:04:24.5755001Z",
+    "process": {
+      "Id": 207668,
+      "ProcessName": "llama-server",
+      "WorkingSet64": 12529692672,
+      "PrivateMemorySize64": 9653628928
+    },
+    "system": {
+      "TotalVisibleMemorySize": 33338440,
+      "FreePhysicalMemory": 3498104,
+      "TotalVirtualMemorySize": 59553092,
+      "FreeVirtualMemory": 3974016
+    },
+    "gpu": [
+      {
+        "Name": "luid_0x00000000_0x0001CDFE_phys_0",
+        "DedicatedUsage": 0,
+        "SharedUsage": 8192,
+        "TotalCommitted": 643072
+      },
+      {
+        "Name": "luid_0x00000000_0x0001AFA0_phys_0",
+        "DedicatedUsage": 11874426880,
+        "SharedUsage": 336068608,
+        "TotalCommitted": 12421378048
+      }
+    ]
+  },
+  "activeDeployment": {
+    "checkedAt": "2026-10-10T09:05:35.4950174Z",
+    "activePid": 207668,
+    "activeExecutable": "F:\\github\\xuanxue_AI-chat-agent\\.local-dev\\llama-b11429-win-vulkan\\llama-server.exe",
+    "cpuFallbackStopped": true,
+    "endpoint": "http://127.0.0.1:11439/v1/chat/completions",
+    "contextSize": 8192,
+    "gpuLayers": 30,
+    "reservedForWebsiteAcceptance": true
+  }
+}

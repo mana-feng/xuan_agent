@@ -1,0 +1,2 @@
+src/store/ziwei.ts(88,4): error TS2578: Unused '@ts-expect-error' directive.
+src/store/ziwei.ts(98,5): error TS2578: Unused '@ts-expect-error' directive.

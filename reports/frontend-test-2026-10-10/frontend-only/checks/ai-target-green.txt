@@ -1,0 +1,36 @@
+✔ chat sends current input once after appending its waiting bubble (40.2837ms)
+✔ chat carries previous successful turns and excludes failed/in-progress replies (5.754ms)
+✔ bazi direct cold chat restores only its own chart and includes context on every turn (37.5276ms)
+✔ ziwei direct cold chat restores only its own chart and includes context on every turn (840.5507ms)
+✔ chat unload cancels the active request without publishing a late reply (5.9688ms)
+✔ chat ignores duplicate submission while an earlier request is pending (15.8564ms)
+✔ Agent respects an explicit no-action response even if chart input is complete (0.4915ms)
+✔ Agent does not execute inferred actions after a malformed explicit action (0.2349ms)
+✔ Agent navigation accepts only supported targets, excluding inherited object keys (0.1313ms)
+✔ explicit ziwei input-page request rejects navigation to a different tool (0.3708ms)
+✔ explicit ziwei input-page request cannot immediately execute a chart (0.2043ms)
+✔ explicit bazi input-page request rejects navigation to a different tool (0.0862ms)
+✔ explicit bazi input-page request cannot immediately execute a chart (0.0838ms)
+✔ explicit liuyao input-page request rejects navigation to a different tool (0.0775ms)
+✔ explicit liuyao input-page request cannot immediately execute a chart (0.0706ms)
+✔ explicit correct page navigation keeps the answer and uses a label matching the destination (0.0948ms)
+✔ ambiguous tool selection keeps model recommendation behavior (0.1003ms)
+✔ a negated page-opening request does not become an enforced target (0.0665ms)
+✔ page-target validation still calls the model and offers the right manual route after a conflicting response (13.2358ms)
+✔ Agent does not infer Gregorian birth data from a lunar or ambiguous date (0.2569ms)
+✔ Agent does not mistake an unrelated number for a missing birth time (0.2905ms)
+✔ Agent does not convert a missing colon-minute value into a confirmed birth time (0.1171ms)
+✔ Agent correctly understands 12 AM and 12 PM in Chinese date input (0.4081ms)
+✔ Agent refreshes saved settings state when returning from settings (0.4688ms)
+✔ Agent excludes failed replies from later request history (4.9508ms)
+✔ Agent run_bazi_chart preserves the submitted identity in the generated chart (6.6123ms)
+✔ Agent run_ziwei_chart preserves the submitted identity in the generated chart (18.8281ms)
+✔ Agent unload aborts a pending request (2.7538ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1502.2112

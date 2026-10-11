@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-11T13:48:05.597Z",
+  "agents": [
+    "archive_flow_review",
+    "chat_layout",
+    "archive_report_review"
+  ],
+  "conclusion": "No blocking findings in final read-only integration review",
+  "verification": {
+    "tests": 186,
+    "lintFiles": 78,
+    "allExitCodesZero": true
+  },
+  "file": "F:\\download\\ai-chat-2026-10-11.json",
+  "sha256": "07c9f82892cde03db262ca3632f3860d3c86f36b90395fd736717960454c924e",
+  "browserPassRecords": 15,
+  "boundaries": [
+    "Native choose-location save not physically verified",
+    "Native cancellation not physically verified",
+    "Viewport simulation is not a physical mobile keyboard test"
+  ]
+}

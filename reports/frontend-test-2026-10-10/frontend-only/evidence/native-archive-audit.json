@@ -1,0 +1,73 @@
+{
+  "scope": "frontend-only chat archive save, manual import, automatic restoration",
+  "evidence_level": "source inspection and Node tests; no native browser or OS dialog operated by this agent",
+  "resolution": {
+    "status": "source fix implemented and regression suite passes; native verification remains with root",
+    "production_change": "Removed remembered-handle reads from handleRestoreArchive. Manual restore immediately opens showOpenFilePicker or input. tryAutoRestoreOnOpen continues using the remembered handle.",
+    "files_changed": ["frontend-only/src/chat/ChatPanel.vue", "frontend-only/tests/ai-chat-archive.test.cjs"],
+    "formal_red": { "passed": 23, "failed": 6, "log": ".local-dev/native-archive-formal-red.log" },
+    "targeted_green": { "passed": 38, "failed": 0, "log": ".local-dev/native-archive-targeted-green.log" },
+    "full_suite_once": { "passed": 144, "failed": 0, "log": ".local-dev/native-archive-full-suite.log" },
+    "new_regressions": "Both native and input paths: valid A to selected B, malformed A to selected B, cancellation preserves A handle/file bytes/local backup/current messages; readable remembered handle still takes priority during automatic restoration.",
+    "warnings": "Existing Node DEP0040 punycode deprecation warning is present; no failing tests.",
+    "validation_boundary": "Node tests use JSDOM/mocked pickers and IndexedDB plus real temporary UTF-8 files. This agent did not operate a browser, verify actual OS dialogs/downloads, run typecheck/build/lint, or modify the HTML report."
+  },
+  "baseline": {
+    "command": "node --test tests/ai-chat-archive.test.cjs",
+    "passed": 22,
+    "failed": 0,
+    "boundary": "JSDOM, mocked picker and IndexedDB; file-handle mock writes real temporary UTF-8 files"
+  },
+  "confirmed_source_failure": {
+    "title": "Remembered archive prevents selecting a different file during manual restore",
+    "locations": ["frontend-only/src/chat/ChatPanel.vue:391", "frontend-only/src/chat/ChatPanel.vue:406"],
+    "trigger": "Save or import archive A so its readable handle is remembered, then click Restore intending to select B",
+    "actual": "Handle A is read first. showOpenFilePicker and input.click never run. A replaces the current conversation, or a now-malformed A reports an error without offering B.",
+    "regression": ".local-dev/native-archive-remembered-handle.test.cjs",
+    "red_evidence": ".local-dev/native-archive-remembered-handle-red.log",
+    "red_result": "2 failures: valid remembered A and malformed remembered A both produce pickerCalls 0 instead of 1",
+    "suggested_minimal_fix": "Manual restore always opens the native picker or input fallback; remembered handles remain available to automatic restoration."
+  },
+  "native_checks_for_root": [
+    {
+      "priority": 1,
+      "check": "After A has been saved or imported, Restore must open a picker so B can be selected; repeat after modifying A into malformed JSON.",
+      "why": "Confirmed source failure above, awaiting native reproduction."
+    },
+    {
+      "priority": 1,
+      "check": "Native save writes actual bytes, preserving Chinese, emoji, escaped quotes and line breaks; re-open selected file and compare messages/roles/times.",
+      "why": "Existing tests exercise a Node fs-backed handle, not real FileSystemWritableFileStream."
+    },
+    {
+      "priority": 1,
+      "check": "Cancel the native open/save dialog and input fallback dialog; current conversation and previous backup stay intact, then another save/import/send remains usable.",
+      "why": "AbortError and DOM cancel are mocked in tests; actual native dialog event delivery is not proven."
+    },
+    {
+      "priority": 1,
+      "check": "Import malformed JSON, wrong-kind JSON, empty file and schema-invalid JSON; no message replacement or remembered-handle change, then a valid file can still be imported.",
+      "why": "Current schema tests prove source guards, not rendered UX or actual File.text errors."
+    },
+    {
+      "priority": 1,
+      "check": "Where no Save File Picker is available, anchor download reaches the actual download directory and downloaded bytes can be imported.",
+      "why": "The helper's URL is revoked in a later timer, and a successful click alone does not prove download completion."
+    },
+    {
+      "priority": 2,
+      "check": "Reload after import, verify automatic restoration with retained file permission and with permission no longer granted; local backup should recover the imported archive.",
+      "why": "Real structured cloning of FileSystemFileHandle, browser permission persistence and reload timing are not covered by mock IDB."
+    },
+    {
+      "priority": 2,
+      "check": "If the initial IndexedDB read is slow, verify explicit Restore still opens a picker after a real click.",
+      "why": "Before the proposed fix, manual restore awaits IDB and file read before opening the picker; mock tests cannot establish actual transient user activation behavior."
+    },
+    {
+      "priority": 3,
+      "check": "Observe button disabled state while a slow picker/file operation stays open for more than 300 ms.",
+      "why": "pages/chat/index.nvue:87-102 releases its own archiveBusy on a 300 ms timer; ChatPanel keeps its separate lock until completion, so duplicate operations are guarded but parent button appearance may re-enable early."
+    }
+  ]
+}

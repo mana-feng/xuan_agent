@@ -1,0 +1,109 @@
+(node:236400) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ primary download uses downloadable UTF-8 bytes even when the native save picker exists (96.9846ms)
+✔ primary import uses input selection even when the native open picker exists and blocks changes while reading (36.5604ms)
+✔ primary import cancel preserves conversation, draft and cached archive with native picker support (17.5036ms)
+✔ primary import invalid JSON preserves conversation, draft and cached archive with native picker support (18.6183ms)
+✔ primary import invalid schema preserves conversation, draft and cached archive with native picker support (14.5963ms)
+✔ primary import read error preserves conversation, draft and cached archive with native picker support (18.5724ms)
+✖ primary import reports a Chinese error for empty file while preserving unsaved and cached data (14.0314ms)
+✖ primary import reports a Chinese error for malformed JSON while preserving unsaved and cached data (14.6835ms)
+✔ input archive picker stays in the document while choosing and cleans up after success (14.7207ms)
+✔ input archive picker stays in the document while choosing and cleans up after cancel (11.2788ms)
+✔ input archive picker stays in the document while choosing and cleans up after read failure (11.0391ms)
+✔ input archive picker stays in the document while choosing and cleans up after click failure (15.6161ms)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (18.6619ms)
+✔ manual native import selects archive B after remembering valid archive A (18.8694ms)
+✔ manual native import selects archive B after remembering malformed archive A (19.2351ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (15.6033ms)
+✔ manual input import selects archive B after remembering valid archive A (18.8259ms)
+✔ manual input import selects archive B after remembering malformed archive A (18.9267ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (10.6442ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (10.1348ms)
+✔ native import remains the latest archive after its handle cache update fails (19.1517ms)
+✔ input import remains the latest archive after its handle cache update fails (18.5589ms)
+✔ native save remains the latest archive after its handle cache update fails (18.4296ms)
+✔ download save remains the latest archive after its handle cache update fails (18.3103ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty import (18.652ms)
+✔ pending auto-restore cannot replace the conversation after a manual cancelled import (7.6695ms)
+✔ pending auto-restore cannot replace the conversation after a manual empty save (10.7212ms)
+✔ successfully remembered native archive still follows later changes to its file (16.9904ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (20.4271ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (10.4753ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (10.9131ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (10.8169ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (11.2346ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (19.5174ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (9.6188ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (10.0168ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (9.63ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (9.7412ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (17.6004ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (11.3395ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (7.6723ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (6.8312ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (9.9195ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (7.9353ms)
+✔ native save write preserves the last saved backup and unlocks the panel (8.0561ms)
+✔ successful native file save remains successful when remembering its handle fails (10.2758ms)
+✔ chat download reports browser handoff without claiming a completed file save (8.6031ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (16.3921ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (8.1964ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 47
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1368.0397
+
+✖ failing tests:
+
+test at tests\ai-chat-archive.test.cjs:156:3
+✖ primary import reports a Chinese error for empty file while preserving unsaved and cached data (14.0314ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        icon: 'none',
+  +     title: 'Unexpected end of JSON input'
+  -     title: '档案文件为空'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:169:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { title: 'Unexpected end of JSON input', icon: 'none' } ],
+    expected: [ { title: '档案文件为空', icon: 'none' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-chat-archive.test.cjs:156:3
+✖ primary import reports a Chinese error for malformed JSON while preserving unsaved and cached data (14.6835ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        icon: 'none',
+  +     title: "Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+  -     title: '档案内容无法解析，请选择有效的 JSON 文件'
+      }
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuanxue_AI-chat-agent\frontend-only\tests\ai-chat-archive.test.cjs:169:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { title: "Expected property name or '}' in JSON at position 1 (line 1 column 2)", icon: 'none' } ],
+    expected: [ { title: '档案内容无法解析，请选择有效的 JSON 文件', icon: 'none' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,43 @@
+{
+  "files": [
+    {
+      "type": "ziwei",
+      "path": "F:/download/ziwei-202610102206 (1).toon",
+      "filename": "ziwei-202610102206 (1).toon",
+      "bytes": 50990,
+      "provenance": "Parent observed native page export at 2026-10-10 22:25 +08; supplied exact path and page facts. Source was not created by this audit.",
+      "expected": {
+        "name": "导出补验乙",
+        "gender": "女",
+        "otherName": "导出补验甲",
+        "birthLocalMinute": "2026-10-10T22:06",
+        "exportUtcMinute": "2026-10-10T14:25",
+        "chart": {
+          "gender": "女",
+          "solarDate": "2026-10-10",
+          "time": "亥时",
+          "fiveElementsClass": "木三局",
+          "soul": "巨门",
+          "body": "火星"
+        },
+        "focus": "交友"
+      }
+    },
+    {
+      "type": "bazi",
+      "path": "F:/download/bazi-202610102157 (2).toon",
+      "filename": "bazi-202610102157 (2).toon",
+      "bytes": 15399,
+      "provenance": "Parent observed native page export at 2026-10-10 22:41:51 +08; supplied exact path and page facts. Source was not created by this audit. Native UI evidence: native-download-bazi-ui.txt.",
+      "expected": {
+        "name": "导出补验甲",
+        "gender": "男",
+        "otherName": "导出补验乙",
+        "birthLocalMinute": "2026-10-10T21:57",
+        "birthLocalSecond": "2026-10-10T21:57:12",
+        "exportUtcMinute": "2026-10-10T14:41",
+        "sizhu": ["丙午", "戊戌", "丁巳", "辛亥"]
+      }
+    }
+  ]
+}

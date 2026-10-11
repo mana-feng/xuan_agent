@@ -1,0 +1,299 @@
+{
+  "updatedAt": "2026/10/10 18:10:51 UTC+8",
+  "items": {
+    "F-07": {
+      "status": "已修复并验证",
+      "owner": "chart_consistency",
+      "change": "八字、紫微各自保存姓名、性别、出生时间与记录 ID 快照。显示、编辑、保存、导出、聊天及 Agent 上下文统一读取对应快照；出生时间或性别变化时整体重算。历史回放重新计算，迟到的保存响应不会污染新盘。",
+      "validation": "Chrome：八字甲/男/2026 → 紫微乙/女/2023 → 返回八字，身份、日期与元男一致；仅改八字性别后显示元女，紫微仍保持乙/2023。17 个数据回归及 2 个 Agent 上下文回归通过，含双向导出、聊天输入、保存路径和异步响应隔离。 后台轮新增Chrome三类独立身份保存/回放与MySQL核对，见后台证据。",
+      "evidence": [
+        {
+          "path": "evidence/repair-cross-bazi-before.txt",
+          "label": "八字初始输入"
+        },
+        {
+          "path": "evidence/repair-cross-ziwei.txt",
+          "label": "不同人物紫微盘"
+        },
+        {
+          "path": "evidence/repair-cross-bazi-after.txt",
+          "label": "返回八字一致性"
+        },
+        {
+          "path": "evidence/repair-bazi-recompute.txt",
+          "label": "性别重算"
+        },
+        {
+          "path": "evidence/repair-cross-ziwei-after.txt",
+          "label": "反向紫微一致性"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        },
+        {
+          "path": "evidence/backend-browser-db.json",
+          "label": "真实数据库快照"
+        }
+      ],
+      "boundary": "真实MySQL写入及Chrome三类回放已补验收；实际TOON下载文件内容尚未读取。AI网站回复见B-07。",
+      "screenshot": "screenshots/repair-cross-bazi-after.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-01": {
+      "status": "已修复并验证",
+      "owner": "chart_consistency",
+      "change": "八字结果的编辑按钮直接打开 /pages/index/index，回填当前八字快照；表单再次显示时保留自己的记录 ID。",
+      "validation": "Chrome 点击编辑后直接进入八字表单，姓名甲、男、2026 年时间完整回填。编辑路由及重复 onShow 记录 ID 回归通过。",
+      "evidence": [
+        {
+          "path": "evidence/repair-bazi-edit.txt",
+          "label": "编辑路由与回填"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        }
+      ],
+      "screenshot": "screenshots/repair-bazi-edit.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-02": {
+      "status": "已修复并验证",
+      "owner": "auth_protocol",
+      "change": "两个协议入口连接可滚动正文阅读区，支持关闭、Enter/Space 和 Escape，返回原注册表单。外层按钮统一接收点击事件，修正只点文字才能打开的问题。正文按现有账号、排盘、模型、缓存和访问统计流程编写。",
+      "validation": "Chrome 两个完整按钮入口均可打开，服务说明 Enter 关闭、隐私入口 Space 打开、Escape 返回注册。390px 阅读区可滚动到底。3 个真实组件回归通过，保留 tm-text 的事件边界。",
+      "evidence": [
+        {
+          "path": "evidence/repair-service-protocol.txt",
+          "label": "服务正文与按钮"
+        },
+        {
+          "path": "evidence/repair-privacy-protocol.txt",
+          "label": "隐私正文与键盘"
+        },
+        {
+          "path": "evidence/repair-protocol-scroll.txt",
+          "label": "移动阅读区滚动"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        }
+      ],
+      "boundary": "正文明确运营主体、联系渠道、服务所在地、留存期限和注销渠道尚未公布；上线前需由实际运营方补充。未进行真实注册或法律合规认证。",
+      "screenshot": "screenshots/repair-service-protocol.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-03": {
+      "status": "已修复并验证",
+      "owner": "ui_accessibility",
+      "change": "小限年龄在自身列宽内换行，每个宫位增加明确放大入口，保留双击及关闭。仅紫微 H5 卡片取消会改变 fixed 包含块的动画 transform，保证滚动后详情完整留在视口内。",
+      "validation": "Chrome 390×844：图宽 304px，十二宫年龄块宽与 scrollWidth 均 44px，没有跨格；放大面板顶部 75.95px、底部 768.03px，字号 14px。明确入口、关闭及原双击均通过；桌面年龄约束同样通过。",
+      "evidence": [
+        {
+          "path": "evidence/repair-mobile-ziwei.txt",
+          "label": "390px 尺寸与宫格"
+        },
+        {
+          "path": "evidence/repair-mobile-ziwei-zoom.txt",
+          "label": "完整放大定位与字体"
+        },
+        {
+          "path": "evidence/repair-ziwei-double-click.txt",
+          "label": "原双击回归"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        }
+      ],
+      "boundary": "已验证桌面浏览器的移动尺寸模拟；真实触屏、移动软键盘和全部星曜组合尚未覆盖。",
+      "screenshot": "screenshots/repair-mobile-ziwei-zoom.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-04": {
+      "status": "已修复并验证",
+      "owner": "ui_accessibility",
+      "change": "首页核心操作提供 H5 按钮角色、Tab 顺序、焦点样式及 Enter/Space 单次激活；禁用发送不进入焦点顺序。菜单支持 Escape 与焦点恢复。按键释放时激活并阻断冒泡，防止同一次 Enter 自动确认新弹窗。",
+      "validation": "Chrome：输入框 Tab 到发送按钮，显示焦点边框；Enter 停在登录提示，Space 激活快捷指令；菜单 Tab/Escape 恢复焦点，工具 Enter 打开八字。空发送 tabIndex=-1/aria-disabled=true，输入框 Enter 也不会自动确认。7 个组件事件回归通过。",
+      "evidence": [
+        {
+          "path": "evidence/repair-keyboard-enter.txt",
+          "label": "Tab 与 Enter"
+        },
+        {
+          "path": "evidence/repair-keyboard-space.txt",
+          "label": "Space 快捷指令"
+        },
+        {
+          "path": "evidence/repair-keyboard-navigation.txt",
+          "label": "菜单与工具导航"
+        },
+        {
+          "path": "evidence/repair-textarea-enter.txt",
+          "label": "输入框事件隔离"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        }
+      ],
+      "boundary": "结论限于首页核心操作及所列控件；非 H5 构建、屏幕阅读器与全站无障碍合规尚未验收。",
+      "screenshot": "screenshots/repair-keyboard-enter.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-05": {
+      "status": "已修复并验证",
+      "owner": "chart_consistency",
+      "change": "移除紫微 store 两条过期的 @ts-expect-error，保留类型检查。",
+      "validation": "最终 vue-tsc --noEmit 退出码 0，无诊断；H5 构建退出码 0；ESLint 88 个文件，0 错误、0 警告。",
+      "evidence": [
+        {
+          "path": "checks/repair-typecheck.log",
+          "label": "修复后类型检查"
+        },
+        {
+          "path": "checks/repair-build.log",
+          "label": "修复后构建"
+        },
+        {
+          "path": "checks/repair-eslint.json",
+          "label": "修复后 ESLint"
+        }
+      ],
+      "updatedAt": "2026年10月10日 15:24"
+    },
+    "F-06": {
+      "status": "已修复并验证",
+      "owner": "auth_protocol",
+      "change": "保留后端鉴权和额度规则，纠正文案为登录后使用并按账号额度调用。自由输入与快捷提示共用发送前校验，未登录不发 Agent API，提供可取消的登录引导并保留草稿。",
+      "validation": "Chrome 自由输入及快捷指令均弹出登录引导；网络采集未出现 Agent API 请求；取消保留草稿，确认进入登录页。6 个认证回归通过，含真实客户端 Bearer 请求及凭证删除后的拦截。",
+      "evidence": [
+        {
+          "path": "evidence/repair-agent-anonymous.txt",
+          "label": "匿名输入与网络"
+        },
+        {
+          "path": "evidence/repair-agent-quick-guard.txt",
+          "label": "快捷指令与登录引导"
+        },
+        {
+          "path": "checks/repair-tests.log",
+          "label": "35 项回归测试"
+        }
+      ],
+      "boundary": "真实认证、Agent回复及导航已通过；多轮聊天与性能边界见B-07、B-12。",
+      "screenshot": "screenshots/repair-agent-anonymous.jpg",
+      "updatedAt": "2026年10月10日 15:24"
+    }
+  },
+  "checks": {
+    "行为回归": {
+      "exitCode": 0,
+      "detail": "最终前端84/84通过；平台边界使用测试替换，真实Chrome和数据库验收单列。",
+      "log": "checks/llm-final-tests.log"
+    },
+    "类型检查": {
+      "exitCode": 0,
+      "detail": "最终vue-tsc --noEmit无诊断。",
+      "log": "checks/llm-final-typecheck.log"
+    },
+    "H5 构建": {
+      "exitCode": 0,
+      "detail": "最终H5构建完成；caniuse-lite旧数据提示。",
+      "log": "checks/llm-final-h5-build.log"
+    },
+    "ESLint": {
+      "exitCode": 0,
+      "detail": "首轮完整88文件检查及后续改动文件检查均0；后端完整lint0。详细范围见后台最终检查。",
+      "log": "checks/llm-final-lint.log"
+    }
+  },
+  "regressions": [
+    {
+      "id": "R-01",
+      "title": "双向跨模块人物/时间/性别一致性",
+      "actual": "八字甲/男/2026、紫微乙/女/2023，各自结果保持一致。",
+      "status": "通过",
+      "evidence": "evidence/repair-cross-bazi-after.txt"
+    },
+    {
+      "id": "R-02",
+      "title": "八字编辑直接进入表单",
+      "actual": "目标为 /pages/index/index，当前八字数据完整回填。",
+      "status": "通过",
+      "evidence": "evidence/repair-bazi-edit.txt"
+    },
+    {
+      "id": "R-03",
+      "title": "仅改变性别后重算",
+      "actual": "八字改女后主星为元女；紫微仍保持原来的乙/2023。",
+      "status": "通过",
+      "evidence": "evidence/repair-bazi-recompute.txt"
+    },
+    {
+      "id": "R-04",
+      "title": "服务正文打开与返回",
+      "actual": "完整按钮中心点击打开正文，Enter 关闭返回原注册表单。",
+      "status": "通过",
+      "evidence": "evidence/repair-service-protocol.txt"
+    },
+    {
+      "id": "R-05",
+      "title": "隐私正文键盘与移动滚动",
+      "actual": "Space 打开、Escape 关闭，390px 阅读区可滚动到底。",
+      "status": "通过",
+      "evidence": "evidence/repair-protocol-scroll.txt"
+    },
+    {
+      "id": "R-06",
+      "title": "390px 年龄列表不跨格",
+      "actual": "图宽304px，年龄块宽44px且scrollWidth44px，十二宫均受约束。",
+      "status": "通过",
+      "evidence": "evidence/repair-mobile-ziwei.txt"
+    },
+    {
+      "id": "R-07",
+      "title": "移动放大面板完整位于视口",
+      "actual": "顶部75.95px/底部768.03px，年龄14px，关闭与双击通过。",
+      "status": "通过",
+      "evidence": "evidence/repair-mobile-ziwei-zoom.txt"
+    },
+    {
+      "id": "R-08",
+      "title": "Tab/Enter发送与事件隔离",
+      "actual": "焦点进入发送按钮并显示轮廓；Enter只打开登录提示。",
+      "status": "通过",
+      "evidence": "evidence/repair-keyboard-enter.txt"
+    },
+    {
+      "id": "R-09",
+      "title": "Space快捷指令",
+      "actual": "Space激活快捷指令并走统一登录引导。",
+      "status": "通过",
+      "evidence": "evidence/repair-keyboard-space.txt"
+    },
+    {
+      "id": "R-10",
+      "title": "菜单与工具键盘导航",
+      "actual": "菜单Tab可达，Escape恢复头像焦点，工具Enter打开对应表单。",
+      "status": "通过",
+      "evidence": "evidence/repair-keyboard-navigation.txt"
+    },
+    {
+      "id": "R-11",
+      "title": "输入框Enter不自动确认弹窗",
+      "actual": "停留首页登录提示，取消后草稿保留。",
+      "status": "通过",
+      "evidence": "evidence/repair-textarea-enter.txt"
+    },
+    {
+      "id": "R-12",
+      "title": "匿名发送不请求Agent API",
+      "actual": "自由输入和快捷指令均拦截，取消保留草稿，确认进入登录。",
+      "status": "通过",
+      "evidence": "evidence/repair-agent-anonymous.txt"
+    }
+  ]
+}

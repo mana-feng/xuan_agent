@@ -1,0 +1,21 @@
+- generic: AI 聊天
+- generic: 对接大模型的专用界面
+- generic: "次数: 2"
+- generic: 恢复
+- generic: 保存
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 17:58
+- generic: ready
+- generic: 我
+- generic: 只回答当前八字盘主的姓名和性别，不作命理解释。
+- generic: 18:01
+- generic: AI
+- text: 无法提供。
+- text: 八字命理分析仅基于出生年、月、日、时的天干地支组合，**不包含**命主的姓名和性别信息。姓名和性别属于个人隐私数据，需由用户主动提供，无法从八字盘中直接推导得出。
+- generic: 18:01
+- generic: ready
+- generic: 输入消息，回车发送
+- textbox
+- generic: 发送
+- document

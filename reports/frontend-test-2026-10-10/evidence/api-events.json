@@ -1,0 +1,69 @@
+[
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "179196.153",
+    "url": "http://127.0.0.1:3000/api/llm/agent"
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "179196.153",
+    "url": "http://127.0.0.1:3000/api/llm/agent",
+    "status": 500
+  },
+  {
+    "sequence": 508,
+    "event": "Network.requestWillBeSent",
+    "requestId": "179196.226",
+    "method": "POST",
+    "url": "http://127.0.0.1:3000/api/auth/login"
+  },
+  {
+    "sequence": 511,
+    "event": "Network.responseReceived",
+    "requestId": "179196.226",
+    "url": "http://127.0.0.1:3000/api/auth/login",
+    "status": 500
+  },
+  {
+    "sequence": 942,
+    "event": "Network.requestWillBeSent",
+    "requestId": "179196.277",
+    "method": "POST",
+    "url": "http://127.0.0.1:3000/api/llm/chat"
+  },
+  {
+    "sequence": 943,
+    "event": "Network.responseReceived",
+    "requestId": "179196.277",
+    "url": "http://127.0.0.1:3000/api/llm/chat",
+    "status": 500
+  },
+  {
+    "sequence": 946,
+    "event": "Network.requestWillBeSent",
+    "requestId": "179196.278",
+    "method": "POST",
+    "url": "http://127.0.0.1:3000/api/llm/chat"
+  },
+  {
+    "sequence": 949,
+    "event": "Network.responseReceived",
+    "requestId": "179196.278",
+    "url": "http://127.0.0.1:3000/api/llm/chat",
+    "status": 500
+  },
+  {
+    "sequence": 1013,
+    "event": "Network.requestWillBeSent",
+    "requestId": "179196.288",
+    "method": "GET",
+    "url": "http://127.0.0.1:3000/api/announcements?onlyMeta=true"
+  },
+  {
+    "sequence": 1016,
+    "event": "Network.responseReceived",
+    "requestId": "179196.288",
+    "url": "http://127.0.0.1:3000/api/announcements?onlyMeta=true",
+    "status": 500
+  }
+]

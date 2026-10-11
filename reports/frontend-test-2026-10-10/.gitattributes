@@ -1,0 +1,2 @@
+# Download evidence must retain the exact bytes covered by its SHA-256 manifest.
+frontend-only/evidence/native-files/** -text

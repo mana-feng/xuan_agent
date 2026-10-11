@@ -1,0 +1,50 @@
+(node:179996) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ native archive save writes UTF-8 file bytes that restore exact roles, text and times with unique IDs (239.5671ms)
+✔ manual native import selects archive B after remembering valid archive A (87.7158ms)
+✔ manual native import selects archive B after remembering malformed archive A (73.0429ms)
+✔ cancelled manual native import preserves remembered A, its backup and current conversation (37.7135ms)
+✔ manual input import selects archive B after remembering valid archive A (71.7953ms)
+✔ manual input import selects archive B after remembering malformed archive A (52.3549ms)
+✔ cancelled manual input import preserves remembered A, its backup and current conversation (35.9445ms)
+✔ automatic restore still prefers its readable remembered file over the older backup (30.3838ms)
+✔ downloaded Blob bytes roundtrip through input selection and become the latest local archive (77.7588ms)
+✔ invalid archive unsupported version preserves current conversation and never remembers its file (30.459ms)
+✔ invalid archive wrong kind preserves current conversation and never remembers its file (24.7359ms)
+✔ invalid archive non-array messages preserves current conversation and never remembers its file (27.9969ms)
+✔ invalid archive null message preserves current conversation and never remembers its file (24.6355ms)
+✔ invalid archive unknown role preserves current conversation and never remembers its file (32.6625ms)
+✔ invalid archive object text preserves current conversation and never remembers its file (39.242ms)
+✔ invalid archive missing time preserves current conversation and never remembers its file (26.0186ms)
+✔ invalid archive object time preserves current conversation and never remembers its file (24.708ms)
+✔ selected input read error preserves current conversation instead of restoring unrelated backup (25.8655ms)
+✔ selected input empty file preserves current conversation instead of restoring unrelated backup (23.2222ms)
+✔ unavailable IndexedDB does not block an explicit valid file import (26.3035ms)
+✔ auto-restore still reads its valid local backup with unavailable IndexedDB (22.3643ms)
+✔ auto-restore still reads its valid local backup with unreadable remembered file (20.3005ms)
+✔ auto-restore still reads its valid local backup with invalid remembered file (29.3793ms)
+✔ native save cancel preserves the last saved backup and unlocks the panel (22.8023ms)
+✔ native save write preserves the last saved backup and unlocks the panel (19.7604ms)
+✔ successful native file save remains successful when remembering its handle fails (25.5729ms)
+✔ chat download reports browser handoff without claiming a completed file save (23.466ms)
+✔ chat download handoff failure releases its Blob and preserves the last archive (24.0307ms)
+✔ chat save without a browser reports unsupported export and preserves the last archive (38.9599ms)
+(node:211456) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ partial stream becomes an error with no dangling generating bubble (148.7254ms)
+✔ archive does not promote failed assistant output into successful conversation history (38.6357ms)
+✔ slow auto-restore cannot overwrite a conversation started while storage was loading (30.2473ms)
+✔ auto-restore rechecks direct-chart restore disablement after asynchronous storage access (33.8681ms)
+✔ archive restore is ignored during generation (27.0012ms)
+✔ sending is ignored while a manual archive operation is active (21.4434ms)
+✔ fallback file cancel without a file preserves conversation and unlocks save/send (95.9995ms)
+✔ fallback file change without a file preserves conversation and unlocks save/send (30.9733ms)
+✔ fallback file selection still restores a valid archive and releases its busy lock (30.8713ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2403.0937

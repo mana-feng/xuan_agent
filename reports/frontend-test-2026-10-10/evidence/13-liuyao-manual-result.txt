@@ -1,0 +1,99 @@
+- generic: 
+- generic: 
+- heading "六爻排盘结果" [level=1]
+- paragraph: 查看卦象、六爻明细与卦辞
+- banner:
+  - heading "起卦概要" [level=2]
+- generic: 起卦主题
+- generic: 功能测试：本周项目能否完成？
+- generic: 性别
+- generic: 女
+- generic: 起卦时间
+- generic: 2026-10-10 08:29
+- generic: 保存到账号
+- generic: 复制排盘
+- generic: AI解读
+- banner:
+  - heading "卦象总览" [level=2]
+- paragraph: 本卦
+- heading "乾为天" [level=3]
+- paragraph: 乾 · 六冲
+- generic: 主卦
+- generic: 卦宫：乾 · 五行：金
+- generic: 世：上爻 · 应：三爻
+- generic: 可结合世应、动爻与变卦解读
+- paragraph: 变卦
+- heading "泽天夬" [level=3]
+- paragraph: 坤 · —
+- generic: 变卦
+- generic: 卦宫：坤 · 五行：土
+- generic: 变卦已生成
+- generic: 动爻生成的变卦，建议结合世应及动爻解读
+- generic: 已加载卦辞，可结合 AI 解读使用
+- banner:
+  - heading "六爻明细" [level=2]
+- generic: 干支：
+- text: 丙午年
+- generic: 戊戌月
+- generic: 丁巳日
+- text: 甲辰时
+- generic: 空亡：
+- text: 子丑
+- generic: 爻位
+- generic: 六神
+- generic: 原卦六亲
+- generic: 原卦
+- generic: 变卦六亲
+- generic: 变卦爻
+- generic: 上爻
+- generic: 青龙
+- generic: 父母壬戌土
+- generic: —
+- generic: ━━━○
+- generic: 世
+- generic: 动
+- generic: 父母 丁未土
+- generic: ━ ━
+- generic: 五爻
+- generic: 玄武
+- generic: 兄弟壬申金
+- generic: —
+- generic: ━━━
+- generic: 兄弟 丁酉金
+- generic: ━━━
+- generic: 世
+- generic: 四爻
+- generic: 白虎
+- generic: 官鬼壬午火
+- generic: —
+- generic: ━━━
+- generic: 子孙 丁亥水
+- generic: ━━━
+- generic: 三爻
+- generic: 螣蛇
+- generic: 父母甲辰土
+- generic: —
+- generic: ━━━
+- generic: 应
+- generic: 父母 甲辰土
+- generic: ━━━
+- generic: 二爻
+- generic: 勾陈
+- generic: 妻财甲寅木
+- generic: —
+- generic: ━━━
+- generic: 妻财 甲寅木
+- generic: ━━━
+- generic: 应
+- generic: 初爻
+- generic: 朱雀
+- generic: 子孙甲子水
+- generic: —
+- generic: ━━━
+- generic: 子孙 甲子水
+- generic: ━━━
+- banner:
+  - heading "卦辞与解读" [level=2]
+- generic: 乾为天:元，亨，利，贞。 彖曰：大哉乾元，万物资始，乃统天。云行雨施，品物流形。大明始终，六位时成，时乘六龙以御天。乾道变化，各正性命，保合大和，乃利贞。首出庶物，万国咸宁。 象曰：天行健，君子以自强不息。 初九:潜龙，勿用。 九二:见龙在田，利见大人。 九三:君子终日乾乾，夕惕若，厉，无咎。 九四:或跃在渊，无咎。 九五:飞龙在天，利见大人。 上九:亢龙有悔。
+- paragraph: 排盘完成
+- document

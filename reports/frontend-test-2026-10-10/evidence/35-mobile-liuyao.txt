@@ -1,0 +1,27 @@
+- generic: 
+- generic: 
+- heading "六爻排盘" [level=1]
+- paragraph: 请选择起卦方式，填写相关信息
+- banner:
+  - generic: 
+  - heading "基础信息" [level=2]
+- generic: 请输入具体想要占问的事情（必填）
+- textbox
+- generic: 性别
+- generic: 男
+- generic: 女
+- generic: 起卦时间
+- generic: 
+- generic: 2026-10-10 08:37
+- generic: 现在
+- generic: 默认填入当前时间，点击选择可使用滚动轮盘选择阳历日期与时间。
+- banner:
+  - heading "起卦方式" [level=2]
+  - paragraph: 多种方式，选择最熟悉的即可
+- generic: 电脑自动
+- generic: 
+- generic: 电脑自动起卦，系统为你随机生成卦象。
+- generic: 生成卦象
+- generic: 
+- generic: 开始排盘
+- document

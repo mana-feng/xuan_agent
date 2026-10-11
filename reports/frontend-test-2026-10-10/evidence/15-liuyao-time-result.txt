@@ -1,0 +1,99 @@
+- generic: 
+- generic: 
+- heading "六爻排盘结果" [level=1]
+- paragraph: 查看卦象、六爻明细与卦辞
+- banner:
+  - heading "起卦概要" [level=2]
+- generic: 起卦主题
+- generic: 功能测试：本周项目能否完成？
+- generic: 性别
+- generic: 女
+- generic: 起卦时间
+- generic: 2026-10-10 08:29
+- generic: 保存到账号
+- generic: 复制排盘
+- generic: AI解读
+- banner:
+  - heading "卦象总览" [level=2]
+- paragraph: 本卦
+- heading "天水讼" [level=3]
+- paragraph: 离 · 游魂
+- generic: 主卦
+- generic: 卦宫：离 · 五行：火
+- generic: 世：四爻 · 应：初爻
+- generic: 可结合世应、动爻与变卦解读
+- paragraph: 变卦
+- heading "风水涣" [level=3]
+- paragraph: 离 · —
+- generic: 变卦
+- generic: 卦宫：离 · 五行：火
+- generic: 变卦已生成
+- generic: 动爻生成的变卦，建议结合世应及动爻解读
+- generic: 已加载卦辞，可结合 AI 解读使用
+- banner:
+  - heading "六爻明细" [level=2]
+- generic: 干支：
+- text: 丙午年
+- generic: 戊戌月
+- generic: 丁巳日
+- text: 甲辰时
+- generic: 空亡：
+- text: 子丑
+- generic: 爻位
+- generic: 六神
+- generic: 原卦六亲
+- generic: 原卦
+- generic: 变卦六亲
+- generic: 变卦爻
+- generic: 上爻
+- generic: 青龙
+- generic: 子孙壬戌土
+- generic: —
+- generic: ━━━
+- generic: 父母 辛卯木
+- generic: ━━━
+- generic: 五爻
+- generic: 玄武
+- generic: 妻财壬申金
+- generic: —
+- generic: ━━━
+- generic: 兄弟 辛巳火
+- generic: ━━━
+- generic: 世
+- generic: 四爻
+- generic: 白虎
+- generic: 兄弟壬午火
+- generic: —
+- generic: ━━━○
+- generic: 世
+- generic: 动
+- generic: 子孙 辛未土
+- generic: ━ ━
+- generic: 三爻
+- generic: 螣蛇
+- generic: 兄弟戊午火
+- generic: 官鬼己亥水
+- generic: ━ ━
+- generic: 兄弟 戊午火
+- generic: ━ ━
+- generic: 二爻
+- generic: 勾陈
+- generic: 子孙戊辰土
+- generic: —
+- generic: ━━━
+- generic: 子孙 戊辰土
+- generic: ━━━
+- generic: 应
+- generic: 初爻
+- generic: 朱雀
+- generic: 父母戊寅木
+- generic: —
+- generic: ━ ━
+- generic: 应
+- generic: 父母 戊寅木
+- generic: ━ ━
+- banner:
+  - heading "卦辞与解读" [level=2]
+- generic: 天水讼:有孚，窒惕，中吉，终凶。利见大人，不利涉大川。 彖曰：讼，上刚下险，险而健讼。讼有孚窒，惕中吉，刚来而得中也。终凶；讼不可成也。利见大人；尚中正也。不利涉大川；入于渊也。 象曰：天与水违行，讼；君子以作事谋始。 初六:不永所事，小有言，终吉。 九二:不克讼，归而逋，其邑人三百户无眚。 六三:食旧德，贞：厉，终吉，或从王事无成。 九四:不克讼，复即命：渝安。贞：吉。 九五:讼，元吉。 上九:或锡之鞶带，终朝三褫之。
+- paragraph: 排盘完成
+- document

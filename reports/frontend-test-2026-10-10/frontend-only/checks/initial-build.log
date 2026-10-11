@@ -1,0 +1,11 @@
+Compiler version: 4.87（vue3）
+Compiling...
+
+uni-app 有新版本发布，请执行 `npx @dcloudio/uvm@latest alpha` 更新，更新日志详见：https://download1.dcloud.net.cn/hbuilderx/changelog/5.31.2026093020-alpha.html
+
+
+Build successful. Please see F:\github\xuanxue_AI-chat-agent\frontend-only\dist\build\h5 directory
+
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+DONE  Build complete.

@@ -1,0 +1,591 @@
+{
+  "generatedAt": "2026年10月11日 21:48",
+  "frontendOnly": {
+    "updatedAt": "2026-10-11 21:48:05 Asia/Singapore",
+    "summary": "聊天页蓝紫设计及下载档案/导入档案已落地。真实JSON文件已下载落盘并重新导入，A→B→A完整回环、错误文件保护、空会话和刷新恢复均通过；本轮发现的文件输入生命周期和英文错误提示问题已修复。最终186/186、类型、Lint、H5构建全部通过。",
+    "items": [
+      {
+        "id": "O-01",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-02",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-03",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-04",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-05",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-06",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-07",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-08",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-09",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-10",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-11",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-12",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-13",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-14",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-15",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-16",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-17",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-18",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-19",
+        "status": "已修复，源码验证通过"
+      },
+      {
+        "id": "O-20",
+        "status": "已修复，源码验证通过"
+      },
+      {
+        "id": "O-21",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-22",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-23",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "O-24",
+        "status": "已修复并验证"
+      }
+    ],
+    "checks": [
+      {
+        "title": "真实TOON文件内容检查",
+        "status": "通过",
+        "detail": "两份实际落盘文件，31/31：UTF-8、姓名/性别/出生时间、表格和嵌套JSON、文件名与SHA-256。保留字节一致副本。",
+        "evidence": [
+          {
+            "path": "frontend-only/evidence/native-download-content-verification.json",
+            "label": "完整验收"
+          },
+          {
+            "path": "frontend-only/evidence/native-download-manifest.json",
+            "label": "文件清单及哈希"
+          },
+          {
+            "path": "frontend-only/evidence/native-download-verify.log",
+            "label": "验证日志"
+          }
+        ]
+      },
+      {
+        "title": "源码自动回归",
+        "status": "通过",
+        "detail": "2026-10-11最终全套186/186通过，归档49项、父页面入口22项。既有165/157/144/137日志保留作历史记录。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/chat-portable-final-tests.log",
+            "label": "最终聊天档案检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-portable-final-exits.json",
+            "label": "最终工程检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-tests.log",
+            "label": "聊天页最终检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-exits.json",
+            "label": "全部退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-final-tests.log",
+            "label": "最终157项日志"
+          },
+          {
+            "path": "frontend-only/checks/native-final-exits.json",
+            "label": "最终退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-archive-full-suite.log",
+            "label": "历史144项日志"
+          },
+          {
+            "path": "frontend-only/checks/followup-tests.log",
+            "label": "历史137项日志"
+          },
+          {
+            "path": "frontend-only/checks/followup-exits.json",
+            "label": "退出码"
+          },
+          {
+            "path": "frontend-only/evidence/status-before-followup.json",
+            "label": "保留前轮基线"
+          }
+        ]
+      },
+      {
+        "title": "严格类型检查",
+        "status": "通过",
+        "detail": "最终vue-tsc --noEmit -p tsconfig.json退出0。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/chat-portable-final-typecheck.log",
+            "label": "最终聊天档案检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-portable-final-exits.json",
+            "label": "最终工程检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-typecheck.log",
+            "label": "聊天页最终检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-exits.json",
+            "label": "全部退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-final-typecheck.log",
+            "label": "最新类型检查日志"
+          },
+          {
+            "path": "frontend-only/checks/native-final-exits.json",
+            "label": "最新退出码"
+          },
+          {
+            "path": "frontend-only/checks/followup-typecheck.log",
+            "label": "类型检查日志"
+          },
+          {
+            "path": "frontend-only/checks/followup-exits.json",
+            "label": "退出码"
+          }
+        ]
+      },
+      {
+        "title": "H5生产构建",
+        "status": "通过",
+        "detail": "最终uni build -p h5退出0，3050继续提供H5开发版。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/chat-portable-final-build.log",
+            "label": "最终聊天档案检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-portable-final-exits.json",
+            "label": "最终工程检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-build.log",
+            "label": "聊天页最终检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-exits.json",
+            "label": "全部退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-final-build.log",
+            "label": "最新H5构建日志"
+          },
+          {
+            "path": "frontend-only/checks/native-final-exits.json",
+            "label": "最新退出码"
+          },
+          {
+            "path": "frontend-only/checks/followup-build.log",
+            "label": "构建日志"
+          }
+        ]
+      },
+      {
+        "title": "ESLint业务源码检查",
+        "status": "通过",
+        "detail": "78个业务文件，0错误、0警告；--max-warnings 0退出0。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/chat-portable-final-eslint.json",
+            "label": "最终聊天档案检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-portable-final-exits.json",
+            "label": "最终工程检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-eslint.json",
+            "label": "聊天页最终检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-exits.json",
+            "label": "全部退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-final-eslint.json",
+            "label": "最新逐文件Lint结果"
+          },
+          {
+            "path": "frontend-only/checks/native-final-exits.json",
+            "label": "最新退出码"
+          },
+          {
+            "path": "frontend-only/checks/followup-eslint.json",
+            "label": "逐文件结果"
+          }
+        ]
+      },
+      {
+        "title": "键盘回归测试稳定性",
+        "status": "通过",
+        "detail": "定位JSDOM同毫秒事件被uni-h5-vue过滤的测试时钟问题；每个独立用户事件推进受控时钟，保留原断言与运行时。冻结时钟红→绿，目标重复10/10，移除Escape处理器的变异仍失败；真实Edge关闭与焦点恢复通过。未修改产品键盘逻辑。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/only-ui-followup-frozen-red.txt",
+            "label": "冻结时钟失败"
+          },
+          {
+            "path": "frontend-only/checks/only-ui-followup-frozen-green.txt",
+            "label": "受控事件时钟通过"
+          },
+          {
+            "path": "frontend-only/checks/only-ui-followup-mutation-red.txt",
+            "label": "变异仍能检出缺陷"
+          },
+          {
+            "path": "frontend-only/checks/only-ui-followup-repeat.txt",
+            "label": "10次验证"
+          },
+          {
+            "path": "frontend-only/evidence/followup-menu-keyboard.json",
+            "label": "Edge真实键盘状态"
+          }
+        ]
+      },
+      {
+        "title": "整合审查与差异检查",
+        "status": "通过",
+        "detail": "文件脚本、页面布局和独立整合审查由多个agent协作；主agent完成实际文件回环、响应式验收并独立运行186项全套、类型、Lint、构建、diff检查，全部通过。",
+        "evidence": [
+          {
+            "path": "frontend-only/checks/chat-portable-final-diff-check.log",
+            "label": "最终聊天档案检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-portable-final-exits.json",
+            "label": "最终工程检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-diff-check.log",
+            "label": "聊天页最终检查"
+          },
+          {
+            "path": "frontend-only/checks/chat-ui-final-exits.json",
+            "label": "全部退出码"
+          },
+          {
+            "path": "frontend-only/checks/native-final-diff-check.log",
+            "label": "最新差异检查"
+          },
+          {
+            "path": "frontend-only/checks/native-final-exits.json",
+            "label": "最新检查退出码"
+          },
+          {
+            "path": "frontend-only/checks/followup-review.txt",
+            "label": "整合审查与边界"
+          },
+          {
+            "path": "frontend-only/checks/followup-diff-check.log",
+            "label": "差异检查"
+          }
+        ]
+      },
+      {
+        "title": "聊天档案实际文件回环",
+        "status": "通过",
+        "detail": "实际下载到F:/download，严格读取318字节JSON后切换B，再导入原下载文件恢复A；角色/文本/时间一致，空档案和刷新自动恢复也通过。",
+        "evidence": [
+          {
+            "path": "frontend-only/evidence/chat-portable-browser.json",
+            "label": "Chrome逐步实际操作"
+          },
+          {
+            "path": "frontend-only/evidence/chat-browser-download-verification.json",
+            "label": "磁盘字节与SHA-256校验"
+          },
+          {
+            "path": "frontend-only/evidence/native-files/chat-browser-roundtrip-20261011.json",
+            "label": "实际下载文件的逐字节副本"
+          }
+        ]
+      },
+      {
+        "title": "原生位置保存与取消边界",
+        "status": "未验证",
+        "detail": "此前原生工具因无法可靠判定浏览器URL而停止；本轮主入口已使用标准浏览器下载/文件输入完成实测。文件选择API拒绝空数组，不支持代替原生Cancel；未把刷新恢复页面计为取消成功。",
+        "evidence": [
+          {
+            "path": "frontend-only/evidence/chat-portable-browser.json",
+            "label": "Chrome逐步实际操作"
+          }
+        ]
+      }
+    ]
+  },
+  "repairs": {
+    "updatedAt": "2026/10/10 18:10:51 UTC+8",
+    "counts": {
+      "已修复并验证": 7
+    },
+    "checks": {
+      "行为回归": {
+        "exitCode": 0,
+        "detail": "最终前端84/84通过；平台边界使用测试替换，真实Chrome和数据库验收单列。",
+        "log": "checks/llm-final-tests.log"
+      },
+      "类型检查": {
+        "exitCode": 0,
+        "detail": "最终vue-tsc --noEmit无诊断。",
+        "log": "checks/llm-final-typecheck.log"
+      },
+      "H5 构建": {
+        "exitCode": 0,
+        "detail": "最终H5构建完成；caniuse-lite旧数据提示。",
+        "log": "checks/llm-final-h5-build.log"
+      },
+      "ESLint": {
+        "exitCode": 0,
+        "detail": "首轮完整88文件检查及后续改动文件检查均0；后端完整lint0。详细范围见后台最终检查。",
+        "log": "checks/llm-final-lint.log"
+      }
+    },
+    "regressions": 12
+  },
+  "backend": {
+    "updatedAt": "2026/10/10 18:10:51 UTC+8",
+    "items": [
+      {
+        "id": "B-01",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-02",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-03",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-04",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-05",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-06",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-07",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-08",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-09",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-10",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-11",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-12",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-13",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-14",
+        "status": "已修复并验证"
+      },
+      {
+        "id": "B-15",
+        "status": "已修复并验证"
+      }
+    ],
+    "checks": [
+      {
+        "title": "前端行为回归",
+        "status": "通过",
+        "detail": "84/84通过，0失败；串行执行全部8个测试文件。",
+        "evidence": [
+          {
+            "path": "checks/llm-final-tests.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "前端类型检查",
+        "status": "通过",
+        "detail": "退出0。",
+        "evidence": [
+          {
+            "path": "checks/llm-final-typecheck.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "本轮LLM相关ESLint",
+        "status": "通过",
+        "detail": "退出0。",
+        "evidence": [
+          {
+            "path": "checks/llm-final-lint.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "最终H5生产构建",
+        "status": "通过",
+        "detail": "退出0；Browserslist旧数据提示仍存在，未影响构建。",
+        "evidence": [
+          {
+            "path": "checks/llm-final-h5-build.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "后端行为回归",
+        "status": "通过",
+        "detail": "69/69通过；包含最后新增的模型401/403错误映射回归。",
+        "evidence": [
+          {
+            "path": "checks/backend-final-tests.log",
+            "label": "命令与退出码"
+          },
+          {
+            "path": "checks/backend-final-verification.json",
+            "label": "执行命令及范围"
+          }
+        ]
+      },
+      {
+        "title": "后端本轮修改文件ESLint",
+        "status": "通过",
+        "detail": "routes/llm.js、websocket/server.js退出0；本次检查范围为这两个修改文件。",
+        "evidence": [
+          {
+            "path": "checks/backend-final-eslint.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "保存页面ESLint",
+        "status": "通过",
+        "detail": "退出0。",
+        "evidence": [
+          {
+            "path": "checks/frontend-final-eslint-save-retry.log",
+            "label": "命令与退出码"
+          }
+        ]
+      },
+      {
+        "title": "五个服务运行状态",
+        "status": "通过",
+        "detail": "前端、后台、报告、MySQL和Qwen均监听127.0.0.1；四个HTTP健康检查200。独立进程保持运行，未设置开机自启。",
+        "evidence": [
+          {
+            "path": "evidence/services-live.json",
+            "label": "实际端口与健康检查"
+          }
+        ]
+      }
+    ]
+  },
+  "total": 81,
+  "counts": {
+    "通过": 64,
+    "阻塞": 6,
+    "未验证": 4,
+    "失败": 7
+  },
+  "findingCount": 7,
+  "priorities": {
+    "P1": 1,
+    "P2": 6
+  },
+  "build": {
+    "exitCode": 0
+  },
+  "typecheck": {
+    "exitCode": 2,
+    "errors": 2
+  },
+  "lint": {
+    "exitCode": 0,
+    "files": 84,
+    "errors": 0,
+    "warnings": 0
+  }
+}

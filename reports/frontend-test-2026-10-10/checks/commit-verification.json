@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-11T15:15:01.3994286Z",
+  "scope": "Local automated regression and type checks only. Database, model and browser evidence retains its original verification timestamp.",
+  "typechecks": [
+    {
+      "exitCode": 0,
+      "command": "node node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p tsconfig.json",
+      "package": "frontend-docker"
+    },
+    {
+      "exitCode": 0,
+      "command": "node node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p tsconfig.json",
+      "package": "frontend-only"
+    }
+  ],
+  "tests": [
+    {
+      "failed": 0,
+      "passed": 69,
+      "command": "node --test tests/*.test.cjs",
+      "package": "backend-docker",
+      "log": "commit-backend-docker-tests.log"
+    },
+    {
+      "failed": 0,
+      "passed": 84,
+      "command": "node --test tests/*.test.cjs",
+      "package": "frontend-docker",
+      "log": "commit-frontend-docker-tests.log"
+    },
+    {
+      "failed": 0,
+      "passed": 186,
+      "command": "node --test tests/*.test.cjs",
+      "package": "frontend-only",
+      "log": "commit-frontend-only-tests.log"
+    }
+  ]
+}

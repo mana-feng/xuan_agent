@@ -1,0 +1,53 @@
+frontend-only AI audit and repair (2026-10-10)
+Owner: only_ai_repair. Direct-browser AI architecture retained; no login, server quota, or cloud credentials added.
+
+Verified defects and changes
+1. src/services/ai.ts: removed automatic non-stream resend after ambiguous stream/network errors. One generation per call. Added AbortSignal and a default 300000 ms overall timeout; fetch and uni.request cancellation; no late chunk callbacks after abort.
+2. src/services/ai.ts: SSE now buffers event frames (including multiline data, CRLF/CR, split UTF-8, final EOF frames), validates provider errors and completion markers, rejects empty/malformed/truncated/length-limited responses, and joins all Anthropic/Gemini answer parts while keeping Gemini thought parts separate. A JSON response to a stream request is parsed directly without replaying generation. Native Gemini URL preserves query parameters and distinguishes OpenAI-compatible routes.
+3. src/config/aiConfig.ts and pages/settings/index.vue: validate provider, URL scheme, model and key requirements on read and write; trim values; reject corrupted configuration; support no-key custom/local/Ollama endpoints; clear prior provider key when switching providers; show persistence failures instead of claiming success. Settings clear failures are also handled.
+4. pages/chat/index.nvue: current user input deduplicated against filtered request history, not the trailing waiting bubble; error/in-progress messages excluded; request reentry guard; restore the selected chart before building every request; preserve its own identity via chart agent's store/export changes. Added abort and late-result suppression on page unmount. Header archive actions disabled during generation. onLoad query type fixed for optional arguments.
+5. features/agent/useAgentPage.ts: refreshed saved-config state on initialize/return, clearer unconfigured tip, all chart caches restored with ensureComputed, failed/in-progress responses excluded from later requests, request aborted on unmount, full profile passed into chart stores, timestamp zero accepted by execution checks.
+6. features/agent/runtime.ts: explicit none stays none; malformed or truncated explicit actions never fall through to heuristic chart execution; inherited object keys rejected as navigation targets. Birth inference rejects lunar/ambiguous input and requires a time marker and valid minutes after a colon (9:?? is not 09:00); Chinese 12 AM maps to 00:00.
+7. chat/ChatPanel.vue (scope later delegated by root): interrupted partial stream is marked error and retains the error explanation without dangling stream state; errors excluded from archives; auto-restore checks current messages/sending/disableAutoRestore again after async reads; manual archive operations and send are mutually exclusive.
+
+Tests and evidence (Node built-in runner, real source transpiled; external HTTP, browser storage and page lifecycle controlled at boundaries)
+- AI-specific final: 51/51 pass, exit 0; .local-dev/only-ai-final-green.txt
+- Full currently available frontend-only suite: 90/90 pass, exit 0; .local-dev/only-ai-full-suite.txt
+- Initial transport/config RED: 18 fail / 3 pass; .local-dev/only-ai-red.txt. GREEN: 21/21; .local-dev/only-ai-green.txt.
+- Initial chat/Agent RED: 12 fail / 1 pass; .local-dev/only-ai-chat-red.txt. GREEN: 13/13; .local-dev/only-ai-chat-green.txt.
+- ChatPanel and explicit-action RED: 8 fail / 13 pass; .local-dev/only-ai-panel-red.txt. GREEN: 21/21; .local-dev/only-ai-panel-green.txt.
+- Missing colon-minute birth time RED: .local-dev/only-ai-time-red.txt; GREEN included in final 51-test run.
+- Truncated action RED/GREEN: .local-dev/only-ai-truncated-action-red.txt and .local-dev/only-ai-truncated-action-green.txt.
+- Extra independent regressions cover partial-stream network reset, HTTP 401, non-stream Gemini multiple parts/native URL, uni cancellation, pre-cancel, EOF/heartbeat, and full profile execution for bazi/ziwei.
+- One additional profile test initially queried Pinia via the global active instance after async completion and failed only after prior stores ran. Holding the actual store instance before the await confirmed generated identity was correct; the test fixture was corrected without changing production for this artifact.
+
+Exact final commands (PowerShell, from F:/github/xuanxue_AI-chat-agent)
+& 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe' --test frontend-only/tests/ai-transport.test.cjs frontend-only/tests/ai-config.test.cjs frontend-only/tests/ai-chat-agent.test.cjs frontend-only/tests/ai-chat-panel.test.cjs
+& 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe' --test frontend-only/tests/*.test.cjs
+
+Files added
+frontend-only/tests/ai-transport.test.cjs
+frontend-only/tests/ai-config.test.cjs
+frontend-only/tests/ai-chat-agent.test.cjs
+frontend-only/tests/ai-chat-panel.test.cjs
+frontend-only/tests/helpers/load-ai-source.cjs
+
+Verification boundaries and remaining UI check
+- No real local model or cloud provider requests made by this subagent. Root owns real llama.cpp Qwen3.8 UI tests, H5 build, strict project typecheck and final consolidated report.
+- OpenAI-compatible, Anthropic and Gemini are verified using controlled request/response formats only. This does not establish current cloud model availability, credentials, CORS support, latency, accuracy, quota or real provider compatibility.
+- Native/mobile uni targets are not executed; this audit targets frontend-only H5.
+- Reported provider picker selection issue was investigated, not speculatively patched: served compiled settings has onChange bound to onProviderChange; uni-h5 _change emits detail.value; handler unit test works. Evidence .local-dev/only-ai-settings-compiled.txt. Root subsequently reloaded stable Chrome and confirmed Ollama selection changes the provider label and optional-key state; early symptom occurred amid HMR and is not counted as a confirmed picker defect. No picker replacement was made.
+- Test component/page scripts run real state and methods with lifecycle/storage/transport harnesses. Root's browser work is required for mounted visual and input-event proof.
+
+
+Follow-up from real local Qwen browser evidence: explicit tool-page target conflict
+Evidence: reports/frontend-test-2026-10-10/frontend-only/evidence/agent-local-final.txt.
+The user requested the Ziwei input page without immediate calculation, but the real model returned a Bazi navigation action. Parser previously trusted this action.
+Changed only src/features/agent/runtime.ts and tests/ai-chat-agent.test.cjs for this follow-up. After the model reply is parsed, an unambiguous request to open a named input page constrains the action. Conflicting navigation or any immediate calculation/focus action is blocked and replaced by a clear conflict explanation plus the requested tool's manual input-page route. Matching navigation uses a canonical destination label. Explicit none remains none. Conditional or ambiguous selection/recommendation requests keep their existing model behavior.
+The integration regression still sends the user prompt through callAi exactly once, receives the controlled conflicting model response, verifies no automatic navigation or chart generation, and then checks that clicking the pending action opens /pages/ziwei/index. This is post-response validation, not a bypass of the model.
+RED: .local-dev/only-ai-target-red.txt (8 failures, 20 passes). GREEN: .local-dev/only-ai-target-green.txt (28/28 chat/Agent tests).
+During the final refresh, UI agent's simultaneous ChatPanel cancel RED tests briefly made the combined suite 101/103. These were reported by name to root and the UI owner; no edits were made to their files. The UI owner then completed the cancel fix, and final logs were rerun below.
+Latest combined AI tests: 64/64, exit 0 (includes UI owner's 3 new file-picker cancellation tests).
+Latest frontend-only full suite: 103/103, exit 0.
+Latest evidence remains .local-dev/only-ai-final-green.txt and .local-dev/only-ai-full-suite.txt. The earlier 51/51 and 90/90 counts above are the initial completed phase, before this follow-up and the UI owner's added regressions.
+Real model/browser revalidation of this new guard remains with root. Controlled response tests do not establish model accuracy.

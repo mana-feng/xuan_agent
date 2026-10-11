@@ -1,0 +1,57 @@
+frontend-only UI / 类型边界修复记录
+日期：2026-10-10
+执行者：only_ui_repair；浏览器复核由 root 执行。
+状态：代码已冻结；本地当前全量回归 105/105，业务严格类型检查通过。
+
+已确认并修复的问题
+1. uni-view / uni-text 等自定义控件没有原生按钮的键盘行为。补充公共 h5Button：role、tabindex、disabled、Enter/Space、按住不重复、失焦取消、阻止当前激活键透传到刚打开的对话框。覆盖 Agent 发送/快捷提示/工具导航/待确认动作/思考展开、首页图标、用户菜单、紫微宫位放大及关闭。
+2. 最初基于 event.currentTarget 的按键配对在真实 uni H5 失败：uni 每次事件都把 currentTarget 重新归一化为数据对象。改为使用实际焦点 DOM 元素配对；组件测试已升级为安装版本 @dcloudio/uni-h5-vue 的运行时及真实 $nne 事件归一化逻辑，重现失败后转绿。用户菜单保持“AI 设置 / 历史记录 / 关于”及纯前端本地路由；Escape/背景点击关闭，关闭后恢复触发器焦点。
+3. Agent 发送/确认动作增加真实处理函数门禁，防止空白、生成期间、重复提交通过 textarea confirm 或其他事件绕过；补充图标可访问名称及焦点样式。宫位提供明确的“放大”动作，展开状态隐藏重复入口，长小限文本可换行。
+4. ChatPanel 使用 input 文件选择后取消时，原 Promise 不结束，archiveBusy 一直为 true，后续保存和发送失效。现在 cancel 和空文件 change 都抛出 AbortError；恢复操作 finally 释放锁；取消静默保留现有对话，不意外回退到旧本地备份；有效文件选择仍正常恢复。
+5. 紫微详情原先放在 .page-card 内，其 card-rise 动画保留 transform，导致 position:fixed 相对卡片定位。390×844 实测关闭按钮在视口外。H5 改用 Teleport to body，弹层 CSS 不再依赖卡片祖先；宽度限制在扣除 16px 边距的可用区域，高度限制为视口减 32px，内容区可纵向滚动。打开时聚焦“关闭宫位详情”，支持 Escape、Enter/Space 关闭，Tab 保持在唯一交互控件，关闭恢复原放大触发器焦点。未改全局页面动画。
+6. 删除 UserAvatarDropdown 无用 email 变量；Timeline 删除 defineProps/defineEmits 编译宏的重复导入。
+
+类型检查边界
+- tsconfig 保持 strict:true。增加 vueCompilerOptions.extensions:[".vue",".nvue"] 和对应 include；仅 include glob 不足以让 vue-tsc 检查 .nvue。
+- --listFilesOnly 确认 12/12 业务 .nvue 进入检查。
+- src/libs/tmui/** 不作为根文件全量检查；业务直接依赖的 13 个 tmui TS/Vue 文件仍由模块依赖进入检查，不能把 exclude 描述成完全不检查第三方代码。
+- skipLibCheck:true 只跳过声明文件检查，不跳过业务 TypeScript / Vue / nvue。保留库已有的 nocheck，没有给业务代码新增 nocheck、关闭严格模式或复制 __volar 文件。
+- lunar-javascript 增补应用实际调用的 Solar/Lunar/LunarYear/LunarMonth 声明；Uni 补充遗留 tmui 预览助手使用的 $tm.toast 扩展声明。
+- 缺失 vue-advanced-chat@2.1.2 由 root 安装并同步 package/lock；本代理未安装依赖或执行 build。
+
+回归证据
+- .local-dev/only-ui-red.log：原始 UI 红灯。
+- .local-dev/only-ui-keyboard-red.log：重渲染/失焦按键边界红灯。
+- .local-dev/only-ui-uni-normalization-red.log：真实 uni 事件归一化后暴露 11 个失败。
+- .local-dev/only-ui-green.log：前阶段 16/16 通过。
+- .local-dev/only-ui-archive-cancel-red.log：7 通过 / 2 失败，取消锁死和空文件误恢复旧备份。
+- .local-dev/only-ui-archive-cancel-green.log：ChatPanel 9/9 通过。
+- .local-dev/only-ui-palace-modal-red.log：16 通过 / 2 失败，真实页面挂载暴露卡片内弹层及不可用键盘关闭。
+- .local-dev/only-ui-palace-modal-green.log：UI 18/18 通过。
+- .local-dev/only-ui-suite-final.log：全量 105/105 通过。
+- .local-dev/only-ui-typecheck-final.log：vue-tsc exit 0，业务严格类型检查通过。
+- .local-dev/only-ui-typecheck-files.txt：第三方依赖检查边界和 .nvue 纳入记录。
+- only-ui-suite.log / only-ui-suite-current.log / only-ui-typecheck-current.log 是并行开发中间状态，不能当作最终结果。
+
+精确执行命令（PowerShell，仓库根目录）
+$nodePath = 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe'
+& $nodePath --test frontend-only/tests/ui-accessibility.test.cjs
+& $nodePath --test frontend-only/tests/ai-chat-panel.test.cjs
+& $nodePath --test frontend-only/tests/*.test.cjs
+& $nodePath frontend-only/node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p frontend-only/tsconfig.json
+& $nodePath frontend-only/node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p frontend-only/tsconfig.json --listFilesOnly
+
+真实浏览器证据（root，Chrome，http://localhost:3050）
+- reports/frontend-test-2026-10-10/frontend-only/evidence/keyboard-menu-before.txt：Enter 不能展开菜单。
+- reports/frontend-test-2026-10-10/frontend-only/evidence/keyboard-menu-after.txt：修复后 Enter 展开；root 同时复核 Escape 收起并恢复焦点。
+- reports/frontend-test-2026-10-10/frontend-only/screenshots/ziwei-mobile-expanded.jpg：390×844 原弹层超出视口；原 mask top=-580、height=1624、width=347，panel top=-113，关闭按钮 top=-96。
+- reports/frontend-test-2026-10-10/frontend-only/screenshots/ziwei-mobile-fixed.jpg：修复后手机弹层。
+- reports/frontend-test-2026-10-10/frontend-only/evidence/ziwei-mobile-geometry.json：viewport 390×844，dialog x=16、y=75.953125、width=343、height=692.078125、bottom=768.03125；当前焦点为“关闭宫位详情”。
+- reports/frontend-test-2026-10-10/frontend-only/evidence/ziwei-mobile-fixed.txt：实际无障碍树包含 dialog“官禄”和命名关闭按钮。root 实测 Escape 关闭并回到“放大查看官禄”。
+
+验证限制
+- JSDOM 回归挂载真实组件/页面和真实 store，并通过实际 uni H5 事件归一化；不等于完整 uni 编译/路由/浏览器排版验证。uni 编译后菜单与手机紫微弹层由 root Chrome 实测补足。
+- 文件选择取消测试用真实 DOM input 的 cancel/change 事件，点击 OS 文件选择器的行为由测试捕获；没有自动操作 Windows 文件对话框，未验证旧浏览器是否实现 input cancel 事件。
+- 当前浏览器证据为 Chrome H5，不能推及其他浏览器、APP 或小程序。未对所有极端宫位数据或所有屏幕尺寸逐个测量；纵向滚动规则已落地。
+- 全量 Node 测试有 jsdom 传递依赖的 punycode 弃用警告，不影响 105/105 结果。最终 lint/build 由 root 统一执行；本代理未声明未执行的构建结果。
+- 未发起模型调用；UI/类型修复不构成模型回答质量或排盘准确率证明。

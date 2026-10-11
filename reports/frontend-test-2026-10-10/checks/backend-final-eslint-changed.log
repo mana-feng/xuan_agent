@@ -1,0 +1,4 @@
+
+Command: node node_modules/eslint/bin/eslint.js --resolve-plugins-relative-to ../frontend-docker/node_modules routes/auth.js routes/llm.js services/llm.js services/quota.js websocket/server.js utils/transaction.js
+ExitCode: 0
+SummaryRecordedAt: 2026-10-10T09:00:23.4673312Z

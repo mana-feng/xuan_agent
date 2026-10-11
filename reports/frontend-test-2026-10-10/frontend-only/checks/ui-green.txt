@@ -1,0 +1,27 @@
+node --test frontend-only/tests/ui-accessibility.test.cjs
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (107.5465ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (4.2269ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (8.2502ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (11.4438ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (21.668ms)
+✔ an activation key cannot leak to a document listener installed by the action (1.4787ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (1.379ms)
+✔ blank or in-flight drafts cannot bypass send guards using textarea confirm (2.3001ms)
+✔ pending navigation activates once from keyboard and is blocked while sending (2.6939ms)
+✔ thinking disclosure keyboard toggles the actual displayed message in every message state (7.2703ms)
+✔ local user menu opens with keyboard, closes with Escape and restores trigger focus (13.6422ms)
+✔ user menu keyboard and pointer actions retain the three local routes (3.3584ms)
+✔ user menu backdrop closes the visible menu (1.3182ms)
+✔ home icon is named, focusable, and keyboard opens the frontend Agent home (21.1165ms)
+✔ stream updates while a disclosure key is held do not discard its keyboard activation (2.0181ms)
+✔ moving focus away cancels a held activation key (1.4854ms)
+✔ palace detail escapes the transformed card and Escape returns focus to its trigger (239.7904ms)
+✔ palace detail close action supports Space and its backdrop remains clickable (46.6743ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1157.5913

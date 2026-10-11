@@ -1,0 +1,275 @@
+[
+  {
+    "view": "desktop",
+    "data": {
+      "height": 866,
+      "items": [
+        {
+          "cls": "page-card",
+          "direction": "column",
+          "disabled": false,
+          "height": 758,
+          "padding": "0px",
+          "width": 980,
+          "x": 115.5,
+          "y": 88
+        },
+        {
+          "cls": "archive-toolbar",
+          "direction": "row",
+          "disabled": false,
+          "height": 66,
+          "padding": "10px 24px",
+          "width": 980,
+          "x": 115.5,
+          "y": 183.890625
+        },
+        {
+          "cls": "chat-body",
+          "direction": "row",
+          "disabled": false,
+          "height": 517.109375,
+          "padding": "0px",
+          "width": 980,
+          "x": 115.5,
+          "y": 249.890625
+        },
+        {
+          "cls": "chat-item from-bot",
+          "direction": "row",
+          "disabled": false,
+          "height": 72.890625,
+          "padding": "0px",
+          "width": 932,
+          "x": 139.5,
+          "y": 273.890625
+        },
+        {
+          "cls": "chat-input-bar",
+          "direction": "row",
+          "disabled": false,
+          "height": 79,
+          "padding": "16px 24px",
+          "width": 980,
+          "x": 115.5,
+          "y": 767
+        },
+        {
+          "cls": "chat-input",
+          "direction": "row",
+          "disabled": false,
+          "height": 46,
+          "padding": "11px 14px",
+          "width": 832,
+          "x": 139.5,
+          "y": 784
+        },
+        {
+          "cls": "uni-textarea-textarea",
+          "direction": "row",
+          "disabled": false,
+          "height": 22,
+          "padding": "0px",
+          "width": 802,
+          "x": 154.5,
+          "y": 796
+        },
+        {
+          "cls": "chat-send",
+          "direction": "row",
+          "disabled": true,
+          "height": 46,
+          "padding": "0px 8px",
+          "width": 88,
+          "x": 983.5,
+          "y": 784
+        }
+      ],
+      "pageHeight": 866,
+      "pageWidth": 1211,
+      "width": 1211
+    }
+  },
+  {
+    "view": "390x844",
+    "data": {
+      "height": 844,
+      "items": [
+        {
+          "cls": "page-card",
+          "direction": "column",
+          "disabled": false,
+          "height": 760,
+          "padding": "0px",
+          "width": 366,
+          "x": 12,
+          "y": 72
+        },
+        {
+          "cls": "archive-toolbar",
+          "direction": "row",
+          "disabled": false,
+          "height": 62,
+          "padding": "8px 14px",
+          "width": 366,
+          "x": 12,
+          "y": 155.84375
+        },
+        {
+          "cls": "chat-body",
+          "direction": "row",
+          "disabled": false,
+          "height": 543.15625,
+          "padding": "0px",
+          "width": 366,
+          "x": 12,
+          "y": 217.84375
+        },
+        {
+          "cls": "chat-item from-bot",
+          "direction": "row",
+          "disabled": false,
+          "height": 68.890625,
+          "padding": "0px",
+          "width": 338,
+          "x": 26,
+          "y": 235.84375
+        },
+        {
+          "cls": "chat-input-bar",
+          "direction": "row",
+          "disabled": false,
+          "height": 71,
+          "padding": "12px 14px",
+          "width": 366,
+          "x": 12,
+          "y": 761
+        },
+        {
+          "cls": "chat-input",
+          "direction": "row",
+          "disabled": false,
+          "height": 46,
+          "padding": "11px",
+          "width": 256,
+          "x": 26,
+          "y": 774
+        },
+        {
+          "cls": "uni-textarea-textarea",
+          "direction": "row",
+          "disabled": false,
+          "height": 22,
+          "padding": "0px",
+          "width": 232,
+          "x": 38,
+          "y": 786
+        },
+        {
+          "cls": "chat-send",
+          "direction": "row",
+          "disabled": true,
+          "height": 46,
+          "padding": "0px 8px",
+          "width": 74,
+          "x": 290,
+          "y": 774
+        }
+      ],
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "width": 390
+    }
+  },
+  {
+    "view": "320x640-multiline",
+    "data": {
+      "height": 640,
+      "items": [
+        {
+          "cls": "page-card",
+          "direction": "column",
+          "disabled": false,
+          "height": 556,
+          "padding": "0px",
+          "width": 296,
+          "x": 12,
+          "y": 72
+        },
+        {
+          "cls": "archive-toolbar",
+          "direction": "row",
+          "disabled": false,
+          "height": 62,
+          "padding": "8px 14px",
+          "width": 296,
+          "x": 12,
+          "y": 155.84375
+        },
+        {
+          "cls": "chat-body",
+          "direction": "row",
+          "disabled": false,
+          "height": 295.15625,
+          "padding": "0px",
+          "width": 296,
+          "x": 12,
+          "y": 217.84375
+        },
+        {
+          "cls": "chat-item from-bot",
+          "direction": "row",
+          "disabled": false,
+          "height": 93.390625,
+          "padding": "0px",
+          "width": 276,
+          "x": 22,
+          "y": 235.84375
+        },
+        {
+          "cls": "chat-input-bar",
+          "direction": "row",
+          "disabled": false,
+          "height": 115,
+          "padding": "12px 10px",
+          "width": 296,
+          "x": 12,
+          "y": 513
+        },
+        {
+          "cls": "chat-input",
+          "direction": "row",
+          "disabled": false,
+          "height": 90,
+          "padding": "11px",
+          "width": 200,
+          "x": 22,
+          "y": 526
+        },
+        {
+          "cls": "uni-textarea-textarea",
+          "direction": "row",
+          "disabled": false,
+          "height": 66,
+          "padding": "0px",
+          "width": 176,
+          "x": 34,
+          "y": 538
+        },
+        {
+          "cls": "chat-send",
+          "direction": "row",
+          "disabled": false,
+          "height": 46,
+          "padding": "0px 8px",
+          "width": 68,
+          "x": 230,
+          "y": 570
+        }
+      ],
+      "pageHeight": 640,
+      "pageWidth": 320,
+      "width": 320
+    }
+  }
+]
