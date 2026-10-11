@@ -11,7 +11,7 @@
 		@update:show="_show = $event"
 	>
 		<solt name="title">
-			<tm-text class="pt-30 pb-20" align="center" :label="is_pillar ? 'è¯·é€‰æ‹©å››æŸ±è¿›è¡Œæ£€ç´? : 'é€‰æ‹©æ—¶é—´è¿›è¡ŒæŽ’ç›˜'"></tm-text>
+			<tm-text class="pt-30 pb-20" align="center" :label="is_pillar ? 'è¯·é€‰æ‹©å››æŸ±è¿›è¡Œæ£€ç´¢' : 'é€‰æ‹©æ—¶é—´è¿›è¡ŒæŽ’ç›˜'"></tm-text>
 		</solt>
 
 		<view v-if="is_pillar" id="pillar_view">
@@ -31,7 +31,7 @@
 				</tm-grid-item>
 			</tm-grid>
 
-			<view class="px-30"><tm-button block label="æ£€ç´¢å››æŸ? @tap="GetSiZhu"></tm-button></view>
+			<view class="px-30"><tm-button block label="æ£€ç´¢å››æŸ±" @tap="GetSiZhu"></tm-button></view>
 		</view>
 
 		<view v-else>
@@ -68,7 +68,7 @@ const picker_current = ref(0);
 
 const is_pillar = ref(true)
 
-const list = ref(['ç”?, 'ç”?, 'ç”?, 'ç”?, 'å­?, 'å­?, 'å­?, 'å­?]);
+const list = ref(['ç”²', 'ç”²', 'ç”²', 'ç”²', 'å­', 'å­', 'å­', 'å­']);
 const tabs_list = ref([]);
 const select_list = ref([]);
 const select_index = ref(0);
@@ -87,8 +87,8 @@ watch(
 );
 
 onMounted(()=>{
-	const tian = ['ç”?, 'ä¹?, 'ä¸?, 'ä¸?, 'æˆ?, 'å·?, 'åº?, 'è¾?, 'å£?, 'ç™?];
-	const di = ['å­?, 'ä¸?, 'å¯?, 'å?, 'è¾?, 'å·?, 'å?, 'æœ?, 'ç”?, 'é…?, 'æˆ?, 'äº?];
+	const tian = ['ç”²', 'ä¹™', 'ä¸™', 'ä¸', 'æˆŠ', 'å·±', 'åºš', 'è¾›', 'å£¬', 'ç™¸'];
+	const di = ['å­', 'ä¸‘', 'å¯…', 'å¯', 'è¾°', 'å·³', 'åˆ', 'æœª', 'ç”³', 'é…‰', 'æˆŒ', 'äº¥'];
 	const model = tab_current.value>3?di:tian;
 	const _list = [];
 	for (let i = 0; i < model.length; i++) {
@@ -113,8 +113,8 @@ function TabsChange(e:number) {
 }
 
 function PullTabs(e:number) {
-	const tian = ['ç”?, 'ä¹?, 'ä¸?, 'ä¸?, 'æˆ?, 'å·?, 'åº?, 'è¾?, 'å£?, 'ç™?];
-	const di = ['å­?, 'ä¸?, 'å¯?, 'å?, 'è¾?, 'å·?, 'å?, 'æœ?, 'ç”?, 'é…?, 'æˆ?, 'äº?];
+	const tian = ['ç”²', 'ä¹™', 'ä¸™', 'ä¸', 'æˆŠ', 'å·±', 'åºš', 'è¾›', 'å£¬', 'ç™¸'];
+	const di = ['å­', 'ä¸‘', 'å¯…', 'å¯', 'è¾°', 'å·³', 'åˆ', 'æœª', 'ç”³', 'é…‰', 'æˆŒ', 'äº¥'];
 	const _list = [];
 	const model = e > 3 ? di : tian;
 	for (let i = 0; i < model.length; i++) {

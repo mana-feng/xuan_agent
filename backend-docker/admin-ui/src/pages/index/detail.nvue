@@ -148,7 +148,7 @@
 						<view class="section flow-section">
 							<header class="section__header">
 								<tm-icon name="tmicon-md-time" :font-size="26" color="#667eea"></tm-icon>
-								<h2 class="section__title">流运流年</h2>
+								<h2 class="section__title">大运流年</h2>
 							</header>
 							<view class="section__body flow-section__body draggable-scroll" ref="flowWrapperRef">
 								<yx-yun-scroll-list></yx-yun-scroll-list>

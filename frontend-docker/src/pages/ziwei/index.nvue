@@ -235,7 +235,7 @@ onLoad((options: any) => {
 				return;
 			}
 		} catch (e) {
-			console.warn('閻熸瑱绲鹃悗鐣岀磽閺嶎剛甯嗛柡浣哄瀹撲焦寰勬潏顐バ?', e);
+			console.warn('读取紫微排盘编辑数据失败', e);
 			uni.removeStorageSync('edit_ziwei_data');
 		}
 	}
@@ -269,7 +269,7 @@ onShow(() => {
 				return;
 			}
 		} catch (e) {
-			console.warn('閻熸瑱绲鹃悗鐣岀磽閺嶎剛甯嗛柡浣哄瀹撲焦寰勬潏顐バ?', e);
+			console.warn('读取紫微排盘编辑数据失败', e);
 			uni.removeStorageSync('edit_ziwei_data');
 		}
 	}

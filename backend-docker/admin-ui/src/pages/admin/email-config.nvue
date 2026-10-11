@@ -139,7 +139,7 @@
 						<tm-input
 							v-model="form.fromName"
 							label="发件人名称（可选，用于显示）"
-							placeholder="如：Ai八字 或 你的姓名"
+							placeholder="如：AI 八字或你的姓名"
 							:margin="[0, 0, 0, 0]"
 							:round="12"
 							:border="1"
