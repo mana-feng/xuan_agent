@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const { getDatabase } = require('../db');
 const { generateRefreshToken, hashRefreshToken } = require('../utils/token');
 const { formatMySQLDateTime } = require('../utils/time');
+const { withTransaction } = require('../utils/transaction');
 const config = require('../config');
 const SecurityUtils = require('../security');
 const { authLimiter, refreshLimiter } = require('../config/rateLimit');
@@ -50,10 +51,10 @@ function signAccessToken(userId, signatureKey) {
 	});
 }
 
-async function persistRefreshToken(userId, refreshToken, deviceId) {
+async function persistRefreshToken(userId, refreshToken, deviceId, database = db) {
 	const refreshTokenHash = hashRefreshToken(refreshToken);
 	const expiresAt = new Date(Date.now() + REFRESH_TOKEN_EXPIRES_DAYS * 24 * 60 * 60 * 1000);
-	await db.run(
+	await database.run(
 		'INSERT INTO refresh_tokens (user_id, token_hash, device_id, expires_at, created_at) VALUES (?, ?, ?, ?, NOW())',
 		[userId, refreshTokenHash, deviceId, formatMySQLDateTime(expiresAt)]
 	);
@@ -63,10 +64,14 @@ async function persistRefreshToken(userId, refreshToken, deviceId) {
  * Register
  */
 router.post('/register', authLimiter, async (req, res) => {
-	const { email, username, password, device_id } = req.body || {};
+	const { email, username, password, device_id, verification_code } = req.body || {};
 
 	if (!email || !password || !username) {
 		return res.status(400).json({ error: 'Missing email, username, or password' });
+	}
+	const verificationCode = String(verification_code || '').trim();
+	if (!SecurityUtils.validateVerificationCode(verificationCode)) {
+		return res.status(400).json({ error: '请输入有效的邮箱验证码' });
 	}
 
 	const deviceIdRaw = device_id || `${req.ip || 'unknown'}-${req.headers['user-agent'] || 'ua'}`;
@@ -89,26 +94,40 @@ router.post('/register', authLimiter, async (req, res) => {
 	}
 
 	try {
-		const existed = await db.get('SELECT id FROM users WHERE email = ? OR username = ?', [
-			trimmedEmail,
-			trimmedUsername,
-		]);
-		if (existed) {
-			return res.status(409).json({ error: 'Email or username already in use' });
-		}
-
 		const passwordHash = await bcrypt.hash(String(password), 10);
-		const result = await db.run(
-			'INSERT INTO users (email, username, password_hash, created_at) VALUES (?, ?, ?, NOW())',
-			[trimmedEmail, trimmedUsername, passwordHash]
-		);
-		const userId = result.lastID;
-
-		const signatureKey = crypto.randomBytes(32).toString('hex');
-		const accessToken = signAccessToken(userId, signatureKey);
-		const refreshToken = generateRefreshToken();
-
-		await persistRefreshToken(userId, refreshToken, sanitizedDeviceId);
+		const { userId, accessToken, refreshToken } = await withTransaction(db, async (transaction) => {
+			const codeRow = await transaction.get(
+				'SELECT id, expires_at, used FROM email_verification_codes WHERE email = ? AND code = ? AND type = ? ORDER BY created_at DESC LIMIT 1 FOR UPDATE',
+				[trimmedEmail, verificationCode, 'register']
+			);
+			if (!codeRow || codeRow.used || new Date(codeRow.expires_at) <= new Date()) {
+				throw Object.assign(new Error('验证码错误、已使用或已过期'), { status: 400 });
+			}
+			const existed = await transaction.get('SELECT id FROM users WHERE email = ? OR username = ?', [
+				trimmedEmail,
+				trimmedUsername,
+			]);
+			if (existed) {
+				throw Object.assign(new Error('Email or username already in use'), { status: 409 });
+			}
+			const consumed = await transaction.run(
+				'UPDATE email_verification_codes SET used = 1 WHERE id = ? AND used = 0 AND expires_at > NOW()',
+				[codeRow.id]
+			);
+			if (consumed.changes !== 1) {
+				throw Object.assign(new Error('验证码已使用或已过期'), { status: 400 });
+			}
+			const result = await transaction.run(
+				'INSERT INTO users (email, username, password_hash, created_at) VALUES (?, ?, ?, NOW())',
+				[trimmedEmail, trimmedUsername, passwordHash]
+			);
+			const userId = result.lastID;
+			const signatureKey = crypto.randomBytes(32).toString('hex');
+			const accessToken = signAccessToken(userId, signatureKey);
+			const refreshToken = generateRefreshToken();
+			await persistRefreshToken(userId, refreshToken, sanitizedDeviceId, transaction);
+			return { userId, accessToken, refreshToken };
+		});
 
 		const h5 = isH5Request(req);
 		if (h5) {
@@ -126,6 +145,10 @@ router.post('/register', authLimiter, async (req, res) => {
 			},
 		});
 	} catch (err) {
+		if (err.status) return res.status(err.status).json({ error: err.message });
+		if (err.code === 'ER_DUP_ENTRY') {
+			return res.status(409).json({ error: 'Email or username already in use' });
+		}
 		console.error('Register failed:', err);
 		return res.status(500).json({ error: 'Server error' });
 	}
@@ -250,40 +273,45 @@ router.post('/refresh', refreshLimiter, async (req, res) => {
 	const refreshTokenHash = hashRefreshToken(refresh_token);
 
 	try {
-		let tokenRow;
-		if (sanitizedDeviceId) {
-			tokenRow = await db.get(
-				'SELECT id, user_id, expires_at, revoked_at FROM refresh_tokens WHERE token_hash = ? AND device_id = ?',
-				[refreshTokenHash, sanitizedDeviceId]
+		const { accessToken, newRefreshToken } = await withTransaction(db, async (transaction) => {
+			let tokenRow;
+			if (sanitizedDeviceId) {
+				tokenRow = await transaction.get(
+					'SELECT id, user_id, expires_at, revoked_at FROM refresh_tokens WHERE token_hash = ? AND device_id = ? FOR UPDATE',
+					[refreshTokenHash, sanitizedDeviceId]
+				);
+			} else {
+				tokenRow = await transaction.get(
+					'SELECT id, user_id, expires_at, revoked_at FROM refresh_tokens WHERE token_hash = ? ORDER BY created_at DESC LIMIT 1 FOR UPDATE',
+					[refreshTokenHash]
+				);
+			}
+			if (!tokenRow) {
+				throw Object.assign(new Error('Invalid refresh token'), { status: 401 });
+			}
+			if (tokenRow.revoked_at) {
+				throw Object.assign(new Error('Refresh token revoked'), { status: 401 });
+			}
+			if (new Date(tokenRow.expires_at) <= new Date()) {
+				throw Object.assign(new Error('Refresh token expired'), { status: 401 });
+			}
+			const userRow = await transaction.get('SELECT id, role FROM users WHERE id = ?', [tokenRow.user_id]);
+			if (!userRow) {
+				throw Object.assign(new Error('User not found'), { status: 401 });
+			}
+			const revoked = await transaction.run(
+				'UPDATE refresh_tokens SET revoked_at = NOW() WHERE id = ? AND revoked_at IS NULL AND expires_at > NOW()',
+				[tokenRow.id]
 			);
-		} else {
-			tokenRow = await db.get(
-				'SELECT id, user_id, expires_at, revoked_at FROM refresh_tokens WHERE token_hash = ? ORDER BY created_at DESC',
-				[refreshTokenHash]
-			);
-		}
-
-		if (!tokenRow) {
-			return res.status(401).json({ error: 'Invalid refresh token' });
-		}
-		if (tokenRow.revoked_at) {
-			return res.status(401).json({ error: 'Refresh token revoked' });
-		}
-		if (new Date(tokenRow.expires_at) < new Date()) {
-			return res.status(401).json({ error: 'Refresh token expired' });
-		}
-
-		const userRow = await db.get('SELECT id, role FROM users WHERE id = ?', [tokenRow.user_id]);
-		if (!userRow) {
-			return res.status(401).json({ error: 'User not found' });
-		}
-
-		await db.run('UPDATE refresh_tokens SET revoked_at = NOW() WHERE id = ?', [tokenRow.id]);
-
-		const signatureKey = crypto.randomBytes(32).toString('hex');
-		const accessToken = signAccessToken(userRow.id, signatureKey);
-		const newRefreshToken = generateRefreshToken();
-		await persistRefreshToken(userRow.id, newRefreshToken, sanitizedDeviceId);
+			if (revoked.changes !== 1) {
+				throw Object.assign(new Error('Refresh token revoked or expired'), { status: 401 });
+			}
+			const signatureKey = crypto.randomBytes(32).toString('hex');
+			const accessToken = signAccessToken(userRow.id, signatureKey);
+			const newRefreshToken = generateRefreshToken();
+			await persistRefreshToken(userRow.id, newRefreshToken, sanitizedDeviceId, transaction);
+			return { accessToken, newRefreshToken };
+		});
 
 		if (isH5Request(req)) {
 			setRefreshCookie(res, newRefreshToken);
@@ -294,6 +322,7 @@ router.post('/refresh', refreshLimiter, async (req, res) => {
 			refresh_token: isH5Request(req) ? undefined : newRefreshToken,
 		});
 	} catch (err) {
+		if (err.status) return res.status(err.status).json({ error: err.message });
 		console.error('Refresh token failed:', err);
 		return res.status(500).json({ error: 'Server error' });
 	}
