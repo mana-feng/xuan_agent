@@ -163,8 +163,8 @@
 import { computed, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
 import { useLiuyaoStore } from '@/store/liuyao';
-import { useUserStore } from '@/store/user';
-import { getPersistentItem, setPersistentItem } from '@/utils/persistentStorage';
+import { saveChartRecord } from '@/utils/localChartRecords';
+import { chartTimestamp } from '@/utils/chartContext';
 import { GUAS, GUA5, XING5, TRIGRAM_LABEL } from '@/features/liuyao/najiaConst';
 import { getYaoSymbol } from '@/features/liuyao/uiHelpers';
 import ParamPreview from '@/components/liuyao/ParamPreview.vue';
@@ -176,7 +176,7 @@ import { buildLiuyaoExportPayload } from '@/utils/liuyaoExport';
 
 type ActionType = 'save' | 'copy' | 'ai';
 const liuyaoStore = useLiuyaoStore();
-const user_store = useUserStore();
+liuyaoStore.restoreLastResult();
 const saving = ref(false);
 
 const compiled = computed(() => liuyaoStore.compiled);
@@ -398,14 +398,15 @@ async function saveLiuyao() {
 		let rawPayload;
 		
 		try {
-			const recordTime = liuyaoStore.createdAt || Date.now();
+			const recordTime = chartTimestamp(p.timeLabel);
+			if (recordTime === null) throw new Error('起卦时间无效');
 			
 			let params = c.params;
 			if ((!params || !Array.isArray(params)) && c.mark) {
 				const markArr = c.mark.split('');
 				const dongArr = c.dong || [];
 				
-				params = markArr.map((bit, index) => {
+				params = markArr.map((bit: string, index: number) => {
 					const isYang = bit === '1';
 					const isDong = dongArr.includes(index);
 					if (isDong) {
@@ -430,7 +431,7 @@ async function saveLiuyao() {
 					dayGz: c.dayGz
 				},
 				profile: p,
-				ts: recordTime
+				ts: liuyaoStore.createdAt
 			};
 		} catch (e) {
 			console.error('构造精简数据失败', e);
@@ -439,21 +440,15 @@ async function saveLiuyao() {
 			return;
 		}
 
-		const entry = {
-			id: Date.now(),
+		const entry = saveChartRecord('liuyao', {
+			id: liuyaoStore.recordId,
 			title: p.title || '六爻排盘',
-			type: 'liuyao',
 			gender: p.gender === '男' ? '0' : (p.gender === '女' ? '1' : null),
-			birthDatetime: new Date(liuyaoStore.createdAt || Date.now()).toISOString(),
+			birthDatetime: rawPayload.options.date,
 			createdAt: new Date().toISOString(),
-			rawPayload
-		};
-
-		const LOCAL_LIUYAO_RECORDS_KEY = 'local_liuyao_records';
-		const records = getPersistentItem<any[]>(LOCAL_LIUYAO_RECORDS_KEY) || [];
-		records.unshift(entry);
-		setPersistentItem(LOCAL_LIUYAO_RECORDS_KEY, records.slice(0, 200), 365 * 24 * 60 * 60 * 1000);
-
+			rawPayload,
+		});
+		liuyaoStore.setRecordId(entry.id);
 		uni.showToast({ title: '保存成功', icon: 'success' });
 	} catch (e: any) {
 		console.error('保存失败:', e);

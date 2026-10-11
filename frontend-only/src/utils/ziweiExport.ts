@@ -9,6 +9,7 @@ interface UserStoreLike {
 }
 
 interface ZiweiStoreLike {
+	input: UserStoreLike;
 	astrolabe: unknown | null;
 	viewMode: ViewMode;
 	targetDate: Date | string | number;
@@ -621,6 +622,7 @@ export function buildZiweiExportPayload(
 	userStore: Store & UserStoreLike,
 	ziweiStore: Store & ZiweiStoreLike,
 ): Record<string, unknown> | null {
+	const profile = ziweiStore.input;
 	const astrolabeObj = asObject(ziweiStore.astrolabe);
 	if (!astrolabeObj) return null;
 
@@ -631,8 +633,8 @@ export function buildZiweiExportPayload(
 	const palaces = palacesRaw.map((palace) => mapPalace(palace));
 
 	const birthDate =
-		typeof userStore.timestamp === 'number' && Number.isFinite(userStore.timestamp)
-			? new Date(userStore.timestamp)
+		typeof profile.timestamp === 'number' && Number.isFinite(profile.timestamp)
+			? new Date(profile.timestamp)
 			: null;
 	const birthSolarISO = birthDate && Number.isFinite(birthDate.getTime()) ? birthDate.toISOString() : null;
 
@@ -663,9 +665,9 @@ export function buildZiweiExportPayload(
 		},
 		prompt: ZIWEI_EXPORT_PROMPT,
 		profile: {
-			name: (userStore.realname || '').trim() || '佚名',
-			gender: normalizeGender(userStore.gender),
-			birthTimestamp: userStore.timestamp ?? null,
+			name: (profile.realname || '').trim() || '佚名',
+			gender: normalizeGender(profile.gender),
+			birthTimestamp: profile.timestamp ?? null,
 			birthSolarISO,
 		},
 		basicChart: {

@@ -6,11 +6,14 @@
 import { defineStore } from 'pinia';
 import { astro } from 'iztro';
 import { Solar } from 'lunar-javascript';
+import { normalizeChartInput, readChartContext, writeChartContext } from '@/utils/chartContext';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 
 interface PullData {
 	timestamp: number;
 	gender: number; // 0: male, 1: female
+	realname?: string;
+	recordId?: number | null;
 }
 
 type ViewMode = 'origin' | 'decadal' | 'yearly' | 'monthly' | 'daily';
@@ -51,10 +54,8 @@ export const useZiweiStore = defineStore('ziwei', {
 	state: () => {
 		return {
 			astrolabe: null as IFunctionalAstrolabe | null,
-			input: {
-				timestamp: null as number | null,
-				gender: null as number | null,
-			},
+			input: normalizeChartInput(),
+			computedKey: '',
 			viewMode: 'origin' as ViewMode,
 			targetDate: new Date(), // For horoscope
 			focusPalaceIndex: null as number | null, // The index of the palace currently clicked/focused
@@ -83,10 +84,23 @@ export const useZiweiStore = defineStore('ziwei', {
 		},
 	},
 		actions: {
+			restoreLastContext() {
+				if (this.input.timestamp !== null) return;
+				const input = readChartContext('ziwei');
+				if (input) this.pull(input as PullData);
+			},
+			ensureComputed() {
+				if (this.input.timestamp === null) return;
+				if (!this.astrolabe || this.computedKey !== `${this.input.timestamp}:${this.input.gender}`) this.pull(this.input as PullData);
+			},
+			setRecordId(id: number) {
+				this.input.recordId = id;
+				writeChartContext('ziwei', this.input);
+			},
 			pull(data: PullData) {
-			const { timestamp, gender } = data;
-			// @ts-expect-error - Pinia store state assignment
-			this.input = { timestamp, gender };
+			const input = normalizeChartInput(data);
+			const { timestamp, gender } = input;
+			if (timestamp === null) throw new Error('出生时间无效');
 
 			const solar = Solar.fromDate(new Date(timestamp));
 			const dateStr = solar.toYmd();
@@ -95,8 +109,10 @@ export const useZiweiStore = defineStore('ziwei', {
 			const genderStr = gender === 0 ? '男' : '女';
 
 			try {
-				// @ts-expect-error - iztro library type incompatibility
 				this.astrolabe = astro.bySolar(dateStr, hourIndex, genderStr, true, 'zh-CN');
+				this.input = input;
+				this.computedKey = `${timestamp}:${gender}`;
+				writeChartContext('ziwei', input);
 				this.targetDate = new Date(); // Reset target date to now
 				this.viewMode = 'origin';
 				this.focusPalaceIndex = null;

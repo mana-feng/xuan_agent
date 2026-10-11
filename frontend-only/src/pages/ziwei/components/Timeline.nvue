@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, defineEmits, watch, ref, reactive, onBeforeUnmount } from 'vue';
+import { computed, watch, ref, reactive, onBeforeUnmount } from 'vue';
 import { Lunar, LunarYear, Solar } from 'lunar-javascript';
 
 const props = defineProps<{

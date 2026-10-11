@@ -179,14 +179,14 @@ function extractDateTimeFromText(text: string) {
 	const date = `${Number(dateMatch[1])}-${padTwo(Number(dateMatch[2]))}-${padTwo(Number(dateMatch[3]))}`;
 	const tail = raw.slice((dateMatch.index || 0) + dateMatch[0].length);
 	const sanitizedRaw = raw.replace(dateMatch[0], ' ');
-	const timePattern = /(上午|下午|中午|晚上|凌晨)?\s*(\d{1,2})(?:\s*[:点时]\s*(\d{1,2}))?/;
+	const timePattern = /(上午|下午|中午|晚上|凌晨)?\s*(\d{1,2})\s*(?::\s*(\d{1,2})(?!\d)|[点时]\s*(\d{1,2})?)/;
 	const timeMatch = tail.match(timePattern) || sanitizedRaw.match(timePattern);
 	if (!timeMatch) {
 		return null;
 	}
 
 	let hour = Number(timeMatch[2]);
-	const minute = Number(timeMatch[3] || 0);
+	const minute = Number(timeMatch[3] || timeMatch[4] || 0);
 	const meridiem = timeMatch[1] || '';
 
 	if (Number.isNaN(hour) || Number.isNaN(minute)) {
@@ -197,12 +197,12 @@ function extractDateTimeFromText(text: string) {
 		hour += 12;
 	} else if (meridiem === '中午' && hour < 11) {
 		hour += 12;
-	} else if (meridiem === '凌晨' && hour === 12) {
+	} else if ((meridiem === '凌晨' || meridiem === '上午') && hour === 12) {
 		hour = 0;
 	}
 
 	const time = `${padTwo(hour)}:${padTwo(minute)}`;
-	return parseAgentTimestamp(date, time) ? { date, time } : null;
+	return parseAgentTimestamp(date, time) !== null ? { date, time } : null;
 }
 
 export function normalizeZiweiPalaceName(value: unknown) {
@@ -375,6 +375,7 @@ export function normalizeLiuyaoTitle(value: unknown) {
 
 export function extractChartPayloadFromText(text: string): BirthChartPayload | null {
 	const raw = String(text || '');
+	if (/农历|阴历|大概|大约|左右|不确定|可能/.test(raw)) return null;
 	const genderMatch = raw.match(/(?:我是|性别是|性别为)?\s*(男|女)/);
 	const gender = normalizeAgentGender((genderMatch?.[1] || '') as BirthChartPayload['gender']);
 	if (gender === null) {
@@ -382,7 +383,7 @@ export function extractChartPayloadFromText(text: string): BirthChartPayload | n
 	}
 
 	const dateTime = extractDateTimeFromText(raw);
-	if (!dateTime || !parseAgentTimestamp(dateTime.date, dateTime.time)) {
+	if (!dateTime || parseAgentTimestamp(dateTime.date, dateTime.time) === null) {
 		return null;
 	}
 
@@ -541,6 +542,29 @@ export function inferAction(
 	return { type: 'none' };
 }
 
+// Only an unambiguous request to open a named input page constrains the model.
+// Conditional tool selection and recommendations keep their existing behavior.
+function getExplicitInputPageTarget(inputText: string): Exclude<AgentTarget, 'history'> | null {
+	const text = String(inputText || '');
+	if (/如果|假如|(?:^|[，,。；;])\s*若|是否|判断|推荐|选盘|还是|哪个|哪种/.test(text)) return null;
+	const targets = new Set<Exclude<AgentTarget, 'history'>>();
+	const tools: Array<[Exclude<AgentTarget, 'history'>, RegExp]> = [
+		['bazi', /八字|四柱|\bbazi\b/i],
+		['liuyao', /六爻|\bliuyao\b/i],
+		['ziwei', /紫微|紫薇|\bziwei\b/i],
+	];
+	for (const clause of text.split(/[，,。；;\n]/)) {
+		const verb = /打开|进入|前往|带我(?:去|到)/.exec(clause);
+		if (!verb || /不要|别|不必|不用|无需|禁止/.test(clause.slice(0, verb.index))) continue;
+		const destination = clause.slice(verb.index);
+		if (!/输入|页面|排盘页|表单/.test(destination)) continue;
+		for (const [target, pattern] of tools) {
+			if (pattern.test(destination)) targets.add(target);
+		}
+	}
+	return targets.size === 1 ? Array.from(targets)[0] : null;
+}
+
 export function extractAgentAction(
 	reply: string,
 	inputText: string,
@@ -555,7 +579,7 @@ export function extractAgentAction(
 	if (matched?.[1]) {
 		try {
 			const json = JSON.parse(matched[1]);
-			if (json?.type === 'navigate' && routeMap[json.target as AgentTarget]) {
+			if (json?.type === 'navigate' && Object.prototype.hasOwnProperty.call(routeMap, json.target)) {
 				parsedAction = {
 					type: 'navigate',
 					target: json.target as AgentTarget,
@@ -627,11 +651,31 @@ export function extractAgentAction(
 		}
 	}
 
-	const withoutAction = rawReply.replace(/<!--AGENT_ACTION:[\s\S]*?-->/g, '').trim();
+	const withoutAction = rawReply.replace(/<!--AGENT_ACTION:[\s\S]*?(?:-->|$)/g, '').trim();
 	const cleanText = stripHtml(withoutAction).trim();
 
-	if (parsedAction.type === 'none') {
+	if (parsedAction.type === 'none' && !rawReply.includes('<!--AGENT_ACTION:')) {
 		parsedAction = inferAction(inputText, cleanText, options);
+	}
+
+	const requestedPage = getExplicitInputPageTarget(inputText);
+	if (requestedPage && parsedAction.type !== 'none') {
+		const name = { bazi: '八字', liuyao: '六爻', ziwei: '紫微' }[requestedPage];
+		const conflict = parsedAction.type !== 'navigate' || parsedAction.target !== requestedPage;
+		const label = `打开${name}排盘输入页`;
+		return {
+			action: {
+				type: 'navigate' as const,
+				target: requestedPage,
+				label,
+				reason: conflict
+					? '模型动作与您指定的输入页不一致，已拦截；可通过此入口手动打开指定页面。'
+					: '按您指定的工具打开输入页，由您填写排盘资料。',
+			},
+			cleanText: conflict
+				? `模型建议与您要求打开${name}排盘输入页的请求不一致，已拦截。您可以点击下方入口手动打开${name}排盘输入页。`
+				: cleanText || `您可以点击下方入口${label}。`,
+		};
 	}
 
 	return {

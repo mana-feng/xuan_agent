@@ -101,7 +101,7 @@
 							<view v-else class="records-list">
 								<tm-sheet
 									v-for="item in charts"
-									:key="item.id"
+									:key="(item.type || 'bazi') + ':' + item.id"
 									:round="16"
 									:shadow="2"
 									:margin="[0, 0]"
@@ -175,20 +175,22 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import { onShow } from '@dcloudio/uni-app';
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
 import { useLiuyaoStore } from '@/store/liuyao';
-import { getPersistentItem, setPersistentItem } from '@/utils/persistentStorage';
+import { useZiweiStore } from '@/store/ziwei';
+import { readChartRecords, removeChartRecord, type ChartType } from '@/utils/localChartRecords';
+import { chartTimestamp } from '@/utils/chartContext';
+import { compileNajia, buildDisplayData } from '@/features/liuyao/najiaCore';
+import { Solar } from 'lunar-javascript';
 import utils from '@/libs/utils/utils';
-
-const LOCAL_RECORDS_KEY = 'local_chart_records';
 
 interface ChartItem {
 	id: number;
 	title: string;
 	gender?: string | null;
-	birthDatetime: string;
+	birthDatetime: string | number;
 	createdAt: string;
 	createdAtLabel?: string;
 	type?: string;
@@ -234,8 +236,7 @@ onMounted(() => {
 	fetchCharts();
 });
 
-onLoad((options: any) => {
-});
+onShow(fetchCharts);
 
 function onSearchInput() {
 	if (searchTimer) {
@@ -263,9 +264,9 @@ async function fetchCharts() {
 	error.value = '';
 
 	try {
-		const baziRecords = getPersistentItem<ChartItem[]>(LOCAL_RECORDS_KEY) || [];
-		const ziweiRecords = getPersistentItem<ChartItem[]>('local_ziwei_records') || [];
-		const liuyaoRecords = getPersistentItem<ChartItem[]>('local_liuyao_records') || [];
+		const baziRecords = readChartRecords('bazi');
+		const ziweiRecords = readChartRecords('ziwei');
+		const liuyaoRecords = readChartRecords('liuyao');
 
 		baziRecords.forEach(r => { if (!r.type) r.type = 'bazi'; });
 		ziweiRecords.forEach(r => { r.type = 'ziwei'; });
@@ -324,14 +325,16 @@ function formatDateTime(iso: string) {
 }
 
 function formatBirth(item: ChartItem) {
-	if (!item || !item.birthDatetime) return '';
+	if (!item) return '';
 	try {
-		const d = new Date(item.birthDatetime);
+		const timestamp = chartTimestamp(item.birthDatetime);
+		if (timestamp === null) return '';
+		const d = new Date(timestamp);
 		if (isNaN(d.getTime())) {
 			return '';
 		}
 		const result = utils.HideSecond(d.getTime());
-		return result ? '出生：' + result : '';
+		return result ? (item.type === 'liuyao' ? '起卦：' : '出生：') + result : '';
 	} catch (e) {
 		return '';
 	}
@@ -358,204 +361,51 @@ function openChart(item: ChartItem) {
 	}
 }
 
+function recordInput(item: ChartItem) {
+	const timestamp = chartTimestamp(item.birthDatetime);
+	if (timestamp === null) throw new Error('记录中的时间无效');
+	return { realname: item.title || '佚名', gender: Number(item.gender) === 1 ? 1 : 0, timestamp, recordId: item.id };
+}
+
 function openZiweiChart(item: ChartItem) {
-	if (!item.rawPayload) {
-		uni.showToast({ title: '该记录缺少排盘数据', icon: 'none', duration: 2000 });
-		return;
+	const input = recordInput(item);
+	useZiweiStore().pull(input);
+	user_store.set(input);
+	const selection = item.rawPayload?.selection;
+	if (selection && ['origin', 'decadal', 'yearly', 'monthly', 'daily'].includes(selection.viewMode)) {
+		useZiweiStore().setTimelineSelection({ mode: selection.viewMode, date: selection.targetDate });
 	}
-	user_store.set({
-		realname: item.title || '佚名',
-		gender: item.gender === '0' ? 0 : (item.gender === '1' ? 1 : 0),
-		timestamp: item.birthDatetime ? new Date(item.birthDatetime).getTime() : null,
-		recordId: item.id
-	});
-	uni.navigateTo({ url: '/pages/ziwei/index' });
+	uni.navigateTo({ url: '/pages/ziwei/result' });
 }
 
 function openLiuyaoChart(item: ChartItem) {
-	if (!item.rawPayload) {
-		uni.showToast({ title: '该记录缺少排盘数据', icon: 'none', duration: 2000 });
-		return;
-	}
-	const liuyaoStore = useLiuyaoStore();
 	const rp = item.rawPayload;
-	if (rp.lite && rp.params) {
-		uni.navigateTo({
-			url: `/pages/liuyao/index?restore=1&params=${encodeURIComponent(JSON.stringify(rp.params))}&options=${encodeURIComponent(JSON.stringify(rp.options || {}))}`
-		});
-	} else if (rp.profile && (rp.compiled || rp.display)) {
-		liuyaoStore.setResult({
-			compiled: rp.compiled,
-			display: rp.display,
-			profile: rp.profile,
-			createdAt: rp.ts || Date.now()
-		});
-		uni.navigateTo({ url: '/pages/liuyao/result' });
-	} else {
-		uni.showToast({ title: '该记录数据格式无法恢复', icon: 'none', duration: 2000 });
-	}
+	if (!rp) throw new Error('该记录缺少排盘数据');
+	const store = useLiuyaoStore();
+	if (rp.lite && Array.isArray(rp.params) && rp.params.length === 6) {
+		// Legacy saves used save time for options.date; profile retains the actual cast time.
+		const timestamp = chartTimestamp(rp.profile?.timeLabel) ?? chartTimestamp(rp.options?.date) ?? chartTimestamp(item.birthDatetime);
+		if (timestamp === null) throw new Error('起卦时间无效');
+		const date = new Date(timestamp);
+		const compiled = compileNajia(rp.params, { ...rp.options, date, solar: Solar.fromDate(date), guaci: true });
+		const display = buildDisplayData(compiled);
+		const profile = rp.profile || {
+			title: item.title, gender: Number(item.gender) === 1 ? '女' : '男', method: '历史记录',
+			dayGanZhi: compiled.dayGz, timeLabel: utils.HideSecond(timestamp), focus: item.title,
+		};
+		store.setResult({ compiled, display, profile, createdAt: rp.ts ?? Date.now(), recordId: item.id });
+	} else if (rp.profile && rp.compiled && rp.display) {
+		store.setResult({ compiled: rp.compiled, display: rp.display, profile: rp.profile, createdAt: rp.ts ?? Date.now(), recordId: item.id });
+	} else throw new Error('该记录数据格式无法恢复');
+	uni.navigateTo({ url: '/pages/liuyao/result' });
 }
 
 function openBaziChart(item: ChartItem) {
-	let useRawPayload = false;
-	if (item.rawPayload && item.rawPayload.user && item.rawPayload.bazi) {
-		const u = item.rawPayload.user;
-		const b = item.rawPayload.bazi;
-
-		if (
-			u.timestamp &&
-			u.gender !== undefined &&
-			u.gender !== null &&
-			b.solar &&
-			b.solar.year &&
-			b.sizhu &&
-			b.sizhu.year &&
-			b.yinli &&
-			b.xinzuo &&
-			b.table &&
-			Array.isArray(b.table) &&
-			b.table.length > 0
-		) {
-			let rawPayloadGender: number;
-			if (u.gender === null || u.gender === undefined) {
-				rawPayloadGender = 0;
-			} else {
-				rawPayloadGender = typeof u.gender === 'string' ? parseInt(u.gender) : u.gender;
-			}
-
-			let dbGender: number;
-			if (item.gender === null || item.gender === undefined) {
-				dbGender = 0;
-			} else if (typeof item.gender === 'string') {
-				dbGender = item.gender === '0' ? 0 : (item.gender === '1' ? 1 : 0);
-			} else {
-				dbGender = item.gender === 0 ? 0 : (item.gender === 1 ? 1 : 0);
-			}
-
-			let dbTimestamp: number;
-			if (typeof item.birthDatetime === 'string') {
-				const date = new Date(item.birthDatetime);
-				dbTimestamp = date.getTime();
-			} else if (typeof item.birthDatetime === 'number') {
-				dbTimestamp = item.birthDatetime;
-			} else {
-				dbTimestamp = 0;
-			}
-
-			const timestampDiff = Math.abs((u.timestamp || 0) - dbTimestamp);
-			if (rawPayloadGender === dbGender && timestampDiff < 1000) {
-				useRawPayload = true;
-			}
-		}
-	}
-
-	if (useRawPayload) {
-		const u = item.rawPayload.user;
-		user_store.set({
-			realname: u.realname || item.title || '佚名',
-			gender: u.gender,
-			timestamp: u.timestamp,
-			recordId: item.id
-		});
-		bazi_store.$patch(item.rawPayload.bazi);
-
-		setTimeout(() => {
-			uni.navigateTo({
-				url: '/pages/index/detail'
-			});
-		}, 100);
-		return;
-	}
-
-	if (!item.birthDatetime) {
-		uni.showToast({
-			title: '该记录缺少出生时间数据',
-			icon: 'none',
-			duration: 2000
-		});
-		return;
-	}
-
-	let timestamp: number;
-	if (typeof item.birthDatetime === 'string') {
-		const date = new Date(item.birthDatetime);
-		timestamp = date.getTime();
-		if (isNaN(timestamp)) {
-			uni.showToast({
-				title: '出生时间格式错误，无法解析',
-				icon: 'none',
-				duration: 2000
-			});
-			return;
-		}
-	} else if (typeof item.birthDatetime === 'number') {
-		timestamp = item.birthDatetime;
-		if (isNaN(timestamp) || timestamp <= 0) {
-			uni.showToast({
-				title: '出生时间无效',
-				icon: 'none',
-				duration: 2000
-			});
-			return;
-		}
-	} else {
-		uni.showToast({
-			title: '出生时间格式错误',
-			icon: 'none',
-			duration: 2000
-		});
-		return;
-	}
-
-	let gender: number;
-	if (item.gender === null || item.gender === undefined) {
-		gender = 0;
-	} else if (typeof item.gender === 'string') {
-		gender = item.gender === '0' ? 0 : (item.gender === '1' ? 1 : 0);
-	} else {
-		gender = item.gender === 0 ? 0 : (item.gender === 1 ? 1 : 0);
-	}
-
-	uni.showLoading({
-		title: '排盘中，请稍后！'
-	});
-
-	user_store.set({
-		realname: item.title || '佚名',
-		gender: gender,
-		timestamp: timestamp,
-		recordId: item.id
-	});
-
-	try {
-		bazi_store.pull({
-			timestamp: timestamp,
-			gender: gender
-		});
-	} catch (pullError: any) {
-		uni.hideLoading();
-		uni.showToast({
-			title: '排盘计算失败：' + (pullError?.message || '未知错误'),
-			icon: 'none',
-			duration: 2000
-		});
-		return;
-	}
-
-	setTimeout(() => {
-		uni.hideLoading();
-		if (!bazi_store.solar || !bazi_store.solar.year) {
-			uni.showToast({
-				title: '排盘数据不完整，请重试',
-				icon: 'none',
-				duration: 2000
-			});
-			return;
-		}
-		uni.navigateTo({
-			url: '/pages/index/detail'
-		});
-	}, 200);
+	const input = recordInput(item);
+	// Recompute library objects and Yun data; serialized snapshots lose their methods.
+	bazi_store.pull(input);
+	user_store.set(input);
+	uni.navigateTo({ url: '/pages/index/detail' });
 }
 
 function removeChart(item: ChartItem) {
@@ -572,17 +422,9 @@ function removeChart(item: ChartItem) {
 
 async function doRemove(item: ChartItem) {
 	try {
-		const keyMap: Record<string, string> = {
-			bazi: LOCAL_RECORDS_KEY,
-			ziwei: 'local_ziwei_records',
-			liuyao: 'local_liuyao_records'
-		};
-		const key = keyMap[item.type || 'bazi'] || LOCAL_RECORDS_KEY;
-		const records = getPersistentItem<ChartItem[]>(key) || [];
-		const updated = records.filter(r => r.id !== item.id);
-		setPersistentItem(key, updated, 365 * 24 * 60 * 60 * 1000);
-
-		charts.value = charts.value.filter(c => c.id !== item.id);
+		const type = (item.type || 'bazi') as ChartType;
+		removeChartRecord(type, item.id);
+		charts.value = charts.value.filter(c => c.id !== item.id || (c.type || 'bazi') !== type);
 		totalCount.value = charts.value.length;
 		uni.showToast({ title: '已删除', icon: 'none', duration: 1500 });
 	} catch (e: any) {

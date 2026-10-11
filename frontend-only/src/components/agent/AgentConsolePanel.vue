@@ -6,7 +6,7 @@
 					<text class="action-banner__title">Agent 建议执行</text>
 					<text class="action-banner__body">{{ pendingAction.reason || pendingAction.label }}</text>
 				</view>
-				<button class="action-btn" @tap="emit('apply-pending')">{{ pendingAction.label }}</button>
+				<button class="action-btn" v-bind="h5Button(applyPending, sending)" :disabled="sending" @tap="applyPending">{{ pendingAction.label }}</button>
 			</view>
 
 			<view v-if="contextItems.length" class="context-banner">
@@ -37,7 +37,7 @@
 					</view>
 					<view class="message-bubble">
 						<view v-if="(msg.status === 'waiting' || msg.status === 'stream') && !msg.text" class="thinking-section">
-							<view v-if="msg.thinking" class="thinking-content" @tap="toggleThinking(msg.id)">
+							<view v-if="msg.thinking" class="thinking-content" v-bind="h5Button(() => toggleThinking(msg.id))" :aria-expanded="!!msg.showThinking" aria-label="思考过程" @tap="toggleThinking(msg.id)">
 								<view class="thinking-header">
 									<text class="thinking-label">思考中</text>
 									<text class="thinking-toggle">{{ msg.showThinking ? '收起' : '展开' }}</text>
@@ -50,7 +50,7 @@
 							</view>
 						</view>
 						<view v-if="(msg.status === 'waiting' || msg.status === 'stream') && msg.text && msg.thinking" class="thinking-section">
-							<view class="thinking-content" @tap="toggleThinking(msg.id)">
+							<view class="thinking-content" v-bind="h5Button(() => toggleThinking(msg.id))" :aria-expanded="!!msg.showThinking" aria-label="思考过程" @tap="toggleThinking(msg.id)">
 								<view class="thinking-header">
 									<text class="thinking-label">思考中</text>
 									<text class="thinking-toggle">{{ msg.showThinking ? '收起' : '展开' }}</text>
@@ -60,7 +60,7 @@
 						</view>
 						<text v-if="msg.text" class="message-text" selectable user-select>{{ msg.text }}</text>
 						<view v-if="msg.status === 'ready' && msg.thinking" class="thinking-section-done">
-							<view class="thinking-toggle-bar" @tap="toggleThinking(msg.id)">
+							<view class="thinking-toggle-bar" v-bind="h5Button(() => toggleThinking(msg.id))" :aria-expanded="!!msg.showThinking" aria-label="思考过程" @tap="toggleThinking(msg.id)">
 								<text class="thinking-toggle-label">思考过程</text>
 								<text class="thinking-toggle">{{ msg.showThinking ? '收起' : '展开' }}</text>
 							</view>
@@ -74,17 +74,18 @@
 			<view class="compose-box">
 				<textarea
 					v-model="draftValue"
+					v-bind="composeKeyboardEvents"
 					class="compose-input"
 					auto-height
 					maxlength="-1"
 					:disabled="sending"
 					placeholder="例如：我想看职业方向，帮我判断该走八字还是紫微，并直接带我打开对应页面"
 					confirm-type="send"
-					@confirm="emit('send')"
+					@confirm="sendMessage"
 				/>
 				<view class="compose-actions">
 					<text class="compose-tip">{{ composeTip }}</text>
-					<button class="send-btn" :disabled="sending || !draftValue.trim()" @tap="emit('send')">
+					<button class="send-btn" v-bind="h5Button(sendMessage, sendDisabled)" :disabled="sendDisabled" @tap="sendMessage">
 						{{ sending ? '发送中...' : '发送给 Agent' }}
 					</button>
 				</view>
@@ -97,6 +98,7 @@
 import { computed } from 'vue';
 import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { NavigateAction, UiMessage } from '@/features/agent/types';
+import { h5Button } from '@/utils/keyboard';
 
 const props = defineProps<{
 	subtitle: string;
@@ -119,6 +121,27 @@ const draftValue = computed({
 	get: () => props.modelValue,
 	set: (value: string) => emit('update:modelValue', value),
 });
+
+const sendDisabled = computed(() => props.sending || !draftValue.value.trim());
+const sendMessage = () => {
+	if (!sendDisabled.value) emit('send');
+};
+const applyPending = () => {
+	if (!props.sending && props.pendingAction) emit('apply-pending');
+};
+
+const composeKeyboardEvents = (() => {
+	let events: Record<string, unknown> = {};
+	// #ifdef H5
+	events = {
+		onKeyup: (event: KeyboardEvent) => {
+			// uni textarea confirms before Enter keyup reaches a newly opened modal.
+			if (event.key === 'Enter') event.stopPropagation();
+		},
+	};
+	// #endif
+	return events;
+})();
 
 function toggleThinking(msgId: string) {
 	const index = props.messages.findIndex((m) => m.id === msgId);
@@ -405,7 +428,22 @@ function toggleThinking(msgId: string) {
 	border: none;
 }
 
-.send-btn[disabled] {
+.send-btn[disabled],
+.action-btn[disabled] {
 	opacity: 0.55;
 }
+
+/* #ifdef H5 */
+.action-btn:focus-visible,
+.send-btn:focus-visible,
+.thinking-content:focus-visible,
+.thinking-toggle-bar:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 3px;
+}
+.compose-input:focus-within {
+	outline: 3px solid #0e7490;
+	outline-offset: 2px;
+}
+/* #endif */
 </style>

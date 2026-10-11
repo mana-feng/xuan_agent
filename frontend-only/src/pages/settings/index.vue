@@ -19,8 +19,8 @@
 					/>
 				</view>
 
-				<view v-if="config.provider !== 'ollama'" class="form-group">
-					<text class="label"><text class="required">*</text>API Key</text>
+				<view class="form-group">
+					<text class="label"><text v-if="requiresAiKey(config)" class="required">*</text>API Key{{ requiresAiKey(config) ? '' : '（可选）' }}</text>
 					<input
 						v-model="config.apiKey"
 						class="input"
@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
-import { getAiConfig, saveAiConfig, clearAiConfig, type AiConfig } from '@/config/aiConfig';
+import { getAiConfig, saveAiConfig, clearAiConfig, normalizeAiConfig, requiresAiKey, type AiConfig } from '@/config/aiConfig';
 
 interface ProviderInfo {
 	name: string;
@@ -101,6 +101,7 @@ function onProviderChange(e: any) {
 	const idx = Number(e.detail.value);
 	const provider = providers[idx];
 	if (provider) {
+		if (config.value.provider !== provider.value) config.value.apiKey = '';
 		config.value.provider = provider.value;
 		config.value.apiUrl = provider.apiUrl;
 		config.value.model = provider.defaultModel;
@@ -109,38 +110,31 @@ function onProviderChange(e: any) {
 }
 
 function saveConfig() {
-	if (!config.value.provider || config.value.provider === 'custom' && !config.value.apiUrl) {
-		statusMsg.value = '请选择 AI 提供商';
+	try {
+		config.value = normalizeAiConfig(config.value);
+	} catch (error) {
+		statusMsg.value = error instanceof Error ? error.message : '配置格式无效';
 		statusType.value = 'error';
-		setTimeout(() => { statusMsg.value = ''; }, 2000);
 		return;
 	}
-	if (!config.value.apiUrl) {
-		statusMsg.value = '请输入 API 地址';
+	try {
+		saveAiConfig(config.value);
+		statusMsg.value = '配置已保存';
+		statusType.value = 'success';
+	} catch {
+		statusMsg.value = '配置保存失败，请检查浏览器本地存储空间或权限';
 		statusType.value = 'error';
-		setTimeout(() => { statusMsg.value = ''; }, 2000);
-		return;
 	}
-	if (!config.value.model) {
-		statusMsg.value = '请输入模型名称';
-		statusType.value = 'error';
-		setTimeout(() => { statusMsg.value = ''; }, 2000);
-		return;
-	}
-	if (!config.value.apiKey && config.value.provider !== 'ollama') {
-		statusMsg.value = '请输入 API Key';
-		statusType.value = 'error';
-		setTimeout(() => { statusMsg.value = ''; }, 2000);
-		return;
-	}
-	saveAiConfig(config.value);
-	statusMsg.value = '配置已保存';
-	statusType.value = 'success';
 	setTimeout(() => { statusMsg.value = ''; }, 2000);
 }
-
 function clearConfig() {
-	clearAiConfig();
+	try {
+		clearAiConfig();
+	} catch {
+		statusMsg.value = '配置清除失败，请检查浏览器本地存储权限';
+		statusType.value = 'error';
+		return;
+	}
 	config.value = {
 		apiUrl: '',
 		apiKey: '',

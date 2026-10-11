@@ -4,17 +4,21 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
+    "skipLibCheck": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["@dcloudio/types"],
+    "types": ["@dcloudio/types", "vite/client", "node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules"]
+  "vueCompilerOptions": {
+    "extensions": [".vue", ".nvue"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.nvue"],
+  "exclude": ["node_modules", "dist", "src/libs/tmui/**"]
 }

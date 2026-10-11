@@ -9,6 +9,7 @@
 				v-for="item in quickPrompts"
 				:key="item.label"
 				class="quick-chip"
+				v-bind="h5Button(() => emit('quick-prompt', item.prompt))"
 				@tap="emit('quick-prompt', item.prompt)"
 			>
 				<text class="quick-chip__label">{{ item.label }}</text>
@@ -21,6 +22,7 @@
 <script setup lang="ts">
 import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { QuickPrompt } from '@/features/agent/types';
+import { h5Button } from '@/utils/keyboard';
 
 defineProps<{
 	quickPrompts: QuickPrompt[];
@@ -59,6 +61,13 @@ const emit = defineEmits<{
 	line-height: 1.6;
 	color: #475569;
 }
+
+/* #ifdef H5 */
+.quick-chip:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 3px;
+}
+/* #endif */
 
 @media (min-width: 900px) {
 	.quick-list {

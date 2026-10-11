@@ -73,7 +73,8 @@ export const useYunStore = defineStore('yun', {
 	actions: {
 		async pull(original: any[]) {
 			this.original = original;
-			this.current_index = 0;
+			// A chart that starts luck in its first year may have no pre-luck years.
+			this.current_index = Math.max(0, original.findIndex(item => item.getLiuNian().length > 0));
 			this.year_index = 0;
 			this.month_index = 0;
 			this.day_index = 0;
@@ -131,6 +132,7 @@ export const useYunStore = defineStore('yun', {
 			}
 
 			const dayun = original[current_index];
+			if (!dayun) return;
 			const year = dayun.getLiuNian();
 			const year_list = [];
 
@@ -173,8 +175,14 @@ export const useYunStore = defineStore('yun', {
 			}
 
 			const dayun = original[current_index];
-			const year = dayun.getLiuNian();
-
+			const year = dayun?.getLiuNian() || [];
+			if (!year[year_index]) {
+				this.month_list = [];
+				this.day_list = [];
+				this.time_list = [];
+				this._lastMonthCacheKey = '';
+				return;
+			}
 			const month = year[year_index].getLiuYue();
 
 			const month_list = [];

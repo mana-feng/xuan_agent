@@ -1,262 +1,208 @@
-import { getAiConfig, type AiConfig } from '@/config/aiConfig';
+import { getAiConfig } from '@/config/aiConfig';
 
 export type StreamCallbacks = {
 	onChunk?: (text: string) => void;
 	onThinking?: (text: string) => void;
 };
+export type AiRequestOptions = { signal?: AbortSignal; timeoutMs?: number };
+type AiProtocol = 'openai' | 'anthropic' | 'gemini';
 
+/** A generation is sent once. An ambiguous network failure must never replay it. */
 export async function callAi(
 	messages: Array<{ role: string; content: string }>,
 	callbacks?: StreamCallbacks,
+	options: AiRequestOptions = {},
 ): Promise<string> {
 	const config = getAiConfig();
-	if (!config) {
-		throw new Error('请先在设置页面配置 AI API');
-	}
-
+	if (!config) throw new Error('请先在设置页面配置 AI API');
+	if (options.signal?.aborted) throw new Error('AI 请求已取消');
 	const { apiUrl, apiKey, model, provider } = config;
-
-	const headers: Record<string, string> = {
-		'Content-Type': 'application/json',
-	};
-
+	const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+	const protocol: AiProtocol = provider === 'anthropic' ? 'anthropic'
+		: provider === 'gemini' && !new URL(apiUrl).pathname.includes('/chat/completions') ? 'gemini' : 'openai';
+	// Choose transport before sending; platforms without fetch can use uni.request.
+	const useStream = !!(callbacks?.onChunk || callbacks?.onThinking) && typeof fetch === 'function';
+	const systemText = messages.filter(m => m.role === 'system').map(m => m.content).join('\n\n');
 	let url = apiUrl;
 	let body: any;
-	const useStream = !!(callbacks?.onChunk || callbacks?.onThinking);
-	// Gemini 原生端点（.../models/xxx:generateContent）与 OpenAI 兼容端点
-	// （.../openai/chat/completions）的请求格式完全不同，按 URL 区分。
-	const isGeminiNative = provider === 'gemini' && !url.includes('/chat/completions');
-	const systemText = messages
-		.filter((m) => m.role === 'system')
-		.map((m) => m.content)
-		.join('\n\n');
-
-	if (provider === 'anthropic') {
-		// Anthropic 使用 x-api-key 而非 Bearer；浏览器直连必须带 CORS 豁免头
+	if (protocol === 'anthropic') {
 		if (apiKey) headers['x-api-key'] = apiKey;
 		headers['anthropic-version'] = '2023-06-01';
 		headers['anthropic-dangerous-direct-browser-access'] = 'true';
-		body = {
-			model,
-			messages: messages
-				.filter((m) => m.role !== 'system')
-				.map((m) => ({
-					role: m.role === 'assistant' ? 'assistant' : 'user',
-					content: m.content,
-				})),
-			max_tokens: 4096,
-			stream: useStream,
+		body = { model, max_tokens: 4096, stream: useStream,
+			messages: messages.filter(m => m.role !== 'system').map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content })),
 		};
-		if (systemText) {
-			body.system = systemText;
-		}
-	} else if (isGeminiNative) {
-		// 密钥放请求头，避免出现在 URL / 浏览器历史里
+		if (systemText) body.system = systemText;
+	} else if (protocol === 'gemini') {
 		if (apiKey) headers['x-goog-api-key'] = apiKey;
-		body = {
-			contents: messages
-				.filter((m) => m.role !== 'system')
-				.map((m) => ({
-					role: m.role === 'assistant' ? 'model' : 'user',
-					parts: [{ text: m.content }],
-				})),
-		};
-		if (systemText) {
-			body.systemInstruction = { parts: [{ text: systemText }] };
-		}
-		url = resolveGeminiNativeUrl(url, model, useStream);
+		body = { contents: messages.filter(m => m.role !== 'system').map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })) };
+		if (systemText) body.systemInstruction = { parts: [{ text: systemText }] };
+		url = resolveGeminiNativeUrl(apiUrl, model, useStream);
 	} else {
-		// OpenAI / Gemini 兼容模式 / qwen / deepseek / kimi / zhipu / ollama / custom
-		if (apiKey) headers['Authorization'] = `Bearer ${apiKey}`;
-		body = {
-			model,
-			messages,
-			stream: useStream,
-		};
+		if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
+		body = { model, messages, stream: useStream };
 	}
 
-	if (useStream) {
-		try {
-			return await streamRequest(url, headers, body, provider, callbacks);
-		} catch (streamErr: any) {
-			const msg = String(streamErr?.message || '').toLowerCase();
-			if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('err_aborted') || msg.includes('cors') || streamErr instanceof TypeError) {
-				if (isGeminiNative) {
-					// 原生 Gemini 的流式/非流式是不同端点，请求体本身不带 stream 字段
-					const fallbackUrl = resolveGeminiNativeUrl(apiUrl, model, false);
-					return await nonStreamRequest(fallbackUrl, headers, body, provider);
-				}
-				const nonStreamBody = { ...body, stream: false };
-				return await nonStreamRequest(url, headers, nonStreamBody, provider);
-			}
-			throw streamErr;
-		}
+	const controller = new AbortController();
+	let timedOut = false;
+	const cancel = () => controller.abort();
+	options.signal?.addEventListener('abort', cancel, { once: true });
+	const timeout = Number.isFinite(options.timeoutMs) && options.timeoutMs! > 0 ? options.timeoutMs! : 300000;
+	const timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeout);
+	try {
+		return useStream
+			? await streamRequest(url, headers, body, protocol, controller.signal, callbacks)
+			: await nonStreamRequest(url, headers, body, protocol, controller.signal, timeout);
+	} catch (error) {
+		if (controller.signal.aborted) throw new Error(timedOut ? 'AI 请求超时，请稍后手动重试' : 'AI 请求已取消');
+		if (error instanceof TypeError) throw new Error('模型连接失败，请检查 API 地址、网络和浏览器跨域设置');
+		throw error;
+	} finally {
+		clearTimeout(timer);
+		options.signal?.removeEventListener('abort', cancel);
 	}
-
-	return nonStreamRequest(url, headers, body, provider);
 }
 
 function resolveGeminiNativeUrl(baseUrl: string, model: string, stream: boolean): string {
+	const url = new URL(baseUrl);
 	const endpoint = stream ? 'streamGenerateContent' : 'generateContent';
-	let url = String(baseUrl || '').trim().replace(/[?#].*$/, '');
-	if (/:(streamGenerateContent|generateContent)$/.test(url)) {
-		url = url.replace(/:(streamGenerateContent|generateContent)$/, `:${endpoint}`);
+	if (/:(streamGenerateContent|generateContent)$/.test(url.pathname)) {
+		url.pathname = url.pathname.replace(/:(streamGenerateContent|generateContent)$/, `:${endpoint}`);
 	} else {
-		url = `${url.replace(/\/+$/, '')}/models/${model}:${endpoint}`;
+		url.pathname = `${url.pathname.replace(/\/+$/, '')}/models/${encodeURIComponent(model.replace(/^models\//, ''))}:${endpoint}`;
 	}
-	return stream ? `${url}?alt=sse` : url;
+	if (stream) url.searchParams.set('alt', 'sse');
+	else if (url.searchParams.get('alt') === 'sse') url.searchParams.delete('alt');
+	return url.toString();
 }
 
-async function nonStreamRequest(
-	url: string,
-	headers: Record<string, string>,
-	body: any,
-	provider: string,
-): Promise<string> {
+function checkProviderError(data: any, protocol: AiProtocol): void {
+	if (data?.error || data?.type === 'error' || data?.promptFeedback?.blockReason) throw new Error('AI 服务返回失败或内容被拦截');
+	const reason = protocol === 'anthropic' ? (data?.delta?.stop_reason || data?.stop_reason)
+		: protocol === 'gemini' ? data?.candidates?.[0]?.finishReason : data?.choices?.[0]?.finish_reason;
+	if (['length', 'max_tokens', 'MAX_TOKENS'].includes(reason)) throw new Error('AI 回复达到长度上限，内容已截断，请缩小问题范围');
+	if (reason && !['stop', 'end_turn', 'stop_sequence', 'STOP', 'tool_calls', 'function_call'].includes(reason)) {
+		throw new Error('AI 回复未正常结束，请检查模型返回状态');
+	}
+}
+
+function joinText(parts: any, thought = false): string {
+	if (!Array.isArray(parts)) return '';
+	return parts.filter(p => !!p?.thought === thought && typeof p?.text === 'string').map(p => p.text).join('');
+}
+
+function parseReply(data: any, protocol: AiProtocol): string {
+	if (typeof data === 'string') {
+		try { data = JSON.parse(data); } catch { throw new Error('AI 响应解析失败'); }
+	}
+	checkProviderError(data, protocol);
+	const content = protocol === 'anthropic' ? joinText(data?.content)
+		: protocol === 'gemini' ? joinText(data?.candidates?.[0]?.content?.parts)
+		: data?.choices?.[0]?.message?.content;
+	if (typeof content !== 'string' || !content.trim()) throw new Error('AI 未返回可显示内容');
+	return content;
+}
+
+async function nonStreamRequest(url: string, headers: Record<string, string>, body: any, protocol: AiProtocol, signal: AbortSignal, timeout: number): Promise<string> {
 	return new Promise((resolve, reject) => {
-		uni.request({
-			url,
-			method: 'POST',
-			data: body,
-			header: headers,
-			timeout: 300000,
-			success: (res: any) => {
-				if (res.statusCode >= 200 && res.statusCode < 300) {
-					const data = res.data as any;
+		let settled = false;
+		let task: ReturnType<typeof uni.request> | undefined;
+		const finish = (error: unknown, content?: string) => {
+			if (settled) return;
+			settled = true;
+			signal.removeEventListener('abort', cancel);
+			if (error) reject(error); else resolve(content!);
+		};
+		const cancel = () => { finish(new Error('AI 请求已取消')); task?.abort(); };
+		signal.addEventListener('abort', cancel, { once: true });
+		if (signal.aborted) { cancel(); return; }
+		try {
+			task = uni.request({ url, method: 'POST', data: body, header: headers, timeout,
+				success: (res: any) => {
 					try {
-						let content = '';
-						if (provider === 'anthropic') {
-							content = data?.content?.[0]?.text || '';
-						} else if (provider === 'gemini') {
-							// 兼容原生（candidates）和 OpenAI 兼容（choices）两种响应
-							content =
-								data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-								data?.choices?.[0]?.message?.content ||
-								'';
-						} else {
-							content = data?.choices?.[0]?.message?.content || '';
-						}
-						resolve(content);
-					} catch {
-						reject(new Error('AI 响应解析失败'));
-					}
-				} else {
-					reject(new Error(`AI 请求失败: ${res.statusCode}`));
-				}
-			},
-			fail: (err: any) => {
-				reject(new Error(`AI 请求失败: ${err?.errMsg || '网络错误'}`));
-			},
-		});
+						if (res.statusCode < 200 || res.statusCode >= 300) throw new Error(`AI 请求失败: ${res.statusCode}`);
+						finish(null, parseReply(res.data, protocol));
+					} catch (error) { finish(error); }
+				},
+				fail: () => finish(new Error('AI 请求失败，请检查网络和浏览器跨域设置')),
+			});
+		} catch (error) { finish(error); }
 	});
 }
 
-function extractStreamChunk(
-	data: any,
-	provider: string,
-): { content: string; thinking: string } {
-	let content = '';
-	let thinking = '';
-
-	if (provider === 'anthropic') {
-		if (data?.type === 'content_block_delta') {
-			if (data?.delta?.type === 'thinking_delta') {
-				thinking = data?.delta?.thinking || '';
-			} else if (data?.delta?.type === 'text_delta') {
-				content = data?.delta?.text || '';
-			}
-		}
-	} else if (provider === 'gemini') {
-		// 原生 SSE 走 candidates；OpenAI 兼容端点走 choices.delta
-		content =
-			data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-			data?.choices?.[0]?.delta?.content ||
-			'';
-	} else {
-		thinking = data?.choices?.[0]?.delta?.reasoning_content || '';
-		content = data?.choices?.[0]?.delta?.content || '';
+function extractStreamChunk(data: any, protocol: AiProtocol): { content: string; thinking: string } {
+	if (protocol === 'anthropic') {
+		return {
+			content: data?.type === 'content_block_delta' && data?.delta?.type === 'text_delta' ? data.delta.text || '' : '',
+			thinking: data?.type === 'content_block_delta' && data?.delta?.type === 'thinking_delta' ? data.delta.thinking || '' : '',
+		};
 	}
-
-	return { content, thinking };
+	if (protocol === 'gemini') {
+		const parts = data?.candidates?.[0]?.content?.parts;
+		return { content: joinText(parts), thinking: joinText(parts, true) };
+	}
+	return { content: data?.choices?.[0]?.delta?.content || '', thinking: data?.choices?.[0]?.delta?.reasoning_content || '' };
 }
 
-async function streamRequest(
-	url: string,
-	headers: Record<string, string>,
-	body: any,
-	provider: string,
-	callbacks?: StreamCallbacks,
-): Promise<string> {
-	const response = await fetch(url, {
-		method: 'POST',
-		headers,
-		body: JSON.stringify(body),
-	});
-
-	if (!response.ok) {
-		throw new Error(`AI 流请求失败: ${response.status}`);
+async function streamRequest(url: string, headers: Record<string, string>, body: any, protocol: AiProtocol, signal: AbortSignal, callbacks?: StreamCallbacks): Promise<string> {
+	const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body), signal });
+	if (!response.ok) throw new Error(`AI 请求失败: ${response.status}`);
+	if (response.headers.get('content-type')?.includes('application/json')) {
+		return parseReply(await response.text(), protocol);
 	}
-
-	if (!response.body) {
-		const text = await response.text();
-		return text;
-	}
-
+	if (!response.body) throw new Error('AI 响应为空，未收到流式内容');
 	const reader = response.body.getReader();
 	const decoder = new TextDecoder();
-	let fullText = '';
 	let buffer = '';
-
-	while (true) {
-		const { done, value } = await reader.read();
-		if (done) break;
-
-		buffer += decoder.decode(value, { stream: true });
-		const lines = buffer.split('\n');
-		buffer = lines.pop() || '';
-
-		for (const line of lines) {
-			const trimmed = line.trim();
-			if (!trimmed || !trimmed.startsWith('data:')) continue;
-			const dataStr = trimmed.slice(5).trim();
-			if (dataStr === '[DONE]') continue;
-			try {
-				const data = JSON.parse(dataStr);
-				const { content, thinking } = extractStreamChunk(data, provider);
-				if (thinking && callbacks?.onThinking) {
-					callbacks.onThinking(thinking);
-				}
-				if (content) {
-					fullText += content;
-					callbacks?.onChunk?.(content);
-				}
-			} catch {
-				// ignore parse errors
-			}
+	let dataLines: string[] = [];
+	let fullText = '';
+	let complete = false;
+	const dispatch = () => {
+		if (!dataLines.length || complete) return;
+		const dataText = dataLines.join('\n').trim();
+		dataLines = [];
+		if (!dataText) return;
+		if (dataText === '[DONE]') { complete = true; return; }
+		let data: any;
+		try { data = JSON.parse(dataText); } catch { throw new Error('AI 流式响应解析失败'); }
+		checkProviderError(data, protocol);
+		const { content, thinking } = extractStreamChunk(data, protocol);
+		if (typeof content !== 'string' || typeof thinking !== 'string') throw new Error('AI 流式内容格式无效');
+		if (!signal.aborted) {
+			if (thinking) callbacks?.onThinking?.(thinking);
+			if (content) { fullText += content; callbacks?.onChunk?.(content); }
 		}
-	}
-
-	if (buffer.trim()) {
-		const trimmed = buffer.trim();
-		if (trimmed.startsWith('data:')) {
-			const dataStr = trimmed.slice(5).trim();
-			if (dataStr !== '[DONE]') {
-				try {
-					const data = JSON.parse(dataStr);
-					const { content, thinking } = extractStreamChunk(data, provider);
-					if (thinking && callbacks?.onThinking) {
-						callbacks.onThinking(thinking);
-					}
-					if (content) {
-						fullText += content;
-						callbacks?.onChunk?.(content);
-					}
-				} catch {
-					// ignore parse errors
-				}
-			}
+		complete = protocol === 'anthropic' ? data?.type === 'message_stop'
+			: protocol === 'gemini' ? !!data?.candidates?.[0]?.finishReason : !!data?.choices?.[0]?.finish_reason;
+	};
+	const processLine = (line: string) => {
+		if (!line) dispatch();
+		else if (line.startsWith('data:')) dataLines.push(line.slice(5).replace(/^ /, ''));
+	};
+	const drain = (final = false) => {
+		let match: RegExpExecArray | null;
+		while ((match = /\r\n|\r|\n/.exec(buffer))) {
+			// A CR at the chunk boundary may be the first half of CRLF.
+			if (!final && match[0] === '\r' && match.index === buffer.length - 1) break;
+			const line = buffer.slice(0, match.index);
+			buffer = buffer.slice(match.index + match[0].length);
+			processLine(line);
 		}
+		if (final) { if (buffer) processLine(buffer); buffer = ''; dispatch(); }
+	};
+	try {
+		while (!complete) {
+			const { done, value } = await reader.read();
+			if (done) { buffer += decoder.decode(); drain(true); break; }
+			buffer += decoder.decode(value, { stream: true });
+			drain();
+		}
+		if (signal.aborted) throw new Error('AI 请求已取消');
+		if (!complete) throw new Error('AI 连接中断，未收到完整回复，请手动重试');
+		if (!fullText.trim()) throw new Error('AI 未返回可显示内容');
+		return fullText;
+	} finally {
+		try { await reader.cancel(); } catch { /* A failed stream is already closed. */ }
+		reader.releaseLock();
 	}
-
-	return fullText;
 }

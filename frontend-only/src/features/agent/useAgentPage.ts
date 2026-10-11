@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, onUnmounted, ref } from 'vue';
 import { callAi } from '@/services/ai';
 import { hasAiConfig } from '@/config/aiConfig';
 import { useBaziStore } from '@/store/bazi';
@@ -10,7 +10,6 @@ import { quickPrompts, routeMap, toolCards } from './config';
 import {
 	buildAgentSystemPrompt,
 	extractAgentAction,
-	extractTextFromPayload,
 	formatZiweiPalaceLabel,
 	getFallbackTargetForAction,
 	isExecutableAction,
@@ -33,6 +32,10 @@ export function useAgentPage() {
 	const sending = ref(false);
 	const pendingAction = ref<NavigateAction | null>(null);
 	const messages = ref<UiMessage[]>([]);
+	const configured = ref(hasAiConfig());
+	let activeRequest: AbortController | null = null;
+	let disposed = false;
+	onUnmounted(() => { disposed = true; activeRequest?.abort(); });
 
 	const contextItems = computed(() => {
 		const items: string[] = [];
@@ -52,13 +55,13 @@ export function useAgentPage() {
 		return items;
 	});
 
-	const accessLabel = computed(() => hasAiConfig() ? '已配置 AI' : '未配置 AI');
+	const accessLabel = computed(() => configured.value ? '已配置 AI' : '未配置 AI');
 	const usageLabel = computed(() => '使用本地 API 配置');
 	const conversationSubtitle = computed(
 		() => 'Agent 会根据你的自然语言直接排盘、聚焦紫微宫位或给出下一步动作',
 	);
 	const composeTip = computed(() =>
-		sending.value ? 'Agent 正在调用内网模型' : '支持“帮我选盘 / 直接排盘 / 聚焦紫微宫位 / 查看历史记录”',
+		sending.value ? 'Agent 正在调用已配置的模型' : configured.value ? '支持“帮我选盘 / 直接排盘 / 聚焦紫微宫位 / 查看历史记录”' : '请先在设置页面配置 AI API，再开始对话',
 	);
 	const lastMessageId = computed(() => {
 		const current = messages.value[messages.value.length - 1];
@@ -163,7 +166,7 @@ export function useAgentPage() {
 		];
 
 		for (const item of messages.value) {
-			if (item.seed || item.status === 'waiting') continue;
+			if (item.seed || item.status !== 'ready') continue;
 			const text = String(item.text || '').trim();
 			if (!text) continue;
 			payload.push({
@@ -176,6 +179,11 @@ export function useAgentPage() {
 	}
 
 	function initializePage() {
+		configured.value = hasAiConfig();
+		baziStore.restoreLastContext();
+		baziStore.ensureComputed();
+		ziweiStore.restoreLastContext();
+		ziweiStore.ensureComputed();
 		liuyaoStore.restoreLastResult();
 		ensureSeedMessage();
 	}
@@ -239,7 +247,7 @@ export function useAgentPage() {
 
 			if (hasCustomDate || hasCustomTime) {
 				const timestamp = parseAgentTimestamp(action.payload.date, action.payload.time);
-				if (!timestamp) {
+				if (timestamp === null) {
 					throw new Error('起卦时间格式无效，无法直接排六爻');
 				}
 				date = new Date(timestamp);
@@ -268,7 +276,7 @@ export function useAgentPage() {
 		}
 
 		const timestamp = parseAgentTimestamp(action.payload.date, action.payload.time);
-		if (!timestamp) {
+		if (timestamp === null) {
 			throw new Error('出生日期或时辰格式无效，无法直接排盘');
 		}
 
@@ -289,12 +297,12 @@ export function useAgentPage() {
 			userStore.recordId = null;
 
 			if (action.type === 'run_bazi_chart') {
-				baziStore.pull({ timestamp, gender });
+				baziStore.pull(params);
 				await navigateToPage('/pages/index/detail');
 				return;
 			}
 
-			ziweiStore.pull({ timestamp, gender });
+			ziweiStore.pull(params);
 			if (action.payload.focusPalace) {
 				applyZiweiFocusByName(action.payload.focusPalace, false);
 			}
@@ -306,13 +314,15 @@ export function useAgentPage() {
 
 	async function sendPrompt(text: string) {
 		const content = String(text || '').trim();
-		if (!content || sending.value) return;
+		if (!content || sending.value || disposed) return;
 
 		pushMessage('user', content);
 		pendingAction.value = null;
 		draft.value = '';
 		sending.value = true;
 		const waitingId = createWaitingMessage();
+		const controller = new AbortController();
+		activeRequest = controller;
 
 		try {
 			if (!hasAiConfig()) {
@@ -322,15 +332,18 @@ export function useAgentPage() {
 			let rawReply = '';
 			const returnedReply = await callAi(buildMessages(), {
 				onThinking: (thinking: string) => {
+					if (disposed) return;
 					appendToMessage(waitingId, '', thinking);
 				},
 				onChunk: (chunk: string) => {
+					if (disposed) return;
 					rawReply += chunk;
 					appendToMessage(waitingId, chunk);
 				},
-			});
+			}, { signal: controller.signal });
+			if (disposed) return;
 
-			// 流式失败回退到非流式时不会触发 onChunk，改用返回值
+			// Compatible endpoints may return a complete JSON response.
 			if (!rawReply.trim()) {
 				rawReply = String(returnedReply || '');
 			}
@@ -366,9 +379,10 @@ export function useAgentPage() {
 
 			pendingAction.value = parsed.action.type === 'navigate' ? parsed.action : null;
 		} catch (err) {
-			replaceMessage(waitingId, `调用失败：${normalizeError(err)}`, 'error');
+			if (!disposed) replaceMessage(waitingId, `调用失败：${normalizeError(err)}`, 'error');
 		} finally {
 			sending.value = false;
+			if (activeRequest === controller) activeRequest = null;
 		}
 	}
 

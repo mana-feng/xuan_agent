@@ -22,21 +22,23 @@ function decode<T>(encoded: string): Payload<T> | null {
 export function setPersistentItem<T>(key: string, value: T, ttlMs: number = DEFAULT_TTL) {
 	const payload: Payload<T> = {
 		value,
-		expiresAt: Date.now() + ttlMs,
+		expiresAt: ttlMs === 0 ? 0 : Date.now() + ttlMs,
 	};
 	const encoded = encode(payload);
 	uni.setStorageSync(key, encoded);
 }
 
-export function getPersistentItem<T>(key: string): T | null {
+export function getPersistentItem<T>(key: string, options: { permanent?: boolean } = {}): T | null {
 	const encoded = uni.getStorageSync(key);
 	if (!encoded) return null;
 	const payload = decode<T>(encoded);
 	if (!payload) {
+		// A saved record is user data. Keep unreadable bytes for recovery, and block overwrites.
+		if (options.permanent) throw new Error('本地记录无法读取，请先备份后检查');
 		uni.removeStorageSync(key);
 		return null;
 	}
-	if (payload.expiresAt && payload.expiresAt < Date.now()) {
+	if (!options.permanent && payload.expiresAt && payload.expiresAt < Date.now()) {
 		uni.removeStorageSync(key);
 		return null;
 	}

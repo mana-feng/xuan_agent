@@ -1,12 +1,22 @@
 <template>
 	<tm-app>
-		<PageScaffold class="page-chat" title="AI 聊天" subtitle="对接大模型的专用界面">
-			<template #header-extra>
-				<view class="archive-btns">
-					<button class="archive-btn" :disabled="archiveBusy" @tap="handleRestoreArchive">恢复</button>
-					<button class="archive-btn" :disabled="archiveBusy" @tap="handleSaveArchive">保存</button>
+		<PageScaffold class="page-chat" title="AI 聊天" subtitle="结合排盘，聊聊你关心的问题">
+			<view class="archive-toolbar">
+				<view class="archive-copy">
+					<text class="archive-description">下载为 JSON 文件，导入会替换当前对话。</text>
+					<button
+						v-if="canChooseArchiveLocation"
+						class="archive-location-btn"
+						v-bind="h5Button(handleSaveArchive, archiveBusy || sending)"
+						:disabled="archiveBusy || sending"
+						@tap="handleSaveArchive"
+					>选择位置保存</button>
 				</view>
-			</template>
+				<view class="archive-btns">
+					<button class="archive-btn" v-bind="h5Button(handleDownloadArchive, archiveBusy || sending)" :disabled="archiveBusy || sending" @tap="handleDownloadArchive">下载档案</button>
+					<button class="archive-btn archive-btn-secondary" v-bind="h5Button(handleImportArchive, archiveBusy || sending)" :disabled="archiveBusy || sending" @tap="handleImportArchive">导入档案</button>
+				</view>
+			</view>
 			<chat-panel
 				ref="panelRef"
 				class="chat-panel-wrapper"
@@ -18,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import ChatPanel from '@/chat/ChatPanel.vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
@@ -33,6 +43,7 @@ import { useZiweiStore } from '@/store/ziwei';
 import { buildBaziExportPayload } from '@/utils/baziExport';
 import { buildLiuyaoExportPayload } from '@/utils/liuyaoExport';
 import { buildZiweiExportPayload } from '@/utils/ziweiExport';
+import { h5Button } from '@/utils/keyboard';
 
 type ChatContext = 'bazi' | 'liuyao' | 'ziwei';
 type ChatRole = 'system' | 'user' | 'assistant';
@@ -45,6 +56,11 @@ const panelRef = ref<any>(null);
 const chatContext = ref<ChatContext>('bazi');
 const shouldDisableRestore = ref(false);
 const archiveBusy = ref(false);
+const sending = ref(false);
+const canChooseArchiveLocation = ref(false);
+let activeRequest: AbortController | null = null;
+let disposed = false;
+let readyTimer: ReturnType<typeof setTimeout> | undefined;
 
 const userStore = useUserStore();
 const baziStore = useBaziStore();
@@ -52,7 +68,7 @@ const yunStore = useYunStore();
 const liuyaoStore = useLiuyaoStore();
 const ziweiStore = useZiweiStore();
 
-onLoad((options: Record<string, unknown>) => {
+onLoad((options: Record<string, unknown> = {}) => {
 	const from = String(options?.from || '').toLowerCase();
 	if (from === 'bazi' || from === 'liuyao' || from === 'ziwei') {
 		chatContext.value = from as ChatContext;
@@ -61,7 +77,11 @@ onLoad((options: Record<string, unknown>) => {
 });
 
 onMounted(() => {
-	setTimeout(() => {
+	// #ifdef H5
+	canChooseArchiveLocation.value = typeof window !== 'undefined' &&
+		typeof (window as any).showSaveFilePicker === 'function';
+	// #endif
+	readyTimer = setTimeout(() => {
 		if (chatContext.value === 'liuyao') {
 			panelRef.value?.appendAssistant('已为您加载六爻排盘结果，您可以让 AI 为您解读卦象。', 'ready');
 		} else if (chatContext.value === 'ziwei') {
@@ -70,26 +90,44 @@ onMounted(() => {
 	}, 120);
 });
 
+onUnmounted(() => {
+	disposed = true;
+	clearTimeout(readyTimer);
+	activeRequest?.abort();
+});
+
 function handleSend(text: string) {
 	void sendToLLM(text);
 }
 
-function handleRestoreArchive() {
-	if (archiveBusy.value) return;
+async function handleDownloadArchive() {
+	if (archiveBusy.value || sending.value) return;
 	archiveBusy.value = true;
-	panelRef.value?.handleRestoreArchive?.();
-	setTimeout(() => {
+	try {
+		await panelRef.value?.handleDownloadArchive?.();
+	} finally {
 		archiveBusy.value = false;
-	}, 300);
+	}
 }
 
-function handleSaveArchive() {
-	if (archiveBusy.value) return;
+async function handleImportArchive() {
+	if (archiveBusy.value || sending.value) return;
 	archiveBusy.value = true;
-	panelRef.value?.handleSaveArchive?.();
-	setTimeout(() => {
+	try {
+		await panelRef.value?.handleImportArchive?.();
+	} finally {
 		archiveBusy.value = false;
-	}, 300);
+	}
+}
+
+async function handleSaveArchive() {
+	if (archiveBusy.value || sending.value) return;
+	archiveBusy.value = true;
+	try {
+		await panelRef.value?.handleSaveArchive?.();
+	} finally {
+		archiveBusy.value = false;
+	}
 }
 
 function stripHtml(value: unknown): string {
@@ -116,16 +154,21 @@ function normalizeError(value: unknown): string {
 function buildContextSystemPrompt(): string | null {
 	try {
 		if (chatContext.value === 'liuyao') {
+			liuyaoStore.restoreLastResult();
 			const payload = buildLiuyaoExportPayload(liuyaoStore);
 			return payload ? `User Liuyao result:\n${payload}` : null;
 		}
 
 		if (chatContext.value === 'ziwei') {
+			ziweiStore.restoreLastContext();
+			ziweiStore.ensureComputed();
 			const payload = buildZiweiExportPayload(userStore, ziweiStore);
 			const toon = payload ? encodeTOON(payload) : '';
 			return toon ? `User Ziwei profile (TOON):\n${toon}` : null;
 		}
 
+		baziStore.restoreLastContext();
+		baziStore.ensureComputed();
 		const payload = buildBaziExportPayload(userStore, baziStore, yunStore);
 		const toon = payload ? encodeTOON(payload) : '';
 		return toon ? `User Bazi profile (TOON):\n${toon}` : null;
@@ -152,7 +195,8 @@ function buildMessages(inputText: string): ChatMessage[] {
 	const historyMessages = panelRef.value?.getMessages?.() || [];
 	for (const msg of historyMessages) {
 		if (msg?.id === 'm-1') continue;
-		if (msg?.status === 'waiting' || msg?.status === 'stream') continue;
+		if (msg?.status === 'waiting' || msg?.status === 'stream' || msg?.status === 'error') continue;
+		if (msg?.role !== 'user' && msg?.role !== 'assistant') continue;
 		const historyText = String(msg?.text || '').trim();
 		if (!historyText) continue;
 
@@ -162,9 +206,9 @@ function buildMessages(inputText: string): ChatMessage[] {
 		});
 	}
 
-	const lastHistory = historyMessages[historyMessages.length - 1];
+	const lastHistory = messages[messages.length - 1];
 	const hasSameLatestUser =
-		lastHistory?.role === 'user' && String(lastHistory?.text || '').trim() === text;
+		lastHistory?.role === 'user' && lastHistory.content === text;
 	if (!hasSameLatestUser) {
 		messages.push({ role: 'user', content: text });
 	}
@@ -174,7 +218,10 @@ function buildMessages(inputText: string): ChatMessage[] {
 
 async function sendToLLM(text: string) {
 	const panel = panelRef.value;
-	if (!panel) return;
+	if (!panel || sending.value || disposed || !text.trim()) return;
+	sending.value = true;
+	const controller = new AbortController();
+	activeRequest = controller;
 
 	panel.setSending(true);
 	panel.createWaitingMessage();
@@ -192,15 +239,18 @@ async function sendToLLM(text: string) {
 		let streamedReply = '';
 		const returnedReply = await callAi(messages, {
 			onThinking: (thinking: string) => {
+				if (disposed) return;
 				panel.appendThinking?.(thinking);
 			},
 			onChunk: (chunk: string) => {
+				if (disposed) return;
 				streamedReply += chunk;
 				panel.appendAssistant(chunk, 'stream');
 			},
-		});
+		}, { signal: controller.signal });
+		if (disposed) return;
 
-		// 流式失败回退到非流式时不会触发 onChunk，此时用返回值补上界面内容
+		// Some compatible endpoints return a complete JSON response to a stream request.
 		if (!streamedReply.trim() && String(returnedReply || '').trim()) {
 			panel.appendAssistant(returnedReply, 'stream');
 		}
@@ -212,38 +262,189 @@ async function sendToLLM(text: string) {
 
 		panel.finishStreaming();
 	} catch (err: any) {
+		if (disposed) return;
 		const errorText = normalizeError(err);
 		panel.appendAssistant(`调用失败：${errorText}`, 'error');
 	} finally {
-		panel.setSending(false);
+		sending.value = false;
+		if (activeRequest === controller) activeRequest = null;
+		if (!disposed) panel.setSending(false);
 	}
 }
 </script>
 
 <style scoped>
+.page-chat {
+	height: 100vh;
+	height: 100dvh;
+	min-height: 0;
+}
+
+/* Keep the complete height chain local to chat; other pages remain document layouts. */
+.page-chat :deep(.app-main) {
+	flex: 1;
+	min-height: 0;
+	padding: calc(var(--header-height) + var(--safe-top) + 16px) 24px 20px;
+}
+
+.page-chat :deep(.page-shell) {
+	flex: 1;
+	flex-direction: column;
+	min-height: 0;
+	min-width: 0;
+}
+
+.page-chat :deep(.page-card) {
+	flex: 1;
+	min-height: 0;
+	padding: 0;
+	gap: 0;
+	overflow: hidden;
+	border-color: #e2e5f4;
+	border-radius: 22px;
+	background: #ffffff;
+	box-shadow: 0 12px 36px rgba(66, 56, 125, 0.08);
+	animation: none;
+}
+
+.page-chat :deep(.page-card:active) {
+	transform: none;
+	background: #ffffff;
+}
+
+.page-chat :deep(.page-title-wrapper) {
+	flex-direction: row;
+	flex-shrink: 0;
+	align-items: center;
+	margin: 0;
+	padding: 20px 24px 18px;
+	border-bottom: 0;
+}
+
+.page-chat :deep(.page-title-text) {
+	gap: 6px;
+}
+
+.page-chat :deep(.page-title) {
+	font-size: 24px;
+	line-height: 1.35;
+	color: #252b4b;
+}
+
+.page-chat :deep(.page-subtitle) {
+	font-size: 13px;
+	color: #73788f;
+}
+
+.page-chat :deep(.page-card__body) {
+	flex: 1;
+	min-height: 0;
+	gap: 0;
+}
+
 .chat-panel-wrapper {
+	flex: 1;
 	width: 100%;
-	height: 100%;
+	min-height: 0;
+}
+
+.archive-toolbar {
+	display: flex;
+	flex-direction: row;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 10px 16px;
+	padding: 10px 24px;
+	border-top: 1px solid #eef0f8;
+	border-bottom: 1px solid #e7eaf5;
+	background: #fafaff;
+}
+
+.archive-copy {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0 10px;
+	min-width: 0;
+}
+
+.archive-description {
+	font-size: 12px;
+	line-height: 1.6;
+	color: #767d96;
+}
+
+.archive-location-btn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	height: 44px;
+	line-height: 1;
+	margin: 0;
+	padding: 0 4px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: #736ab0;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.archive-location-btn::after {
+	border: 0;
+}
+
+.archive-location-btn:hover {
+	color: #554c95;
+	box-shadow: none;
+	transform: none;
+}
+
+.archive-location-btn:disabled {
+	opacity: 0.5;
 }
 
 .archive-btns {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	flex-shrink: 0;
 	gap: 8px;
 }
 
 .archive-btn {
-	height: 32px;
-	line-height: 32px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-width: 68px;
+	height: 44px;
+	line-height: 1;
+	margin: 0;
 	padding: 0 16px;
 	font-size: 13px;
 	font-weight: 600;
-	border-radius: 20px;
-	border: none;
-	background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+	border-radius: 12px;
+	border: 1px solid transparent;
+	background: linear-gradient(120deg, #596fea 0%, #8054c8 100%);
 	color: #ffffff;
 	white-space: nowrap;
+}
+
+.archive-btn-secondary {
+	border-color: #dcdff2;
+	background: #ffffff;
+	color: #6665af;
+}
+
+.archive-btn::after {
+	border: 0;
 }
 
 .archive-btn:active {
@@ -251,7 +452,69 @@ async function sendToLLM(text: string) {
 }
 
 .archive-btn:disabled {
-	background: linear-gradient(135deg, #cbd5e1, #94a3b8);
-	color: #f8fafc;
+	opacity: 0.5;
+	box-shadow: none;
+	transform: none;
+}
+
+@media (max-width: 640px) {
+	.page-chat :deep(.app-main) {
+		padding: calc(var(--header-height) + var(--safe-top) + 8px) 12px 12px;
+	}
+
+	.page-chat :deep(.page-card) {
+		border-radius: 18px;
+	}
+
+	.page-chat :deep(.page-title-wrapper) {
+		padding: 16px 16px 14px;
+	}
+
+	.page-chat :deep(.page-title) {
+		font-size: 21px;
+	}
+
+	.archive-toolbar {
+		flex-direction: column-reverse;
+		align-items: stretch;
+		padding: 10px 14px;
+		gap: 6px;
+	}
+
+	.archive-btns {
+		width: 100%;
+	}
+
+	.archive-copy {
+		flex: 0 0 auto;
+		flex-wrap: nowrap;
+	}
+
+	.archive-description {
+		flex: 1;
+		min-width: 0;
+		font-size: 11px;
+	}
+
+	.archive-btn {
+		flex: 1;
+		padding: 0 14px;
+	}
+}
+
+@media (max-height: 500px) {
+	.page-chat :deep(.app-main) {
+		padding-top: calc(var(--header-height) + var(--safe-top) + 4px);
+		padding-bottom: 8px;
+	}
+
+	.page-chat :deep(.page-title-wrapper) {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.page-chat :deep(.page-subtitle) {
+		display: none;
+	}
 }
 </style>

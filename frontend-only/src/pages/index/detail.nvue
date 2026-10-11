@@ -20,7 +20,7 @@
 							<view class="section__body info-grid">
 								<view class="info-tile">
 									<tm-text :font-size="24" color="#718096" label="姓名"></tm-text>
-									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="(user_store.realname || '').trim() || '佚名'"></tm-text>
+									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="(bazi_store.input.realname || '').trim() || '佚名'"></tm-text>
 								</view>
 								<view class="info-tile">
 									<tm-text :font-size="24" color="#718096" label="性别"></tm-text>
@@ -36,7 +36,7 @@
 								</view>
 								<view class="info-tile full-width">
 									<tm-text :font-size="24" color="#718096" label="阳历"></tm-text>
-									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="bazi_store.yangli || utils.HideSecond(user_store.timestamp)"></tm-text>
+									<tm-text :font-size="30" :bold="true" color="#2d3748" :label="bazi_store.yangli || utils.HideSecond(bazi_store.input.timestamp)"></tm-text>
 								</view>
 								<view class="info-tile full-width">
 									<tm-text :font-size="24" color="#718096" label="阴历"></tm-text>
@@ -190,10 +190,10 @@ const flowWrapperRef = ref<any>(null);
 
 const baziRelationData = computed(() => {
   const list = [
-    bazi_store.sizhu.year,
-    bazi_store.sizhu.month,
-    bazi_store.sizhu.day,
-    bazi_store.sizhu.time
+    bazi_store.sizhu.year || '',
+    bazi_store.sizhu.month || '',
+    bazi_store.sizhu.day || '',
+    bazi_store.sizhu.time || ''
   ];
   const labels = ['年柱', '月柱', '日柱', '时柱'];
 
@@ -218,125 +218,22 @@ const baziRelationData = computed(() => {
   return { list, labels };
 });
 
-const BAZI_LAST_CONTEXT_KEY = 'bazi_last_context';
-
-function restoreBaziContext() {
-	if (user_store.timestamp !== null && user_store.timestamp !== undefined) return;
-	try {
-		const raw = uni.getStorageSync(BAZI_LAST_CONTEXT_KEY);
-		if (!raw) return;
-		const data = typeof raw === 'string' ? JSON.parse(raw) : raw;
-		const ts = Number(data?.timestamp);
-		if (!Number.isFinite(ts) || ts <= 0) return;
-		const gender = data?.gender === 1 || data?.gender === '1' ? 1 : 0;
-		user_store.realname = data?.realname ?? user_store.realname;
-		user_store.gender = gender ?? user_store.gender ?? 0;
-		user_store.timestamp = ts;
-		user_store.recordId = data?.recordId ?? user_store.recordId ?? null;
-	} catch (e) {
-		void e;
-	}
-}
-
-function ensureBaziComputed() {
-	const ts = user_store.timestamp;
-	if (!ts) return;
-	if (bazi_store.solar?.year) return;
-	bazi_store.pull({
-		timestamp: Number(ts),
-		gender: Number(user_store.gender ?? 0)
-	});
-}
-
-function persistBaziContext() {
-	const ts = user_store.timestamp;
-	if (!ts) return;
-	try {
-		uni.setStorageSync(
-			BAZI_LAST_CONTEXT_KEY,
-			JSON.stringify({
-				realname: user_store.realname ?? null,
-				gender: user_store.gender ?? 0,
-				timestamp: Number(ts),
-				recordId: user_store.recordId ?? null
-			})
-		);
-	} catch (e) {
-		void e;
-	}
-}
-
+function restoreBaziContext() { bazi_store.restoreLastContext(); }
+function ensureBaziComputed() { bazi_store.ensureComputed(); }
 restoreBaziContext();
 ensureBaziComputed();
-persistBaziContext();
-
-
 
 const saving = ref(false);
 const saveError = ref('');
 const exportError = ref('');
-const LOCAL_CACHE_KEY = 'local_saved_bazi';
-const LOCAL_CACHE_TTL = 15 * 24 * 60 * 60 * 1000;
-const LOCAL_BIRTH_KEY = 'local_birth_payload';
-const LOCAL_RECORDS_KEY = 'local_chart_records';
-
-import { getPersistentItem, setPersistentItem } from '@/utils/persistentStorage';
+import { saveChartRecord } from '@/utils/localChartRecords';
 import { buildBaziExportPayload } from '@/utils/baziExport';
 import { encodeTOON } from '@/utils/toon';
+import { downloadTextFile } from '@/utils/downloadTextFile';
 
-interface LocalChartRecord {
-	id: number;
-	title: string;
-	gender: string;
-	birthDatetime: string;
-	createdAt: string;
-	rawPayload: any;
-}
-
-function readLocalRecords(): LocalChartRecord[] {
-	try {
-		const records = getPersistentItem<LocalChartRecord[]>(LOCAL_RECORDS_KEY);
-		if (records && Array.isArray(records)) return records;
-	} catch (e) {
-		console.warn('读取本地记录失败', e);
-	}
-	return [];
-}
-
-function readLocalCache(): Array<{ name: string; birthDatetime: number | null }> {
-	try {
-		const cache = getPersistentItem<Array<{ name: string; birthDatetime: number | null }>>(LOCAL_CACHE_KEY);
-		if (cache && Array.isArray(cache)) return cache;
-	} catch (e) {
-		console.warn('读取本地缓存失败', e);
-	}
-	return [];
-}
-
-function writeLocalCache(entry: { name: string; birthDatetime: number | null }) {
-	try {
-		const cache = readLocalCache();
-		cache.unshift(entry);
-		// 限制长度，避免无限增长
-		const limited = cache.slice(0, 200);
-		setPersistentItem(LOCAL_CACHE_KEY, limited, LOCAL_CACHE_TTL);
-	} catch (e) {
-		console.warn('写入本地缓存失败', e);
-	}
-}
-
-function isLocalDuplicate(entry: { name: string | null; birthDatetime: number | null }) {
-	const cache = readLocalCache();
-	const normalizedName = (entry.name || '').trim();
-	return cache.some((item) => {
-		const itemName = (item.name || '').trim();
-		return item.birthDatetime === entry.birthDatetime && itemName === normalizedName;
-	});
-}
-
-if (user_store.timestamp === null) {
+if (bazi_store.input.timestamp === null) {
 	restoreBaziContext();
-	if (!user_store.timestamp) {
+	if (bazi_store.input.timestamp === null) {
 		uni.redirectTo({
 			url: '/pages/index/index'
 		});
@@ -346,16 +243,15 @@ if (user_store.timestamp === null) {
 onShow(() => {
 	restoreBaziContext();
 	ensureBaziComputed();
-	persistBaziContext();
 });
 
 function getGenderLabel() {
 	// 统一标准：0=男，1=女
 	// 需要严格比较，因为可能是数字或字符串
-	const gender = user_store.gender;
-	if (gender === 0 || gender === '0') {
+	const gender = bazi_store.input.gender;
+	if (gender === 0) {
 		return '男';
-	} else if (gender === 1 || gender === '1') {
+	} else if (gender === 1) {
 		return '女';
 	} else {
 		// 默认返回男
@@ -365,7 +261,7 @@ function getGenderLabel() {
 }
 
 function saveToAccount() {
-	if (!user_store.timestamp) {
+	if (bazi_store.input.timestamp === null) {
 		uni.showToast({
 			title: '缺少出生时间，无法保存',
 			icon: 'none',
@@ -378,33 +274,17 @@ function saveToAccount() {
 	saveError.value = '';
 
 	try {
-		const entry = {
-			id: user_store.recordId || Date.now(),
-			title: (user_store.realname || '').trim() || '佚名',
-			gender: String(user_store.gender ?? 0),
-			birthDatetime: String(user_store.timestamp),
+		const input = bazi_store.input;
+		const entry = saveChartRecord('bazi', {
+			id: input.recordId,
+			title: input.realname.trim() || '佚名',
+			gender: String(input.gender),
+			birthDatetime: input.timestamp,
 			createdAt: new Date().toISOString(),
-			rawPayload: {
-				lite: true,
-				user: {
-					realname: user_store.realname,
-					gender: user_store.gender,
-					timestamp: user_store.timestamp
-				}
-			}
-		};
-
-		const records = readLocalRecords();
-		const existingIdx = records.findIndex(r => r.id === entry.id);
-		if (existingIdx >= 0) {
-			records[existingIdx] = entry;
-			uni.showToast({ title: '记录已更新', icon: 'success', duration: 1500 });
-		} else {
-			records.unshift(entry);
-			user_store.recordId = entry.id as number;
-			uni.showToast({ title: '已保存', icon: 'success', duration: 1500 });
-		}
-		setPersistentItem(LOCAL_RECORDS_KEY, records.slice(0, 200), 365 * 24 * 60 * 60 * 1000);
+			rawPayload: { lite: true, user: { ...input } },
+		});
+		bazi_store.setRecordId(entry.id);
+		uni.showToast({ title: '已保存', icon: 'success', duration: 1500 });
 		saveError.value = '';
 	} catch (e: any) {
 		saveError.value = '保存失败：' + (e?.message || e);
@@ -420,7 +300,7 @@ function buildExportPayload() {
 
 function exportToon() {
 	exportError.value = '';
-	if (!user_store.timestamp) {
+	if (bazi_store.input.timestamp === null) {
 		uni.showToast({
 			title: '缺少出生时间，无法导出',
 			icon: 'none',
@@ -445,19 +325,13 @@ function exportToon() {
 		return;
 	}
 
-	const filename = `bazi-${(utils.HideSecond(user_store.timestamp) || '').replace(/[^0-9]/g, '') || 'export'}.toon`;
+	const filename = `bazi-${(utils.HideSecond(bazi_store.input.timestamp) || '').replace(/[^0-9]/g, '') || 'export'}.toon`;
 
 	// #ifdef H5
 	try {
-		const blob = new Blob([toonStr], { type: 'text/plain;charset=utf-8' });
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement('a');
-		link.href = url;
-		link.download = filename;
-		link.click();
-		URL.revokeObjectURL(url);
+		downloadTextFile(toonStr, filename);
 		uni.showToast({
-			title: '已下载 TOON 文件',
+			title: '已发起 TOON 下载，请查看下载列表',
 			icon: 'none',
 			duration: 2000
 		});
@@ -497,16 +371,16 @@ function goToHome() {
 function editBazi() {
 	// 将当前数据保存到缓存，供主页读取
 	// 统一标准：0=男，1=女（数字）
-	// user_store.gender 和表单 gender 都使用统一标准，无需转换
-	const formGender = user_store.gender !== undefined && user_store.gender !== null 
-		? user_store.gender 
+	// bazi_store.input.gender 和表单 gender 都使用统一标准，无需转换
+	const formGender = bazi_store.input.gender !== undefined && bazi_store.input.gender !== null
+		? bazi_store.input.gender
 		: 0;
 	
 	const editData = {
-		realname: user_store.realname || '',
+		realname: bazi_store.input.realname || '',
 		gender: formGender,
-		timestamp: user_store.timestamp,
-		recordId: user_store.recordId, // 传递记录ID
+		timestamp: bazi_store.input.timestamp,
+		recordId: bazi_store.input.recordId, // 传递记录ID
 		// 标记为编辑模式
 		isEdit: true
 	};
@@ -533,7 +407,7 @@ function editBazi() {
 		setTimeout(() => {
 			// 跳转到主页
 			uni.reLaunch({
-				url: '/pages/agent/index'
+				url: '/pages/index/index'
 			});
 		}, 500);
 	} catch (err) {
@@ -557,7 +431,7 @@ function GetStartYunLabel() {
 	return str;
 }
 
-const GetChineseZodiac = year => utils.GetChineseZodiac(year);
+const GetChineseZodiac = (year: number | null) => year === null ? '' : utils.GetChineseZodiac(year);
 </script>
 
 <style scoped>

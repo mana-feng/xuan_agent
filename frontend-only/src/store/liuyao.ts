@@ -15,6 +15,7 @@ export interface LiuyaoResultPayload {
 	display: any;
 	profile: LiuyaoProfile;
 	createdAt: number;
+	recordId?: number | null;
 }
 
 interface State {
@@ -22,6 +23,7 @@ interface State {
 	display: any | null;
 	profile: LiuyaoProfile | null;
 	createdAt: number | null;
+	recordId: number | null;
 }
 
 const LIUYAO_LAST_RESULT_KEY = 'liuyao_last_result';
@@ -36,7 +38,7 @@ function readLastResult(): LiuyaoResultPayload | null {
 		const profile = (data as any).profile;
 		const createdAt = (data as any).createdAt;
 		if (!compiled || !display || !profile || !createdAt) return null;
-		return { compiled, display, profile, createdAt } as LiuyaoResultPayload;
+		return { compiled, display, profile, createdAt, recordId: (data as any).recordId ?? null } as LiuyaoResultPayload;
 	} catch (e) {
 		return null;
 	}
@@ -63,7 +65,8 @@ export const useLiuyaoStore = defineStore('liuyao', {
 		compiled: null,
 		display: null,
 		profile: null,
-		createdAt: null
+		createdAt: null,
+		recordId: null,
 	}),
 	actions: {
 		setResult(payload: LiuyaoResultPayload) {
@@ -71,7 +74,15 @@ export const useLiuyaoStore = defineStore('liuyao', {
 			this.display = payload.display;
 			this.profile = payload.profile;
 			this.createdAt = payload.createdAt;
+			this.recordId = payload.recordId ?? null;
 			writeLastResult(payload);
+		},
+		setRecordId(id: number) {
+			this.recordId = id;
+			if (this.profile && this.createdAt !== null) writeLastResult({
+				compiled: this.compiled, display: this.display, profile: this.profile,
+				createdAt: this.createdAt, recordId: id,
+			});
 		},
 		restoreLastResult() {
 			if (this.compiled && this.display && this.profile && this.createdAt) return;
@@ -81,12 +92,14 @@ export const useLiuyaoStore = defineStore('liuyao', {
 			this.display = cached.display;
 			this.profile = cached.profile;
 			this.createdAt = cached.createdAt;
+			this.recordId = cached.recordId ?? null;
 		},
 		clear() {
 			this.compiled = null;
 			this.display = null;
 			this.profile = null;
 			this.createdAt = null;
+			this.recordId = null;
 			clearLastResult();
 		}
 	}

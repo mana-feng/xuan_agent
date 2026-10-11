@@ -10,6 +10,7 @@ import { defineStore } from 'pinia';
 import { useYunStore } from '@/store/yun';
 import { Solar, Yun } from 'lunar-javascript';
 import utils from '@/libs/utils/utils';
+import { normalizeChartInput, readChartContext, writeChartContext } from '@/utils/chartContext';
 import {
 	enhanceBaziAnalysis,
 	BaziEnhancedData,
@@ -20,6 +21,8 @@ import {
 interface PullData {
 	timestamp: number;
 	gender: number;
+	realname?: string;
+	recordId?: number | null;
 }
 
 interface DateTimeFields {
@@ -84,6 +87,8 @@ interface TableRow {
 export const useBaziStore = defineStore('bazi', {
 	state: () => {
 		return {
+			input: normalizeChartInput(),
+			computedKey: '',
 			yun: null as Yun | null,
 			yinli: null as string | null,
 			yangli: null as string | null,
@@ -172,8 +177,23 @@ export const useBaziStore = defineStore('bazi', {
 		};
 	},
 	actions: {
+		restoreLastContext() {
+			if (this.input.timestamp !== null) return;
+			const input = readChartContext('bazi');
+			if (input) this.pull(input as PullData);
+		},
+		ensureComputed() {
+			if (this.input.timestamp === null) return;
+			if (!this.solar.year || this.computedKey !== `${this.input.timestamp}:${this.input.gender}`) this.pull(this.input as PullData);
+		},
+		setRecordId(id: number) {
+			this.input.recordId = id;
+			writeChartContext('bazi', this.input);
+		},
 		pull(data: PullData) {
-			const { timestamp, gender } = data;
+			const input = normalizeChartInput(data);
+			const { timestamp, gender } = input;
+			if (timestamp === null) throw new Error('出生时间无效');
 
 			const solar = Solar.fromDate(new Date(timestamp));
 			const lunar = solar.getLunar();
@@ -463,6 +483,9 @@ export const useBaziStore = defineStore('bazi', {
 			});
 
 			this.table = table;
+			this.input = input;
+			this.computedKey = `${timestamp}:${gender}`;
+			writeChartContext('bazi', input);
 
 			useYunStore().pull(yun.getDaYun());
 		},

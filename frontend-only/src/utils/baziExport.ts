@@ -14,6 +14,7 @@ interface UserStore {
 }
 
 interface BaziStore {
+	input: UserStore;
 	solar: {
 		year: number | null;
 		month: number | null;
@@ -158,8 +159,9 @@ export function buildBaziExportPayload(
 	baziStore: Store & BaziStore,
 	yunStore: Store & YunStore
 ): any | null {
+	const profile = baziStore.input;
 	// 检查必要数据
-	if (!userStore.timestamp) {
+	if (profile.timestamp === null) {
 		return null;
 	}
 
@@ -201,10 +203,10 @@ export function buildBaziExportPayload(
 
 需要你分析的八字信息如下（我将提供在下方）`,
 		basic: {
-			name: userStore.realname || null,
-			gender: userStore.gender === 0 ? '男' : userStore.gender === 1 ? '女' : null,
-			birthTimestamp: userStore.timestamp,
-			solar: userStore.timestamp ? new Date(userStore.timestamp).toISOString() : null,
+			name: profile.realname || null,
+			gender: profile.gender === 0 ? '男' : profile.gender === 1 ? '女' : null,
+			birthTimestamp: profile.timestamp,
+			solar: new Date(profile.timestamp).toISOString(),
 			solarString: baziStore.yangli || null,
 			lunar: baziStore.yinli || null,
 			constellation: baziStore.xinzuo || null,

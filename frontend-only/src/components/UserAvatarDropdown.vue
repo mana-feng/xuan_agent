@@ -1,6 +1,6 @@
 <template>
 	<view class="user-avatar-dropdown">
-		<view class="user-avatar" @tap="toggleDropdown">
+		<view ref="avatarTrigger" class="user-avatar" v-bind="h5Button(toggleDropdown)" aria-label="用户菜单" :aria-expanded="showDropdown" @tap="toggleDropdown" @keydown.esc.stop.prevent="closeDropdown">
 			<tm-icon
 				v-if="!isLoggedIn"
 				name="tmicon-md-person"
@@ -18,7 +18,7 @@
 			></tm-icon>
 		</view>
 
-		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown">
+		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown" @keydown.esc.stop.prevent="closeDropdown">
 				<view class="dropdown-menu" @tap.stop>
 					<view class="user-info-section">
 						<view class="avatar-large">
@@ -30,17 +30,17 @@
 					</view>
 
 					<view class="menu-list">
-					<view class="menu-item" @click="handleSettings">
+					<view class="menu-item" v-bind="h5Button(handleSettings)" @click="handleSettings">
 						<tm-icon name="tmicon-setting" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">AI 设置</text>
 					</view>
 
-					<view class="menu-item" @click="handleHistory">
+					<view class="menu-item" v-bind="h5Button(handleHistory)" @click="handleHistory">
 						<tm-icon name="tmicon-history" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">历史记录</text>
 					</view>
 
-					<view class="menu-item" @click="handleAbout">
+					<view class="menu-item" v-bind="h5Button(handleAbout)" @click="handleAbout">
 						<tm-icon name="tmicon-info-circle" :font-size="20" color="#667eea"></tm-icon>
 						<text class="menu-label">关于</text>
 					</view>
@@ -51,13 +51,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
+import { h5Button } from '@/utils/keyboard';
 
 const showDropdown = ref(false);
+const avatarTrigger = ref<HTMLElement | { $el: HTMLElement } | null>(null);
 
 const isLoggedIn = computed(() => true);
 const username = computed(() => 'user');
-const email = computed(() => '');
 const userInitial = computed(() => 'U');
 
 function toggleDropdown() {
@@ -66,6 +67,13 @@ function toggleDropdown() {
 
 function closeDropdown() {
 	showDropdown.value = false;
+	// #ifdef H5
+	nextTick(() => {
+		const trigger = avatarTrigger.value;
+		const element = trigger && ('$el' in trigger ? trigger.$el : trigger);
+		element?.focus();
+	});
+	// #endif
 }
 
 function handleSettings() {
@@ -258,4 +266,16 @@ function handleAbout() {
 .menu-item--danger .menu-label {
 	color: #f56565;
 }
+
+/* #ifdef H5 */
+.user-avatar:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 3px;
+}
+.menu-item:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: -4px;
+	background: #eff6ff;
+}
+/* #endif */
 </style>
