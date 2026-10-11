@@ -1,0 +1,16 @@
+**/node_modules/
+dist/
+unpackage/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+coverage/
+.local-dev/
+.pnpm-store/
+.npm/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

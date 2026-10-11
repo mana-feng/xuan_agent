@@ -1,0 +1,95 @@
+const DEFAULT_TTL = 15 * 24 * 60 * 60 * 1000;
+
+interface Payload<T> {
+	value: T;
+	expiresAt: number;
+}
+
+function encode<T>(data: Payload<T>): string {
+	const text = JSON.stringify(data);
+	return btoa(unescape(encodeURIComponent(text)));
+}
+
+function decode<T>(encoded: string): Payload<T> | null {
+	try {
+		const text = decodeURIComponent(escape(atob(encoded)));
+		return JSON.parse(text);
+	} catch {
+		return null;
+	}
+}
+
+export function setPersistentItem<T>(key: string, value: T, ttlMs: number = DEFAULT_TTL) {
+	const payload: Payload<T> = {
+		value,
+		expiresAt: ttlMs === 0 ? 0 : Date.now() + ttlMs,
+	};
+	const encoded = encode(payload);
+	uni.setStorageSync(key, encoded);
+}
+
+export function getPersistentItem<T>(key: string, options: { permanent?: boolean } = {}): T | null {
+	const encoded = uni.getStorageSync(key);
+	if (!encoded) return null;
+	const payload = decode<T>(encoded);
+	if (!payload) {
+		// A saved record is user data. Keep unreadable bytes for recovery, and block overwrites.
+		if (options.permanent) throw new Error('本地记录无法读取，请先备份后检查');
+		uni.removeStorageSync(key);
+		return null;
+	}
+	if (!options.permanent && payload.expiresAt && payload.expiresAt < Date.now()) {
+		uni.removeStorageSync(key);
+		return null;
+	}
+	return payload.value;
+}
+
+export function removePersistentItem(key: string) {
+	uni.removeStorageSync(key);
+}
+
+// 注意：以上存储仅做 base64 编码，并非加密。历史别名 setSecureItem/getSecureItem
+// 因命名有误导性已移除，如需持久化请直接使用 setPersistentItem/getPersistentItem。
+
+type IDBValue = any;
+
+function openKvDb(): Promise<IDBDatabase> {
+	if (typeof indexedDB === 'undefined') {
+		return Promise.reject(new Error('indexedDB not supported'));
+	}
+	return new Promise((resolve, reject) => {
+		const req = indexedDB.open('ai_xuanxue_kv', 1);
+		req.onupgradeneeded = () => {
+			const db = req.result;
+			if (!db.objectStoreNames.contains('kv')) {
+				db.createObjectStore('kv');
+			}
+		};
+		req.onsuccess = () => resolve(req.result);
+		req.onerror = () => reject(req.error);
+	});
+}
+
+export async function idbSetItem<T = IDBValue>(key: string, value: T): Promise<void> {
+	const db = await openKvDb();
+	await new Promise<void>((resolve, reject) => {
+		const tx = db.transaction('kv', 'readwrite');
+		tx.oncomplete = () => resolve();
+		tx.onerror = () => reject(tx.error);
+		tx.objectStore('kv').put(value as any, key);
+	});
+	db.close();
+}
+
+export async function idbGetItem<T = IDBValue>(key: string): Promise<T | null> {
+	const db = await openKvDb();
+	const result = await new Promise<T | null>((resolve, reject) => {
+		const tx = db.transaction('kv', 'readonly');
+		const req = tx.objectStore('kv').get(key);
+		req.onsuccess = () => resolve((req.result as T) ?? null);
+		req.onerror = () => reject(req.error);
+	});
+	db.close();
+	return result;
+}

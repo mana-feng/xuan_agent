@@ -1,0 +1,73 @@
+name: Deploy frontend to GitHub Pages
+
+on:
+  push:
+    branches: [frontend]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/frontend'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build H5
+        run: npm run build:h5
+      - name: Inject optional analytics snippet
+        env:
+          ANALYTICS_SNIPPET: ${{ secrets.ANALYTICS_SNIPPET }}
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const file = 'dist/build/h5/index.html';
+          const snippet = (process.env.ANALYTICS_SNIPPET || '').trim();
+          if (!snippet) {
+            console.log('ANALYTICS_SNIPPET is not configured; analytics injection skipped.');
+            process.exit(0);
+          }
+          const html = fs.readFileSync(file, 'utf8');
+          if (!html.includes('</body>')) throw new Error('Missing </body> in build output');
+          fs.writeFileSync(file, html.replace('</body>', () => snippet + '\n</body>'));
+          NODE
+      - name: Prepare Pages artifact
+        run: |
+          cp CNAME dist/build/h5/CNAME
+          touch dist/build/h5/.nojekyll
+          node -e "require('fs').writeFileSync('dist/build/h5/deployment.json', JSON.stringify({ commit: process.env.GITHUB_SHA, branch: 'frontend', repository: process.env.GITHUB_REPOSITORY }) + '\n')"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/build/h5
+
+  deploy:
+    if: github.ref == 'refs/heads/frontend'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
