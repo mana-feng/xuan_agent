@@ -1,5 +1,6 @@
 # dependencies
 **/node_modules/
+.pnpm-store/
 
 # builds
 backend-docker/dist/
@@ -23,6 +24,8 @@ docker-compose.deploy.yml
 
 # logs
 *.log
+# Retain the reviewed evidence referenced by the acceptance report.
+!/reports/frontend-test-2026-10-10/**/*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
