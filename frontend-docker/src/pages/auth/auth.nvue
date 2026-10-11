@@ -10,7 +10,8 @@
 				</view>
 			</view>
 
-			<view class="page-content-scale">
+			<ProtocolReader v-if="activeProtocol" :type="activeProtocol" :height="protocolHeight" @close="activeProtocol = null" />
+			<view v-else class="page-content-scale">
 				<!-- 已登录状态 -->
 				<view v-if="isLoggedIn" class="login-container">
 					<tm-sheet
@@ -34,7 +35,7 @@
 							<tm-text
 								:font-size="24"
 								color="#999999"
-								label="当前登录账号将自动保存您的排盘记录"
+								label="登录后可将排盘记录保存到账号"
 							></tm-text>
 						</view>
 
@@ -286,23 +287,25 @@
 										color="#999999"
 									label="注册即表示同意"
 									></tm-text>
-									<tm-text
-										:font-size="22"
-										color="#667eea"
-									label="《用户服务协议》"
+									<view
+										class="protocol-link"
+										v-bind="h5Button(() => openProtocol('user'))"
 										@tap="openProtocol('user')"
-									></tm-text>
+									>
+										<tm-text :font-size="22" color="#667eea" label="《用户服务协议》"></tm-text>
+									</view>
 									<tm-text
 										:font-size="22"
 										color="#999999"
 									label="和"
 									></tm-text>
-									<tm-text
-										:font-size="22"
-										color="#667eea"
-									label="《隐私权政策》"
+									<view
+										class="protocol-link"
+										v-bind="h5Button(() => openProtocol('privacy'))"
 										@tap="openProtocol('privacy')"
-									></tm-text>
+									>
+										<tm-text :font-size="22" color="#667eea" label="《隐私权政策》"></tm-text>
+									</view>
 								</view>
 							</view>
 
@@ -349,18 +352,27 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useUserStore } from '@/store/user';
 import { request } from '@/services/api/index';
-import { sendEmailVerificationCode, verifyEmailCode } from '@/config/emailVerification';
+import { sendEmailVerificationCode } from '@/config/emailVerification';
 import { getDeviceId } from '@/utils/device';
 import { sanitizeInput } from '@/utils/sanitize';
 import { getSystemInfo } from '@/utils/platform';
+import ProtocolReader from '@/components/auth/ProtocolReader.vue';
+import type { ProtocolType } from '@/features/auth/protocols';
+import { h5Button } from '@/utils/keyboard';
 
 const user_store = useUserStore();
 
 // 获取系统信息用于适配顶部安全区
 const sysInfo = getSystemInfo();
 const statusBarHeight = sysInfo.statusBarHeight || 20;
+const protocolHeight = Math.max(180, (sysInfo.windowHeight || 700) - statusBarHeight - 210);
+const activeProtocol = ref<ProtocolType | null>(null);
 
 function goHome() {
+	if (activeProtocol.value) {
+		activeProtocol.value = null;
+		return;
+	}
 	uni.reLaunch({
 		url: '/pages/agent/index'
 	});
@@ -405,13 +417,8 @@ onMounted(() => {
 	}
 });
 
-function openProtocol(type: 'user' | 'privacy') {
-	const title = type === 'user' ? '用户服务协议' : '隐私权政策';
-	uni.showToast({
-		title: title + '页面开发中',
-		icon: 'none',
-		duration: 1500
-	});
+function openProtocol(type: ProtocolType) {
+	activeProtocol.value = type;
 }
 
 async function submitLogin() {
@@ -425,7 +432,8 @@ async function submitLogin() {
 	// 获取设备ID
 	const deviceId = getDeviceId();
 	const safeIdentifier = sanitizeInput(loginIdentifier.value, 255);
-	const safePassword = sanitizeInput(loginPassword.value, 128);
+	// Passwords are opaque credentials; keep the same characters as registration.
+	const safePassword = loginPassword.value.slice(0, 128);
 
 	try {
 		const res = await request('/api/auth/login', {
@@ -553,29 +561,9 @@ async function submitRegister() {
 		return;
 	}
 	
-	// 先验证验证码
+	// 注册接口在同一事务内验证验证码并创建账号。
 	registerLoading.value = true;
 	registerError.value = '';
-	
-	try {
-		const verifyResult = await verifyEmailCode(safeEmail, safeCode, 'register');
-		if (!verifyResult.success) {
-		registerError.value = verifyResult.message || '验证码验证失败';
-			registerLoading.value = false;
-			return;
-		}
-	} catch (error: any) {
-		registerError.value = error.message || '验证码错误，请检查后重试';
-		registerLoading.value = false;
-		uni.showToast({
-			title: error.message || '验证码错误',
-			icon: 'none',
-			duration: 2000
-		});
-		return;
-	}
-	
-	// 验证码验证成功，继续注册流程
 	const deviceId = getDeviceId();
 	try {
 		const res = await request('/api/auth/register', {
@@ -583,6 +571,7 @@ async function submitRegister() {
 			data: {
 				username: safeUsername,
 				email: safeEmail,
+				verification_code: safeCode,
 				password: safePassword,
 				device_id: deviceId
 			},
@@ -883,6 +872,12 @@ onUnmounted(() => {
 
 .protocol-text-wrapper > view:last-child {
 	margin-right: 0;
+}
+
+.protocol-link {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
 }
 
 .footer-hint {

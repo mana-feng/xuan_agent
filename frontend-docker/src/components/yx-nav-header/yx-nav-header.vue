@@ -1,7 +1,7 @@
 <template>
 	<view class="app-header" :style="headerInlineStyle">
 		<view class="app-header__left">
-			<view class="app-header__logo" @tap="goToHome">
+			<view class="app-header__logo" v-bind="h5Button(goToHome)" aria-label="返回首页" @tap="goToHome">
 				<image class="logo-icon" src="@/static/icons/F.png" mode="aspectFit"></image>
 			</view>
 		</view>
@@ -16,6 +16,7 @@ import { computed, ref, onMounted } from 'vue';
 import { useUserStore } from '@/store/user';
 import { getSystemInfo } from '@/utils/platform';
 import UserAvatarDropdown from '@/components/UserAvatarDropdown.vue';
+import { h5Button } from '@/utils/keyboard';
 
 const userStore = useUserStore();
 
@@ -163,4 +164,12 @@ defineExpose({
 	height: 32px;
 	object-fit: contain;
 }
+
+/* #ifdef H5 */
+.app-header__logo:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 4px;
+	border-radius: 4px;
+}
+/* #endif */
 </style>

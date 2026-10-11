@@ -20,8 +20,8 @@
 					<text v-for="badge in card.badges" :key="badge" class="tool-card__tag">{{ badge }}</text>
 				</view>
 				<view class="tool-card__actions">
-					<button class="tool-btn tool-btn--ghost" @tap="emit('open-target', card.target)">立即打开</button>
-					<button class="tool-btn tool-btn--primary" @tap="emit('quick-prompt', card.prompt)">让 Agent 帮我用</button>
+					<button class="tool-btn tool-btn--ghost" v-bind="h5Button(() => emit('open-target', card.target))" :aria-label="'立即打开' + card.title" @tap="emit('open-target', card.target)">立即打开</button>
+					<button class="tool-btn tool-btn--primary" v-bind="h5Button(() => emit('quick-prompt', card.prompt))" :aria-label="'让 Agent 帮我用' + card.title" @tap="emit('quick-prompt', card.prompt)">让 Agent 帮我用</button>
 				</view>
 			</view>
 		</view>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { AgentTarget, ToolCard } from '@/features/agent/types';
+import { h5Button } from '@/utils/keyboard';
 
 defineProps<{
 	toolCards: ToolCard[];
@@ -148,6 +149,13 @@ const emit = defineEmits<{
 	background: linear-gradient(135deg, #4338ca 0%, #1d4ed8 100%);
 	color: #ffffff;
 }
+
+/* #ifdef H5 */
+.tool-btn:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 3px;
+}
+/* #endif */
 
 @media (min-width: 900px) {
 	.tool-grid {

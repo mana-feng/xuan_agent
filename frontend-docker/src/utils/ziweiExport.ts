@@ -1,4 +1,5 @@
 import type { Store } from 'pinia';
+import type { ChartInput } from '@/utils/chartInput';
 
 type ViewMode = 'origin' | 'decadal' | 'yearly' | 'monthly' | 'daily';
 
@@ -9,6 +10,7 @@ interface UserStoreLike {
 }
 
 interface ZiweiStoreLike {
+	input: ChartInput;
 	astrolabe: unknown | null;
 	viewMode: ViewMode;
 	targetDate: Date | string | number;
@@ -618,9 +620,11 @@ function buildYearlyRangeCharts(
 }
 
 export function buildZiweiExportPayload(
-	userStore: Store & UserStoreLike,
+	_profile: UserStoreLike,
 	ziweiStore: Store & ZiweiStoreLike,
 ): Record<string, unknown> | null {
+	// The astrolabe and its identity must come from the same chart snapshot.
+	const input = ziweiStore.input;
 	const astrolabeObj = asObject(ziweiStore.astrolabe);
 	if (!astrolabeObj) return null;
 
@@ -631,8 +635,8 @@ export function buildZiweiExportPayload(
 	const palaces = palacesRaw.map((palace) => mapPalace(palace));
 
 	const birthDate =
-		typeof userStore.timestamp === 'number' && Number.isFinite(userStore.timestamp)
-			? new Date(userStore.timestamp)
+		typeof input.timestamp === 'number' && Number.isFinite(input.timestamp)
+			? new Date(input.timestamp)
 			: null;
 	const birthSolarISO = birthDate && Number.isFinite(birthDate.getTime()) ? birthDate.toISOString() : null;
 
@@ -663,9 +667,9 @@ export function buildZiweiExportPayload(
 		},
 		prompt: ZIWEI_EXPORT_PROMPT,
 		profile: {
-			name: (userStore.realname || '').trim() || '佚名',
-			gender: normalizeGender(userStore.gender),
-			birthTimestamp: userStore.timestamp ?? null,
+			name: (input.realname || '').trim() || '佚名',
+			gender: normalizeGender(input.gender),
+			birthTimestamp: input.timestamp,
 			birthSolarISO,
 		},
 		basicChart: {

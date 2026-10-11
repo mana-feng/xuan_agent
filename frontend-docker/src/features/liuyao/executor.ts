@@ -71,6 +71,7 @@ function buildLiuyaoResultPayload(input: LiuyaoExecutionInput): LiuyaoResultPayl
 			note: `八字：${eightChar.getYear()} ${eightChar.getMonth()} ${eightChar.getDay()} ${eightChar.getTime()}`,
 		},
 		createdAt: Date.now(),
+		castingAt: date.getTime(),
 	};
 }
 

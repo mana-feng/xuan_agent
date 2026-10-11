@@ -423,11 +423,15 @@ async function saveLiuyao() {
 	try {
 		const p = profile.value;
 		const c = compiled.value;
+		const recordId = liuyaoStore.recordId;
+		const recordTime = liuyaoStore.castingAt;
 		
 		let rawPayload;
 		
 		try {
-			const recordTime = liuyaoStore.createdAt || Date.now();
+			if (recordTime === null || !Number.isFinite(new Date(recordTime).getTime())) {
+				throw new Error('无法获取有效的起卦时间');
+			}
 			
 			// 尝试获取或重构 params
 			let params = c.params;
@@ -488,17 +492,22 @@ async function saveLiuyao() {
 			type: 'liuyao',
 			name: p.title || '佚名',
 			gender: p.gender === '男' ? '0' : (p.gender === '女' ? '1' : null),
-			birthDatetime: new Date(liuyaoStore.createdAt || Date.now()).toISOString(),
+			birthDatetime: rawPayload.options.date,
 			calendarType: 'solar',
 			rawPayload
 		};
 
 		// 尝试调用后端接口
-		await request('/api/liuyao', {
-			method: 'POST',
+		const res = await request(recordId ? `/api/liuyao/${recordId}` : '/api/liuyao', {
+			method: recordId ? 'PUT' : 'POST',
 			data: requestData,
 			needAuth: true
 		});
+		if (res.success === false) throw new Error(res.error || '保存失败');
+		const savedId = Number((res.data || res).id);
+		if (!Number.isInteger(savedId) || savedId <= 0) throw new Error('保存响应缺少记录编号');
+		// A response for an older chart must not attach its ID to a newly cast chart.
+		if (liuyaoStore.compiled === c) liuyaoStore.setRecordId(savedId);
 
 		uni.showToast({ title: '保存成功', icon: 'success' });
 	} catch (e: any) {

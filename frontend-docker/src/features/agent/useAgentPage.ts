@@ -1,10 +1,14 @@
 import { computed, ref } from 'vue';
 import { request } from '@/services/api/index';
+import { LLM_REQUEST_TIMEOUT_MS } from '@/features/llm/requestPolicy';
 import { useBaziStore } from '@/store/bazi';
 import { executeTimeLiuyaoChart } from '@/features/liuyao/executor';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { useUserStore } from '@/store/user';
 import { useZiweiStore } from '@/store/ziwei';
+import { getAccessToken } from '@/utils/tokenStore';
+import utils from '@/libs/utils/utils';
+import type { ChartInput } from '@/utils/chartInput';
 import { quickPrompts, routeMap, toolCards } from './config';
 import {
 	buildAgentSystemPrompt,
@@ -32,12 +36,15 @@ export function useAgentPage() {
 	const sending = ref(false);
 	const pendingAction = ref<NavigateAction | null>(null);
 	const messages = ref<UiMessage[]>([]);
+	let loginPromptOpen = false;
+	const chartIdentity = (input: ChartInput) =>
+		`「${input.realname || '未命名'}」 ${input.gender === 0 ? '男' : '女'} ${input.timestamp === null ? '出生时间未设置' : utils.HideSecond(input.timestamp)}`;
 
 	const contextItems = computed(() => {
 		const items: string[] = [];
 
 		if (baziStore.sizhu?.year && baziStore.sizhu?.month && baziStore.sizhu?.day && baziStore.sizhu?.time) {
-			items.push(`八字 ${baziStore.sizhu.year} ${baziStore.sizhu.month} ${baziStore.sizhu.day} ${baziStore.sizhu.time}`);
+			items.push(`八字 ${chartIdentity(baziStore.input)}；四柱 ${baziStore.sizhu.year} ${baziStore.sizhu.month} ${baziStore.sizhu.day} ${baziStore.sizhu.time}`);
 		}
 
 		if (liuyaoStore.profile?.title) {
@@ -45,19 +52,23 @@ export function useAgentPage() {
 		}
 
 		if (ziweiStore.astrolabe) {
-			items.push('紫微当前命盘');
+			items.push(`紫微 ${chartIdentity(ziweiStore.input)}`);
 		}
 
 		return items;
 	});
 
-	const accessLabel = computed(() => '匿名可用');
-	const usageLabel = computed(() => '不检查额度');
+	const accessLabel = computed(() => (userStore.isLoggedIn ? '已登录' : '登录后使用'));
+	const usageLabel = computed(() => '按账号额度');
 	const conversationSubtitle = computed(
-		() => 'Agent 会根据你的自然语言直接排盘、聚焦紫微宫位或给出下一步动作，无需登录即可直接调用',
+		() => '登录后，Agent 可根据你的自然语言直接排盘、聚焦紫微宫位或给出下一步动作，调用使用账号额度',
 	);
 	const composeTip = computed(() =>
-		sending.value ? 'Agent 正在调用内网模型' : '支持“帮我选盘 / 直接排盘 / 聚焦紫微宫位 / 查看历史记录”',
+		sending.value
+			? 'Agent 正在调用模型'
+			: userStore.isLoggedIn
+				? '支持“帮我选盘 / 直接排盘 / 聚焦紫微宫位 / 查看历史记录”'
+				: '登录后可发送消息或使用快捷提示，当前输入会保留',
 	);
 	const lastMessageId = computed(() => {
 		const current = messages.value[messages.value.length - 1];
@@ -159,6 +170,10 @@ export function useAgentPage() {
 	}
 
 	function initializePage() {
+		baziStore.restoreInput();
+		baziStore.ensureComputed();
+		ziweiStore.restoreInput();
+		ziweiStore.ensureComputed();
 		liuyaoStore.restoreLastResult();
 		ensureSeedMessage();
 	}
@@ -268,16 +283,13 @@ export function useAgentPage() {
 		});
 
 		try {
-			userStore.set(params);
-			userStore.recordId = null;
-
 			if (action.type === 'run_bazi_chart') {
-				baziStore.pull({ timestamp, gender });
+				baziStore.pull(params);
 				await navigateToPage('/pages/index/detail');
 				return;
 			}
 
-			ziweiStore.pull({ timestamp, gender });
+			ziweiStore.pull(params);
 			if (action.payload.focusPalace) {
 				applyZiweiFocusByName(action.payload.focusPalace, false);
 			}
@@ -287,9 +299,33 @@ export function useAgentPage() {
 		}
 	}
 
+	function ensureAgentLogin() {
+		// Re-read storage as well as reactive state so removed credentials cannot send.
+		if (userStore.isLoggedIn && getAccessToken()) return true;
+		if (!loginPromptOpen) {
+			loginPromptOpen = true;
+			uni.showModal({
+				title: '登录后使用 Agent',
+				content: 'Agent 需要登录并使用账号额度。登录后可继续发送，当前输入会保留。',
+				confirmText: '去登录',
+				cancelText: '取消',
+				success: (result) => {
+					if (result.confirm) {
+						uni.navigateTo({ url: '/pages/auth/auth' });
+					}
+				},
+				complete: () => {
+					loginPromptOpen = false;
+				},
+			});
+		}
+		return false;
+	}
+
 	async function sendPrompt(text: string) {
 		const content = String(text || '').trim();
 		if (!content || sending.value) return;
+		if (!ensureAgentLogin()) return;
 
 		pushMessage('user', content);
 		pendingAction.value = null;
@@ -301,6 +337,7 @@ export function useAgentPage() {
 			const res = await request('/api/llm/agent', {
 				method: 'POST',
 				needAuth: true,
+				timeout: LLM_REQUEST_TIMEOUT_MS,
 				data: {
 					stream: false,
 					messages: buildMessages(),

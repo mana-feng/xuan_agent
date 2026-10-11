@@ -30,7 +30,7 @@
 							<tm-text
 								:font-size="28"
 								color="#718096"
-								label="登录后可查看和管理您保存的八字排盘记录"
+								label="登录后可查看和管理您保存的排盘记录"
 								:margin="[0, 0, 30, 0]"
 							></tm-text>
 							<yx-teal-button
@@ -54,7 +54,7 @@
 										<tm-input
 											v-model="searchKeyword"
 											prefix="tmicon-md-search"
-											placeholder="搜索姓名..."
+											placeholder="搜索姓名或主题..."
 											clearable
 											:round="12"
 											:border="1"
@@ -120,7 +120,7 @@
 							<view v-else class="records-list">
 								<tm-sheet
 									v-for="item in charts"
-									:key="item.id"
+									:key="`${item.type}:${item.id}`"
 									:round="16"
 									:shadow="2"
 									:margin="[0, 0]"
@@ -144,6 +144,11 @@
 												_class="text-overflow-1"
 											></tm-text>
 											<view class="record-meta__row">
+												<tm-text
+													:font-size="22"
+													color="#667eea"
+													:label="chartTypeLabels[item.type || 'bazi']"
+												></tm-text>
 												<tm-text
 													:font-size="22"
 													color="#a0aec0"
@@ -193,12 +198,20 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
+import { useZiweiStore } from '@/store/ziwei';
+import { useLiuyaoStore } from '@/store/liuyao';
+import { executeLiuyaoChart } from '@/features/liuyao/executor';
 import { request } from '@/services/api/index';
 import { getAccessToken } from '@/utils/tokenStore';
 import utils from '@/libs/utils/utils';
 
+type ChartType = 'bazi' | 'ziwei' | 'liuyao';
+const chartTypes: ChartType[] = ['bazi', 'ziwei', 'liuyao'];
+const chartTypeLabels = { bazi: '八字', ziwei: '紫微斗数', liuyao: '六爻' };
+
 interface ChartItem {
 	id: number;
+	type?: ChartType;
 	title: string;
 	gender?: string | null;
 	birthDatetime: string;
@@ -314,69 +327,31 @@ async function fetchCharts() {
 			.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 			.join('&');
 
-		let res;
-		try {
-			res = await request('/api/charts' + (queryString ? '?' + queryString : ''), {
+		const results = await Promise.all(chartTypes.map(async type => {
+			const res = await request(`/api/charts?type=${type}` + (queryString ? '&' + queryString : ''), {
 				method: 'GET',
 				needAuth: true
 			});
-		} catch (requestError: any) {
-			// 401错误会被自动处理（刷新token并重试），但如果最终失败会抛出错误
-			// 如果是401且刷新失败，前端会自动跳转登录页，这里不需要特殊处理
-			if (requestError?.error && requestError.error.includes('登录已失效')) {
-				error.value = '登录已失效，请重新登录';
-			} else {
-				error.value = requestError?.error || '获取失败，请稍后重试';
-			}
-			charts.value = [];
-			totalCount.value = 0;
-			return;
-		}
-
-		if (res.success !== false) {
-			let data = res.data || res;
-			if (Array.isArray(data)) {
-				charts.value = data.map((it: any) => {
-					try {
-						return {
-							...it,
-							createdAtLabel: formatDateTime(it.createdAt || '')
-						};
-					} catch (e) {
-						return {
-							...it,
-							createdAtLabel: ''
-						};
-					}
-				});
-				totalCount.value = charts.value.length;
-			} else if (data && data.list) {
-				charts.value = data.list.map((it: any) => {
-					try {
-						return {
-							...it,
-							createdAtLabel: formatDateTime(it.createdAt || '')
-						};
-					} catch (e) {
-						return {
-							...it,
-							createdAtLabel: ''
-						};
-					}
-				});
-				totalCount.value = data.total || charts.value.length;
-			} else {
-				charts.value = [];
-				totalCount.value = 0;
-			}
-		} else {
-			error.value = res.error || '获取失败，请稍后重试';
-			charts.value = [];
-			totalCount.value = 0;
-		}
+			if (res.success === false) throw new Error(res.error || '获取失败，请稍后重试');
+			const data = res.data || res;
+			const list = Array.isArray(data) ? data : data.list || [];
+			return list.map((item: ChartItem) => ({
+				...item,
+				type,
+				createdAtLabel: formatDateTime(item.createdAt || '')
+			}));
+		}));
+		const direction = sortOrder.value === 'ASC' ? 1 : -1;
+		charts.value = results.flat().sort((a: ChartItem, b: ChartItem) => {
+			const comparison = sortBy.value === 'name'
+				? (a.title || '').localeCompare(b.title || '', 'zh-CN')
+				: (new Date(a.createdAt).getTime() || 0) - (new Date(b.createdAt).getTime() || 0);
+			return comparison * direction;
+		});
+		totalCount.value = charts.value.length;
 	} catch (e: any) {
 		console.error('获取历史记录失败:', e);
-		error.value = e?.error || '网络错误，请检查后端是否已启动';
+		error.value = e?.error || e?.message || '网络错误，请检查后端是否已启动';
 		charts.value = [];
 		totalCount.value = 0;
 	} finally {
@@ -408,7 +383,7 @@ function formatBirth(item: ChartItem) {
 			return '';
 		}
 		const result = utils.HideSecond(d.getTime());
-		return result ? '出生：' + result : '';
+		return result ? (item.type === 'liuyao' ? '起卦：' : '出生：') + result : '';
 	} catch (e) {
 		return '';
 	}
@@ -416,6 +391,38 @@ function formatBirth(item: ChartItem) {
 
 function openChart(item: ChartItem) {
 	try {
+		if (item.type === 'ziwei') {
+			const input = item.rawPayload?.user || {};
+			const timestamp = new Date(item.birthDatetime || input.timestamp).getTime();
+			if (!Number.isFinite(timestamp)) throw new Error('该记录缺少有效的出生时间');
+			useZiweiStore().pull({
+				realname: item.title || input.realname || '佚名',
+				gender: Number(item.gender ?? input.gender) === 1 ? 1 : 0,
+				timestamp,
+				recordId: item.id
+			});
+			uni.navigateTo({ url: '/pages/ziwei/result' });
+			return;
+		}
+		if (item.type === 'liuyao') {
+			const payload = item.rawPayload;
+			const params = payload?.params || payload?.compiled?.params;
+			if (!Array.isArray(params) || params.length !== 6 || !params.every(value => [0, 1, 3, 4].includes(value))) {
+				throw new Error('该记录缺少有效的卦爻参数');
+			}
+			const date = new Date(payload.options?.date || item.birthDatetime || payload.ts);
+			if (!Number.isFinite(date.getTime())) throw new Error('该记录缺少有效的起卦时间');
+			executeLiuyaoChart({
+				params,
+				date,
+				title: payload.options?.title || payload.profile?.title || item.title,
+				gender: payload.options?.gender ?? payload.profile?.gender ?? item.gender,
+				methodLabel: payload.profile?.method || '历史起卦'
+			});
+			useLiuyaoStore().setRecordId(item.id);
+			uni.navigateTo({ url: '/pages/liuyao/result' });
+			return;
+		}
 		let useRawPayload = false;
 		if (item.rawPayload && item.rawPayload.user && item.rawPayload.bazi) {
 			const u = item.rawPayload.user;
@@ -473,13 +480,12 @@ function openChart(item: ChartItem) {
 
 		if (useRawPayload) {
 			const u = item.rawPayload.user;
-			user_store.set({
+			bazi_store.pull({
 				realname: u.realname || item.title || '佚名',
 				gender: u.gender,
 				timestamp: u.timestamp,
 				recordId: item.id // 设置记录ID
 			});
-			bazi_store.$patch(item.rawPayload.bazi);
 
 			setTimeout(() => {
 				uni.navigateTo({
@@ -543,17 +549,12 @@ function openChart(item: ChartItem) {
 			title: '排盘中，请稍后！'
 		});
 
-		user_store.set({
-			realname: item.title || '佚名',
-			gender: gender,
-			timestamp: timestamp,
-			recordId: item.id // 设置记录ID
-		});
-
 		try {
 			bazi_store.pull({
+				realname: item.title || '佚名',
 				timestamp: timestamp,
-				gender: gender
+				gender: gender,
+				recordId: item.id
 			});
 		} catch (pullError: any) {
 			uni.hideLoading();
@@ -605,13 +606,13 @@ async function doRemove(item: ChartItem) {
 	if (!user_store.isLoggedIn) return;
 
 	try {
-		const res = await request(`/api/charts/${item.id}`, {
+		const res = await request(`/api/charts/${item.id}?type=${item.type || 'bazi'}`, {
 			method: 'DELETE',
 			needAuth: true
 		});
 
 		if (res.success !== false) {
-			charts.value = charts.value.filter(c => c.id !== item.id);
+			charts.value = charts.value.filter(c => c.id !== item.id || (c.type || 'bazi') !== (item.type || 'bazi'));
 			totalCount.value = charts.value.length;
 			uni.showToast({
 				title: '已删除',

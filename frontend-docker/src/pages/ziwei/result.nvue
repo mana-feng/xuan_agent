@@ -91,6 +91,7 @@
 										:fly-mutagens="cell.flyMutagens"
 										:scope-mutagens="cell.scopeMutagens"
 										:is-highlighted="highlightedIndices.includes(cell.original.index)"
+										@expand="openCellZoom(cell)"
 									/>
 								</view>
 							</view>
@@ -113,6 +114,7 @@
 											:fly-mutagens="cell.flyMutagens"
 											:scope-mutagens="cell.scopeMutagens"
 											:is-highlighted="highlightedIndices.includes(cell.original.index)"
+											@expand="openCellZoom(cell)"
 										/>
 									</view>
 								</view>
@@ -120,8 +122,8 @@
 								<view class="center-info">
 									<view class="info-content">
 										<view class="info-header">
-											<text class="info-name">{{ userStore.realname || '\u533F\u540D' }}</text>
-											<text class="info-gender">{{ Number(userStore.gender) === 0 ? '\u7537' : '\u5973' }}</text>
+											<text class="info-name">{{ ziweiStore.input.realname || '\u533F\u540D' }}</text>
+											<text class="info-gender">{{ Number(ziweiStore.input.gender) === 0 ? '\u7537' : '\u5973' }}</text>
 										</view>
 
 										<view class="info-row">
@@ -195,6 +197,7 @@
 											:fly-mutagens="cell.flyMutagens"
 											:scope-mutagens="cell.scopeMutagens"
 											:is-highlighted="highlightedIndices.includes(cell.original.index)"
+											@expand="openCellZoom(cell)"
 										/>
 									</view>
 								</view>
@@ -217,6 +220,7 @@
 										:fly-mutagens="cell.flyMutagens"
 										:scope-mutagens="cell.scopeMutagens"
 										:is-highlighted="highlightedIndices.includes(cell.original.index)"
+										@expand="openCellZoom(cell)"
 									/>
 								</view>
 							</view>
@@ -229,13 +233,14 @@
 										<text class="palace-zoom-title">
 											{{ displayPalaceName(zoomedCell.original.name) }}
 										</text>
-										<text class="palace-zoom-subtitle">双击宫位可放大查看</text>
+										<text class="palace-zoom-subtitle">完整宫位与小限年龄，点击遮罩可关闭</text>
 									</view>
-									<text class="palace-zoom-close" @tap="closeCellZoom">×</text>
+									<view class="palace-zoom-close" v-bind="h5Button(closeCellZoom)" aria-label="关闭宫位放大" @tap="closeCellZoom">×</view>
 								</view>
 								<view class="palace-zoom-body">
 									<view class="palace-zoom-content">
 										<PalaceContent
+											expanded
 											:palace="zoomedCell.original"
 											:display-jiangqian12="zoomedCell.displayJiangqian12"
 											:display-suiqian12="zoomedCell.displaySuiqian12"
@@ -279,11 +284,13 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { onShow } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { useZiweiStore } from '@/store/ziwei';
 import { useUserStore } from '@/store/user';
 import { request } from '@/services/api/index';
 import { encodeTOON } from '@/utils/toon';
+import { h5Button } from '@/utils/keyboard';
 import { buildZiweiExportPayload } from '@/utils/ziweiExport';
 // @ts-expect-error nvue component import type is not inferred
 import PalaceContent from './components/PalaceContent.nvue';
@@ -292,6 +299,12 @@ import Timeline from './components/Timeline.nvue';
 
 const ziweiStore = useZiweiStore();
 const userStore = useUserStore();
+ziweiStore.restoreInput();
+ziweiStore.ensureComputed();
+onShow(() => {
+	ziweiStore.restoreInput();
+	ziweiStore.ensureComputed();
+});
 const saving = ref(false);
 const saveError = ref('');
 const exportError = ref('');
@@ -323,7 +336,7 @@ const exportToon = () => {
 
 	let payload: Record<string, unknown> | null = null;
 	try {
-		payload = buildZiweiExportPayload(userStore, ziweiStore);
+		payload = buildZiweiExportPayload(ziweiStore.input, ziweiStore);
 	} catch (e: any) {
 		exportError.value = `\u751F\u6210\u5BFC\u51FA\u6570\u636E\u5931\u8D25\uFF1A${e?.message || e}`;
 		return;
@@ -342,7 +355,7 @@ const exportToon = () => {
 		return;
 	}
 
-	const filename = `ziwei-${formatTimestampForFilename(userStore.timestamp) || 'export'}.toon`;
+	const filename = `ziwei-${formatTimestampForFilename(ziweiStore.input.timestamp) || 'export'}.toon`;
 
 	// #ifdef H5
 	try {
@@ -394,9 +407,9 @@ const buildZiweiLitePayload = () => {
 		lite: true,
 		module: 'ziwei',
 		user: {
-			realname: userStore.realname || '',
-			gender: userStore.gender,
-			timestamp: userStore.timestamp,
+			realname: ziweiStore.input.realname || '',
+			gender: ziweiStore.input.gender,
+			timestamp: ziweiStore.input.timestamp,
 		},
 		selection: {
 			viewMode: ziweiStore.viewMode,
@@ -430,7 +443,7 @@ const saveToAccount = async () => {
 		return;
 	}
 
-	if (!astrolabe.value || !userStore.timestamp) {
+	if (!astrolabe.value || !ziweiStore.input.timestamp) {
 		uni.showToast({
 			 title: '\u6392\u76D8\u6570\u636E\u4E0D\u5B8C\u6574',
 			icon: 'none',
@@ -441,7 +454,8 @@ const saveToAccount = async () => {
 
 	if (saving.value) return;
 	saving.value = true;
-	const recordId = userStore.recordId;
+	const savingInput = ziweiStore.input;
+	const recordId = ziweiStore.input.recordId;
 	const isUpdate = !!recordId;
 
 	try {
@@ -450,19 +464,20 @@ const saveToAccount = async () => {
 			method: isUpdate ? 'PUT' : 'POST',
 			needAuth: true,
 			data: {
-				name: (userStore.realname || '').trim() || '\u533F\u540D',
+				name: (ziweiStore.input.realname || '').trim() || '\u533F\u540D',
 				gender:
-					userStore.gender !== undefined && userStore.gender !== null
-						? String(userStore.gender)
+					ziweiStore.input.gender !== undefined && ziweiStore.input.gender !== null
+						? String(ziweiStore.input.gender)
 						: null,
-				birthDatetime: Number(userStore.timestamp),
+				birthDatetime: Number(ziweiStore.input.timestamp),
 				calendarType: 'solar',
 				rawPayload,
 			},
 		});
 		const responseData = res?.data || res;
-		if (responseData?.id) {
-			userStore.recordId = responseData.id;
+		if (responseData?.id && ziweiStore.input === savingInput) {
+			ziweiStore.input.recordId = responseData.id;
+			ziweiStore.persistInput();
 		}
 
 		uni.showToast({
@@ -471,8 +486,9 @@ const saveToAccount = async () => {
 			duration: 1500,
 		});
 	} catch (e: any) {
-		if (isUpdate) {
-			userStore.recordId = null;
+		if (isUpdate && e?.code === 'NOT_FOUND' && ziweiStore.input === savingInput) {
+			ziweiStore.input.recordId = null;
+			ziweiStore.persistInput();
 		}
 		const message = e?.error || e?.message || '\u4FDD\u5B58\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5';
 		saveError.value = message;
@@ -487,7 +503,7 @@ const saveToAccount = async () => {
 };
 
 function editZiwei() {
-	if (!userStore.timestamp) {
+	if (!ziweiStore.input.timestamp) {
 		uni.showToast({
 			 title: '\u7F3A\u5C11\u51FA\u751F\u65F6\u95F4',
 			icon: 'none',
@@ -497,13 +513,13 @@ function editZiwei() {
 	}
 
 	const editData = {
-		realname: userStore.realname || '',
+		realname: ziweiStore.input.realname || '',
 		gender:
-			userStore.gender !== undefined && userStore.gender !== null
-				? Number(userStore.gender)
+			ziweiStore.input.gender !== undefined && ziweiStore.input.gender !== null
+				? Number(ziweiStore.input.gender)
 				: 0,
-		timestamp: Number(userStore.timestamp),
-		recordId: userStore.recordId || null,
+		timestamp: Number(ziweiStore.input.timestamp),
+		recordId: ziweiStore.input.recordId || null,
 		isEdit: true,
 	};
 
@@ -569,8 +585,8 @@ const currentScopeLabel = computed(() => {
 const summaryTiles = computed(() => {
 	if (!astrolabe.value) return [];
 	const tiles = [
-		{ label: '\u59D3\u540D', value: (userStore.realname || '').trim() || '\u533F\u540D' },
-		{ label: '\u6027\u522B', value: Number(userStore.gender) === 0 ? '\u7537' : '\u5973' },
+		{ label: '\u59D3\u540D', value: (ziweiStore.input.realname || '').trim() || '\u533F\u540D' },
+		{ label: '\u6027\u522B', value: Number(ziweiStore.input.gender) === 0 ? '\u7537' : '\u5973' },
 		{ label: '\u9633\u5386', value: astrolabe.value.solarDate || '-' },
 		{ label: '\u9634\u5386', value: astrolabe.value.lunarDate || '-' },
 		{ label: '\u4E94\u884C\u5C40', value: astrolabe.value.fiveElementsClass || '-' },
@@ -898,6 +914,14 @@ const closeCellZoom = () => {
 	zoomedCell.value = null;
 };
 
+const openCellZoom = (cell: any) => {
+	if (!cell?.original) return;
+	ziweiStore.setFocus(cell.original.index);
+	zoomedCell.value = cell;
+	lastClickPalaceIndex.value = null;
+	lastClickTs.value = 0;
+};
+
 const handleCellClick = (cell: any) => {
 	if (!cell?.original) return;
 
@@ -937,6 +961,14 @@ const handleCellClick = (cell: any) => {
 	gap: 12px;
 	padding: 16px 14px;
 }
+
+/* #ifdef H5 */
+.page-ziwei-result :deep(.page-card.ziwei-card) {
+	/* A transformed card becomes the containing block for the fixed palace overlay. */
+	animation: none;
+	transform: none;
+}
+/* #endif */
 
 .page-ziwei-result .result-container {
 	display: flex;
@@ -1380,6 +1412,13 @@ const handleCellClick = (cell: any) => {
 	background: #ffffff;
 	border: 1px solid #cbd5e1;
 }
+
+/* #ifdef H5 */
+.page-ziwei-result .palace-zoom-close:focus-visible {
+	outline: 3px solid #0e7490;
+	outline-offset: 2px;
+}
+/* #endif */
 
 .page-ziwei-result .palace-zoom-body {
 	flex: 1;
