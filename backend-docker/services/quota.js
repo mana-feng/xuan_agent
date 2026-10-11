@@ -1,114 +1,109 @@
 /**
- * 额度管理服务
+ * 额度管理服务。扣减和使用记录必须在同一事务中提交。
  */
 const { getDatabase } = require('../db');
 const ConfigService = require('../config-service');
 
 async function getDefaultDailyCount(db) {
-	try {
-		const config = await ConfigService.getQuotaResetConfig(db);
-		const target = Number(config?.target);
-		if (Number.isFinite(target) && target > 0) return target;
-		return 2;
-	} catch (_) {
-		return 2;
+	const config = await ConfigService.getQuotaResetConfig(db);
+	const target = Number(config?.target);
+	return Number.isFinite(target) && target > 0 ? target : 2;
+}
+
+async function ensureQuota(db, userId) {
+	let quota = await db.get('SELECT * FROM user_llm_quotas WHERE user_id = ?', [userId]);
+	if (!quota) {
+		const defaultCount = await getDefaultDailyCount(db);
+		await db.run(
+			`INSERT INTO user_llm_quotas
+			(user_id, per_minute_limit, remaining_daily_count, remaining_token, updated_at, daily_limit)
+			VALUES (?, 1, ?, 0, NOW(), ?)
+			ON DUPLICATE KEY UPDATE user_id = VALUES(user_id)`,
+			[userId, defaultCount, defaultCount]
+		);
+		quota = await db.get('SELECT * FROM user_llm_quotas WHERE user_id = ?', [userId]);
 	}
+	return quota;
+}
+
+function quotaResult(quota, allowed = Number(quota?.remaining_daily_count) > 0) {
+	return {
+		allowed,
+		...(!allowed ? { reason: '剩余次数已用完' } : {}),
+		usage: {
+			remainingCount: Number(quota?.remaining_daily_count) || 0,
+			remainingToken: Number(quota?.remaining_token) || 0,
+		},
+	};
+}
+
+// Read-only availability for the quota endpoint. Database errors fail closed.
+async function checkLLMQuota(userId) {
+	return quotaResult(await ensureQuota(getDatabase(), userId));
 }
 
 /**
- * 记录LLM使用情况
- * @param {number} userId - 用户ID
- * @param {number} tokensUsed - 使用的token数量
+ * Reserve one request under a MySQL row lock. The decrement remains uncommitted
+ * during generation, so rollback (including connection loss) restores the slot.
+ * Callers must commit only a completed visible answer, and rollback in finally.
+ * A request occupies one pool connection until completion/timeout/disconnect.
  */
-async function recordLLMUsage(userId, tokensUsed = 0) {
+async function reserveLLMQuota(userId) {
+	const db = getDatabase();
+	await ensureQuota(db, userId);
+	const connection = await db.pool.getConnection();
 	try {
-		const db = getDatabase();
-		// 记录使用情况
-		await db.run(
-			'INSERT INTO llm_usage_records (user_id, tokens_used, created_at) VALUES (?, ?, NOW())',
-			[userId, tokensUsed]
-		);
-
-		// 更新用户额度（仅减少剩余次数；Token 不再扣减）
-		await db.run(
-			`UPDATE user_llm_quotas 
-			SET remaining_daily_count = GREATEST(0, remaining_daily_count - 1),
-				updated_at = NOW()
-			WHERE user_id = ?`,
+		await connection.beginTransaction();
+		const [result] = await connection.execute(
+			`UPDATE user_llm_quotas
+			SET remaining_daily_count = remaining_daily_count - 1, updated_at = NOW()
+			WHERE user_id = ? AND remaining_daily_count > 0`,
 			[userId]
 		);
+		if (result.affectedRows !== 1) {
+			const [rows] = await connection.execute('SELECT * FROM user_llm_quotas WHERE user_id = ?', [userId]);
+			await connection.rollback();
+			connection.release();
+			return quotaResult(rows[0], false);
+		}
 	} catch (err) {
-		console.error('记录LLM使用情况失败:', err);
-		// 不抛出错误，避免影响主流程
+		try { await connection.rollback(); } finally { connection.release(); }
+		throw err;
 	}
-}
 
-/**
- * 检查用户LLM额度
- * @param {number} userId - 用户ID
- * @returns {Promise<{allowed: boolean, reason?: string, usage?: object}>}
- */
-async function checkLLMQuota(userId) {
-	try {
-		const db = getDatabase();
-		// 获取或创建用户额度记录
-		let quota = await db.get('SELECT * FROM user_llm_quotas WHERE user_id = ?', [userId]);
-		
-		if (!quota) {
-			const defaultCount = await getDefaultDailyCount(db);
-			// 如果不存在，创建默认额度记录（per_minute_limit 固定为1）
-			await db.run(
-				`INSERT INTO user_llm_quotas 
-				(user_id, per_minute_limit, remaining_daily_count, remaining_token, updated_at, daily_limit) 
-				VALUES (?, 1, ?, 0, NOW(), ?)`,
-				[userId, defaultCount, defaultCount]
-			);
-			quota = await db.get('SELECT * FROM user_llm_quotas WHERE user_id = ?', [userId]);
-		}
-
-		// 确保字段有值
-		if (quota.per_minute_limit === null || quota.per_minute_limit === undefined) {
-			quota.per_minute_limit = 1;
-		}
-		if (quota.remaining_daily_count === null || quota.remaining_daily_count === undefined) {
-			quota.remaining_daily_count = 0;
-		}
-		if (quota.remaining_token === null || quota.remaining_token === undefined) {
-			quota.remaining_token = 0;
-		}
-
-		// 仅按次数校验，次数用完即拒绝
-		if (quota.remaining_daily_count <= 0) {
-			return {
-				allowed: false,
-				reason: '剩余次数已用完',
-				usage: {
-					remainingCount: quota.remaining_daily_count,
-					remainingToken: quota.remaining_token
-				}
-			};
-		}
-
-		// 额度充足（剩余次数 > 0），允许使用
-		return {
-			allowed: true,
-			usage: {
-				remainingCount: quota.remaining_daily_count,
-				remainingToken: quota.remaining_token
+	let settlement;
+	return {
+		allowed: true,
+		commit(tokensUsed = 0) {
+			if (!settlement) {
+				settlement = (async () => {
+					try {
+						await connection.execute(
+							'INSERT INTO llm_usage_records (user_id, tokens_used, created_at) VALUES (?, ?, NOW())',
+							[userId, tokensUsed]
+						);
+						await connection.commit();
+					} catch (err) {
+						await connection.rollback();
+						throw err;
+					} finally {
+						connection.release();
+					}
+				})();
 			}
-		};
-	} catch (err) {
-		console.error('检查LLM额度失败:', err);
-		// 出错时默认允许，避免影响正常使用
-		return {
-			allowed: true,
-			usage: {}
-		};
-	}
+			return settlement;
+		},
+		async rollback() {
+			if (!settlement) {
+				settlement = (async () => {
+					try { await connection.rollback(); } finally { connection.release(); }
+				})();
+			}
+			// A failed commit already rolled back and must not obscure the original error.
+			await settlement.catch(() => {});
+		},
+	};
 }
 
-module.exports = {
-	recordLLMUsage,
-	checkLLMQuota,
-};
+module.exports = { checkLLMQuota, reserveLLMQuota };
 

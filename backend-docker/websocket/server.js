@@ -2,17 +2,16 @@
  * WebSocket 服务器
  */
 const { WebSocketServer } = require('ws');
-const { StringDecoder } = require('string_decoder');
 const jwt = require('jsonwebtoken');
 const fetch = (...args) => import('node-fetch').then(({ default: f }) => f(...args));
 const { getDatabase } = require('../db');
 const ConfigService = require('../config-service');
-const { checkLLMQuota, recordLLMUsage } = require('../services/quota');
+const { reserveLLMQuota } = require('../services/quota');
 const {
 	buildLLMRequest,
-	createThinkBlockStripper,
-	extractLLMStreamText,
-	flushLLMStreamText,
+	consumeLLMStream,
+	createLLMRequestControl,
+	validateLLMResponse,
 	isLLMConfigReady,
 } = require('../services/llm');
 const config = require('../config');
@@ -46,6 +45,7 @@ function resolveWsLlmErrorCode({ statusCode, rawMessage, rawCode, fallbackCode }
 	const codeText = typeof rawCode === 'string' ? rawCode : '';
 	const messageText = typeof rawMessage === 'string' ? rawMessage : '';
 
+	if (codeText === 'LLM_UPSTREAM_AUTH_FAILED') return codeText;
 	if (isLikelyUpstreamNetworkError(messageText, codeText)) {
 		return 'LLM_UPSTREAM_UNREACHABLE';
 	}
@@ -85,7 +85,7 @@ function extractWsToken(req) {
 }
 
 function sendWsError(ws, { code, message, statusCode = 500, extra } = {}) {
-	const safeMessage = resolvePublicErrorMessage({
+	const safeMessage = code === 'LLM_UPSTREAM_AUTH_FAILED' ? '模型服务鉴权失败，请检查后台模型配置' : resolvePublicErrorMessage({
 		statusCode: normalizeStatusCode(statusCode),
 		rawMessage: message || '请求失败',
 	});
@@ -162,269 +162,79 @@ function initWebSocketServer(server) {
 				return;
 			}
 			
+			// One generation owns this socket until its done/error event and close.
+			if (ws.generating) {
+				sendWsError(ws, { code: 'REQUEST_IN_PROGRESS', message: '已有请求正在生成', statusCode: 429 });
+				return;
+			}
+			ws.generating = true;
+			let reservation;
+			const control = createLLMRequestControl();
+			const onClose = () => control.abort();
+			ws.once('close', onClose);
 			try {
-				// 检查用户额度
-				const userId = ws.userId;
-				const quotaCheck = await checkLLMQuota(userId);
-				if (!quotaCheck.allowed) {
-					sendWsError(ws, {
-						code: 'QUOTA_EXHAUSTED',
-						message: quotaCheck.reason || '额度已用完',
-						statusCode: 429,
-						extra: { usage: quotaCheck.usage },
-					});
-					ws.close();
-					return;
-				}
-
 				const cfg = await ConfigService.getLLMConfig(db);
 				if (!isLLMConfigReady(cfg)) {
+					throw Object.assign(new Error('LLM 配置不完整'), { statusCode: 500 });
+				}
+				reservation = await reserveLLMQuota(ws.userId);
+				if (!reservation.allowed) {
 					sendWsError(ws, {
-						code: 'CONFIG_INCOMPLETE',
-						message: 'LLM 配置不完整',
-						statusCode: 500,
+						code: 'QUOTA_EXHAUSTED',
+						message: reservation.reason || '额度已用完',
+						statusCode: 429,
+						extra: { usage: reservation.usage },
 					});
 					ws.close();
 					return;
 				}
-				
-				const { url: llmUrl, headers, payload } = buildLLMRequest(cfg, messages, Boolean(stream));
-				
-				const llmRes = await fetch(llmUrl, {
-					method: 'POST',
-					headers,
-					body: JSON.stringify(payload),
+				control.signal.throwIfAborted();
+				const { url, headers, payload } = buildLLMRequest(cfg, messages, Boolean(stream));
+				const llmRes = await fetch(url, {
+					method: 'POST', headers, body: JSON.stringify(payload), signal: control.signal,
 				});
-				
 				if (!llmRes.ok || !llmRes.body) {
-					const text = await llmRes.text();
-					const statusCode = llmRes.status || 502;
-					sendWsError(ws, {
-						code: resolveWsLlmErrorCode({
-							statusCode,
-							rawMessage: text || 'LLM 请求失败',
-							fallbackCode: 'LLM_REQUEST_FAILED',
-						}),
-						message: text || 'LLM 请求失败',
-						statusCode,
-					});
-					ws.close();
-					return;
+					await llmRes.text();
+					if (llmRes.status === 401 || llmRes.status === 403) {
+						throw Object.assign(new Error('LLM provider authentication failed'), {
+							statusCode: 502, code: 'LLM_UPSTREAM_AUTH_FAILED',
+						});
+					}
+					throw Object.assign(new Error('LLM 请求失败'), { statusCode: llmRes.status || 502 });
 				}
-
-				const stripThinkChunk = cfg.provider === 'ollama' ? createThinkBlockStripper() : null;
-				const decoder = new StringDecoder('utf8');
-				let buffer = '';
-				let jsonBuffer = '';
-
-				llmRes.body.on('data', (chunk) => {
-					const safeText = decoder.write(chunk);
-					buffer += safeText;
-
-					if (cfg.provider === 'gemini') {
-						jsonBuffer += safeText;
-						let startIdx = 0;
-						while (startIdx < jsonBuffer.length) {
-							const braceStart = jsonBuffer.indexOf('{', startIdx);
-							if (braceStart === -1) break;
-
-							let braceCount = 0;
-							let braceEnd = -1;
-							for (let i = braceStart; i < jsonBuffer.length; i++) {
-								if (jsonBuffer[i] === '{') braceCount++;
-								if (jsonBuffer[i] === '}') braceCount--;
-								if (braceCount === 0) {
-									braceEnd = i;
-									break;
-								}
-							}
-
-							if (braceEnd === -1) {
-								break;
-							}
-
-							const jsonStr = jsonBuffer.slice(braceStart, braceEnd + 1);
-							jsonBuffer = jsonBuffer.slice(braceEnd + 1);
-
-							try {
-								const json = JSON.parse(jsonStr);
-								let text = '';
-								if (json.candidates && json.candidates[0]) {
-									const candidate = json.candidates[0];
-									if (candidate.content && candidate.content.parts) {
-										for (const part of candidate.content.parts) {
-											if (part.text) {
-												text += part.text;
-											}
-										}
-									}
-								}
-								if (text) {
-									ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
-								}
-							} catch (e) {
-								// 忽略解析错误
-							}
-
-							startIdx = 0;
-						}
-						return;
-					}
-
-					// 其他 provider：按行处理（SSE 格式或 NDJSON）
-					const lines = buffer.split('\n');
-					buffer = lines.pop() || '';
-
-					for (const line of lines) {
-						if (!line.trim()) continue;
-
-						// 处理 SSE 格式：data: {...}
-						let jsonStr = line;
-						if (line.startsWith('data:')) {
-							jsonStr = line.replace(/^data:\s*/, '').trim();
-						}
-
-						// 跳过 [DONE] 标记
-						if (jsonStr === '[DONE]') {
-							continue;
-						}
-
-						try {
-							const json = JSON.parse(jsonStr);
-							let text = '';
-
-							// 根据不同 provider 提取 text 内容
-							if (cfg.provider === 'anthropic') {
-								if (json.delta && json.delta.text) {
-									text = json.delta.text;
-								}
-							} else {
-								// OpenAI/DeepSeek/Qwen 流式响应
-								if (json.choices && json.choices[0]) {
-									const choice = json.choices[0];
-									if (choice.delta && choice.delta.content) {
-										text = choice.delta.content;
-									} else if (choice.message && choice.message.content) {
-										text = choice.message.content;
-									}
-								}
-							}
-
-							if (text) {
-								ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
-							}
-						} catch (e) {
-							// 忽略解析错误
-						}
-					}
-				});
-
-				llmRes.body.on('end', async () => {
-					const tail = decoder.end();
-					// 即使 tail 为空，也需要处理 buffer 或 jsonBuffer 中剩余的内容
-					if (tail || buffer || jsonBuffer) {
-						if (cfg.provider === 'gemini') {
-							jsonBuffer += (tail || '');
-							let startIdx = 0;
-							while (startIdx < jsonBuffer.length) {
-								const braceStart = jsonBuffer.indexOf('{', startIdx);
-								if (braceStart === -1) break;
-								let braceCount = 0;
-								let braceEnd = -1;
-								for (let i = braceStart; i < jsonBuffer.length; i++) {
-									if (jsonBuffer[i] === '{') braceCount++;
-									if (jsonBuffer[i] === '}') braceCount--;
-									if (braceCount === 0) {
-										braceEnd = i;
-										break;
-									}
-								}
-								if (braceEnd === -1) break;
-								const jsonStr = jsonBuffer.slice(braceStart, braceEnd + 1);
-								jsonBuffer = jsonBuffer.slice(braceEnd + 1);
-								try {
-									const json = JSON.parse(jsonStr);
-									let text = '';
-									if (json.candidates?.[0]?.content?.parts) {
-										for (const part of json.candidates[0].content.parts) {
-											if (part.text) text += part.text;
-										}
-									}
-									if (text) {
-										ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
-									}
-								} catch (e) {
-									// 忽略解析错误
-								}
-								startIdx = 0;
-							}
-						} else {
-							buffer += (tail || '');
-							if (buffer.trim()) {
-								try {
-									let jsonStr = buffer;
-									if (buffer.startsWith('data:')) {
-										jsonStr = buffer.replace(/^data:\s*/, '').trim();
-									}
-										if (jsonStr !== '[DONE]') {
-											const json = JSON.parse(jsonStr);
-											let text = '';
-											if (cfg.provider === 'anthropic' && json.delta?.text) {
-												text = json.delta.text;
-											} else if (json.choices?.[0]?.delta?.content) {
-												text = json.choices[0].delta.content;
-											}
-											if (text) {
-												ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
-											}
-										}
-									} catch (e) {
-										// 忽略解析错误
-								}
-							}
-						}
-					}
-					
-					// 记录使用情况（仅按次数计数，不再按 Token 扣减）
-					try {
-						await recordLLMUsage(userId, 0);
-					} catch (err) {
-						console.error('记录使用情况失败:', err);
-					}
-					
-					// 发送完成标记
-					ws.send(JSON.stringify({ event: 'done' }) + '\n');
-					
-					ws.close();
-				});
-
-				llmRes.body.on('error', (err) => {
-					console.error('[WebSocket] 流式响应错误:', sanitizeErrorForLog(err));
-					sendWsError(ws, {
-						code: resolveWsLlmErrorCode({
-							statusCode: 502,
-							rawMessage: err?.message || '流式错误',
-							rawCode: err?.code || err?.errno,
-							fallbackCode: 'STREAM_ERROR',
-						}),
-						message: err?.message || '流式错误',
-						statusCode: 502,
-					});
-					ws.close();
-				});
+				const sendText = (text) => {
+					if (ws.readyState !== 1) throw new Error('Client disconnected');
+					ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
+				};
+				if (stream) {
+					await consumeLLMStream(cfg, llmRes.body, sendText);
+				} else {
+					sendText(validateLLMResponse(cfg, await llmRes.json()));
+				}
+				control.signal.throwIfAborted();
+				await reservation.commit();
+				ws.send(JSON.stringify({ event: 'done' }) + '\n');
+				ws.close();
 			} catch (err) {
+				await reservation?.rollback?.();
 				console.error('[WebSocket] 调用失败:', sanitizeErrorForLog(err));
+				const statusCode = normalizeStatusCode(err?.statusCode || 502);
 				sendWsError(ws, {
 					code: resolveWsLlmErrorCode({
-						statusCode: 500,
+						statusCode,
 						rawMessage: err?.message || '调用失败',
 						rawCode: err?.code || err?.errno,
-						fallbackCode: 'INTERNAL_ERROR',
+						fallbackCode: 'LLM_REQUEST_FAILED',
 					}),
 					message: err?.message || '调用失败',
-					statusCode: 500,
+					statusCode,
 				});
 				ws.close();
+			} finally {
+				await reservation?.rollback?.();
+				control.dispose();
+				ws.removeListener('close', onClose);
+				ws.generating = false;
 			}
 		});
 	});

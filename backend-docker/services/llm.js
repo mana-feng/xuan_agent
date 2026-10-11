@@ -2,6 +2,7 @@
  * LLM service helpers
  */
 const { safeJsonParse } = require('../utils/helpers');
+const { StringDecoder } = require('string_decoder');
 
 function normalizeProvider(provider) {
 	return String(provider || '').trim().toLowerCase();
@@ -255,6 +256,11 @@ function extractLLMText(cfg, data) {
 
 function extractLLMStreamText(cfg, data, thinkStripper) {
 	const provider = normalizeProvider(cfg?.provider);
+	if (provider === 'gemini') {
+		return (data?.candidates?.[0]?.content?.parts || [])
+			.filter((part) => !part.thought && typeof part.text === 'string')
+			.map((part) => part.text).join('');
+	}
 
 	if (provider === 'anthropic') {
 		return typeof data?.delta?.text === 'string' ? data.delta.text : '';
@@ -286,14 +292,100 @@ function flushLLMStreamText(cfg, thinkStripper) {
 	return thinkStripper('', { flush: true }).trim();
 }
 
+function llmResponseError(message) {
+	return Object.assign(new Error(message), { statusCode: 502 });
+}
+
+function createLLMRequestControl() {
+	const controller = new AbortController();
+	const configured = Number(process.env.LLM_REQUEST_TIMEOUT_MS);
+	const timeout = Number.isFinite(configured) && configured > 0
+		? Math.min(300000, Math.max(1000, configured)) : 180000;
+	const timer = setTimeout(() => controller.abort(), timeout);
+	timer.unref?.();
+	return {
+		signal: controller.signal,
+		abort: () => controller.abort(),
+		dispose: () => clearTimeout(timer),
+	};
+}
+
+/** Consume provider SSE/NDJSON to completion, rejecting empty, error or cut-off responses. */
+async function consumeLLMStream(cfg, body, onText) {
+	const provider = normalizeProvider(cfg?.provider);
+	const decoder = new StringDecoder('utf8');
+	const stripThinkChunk = createThinkBlockStripper();
+	let buffer = '';
+	let eventData = [];
+	let completed = false;
+	let hasVisibleText = false;
+
+	const emit = (text) => {
+		if (!text) return;
+		if (text.trim()) hasVisibleText = true;
+		onText(text);
+	};
+	const processPayload = (raw) => {
+		if (raw === '[DONE]') { completed = true; return; }
+		let data;
+		try { data = JSON.parse(raw); } catch (_) { throw llmResponseError('Malformed LLM stream'); }
+		if (data.error || data.type === 'error') throw llmResponseError('LLM upstream returned an error');
+		emit(extractLLMStreamText(cfg, data, stripThinkChunk));
+		if (provider === 'ollama') completed ||= data.done === true;
+		else if (provider === 'anthropic') completed ||= data.type === 'message_stop';
+		else if (provider === 'gemini') completed ||= Boolean(data.candidates?.[0]?.finishReason);
+		else completed ||= Boolean(data.choices?.[0]?.finish_reason);
+	};
+	const processLine = (line) => {
+		line = line.replace(/\r$/, '');
+		if (provider === 'ollama') {
+			if (line.trim()) processPayload(line.trim());
+			return;
+		}
+		if (!line.trim()) {
+			if (eventData.length) processPayload(eventData.join('\n'));
+			eventData = [];
+		} else if (line.startsWith('data:')) {
+			eventData.push(line.slice(5).replace(/^ /, ''));
+		}
+	};
+	for await (const chunk of body) {
+		buffer += decoder.write(chunk);
+		let newline;
+		while ((newline = buffer.indexOf('\n')) !== -1) {
+			processLine(buffer.slice(0, newline));
+			buffer = buffer.slice(newline + 1);
+		}
+	}
+	buffer += decoder.end();
+	if (buffer) processLine(buffer);
+	if (eventData.length) processPayload(eventData.join('\n'));
+	emit(flushLLMStreamText(cfg, stripThinkChunk));
+	if (!completed) throw llmResponseError('LLM stream ended without completion');
+	if (!hasVisibleText) throw llmResponseError('LLM returned an empty answer');
+}
+
+function validateLLMResponse(cfg, data) {
+	if (data?.error) throw llmResponseError('LLM upstream returned an error');
+	if (normalizeProvider(cfg?.provider) === 'ollama' && data?.done !== true) {
+		throw llmResponseError('LLM response ended without completion');
+	}
+	const text = extractLLMText(cfg, data);
+	if (!text.trim()) throw llmResponseError('LLM returned an empty answer');
+	return text;
+}
+
 module.exports = {
 	buildLLMHeaders,
 	buildLLMPayload,
 	buildLLMRequest,
+	consumeLLMStream,
+	createLLMRequestControl,
 	createThinkBlockStripper,
 	extractLLMStreamText,
 	extractLLMText,
 	flushLLMStreamText,
 	isApiKeyOptionalProvider,
 	isLLMConfigReady,
+	validateLLMResponse,
 };
