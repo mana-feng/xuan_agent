@@ -85,7 +85,7 @@ onMounted(() => {
 		if (chatContext.value === 'liuyao') {
 			panelRef.value?.appendAssistant('已为您加载六爻排盘结果，您可以让 AI 为您解读卦象。', 'ready');
 		} else if (chatContext.value === 'ziwei') {
-			panelRef.value?.appendAssistant('已为您加载紫薇排盘结果，您可以让 AI 为您解答命盘重点。', 'ready');
+			panelRef.value?.appendAssistant('已为您加载紫微排盘结果，您可以让 AI 为您解答命盘重点。', 'ready');
 		}
 	}, 120);
 });
