@@ -9,6 +9,7 @@ import { getDeviceId } from '@/utils/device';
 import { signRequest, sanitizeRequestData } from '@/utils/api-signature';
 import {
 	getAccessToken,
+	getAuthGeneration,
 	setAccessToken,
 	getRefreshToken,
 	setRefreshToken,
@@ -88,14 +89,30 @@ const normalizeApiResponse = <T>(payload: any, statusCode: number): ApiResponse<
 
 // Refresh 锁：防止并发请求时多次刷新
 let refreshingPromise: Promise<void> | null = null;
+let refreshingGeneration = -1;
+const sessionChangedError = () => Object.assign(new Error('登录状态已改变，请重新操作'), { code: 'AUTH_SESSION_CHANGED' });
+
+async function invalidateAuthSession(generation: number): Promise<boolean> {
+	let user: { _hasAccessToken: boolean } | null = null;
+	try {
+		const { useUserStore } = await import('@/store/user');
+		user = useUserStore();
+	} catch { /* Token invalidation also works before Pinia is mounted. */ }
+	if (generation !== getAuthGeneration()) return false;
+	clearAllTokens();
+	if (user) user._hasAccessToken = false;
+	return true;
+}
 
 /**
  * 刷新 access token（带锁机制）
  */
 export async function refreshAccessToken(): Promise<void> {
-	if (refreshingPromise) {
+	const generation = getAuthGeneration();
+	if (refreshingPromise && refreshingGeneration === generation) {
 		return refreshingPromise;
 	}
+	refreshingGeneration = generation;
 
 	refreshingPromise = (async () => {
 		try {
@@ -130,6 +147,7 @@ export async function refreshAccessToken(): Promise<void> {
 				});
 			});
 
+		if (generation !== getAuthGeneration()) throw sessionChangedError();
 		if (res.statusCode === 200 && res.data) {
 			const payload = res.data as any;
 			if (payload?.success === false) {
@@ -140,15 +158,17 @@ export async function refreshAccessToken(): Promise<void> {
 			const { access_token, refresh_token } = tokenData as any;
 
 			if (access_token) {
-					setAccessToken(access_token);
+					let refreshedUser: { _hasAccessToken: boolean } | null = null;
 					// 更新 user store 的登录状态标志（确保响应式更新）
 					try {
 						const { useUserStore } = await import('@/store/user');
-						const userStore = useUserStore();
-						userStore._hasAccessToken = true;
+						refreshedUser = useUserStore();
 					} catch (e) {
 						// 忽略错误
 					}
+					if (generation !== getAuthGeneration()) throw sessionChangedError();
+					setAccessToken(access_token);
+					if (refreshedUser) refreshedUser._hasAccessToken = true;
 			}
 
 			// 如果返回了新的 refresh_token，更新它（非 H5 平台）
@@ -159,19 +179,19 @@ export async function refreshAccessToken(): Promise<void> {
 			throw new Error('刷新 token 失败');
 		}
 		} catch (error) {
-			// 刷新失败，清除所有 token 并更新状态
-			clearAllTokens();
-			// 更新 user store 的登录状态标志
+			let failedUser: { _hasAccessToken: boolean } | null = null;
 			try {
 				const { useUserStore } = await import('@/store/user');
-				const userStore = useUserStore();
-				userStore._hasAccessToken = false;
-			} catch (e) {
-				// 忽略错误
-			}
-			throw error;
+				failedUser = useUserStore();
+			} catch { /* Token invalidation also works before Pinia is mounted. */ }
+			if (generation !== getAuthGeneration()) throw sessionChangedError();
+			clearAllTokens();
+			if (failedUser) failedUser._hasAccessToken = false;
+			throw Object.assign(new Error((error as any)?.message || '刷新 token 失败'), {
+				authFailureGeneration: getAuthGeneration(),
+			});
 		} finally {
-			refreshingPromise = null;
+			if (refreshingGeneration === generation) refreshingPromise = null;
 		}
 	})();
 
@@ -194,12 +214,14 @@ export function request<T = any>(
 	} = {}
 ): Promise<ApiResponse<T>> {
 	const { method = 'GET', data, header = {}, needAuth = false, sanitizeData = true, timeout } = options;
+	const requestGeneration = getAuthGeneration();
 
 	return new Promise((resolve, reject) => {
 		let retryCount = 0;
 
 		// 内部请求函数
 		const doRequest = async (): Promise<void> => {
+			if (needAuth && requestGeneration !== getAuthGeneration()) return reject(sessionChangedError());
 			const deviceId = getDeviceId();
 			const accessToken = needAuth ? getAccessToken() : null;
 
@@ -235,13 +257,14 @@ export function request<T = any>(
 				withCredentials: true,
 				// #endif
 				success: async (res: any) => {
+					if (needAuth && requestGeneration !== getAuthGeneration()) return reject(sessionChangedError());
 					if (res.statusCode >= 200 && res.statusCode < 300) {
 						const normalized = normalizeApiResponse<T>(res.data, res.statusCode);
 						resolve(normalized);
 					} else if (res.statusCode === 401 && needAuth) {
 						// 401 未授权：尝试刷新 token 后重试（最多 1 次）
 						if (retryCount >= 1) {
-							clearAllTokens();
+							if (!await invalidateAuthSession(requestGeneration)) return reject(sessionChangedError());
 							const err = {
 								success: false,
 								error: '登录已失效，请重新登录',
@@ -254,9 +277,10 @@ export function request<T = any>(
 						retryCount += 1;
 						try {
 							await refreshAccessToken();
+							if (requestGeneration !== getAuthGeneration()) return reject(sessionChangedError());
 							const newToken = getAccessToken();
 							if (!newToken) {
-								clearAllTokens();
+								if (!await invalidateAuthSession(requestGeneration)) return reject(sessionChangedError());
 								const err = {
 									success: false,
 									error: '登录已失效，请重新登录',
@@ -269,6 +293,7 @@ export function request<T = any>(
 							// 刷新成功，重试请求
 							return doRequest();
 						} catch (refreshError) {
+							if ((refreshError as any)?.authFailureGeneration !== getAuthGeneration()) return reject(refreshError);
 							// 刷新失败，清除登录信息并跳转登录页
 							clearAllTokens();
 							const err = {

@@ -8,6 +8,10 @@
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
+// Changes only when the account session changes, not on a token refresh.
+let authGeneration = 0;
+export const getAuthGeneration = () => authGeneration;
+export const advanceAuthGeneration = () => { authGeneration += 1; };
 
 // 判断当前运行平台
 function getPlatform(): 'h5' | 'app' | 'mp' {
@@ -115,6 +119,7 @@ export function clearRefreshToken(): void {
  * 清除所�?token
  */
 export function clearAllTokens(): void {
+	advanceAuthGeneration();
 	clearAccessToken();
 	clearRefreshToken();
 }

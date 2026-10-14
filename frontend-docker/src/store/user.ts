@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import {
 	getAccessToken,
+	getRefreshToken,
+	advanceAuthGeneration,
 	setAccessToken,
 	setRefreshToken,
 	clearAllTokens,
@@ -75,6 +77,7 @@ export const useUserStore = defineStore('user', {
 			refresh_token?: string;
 			role?: 'user' | 'admin';
 		}) {
+			advanceAuthGeneration();
 			this.username = payload.username || null;
 			this.email = payload.email;
 			this.role = payload.role || 'user';
@@ -100,14 +103,20 @@ export const useUserStore = defineStore('user', {
 			}
 		},
 		async logout() {
+			const refreshToken = getRefreshToken();
+			// Hide account-bound data immediately; remote revocation can be slow.
+			this._hasAccessToken = false;
+			this.username = null;
+			this.email = null;
+			this.role = null;
+			clearAllTokens();
+			try { uni.removeStorageSync('user_info'); } catch { /* Local UI remains signed out. */ }
 			// 调用后端 logout 接口撤销 refresh token
 			try {
 				const { request } = await import('@/services/api/index');
 				const { getDeviceId } = await import('@/utils/device');
-				const { getRefreshToken } = await import('@/utils/tokenStore');
 
 				const deviceId = getDeviceId();
-				const refreshToken = getRefreshToken();
 
 				// 尝试调用 logout 接口（失败也不影响前端清除）
 				if (refreshToken || deviceId) {
@@ -124,19 +133,6 @@ export const useUserStore = defineStore('user', {
 				// 忽略错误，继续清除本地数据
 			}
 
-			// 清除用户信息和 token
-			this.username = null;
-			this.email = null;
-			this.role = null;
-			this._hasAccessToken = false; // 更新登录状态标志
-			clearAllTokens();
-
-			// 清除用户信息缓存
-			try {
-				uni.removeStorageSync('user_info');
-			} catch (e) {
-				// 忽略错误
-			}
 		},
 	},
 });
