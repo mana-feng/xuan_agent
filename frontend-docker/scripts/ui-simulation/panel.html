@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>本地模拟控制台 · 玄鉴</title>
+  <style>
+    :root{color-scheme:light;font-family:system-ui,"Microsoft YaHei",sans-serif;color:#164050;background:#eef6f5}*{box-sizing:border-box}body{max-width:1050px;margin:0 auto;padding:36px 22px}h1{font-size:30px;margin:12px 0}p{line-height:1.7;color:#506670}a{color:#086d85}section{background:#fff;border:1px solid #d8e7e6;border-radius:16px;padding:22px;margin:18px 0}.badge{background:#fff3d3;color:#815a05;border-radius:50px;padding:6px 12px;font-size:13px}button,select,input{font:inherit}button{border:1px solid #bad8d8;background:#f2faf9;color:#145265;border-radius:10px;padding:12px 16px;cursor:pointer}button:hover,button.active{background:#087c8e;color:white}.buttons{display:flex;flex-wrap:wrap;gap:10px}label{display:block;margin:14px 0}select,input{padding:9px;border:1px solid #b6cdce;border-radius:8px;margin-left:8px;max-width:100%}pre{overflow:auto;background:#f3f8f8;padding:16px;border-radius:10px;font-size:13px;line-height:1.6;max-height:350px}small{color:#667d84}.status{min-height:24px;color:#087c8e;font-weight:600}code{background:#eaf4f4;padding:2px 5px;border-radius:4px}
+  </style>
+</head>
+<body>
+  <span class="badge">仅 127.0.0.1 · 内存夹具 · 不接生产服务</span>
+  <h1>本地模拟控制台</h1>
+  <p>正在测试正式 uni-app 页面。账号、历史与 AI 响应为模拟数据；八字、紫微、六爻和奇门排盘仍调用原有浏览器算法。没有真实模型调用或邮件发送。</p>
+  <p><a href="http://127.0.0.1:{{FRONTEND_PORT}}/#/pages/agent/index" target="_blank" rel="noopener">打开正式前端</a> · 账号 <code>demo@example.test</code> · 密码 <code>Demo123!</code> · 注册验证码 <code>123456</code></p>
+  <section>
+    <h2>响应场景</h2>
+    <p>切换后，在前端重新加载页面或触发对应请求。场景切换不删除记录；「重置」恢复全部 56 条夹具并使现有登录失效。未登录场景会强制所有受保护接口及刷新返回 401；前端收到 401 后会清理登录态。</p>
+    <div id="scenarios" class="buttons"></div>
+    <label>加载延迟（毫秒）<input id="delay" type="number" min="0" max="15000" value="1800"><button id="save-delay">设置</button></label>
+    <div class="buttons"><button id="expire">仅使 Access Token 失效</button><button id="reset">重置全部模拟数据</button><button id="refresh">刷新状态</button></div>
+    <p id="status" class="status" role="status"></p>
+    <pre id="state" aria-label="模拟状态"></pre>
+  </section>
+  <section>
+    <h2>Agent 动作</h2>
+    <p>自动模式按输入中的关键词和出生信息生成固定动作。指定动作使用虚构样例输入；只用于测试动作执行流程。</p>
+    <label>下一次及后续响应<select id="agent"><option value="auto">按输入自动匹配</option><option value="none">仅回复</option><option value="navigate:bazi">打开八字</option><option value="navigate:ziwei">打开紫微</option><option value="navigate:liuyao">打开六爻</option><option value="navigate:history">打开历史</option><option value="run_bazi_chart">直接排八字</option><option value="run_ziwei_chart">直接排紫微</option><option value="run_liuyao_chart">直接排六爻</option><option value="focus_ziwei_palace">聚焦事业宫</option></select></label>
+    <p>可输入：<code>帮我排八字，男，1996-03-21 18:30</code>、<code>帮我排紫微，女，1996-03-21 18:30</code>、<code>按时间起卦，问换工作</code>、<code>查看历史记录</code>。</p>
+  </section>
+  <section><h2>最近请求</h2><p><small>只记录路由、查询参数、时间和状态码，不记录请求正文、账号密码或 token。</small></p><button id="logs">查看请求日志</button><pre id="requests">点击查看</pre></section>
+  <section><h2>AI 上下文核验</h2><p>仅本地模拟服务保留最近 20 次已授权 AI 请求的消息正文，便于核对盘面上下文。不保存请求头、密码或 token 字段；重置后清空。请使用虚构测试内容。</p><button id="chat-logs">查看 AI 请求上下文</button><pre id="chat-requests">点击查看</pre></section>
+  <script>
+    const labels={success:'成功',loading:'延迟加载',empty:'空历史',error:'服务失败',quota:'额度不足',unauthenticated:'未登录 / 已失效','stream-error':'流式错误','stream-interrupted':'流式中断'};
+    const status=document.getElementById('status');
+    async function api(path,body){const response=await fetch(path,{method:body?'POST':'GET',headers:{'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});const payload=await response.json();if(!response.ok)throw Error(payload.message||'操作失败');return payload;}
+    async function refresh(){const payload=await api('/__simulation/state');document.getElementById('state').textContent=JSON.stringify(payload.data,null,2);document.getElementById('delay').value=payload.data.delayMs;document.getElementById('agent').value=payload.data.agentAction;document.querySelectorAll('[data-scenario]').forEach(button=>button.classList.toggle('active',button.dataset.scenario===payload.data.scenario));}
+    async function perform(path,body){try{const result=await api(path,body);status.textContent=result.message;await refresh();}catch(error){status.textContent=error.message;}}
+    for(const [value,label]of Object.entries(labels)){const button=document.createElement('button');button.textContent=label;button.dataset.scenario=value;button.onclick=()=>perform('/__simulation/scenario',{scenario:value});document.getElementById('scenarios').append(button);}
+    document.getElementById('save-delay').onclick=()=>perform('/__simulation/scenario',{delayMs:Number(document.getElementById('delay').value)});
+    document.getElementById('agent').onchange=event=>perform('/__simulation/scenario',{agentAction:event.target.value});
+    document.getElementById('reset').onclick=()=>perform('/__simulation/reset',{});
+    document.getElementById('expire').onclick=()=>perform('/__simulation/expire-access',{});
+    document.getElementById('refresh').onclick=()=>refresh().catch(error=>status.textContent=error.message);
+    document.getElementById('logs').onclick=async()=>{try{document.getElementById('requests').textContent=JSON.stringify((await api('/__simulation/requests')).data.list,null,2);}catch(error){status.textContent=error.message;}};
+    document.getElementById('chat-logs').onclick=async()=>{try{document.getElementById('chat-requests').textContent=JSON.stringify((await api('/__simulation/chat-requests')).data.list,null,2);}catch(error){status.textContent=error.message;}};
+    refresh().catch(error=>status.textContent=error.message);
+  </script>
+</body>
+</html>

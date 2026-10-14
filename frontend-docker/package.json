@@ -20,7 +20,12 @@
     "lint:fix": "eslint --resolve-plugins-relative-to ./node_modules \"./src/**/*.{js,ts,vue,nvue}\" --fix",
     "format": "prettier --write \"./**/*.{js,ts,vue,nvue,json,md,scss,css}\"",
     "typecheck": "vue-tsc --noEmit",
-    "test": "node --test tests/*.test.cjs"
+    "test": "node --test tests/*.test.cjs",
+    "dev:ui-draft": "node ui-draft/run.cjs",
+    "build:ui-draft": "node ui-draft/run.cjs build",
+    "typecheck:ui-draft": "vue-tsc --noEmit -p ui-draft/tsconfig.json",
+    "dev:simulation": "node scripts/ui-simulation/run.cjs",
+    "simulation:api": "node scripts/ui-simulation/server.cjs"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-alpha-4080720251125001",

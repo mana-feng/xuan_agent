@@ -1,0 +1,10 @@
+{
+	"pages": [
+		{ "path": "pages/index/index", "style": { "navigationBarTitleText": "玄学 AI · Vue 交互草稿" } }
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"backgroundColor": "#f3fafb",
+		"enablePullDownRefresh": false
+	}
+}

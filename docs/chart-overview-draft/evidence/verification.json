@@ -1,0 +1,167 @@
+{
+  "palaceSelections": [
+    {
+      "type": "紫微",
+      "label": "查看兄弟详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看命宫详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看父母详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看福德详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看田宅详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看官禄详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看交友详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看迁移详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看疾厄详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看财帛详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看子女详情",
+      "pass": true
+    },
+    {
+      "type": "紫微",
+      "label": "查看夫妻详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看巽四宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看离九宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看坤二宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看震三宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看中五宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看兑七宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看艮八宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看坎一宫详情",
+      "pass": true
+    },
+    {
+      "type": "奇门",
+      "label": "查看乾六宫详情",
+      "pass": true
+    }
+  ],
+  "responsive": [
+    {
+      "chart": "紫微命盘",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 320
+    },
+    {
+      "chart": "奇门遁甲",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 320
+    },
+    {
+      "chart": "紫微命盘",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 390
+    },
+    {
+      "chart": "奇门遁甲",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 390
+    },
+    {
+      "chart": "紫微命盘",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 834
+    },
+    {
+      "chart": "奇门遁甲",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 834
+    },
+    {
+      "chart": "紫微命盘",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 1280
+    },
+    {
+      "chart": "奇门遁甲",
+      "clippedCells": 0,
+      "pageOverflow": false,
+      "width": 1280
+    }
+  ],
+  "interactionChecks": [
+    "board/list switch",
+    "extra stars and qimen markers",
+    "phone details dialog, Escape, focus and scroll restoration",
+    "mobile sidebar open and Escape",
+    "three gradient palettes"
+  ],
+  "simulationOnly": true
+}
