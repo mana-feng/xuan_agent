@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-10-13T06:38:02.965Z",
+  "backend": "http://127.0.0.1:3001",
+  "signatureEnabled": true,
+  "tests": [
+    {
+      "name": "unauthenticated save rejected",
+      "passed": true
+    },
+    {
+      "name": "unsigned save rejected with session auth intact",
+      "passed": true
+    },
+    {
+      "name": "signed create using calculated chart persists",
+      "passed": true
+    },
+    {
+      "name": "GET round trips timestamp, zone, version and every palace",
+      "passed": true
+    },
+    {
+      "name": "second account cannot read or update the first account record",
+      "passed": true
+    },
+    {
+      "name": "repeated identical PUT preserves record ID without duplicate",
+      "passed": true
+    },
+    {
+      "name": "unified history exposes only the current account records",
+      "passed": true
+    },
+    {
+      "name": "invalid timezone rejected",
+      "passed": true
+    },
+    {
+      "name": "mismatched epoch rejected",
+      "passed": true
+    },
+    {
+      "name": "temporary record can be deleted and cannot reopen",
+      "passed": true
+    }
+  ]
+}

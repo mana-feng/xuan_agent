@@ -1,0 +1,2701 @@
+✔ saved chart / edit / cache / export preserve birth zone and rule metadata (405.6217ms)
+✔ legacy records are marked unconfirmed instead of guessing a birth location (14.5985ms)
+✔ zone-only change invalidates the calculation cache (27.6474ms)
+✔ horoscope timeline stays on selected civil day for an overseas birth zone (26.9573ms)
+✔ civil editor honors chosen zone and does not normalize DST gaps (9.1066ms)
+✔ changing DST occurrence updates an already confirmed timestamp before submit (7.887ms)
+✖ runtime late Zi rolls the whole lunar year/month/day forward across New Year (23.2201ms)
+✖ pre-birth lunar years do not produce a fabricated decadal chart (57.6882ms)
+✖ exported scope focus stays on the same physical palace as the visible selection (408.6759ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 6
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1749.8017
+
+✖ failing tests:
+
+test at tests\ziwei-time-flow.test.cjs:76:1
+✖ runtime late Zi rolls the whole lunar year/month/day forward across New Year (23.2201ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2024-2-9'
+  - '2024-2-10'
+            ^
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-time-flow.test.cjs:80:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2024-2-9',
+    expected: '2024-2-10',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ziwei-time-flow.test.cjs:88:1
+✖ pre-birth lunar years do not produce a fabricated decadal chart (57.6882ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + FunctionalHoroscope {
+  +   age: {
+  +     earthlyBranch: 'zi',
+  +     heavenlyStem: 'jia',
+  +     index: -1,
+  +     mutagen: [
+  +       '廉贞',
+  +       '破军',
+  +       '武曲',
+  +       '太阳'
+  +     ],
+  +     name: '小限',
+  +     nominalAge: 0,
+  +     palaceNames: [
+  +       '父母',
+  +       '福德',
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄',
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟',
+  +       '命宫'
+  +     ]
+  +   },
+  +   agePalace: [Function (anonymous)],
+  +   astrolabe: FunctionalAstrolabe {
+  +     body: '天同',
+  +     chineseDate: '癸卯 乙卯 癸巳 戊午',
+  +     copyright: 'copyright © 2023-2026 iztro (https://github.com/SylarLong/iztro)',
+  +     earthlyBranchOfBodyPalace: '酉',
+  +     earthlyBranchOfSoulPalace: '酉',
+  +     fiveElementsClass: '木三局',
+  +     gender: '男',
+  +     horoscope: [Function (anonymous)],
+  +     isSurrounded: [Function (anonymous)],
+  +     isSurroundedOneOf: [Function (anonymous)],
+  +     lunarDate: '二〇二三年闰二月十五',
+  +     notSurrounded: [Function (anonymous)],
+  +     palace: [Function (anonymous)],
+  +     palaces: [
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天姚',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'flower',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天伤',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           2,
+  +           14,
+  +           26,
+  +           38,
+  +           50,
+  +           62,
+  +           74,
+  +           86,
+  +           98,
+  +           110
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '伏兵',
+  +         changsheng12: '绝',
+  +         decadal: {
+  +           earthlyBranch: '寅',
+  +           heavenlyStem: '甲',
+  +           range: [
+  +             73,
+  +             82
+  +           ]
+  +         },
+  +         earthlyBranch: '寅',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '甲',
+  +         index: 0,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '亡神',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '得',
+  +             mutagen: '',
+  +             name: '武曲',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '天相',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '仆役',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '病符'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天哭',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           3,
+  +           15,
+  +           27,
+  +           39,
+  +           51,
+  +           63,
+  +           75,
+  +           87,
+  +           99,
+  +           111
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '大耗',
+  +         changsheng12: '墓',
+  +         decadal: {
+  +           earthlyBranch: '卯',
+  +           heavenlyStem: '乙',
+  +           range: [
+  +             63,
+  +             72
+  +           ]
+  +         },
+  +         earthlyBranch: '卯',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '乙',
+  +         index: 1,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '将星',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '太阳',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '天梁',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '天魁',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '利',
+  +             mutagen: undefined,
+  +             name: '火星',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '迁移',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '岁建'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天空',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天使',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           4,
+  +           16,
+  +           28,
+  +           40,
+  +           52,
+  +           64,
+  +           76,
+  +           88,
+  +           100,
+  +           112
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '病符',
+  +         changsheng12: '死',
+  +         decadal: {
+  +           earthlyBranch: '辰',
+  +           heavenlyStem: '丙',
+  +           range: [
+  +             53,
+  +             62
+  +           ]
+  +         },
+  +         earthlyBranch: '辰',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '丙',
+  +         index: 2,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '攀鞍',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '七杀',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '得',
+  +             mutagen: '',
+  +             name: '文昌',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '陷',
+  +             mutagen: undefined,
+  +             name: '铃星',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '疾厄',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '晦气'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '恩光',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天福',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天月',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '旬空',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '孤辰',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '蜚廉',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '破碎',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           5,
+  +           17,
+  +           29,
+  +           41,
+  +           53,
+  +           65,
+  +           77,
+  +           89,
+  +           101,
+  +           113
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '喜神',
+  +         changsheng12: '病',
+  +         decadal: {
+  +           earthlyBranch: '巳',
+  +           heavenlyStem: '丁',
+  +           range: [
+  +             43,
+  +             52
+  +           ]
+  +         },
+  +         earthlyBranch: '巳',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '丁',
+  +         index: 3,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '岁驿',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '平',
+  +             mutagen: '',
+  +             name: '天机',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: '',
+  +             name: '左辅',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '天钺',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '天马',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tianma',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '地空',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '地劫',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '财帛',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '丧门'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天喜',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'flower',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天官',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           6,
+  +           18,
+  +           30,
+  +           42,
+  +           54,
+  +           66,
+  +           78,
+  +           90,
+  +           102,
+  +           114
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '飞廉',
+  +         changsheng12: '衰',
+  +         decadal: {
+  +           earthlyBranch: '午',
+  +           heavenlyStem: '戊',
+  +           range: [
+  +             33,
+  +             42
+  +           ]
+  +         },
+  +         earthlyBranch: '午',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '戊',
+  +         index: 4,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '息神',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '紫微',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '子女',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '贯索'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '三台',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '八座',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '龙池',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '凤阁',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '华盖',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '年解',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'helper',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           7,
+  +           19,
+  +           31,
+  +           43,
+  +           55,
+  +           67,
+  +           79,
+  +           91,
+  +           103,
+  +           115
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '奏书',
+  +         changsheng12: '帝旺',
+  +         decadal: {
+  +           earthlyBranch: '未',
+  +           heavenlyStem: '己',
+  +           range: [
+  +             23,
+  +             32
+  +           ]
+  +         },
+  +         earthlyBranch: '未',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '己',
+  +         index: 5,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '华盖',
+  +         majorStars: [],
+  +         minorStars: [],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '夫妻',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '官符'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '解神',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'helper',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '封诰',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天巫',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '月德',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           8,
+  +           20,
+  +           32,
+  +           44,
+  +           56,
+  +           68,
+  +           80,
+  +           92,
+  +           104,
+  +           116
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '将军',
+  +         changsheng12: '临官',
+  +         decadal: {
+  +           earthlyBranch: '申',
+  +           heavenlyStem: '庚',
+  +           range: [
+  +             13,
+  +             22
+  +           ]
+  +         },
+  +         earthlyBranch: '申',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '庚',
+  +         index: 6,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '劫煞',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '得',
+  +             mutagen: '禄',
+  +             name: '破军',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '兄弟',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '小耗'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天虚',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           9,
+  +           21,
+  +           33,
+  +           45,
+  +           57,
+  +           69,
+  +           81,
+  +           93,
+  +           105,
+  +           117
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '小耗',
+  +         changsheng12: '冠带',
+  +         decadal: {
+  +           earthlyBranch: '酉',
+  +           heavenlyStem: '辛',
+  +           range: [
+  +             3,
+  +             12
+  +           ]
+  +         },
+  +         earthlyBranch: '酉',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '辛',
+  +         index: 7,
+  +         isBodyPalace: true,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '灾煞',
+  +         majorStars: [],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: '',
+  +             name: '右弼',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '命宫',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '大耗'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天刑',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           10,
+  +           22,
+  +           34,
+  +           46,
+  +           58,
+  +           70,
+  +           82,
+  +           94,
+  +           106,
+  +           118
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '青龙',
+  +         changsheng12: '沐浴',
+  +         decadal: {
+  +           earthlyBranch: '戌',
+  +           heavenlyStem: '壬',
+  +           range: [
+  +             113,
+  +             122
+  +           ]
+  +         },
+  +         earthlyBranch: '戌',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '壬',
+  +         index: 8,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '天煞',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '利',
+  +             mutagen: '',
+  +             name: '廉贞',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '',
+  +             name: '天府',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '陷',
+  +             mutagen: '',
+  +             name: '文曲',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'soft',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '父母',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '龙德'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天贵',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天厨',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           11,
+  +           23,
+  +           35,
+  +           47,
+  +           59,
+  +           71,
+  +           83,
+  +           95,
+  +           107,
+  +           119
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '力士',
+  +         changsheng12: '长生',
+  +         decadal: {
+  +           earthlyBranch: '亥',
+  +           heavenlyStem: '癸',
+  +           range: [
+  +             103,
+  +             112
+  +           ]
+  +         },
+  +         earthlyBranch: '亥',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '癸',
+  +         index: 9,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: true,
+  +         jiangqian12: '指背',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: '科',
+  +             name: '太阴',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '陷',
+  +             mutagen: undefined,
+  +             name: '陀罗',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '福德',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '白虎'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '红鸾',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'flower',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '咸池',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'flower',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天才',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天寿',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '台辅',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '天德',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '截路',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '阴煞',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           12,
+  +           24,
+  +           36,
+  +           48,
+  +           60,
+  +           72,
+  +           84,
+  +           96,
+  +           108,
+  +           120
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '博士',
+  +         changsheng12: '养',
+  +         decadal: {
+  +           earthlyBranch: '子',
+  +           heavenlyStem: '甲',
+  +           range: [
+  +             93,
+  +             102
+  +           ]
+  +         },
+  +         earthlyBranch: '子',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '甲',
+  +         index: 10,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '咸池',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '旺',
+  +             mutagen: '忌',
+  +             name: '贪狼',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '',
+  +             mutagen: undefined,
+  +             name: '禄存',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'lucun',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '田宅',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '天德'
+  +       },
+  +       FunctionalPalace {
+  +         adjectiveStars: [
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '空亡',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: undefined,
+  +             mutagen: undefined,
+  +             name: '寡宿',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'adjective',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         ages: [
+  +           1,
+  +           13,
+  +           25,
+  +           37,
+  +           49,
+  +           61,
+  +           73,
+  +           85,
+  +           97,
+  +           109
+  +         ],
+  +         astrolabe: [Function (anonymous)],
+  +         boshi12: '官府',
+  +         changsheng12: '胎',
+  +         decadal: {
+  +           earthlyBranch: '丑',
+  +           heavenlyStem: '乙',
+  +           range: [
+  +             83,
+  +             92
+  +           ]
+  +         },
+  +         earthlyBranch: '丑',
+  +         fliesOneOfTo: [Function (anonymous)],
+  +         fliesTo: [Function (anonymous)],
+  +         has: [Function (anonymous)],
+  +         hasMutagen: [Function (anonymous)],
+  +         hasOneOf: [Function (anonymous)],
+  +         heavenlyStem: '乙',
+  +         index: 11,
+  +         isBodyPalace: false,
+  +         isEmpty: [Function (anonymous)],
+  +         isOriginalPalace: false,
+  +         jiangqian12: '月煞',
+  +         majorStars: [
+  +           FunctionalStar {
+  +             brightness: '不',
+  +             mutagen: '',
+  +             name: '天同',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           },
+  +           FunctionalStar {
+  +             brightness: '不',
+  +             mutagen: '权',
+  +             name: '巨门',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'major',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         minorStars: [
+  +           FunctionalStar {
+  +             brightness: '庙',
+  +             mutagen: undefined,
+  +             name: '擎羊',
+  +             oppositePalace: [Function (anonymous)],
+  +             palace: [Function (anonymous)],
+  +             scope: 'origin',
+  +             setAstrolabe: [Function (anonymous)],
+  +             setPalace: [Function (anonymous)],
+  +             surroundedPalaces: [Function (anonymous)],
+  +             type: 'tough',
+  +             withBrightness: [Function (anonymous)],
+  +             withMutagen: [Function (anonymous)]
+  +           }
+  +         ],
+  +         mutagedPlaces: [Function (anonymous)],
+  +         name: '官禄',
+  +         notFlyTo: [Function (anonymous)],
+  +         notHave: [Function (anonymous)],
+  +         notHaveMutagen: [Function (anonymous)],
+  +         notSelfMutaged: [Function (anonymous)],
+  +         selfMutaged: [Function (anonymous)],
+  +         selfMutagedOneOf: [Function (anonymous)],
+  +         setAstrolabe: [Function (anonymous)],
+  +         suiqian12: '吊客'
+  +       }
+  +     ],
+  +     plugins: [],
+  +     rawDates: {
+  +       chineseDate: {
+  +         daily: [
+  +           '癸',
+  +           '巳'
+  +         ],
+  +         hourly: [
+  +           '戊',
+  +           '午'
+  +         ],
+  +         monthly: [
+  +           '乙',
+  +           '卯'
+  +         ],
+  +         toString: [Function: toString],
+  +         yearly: [
+  +           '癸',
+  +           '卯'
+  +         ]
+  +       },
+  +       lunarDate: {
+  +         isLeap: true,
+  +         lunarDay: 15,
+  +         lunarMonth: 2,
+  +         lunarYear: 2023,
+  +         toString: [Function: toString]
+  +       }
+  +     },
+  +     sign: '白羊座',
+  +     solarDate: '2023-04-05',
+  +     soul: '文曲',
+  +     star: [Function (anonymous)],
+  +     surroundedPalaces: [Function (anonymous)],
+  +     time: '午时',
+  +     timeRange: '11:00~13:00',
+  +     zodiac: '兔'
+  +   },
+  +   daily: {
+  +     earthlyBranch: '卯',
+  +     heavenlyStem: '己',
+  +     index: 9,
+  +     mutagen: [
+  +       '武曲',
+  +       '贪狼',
+  +       '天梁',
+  +       '文曲'
+  +     ],
+  +     name: '流日',
+  +     palaceNames: [
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄',
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟',
+  +       '命宫',
+  +       '父母',
+  +       '福德'
+  +     ],
+  +     stars: [
+  +       [],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日曲',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日陀',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日马',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tianma',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日禄',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'lucun',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日喜',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日羊',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日钺',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日昌',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日魁',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '日鸾',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'daily',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       []
+  +     ]
+  +   },
+  +   decadal: {
+  +     earthlyBranch: '子',
+  +     heavenlyStem: 'jia',
+  +     index: -1,
+  +     mutagen: [
+  +       '廉贞',
+  +       '破军',
+  +       '武曲',
+  +       '太阳'
+  +     ],
+  +     name: '大限',
+  +     palaceNames: [
+  +       '父母',
+  +       '福德',
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄',
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟',
+  +       '命宫'
+  +     ],
+  +     stars: [
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运禄',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'lucun',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运马',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tianma',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运羊',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运鸾',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运昌',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运钺',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运曲',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运喜',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运魁',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '运陀',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'decadal',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ]
+  +     ]
+  +   },
+  +   hasHoroscopeMutagen: [Function (anonymous)],
+  +   hasHoroscopeStars: [Function (anonymous)],
+  +   hasOneOfHoroscopeStars: [Function (anonymous)],
+  +   hourly: {
+  +     earthlyBranch: '子',
+  +     heavenlyStem: '甲',
+  +     index: 9,
+  +     mutagen: [
+  +       '廉贞',
+  +       '破军',
+  +       '武曲',
+  +       '太阳'
+  +     ],
+  +     name: '流时',
+  +     palaceNames: [
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄',
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟',
+  +       '命宫',
+  +       '父母',
+  +       '福德'
+  +     ],
+  +     stars: [
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时禄',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'lucun',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时马',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tianma',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时羊',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时鸾',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时昌',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时钺',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时曲',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时喜',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时魁',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '时陀',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'hourly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ]
+  +     ]
+  +   },
+  +   lunarDate: '二〇二二年腊月三十',
+  +   monthly: {
+  +     earthlyBranch: '丑',
+  +     heavenlyStem: '癸',
+  +     index: 4,
+  +     mutagen: [
+  +       '破军',
+  +       '巨门',
+  +       '太阴',
+  +       '贪狼'
+  +     ],
+  +     name: '流月',
+  +     palaceNames: [
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟',
+  +       '命宫',
+  +       '父母',
+  +       '福德',
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄'
+  +     ],
+  +     stars: [
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月鸾',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月魁',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月昌',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月钺',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月喜',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月曲',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月陀',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月马',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tianma',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月禄',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'lucun',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '月羊',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'monthly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ]
+  +     ]
+  +   },
+  +   notHaveHoroscopeStars: [Function (anonymous)],
+  +   palace: [Function (anonymous)],
+  +   solarDate: '2023-1-21',
+  +   surroundPalaces: [Function (anonymous)],
+  +   yearly: {
+  +     earthlyBranch: '寅',
+  +     heavenlyStem: '壬',
+  +     index: 0,
+  +     mutagen: [
+  +       '天梁',
+  +       '紫微',
+  +       '左辅',
+  +       '武曲'
+  +     ],
+  +     name: '流年',
+  +     palaceNames: [
+  +       '命宫',
+  +       '父母',
+  +       '福德',
+  +       '田宅',
+  +       '官禄',
+  +       '仆役',
+  +       '迁移',
+  +       '疾厄',
+  +       '财帛',
+  +       '子女',
+  +       '夫妻',
+  +       '兄弟'
+  +     ],
+  +     stars: [
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流昌',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流魁',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流钺',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流喜',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '年解',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'helper',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流马',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tianma',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流陀',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流禄',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'lucun',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流曲',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'soft',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         },
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流羊',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'tough',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ],
+  +       [
+  +         FunctionalStar {
+  +           brightness: undefined,
+  +           mutagen: undefined,
+  +           name: '流鸾',
+  +           oppositePalace: [Function (anonymous)],
+  +           palace: [Function (anonymous)],
+  +           scope: 'yearly',
+  +           setAstrolabe: [Function (anonymous)],
+  +           setPalace: [Function (anonymous)],
+  +           surroundedPalaces: [Function (anonymous)],
+  +           type: 'flower',
+  +           withBrightness: [Function (anonymous)],
+  +           withMutagen: [Function (anonymous)]
+  +         }
+  +       ]
+  +     ],
+  +     yearlyDecStar: {
+  +       jiangqian12: [
+  +         '指背',
+  +         '咸池',
+  +         '月煞',
+  +         '亡神',
+  +         '将星',
+  +         '攀鞍',
+  +         '岁驿',
+  +         '息神',
+  +         '华盖',
+  +         '劫煞',
+  +         '灾煞',
+  +         '天煞'
+  +       ],
+  +       suiqian12: [
+  +         '岁建',
+  +         '晦气',
+  +         '丧门',
+  +         '贯索',
+  +         '官符',
+  +         '小耗',
+  +         '大耗',
+  +         '龙德',
+  +         '白虎',
+  +         '天德',
+  +         '吊客',
+  +         '病符'
+  +       ]
+  +     }
+  +   }
+  + }
+  - null
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-time-flow.test.cjs:91:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [FunctionalHoroscope],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ziwei-time-flow.test.cjs:96:1
+✖ exported scope focus stays on the same physical palace as the visible selection (408.6759ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  8 !== 0
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-time-flow.test.cjs:100:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 8,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

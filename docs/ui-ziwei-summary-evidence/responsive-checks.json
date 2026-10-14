@@ -1,0 +1,62 @@
+[
+  {
+    "cardHeight": 234,
+    "columns": "258px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 320
+  },
+  {
+    "cardHeight": 234,
+    "columns": "316px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 390
+  },
+  {
+    "cardHeight": 234,
+    "columns": "634px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 720
+  },
+  {
+    "cardHeight": 96,
+    "columns": "182.188px 218.625px 182.188px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 721
+  },
+  {
+    "cardHeight": 96,
+    "columns": "276.875px 332.25px 276.875px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 1024
+  },
+  {
+    "cardHeight": 96,
+    "columns": "279.375px 335.25px 279.375px",
+    "pageOverflow": false,
+    "valueSizes": [
+      "14px"
+    ],
+    "valuesClipped": false,
+    "width": 1280
+  }
+]

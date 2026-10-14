@@ -1,0 +1,341 @@
+{
+  "checkedAt": "2026-10-13T06:43:47.810Z",
+  "records": [
+    {
+      "id": 1,
+      "user_id": 11,
+      "name": "真实联调·手机·2026元旦",
+      "birth_datetime": "2025-12-31T16:00:00.000Z",
+      "raw_payload": {
+        "module": "qimen",
+        "version": 1,
+        "input": {
+          "question": "真实联调·手机·2026元旦",
+          "timestamp": 1767196800000,
+          "timeZone": "Asia/Shanghai",
+          "ruleVersion": "qimen-chai-bu-v1",
+          "recordId": 1
+        },
+        "snapshot": {
+          "basicInfo": {
+            "date": "2026-01-01 00:00:00 星期四 (元旦节) 摩羯座",
+            "lunarDate": "二〇二五年冬月十三",
+            "type": "四柱",
+            "method": "时家",
+            "purpose": "综合",
+            "location": "默认位置"
+          },
+          "siZhu": {
+            "year": "乙巳",
+            "month": "戊子",
+            "day": "乙亥",
+            "time": "丙子"
+          },
+          "juShu": {
+            "jieQiName": "冬至",
+            "type": "yang",
+            "number": "4",
+            "yuan": "下元",
+            "fullName": "阳遁4局 (下元)",
+            "formatCode": "yang-4"
+          },
+          "xunShou": "己",
+          "dayXunShou": "己",
+          "luoGongGan": "丙",
+          "sanQiLiuYi": {
+            "1": "丁",
+            "2": "丙",
+            "3": "乙",
+            "4": "戊",
+            "5": "己",
+            "6": "庚",
+            "7": "辛",
+            "8": "壬",
+            "9": "癸"
+          },
+          "tianPan": {
+            "1": "丁",
+            "2": "丙",
+            "3": "乙",
+            "4": "戊",
+            "5": "己",
+            "6": "庚",
+            "7": "辛",
+            "8": "壬",
+            "9": "癸"
+          },
+          "jiuXing": {
+            "1": "天蓬",
+            "2": "禽芮",
+            "3": "天冲",
+            "4": "天辅",
+            "5": "",
+            "6": "天心",
+            "7": "天柱",
+            "8": "天任",
+            "9": "天英"
+          },
+          "baMen": {
+            "1": "开门",
+            "2": "景门",
+            "3": "生门",
+            "4": "伤门",
+            "5": "",
+            "6": "惊门",
+            "7": "死门",
+            "8": "休门",
+            "9": "杜门"
+          },
+          "baShen": {
+            "1": "六合",
+            "2": "值符",
+            "3": "玄武",
+            "4": "九地",
+            "5": "",
+            "6": "太阴",
+            "7": "腾蛇",
+            "8": "白虎",
+            "9": "九天"
+          },
+          "diPan": {
+            "1": "丁",
+            "2": "丙",
+            "3": "乙",
+            "4": "戊",
+            "5": "己",
+            "6": "庚",
+            "7": "辛",
+            "8": "壬",
+            "9": "癸"
+          },
+          "anGan": {
+            "1": "己",
+            "2": "庚",
+            "3": "辛",
+            "4": "壬",
+            "5": "癸",
+            "6": "丁",
+            "7": "丙",
+            "8": "乙",
+            "9": "戊"
+          },
+          "zhiFuGong": "2",
+          "zhiFuYuanGong": "2",
+          "zhiFuXing": "天芮",
+          "zhiShiGong": "7",
+          "zhiShiMen": "死门",
+          "kongWangZhi": [
+            "申",
+            "酉"
+          ],
+          "kongWangGong": [
+            "2",
+            "7"
+          ],
+          "maStar": {
+            "zhi": "寅",
+            "gong": "8"
+          },
+          "metadata": {
+            "id": "qimen-chai-bu-v1",
+            "engine": "qfdk/qimen",
+            "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+            "patch": "xuan-1",
+            "method": "时家转盘·符头拆补",
+            "clock": "北京时间 UTC+08:00",
+            "dayDivide": "23:00",
+            "solarTerms": "exact",
+            "center": "中五寄坤二，天禽随芮",
+            "inputZone": "Asia/Shanghai",
+            "inputCivil": "2026-01-01 00:00:00",
+            "calculationCivil": "2026-01-01 00:00:00",
+            "timestamp": 1767196800000
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "user_id": 12,
+      "name": "真实联调·平板·纽约夏令时回拨·已更新",
+      "birth_datetime": "2026-11-01T06:30:00.000Z",
+      "raw_payload": {
+        "module": "qimen",
+        "version": 1,
+        "input": {
+          "question": "真实联调·平板·纽约夏令时回拨·已更新",
+          "timestamp": 1793514600000,
+          "timeZone": "America/New_York",
+          "ruleVersion": "qimen-chai-bu-v1",
+          "recordId": 2
+        },
+        "snapshot": {
+          "basicInfo": {
+            "date": "2026-11-01 14:30:00 星期日 (万圣节) 天蝎座",
+            "lunarDate": "二〇二六年九月廿三",
+            "type": "四柱",
+            "method": "时家",
+            "purpose": "综合",
+            "location": "默认位置"
+          },
+          "siZhu": {
+            "year": "丙午",
+            "month": "戊戌",
+            "day": "己卯",
+            "time": "辛未"
+          },
+          "juShu": {
+            "jieQiName": "霜降",
+            "type": "yin",
+            "number": "5",
+            "yuan": "上元",
+            "fullName": "阴遁5局 (上元)",
+            "formatCode": "yin-5"
+          },
+          "xunShou": "戊",
+          "dayXunShou": "己",
+          "luoGongGan": "辛",
+          "sanQiLiuYi": {
+            "1": "壬",
+            "2": "辛",
+            "3": "庚",
+            "4": "己",
+            "5": "戊",
+            "6": "乙",
+            "7": "丙",
+            "8": "丁",
+            "9": "癸"
+          },
+          "tianPan": {
+            "1": "壬",
+            "2": "辛",
+            "3": "庚",
+            "4": "己",
+            "5": "戊",
+            "6": "乙",
+            "7": "丙",
+            "8": "丁",
+            "9": "癸"
+          },
+          "jiuXing": {
+            "1": "天蓬",
+            "2": "禽芮",
+            "3": "天冲",
+            "4": "天辅",
+            "5": "",
+            "6": "天心",
+            "7": "天柱",
+            "8": "天任",
+            "9": "天英"
+          },
+          "baMen": {
+            "1": "开门",
+            "2": "景门",
+            "3": "生门",
+            "4": "伤门",
+            "5": "",
+            "6": "惊门",
+            "7": "死门",
+            "8": "休门",
+            "9": "杜门"
+          },
+          "baShen": {
+            "1": "玄武",
+            "2": "值符",
+            "3": "六合",
+            "4": "太阴",
+            "5": "",
+            "6": "九地",
+            "7": "九天",
+            "8": "白虎",
+            "9": "腾蛇"
+          },
+          "diPan": {
+            "1": "壬",
+            "2": "辛",
+            "3": "庚",
+            "4": "己",
+            "5": "戊",
+            "6": "乙",
+            "7": "丙",
+            "8": "丁",
+            "9": "癸"
+          },
+          "anGan": {
+            "1": "戊",
+            "2": "乙",
+            "3": "丙",
+            "4": "丁",
+            "5": "癸",
+            "6": "壬",
+            "7": "辛",
+            "8": "庚",
+            "9": "己"
+          },
+          "zhiFuGong": "2",
+          "zhiFuYuanGong": "2",
+          "zhiFuXing": "天芮",
+          "zhiShiGong": "7",
+          "zhiShiMen": "死门",
+          "kongWangZhi": [
+            "戌",
+            "亥"
+          ],
+          "kongWangGong": [
+            "6",
+            "6"
+          ],
+          "maStar": {
+            "zhi": "巳",
+            "gong": "4"
+          },
+          "metadata": {
+            "id": "qimen-chai-bu-v1",
+            "engine": "qfdk/qimen",
+            "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+            "patch": "xuan-1",
+            "method": "时家转盘·符头拆补",
+            "clock": "北京时间 UTC+08:00",
+            "dayDivide": "23:00",
+            "solarTerms": "exact",
+            "center": "中五寄坤二，天禽随芮",
+            "inputZone": "America/New_York",
+            "inputCivil": "2026-11-01 01:30:00",
+            "calculationCivil": "2026-11-01 14:30:00",
+            "timestamp": 1793514600000
+          }
+        }
+      }
+    }
+  ],
+  "quota": [
+    {
+      "user_id": 11,
+      "remaining_daily_count": 9
+    },
+    {
+      "user_id": 12,
+      "remaining_daily_count": 8
+    }
+  ],
+  "usage": [
+    {
+      "id": 12,
+      "user_id": 11,
+      "tokens_used": 0,
+      "created_at": "2026-10-13T06:32:35.000Z"
+    },
+    {
+      "id": 13,
+      "user_id": 12,
+      "tokens_used": 1570,
+      "created_at": "2026-10-13T06:40:17.000Z"
+    },
+    {
+      "id": 14,
+      "user_id": 12,
+      "tokens_used": 1652,
+      "created_at": "2026-10-13T06:42:44.000Z"
+    }
+  ]
+}

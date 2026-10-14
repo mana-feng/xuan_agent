@@ -1,0 +1,49 @@
+- button "展开导航": ☰
+- generic: AI 对话
+- button "选择渐变配色": 青蓝流光⌄
+- button "用户菜单":
+  - generic: Q
+  - generic: 
+- heading "带着命盘，继续探索" [level=1]
+- paragraph: 已关联奇门盘局 · 结合盘面和你的问题，让思路一点点清晰。
+- generic: AI 对话
+- generic: 把盘面与生活经验，放在一起聊聊。
+- generic: 剩余次数： 8
+- button "恢复对话"
+- button "保存对话"
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 14:39
+- generic: 已完成
+- generic: AI
+- generic: 已为您加载奇门盘局，您可以结合所问之事，让 AI 为您解读九宫、星门与时机。
+- generic: 14:39
+- generic: 已完成
+- generic: 我
+- generic: 这是接口核对测试，请只根据所携奇门盘回答：输入时区及当地时间、北京时间、阴阳遁和局数、值符星及落宫、值使门及落宫。只列字段，不作预测。
+- generic: 14:39
+- generic: AI
+- text: "* **输入时区及当地时间**: America/New_York, 2026-11-01 01:30:00"
+- text: "* **北京时间**: 2026-11-01 14:30:00"
+- text: "* **阴阳遁和局数**: 阴遁5局"
+- text: "* **值符星及落宫**: 天芮, 2宫"
+- text: "* **值使门及落宫**: 死门, 7宫"
+- generic: 14:39
+- generic: 已完成
+- generic: 我
+- generic: 继续核对同一张奇门盘，请用一句话说明北京时间和局数，不使用 Markdown。
+- generic: 14:41
+- generic: AI
+- generic: 调用失败：上游服务连接异常，请稍后重试或在后台切换可用模型
+- generic: 14:41
+- generic: 未完成
+- generic: 我
+- generic: 继续核对同一张奇门盘，请用一句话说明北京时间和局数，不使用 Markdown。
+- generic: 14:42
+- generic: AI
+- generic: 北京时间2026年11月1日14:30:00，阴遁5局。
+- generic: 14:42
+- generic: 已完成
+- generic: 想进一步了解什么？
+- textbox
+- button "发送" [disabled] [active]

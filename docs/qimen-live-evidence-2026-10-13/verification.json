@@ -1,0 +1,104 @@
+{
+  "verifiedAt": "2026-10-13T06:43:48.151Z",
+  "workspace": "F:/github/xuan_agent",
+  "branch": "main",
+  "scope": [
+    "frontend-docker",
+    "backend-docker"
+  ],
+  "frontendOnlyModified": false,
+  "environment": {
+    "frontend": "http://127.0.0.1:4177",
+    "backend": "http://127.0.0.1:3001",
+    "database": "MySQL 8.4.11 / bazi_e2e / 127.0.0.1:13306",
+    "model": "qwen3.8:latest (existing project configuration)",
+    "modelApi": "http://127.0.0.1:11439/v1/chat/completions",
+    "runtime": "llama.cpp b11429 Vulkan",
+    "auth": true,
+    "signatures": true,
+    "mockedApi": false,
+    "mockedModel": false
+  },
+  "browser": {
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 834,
+        "height": 1112,
+        "horizontalOverflow": false
+      }
+    ],
+    "nativeDevicesTested": false
+  },
+  "flows": {
+    "phone": {
+      "recordId": 1,
+      "save": true,
+      "reopen": true,
+      "updateWithoutDuplicate": true,
+      "realAI": true,
+      "modelFieldsMatch": true,
+      "expiredTokenRefreshPreservesContext": true
+    },
+    "tablet": {
+      "recordId": 2,
+      "save": true,
+      "refreshRestore": true,
+      "historyReopen": true,
+      "editPreservesLateDST": true,
+      "updateWithoutDuplicate": true,
+      "realAI": true,
+      "modelFieldsMatch": true
+    },
+    "failureRecovery": {
+      "realModelStopped": true,
+      "httpStatus": 502,
+      "quotaBefore": 9,
+      "quotaAfterFailure": 9,
+      "loggedOut": false,
+      "retryHttpStatus": 200,
+      "quotaAfterRetry": 8,
+      "sameContext": true
+    }
+  },
+  "fixed": {
+    "issue": "OpenAI-compatible real stream and non-stream responses discarded token usage",
+    "evidenceBefore": {
+      "usageId": 12,
+      "tokensStored": 0,
+      "modelTotal": 1510
+    },
+    "evidenceAfter": [
+      {
+        "usageId": 13,
+        "input": 1458,
+        "output": 112,
+        "stored": 1570
+      },
+      {
+        "usageId": 14,
+        "input": 1626,
+        "output": 26,
+        "stored": 1652
+      }
+    ],
+    "otherProvidersNativeTokenAccounting": "unchanged; not covered by this fix"
+  },
+  "tests": {
+    "realApiChecks": 10,
+    "frontendPassed": 211,
+    "backendPassed": 93,
+    "targetedReviewPassed": 49,
+    "diffCheck": "passed"
+  },
+  "limits": [
+    "Local real MySQL and local real model; no production deployment or cloud provider acceptance",
+    "Phone/tablet browser viewport tests, not physical devices",
+    "Checks demonstrate saved-chart fidelity and context extraction, not predictive validity",
+    "Historical zero-token row kept as pre-fix evidence; no invented backfill"
+  ]
+}

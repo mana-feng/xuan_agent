@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-13",
+  "surface": "http://127.0.0.1:4174/",
+  "environment": "Formal Vue H5 source with isolated mock account/API; real local chart calculation",
+  "formViewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "documentScrollWidth": 390
+    },
+    {
+      "width": 834,
+      "height": 1112,
+      "documentScrollWidth": 834
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "documentScrollWidth": 1280
+    }
+  ],
+  "resultViewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "documentScrollWidth": 390,
+      "palaces": 12
+    },
+    {
+      "width": 834,
+      "height": 1112,
+      "documentScrollWidth": 834,
+      "palaces": 12
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "documentScrollWidth": 1280,
+      "palaces": 12
+    }
+  ],
+  "browserChecks": [
+    "Birth editor applied 2023-04-05 23:00, Asia/Shanghai, male",
+    "Form showed civil lunar leap second month day 15; result showed calculation day 16 and visible next-day late-Zi explanation",
+    "Expanded and collapsed time settings",
+    "Clicked second decadal period; heading and compact palace labels followed decadal scope",
+    "Opened and closed all 12 palace dialogs; each retained small-limit ages, relation summary and flying transformations",
+    "Escape dismissed palace dialog and restored focus to expansion button",
+    "Final full reload retained the real result, with no new console warnings or errors",
+    "Temporary viewport override reset at end",
+    "Clicked all 13 months of lunar 2033; every selection had exactly one active month, including regular and leap eleventh month",
+    "Flow scope transformations visible on their actual natal stars at mobile, tablet and desktop widths",
+    "Monthly 官禄 selection highlights physical 官禄/命宫/夫妻/财帛 palaces and live dialog flying transformations",
+    "Qimen fixture 2026-01-01 00:00 Asia/Shanghai matched all nine palace details: gods/stars/doors/heaven/earth/hidden stems (54 field checks)",
+    "Qimen visible annotations matched void palaces 2 and 7, horse palace 8, and Tianqin lodging at palace 2",
+    "Qimen 388px and 832px inner preview widths had scroll widths 373px and 817px: no overflow; mobile modal opened and closed successfully"
+  ],
+  "browserRegressionFixes": [
+    "Compact dynamic label previously chose hourly label during decadal view; new selected-scope regression test and browser recheck pass",
+    "Mobile palace dialog previously omitted relation summary; DOM count 0 reproduced, then all 12 dialogs showed summary and flying transformations",
+    "Wrong physical three-harmony query during flow view",
+    "Flow transformation badges incorrectly filtered out",
+    "First-open palace dialog retained stale flying-transform data",
+    "Leap and regular lunar months shared an active token"
+  ],
+  "automatedChecks": {
+    "tests": {
+      "total": 169,
+      "passed": 169,
+      "failed": 0,
+      "log": "tests.txt"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "typecheck.txt"
+    },
+    "h5Build": {
+      "exitCode": 0,
+      "log": "build.txt"
+    },
+    "scopedGitDiffCheck": {
+      "exitCode": 0
+    }
+  },
+  "limitations": [
+    "Browser viewport checks do not certify native mobile apps or physical devices",
+    "Mock APIs are not proof of production account, persistence or AI model acceptance",
+    "Charts in before/after screenshots may use different synthetic input cases",
+    "Console had transient warnings while source was being hot-updated; none appeared after the final full reload"
+  ],
+  "additionalAlgorithmChecks": {
+    "natal": {
+      "inputs": 18433,
+      "fields": 6930991,
+      "unresolved": 0,
+      "brightnessErrorsAfterFix": 0
+    },
+    "flows": {
+      "inputs": 4788,
+      "fields": 902676,
+      "unresolved": 0,
+      "extendedEndpointFields": 19664,
+      "extendedEndpointUnresolved": 0,
+      "skipped": 0
+    },
+    "timezones": {
+      "inputs": 27300,
+      "zones": 13,
+      "differences": 0
+    },
+    "qimen": {
+      "charts": 707,
+      "jpl2026Terms": 24,
+      "jplBoundaryCases": 48
+    },
+    "independentReview": "review.txt"
+  },
+  "finalPass": {
+    "tests": 169,
+    "typecheckExitCode": 0,
+    "h5BuildExitCode": 0,
+    "browserConsoleWarnings": 0,
+    "browserConsoleErrors": 0,
+    "finalBrowserCheck": "final-browser-check.json",
+    "temporaryViewportReset": true
+  },
+  "finalSourceHashes": {
+    "src/pages/ziwei/result.nvue": "b772424b941b6f89cedbbe4410f0e522b111b189dc152416226f62ec7c4431fc",
+    "src/pages/ziwei/components/Timeline.nvue": "e79e0feb3a53eadc25b2b60af1d7f7c6dfee39f2f99f1c6aa921b35b8ff82f78",
+    "src/utils/ziweiCalculation.ts": "fd45ef08fe7baa85cc965f49751e43b6a6410a86551a7e7b5010d09bc84023b3",
+    "src/utils/ziweiHoroscope.ts": "ba45c6ad54db74552b1ffceb51ccbaf860e562fd9f961b42dc86c681c5c7cb01",
+    "src/utils/ziweiTimelineDates.ts": "56351ec9445ee29c1d1c48d638f2730773156530d5b3b1e3203c85bab9be033e",
+    "src/utils/ziweiExport.ts": "07e5b3c2f4d0f966d5301d37451d97c5ffa725585ce87db3e1d7872497cb419d",
+    "src/store/ziwei.ts": "63fbcd5c1bcb4437513951bb09bd4bba80c57a56d884d5ddbcbc39af29046611",
+    "src/utils/chartTime.ts": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8"
+  }
+}

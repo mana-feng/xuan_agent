@@ -1,0 +1,30 @@
+[
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "275992.878",
+    "url": "http://127.0.0.1:4177/api/llm/chat",
+    "body": {
+      "stream": true,
+      "messages": [
+        {
+          "role": "system",
+          "content": "User Qimen chart (TOON):\nmodule: \"qimen\"\nversion: 1\ninput:\n  question: \"真实联调·平板·纽约夏令时回拨·已更新\"\n  timestamp: 1793514600000\n  timeZone: \"America/New_York\"\n  ruleVersion: \"qimen-chai-bu-v1\"\n  recordId: 2\nrules:\n  id: \"qimen-chai-bu-v1\"\n  engine: \"qfdk/qimen\"\n  commit: \"1d0d1c5b39755e67525a11e68bab9b73baae1937\"\n  patch: \"xuan-1\"\n  method: \"时家转盘·符头拆补\"\n  clock: \"北京时间 UTC+08:00\"\n  dayDivide: \"23:00\"\n  solarTerms: \"exact\"\n  center: \"中五寄坤二，天禽随芮\"\nchart:\n  basicInfo:\n    date: \"2026-11-01 14:30:00 星期日 (万圣节) 天蝎座\"\n    lunarDate: \"二〇二六年九月廿三\"\n    type: \"四柱\"\n    method: \"时家\"\n    purpose: \"综合\"\n    location: \"默认位置\"\n  siZhu:\n    year: \"丙午\"\n    month: \"戊戌\"\n    day: \"己卯\"\n    time: \"辛未\"\n  juShu:\n    jieQiName: \"霜降\"\n    type: \"yin\"\n    number: \"5\"\n    yuan: \"上元\"\n    fullName: \"阴遁5局 (上元)\"\n    formatCode: \"yin-5\"\n  xunShou: \"戊\"\n  dayXunShou: \"己\"\n  luoGongGan: \"辛\"\n  sanQiLiuYi:\n    1: \"壬\"\n    2: \"辛\"\n    3: \"庚\"\n    4: \"己\"\n    5: \"戊\"\n    6: \"乙\"\n    7: \"丙\"\n    8: \"丁\"\n    9: \"癸\"\n  tianPan:\n    1: \"壬\"\n    2: \"辛\"\n    3: \"庚\"\n    4: \"己\"\n    5: \"戊\"\n    6: \"乙\"\n    7: \"丙\"\n    8: \"丁\"\n    9: \"癸\"\n  jiuXing:\n    1: \"天蓬\"\n    2: \"禽芮\"\n    3: \"天冲\"\n    4: \"天辅\"\n    5: \"\"\n    6: \"天心\"\n    7: \"天柱\"\n    8: \"天任\"\n    9: \"天英\"\n  baMen:\n    1: \"开门\"\n    2: \"景门\"\n    3: \"生门\"\n    4: \"伤门\"\n    5: \"\"\n    6: \"惊门\"\n    7: \"死门\"\n    8: \"休门\"\n    9: \"杜门\"\n  baShen:\n    1: \"玄武\"\n    2: \"值符\"\n    3: \"六合\"\n    4: \"太阴\"\n    5: \"\"\n    6: \"九地\"\n    7: \"九天\"\n    8: \"白虎\"\n    9: \"腾蛇\"\n  diPan:\n    1: \"壬\"\n    2: \"辛\"\n    3: \"庚\"\n    4: \"己\"\n    5: \"戊\"\n    6: \"乙\"\n    7: \"丙\"\n    8: \"丁\"\n    9: \"癸\"\n  anGan:\n    1: \"戊\"\n    2: \"乙\"\n    3: \"丙\"\n    4: \"丁\"\n    5: \"癸\"\n    6: \"壬\"\n    7: \"辛\"\n    8: \"庚\"\n    9: \"己\"\n  zhiFuGong: \"2\"\n  zhiFuYuanGong: \"2\"\n  zhiFuXing: \"天芮\"\n  zhiShiGong: \"7\"\n  zhiShiMen: \"死门\"\n  kongWangZhi: [\"戌\",\"亥\"]\n  kongWangGong: [\"6\",\"6\"]\n  maStar:\n    zhi: \"巳\"\n    gong: \"4\"\n  metadata:\n    id: \"qimen-chai-bu-v1\"\n    engine: \"qfdk/qimen\"\n    commit: \"1d0d1c5b39755e67525a11e68bab9b73baae1937\"\n    patch: \"xuan-1\"\n    method: \"时家转盘·符头拆补\"\n    clock: \"北京时间 UTC+08:00\"\n    dayDivide: \"23:00\"\n    solarTerms: \"exact\"\n    center: \"中五寄坤二，天禽随芮\"\n    inputZone: \"America/New_York\"\n    inputCivil: \"2026-11-01 01:30:00\"\n    calculationCivil: \"2026-11-01 14:30:00\"\n    timestamp: 1793514600000"
+        },
+        {
+          "role": "assistant",
+          "content": "已为您加载奇门盘局，您可以结合所问之事，让 AI 为您解读九宫、星门与时机。"
+        },
+        {
+          "role": "user",
+          "content": "这是接口核对测试，请只根据所携奇门盘回答：输入时区及当地时间、北京时间、阴阳遁和局数、值符星及落宫、值使门及落宫。只列字段，不作预测。"
+        }
+      ]
+    }
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "275992.878",
+    "url": "http://127.0.0.1:4177/api/llm/chat",
+    "status": 200
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "父母",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "福德",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "田宅",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "官禄",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "命宫",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "兄弟",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "交友",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "迁移",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "夫妻",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "子女",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "财帛",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  },
+  {
+    "name": "疾厄",
+    "hasName": true,
+    "hasAge": true,
+    "hasRelation": true,
+    "hasFlying": true
+  }
+]

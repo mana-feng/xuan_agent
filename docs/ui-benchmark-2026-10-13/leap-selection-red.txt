@@ -1,0 +1,58 @@
+[1m[33m[@vue/compiler-sfc][0m[33m `defineProps` is a compiler macro and no longer needs to be imported.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m `defineEmits` is a compiler macro and no longer needs to be imported.[0m
+
+✖ regular and leap months sharing a stem/branch are distinct selections (293.2829ms)
+✖ reselecting the same month returns to the yearly layer but its leap counterpart does not (188.8197ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1879.4701
+
+✖ failing tests:
+
+test at tests\ziwei-timeline.test.cjs:32:1
+✖ regular and leap months sharing a stem/branch are distinct selections (293.2829ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   11,
+      -11
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-timeline.test.cjs:36:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 11, -11 ],
+    expected: [ -11 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ziwei-timeline.test.cjs:44:1
+✖ reselecting the same month returns to the yearly layer but its leap counterpart does not (188.8197ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'yearly'
+  - 'monthly'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-timeline.test.cjs:47:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'yearly',
+    expected: 'monthly',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,42 @@
+✔ announcement dialog keeps keyboard focus inside and restores the opener and scrolling on close (133.3928ms)
+✔ announcement failure offers retry without a contradictory empty message and cached content remains readable (3.5628ms)
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (23.7393ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (2.0702ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (8.623ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (10.6649ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (25.669ms)
+✖ palace overview limits dense metadata while expanded details retain all chart fields (1.7231ms)
+✔ an activation key cannot leak to a document listener installed by the action (0.7698ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (0.8479ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7467.424
+
+✖ failing tests:
+
+test at tests\accessibility.test.cjs:210:1
+✖ palace overview limits dense metadata while expanded details retain all chart fields (1.7231ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /小限|110|将星|天喜/. Input:
+  
+  '博士将星岁建紫微庙科命宫大限2-11小限2,14,26,38,50,62,74,86,98,110文昌旺天喜甲放大子'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\accessibility.test.cjs:215:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '博士将星岁建紫微庙科命宫大限2-11小限2,14,26,38,50,62,74,86,98,110文昌旺天喜甲放大子',
+    expected: /小限|110|将星|天喜/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

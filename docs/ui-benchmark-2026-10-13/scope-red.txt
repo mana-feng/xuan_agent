@@ -1,0 +1,43 @@
+✔ announcement dialog keeps keyboard focus inside and restores the opener and scrolling on close (192.0356ms)
+✔ announcement failure offers retry without a contradictory empty message and cached content remains readable (4.225ms)
+✔ send is a Tab stop and Enter/Space sends once while held keys do not repeat (27.2189ms)
+✔ sending and blank drafts cannot send from keyboard or pointer events (2.0961ms)
+✔ quick prompt is focusable and keyboard activation emits its actual prompt once (23.603ms)
+✔ tool actions expose distinct keyboard actions for navigation and Agent prompt (20.9928ms)
+✔ palace offers one explicit expansion action and hides it inside the expanded view (36.944ms)
+✔ palace overview limits dense metadata while expanded details retain all chart fields (2.1622ms)
+✖ compact palace labels follow the selected timeline scope instead of the first available scope (2.9802ms)
+✔ an activation key cannot leak to a document listener installed by the action (0.9168ms)
+✔ the textarea confirm key cannot also confirm a newly opened modal (0.8306ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11441.1241
+
+✖ failing tests:
+
+test at tests\accessibility.test.cjs:223:1
+✖ compact palace labels follow the selected timeline scope instead of the first available scope (2.9802ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /大兄弟/. Input:
+  
+  '命宫甲子无主星时命宫2–11 岁详情 ↗'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\accessibility.test.cjs:225:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '命宫甲子无主星时命宫2–11 岁详情 ↗',
+    expected: /大兄弟/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>正式界面 · 模拟测试记录</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f3f9fa;color:#243f49;font:15px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1140px;margin:auto;padding:48px 28px 70px}h1,h2{font-family:Georgia,"Songti SC",SimSun,serif;font-weight:500;line-height:1.5}h1{font-size:38px;margin:12px 0}h2{font-size:26px;margin:36px 0 16px}.eyebrow{color:#1672b1;letter-spacing:2px;font-size:12px}.muted{color:#647e86}a{color:#087593;text-underline-offset:3px}.hero{padding:32px;border:1px solid #d5e8ec;border-radius:18px;background:linear-gradient(120deg,#e4f4ff,#fff 55%,#e4f6ed)}.links{display:flex;flex-wrap:wrap;gap:10px}.links a{background:linear-gradient(110deg,#1672b1,#11785f);color:white;border-radius:9px;padding:9px 18px;text-decoration:none}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.metric{padding:18px 22px;background:#fff;border:1px solid #dbe9ed;border-radius:12px}.metric strong{display:block;font-size:24px;color:#087c71}.panel{padding:23px 27px;background:white;border:1px solid #dbe9ed;border-radius:14px;margin:18px 0}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e4edef;padding:13px 12px}th{background:#edf6f8;white-space:nowrap}td:first-child{width:15%;min-width:100px}td:last-child{width:18%;min-width:130px}.pass{color:#07816b;font-weight:600}.partial{color:#9c6520;font-weight:600}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.gallery figure{margin:0;padding:12px;background:white;border:1px solid #dbe9ed;border-radius:12px}.gallery img{width:100%;height:320px;object-fit:contain;object-position:top;background:#edf6f8;border-radius:8px}.gallery figcaption{font-size:12px;color:#647e86;margin-top:8px}.wide{width:100%;display:block;border:1px solid #dbe9ed;border-radius:12px}code{background:#edf6f8;padding:2px 5px;border-radius:4px;font-size:12px}pre{overflow:auto;background:#edf6f8;padding:18px;border-radius:10px;font-size:12px;line-height:1.9}li{margin:7px 0}.note{border-left:3px solid #d6a75b;padding-left:18px}footer{margin-top:35px;font-size:12px;color:#71858b}@media(max-width:650px){main{padding:25px 15px}h1{font-size:28px}.hero,.panel{padding:20px}.metrics{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery img{height:260px}}
+</style>
+<main>
+  <header class="hero">
+    <div class="eyebrow">玄学 · AI / 正式 Vue 界面</div>
+    <h1>从草稿，到可以操作的工作台。</h1>
+    <p>已将确认的渐变设计应用到原 Vue 3 / uni-app 页面，并沿用原有排盘算法、Pinia 状态、API 客户端和路由。默认青蓝渐变，另有琥珀与青翠两种配色，不使用紫色主题。</p>
+    <p class="muted">测试日期：2026-10-12 · 浏览器：Codex 内置 Chromium · 桌面 1280px、平板 834px、手机 390px、窄屏 320px</p>
+    <div class="links"><a href="http://127.0.0.1:4174/#/pages/agent/index">打开正式页面模拟预览 ↗</a><a href="http://127.0.0.1:4318/">打开模拟场景控制台 ↗</a></div>
+    <p class="muted">本地账号 <code>demo@example.test</code> · 密码 <code>Demo123!</code>。服务重启后恢复 42 条初始记录，需要重新登录。</p>
+  </header>
+  <div class="metrics"><div class="metric"><strong>122 / 122</strong>自动化回归通过，含公告焦点与错误显示回归</div><div class="metric"><strong>类型检查通过</strong>vue-tsc --noEmit，退出码 0</div><div class="metric"><strong>H5 构建通过</strong>正式构建完成，未注入模拟 API 配置</div></div>
+
+  <h2>最新更新：公告与单一侧栏导航</h2>
+  <div class="panel"><p>已移除底部导航及其占位。大于 1024px 时侧栏常驻；手机和平板通过左上角菜单展开侧栏，内容使用完整宽度。侧栏可独立滚动，横屏也能访问公告和历史记录。</p><p>公告采用自适应弹窗，遮罩覆盖侧栏与顶栏，正文独立滚动，标题和关闭按钮保持可见。支持 Esc、焦点限制及关闭后的焦点和滚动恢复。加载、空公告和错误提示分别显示。</p><p>浏览器实测 320×640、390×844、834×1112、1024×600、844×390、1280×720。三条长公告通过仅限公告接口的临时测试响应验证，正文可滚动到末尾且背景不移动；测试后已清除拦截并恢复默认模拟公告。</p></div>
+  <div class="gallery">
+    <figure><a href="ui-navigation-evidence/announcement-desktop.png"><img src="ui-navigation-evidence/announcement-desktop.png" alt="修复后的桌面公告"></a><figcaption>桌面公告：正确宽度、标题与全屏遮罩</figcaption></figure>
+    <figure><a href="ui-navigation-evidence/announcement-long-phone.png"><img src="ui-navigation-evidence/announcement-long-phone.png" alt="手机长公告"></a><figcaption>手机公告：长正文独立滚动</figcaption></figure>
+    <figure><a href="ui-navigation-evidence/sidebar-phone.png"><img src="ui-navigation-evidence/sidebar-phone.png" alt="手机侧栏"></a><figcaption>手机侧栏：统一导航，无底栏</figcaption></figure>
+    <figure><a href="ui-navigation-evidence/announcement-tablet.png"><img loading="lazy" src="ui-navigation-evidence/announcement-tablet.png" alt="平板公告"></a><figcaption>834px 平板公告</figcaption></figure>
+    <figure><a href="ui-navigation-evidence/announcement-phone-landscape.png"><img loading="lazy" src="ui-navigation-evidence/announcement-phone-landscape.png" alt="横屏公告"></a><figcaption>844×390 横屏：标题与关闭按钮可见</figcaption></figure>
+    <figure><a href="ui-navigation-evidence/sidebar-tablet.png"><img loading="lazy" src="ui-navigation-evidence/sidebar-tablet.png" alt="平板侧栏"></a><figcaption>平板抽屉：关闭后内容恢复全宽</figcaption></figure>
+  </div>
+
+  <h2>首页效果</h2>
+  <a href="ui-production-evidence/home-desktop.png"><img class="wide" src="ui-production-evidence/home-desktop.png" alt="正式桌面首页：青蓝渐变、排盘与AI入口、最近记录"></a>
+
+  <h2>浏览器交互覆盖</h2>
+  <p class="muted">下表的“浏览器通过”表示实际点击、输入或键盘操作后核对页面状态。模拟账号与回复通过正式前端请求链路返回；命盘由原算法现场计算。</p>
+  <div class="panel table-scroll"><table>
+    <thead><tr><th>模块</th><th>实际操作与结果</th><th>验证方式</th></tr></thead><tbody>
+    <tr><td>导航与配色</td><td>桌面常驻侧栏、手机和平板侧栏抽屉；底栏已删除。三种渐变切换，刷新后保留选择。最终恢复青蓝配色。</td><td class="pass">浏览器通过</td></tr>
+    <tr><td>登录与公告</td><td>使用本地演示账号登录，回到工作台；未登录显示登录引导；过期登录回到认证页。公告显示明确标注的本地模拟说明，可关闭。</td><td class="pass">浏览器通过</td></tr>
+    <tr><td>首页 Agent</td><td>选盘建议展示；输入出生信息直接生成八字、紫微；按时间直接起六爻；“看事业宫”定位到紫微官禄宫三方四正。</td><td class="pass">浏览器通过</td></tr>
+    <tr><td>八字表单</td><td>称呼、男女选择、公历/农历切换、时间选择器确认、四柱预览与实际排盘；从结果“修改信息”回填原姓名与 2002/03/21 18:30。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>八字结果</td><td>四柱、结构关系、五行、神煞、大运流年显示；选 2027 大运后流年更新，选 2028 与清明后流日更新到 4 月；窄屏表格在容器内横向滚动。</td><td class="pass">浏览器通过</td></tr>
+    <tr><td>紫微表单与结果</td><td>姓名、性别与时间生成十二宫；宫位放大弹层、关闭；大限→流年→流月联动；手机宫位弹层完整显示。</td><td class="pass">浏览器通过</td></tr>
+    <tr><td>六爻起卦时间</td><td>默认取当前时刻的快照；修改为 2025 年显示“已指定时间”；恢复现在后更新为当前时刻。历史打开后保留记录中的 2026-10-14 09:30。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>六爻八种方式</td><td>电脑自动、在线六次摇卦、手工六爻、时间、单数、双数、汉字、卦名均操作生成参数。手工全少阴排出坤为地静卦；乾变坤排出六个动爻。重新填写清空主题、参数并恢复当前时间。</td><td class="pass">浏览器 + 实际算法测试</td></tr>
+    <tr><td>保存与更新</td><td>八字、紫微、六爻首次保存到模拟账号，按钮变为“更新账号记录”；再次保存更新同一条记录，无重复新增。</td><td class="pass">浏览器 + HTTP 测试</td></tr>
+    <tr><td>导出与复制</td><td>八字、紫微 TOON 实际下载，分别为 16,006 与 61,939 字节；六爻复制排盘后核对剪贴板主题、时间、干支与卦象。</td><td class="pass">浏览器 / 本地文件</td></tr>
+    <tr><td>关联 AI 对话</td><td>三种命盘分别进入对话，显示对应关联说明；发送、流式增长、完成标签、额度扣减与输入恢复。修复首次发送期间被延时提示打断的问题。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>历史记录</td><td>三类混合列表、类型/性别筛选、关键词、排序字段与升降序、12 条分页；三类旧记录均恢复对应命盘身份和保存 ID。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>删除记录</td><td>在模拟记录中先取消删除、再确认删除；目标八字记录消失，同数字 ID 的紫微与六爻记录仍保留。</td><td class="pass">浏览器 + HTTP 测试</td></tr>
+    <tr><td>最近探索</td><td>首页展示跨类型最近三条记录；用 Enter 打开紫微记录，恢复姓名、性别、出生日期及更新记录按钮。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>对话归档</td><td>保存/恢复入口已保留并适配样式；保存操作触发系统文件选择流程，本次未完成原生文件选择弹窗的保存与恢复往返验证。</td><td class="partial">存在验证边界</td></tr>
+    </tbody></table></div>
+
+  <h2>异常与等待状态</h2>
+  <div class="panel table-scroll"><table><thead><tr><th>模拟场景</th><th>页面表现</th><th>验证</th></tr></thead><tbody>
+    <tr><td>延迟加载</td><td>历史显示“正在读取保存记录”，刷新按钮进入“正在刷新…”并禁用，响应后恢复列表。</td><td class="pass">浏览器</td></tr>
+    <tr><td>空历史</td><td>展示“你的探索，从这里开始”与开始探索按钮。</td><td class="pass">浏览器</td></tr>
+    <tr><td>服务失败</td><td>显示“暂时无法读取记录”与重新加载；切回成功后重试恢复数据。</td><td class="pass">浏览器</td></tr>
+    <tr><td>额度不足</td><td>429 后显示额度提示，顶部剩余次数刷新为 0，不再次发送收费生成请求。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>流式错误</td><td>保留已返回部分文本，追加失败说明，标记未完成并恢复输入。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>流式中断</td><td>未收到完成标识时显示中断提示，不把部分回复标成完整结果，不自动重新生成。</td><td class="pass">浏览器 + 自动化</td></tr>
+    <tr><td>授权刷新</td><td>失效登录可回到认证；并发 401、刷新失败、重复 401 与 SSE 重试上限由回归测试覆盖。</td><td class="pass">浏览器 / 自动化</td></tr>
+    <tr><td>注册与协议</td><td>本地验证码、注册原子校验、协议阅读及键盘关闭经过组件与 HTTP 测试；本次没有创建真实账号或发送邮件。</td><td class="pass">自动化</td></tr>
+  </tbody></table></div>
+
+  <h2>桌面与手机截图</h2>
+  <p class="muted">以下为上一轮功能接入时的截图；本轮公告与导航显示以上方“最新更新”为准。</p>
+  <div class="gallery">
+    <figure><a href="ui-production-evidence/home-mobile.png"><img loading="lazy" src="ui-production-evidence/home-mobile.png" alt="320px首页"></a><figcaption>320px 首页：长盘面摘要可换行</figcaption></figure>
+    <figure><a href="ui-production-evidence/bazi-mobile.png"><img loading="lazy" src="ui-production-evidence/bazi-mobile.png" alt="八字手机结果"></a><figcaption>八字结果：标题与操作分行</figcaption></figure>
+    <figure><a href="ui-production-evidence/ziwei-mobile.png"><img loading="lazy" src="ui-production-evidence/ziwei-mobile.png" alt="紫微手机结果"></a><figcaption>紫微命盘：十二宫与放大入口</figcaption></figure>
+    <figure><a href="ui-production-evidence/liuyao-mobile.png"><img loading="lazy" src="ui-production-evidence/liuyao-mobile.png" alt="六爻手机结果"></a><figcaption>六爻：从历史恢复起卦时间</figcaption></figure>
+    <figure><a href="ui-production-evidence/chat-mobile.png"><img loading="lazy" src="ui-production-evidence/chat-mobile.png" alt="AI手机对话"></a><figcaption>AI 对话：流式完成与输入恢复</figcaption></figure>
+    <figure><a href="ui-production-evidence/history-mobile.png"><img loading="lazy" src="ui-production-evidence/history-mobile.png" alt="历史记录手机页面"></a><figcaption>历史记录：筛选栏与记录卡片</figcaption></figure>
+    <figure><a href="ui-production-evidence/history-loading-mobile.png"><img loading="lazy" src="ui-production-evidence/history-loading-mobile.png" alt="历史加载状态"></a><figcaption>模拟延迟加载</figcaption></figure>
+    <figure><a href="ui-production-evidence/history-error-mobile.png"><img loading="lazy" src="ui-production-evidence/history-error-mobile.png" alt="历史服务失败状态"></a><figcaption>模拟服务失败与重试入口</figcaption></figure>
+    <figure><a href="ui-production-evidence/chat-quota-mobile.png"><img loading="lazy" src="ui-production-evidence/chat-quota-mobile.png" alt="AI额度不足状态"></a><figcaption>额度不足：顶部同步为 0</figcaption></figure>
+  </div>
+  <p class="muted">其他截图：<a href="ui-production-evidence/home-tablet.png">834px 首页</a> · <a href="ui-production-evidence/bazi-form-320.png">320px 八字表单</a> · <a href="ui-production-evidence/liuyao-form-320.png">320px 六爻表单</a> · <a href="ui-production-evidence/ziwei-desktop.png">桌面紫微</a> · <a href="ui-production-evidence/liuyao-desktop.png">桌面六爻</a> · <a href="ui-production-evidence/chat-desktop.png">桌面对话</a> · <a href="ui-production-evidence/history-desktop.png">桌面历史</a></p>
+
+  <h2>验证命令与范围</h2>
+  <div class="panel">
+    <pre>cd frontend-docker
+node --test tests/*.test.cjs                         # 122 通过，0 失败
+node node_modules/vue-tsc/bin/vue-tsc.js --noEmit      # 退出码 0
+$env:VITE_BUILD_PROGRESS = 'false'
+node node_modules/@dcloudio/vite-plugin-uni/bin/uni.js build -p h5
+# DONE Build complete.
+git diff --check                                    # 通过
+node scripts/ui-simulation/run.cjs                  # 重启模拟预览</pre>
+    <p class="muted">当前 node_modules 是共享依赖目录的 junction。构建关闭的仅是会向依赖目录写缓存的进度条插件；没有改变正式业务配置。构建保留 Browserslist 数据较旧及既有静态/动态导入混用的非阻塞提示。</p>
+    <div class="note"><strong>边界</strong><p>本次确认的是正式前端在模拟服务下的显示和交互。账号、历史、额度与 AI 回复均为内存夹具，没有连接生产数据库或真实模型，不代表真实模型质量、生产后端验收或不同账号的数据隔离。原生文件选择弹窗未完成端到端验证；也未执行 App / 小程序原生平台验收。</p></div>
+  </div>
+  <footer>来源：本地代码、122 项回归结果、正式 H5 页面浏览器操作与截图。模拟服务可通过控制台重复切换场景，正式页面源码不依赖模拟夹具。</footer>
+</main>
+</html>

@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-13",
+  "preview": "http://127.0.0.1:4174/#/pages/qimen/index",
+  "scope": "正式Vue/uni-app H5代码；真实奇门计算；账号、历史和AI响应为本地模拟API",
+  "checks": {
+    "frontend": {
+      "passed": 211,
+      "failed": 0
+    },
+    "backend": {
+      "passed": 85,
+      "failed": 0
+    },
+    "typecheck": "passed",
+    "build": "passed",
+    "productionBrowser": {
+      "viewport": [
+        390,
+        844
+      ],
+      "consoleErrors": 0,
+      "goldenInput": "2026-01-01 00:00 Asia/Shanghai",
+      "expected": "阳遁4局；乙巳 戊子 乙亥 丙子；值符天芮2宫；值使死门7宫",
+      "observed": "matched"
+    },
+    "responsive": [
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 305,
+        "detailWidth": 251,
+        "palaceCount": 9,
+        "scrollWidth": 305,
+        "viewport": [
+          320,
+          740
+        ]
+      },
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 375,
+        "detailWidth": 309,
+        "palaceCount": 9,
+        "scrollWidth": 375,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 753,
+        "detailWidth": 649,
+        "palaceCount": 9,
+        "scrollWidth": 753,
+        "viewport": [
+          768,
+          1024
+        ]
+      },
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 819,
+        "detailWidth": 193,
+        "palaceCount": 9,
+        "scrollWidth": 819,
+        "viewport": [
+          834,
+          1112
+        ]
+      },
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 1009,
+        "detailWidth": 193,
+        "palaceCount": 9,
+        "scrollWidth": 1009,
+        "viewport": [
+          1024,
+          768
+        ]
+      },
+      {
+        "boardDisplay": "grid",
+        "cellsOverflow": 0,
+        "clientWidth": 1265,
+        "detailWidth": 223,
+        "palaceCount": 9,
+        "scrollWidth": 1265,
+        "viewport": [
+          1280,
+          900
+        ]
+      }
+    ]
+  },
+  "flows": [
+    {
+      "device": "手机 390×844",
+      "steps": [
+        "侧边栏进入奇门",
+        "指定2026-01-01 00:00真实起局",
+        "宫位选择与列表切换",
+        "登录并保存",
+        "更新后从历史重开",
+        "携盘AI流式请求与完成显示",
+        "保存503错误及成功重试",
+        "历史搜索、删除模拟记录、空态"
+      ],
+      "result": "passed"
+    },
+    {
+      "device": "平板 834×1112",
+      "steps": [
+        "新建问题并指定纽约时区",
+        "2026-03-08 02:30不存在时刻拒绝",
+        "2026-11-01 01:30重复时刻提示；选择later对应北京14:30",
+        "未登录保存→登录→自动返回原盘→保存",
+        "修改问题重新排盘并更新同一记录",
+        "历史检索仅1条、打开、刷新恢复时区与记录ID",
+        "AI请求含更新后的问题、当前盘面与规则，system上下文恰好一次",
+        "模拟流中断显示未完成，恢复后继续发送完成",
+        "恢复现在、规则展开"
+      ],
+      "result": "passed"
+    }
+  ],
+  "fixes": [
+    "正式构建为本地CommonJS奇门引擎增加预构建与转换",
+    "修正nvue全局样式造成九宫纵排",
+    "请求过滤保留独立奇门输入和快照契约",
+    "登录后返回原起局而非首页",
+    "后台改名保留原盘；禁无计算数据创建奇门记录",
+    "奇门历史隐藏性别筛选并固定标注北京时间",
+    "320px窄屏长标题不再挤出局数"
+  ],
+  "limits": [
+    "浏览器按手机和平板视口测试，未在真实iOS/Android设备验证系统键盘或触控",
+    "后端路由测试使用受控数据库边界；未连接生产MySQL或执行生产迁移",
+    "AI流式与上下文请求已验证；回复为模拟，未调用真实模型或验证解读质量",
+    "采用现有已校验的时家转盘符头拆补规则；本轮未改算法或扩展其他流派"
+  ]
+}

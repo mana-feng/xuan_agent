@@ -1,0 +1,30 @@
+✖ You-palace brightness matches the original table and upstream 2.6.1 correction (69.0701ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 676.1832
+
+✖ failing tests:
+
+test at tests\chart-accuracy.test.cjs:11:1
+✖ You-palace brightness matches the original table and upstream 2.6.1 correction (69.0701ms)
+  AssertionError [ERR_ASSERTION]: 七杀
+  
+  '庙' !== '旺'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\chart-accuracy.test.cjs:15:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '庙',
+    expected: '旺',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

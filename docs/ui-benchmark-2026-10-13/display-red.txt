@@ -1,0 +1,102 @@
+✖ all four selected-scope transformations remain attached to their natal star locations (122.1492ms)
+✖ three-harmony and opposite-palace highlights surround the clicked physical palace in every scope (72.7698ms)
+✖ opening palace details uses the focused cell after flying-transformation data updates (96.9816ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 645.3571
+
+✖ failing tests:
+
+test at tests\ziwei-display.test.cjs:17:1
+✖ all four selected-scope transformations remain attached to their natal star locations (122.1492ms)
+  AssertionError [ERR_ASSERTION]: decadal
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     index: 5,
+  -     label: '忌',
+  -     star: '太阳'
+  -   },
+  -   {
+  -     index: 4,
+  -     label: '科',
+  -     star: '武曲'
+  -   },
+  -   {
+  -     index: 0,
+  -     label: '禄',
+  -     star: '廉贞'
+  -   },
+  -   {
+  -     index: 2,
+  -     label: '权',
+  -     star: '破军'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-display.test.cjs:23:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { star: '太阳', index: 5, label: '忌' }, { star: '武曲', index: 4, label: '科' }, { star: '廉贞', index: 0, label: '禄' }, { star: '破军', index: 2, label: '权' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ziwei-display.test.cjs:27:1
+✖ three-harmony and opposite-palace highlights surround the clicked physical palace in every scope (72.7698ms)
+  AssertionError [ERR_ASSERTION]: decadal/0
+  + actual - expected
+  
+    [
+  +   2,
+  -   0,
+  -   4,
+      6,
+      8,
+  +   10
+    ]
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-display.test.cjs:33:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 2, 6, 8, 10 ],
+    expected: [ 0, 4, 6, 8 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ziwei-display.test.cjs:38:1
+✖ opening palace details uses the focused cell after flying-transformation data updates (96.9816ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   '权'
+  - ]
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-display.test.cjs:43:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [Array],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
