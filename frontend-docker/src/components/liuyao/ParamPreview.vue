@@ -3,14 +3,16 @@
 		<view v-if="params && params.length" class="param-grid">
 			<view v-for="(p, idx) in params" :key="idx" class="param-chip">
 				<view class="param-line">
-					<text class="yao-prefix">第{{ idx + 1 }}爻：</text>
+					<text class="yao-prefix">{{
+						['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'][idx]
+					}}</text>
 					<text class="yao-symbol">{{ getYaoSymbol(p) }}</text>
 					<text class="yao-name">{{ getYaoName(p) }}</text>
 				</view>
 			</view>
 		</view>
 		<view v-else>
-			<tm-text :font-size="20" color="#9ca3af" label="尚未生成爻"></tm-text>
+			<text class="preview-empty">尚未生成爻</text>
 		</view>
 	</view>
 </template>
@@ -19,70 +21,51 @@
 import { getYaoName, getYaoSymbol } from '@/features/liuyao/uiHelpers';
 
 defineProps({
-	params: { type: Array as () => number[], default: () => [] }
+	params: { type: Array as () => number[], default: () => [] },
 });
 </script>
 
 <style scoped>
 .param-grid {
 	display: flex;
-	gap: 10px;
-	flex-wrap: nowrap;
-	overflow-x: auto;
-	align-items: center;
-	margin-top: 8px;
-	justify-content: center;
+	flex-direction: column-reverse;
+	gap: 7px;
+	padding-top: 3px;
 }
 .param-chip {
-	background: #fff;
-	border: 1px solid #e6edf7;
-	padding: 10px 14px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(31, 41, 55, 0.03);
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	min-width: 140px;
-	min-height: 44px;
+	background: var(--x-paper, #fff);
+	border: 1px solid var(--x-line, #dbe9ed);
+	padding: 10px 15px;
+	border-radius: 7px;
 }
-
 .param-line {
 	display: flex;
-	align-items: center;
-	gap: 8px;
-	flex-wrap: nowrap;
 	flex-direction: row;
-	font-size: 16px;
-	color: #0f1724;
-	font-weight: 600;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	font-size: 12px;
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
-
 .yao-symbol {
-	display: inline-block;
-	min-width: 72px;
+	min-width: 85px;
 	text-align: center;
 	white-space: pre;
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-	letter-spacing: 1px;
-	flex: 0 0 auto;
+	font-family: monospace;
+	letter-spacing: 2px;
+	color: var(--x-accent, #1672b1);
+	font-size: 19px;
 }
-
 .yao-prefix,
 .yao-name {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	color: var(--x-muted, #667d82);
+	min-width: 38px;
 }
-
-.yao-prefix {
-	flex: 0 0 auto;
-}
-
 .yao-name {
-	flex: 1 1 auto;
-	min-width: 0;
+	text-align: right;
+}
+.preview-empty {
+	font-size: 12px;
+	color: var(--x-muted, #667d82);
 }
 </style>

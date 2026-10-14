@@ -1,0 +1,120 @@
+<template>
+  <PageScaffold title="奇门 · 九宫总览" subtitle="由此刻出发，读懂盘中的关系。" tag="QIMEN CHART">
+    <template v-if="chart">
+      <view class="qm-actions"><button class="qm-button" v-bind="h5Button(editChart)" @tap="editChart">修改起局</button><button class="qm-button" v-bind="h5Button(saveToAccount, saving)" :disabled="saving" @tap="saveToAccount">{{ saving ? '保存中…' : store.input.recordId ? '更新账号记录' : '保存到账号' }}</button><button class="qm-button primary" v-bind="h5Button(goToChat)" @tap="goToChat">携盘问 AI ↗</button></view>
+      <view v-if="saveError" class="qm-error" role="alert">{{ saveError }}<button v-if="!userStore.isLoggedIn" class="qm-text-button" v-bind="h5Button(loginToContinue)" @tap="loginToContinue">登录后继续保存 →</button></view>
+      <view class="qm-card qm-summary"><view class="qm-summary-top"><view><text class="qm-eyebrow">{{ chart.juShu.jieQiName }} · {{ chart.juShu.yuan }}</text><h2>{{ store.input.question || '未命名起局' }}</h2></view><text class="qm-ju">{{ chart.juShu.type === 'yang' ? '阳遁' : '阴遁' }} {{ chart.juShu.number }} 局</text></view><view class="qm-summary-bottom"><view><text class="qm-label">北京时间 · UTC+08:00</text><text>{{ chart.metadata.calculationCivil }}</text></view><view><text class="qm-label">四柱</text><text class="qm-pillars">{{ chart.siZhu.year }}&emsp;{{ chart.siZhu.month }}&emsp;{{ chart.siZhu.day }}&emsp;{{ chart.siZhu.time }}</text></view><view><text class="qm-label">值符 / 值使</text><text>{{ chart.zhiFuXing }} {{ chart.zhiFuGong }}宫 / {{ chart.zhiShiMen }} {{ chart.zhiShiGong }}宫</text></view></view><text v-if="store.input.timeZone !== 'Asia/Shanghai'" class="qm-input-clock">输入时刻：{{ chart.metadata.inputCivil }} · {{ store.input.timeZone }}</text></view>
+      <view class="qm-card qm-overview"><view class="qm-board-heading"><view><h2>九宫盘</h2><p>南上北下 · 点选宫位查看完整信息</p></view><view class="qm-switch"><button v-for="mode in modes" :key="mode.value" :class="{ active: viewMode === mode.value }" :aria-pressed="viewMode === mode.value" v-bind="h5Button(() => viewMode = mode.value)" @tap="viewMode = mode.value">{{ mode.label }}</button></view></view>
+        <view class="qm-board-layout"><view><view class="qm-board" :class="{ 'qm-list': viewMode === 'list' }">
+          <button v-for="cell in cells" :key="cell.number" :ref="element => setPalaceRoot(cell.number, element)" class="qm-palace" :class="{ selected: selected === cell.number, 'qm-center': cell.number === 5 }" :aria-label="`${cell.name}${cell.number}宫，查看详情`" :aria-pressed="selected === cell.number" :aria-haspopup="compact ? 'dialog' : undefined" v-bind="h5Button(() => selectPalace(cell.number))" @tap="selectPalace(cell.number)">
+            <view class="qm-palace-head"><text>{{ cell.name }}<text class="qm-palace-number">{{ cell.number }}</text></text><text>{{ cell.direction }}</text></view>
+            <template v-if="cell.number !== 5"><text class="qm-god">{{ chart.baShen[cell.number] }}</text><view class="qm-star-door"><text>{{ chart.jiuXing[cell.number] }}</text><text>{{ chart.baMen[cell.number] }}</text></view><view class="qm-stems"><text><small>天</small>{{ chart.tianPan[cell.number] }}</text><text><small>地</small>{{ chart.diPan[cell.number] }}</text><text><small>暗</small>{{ chart.anGan[cell.number] }}</text></view><view class="qm-marks"><text v-for="mark in marks(cell.number)" :key="mark">{{ mark }}</text><text v-if="cell.number === 2">寄 {{ chart.diPan[5] }}</text></view></template>
+            <template v-else><text class="qm-center-mark">中</text><text class="qm-center-note">地盘 {{ chart.diPan[5] }}</text><text class="qm-center-note">天禽随芮</text></template>
+          </button>
+        </view><view class="qm-legend"><text>天 / 地 / 暗：天盘、地盘、暗干</text><text>符：值符 · 使：值使 · 空：旬空 · 马：驿马</text></view></view>
+        <view v-if="!compact || detailsOpen" class="qm-detail-host" :class="{ 'qm-detail-overlay': compact }" @tap="closeDetails">
+          <view ref="detailRoot" class="qm-palace-detail" :role="compact ? 'dialog' : undefined" :aria-modal="compact ? true : undefined" :aria-labelledby="compact ? 'qm-detail-title' : undefined" :tabindex="compact ? -1 : undefined" :aria-live="compact ? undefined : 'polite'" @tap.stop>
+            <view class="qm-detail-heading"><view><text class="qm-eyebrow">当前选中</text><h3 id="qm-detail-title">{{ selectedCell.name }}{{ selected }}宫 <text>{{ selectedCell.direction }} · {{ selectedCell.element }}</text></h3></view><button v-if="compact" class="qm-detail-close" aria-label="关闭宫位详情" v-bind="h5Button(closeDetails)" @tap="closeDetails">关闭 ×</button></view>
+            <view class="qm-detail-grid"><view v-for="item in detailItems" :key="item.label"><text>{{ item.label }}</text><text>{{ item.value || '—' }}</text></view></view><p v-if="selected === 5" class="qm-detail-note">中宫不单独排门、神。天禽随天芮转动，中五寄干随芮同宫。</p><p v-else-if="selected === 2" class="qm-detail-note">中宫地盘寄于坤二，天禽与中五天盘寄干随天芮转动。</p><text v-if="marks(selected).length" class="qm-detail-tags">{{ marks(selected).join(' · ') }}</text>
+          </view>
+        </view></view>
+      </view>
+      <view class="qm-card qm-reading"><view><h2>从盘面，到具体问题</h2><p>将这张九宫盘与起局问题带入对话，逐步梳理。</p></view><button class="qm-button primary" v-bind="h5Button(goToChat)" @tap="goToChat">开始 AI 解读 ↗</button></view>
+      <view class="qm-card qm-rules"><button class="qm-rules-toggle" v-bind="h5Button(() => rulesOpen = !rulesOpen)" :aria-expanded="rulesOpen" @tap="rulesOpen = !rulesOpen">排盘规则与时间说明 <text>{{ rulesOpen ? '−' : '+' }}</text></button><view v-if="rulesOpen" class="qm-rules-body"><text>时家转盘 · 符头拆补，统一北京时间 UTC+08:00 起局，23:00 换日，按精确交节时刻切换节气。</text><text>中五寄坤二，天禽随芮。暗干采用时干加值使真实落宫，三奇六仪按宫数阳顺阴逆；值使入中五从五宫起算，门显示寄坤二。</text><text>输入时刻：{{ chart.metadata.inputCivil }}（{{ store.input.timeZone }}）。</text><text>规则版本 {{ chart.metadata.id }} · qfdk/qimen / {{ chart.metadata.patch }}</text></view></view>
+    </template>
+    <view v-else class="qm-card qm-empty"><h2>还没有可显示的九宫盘</h2><p>{{ store.error || '先选择起局时间，生成你的奇门盘。' }}</p><button class="qm-button primary" v-bind="h5Button(goStart)" @tap="goStart">前往起局</button></view>
+  </PageScaffold>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { onShow, onHide } from '@dcloudio/uni-app';
+import PageScaffold from '@/components/layout/PageScaffold.vue';
+import { useQimenStore } from '@/store/qimen';
+import { useUserStore } from '@/store/user';
+import { buildQimenExportPayload } from '@/utils/qimenExport';
+import { request } from '@/services/api/index';
+import { h5Button } from '@/utils/keyboard';
+import { useModalFocus } from '@/utils/useModalFocus';
+const store = useQimenStore(), userStore = useUserStore();
+store.restoreInput(); store.ensureComputed();
+onShow(() => { store.restoreInput(); store.ensureComputed(); });
+const chart = computed(() => store.chart), saving = ref(false), saveError = ref(''), rulesOpen = ref(false);
+const viewMode = ref('board'), selected = ref(2);
+const compact = ref(false), detailsOpen = ref(false), detailRoot = ref<any>(null);
+const palaceRoots = new Map<number, HTMLElement>();
+function setPalaceRoot(number: number, element: any) {
+  if (element) palaceRoots.set(number, element.$el || element);
+  else palaceRoots.delete(number);
+}
+let media: MediaQueryList | undefined;
+function closeDetails() { detailsOpen.value = false; }
+function updateWidth() {
+  compact.value = media?.matches ?? false;
+  if (!compact.value) closeDetails();
+}
+onMounted(() => {
+  // #ifdef H5
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    media = window.matchMedia('(max-width: 600px)');
+    updateWidth();
+    media.addEventListener('change', updateWidth);
+  }
+  // #endif
+});
+onUnmounted(() => { media?.removeEventListener('change', updateWidth); });
+onHide(closeDetails);
+useModalFocus(detailsOpen, detailRoot, closeDetails);
+function selectPalace(number: number) {
+  selected.value = number;
+  if (!compact.value) return;
+  // H5 custom buttons do not consistently receive pointer focus before opening a dialog.
+  // #ifdef H5
+  palaceRoots.get(number)?.focus?.({ preventScroll: true });
+  // #endif
+  detailsOpen.value = true;
+}
+const modes = [{ value: 'board', label: '九宫' }, { value: 'list', label: '列表' }];
+const cells = [
+  { number: 4, name: '巽', direction: '东南', element: '木' }, { number: 9, name: '离', direction: '南', element: '火' }, { number: 2, name: '坤', direction: '西南', element: '土' },
+  { number: 3, name: '震', direction: '东', element: '木' }, { number: 5, name: '中', direction: '中宫', element: '土' }, { number: 7, name: '兑', direction: '西', element: '金' },
+  { number: 8, name: '艮', direction: '东北', element: '土' }, { number: 1, name: '坎', direction: '北', element: '水' }, { number: 6, name: '乾', direction: '西北', element: '金' },
+];
+const selectedCell = computed(() => cells.find(c => c.number === selected.value)!);
+function marks(n: number) {
+  const c = chart.value; if (!c || n === 5) return [];
+  return [Number(c.zhiFuGong) === n ? '符' : '', Number(c.zhiShiGong) === n ? '使' : '', c.kongWangGong?.map(Number).includes(n) ? '空' : '', Number(c.maStar?.gong) === n ? '马' : ''].filter(Boolean);
+}
+const detailItems = computed(() => {
+  const c = chart.value, n = selected.value; if (!c) return [];
+  return [{ label: '九星', value: c.jiuXing[n] }, { label: '八门', value: c.baMen[n] }, { label: '八神', value: c.baShen[n] }, { label: '天盘干', value: n === 5 ? '—' : c.tianPan[n] }, { label: '地盘干', value: c.diPan[n] }, { label: '暗干', value: c.anGan[n] }];
+});
+function goStart() { uni.navigateTo({ url: '/pages/qimen/index' }); }
+function loginToContinue() { uni.navigateTo({ url: '/pages/auth/auth?mode=login&returnTo=' + encodeURIComponent('/pages/qimen/result') }); }
+function editChart() { uni.navigateTo({ url: '/pages/qimen/index?edit=1' }); }
+function goToChat() { if (store.chart) { store.persistInput(); uni.navigateTo({ url: '/pages/chat/index?from=qimen' }); } }
+async function saveToAccount() {
+  if (saving.value) return;
+  saveError.value = '';
+  if (!userStore.isLoggedIn) { saveError.value = '请先通过右上角登录，当前起局已保留在本机。'; return; }
+  if (!chart.value || store.input.timestamp === null) { saveError.value = '请先完成起局'; return; }
+  saving.value = true;
+  const savingInput = store.input, recordId = savingInput.recordId;
+  try {
+    const payload = buildQimenExportPayload(store);
+    const res: any = await request(recordId ? `/api/qimen/${recordId}` : '/api/qimen', {
+      method: recordId ? 'PUT' : 'POST', needAuth: true,
+      data: { name: savingInput.question || '未命名起局', gender: null, birthDatetime: savingInput.timestamp, calendarType: 'solar', rawPayload: { module: 'qimen', version: 1, input: payload.input, snapshot: payload.chart } },
+    });
+    const data = res?.data || res;
+    if (res?.success === false || !Number.isSafeInteger(Number(data?.id)) || Number(data.id) <= 0) throw new Error(res?.error || '保存未成功，请重试');
+    if (store.input === savingInput) { store.input.recordId = Number(data.id); store.persistInput(); }
+    uni.showToast({ title: recordId ? '记录已更新' : '已保存到账号', icon: 'success' });
+  } catch (error: any) {
+    if (error?.code === 'NOT_FOUND' && store.input === savingInput) { store.input.recordId = null; store.persistInput(); }
+    saveError.value = error?.error || error?.message || '保存失败，请重试';
+  } finally { saving.value = false; }
+}
+</script>
+
+<style src="@/features/qimen/qimen.css"></style>

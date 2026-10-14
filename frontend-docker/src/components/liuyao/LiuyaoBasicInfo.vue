@@ -1,78 +1,148 @@
 <template>
-	<view>
-		<tm-input
-			v-model="titleLocal"
-				label="占卦相关信息"
-				placeholder="请输入具体想要占问的事情（必填）"
-				prefix="tmicon-md-bulb"
-				:round="12"
-				:border="1"
-				:padding="[20, 18]"
-			></tm-input>
-
-			<view class="helper-row">
-				<tm-text :font-size="22" color="#94a3b8" label="性别"></tm-text>
-				<tm-segtab
-					v-model="genderLocal"
-					:list="[{ text: '男' }, { text: '女' }]"
-					:width="300"
-					:margin="[0, 0]"
-					:default-value="0"
-				></tm-segtab>
+	<view class="casting-basic">
+		<text class="basic-title">基本信息</text>
+		<view class="question-field">
+			<text class="basic-label">想问的事 <text class="basic-hint">请围绕一个具体问题</text></text>
+			<textarea
+				v-model="titleLocal"
+				class="question-input"
+				placeholder="例如：这次合作的推进情况如何？"
+				:maxlength="200"
+				aria-label="想问的事"
+			/>
+		</view>
+		<view class="gender-field">
+			<text class="basic-label">性别 <text class="basic-hint">选填</text></text>
+			<view class="gender-choices" role="group" aria-label="性别">
+				<button
+					v-bind="h5Button(() => (genderLocal = ''))"
+					:class="{ selected: genderLocal === '' }"
+					:aria-pressed="genderLocal === ''"
+					@tap="genderLocal = ''"
+				>
+					未填写
+				</button>
+				<button
+					v-bind="h5Button(() => (genderLocal = 0))"
+					:class="{ selected: String(genderLocal) === '0' }"
+					:aria-pressed="String(genderLocal) === '0'"
+					@tap="genderLocal = 0"
+				>
+					男
+				</button>
+				<button
+					v-bind="h5Button(() => (genderLocal = 1))"
+					:class="{ selected: String(genderLocal) === '1' }"
+					:aria-pressed="String(genderLocal) === '1'"
+					@tap="genderLocal = 1"
+				>
+					女
+				</button>
 			</view>
-
-			<view class="time-row">
-				<TimeInput v-model="timeLabelLocal" @open="$emit('openTimePicker')" @use-now="$emit('useNowTime')" />
-			</view>
-
-			<view class="helper-row">
-				<tm-text :font-size="22" color="#94a3b8" label="默认填入当前时间，点击选择可使用滚动轮盘选择阳历日期与时间。"></tm-text>
-			</view>
+		</view>
+		<view class="casting-time-section">
+			<TimeInput
+				:model-value="timeLabel"
+				:source="timeSource"
+				@open="$emit('openTimePicker')"
+				@use-now="$emit('useNowTime')"
+			/>
+		</view>
 	</view>
 </template>
-
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { h5Button } from '@/utils/keyboard';
+import { computed } from 'vue';
 import TimeInput from '@/components/liuyao/TimeInput.vue';
-
 const props = defineProps({
 	title: { type: String, default: '' },
 	timeLabel: { type: String, default: '' },
-	gender: { type: [String, Number], default: '' }
+	timeSource: { type: String, default: 'now' },
+	gender: { type: [String, Number], default: '' },
 });
-
 const emit = defineEmits([
 	'update:title',
 	'update:timeLabel',
 	'update:gender',
 	'openTimePicker',
-	'useNowTime'
+	'useNowTime',
 ]);
-
-const titleLocal = ref(props.title);
-const timeLabelLocal = ref(props.timeLabel);
-const genderLocal = ref(props.gender);
-
-watch(titleLocal, v => emit('update:title', v));
-watch(() => props.title, v => (titleLocal.value = v));
-
-watch(timeLabelLocal, v => emit('update:timeLabel', v));
-watch(() => props.timeLabel, v => (timeLabelLocal.value = v));
-
-watch(genderLocal, v => emit('update:gender', v));
-watch(() => props.gender, v => (genderLocal.value = v));
+const titleLocal = computed({
+	get: () => props.title,
+	set: (value) => emit('update:title', value),
+});
+const genderLocal = computed({
+	get: () => props.gender,
+	set: (value) => emit('update:gender', value),
+});
 </script>
-
 <style scoped>
-.time-row {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	flex-wrap: wrap;
+.basic-title {
+	display: block;
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 21px;
+	color: var(--x-ink, #233e49);
+	margin-bottom: 24px;
 }
-.helper-row {
-	margin-top: 8px;
+.question-field,
+.gender-field {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 21px;
+}
+.basic-label {
+	color: var(--x-body, #425d65);
+	font-size: 13px;
+}
+.basic-hint {
+	margin-left: 7px;
+	color: var(--x-muted, #667d82);
+	font-size: 11px;
+}
+.question-input {
+	width: 100%;
+	height: 100px;
+	padding: 13px 15px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	box-sizing: border-box;
+	color: var(--x-ink, #233e49);
+	background: var(--x-paper, #fff);
+	font-size: 13px;
+	line-height: 1.8;
+}
+.gender-choices {
+	display: flex;
+	flex-direction: row;
+	gap: 4px;
+	padding: 3px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	background: var(--x-tint, #e7f4fc);
+	max-width: 300px;
+}
+.gender-choices button {
+	flex: 1;
+	margin: 0;
+	padding: 7px 12px;
+	line-height: 23px;
+	font-size: 12px;
+	background: transparent;
+	color: var(--x-muted, #667d82);
+	border-radius: 5px;
+}
+.gender-choices button.selected {
+	color: var(--x-accent, #1672b1);
+	background: var(--x-paper, #fff);
+	box-shadow: 0 1px 5px #233e4910;
+}
+.gender-choices button::after {
+	border: 0;
+}
+.casting-time-section {
+	border-top: 1px solid var(--x-line, #dbe9ed);
+	margin-top: 27px;
+	padding-top: 27px;
 }
 </style>
-
-

@@ -1,253 +1,289 @@
 <template>
 	<tm-app>
-		<PageScaffold class="page-liuyao-input" title="六爻排盘" subtitle="请选择起卦方式，填写相关信息">
-			<SectionBlock icon="tmicon-md-person" title="基础信息">
-				<LiuyaoBasicInfo
-					:title="form.title"
-					:time-label="form.timeLabel"
-					:gender="form.gender"
-					@update:title="val => (form.title = val)"
-					@update:time-label="val => (form.timeLabel = val)"
-					@update:gender="val => (form.gender = val)"
-					@open-time-picker="openTimePicker"
-					@use-now-time="useNowTime"
-				/>
-			</SectionBlock>
-
-			<SectionBlock icon="tmicon-md-grid" title="起卦方式" subtitle="多种方式，选择最熟悉的即可">
-				<picker mode="selector" :range="methodTabs" range-key="text" :value="methodIndex" @change="onMethodChange">
-					<view class="picker-trigger method-picker-trigger">
-						<view class="method-picker-left">
-							<tm-icon :name="methodInfo[currentMethod.key]?.icon || 'tmicon-md-grid'" :font-size="30" color="#667eea"></tm-icon>
-							<tm-text :font-size="22" color="#1f2937" :label="currentMethod.text || '请选择起卦方式'"></tm-text>
+		<PageScaffold
+			class="page-liuyao-input"
+			title="六爻起卦"
+			subtitle="聚焦此刻的一件事，让问题更清晰，让选择更从容。"
+			tag="LIUYAO · I CHING"
+		>
+			<view class="casting-steps" aria-label="排盘流程">
+				<view class="casting-step current"
+					><text class="casting-step-number">1</text><text>填写信息</text></view
+				>
+				<view class="casting-step"
+					><text class="casting-step-number">2</text><text>查看卦象</text></view
+				>
+				<view class="casting-step"
+					><text class="casting-step-number">3</text><text>深入解读</text></view
+				>
+			</view>
+			<view class="casting-layout">
+				<view class="casting-form-panel">
+					<LiuyaoBasicInfo
+						:title="form.title"
+						:time-label="form.timeLabel"
+						:time-source="timeSource"
+						:gender="form.gender"
+						@update:title="(val) => (form.title = val)"
+						@update:gender="(val) => (form.gender = val)"
+						@open-time-picker="openTimePicker"
+						@use-now-time="useNowTime"
+					/>
+					<view class="method-section">
+						<view class="method-heading"
+							><text class="method-title">起卦方式</text
+							><text class="method-caption">选择你熟悉的一种方式</text></view
+						>
+						<view class="method-options" role="group" aria-label="起卦方式">
+							<MethodCard
+								v-for="(method, index) in methodTabs"
+								:key="method.key"
+								:text="method.text"
+								:icon="methodInfo[method.key]?.icon"
+								:desc="methodInfo[method.key]?.desc"
+								:active="methodIndex === index"
+								@select="setMethod(index)"
+							/>
 						</view>
-						<tm-icon name="tmicon-angle-down" :font-size="20" color="#94a3b8"></tm-icon>
-					</view>
-				</picker>
-
-				<tm-text v-if="methodDesc" class="method-desc" :font-size="20" color="#4b5563" :label="methodDesc"></tm-text>
-
-				<view v-if="currentMethod.key === 'computer'" class="method-panel">
-					<view class="online-shake-wrapper">
-						<tm-icon name="tmicon-md-cpu" :font-size="44" color="#667eea"></tm-icon>
-						<tm-button
-							type="primary"
-							size="small"
-							:round="12"
-							:padding="[18, 14]"
-							icon="tmicon-md-flash"
-							:label="'生成卦象'"
-							@tap="generateAuto"
-						></tm-button>
-					</view>
-					<view v-if="form.autoParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="生成的卦象（自下而上 6 爻）" />
-						<ParamPreview :params="form.autoParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'online'" class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="在线起卦：平静心念后摇卦" />
-					<view class="online-shake-wrapper">
-						<tm-icon
-							name="tmicon-md-hand"
-							:font-size="44"
-							color="#f59e0b"
-							:class="{ 'online-active': onlineActive }"
-						></tm-icon>
-						<tm-button
-							type="primary"
-							size="small"
-							:width="200"
-							:round="12"
-							:padding="[18, 14]"
-							icon="tmicon-md-play"
-							:label="'开始在线摇卦'"
-							@tap="startOnlineShake"
-						></tm-button>
-					</view>
-					<tm-text v-if="onlineMsg" :font-size="18" color="#6b7280" :label="onlineMsg"></tm-text>
-					<view v-if="form.autoParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="在线起卦结果（自下而上 6 爻）" />
-						<ParamPreview :params="form.autoParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'time'" class="method-panel">
-					<view class="helper-row">
-						<tm-text :font-size="20" color="#94a3b8" label="时间起卦会依据所选时间生成参数"></tm-text>
-					</view>
-					<view class="helper-actions">
-						<tm-button
-							class="helper-btn"
-							type="primary"
-							size="small"
-							:round="10"
-							:padding="[22, 0]"
-							label="生成参数"
-							@tap="generateTime"
-						></tm-button>
-					</view>
-					<view v-if="form.timeParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="时间起卦参数（自下而上 6 爻）" />
-						<ParamPreview :params="form.timeParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'single'" class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="单数起卦：数字转卦象" />
-					<tm-input
-						v-model="form.singleInput"
-						label="输入数字"
-						placeholder="例如 2652"
-						:round="12"
-						:border="1"
-						:padding="[18, 16]"
-						:maxlength="12"
-						type="number"
-					></tm-input>
-					<view class="helper-row">
-						<tm-button size="small" type="primary" :round="10" :padding="[18, 14]" label="生成参数" @tap="generateSingle"></tm-button>
-					</view>
-					<view v-if="form.singleParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="单数起卦参数（自下而上 6 爻）" />
-						<ParamPreview :params="form.singleParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'double'" class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="双数起卦：两组数字组合生成" />
-					<view class="form-grid two">
-						<tm-input
-							v-model="form.double1"
-							label="数字组 1"
-							placeholder="第一组数字"
-							:round="12"
-							:border="1"
-							:padding="[18, 16]"
-							:maxlength="12"
-							type="number"
-						></tm-input>
-						<tm-input
-							v-model="form.double2"
-							label="数字组 2"
-							placeholder="第二组数字"
-							:round="12"
-							:border="1"
-							:padding="[18, 16]"
-							:maxlength="12"
-							type="number"
-						></tm-input>
-					</view>
-					<view class="helper-row">
-						<tm-button size="small" type="primary" :round="10" :padding="[18, 14]" label="生成参数" @tap="generateDouble"></tm-button>
-					</view>
-					<view v-if="form.doubleParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="双数起卦参数（自下而上 6 爻）" />
-						<ParamPreview :params="form.doubleParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'chars'" class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="汉字起卦：依据字形转卦" />
-					<tm-input
-						v-model="form.charsInput"
-						label="输入汉字"
-						placeholder="请输入 2-5 个汉字"
-						:round="12"
-						:border="1"
-						:padding="[18, 16]"
-						:maxlength="10"
-					></tm-input>
-					<view class="helper-row">
-						<tm-button size="small" type="primary" :round="10" :padding="[18, 14]" label="生成参数" @tap="generateChars"></tm-button>
-					</view>
-					<view v-if="form.charsParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="汉字起卦参数（自下而上 6 爻）" />
-						<ParamPreview :params="form.charsParams" />
-					</view>
-				</view>
-
-				<view v-else-if="currentMethod.key === 'gua'" class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="卦名起卦：选卦码即可" />
-					<view class="form-grid two">
-						<picker mode="selector" :range="guaMarks" range-key="label" :value="guaMainIndex" @change="onGuaMainChange">
-							<view class="picker-trigger">
-								<tm-text :font-size="20" color="#1f2937" :label="guaMainLabel || '请选择本卦'"></tm-text>
-								<tm-icon name="tmicon-angle-down" :font-size="20" color="#94a3b8"></tm-icon>
+						<text class="method-description">{{ methodDesc }}</text>
+						<view v-if="currentMethod.key === 'computer'" class="method-panel">
+							<view class="method-action-row"
+								><text class="method-guide">心中想好所问之事，生成本次卦象。</text
+								><button
+									v-bind="h5Button(generateAuto)"
+									class="casting-button secondary"
+									@tap="generateAuto"
+								>
+									{{ form.autoParams.length ? '重新生成' : '生成卦象' }}
+								</button></view
+							>
+							<ParamPreview v-if="form.autoParams.length" :params="form.autoParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'online'" class="method-panel">
+							<view class="online-casting" :class="{ 'online-active': onlineActive }">
+								<text class="online-symbol">☷</text
+								><text class="method-guide">专注所问之事，分六次摇出每一爻。</text>
+								<button
+									v-bind="h5Button(startOnlineShake, onlineActive || form.autoParams.length >= 6)"
+									class="casting-button secondary"
+									:disabled="onlineActive || form.autoParams.length >= 6"
+									@tap="startOnlineShake"
+								>
+									{{ form.autoParams.length >= 6 ? '六爻已齐' : '开始在线摇卦' }}
+								</button>
+								<text class="casting-progress"
+									>{{ onlineMsg || '等待第一次摇卦' }} · {{ form.autoParams.length }}/6</text
+								>
 							</view>
-						</picker>
-						<picker mode="selector" :range="guaMarks" range-key="label" :value="guaBianIndex" @change="onGuaBianChange">
-							<view class="picker-trigger">
-								<tm-text :font-size="20" color="#1f2937" :label="guaBianLabel || '请选择变卦（可选）'"></tm-text>
-								<tm-icon name="tmicon-angle-down" :font-size="20" color="#94a3b8"></tm-icon>
+							<ParamPreview v-if="form.autoParams.length" :params="form.autoParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'manual'" class="method-panel">
+							<text class="method-guide">按原始卦象选择六爻；初爻位于最下方。</text>
+							<view class="manual-yao-list"
+								><YaoSelector
+									v-for="i in 6"
+									:key="6 - i"
+									v-model="form.manualParams[6 - i]"
+									:options="yaoOptions"
+									:label="getYaoLabel(6 - i)"
+							/></view>
+						</view>
+						<view v-else-if="currentMethod.key === 'time'" class="method-panel">
+							<view class="method-action-row"
+								><text class="method-guide">按照上方选定的起卦时间生成卦象。</text
+								><button
+									v-bind="h5Button(generateTime)"
+									class="casting-button secondary"
+									@tap="generateTime"
+								>
+									生成参数
+								</button></view
+							>
+							<ParamPreview v-if="form.timeParams.length" :params="form.timeParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'single'" class="method-panel">
+							<view class="method-field"
+								><text class="method-label">一组数字</text
+								><input
+									class="method-input"
+									v-model="form.singleInput"
+									type="number"
+									:maxlength="12"
+									placeholder="例如 2652"
+									aria-label="单数起卦数字"
+							/></view>
+							<button
+								v-bind="h5Button(generateSingle)"
+								class="casting-button secondary method-generate"
+								@tap="generateSingle"
+							>
+								生成参数
+							</button>
+							<ParamPreview v-if="form.singleParams.length" :params="form.singleParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'double'" class="method-panel">
+							<view class="method-two-fields">
+								<view class="method-field"
+									><text class="method-label">第一组数字</text
+									><input
+										class="method-input"
+										v-model="form.double1"
+										type="number"
+										:maxlength="12"
+										placeholder="例如 26"
+										aria-label="第一组数字"
+								/></view>
+								<view class="method-field"
+									><text class="method-label">第二组数字</text
+									><input
+										class="method-input"
+										v-model="form.double2"
+										type="number"
+										:maxlength="12"
+										placeholder="例如 52"
+										aria-label="第二组数字"
+								/></view>
 							</view>
-						</picker>
+							<button
+								v-bind="h5Button(generateDouble)"
+								class="casting-button secondary method-generate"
+								@tap="generateDouble"
+							>
+								生成参数
+							</button>
+							<ParamPreview v-if="form.doubleParams.length" :params="form.doubleParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'chars'" class="method-panel">
+							<view class="method-field"
+								><text class="method-label">输入汉字</text
+								><input
+									class="method-input"
+									v-model="form.charsInput"
+									:maxlength="10"
+									placeholder="请输入至少 2 个汉字，例如：合作"
+									aria-label="汉字起卦文字"
+							/></view>
+							<button
+								v-bind="h5Button(generateChars)"
+								class="casting-button secondary method-generate"
+								@tap="generateChars"
+							>
+								生成参数
+							</button>
+							<ParamPreview v-if="form.charsParams.length" :params="form.charsParams" />
+						</view>
+						<view v-else-if="currentMethod.key === 'gua'" class="method-panel">
+							<view class="method-two-fields">
+								<view class="method-field"
+									><text class="method-label">本卦</text
+									><picker
+										mode="selector"
+										:range="guaMarks"
+										range-key="label"
+										:value="guaMainIndex"
+										ref="guaMainPicker"
+										@change="onGuaMainChange"
+										><view
+											class="gua-picker"
+											v-bind="h5Button(() => openGuaPicker(guaMainPicker))"
+											:aria-label="'选择本卦，当前' + guaMainLabel"
+											aria-haspopup="dialog"
+											><text>{{ guaMainLabel || '请选择本卦' }}</text
+											><text>⌄</text></view
+										></picker
+									></view
+								>
+								<view class="method-field"
+									><text class="method-label">变卦 <text class="optional-hint">选填</text></text
+									><picker
+										mode="selector"
+										:range="guaMarks"
+										range-key="label"
+										:value="guaBianIndex"
+										ref="guaBianPicker"
+										@change="onGuaBianChange"
+										><view
+											class="gua-picker"
+											v-bind="h5Button(() => openGuaPicker(guaBianPicker))"
+											:aria-label="'选择变卦，当前' + (guaBianLabel || '未指定')"
+											aria-haspopup="dialog"
+											><text>{{ guaBianLabel || '不指定变卦' }}</text
+											><text>⌄</text></view
+										></picker
+									></view
+								>
+							</view>
+							<button
+								v-bind="h5Button(generateGua)"
+								class="casting-button secondary method-generate"
+								@tap="generateGua"
+							>
+								生成参数
+							</button>
+							<ParamPreview v-if="form.guaParams.length" :params="form.guaParams" />
+						</view>
 					</view>
-					<view class="helper-row">
-						<tm-button size="small" type="primary" :round="10" :padding="[18, 14]" label="生成参数" @tap="generateGua"></tm-button>
-					</view>
-					<view v-if="form.guaParams.length" class="auto-preview">
-						<tm-text :font-size="20" color="#1f2937" label="卦名起卦参数（自下而上 6 爻）" />
-						<ParamPreview :params="form.guaParams" />
+					<view class="casting-form-bottom">
+						<view class="casting-bottom-copy"
+							><text class="casting-bottom-hint">{{
+								canStart ? '卦象已准备好，可以开始排盘。' : '填写所问事项，并完成当前方式的起卦。'
+							}}</text
+							><button v-bind="h5Button(resetForm)" class="casting-reset-form" @tap="resetForm">
+								重新填写
+							</button></view
+						>
+						<button
+							v-bind="h5Button(startLiuyao, !canStart)"
+							class="casting-button primary"
+							:disabled="!canStart"
+							@tap="startLiuyao"
+						>
+							开始排盘　→
+						</button>
 					</view>
 				</view>
-
-				<view v-else class="method-panel">
-					<tm-text :font-size="22" color="#334155" label="手工起卦：逐爻选择" />
-					<view class="yao-selector-grid">
-						<YaoSelector
-							v-for="i in 6"
-							:key="6 - i"
-							v-model="form.manualParams[6 - i]"
-							:options="yaoOptions"
-							:label="getYaoLabel(6 - i)"
-						/>
+				<view class="casting-help">
+					<text class="help-decoration">✧</text><text class="help-title">把问题，问得更具体</text>
+					<text class="help-copy"
+						>六爻适合聚焦一件事。描述你正在面对的情况，以及你最想了解的部分。</text
+					>
+					<view class="help-list">
+						<text class="help-item">01　一次只问一个具体问题。</text>
+						<text class="help-item">02　起卦时间默认记录当前时刻，也可以修改为指定时间。</text>
+						<text class="help-item">03　先完成六爻，再查看卦象与 AI 解读。</text>
 					</view>
+					<navigator class="help-link" url="/pages/agent/index">不确定怎么填？问问 AI　→</navigator>
 				</view>
-			</SectionBlock>
-
-			<template #footer>
-				<tm-button
-					:label="'开始排盘'"
-					type="primary"
-					:round="999"
-					:bold="true"
-					:disabled="!canStart"
-					icon="tmicon-calendar-alt"
-					block
-					:class="['primary-btn', !canStart ? 'disabled' : '']"
-					@tap="startLiuyao"
-				></tm-button>
-			</template>
+			</view>
 		</PageScaffold>
-
 		<tm-time-picker
 			v-model:show="timePickerShow"
 			:round="10"
 			:default-value="timePickerDefault"
+			:model-value="timePickerDefault"
 			:start="timePick.start"
 			:end="timePick.end"
 			:format="timePick.format"
 			:show-detail="timePick.detail"
 			:show-suffix="timeSuffix"
 			@confirm="onTimeConfirm"
-		></tm-time-picker>
+		/>
 	</tm-app>
 </template>
-
 <script lang="ts" setup>
+import { h5Button } from '@/utils/keyboard';
+import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
-import SectionBlock from '@/components/layout/SectionBlock.vue';
+import MethodCard from '@/components/liuyao/MethodCard.vue';
 import ParamPreview from '@/components/liuyao/ParamPreview.vue';
 import YaoSelector from '@/components/liuyao/YaoSelector.vue';
 import LiuyaoBasicInfo from '@/components/liuyao/LiuyaoBasicInfo.vue';
 import { useLiuyaoForm } from '@/features/liuyao/useLiuyaoForm';
-import { formatDateTime } from '@/features/liuyao/uiHelpers';
 
 const {
 	form,
+	timeSource,
 	methodTabs,
 	methodIndex,
 	currentMethod,
@@ -281,156 +317,363 @@ const {
 	guaMainLabel,
 	guaBianLabel,
 	onGuaMainChange,
-	onGuaBianChange
+	onGuaBianChange,
 } = useLiuyaoForm();
 
-function onMethodChange(e: any) {
-	const nextIndex = Number(e?.detail?.value ?? 0);
-	setMethod(nextIndex);
+const guaMainPicker = ref<any>(null);
+const guaBianPicker = ref<any>(null);
+function openGuaPicker(picker: any) {
+	// #ifdef H5
+	const target = picker?.$el || picker;
+	target?.click?.();
+	// #endif
 }
 
 onLoad(() => {
-	const now = new Date();
-	form.value.timeLabel = formatDateTime(now);
-	timePickerDefault.value = formatDateTime(now).replace(/-/g, '/');
+	useNowTime();
 });
 </script>
-
 <style scoped>
-.page-liuyao-input .page-card__body {
-	gap: 18px;
-}
-
-.method-desc {
-	line-height: 1.4;
-}
-
-.method-picker-trigger {
-	margin-top: 4px;
-}
-
-.method-picker-left {
+.casting-steps {
 	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 18px;
 	align-items: center;
-	gap: 10px;
+	margin: 3px 0 25px;
+	color: var(--x-muted, #667d82);
+	font-size: 12px;
 }
-
+.casting-step {
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+	align-items: center;
+}
+.casting-step-number {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 23px;
+	height: 23px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 50%;
+	font-size: 11px;
+}
+.casting-step.current {
+	color: var(--x-accent, #1672b1);
+}
+.current .casting-step-number {
+	color: #fff;
+	border-color: transparent;
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+}
+.casting-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 250px;
+	gap: 24px;
+	align-items: start;
+}
+.casting-form-panel {
+	min-width: 0;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 16px;
+	background: var(--x-paper, #fff);
+	padding: 30px;
+	box-shadow: 0 8px 32px #233e4905;
+}
+.method-section {
+	display: block;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+	padding-top: 27px;
+	margin-top: 27px;
+}
+.method-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 19px;
+}
+.method-title {
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 21px;
+	color: var(--x-ink, #233e49);
+}
+.method-caption,
+.optional-hint {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+}
+.method-options {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 8px;
+}
+.method-description {
+	display: block;
+	font-size: 11px;
+	line-height: 1.85;
+	color: var(--x-muted, #667d82);
+	margin: 14px 0 18px;
+}
 .method-panel {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 18px;
-	border: 1px solid rgba(226, 232, 240, 0.9);
-	border-radius: 14px;
-	background: #ffffff;
-	box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+	gap: 18px;
+	padding: 20px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 11px;
+	background: var(--x-bg, #f3fafb);
 }
-
-.form-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 12px;
-	width: 100%;
-}
-
-.form-grid.two {
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.helper-row {
+.method-action-row {
 	display: flex;
-	width: 100%;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 	flex-wrap: wrap;
-	gap: 12px;
-	align-items: center;
-	margin-bottom: 12px;
-}
-
-.online-shake-wrapper {
-	display: flex;
-	align-items: center;
 	gap: 16px;
-	flex-wrap: wrap;
 }
-
-.online-active {
-	animation: pulse 1.5s linear infinite;
+.method-guide {
+	font-size: 12px;
+	color: var(--x-body, #425d65);
+	line-height: 1.85;
 }
-
-@keyframes pulse {
-	0% {
-		transform: scale(1);
+.casting-button {
+	border: 0;
+	border-radius: 8px;
+	margin: 0;
+	padding: 11px 20px;
+	line-height: 23px;
+	font-size: 12px;
+	flex-shrink: 0;
+}
+.casting-button.primary {
+	min-width: 142px;
+	color: #fff;
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+}
+.casting-button.secondary {
+	color: var(--x-accent, #1672b1);
+	border: 1px solid var(--x-line, #dbe9ed);
+	background: var(--x-paper, #fff);
+}
+.casting-button[disabled] {
+	opacity: 0.45;
+}
+.casting-button.primary[disabled] {
+	color: #fff;
+}
+button::after {
+	border: 0;
+}
+.method-generate {
+	align-self: flex-start;
+}
+.online-casting {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+	padding: 7px 0;
+}
+.online-symbol {
+	color: var(--x-accent, #1672b1);
+	font-size: 46px;
+	line-height: 1;
+}
+.online-active .online-symbol {
+	animation: shake 0.3s linear infinite;
+}
+@keyframes shake {
+	25% {
+		transform: rotate(-10deg);
 	}
-
-	50% {
-		transform: scale(1.05);
-	}
-
-	100% {
-		transform: scale(1);
+	75% {
+		transform: rotate(10deg);
 	}
 }
-
-.auto-preview {
+.casting-progress {
+	color: var(--x-muted, #667d82);
+	font-size: 11px;
+}
+.method-field {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	gap: 10px;
+}
+.method-label {
+	font-size: 12px;
+	color: var(--x-body, #425d65);
+}
+.method-input {
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 45px;
+	padding: 0 13px;
+	color: var(--x-ink, #233e49);
+	background: var(--x-paper, #fff);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	font-size: 13px;
+}
+.method-two-fields {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+}
+.gua-picker {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 45px;
+	box-sizing: border-box;
+	padding: 11px 13px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	color: var(--x-body, #425d65);
+	background: var(--x-paper, #fff);
+	font-size: 12px;
+}
+.manual-yao-list {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	padding-top: 8px;
 }
-
-.yao-selector-grid {
+.casting-form-bottom {
 	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-
-.picker-trigger {
-	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: 14px 16px;
-	background: #f8fafc;
-	border-radius: 10px;
-	border: 1px solid #e5e7eb;
+	gap: 18px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+	padding-top: 23px;
+	margin-top: 26px;
 }
-
-.picker-trigger:active {
-	background: #edf2fb;
-}
-
-.helper-actions {
-	display: flex;
-	gap: 16px;
-	flex-wrap: wrap;
-	width: 100%;
-}
-
-.helper-btn {
-	flex: 1 1 140px;
-	justify-content: center;
-}
-
-.primary-btn {
-	width: 100%;
-}
-
-.primary-btn.disabled {
-	opacity: 0.6;
-}
-
-.time-info {
+.casting-bottom-copy {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: 4px;
 }
-
-@media (min-width: 900px) {
-	.page-liuyao-input .page-card__body {
-		gap: 22px;
+.casting-bottom-hint {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	line-height: 1.85;
+}
+.casting-reset-form {
+	padding: 3px 0;
+	font-size: 11px;
+	background: transparent;
+	color: var(--x-accent, #1672b1);
+	margin: 0;
+	line-height: 22px;
+}
+.casting-help {
+	display: block;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 14px;
+	padding: 25px 23px;
+	background: var(--x-gradient-soft, linear-gradient(125deg, #e7f4fc, #fff, #e6f6ed));
+}
+.help-decoration {
+	display: block;
+	color: var(--x-accent, #1672b1);
+	font-size: 27px;
+	margin-bottom: 15px;
+}
+.help-title {
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 20px;
+	color: var(--x-ink, #233e49);
+	line-height: 1.7;
+}
+.help-copy {
+	display: block;
+	font-size: 12px;
+	line-height: 1.95;
+	color: var(--x-muted, #667d82);
+	margin-top: 12px;
+}
+.help-list {
+	display: flex;
+	flex-direction: column;
+	gap: 13px;
+	margin-top: 20px;
+	padding-top: 17px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+.help-item {
+	font-size: 11px;
+	line-height: 1.85;
+	color: var(--x-body, #425d65);
+}
+.help-link {
+	display: block;
+	font-size: 12px;
+	color: var(--x-accent, #1672b1);
+	margin-top: 21px;
+	padding-top: 14px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+@media (max-width: 1080px) {
+	.casting-layout {
+		grid-template-columns: minmax(0, 1fr) 210px;
+		gap: 17px;
 	}
-
+	.casting-form-panel {
+		padding: 25px;
+	}
+	.casting-help {
+		padding: 22px 18px;
+	}
+	.method-options {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media (max-width: 800px) {
+	.casting-layout {
+		grid-template-columns: 1fr;
+	}
+	.method-options {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+@media (max-width: 520px) {
+	.casting-form-panel {
+		padding: 21px 17px;
+		border-radius: 12px;
+	}
+	.method-options,
+	.method-two-fields {
+		grid-template-columns: 1fr 1fr;
+	}
+	.method-caption {
+		display: none;
+	}
 	.method-panel {
-		padding: 22px;
+		padding: 17px 13px;
+	}
+	.casting-form-bottom {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 13px;
+	}
+	.casting-button.primary {
+		width: 100%;
+	}
+	.casting-steps {
+		gap: 13px;
+		font-size: 11px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.online-active .online-symbol {
+		animation: none;
 	}
 }
 </style>

@@ -196,6 +196,12 @@ export function sanitizeRequestData(data: any): any {
 	// 后端不依赖 rawPayload 进行任何计算
 	if (sanitized.rawPayload && typeof sanitized.rawPayload === 'object') {
 		const payload = sanitized.rawPayload;
+		// Qimen has its own versioned input/snapshot contract. Do not run it
+		// through the legacy Bazi projection or stringify away its structure.
+		if (payload.module === 'qimen' && payload.version === 1) {
+			sanitized.rawPayload = { module: 'qimen', version: 1, input: payload.input, snapshot: payload.snapshot };
+			return sanitized;
+		}
 		
 		// 如果是 Lite 模式（如六爻排盘），直接保留，不进行 Bazi 特有的过滤
 		if (payload.lite) {

@@ -1,0 +1,93 @@
+<template>
+  <PageScaffold title="奇门遁甲" subtitle="把问题安放在此刻，从九宫之间找到思路。" tag="QIMEN DUNJIA">
+    <view class="qm-input-layout">
+      <view class="qm-card qm-form">
+        <view class="qm-heading"><text class="qm-step">01</text><view><h2>这一局，想问什么</h2><p>记下具体问题，方便保存和继续对话。</p></view></view>
+        <label class="qm-label" for="qimen-question-control">问题或记录名称 <text class="qm-optional">选填</text></label>
+        <input id="qimen-question" v-model="question" class="qm-input" maxlength="100" placeholder="例如：新项目应该如何安排？" aria-label="问题或记录名称" />
+        <view class="qm-heading qm-time-heading"><text class="qm-step">02</text><view><h2>起局时间</h2><p>默认使用现在，也可以指定需要回看的时刻。</p></view></view>
+        <view class="qm-clock">
+          <view><text class="qm-eyebrow">{{ timeMode === 'now' ? '当前时间' : '指定时间' }}</text><text class="qm-clock-value">{{ displayClock }}</text><text class="qm-clock-zone">{{ timeZone }}</text></view>
+          <button class="qm-button" v-bind="h5Button(editTime)" @tap="editTime">修改时间</button>
+        </view>
+        <view v-if="timeMode === 'custom'" class="qm-time-editor">
+          <label class="qm-label" for="qimen-civil-control">日期与时间</label>
+          <input id="qimen-civil" v-model="civil" class="qm-input" type="datetime-local" aria-label="起局日期与时间" />
+          <label class="qm-label" for="qimen-zone-control">输入时间所在时区</label>
+          <input id="qimen-zone" v-model="timeZone" class="qm-input" aria-label="起局时区" placeholder="Asia/Shanghai" />
+          <view class="qm-zone-options"><button v-for="zone in zones" :key="zone.value" class="qm-chip" :class="{ active: timeZone === zone.value }" v-bind="h5Button(() => chooseZone(zone.value))" @tap="chooseZone(zone.value)">{{ zone.label }}</button></view>
+          <label class="qm-label" for="qimen-dst">夏令时重复时刻</label>
+          <select id="qimen-dst" v-model="disambiguation" class="qm-input" aria-label="夏令时重复时刻"><option value="reject">遇到重复时刻时提示我</option><option value="earlier">取较早的一次</option><option value="later">取较晚的一次</option></select>
+          <button class="qm-text-button" v-bind="h5Button(restoreNow)" @tap="restoreNow">↺ 恢复现在</button>
+        </view>
+        <view v-if="formError" class="qm-error" role="alert">{{ formError }}</view>
+        <button class="qm-button primary qm-submit" v-bind="h5Button(submit, submitting)" :disabled="submitting" @tap="submit">{{ submitting ? '正在排盘…' : recordId ? '重新排盘' : '开始起局' }} <text>↗</text></button>
+        <p class="qm-fine">按所选时区确认时刻后，统一换算为北京时间起局。</p>
+      </view>
+      <view class="qm-input-aside"><view class="qm-card qm-intro"><text class="qm-eyebrow">时家转盘 · 符头拆补</text><view class="qm-motif" aria-hidden="true"><text v-for="symbol in ['巽','离','坤','震','中','兑','艮','坎','乾']" :key="symbol">{{ symbol }}</text></view><h2>一时，一问，一局</h2><p>九宫呈现星、门、神与天地盘，点击宫位可查看完整信息。</p><view class="qm-intro-rule"><text>北京时间 UTC+08:00</text><text>23:00 换日 · 交节时刻切换</text><text>中五寄坤二 · 天禽随芮</text></view></view></view>
+    </view>
+    <view class="qm-recent"><RecentExplorations /></view>
+  </PageScaffold>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+import PageScaffold from '@/components/layout/PageScaffold.vue';
+import RecentExplorations from '@/components/history/RecentExplorations.vue';
+import { useQimenStore } from '@/store/qimen';
+import { civilString, zonedParts, civilToTimestamp, type Disambiguation } from '@/utils/chartTime';
+import { h5Button } from '@/utils/keyboard';
+const store = useQimenStore();
+const question = ref(''), timeZone = ref('Asia/Shanghai'), civil = ref('');
+const timeMode = ref<'now' | 'custom'>('now'), disambiguation = ref<Disambiguation>('reject');
+const now = ref(Date.now()), recordId = ref<number | null>(null), formError = ref(''), submitting = ref(false);
+const zones = [{ label: '北京', value: 'Asia/Shanghai' }, { label: '新加坡', value: 'Asia/Singapore' }, { label: '纽约', value: 'America/New_York' }, { label: 'UTC', value: 'UTC' }];
+const displayClock = computed(() => {
+  if (timeMode.value === 'custom') return civil.value.replace('T', ' ') || '请选择时间';
+  try { return civilString(zonedParts(now.value, timeZone.value)).slice(0,16); } catch { return '请核对时区'; }
+});
+let timer: ReturnType<typeof setInterval> | undefined;
+onMounted(() => { syncNativeFields(); timer = setInterval(() => { now.value = Date.now(); }, 1000); });
+onUnmounted(() => { if (timer) clearInterval(timer); });
+onLoad((options: any) => {
+  if (options?.edit !== '1') return;
+  store.restoreInput(); store.ensureComputed();
+  if (!store.chart || store.input.timestamp === null) { formError.value = store.error || '没有可修改的起局，请重新填写'; return; }
+  question.value = store.input.question; timeZone.value = store.input.timeZone; recordId.value = store.input.recordId;
+  civil.value = civilString(zonedParts(store.input.timestamp, timeZone.value)).replace(' ', 'T'); timeMode.value = 'custom';
+  // Preserve which occurrence an existing DST-overlap timestamp represents.
+  const earlier = civilToTimestamp(civil.value, timeZone.value, 'earlier');
+  disambiguation.value = earlier === store.input.timestamp ? 'earlier' : 'later';
+});
+// uni-input defaults unsupported HTML types to text. Enhance its actual H5 control.
+async function syncNativeFields() {
+  // #ifdef H5
+  await nextTick();
+  if (typeof document === 'undefined') return;
+  for (const [id, label] of [['qimen-question', '问题或记录名称'], ['qimen-civil', '起局日期与时间'], ['qimen-zone', '起局时区']]) {
+    const element = document.querySelector<HTMLInputElement>('#' + id + ' input');
+    if (!element) continue;
+    element.id = id + '-control'; element.setAttribute('aria-label', label);
+    if (id === 'qimen-civil') { element.type = 'datetime-local'; element.min = '1900-01-01T00:00'; element.max = '2099-12-31T23:59:59'; element.step = '1'; }
+  }
+  // #endif
+}
+watch(timeMode, syncNativeFields, { flush: 'post' });
+function editTime() {
+  if (timeMode.value === 'now') { civil.value = civilString(zonedParts(Date.now(), timeZone.value)).slice(0,16).replace(' ', 'T'); timeMode.value = 'custom'; }
+}
+function chooseZone(zone: string) { timeZone.value = zone; disambiguation.value = 'reject'; }
+function restoreNow() { timeMode.value = 'now'; timeZone.value = 'Asia/Shanghai'; disambiguation.value = 'reject'; now.value = Date.now(); formError.value = ''; }
+function submit() {
+  if (submitting.value) return; submitting.value = true; formError.value = '';
+  try {
+    const timestamp = timeMode.value === 'now' ? Date.now() : civilToTimestamp(civil.value, timeZone.value, disambiguation.value);
+    store.pull({ question: question.value, timestamp, timeZone: timeZone.value, recordId: recordId.value });
+    uni.navigateTo({ url: '/pages/qimen/result' });
+  } catch (error: any) { formError.value = error?.message || '无法起局，请核对输入'; }
+  finally { submitting.value = false; }
+}
+</script>
+
+<style src="@/features/qimen/qimen.css"></style>

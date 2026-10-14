@@ -135,6 +135,56 @@ test('history loads all three types with equal numeric IDs and sorts across type
   assert.deepEqual(page.charts.value.map(item => item.id), [7, 7, 7]);
 });
 
+test('history type selection fetches the selected existing endpoint and starts at page one', async () => {
+  const rows = historyRows();
+  platform.respond = async url => {
+    const type = new URL(url, 'http://test.local').searchParams.get('type');
+    return { success: true, data: { list: rows[type], total: 1, hasMore: false } };
+  };
+  const page = loadPage('pages/history/list.nvue', ['selectType', 'typeFilter', 'currentPage', 'charts']);
+  page.currentPage.value = 4;
+  await page.selectType('ziwei');
+  assert.equal(page.typeFilter.value, 'ziwei');
+  assert.equal(page.currentPage.value, 1);
+  assert.equal(platform.requests.length, 1);
+  assert.equal(new URL(platform.requests[0].url, 'http://test.local').searchParams.get('type'), 'ziwei');
+  assert.deepEqual(page.charts.value.map(item => item.type), ['ziwei']);
+});
+
+test('history paginates the full sorted response without losing records or requesting unsupported pagination', async () => {
+  platform.respond = async url => {
+    const type = new URL(url, 'http://test.local').searchParams.get('type');
+    const list = type === 'bazi' ? Array.from({ length: 14 }, (_, index) => ({ ...historyRows().bazi[0], id: index + 1, createdAt: new Date(2026, 0, index + 1).toISOString() })) : [];
+    return { success: true, data: { list, total: list.length, hasMore: false } };
+  };
+  const page = loadPage('pages/history/list.nvue', ['fetchCharts', 'visibleCharts', 'currentPage', 'totalPages', 'totalCount', 'changePage']);
+  await page.fetchCharts();
+  assert.equal(page.totalCount.value, 14);
+  assert.equal(page.totalPages.value, 2);
+  assert.equal(page.visibleCharts.value.length, 12);
+  page.changePage(2);
+  assert.deepEqual(page.visibleCharts.value.map(item => item.id), [2, 1]);
+  page.changePage(99);
+  assert.equal(page.currentPage.value, 2);
+  assert.equal(platform.requests.some(item => /[?&](page|pageSize|offset)=/.test(item.url)), false);
+});
+
+test('history ignores an older request that finishes after a changed type filter', async () => {
+  let releaseFirst;
+  const pendingFirst = new Promise(resolve => { releaseFirst = resolve; });
+  platform.respond = async url => {
+    const type = new URL(url, 'http://test.local').searchParams.get('type');
+    if (type === 'bazi') await pendingFirst;
+    return { success: true, data: { list: historyRows()[type], hasMore: false } };
+  };
+  const page = loadPage('pages/history/list.nvue', ['fetchCharts', 'selectType', 'charts']);
+  const firstRequest = page.fetchCharts();
+  await page.selectType('ziwei');
+  releaseFirst();
+  await firstRequest;
+  assert.deepEqual(page.charts.value.map(item => item.type), ['ziwei']);
+});
+
 test('opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged', () => {
   useBaziStore().pull(first);
   const page = loadPage('pages/history/list.nvue', ['openChart']);

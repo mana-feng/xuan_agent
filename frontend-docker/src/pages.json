@@ -56,6 +56,18 @@
       "style": {
         "navigationBarTitleText": "紫微排盘结果"
       }
+    },
+    {
+      "path": "pages/qimen/index",
+      "style": {
+        "navigationBarTitleText": "奇门起局"
+      }
+    },
+    {
+      "path": "pages/qimen/result",
+      "style": {
+        "navigationBarTitleText": "奇门排盘结果"
+      }
     }
   ],
   "globalStyle": {

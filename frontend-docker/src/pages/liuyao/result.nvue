@@ -1,196 +1,248 @@
 <template>
 	<tm-app>
-		<view class="app-shell page-liuyao-result">
-			<yx-nav-header></yx-nav-header>
-			<view class="app-main">
-				<view class="page-shell">
-					<view class="page-card detail-card liuyao-card">
-						<view class="page-title-wrapper">
-							<view class="form-header-text">
-								<h1 class="page-title">六爻排盘结果</h1>
-								<p class="page-subtitle">查看卦象、六爻明细与卦辞</p>
-							</view>
+		<PageScaffold
+			class="page-liuyao-result"
+			title="六爻卦象"
+			subtitle="一次占问，一份当下的记录。"
+			card-class="detail-card liuyao-card"
+		>
+			<template #header-extra>
+				<view class="result-actions">
+					<button v-bind="h5Button(goStart)" class="result-button" @tap="goStart">返回起卦</button>
+					<button
+						v-bind="h5Button(() => handleAction('copy'))"
+						v-if="compiled"
+						class="result-button"
+						@tap="handleAction('copy')"
+					>
+						复制排盘
+					</button>
+					<button
+						v-bind="h5Button(() => handleAction('save'), saving)"
+						v-if="compiled"
+						class="result-button primary"
+						:disabled="saving"
+						@tap="handleAction('save')"
+					>
+						{{ saving ? '保存中…' : liuyaoStore.recordId ? '更新账号记录' : '保存到账号' }}
+					</button>
+				</view>
+			</template>
+			<view v-if="!compiled || !display" class="section empty-state">
+				<tm-icon name="tmicon-md-time" :font-size="72" color="#cbd5e0"></tm-icon>
+				<tm-text
+					:font-size="26"
+					color="#718096"
+					label="暂无排盘数据，请先返回起卦页面进行排盘。"
+					class="mt-4"
+				></tm-text>
+				<tm-button
+					v-bind="h5Button(goStart)"
+					type="primary"
+					:round="12"
+					:padding="[22, 16]"
+					class="mt-4"
+					label="返回起卦"
+					@tap="goStart"
+				></tm-button>
+			</view>
+
+			<template v-else>
+				<view class="section info-summary">
+					<header class="section__header">
+						<tm-icon name="tmicon-md-planet" :font-size="26" color="#1672b1"></tm-icon>
+						<h2 class="section__title">起卦概要</h2>
+					</header>
+					<view class="section__body info-grid">
+						<view v-for="item in summaryTiles" :key="item.label" class="info-tile">
+							<tm-text :font-size="24" color="#718096" :label="item.label"></tm-text>
+							<tm-text :font-size="30" :bold="true" color="#2d3748" :label="item.value"></tm-text>
 						</view>
-
-						<view v-if="!compiled || !display" class="section empty-state">
-							<tm-icon name="tmicon-md-time" :font-size="72" color="#cbd5e0"></tm-icon>
-							<tm-text :font-size="26" color="#718096" label="暂无排盘数据，请先返回起卦页面进行排盘。" class="mt-4"></tm-text>
-							<tm-button type="primary" :round="12" :padding="[22, 16]" class="mt-4" label="返回起卦" @tap="goStart"></tm-button>
-						</view>
-
-						<template v-else>
-							<view class="section info-summary">
-								<header class="section__header">
-									<tm-icon name="tmicon-md-planet" :font-size="26" color="#667eea"></tm-icon>
-									<h2 class="section__title">起卦概要</h2>
-								</header>
-								<view class="section__body info-grid">
-									<view v-for="item in summaryTiles" :key="item.label" class="info-tile">
-										<tm-text :font-size="24" color="#718096" :label="item.label"></tm-text>
-										<tm-text :font-size="30" :bold="true" color="#2d3748" :label="item.value"></tm-text>
-									</view>
-								</view>
-							</view>
-
-							<view class="actions-bar">
-								<tm-button
-									:round="12"
-									:margin="[0, 0]"
-									:padding="[24, 20]"
-									:font-size="28"
-									:bold="true"
-									type="primary"
-									label="保存到账号"
-									icon="tmicon-md-save"
-									@tap="handleAction('save')"
-								></tm-button>
-								<tm-button
-									:round="12"
-									:margin="[0, 0]"
-									:padding="[24, 20]"
-									:font-size="28"
-									type="primary"
-									label="复制排盘"
-									icon="tmicon-md-copy"
-									@tap="handleAction('copy')"
-								></tm-button>
-								<tm-button
-									:round="12"
-									:margin="[0, 0]"
-									:padding="[24, 20]"
-									:font-size="28"
-									type="primary"
-									label="AI解读"
-									icon="tmicon-md-bulb"
-									@tap="handleAction('ai')"
-								></tm-button>
-							</view>
-
-
-
-							<view class="section gua-overview">
-								<header class="section__header">
-									<tm-icon name="tmicon-md-grid" :font-size="26" color="#667eea"></tm-icon>
-									<h2 class="section__title">卦象总览</h2>
-								</header>
-								<view class="section__body gua-grid">
-									<view class="gua-card">
-										<view class="gua-card__header">
-											<view>
-												<p class="card-label">本卦</p>
-												<h3 class="gua-name">{{ guaOverview.main.name }}</h3>
-												<p class="gua-meta">{{ guaOverview.main.palace }} · {{ guaOverview.main.type }}</p>
-											</view>
-											<tm-tag type="primary" :round="8" label="主卦"></tm-tag>
-										</view>
-										<view class="gua-tags">
-											<tm-tag :round="8" type="white" :font-size="24" :label="guaOverview.main.wuxing"></tm-tag>
-											<tm-tag :round="8" type="white" :font-size="24" :label="guaOverview.main.shiying"></tm-tag>
-										</view>
-										<view class="gua-note">
-											<tm-text :font-size="24" color="#4a5568" :label="guaOverview.main.trend"></tm-text>
-										</view>
-									</view>
-
-									<view class="gua-card secondary">
-										<view class="gua-card__header">
-											<view>
-												<p class="card-label">变卦</p>
-												<h3 class="gua-name">{{ guaOverview.changed.name }}</h3>
-												<p class="gua-meta">{{ guaOverview.changed.palace }} · {{ guaOverview.changed.type }}</p>
-											</view>
-											<tm-tag type="grey" :round="8" label="变卦"></tm-tag>
-										</view>
-										<view class="gua-tags">
-											<tm-tag :round="8" type="white" :font-size="24" :label="guaOverview.changed.wuxing"></tm-tag>
-											<tm-tag :round="8" type="white" :font-size="24" :label="guaOverview.changed.shiying"></tm-tag>
-										</view>
-										<view class="gua-note">
-											<tm-text :font-size="24" color="#4a5568" :label="guaOverview.changed.trend"></tm-text>
-										</view>
-									</view>
-								</view>
-								<view class="gua-footnote">
-									<tm-icon name="tmicon-md-information-circle" :font-size="22" color="#94a3b8"></tm-icon>
-									<tm-text :font-size="22" color="#94a3b8" :label="guaOverview.note"></tm-text>
-								</view>
-							</view>
-
-							<!-- 生成的卦象预览已移除（按要求） -->
-
-							<view class="section yao-section">
-								<header class="section__header">
-									<tm-icon name="tmicon-md-list" :font-size="26" color="#667eea"></tm-icon>
-									<h2 class="section__title">六爻明细</h2>
-								</header>
-								<view class="section__body">
-									<view class="yao-info-bar">
-										<text class="info-text">
-											<text class="info-label">干支：</text>
-											{{ compiled?.lunar?.gz?.year }}年 <text class="text-red">{{ compiled?.lunar?.gz?.month }}月</text> <text class="text-red">{{ compiled?.lunar?.gz?.day }}日</text> {{ compiled?.lunar?.gz?.hour }}时
-										</text>
-										<text class="info-text">
-											<text class="info-label">空亡：</text>
-											{{ compiled?.lunar?.xkong || '—' }}
-										</text>
-									</view>
-									<view class="table-wrapper draggable-scroll">
-										<view class="yao-table">
-											<view class="yao-row head">
-												<text class="cell col-yao">爻位</text>
-												<text class="cell col-god">六神</text>
-												<text class="cell col-qin">原卦六亲</text>
-												<text class="cell col-main">原卦</text>
-												<text class="cell col-bian-qin">变卦六亲</text>
-												<text class="cell col-bian-yao">变卦爻</text>
-								</view>
-								<view v-for="row in yaoRows" :key="row.id" class="yao-row">
-												<text class="cell col-yao">{{ row.order }}</text>
-												<text class="cell col-god">{{ formatDisplay(row.liushen) }}</text>
-												<view class="cell col-qin-wrapper">
-													<text class="col-qin-text">{{ formatDisplay(row.relation) }}</text>
-													<text v-if="row.hidden && row.hidden.trim()" class="col-hide-text">{{ row.hidden }}</text>
-												</view>
-												<text class="cell col-main">
-													<view class="main-cell">
-														<text class="yao-symbol">{{ row.mainSymbol || '—' }}</text>
-														<text v-if="row.mainRole" class="yao-meta">{{ row.mainRole }}</text>
-														<text v-if="row.moving" class="yao-meta">动</text>
-													</view>
-												</text>
-												<text class="cell col-bian-qin">{{ formatDisplay(row.bianRelation) }}</text>
-											<text class="cell col-bian-yao">
-												<view class="bian-cell">
-													<text class="yao-symbol">{{ row.bianSymbol || '—' }}</text>
-													<text v-if="row.bianRole" class="yao-meta">{{ row.bianRole }}</text>
-												</view>
-											</text>
-										</view>
-										</view>
-									</view>
-								</view>
-							</view>
-
-							<view class="section guaci-section">
-								<header class="section__header">
-									<tm-icon name="tmicon-md-book" :font-size="26" color="#667eea"></tm-icon>
-									<h2 class="section__title">卦辞与解读</h2>
-								</header>
-								<view class="section__body">
-									<view class="guaci-card">
-										<tm-text :font-size="26" color="#1f2937" :label="guaciText"></tm-text>
-									</view>
-								</view>
-							</view>
-						</template>
 					</view>
 				</view>
-			</view>
-		</view>
+
+				<view class="result-layout">
+					<view class="section gua-overview">
+						<header class="section__header">
+							<tm-icon name="tmicon-md-grid" :font-size="26" color="#1672b1"></tm-icon>
+							<h2 class="section__title">卦象总览</h2>
+						</header>
+						<view class="section__body gua-grid">
+							<view class="gua-card">
+								<view class="gua-card__header">
+									<view class="gua-heading">
+										<p class="card-label">本卦</p>
+										<h3 class="gua-name">{{ guaOverview.main.name }}</h3>
+										<p class="gua-meta">
+											{{ guaOverview.main.palace }} · {{ guaOverview.main.type }}
+										</p>
+									</view>
+									<tm-tag type="primary" :round="8" label="主卦"></tm-tag>
+								</view>
+								<view class="gua-tags">
+									<tm-tag
+										:round="8"
+										type="white"
+										:font-size="24"
+										:label="guaOverview.main.wuxing"
+									></tm-tag>
+									<tm-tag
+										:round="8"
+										type="white"
+										:font-size="24"
+										:label="guaOverview.main.shiying"
+									></tm-tag>
+								</view>
+								<view class="gua-note">
+									<tm-text
+										:font-size="24"
+										color="#4a5568"
+										:label="guaOverview.main.trend"
+									></tm-text>
+								</view>
+							</view>
+
+							<view class="gua-card secondary">
+								<view class="gua-card__header">
+									<view class="gua-heading">
+										<p class="card-label">变卦</p>
+										<h3 class="gua-name">{{ guaOverview.changed.name }}</h3>
+										<p class="gua-meta">
+											{{ guaOverview.changed.palace }} · {{ guaOverview.changed.type }}
+										</p>
+									</view>
+									<tm-tag type="grey" :round="8" label="变卦"></tm-tag>
+								</view>
+								<view class="gua-tags">
+									<tm-tag
+										:round="8"
+										type="white"
+										:font-size="24"
+										:label="guaOverview.changed.wuxing"
+									></tm-tag>
+									<tm-tag
+										:round="8"
+										type="white"
+										:font-size="24"
+										:label="guaOverview.changed.shiying"
+									></tm-tag>
+								</view>
+								<view class="gua-note">
+									<tm-text
+										:font-size="24"
+										color="#4a5568"
+										:label="guaOverview.changed.trend"
+									></tm-text>
+								</view>
+							</view>
+						</view>
+						<view class="gua-footnote">
+							<tm-icon
+								name="tmicon-md-information-circle"
+								:font-size="22"
+								color="#94a3b8"
+							></tm-icon>
+							<tm-text :font-size="22" color="#94a3b8" :label="guaOverview.note"></tm-text>
+						</view>
+					</view>
+
+					<view class="result-reading">
+						<text class="result-eyebrow">EXPLORE A LITTLE DEEPER</text>
+						<h2>看见结构，再聊细节。</h2>
+						<p>把盘面与自己的生活经验放在一起，从一个关心的问题开始。当前命盘会随对话一起带入。</p>
+						<button
+							v-bind="h5Button(() => handleAction('ai'))"
+							class="result-button primary"
+							@tap="handleAction('ai')"
+						>
+							带着这张盘，问问 AI ↗
+						</button>
+						<text class="result-note">传统文化探索 · 供交流与参考</text>
+					</view>
+				</view>
+
+				<view class="section yao-section">
+					<header class="section__header">
+						<tm-icon name="tmicon-md-list" :font-size="26" color="#1672b1"></tm-icon>
+						<h2 class="section__title">六爻明细</h2>
+					</header>
+					<view class="section__body">
+						<view class="yao-info-bar">
+							<text class="info-text">
+								<text class="info-label">干支：</text>
+								{{ compiled?.lunar?.gz?.year }}年
+								<text class="text-red">{{ compiled?.lunar?.gz?.month }}月</text>
+								<text class="text-red">{{ compiled?.lunar?.gz?.day }}日</text>
+								{{ compiled?.lunar?.gz?.hour }}时
+							</text>
+							<text class="info-text">
+								<text class="info-label">空亡：</text>
+								{{ compiled?.lunar?.xkong || '—' }}
+							</text>
+						</view>
+						<view class="table-wrapper draggable-scroll">
+							<view class="yao-table">
+								<view class="yao-row head">
+									<text class="cell col-yao">爻位</text>
+									<text class="cell col-god">六神</text>
+									<text class="cell col-qin">原卦六亲</text>
+									<text class="cell col-main">原卦</text>
+									<text class="cell col-bian-qin">变卦六亲</text>
+									<text class="cell col-bian-yao">变卦爻</text>
+								</view>
+								<view v-for="row in yaoRows" :key="row.id" class="yao-row">
+									<text class="cell col-yao">{{ row.order }}</text>
+									<text class="cell col-god">{{ formatDisplay(row.liushen) }}</text>
+									<view class="cell col-qin-wrapper">
+										<text class="col-qin-text">{{ formatDisplay(row.relation) }}</text>
+										<text v-if="row.hidden && row.hidden.trim()" class="col-hide-text">
+											{{ row.hidden }}
+										</text>
+									</view>
+									<text class="cell col-main">
+										<view class="main-cell">
+											<text class="yao-symbol">{{ row.mainSymbol || '—' }}</text>
+											<text v-if="row.mainRole" class="yao-meta">{{ row.mainRole }}</text>
+											<text v-if="row.moving" class="yao-meta">动</text>
+										</view>
+									</text>
+									<text class="cell col-bian-qin">{{ formatDisplay(row.bianRelation) }}</text>
+									<text class="cell col-bian-yao">
+										<view class="bian-cell">
+											<text class="yao-symbol">{{ row.bianSymbol || '—' }}</text>
+											<text v-if="row.bianRole" class="yao-meta">{{ row.bianRole }}</text>
+										</view>
+									</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+
+				<view class="section params-section">
+					<header class="section__header"><h2 class="section__title">起卦参数</h2></header>
+					<p class="result-note">初爻至上爻，保留本次起卦的六爻状态。</p>
+					<ParamPreview :params="compiled.params" />
+				</view>
+				<view class="section guaci-section">
+					<header class="section__header">
+						<tm-icon name="tmicon-md-book" :font-size="26" color="#1672b1"></tm-icon>
+						<h2 class="section__title">卦辞与解读</h2>
+					</header>
+					<view class="section__body">
+						<view class="guaci-card">
+							<tm-text :font-size="26" color="#1f2937" :label="guaciText"></tm-text>
+						</view>
+					</view>
+				</view>
+			</template>
+		</PageScaffold>
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
+import { h5Button } from '@/utils/keyboard';
+import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { computed, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
 import { useLiuyaoStore } from '@/store/liuyao';
@@ -558,206 +610,152 @@ onShow(() => {
 </script>
 
 <style scoped>
-.page-liuyao-result .app-main {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	padding: var(--page-pad-y) var(--page-pad-x);
-	padding-bottom: calc(var(--page-pad-y) + var(--safe-bottom) + var(--bottom-nav-height));
-	box-sizing: border-box;
-	background: radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.08), transparent 40%),
-		radial-gradient(circle at 80% 10%, rgba(118, 75, 162, 0.08), transparent 38%),
-		#f6f8fc;
+.page-liuyao-result {
+	color: var(--x-body);
+	font-family: var(--x-sans);
 }
-
-.page-liuyao-result .page-shell {
-	width: 100%;
-	max-width: var(--page-max);
-	display: flex;
-	justify-content: center;
-	box-sizing: border-box;
-	margin: 0 auto;
-}
-
-.page-liuyao-result .page-card {
-	width: 100%;
-	max-width: var(--page-max);
-	margin-inline: auto;
-	background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-	border: 1px solid #e5e9f2;
-	border-radius: 16px;
-	box-shadow: 0 12px 32px rgba(31, 41, 55, 0.1);
-	padding: 18px 16px;
-	position: relative;
-	overflow: hidden;
-}
-
-.page-liuyao-result .page-card::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(circle at 12% 12%, rgba(102, 126, 234, 0.08), transparent 35%),
-		radial-gradient(circle at 88% 6%, rgba(118, 75, 162, 0.07), transparent 32%);
-	pointer-events: none;
-}
-
-.page-liuyao-result .detail-card {
-	gap: 14px;
-	display: flex;
-	flex-direction: column;
-}
-
-/* 
-	底部操作栏样式
-	移动到顶部标题栏右侧
-*/
-
-
-.page-liuyao-result .section {
-	background: #ffffff;
+.section {
+	display: block;
+	min-width: 0;
+	padding: 24px;
+	border: 1px solid var(--x-line);
 	border-radius: 14px;
-	border: 1px solid #e2e8f0;
-	padding: 14px 12px 12px;
-	margin-bottom: 14px;
-	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-	position: relative;
-	z-index: 1;
+	background: var(--x-paper);
+	box-shadow: none;
 }
-
-.page-liuyao-result .section__header {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 12px;
-	border-bottom: 1px dashed #e5e7eb;
-	padding-bottom: 12px;
-}
-
-.page-liuyao-result .section__title {
-	font-size: 22px;
-	color: #2d3748;
-}
-
-.page-liuyao-result .section__body {
-	display: flex;
-	flex-direction: column;
-	gap: 14px;
-}
-
-.page-liuyao-result .info-summary .info-grid {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 12px;
-}
-
-@media (min-width: 720px) {
-	.page-liuyao-result .info-summary .info-grid {
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	}
-}
-
-.layout-medium .page-liuyao-result .info-summary .info-grid,
-.layout-wide .page-liuyao-result .info-summary .info-grid {
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.page-liuyao-result .info-tile {
-	padding: 14px 16px;
-	border: 1px solid #e5e7eb;
-	border-radius: 12px;
-	background: #f8fafc;
-}
-
-.page-liuyao-result .actions-bar {
+.section__header {
 	display: flex;
 	flex-direction: row;
-	gap: 12px;
 	align-items: center;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	margin-bottom: 12px;
-	padding: 0 4px;
+	gap: 10px;
+	margin-bottom: 18px;
+	padding-bottom: 0;
+	border: 0;
 }
-
-.page-liuyao-result .gua-grid {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 12px;
-}
-
-@media (min-width: 720px) {
-	.page-liuyao-result .gua-grid {
-		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	}
-}
-
-.layout-medium .page-liuyao-result .gua-grid,
-.layout-wide .page-liuyao-result .gua-grid {
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.page-liuyao-result .gua-card {
-	padding: 12px;
-	border: 1px solid #e5e7eb;
-	border-radius: 12px;
-	background: #f9fafb;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.page-liuyao-result .gua-card.secondary {
-	background: #fdfcfb;
-}
-
-.page-liuyao-result .gua-card__header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 8px;
-}
-
-.page-liuyao-result .gua-name {
+.section__title {
 	margin: 0;
 	font-size: 22px;
-	color: #111827;
+	font-family: var(--x-serif);
+	font-weight: 500;
+	color: var(--x-ink);
 }
-
-.page-liuyao-result .card-label {
-	margin: 0;
-	font-size: 13px;
-	color: #9ca3af;
+.section__body {
+	display: block;
+	min-width: 0;
 }
-
-.page-liuyao-result .gua-meta {
-	margin: 2px 0 0;
-	font-size: 14px;
-	color: #6b7280;
+.info-summary {
+	background: var(--x-gradient-soft);
 }
-
-.page-liuyao-result .gua-tags {
+.info-summary .section__header {
+	display: none;
+}
+.info-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr 2fr;
+	gap: 20px;
+}
+.info-tile {
+	min-width: 0;
 	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
+	flex-direction: column;
+	gap: 7px;
 }
-
-.page-liuyao-result .gua-note {
-	padding: 8px 10px;
-	background: #fff;
-	border: 1px dashed #e5e7eb;
+.result-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 270px;
+	gap: 22px;
+	align-items: start;
+}
+.gua-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+}
+.gua-card {
+	display: block;
+	border: 1px solid var(--x-line);
+	padding: 22px;
+	background: var(--x-gradient-soft);
 	border-radius: 10px;
 }
-
-.page-liuyao-result .gua-footnote {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-top: 4px;
-	color: #94a3b8;
+.gua-card.secondary {
+	background: var(--x-bg);
 }
-
+.gua-heading {
+	display: block;
+}
+.gua-card__header {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 10px;
+}
+.gua-name {
+	margin: 6px 0;
+	font: 500 28px var(--x-serif);
+	color: var(--x-ink);
+}
+.card-label {
+	margin: 0;
+	font-size: 11px;
+	color: var(--x-muted);
+}
+.gua-meta {
+	margin: 7px 0;
+	font-size: 12px;
+	color: var(--x-muted);
+}
+.gua-tags {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 14px;
+}
+.gua-note {
+	display: block;
+	padding-top: 14px;
+	line-height: 1.7;
+}
+.gua-footnote {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 7px;
+	margin-top: 18px;
+}
+.yao-info-bar {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 12px 24px;
+	margin-bottom: 18px;
+	padding: 12px 16px;
+	border-radius: 8px;
+	background: var(--x-bg);
+}
+.info-text {
+	font-size: 12px;
+	color: var(--x-body);
+}
+.info-label {
+	color: var(--x-muted);
+}
+.text-red {
+	color: #b45335;
+}
+.empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 300px;
+	gap: 20px;
+	text-align: center;
+}
 .page-liuyao-result .table-wrapper {
+	display: block;
 	width: 100%;
 	overflow-x: auto;
 	box-sizing: border-box;
@@ -765,6 +763,7 @@ onShow(() => {
 }
 
 .page-liuyao-result .yao-table {
+	display: block;
 	min-width: 820px;
 	width: 100%;
 	border: 1px solid #e5e7eb;
@@ -804,13 +803,15 @@ onShow(() => {
 	min-width: 88px;
 	text-align: center;
 	white-space: pre;
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-family:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+		monospace;
 	letter-spacing: 1px;
 }
 
 .page-liuyao-result .yao-meta {
 	margin-left: 6px;
-	color: #667eea;
+	color: #1672b1;
 	font-size: 14px;
 }
 
@@ -846,7 +847,7 @@ onShow(() => {
 }
 
 .page-liuyao-result .col-bian-role.active {
-	color: #667eea;
+	color: #1672b1;
 	font-size: 14px;
 }
 
@@ -875,6 +876,7 @@ onShow(() => {
 }
 
 .page-liuyao-result .guaci-card {
+	display: block;
 	border: 1px dashed #e5e7eb;
 	border-radius: 12px;
 	padding: 12px;
@@ -890,85 +892,158 @@ onShow(() => {
 	cursor: grabbing;
 }
 
-.page-liuyao-result .detail-card .page-title-wrapper {
-	margin-bottom: 6px;
-	padding-bottom: 8px;
-	gap: 8px;
-	align-items: flex-start;
-	flex-direction: column;
-	border-bottom: 1px dashed #e5e7eb;
+.page-liuyao-result .yao-table {
+	border-color: var(--x-line);
+}
+.page-liuyao-result .yao-row {
+	border-color: var(--x-line);
+}
+.page-liuyao-result .yao-row.head {
+	background: var(--x-tint);
+}
+.page-liuyao-result .yao-symbol {
+	color: var(--x-accent);
+}
+.page-liuyao-result .guaci-card {
+	background: var(--x-gradient-soft);
+	border-color: var(--x-line);
+	padding: 24px;
+	line-height: 2;
+}
+.params-section :deep(.param-grid) {
+	justify-content: flex-start;
 }
 
-@media (min-width: 900px) {
-	.page-liuyao-result .page-card {
-		max-width: var(--page-max);
-		padding: 24px 22px;
-		border-radius: 20px;
-		box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-	}
-
-	.page-liuyao-result .page-shell {
-		padding: var(--page-pad-y) var(--page-pad-x);
-	}
-
-	.page-liuyao-result .section {
-		padding: 20px 18px 18px;
-		margin-bottom: 18px;
-	}
-
-	.page-liuyao-result .detail-card .page-title-wrapper {
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
-}
-
-.page-liuyao-result .yao-info-bar {
+.result-actions {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 16px;
-	padding: 0 4px 12px;
-	border-bottom: 1px dashed #e5e7eb;
-	margin-bottom: 4px;
-	align-items: center;
+	gap: 8px;
 }
-
-.page-liuyao-result .info-text {
-	font-size: 18px;
-	color: #4b5563;
-	display: flex;
-	align-items: center;
-}
-
-.page-liuyao-result .text-red {
-	color: #ef4444;
-}
-
-.page-liuyao-result .info-label {
-	color: #6b7280;
-	margin-right: 4px;
-	font-weight: 500;
-}
-
-.layout-wide .page-liuyao-result .page-card {
-	max-width: var(--page-max);
-	padding: 24px 22px;
-	border-radius: 20px;
-	box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-}
-
-.layout-wide .page-liuyao-result .page-shell {
-	padding: var(--page-pad-y) var(--page-pad-x);
-}
-
-.layout-wide .page-liuyao-result .section {
-	padding: 20px 18px 18px;
-	margin-bottom: 18px;
-}
-
-.layout-wide .page-liuyao-result .detail-card .page-title-wrapper {
+.result-button {
+	margin: 0;
+	min-height: 40px;
+	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
-}</style>
+	justify-content: center;
+	padding: 9px 17px;
+	font-family: var(--x-sans);
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--x-body);
+	border: 1px solid var(--x-line);
+	border-radius: 8px;
+	background: var(--x-paper);
+	cursor: pointer;
+}
+.result-button::after {
+	border: 0;
+}
+.result-button.primary {
+	background: var(--x-gradient);
+	border-color: transparent;
+	color: #fff;
+}
+.result-button:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+.result-button:focus-visible {
+	outline: 2px solid var(--x-accent);
+	outline-offset: 3px;
+}
+.result-reading {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 28px;
+	border: 1px solid var(--x-line);
+	border-radius: 14px;
+	background: var(--x-gradient-soft);
+}
+.result-eyebrow {
+	color: var(--x-muted);
+	font-size: 10px;
+	letter-spacing: 0.12em;
+}
+.result-reading h2 {
+	margin: 0;
+	font-family: var(--x-serif);
+	font-weight: 500;
+	font-size: 25px;
+	line-height: 1.6;
+	color: var(--x-ink);
+}
+.result-reading p {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.9;
+	color: var(--x-muted);
+}
+.result-reading .result-button {
+	width: 100%;
+	box-sizing: border-box;
+}
+.result-note {
+	color: var(--x-muted);
+	font-size: 11px;
+	line-height: 1.8;
+}
+@media (max-width: 600px) {
+	.result-actions {
+		width: 100%;
+	}
+	.result-actions .result-button {
+		flex: 1;
+		padding: 9px 11px;
+		font-size: 11px;
+		white-space: nowrap;
+	}
+	.result-reading {
+		padding: 22px;
+	}
+	.result-reading h2 {
+		font-size: 23px;
+	}
+}
+
+@media (max-width: 1100px) {
+	.result-layout {
+		grid-template-columns: 1fr;
+	}
+	.result-reading .result-button {
+		width: auto;
+	}
+}
+@media (max-width: 720px) {
+	.section {
+		padding: 18px 14px;
+	}
+	.info-grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+	.info-tile:first-child {
+		grid-column: 1/-1;
+	}
+	.gua-card {
+		padding: 16px;
+	}
+	.gua-card__header {
+		flex-direction: column;
+	}
+	.gua-name {
+		font-size: 24px;
+	}
+	.section__title {
+		font-size: 20px;
+	}
+}
+@media (max-width: 420px) {
+	.gua-grid {
+		grid-template-columns: 1fr;
+	}
+}
+</style>

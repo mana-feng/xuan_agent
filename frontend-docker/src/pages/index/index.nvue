@@ -1,125 +1,159 @@
 <template>
 	<tm-app>
-		<PageScaffold class="page-bazi-input" title="八字排盘" subtitle="请填写以下信息进行八字排盘">
-			<SectionBlock icon="tmicon-md-person" title="基础信息">
-				<view class="card-stack">
-					<tm-input
-						v-model="realname"
-						placeholder="请输入姓名（可选）"
-						prefix="tmicon-md-person"
-						:round="12"
-						:border="1"
-						:padding="[24, 20]"
-					></tm-input>
-
-					<view class="form-group-single">
-						<view class="form-label">
-							<tm-icon name="tmicon-md-people" :font-size="24" color="#718096" :margin="[0, 6, 0, 0]"></tm-icon>
-							<tm-text :font-size="26" color="#718096" label="性别"></tm-text>
+		<PageScaffold
+			class="page-bazi-input"
+			title="八字排盘"
+			subtitle="从出生时刻出发，了解你的四柱、五行与人生节律。"
+			tag="BAZI · FOUR PILLARS"
+		>
+			<view class="form-steps" aria-label="排盘流程">
+				<view class="form-step current"
+					><text class="step-number">1</text><text>填写信息</text></view
+				>
+				<view class="form-step"><text class="step-number">2</text><text>查看命盘</text></view>
+				<view class="form-step"><text class="step-number">3</text><text>深入解读</text></view>
+			</view>
+			<view class="birth-form-layout">
+				<view class="birth-form-panel">
+					<view class="form-section">
+						<view class="form-section-heading"
+							><text class="section-mark">人</text
+							><text class="form-section-title">基本信息</text></view
+						>
+						<view class="birth-field-grid">
+							<view class="birth-field">
+								<text class="field-label">称呼<text class="field-optional">选填</text></text>
+								<input
+									v-model="realname"
+									class="birth-name-input"
+									placeholder="怎么称呼你？"
+									:maxlength="30"
+									aria-label="称呼"
+								/>
+							</view>
+							<view class="birth-field">
+								<text class="field-label">性别</text>
+								<view class="birth-segmented" role="group" aria-label="性别">
+									<button
+										v-bind="h5Button(() => (gender = 0))"
+										class="birth-segment"
+										:class="{ selected: Number(gender) === 0 }"
+										:aria-pressed="Number(gender) === 0"
+										@tap="gender = 0"
+									>
+										男
+									</button>
+									<button
+										v-bind="h5Button(() => (gender = 1))"
+										class="birth-segment"
+										:class="{ selected: Number(gender) === 1 }"
+										:aria-pressed="Number(gender) === 1"
+										@tap="gender = 1"
+									>
+										女
+									</button>
+								</view>
+							</view>
 						</view>
-						<view class="form-control">
-							<tm-segtab
-								v-model="gender"
-								:list="[{ text: '男' }, { text: '女' }]"
-								:width="300"
-								:margin="[0, 0]"
-								:default-value="0"
-							></tm-segtab>
+					</view>
+					<view class="form-section">
+						<view class="form-section-heading"
+							><text class="section-mark">时</text
+							><text class="form-section-title">出生时间</text></view
+						>
+						<view class="birth-field-grid">
+							<view class="birth-field full">
+								<text class="field-label">历法</text>
+								<view class="birth-segmented" role="group" aria-label="出生日期历法">
+									<button
+										v-bind="h5Button(() => (model = 0))"
+										class="birth-segment"
+										:class="{ selected: model === 0 }"
+										:aria-pressed="model === 0"
+										@tap="model = 0"
+									>
+										阳历（公历）
+									</button>
+									<button
+										v-bind="h5Button(() => (model = 1))"
+										class="birth-segment"
+										:class="{ selected: model === 1 }"
+										:aria-pressed="model === 1"
+										@tap="model = 1"
+									>
+										阴历（农历）
+									</button>
+								</view>
+							</view>
+							<view class="birth-field full">
+								<text class="field-label"
+									>出生日期与时间<text class="field-optional">{{
+										model === 0 ? '精确到分钟' : '按农历日期与时辰选择'
+									}}</text></text
+								>
+								<button v-bind="h5Button(SelectTime)" class="birth-time-control" @tap="SelectTime">
+									<text class="birth-selected-time">{{
+										datetime_label || '请选择出生日期与时间'
+									}}</text>
+									<text class="birth-edit-label">修改时间 ›</text>
+								</button>
+								<text class="birth-time-hint">{{
+									model === 0
+										? '请按公历填写出生日期；如只记得农历，可切换历法后选择。'
+										: '农历选择器保留时辰与历法换算，请核对下方对应公历。'
+								}}</text>
+							</view>
 						</view>
+						<view v-if="lunar_label || datetime_label" class="birth-summary">
+							<view v-if="lunar_label" class="birth-summary-row"
+								><text class="birth-summary-label">{{ model === 0 ? '对应农历' : '对应公历' }}</text
+								><text class="birth-summary-value">{{ lunar_label }}</text></view
+							>
+							<view v-if="bazi_label" class="birth-summary-row"
+								><text class="birth-summary-label">四柱预览</text
+								><view class="pillar-preview"
+									><text
+										v-for="(pillar, i) in bazi_label.split(' ')"
+										:key="i"
+										class="pillar-chip"
+										>{{ pillar }}</text
+									></view
+								></view
+							>
+						</view>
+					</view>
+					<view class="birth-form-bottom">
+						<text class="birth-time-hint">确认信息后生成命盘，再结合 AI 对话逐步解读。</text>
+						<button
+							v-bind="h5Button(Sumbit, !canSubmit)"
+							class="birth-submit"
+							:disabled="!canSubmit"
+							@tap="Sumbit"
+						>
+							开始排盘　→
+						</button>
 					</view>
 				</view>
-			</SectionBlock>
-
-			<SectionBlock icon="tmicon-time" title="出生时间" subtitle="支持阳历/阴历，精确到分钟">
-				<view class="card-stack">
-					<view class="form-group-single calendar-type-selector">
-						<view class="form-label">
-							<tm-icon name="tmicon-calendar-alt" :font-size="24" color="#718096" :margin="[0, 6, 0, 0]"></tm-icon>
-							<tm-text :font-size="26" color="#718096" label="日历类型"></tm-text>
-						</view>
-						<view class="form-control segtab-wrapper">
-							<tm-segtab
-								v-model="model"
-								:default-value="0"
-								:list="[{ text: '阳历' }, { text: '阴历' }]"
-								:margin="[0, 0]"
-								:width="300"
-							></tm-segtab>
-						</view>
+				<view class="form-help">
+					<text class="help-decoration">✧</text>
+					<text class="help-title">每个时刻，都有来处</text>
+					<text class="help-copy"
+						>准确的出生时间，是理解命盘的起点。你可以先向家人确认，或查看出生证明。</text
+					>
+					<view class="help-list">
+						<text class="help-item">01　先确认使用的是阳历还是阴历。</text>
+						<text class="help-item">02　出生时间不确定时，请先核对，不必急于填写。</text>
+						<text class="help-item">03　排盘后可以保存记录，日后继续查看与提问。</text>
 					</view>
-
-					<tm-button
-						type="primary"
-						linear="right"
-						linear-deep="accent"
-						:block="true"
-						:round="12"
-						:padding="[24, 24]"
-						icon="tmicon-calendar-alt"
-						icon-pos="left"
-						class="birth-time-btn"
-						:label="datetime_label || (model === 0 ? '请选择阳历出生日期和时间（精确到分钟）' : '请选择阴历出生日期和时间（精确到分钟）')"
-						@tap="SelectTime"
-					></tm-button>
-
-					<view v-if="lunar_label || bazi_label" class="info-grid info-cards">
-						<view v-if="lunar_label" class="info-card">
-							<view class="info-card-header">
-								<tm-icon name="tmicon-integral" :font-size="32" color="#48bb78"></tm-icon>
-								<tm-text
-									:font-size="24"
-									color="#718096"
-									:label="model === 0 ? '对应阴历' : '对应阳历'"
-									:margin="[0, 0, 0, 12]"
-								></tm-text>
-							</view>
-							<tm-text :font-size="28" color="#2d3748" :bold="true" :label="lunar_label"></tm-text>
-						</view>
-
-						<view v-if="bazi_label" class="info-card">
-							<view class="info-card-header">
-								<tm-icon name="tmicon-calendar" :font-size="32" color="#667eea"></tm-icon>
-								<tm-text :font-size="24" color="#718096" label="四柱八字" :margin="[0, 0, 0, 12]"></tm-text>
-							</view>
-							<view class="bazi-display">
-								<tm-tag
-									v-for="(item, index) in bazi_label.split(' ')"
-									:key="index"
-									:label="item"
-									type="primary"
-									:round="8"
-									:margin="[0, 8, 0, 0]"
-									:font-size="26"
-									:bold="true"
-								></tm-tag>
-							</view>
-						</view>
-					</view>
+					<navigator class="help-link" url="/pages/agent/index">不确定怎么填？问问 AI　→</navigator>
 				</view>
-			</SectionBlock>
-
-			<template #footer>
-				<tm-button
-					:class="['primary-btn', { disabled: !canSubmit }]"
-					:label="'开始排盘'"
-					:type="canSubmit ? 'primary' : 'grey'"
-					:round="999"
-					:bold="true"
-					:linear="canSubmit ? 'right' : ''"
-					:linear-deep="'accent'"
-					:shadow="canSubmit ? 10 : 0"
-					:disabled="!canSubmit"
-					icon="tmicon-calendar-alt"
-					block
-					@tap="Sumbit"
-				></tm-button>
-			</template>
+			</view>
 		</PageScaffold>
-
 		<tm-time-picker
 			v-model:show="solar_select_show"
 			:round="6"
 			:default-value="solar_default_value"
+			:model-value="solar_default_value"
 			:start="solar_time_pick.start"
 			:end="solar_time_pick.end"
 			:format="solar_time_pick.format"
@@ -131,6 +165,7 @@
 			v-model:show="lunar_select_show"
 			:round="6"
 			:default-value="lunar_default_value"
+			:model-value="lunar_default_value"
 			:start="lunar_time_pick.start"
 			:end="lunar_time_pick.end"
 			:format="lunar_time_pick.format"
@@ -141,14 +176,13 @@
 		></tm-time-picker>
 	</tm-app>
 </template>
-
-
 <script lang="ts" setup>
+import { h5Button } from '@/utils/keyboard';
 import { ref, computed, watch, nextTick } from 'vue';
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { Solar } from 'lunar-javascript';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
-import SectionBlock from '@/components/layout/SectionBlock.vue';
+
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
 import utils from '@/libs/utils/utils';
@@ -233,8 +267,9 @@ onLoad((options: any) => {
 			const editData = JSON.parse(editDataStr);
 
 			if (editData.isEdit && editData.timestamp) {
-				realname.value = editData.realname === '佚名' ? '' : (editData.realname || '');
-				gender.value = editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
+				realname.value = editData.realname === '佚名' ? '' : editData.realname || '';
+				gender.value =
+					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
 
 				recordId.value = editData.recordId ?? null;
@@ -276,8 +311,9 @@ onShow(() => {
 		try {
 			const editData = JSON.parse(editDataStr);
 			if (editData.isEdit && editData.timestamp) {
-				realname.value = editData.realname === '佚名' ? '' : (editData.realname || '');
-				gender.value = editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
+				realname.value = editData.realname === '佚名' ? '' : editData.realname || '';
+				gender.value =
+					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
 				recordId.value = editData.recordId ?? null;
 				uni.removeStorageSync('edit_bazi_data');
@@ -291,7 +327,6 @@ onShow(() => {
 			uni.removeStorageSync('edit_bazi_data');
 		}
 	}
-
 });
 
 function SelectTime() {
@@ -372,7 +407,7 @@ function PullDatatimeLabel() {
 	}
 }
 
-	function Sumbit() {
+function Sumbit() {
 	const datetime = timestamp.value;
 	if (datetime === null) {
 		uni.showToast({
@@ -384,12 +419,12 @@ function PullDatatimeLabel() {
 		return;
 	}
 
-		const params = {
-			realname: (realname.value || '').trim(),
-			timestamp: datetime,
-			gender: Number(gender.value),
-			recordId: recordId.value,
-		};
+	const params = {
+		realname: (realname.value || '').trim(),
+		timestamp: datetime,
+		gender: Number(gender.value),
+		recordId: recordId.value,
+	};
 	uni.showLoading({
 		title: '排盘中，请稍后！',
 	});
@@ -431,510 +466,363 @@ function PullDatatimeLabel() {
 		});
 	}
 }
-
-
 </script>
-
-
 <style scoped>
-/* 页面样式已在 app-shell.css 中定义 */
-/* 这里只添加页面特定的样式 */
-
-.page-bazi-input .app-main {
-	background: radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.08), transparent 40%),
-		radial-gradient(circle at 80% 10%, rgba(118, 75, 162, 0.08), transparent 38%),
-		#f6f8fc;
-}
-
-.page-bazi-input .page-shell {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: var(--page-pad-y) var(--page-pad-x);
-	box-sizing: border-box;
-}
-
-.page-bazi-input .page-card {
-	width: 100%;
-	max-width: var(--page-max);
-	background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-	border: 1px solid #e5e9f2;
-	border-radius: 16px;
-	box-shadow: 0 12px 32px rgba(31, 41, 55, 0.1);
-	padding: 18px 16px;
-	position: relative;
-	overflow: hidden;
-}
-
-.page-bazi-input .page-card::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(circle at 12% 12%, rgba(102, 126, 234, 0.08), transparent 35%),
-		radial-gradient(circle at 88% 6%, rgba(118, 75, 162, 0.07), transparent 32%);
-	pointer-events: none;
-}
-
-.page-bazi-input .page-title-wrapper {
-	display: flex;
-	align-items: flex-start;
-	gap: 12px;
-	margin-bottom: 12px;
-	position: relative;
-	z-index: 1;
-}
-
-.page-bazi-input .page-title {
-	margin: 0;
-	font-size: 22px;
-	color: #1f2937;
-	letter-spacing: 0.2px;
-}
-
-.page-bazi-input .page-subtitle {
-	margin: 4px 0 0;
-	font-size: 13px;
-	color: #6b7280;
-}
-
-.page-bazi-input .section {
-	background: #ffffff;
-	border-radius: 14px;
-	border: 1px solid #e2e8f0;
-	padding: 14px 12px 12px;
-	margin-bottom: 14px;
-	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-	position: relative;
-	z-index: 1;
-}
-
-.page-bazi-input .section__header {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 12px;
-	border-bottom: 1px dashed #e5e7eb;
-	padding-bottom: 12px;
-}
-
-.page-bazi-input .section__title {
-	font-size: 18px;
-	color: #2d3748;
-}
-
-.page-bazi-input .section__body {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-
-.page-bazi-input .page-card__footer {
-	margin-top: 14px;
-	padding-top: 10px;
-	border-top: 1px solid #eef2f7;
-	display: flex;
-	justify-content: center;
-	position: relative;
-	z-index: 1;
-	padding-bottom: calc(var(--safe-bottom) + var(--bottom-nav-height));
-}
-
-.birth-time-btn {
-	width: 100%;
-	text-align: left;
-}
-
-@media (min-width: 900px) {
-	.page-bazi-input .page-shell {
-		padding: var(--page-pad-y) var(--page-pad-x);
-	}
-	.page-bazi-input .page-card {
-		max-width: var(--page-max);
-		padding: 28px 26px;
-		border-radius: 20px;
-		box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-	}
-	.page-bazi-input .section {
-		padding: 20px 18px 18px;
-		margin-bottom: 18px;
-	}
-}
-
-.layout-wide .page-bazi-input .page-shell {
-	padding: var(--page-pad-y) var(--page-pad-x);
-}
-
-.layout-wide .page-bazi-input .page-card {
-	max-width: var(--page-max);
-	padding: 28px 26px;
-	border-radius: 20px;
-	box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-}
-
-.layout-wide .page-bazi-input .section {
-	padding: 20px 18px 18px;
-	margin-bottom: 18px;
-}
-
-
-/* 未登录状态样式 */
-.page-bazi-input .auth-not-logged-in {
-	display: flex;
-	flex-direction: column;
-	gap: 20rpx;
-	width: 100%;
-}
-
-/* 登录/注册表单样式 */
-.page-bazi-input .auth-form-container {
-	margin-top: 24rpx;
-	padding-top: 24rpx;
-	border-top: 1rpx solid #e2e8f0;
-	width: 100%;
-	box-sizing: border-box;
-	background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-	border-radius: 12rpx;
-	padding: 24rpx;
-}
-
-.page-bazi-input .auth-tabs {
+.form-steps {
 	display: flex;
 	flex-direction: row;
-	border-bottom: 2rpx solid #e2e8f0;
-	margin-bottom: 24rpx;
-	width: 100%;
-}
-
-.page-bazi-input .auth-tab {
-	flex: 1;
-	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
+	gap: 18px;
 	align-items: center;
-	padding: 20rpx 0;
-	border-bottom: 4rpx solid transparent;
-	transition: all 0.3s;
+	margin: 3px 0 25px;
+	color: var(--x-muted, #667d82);
+	font-size: 12px;
+}
+.form-step {
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+	align-items: center;
+}
+.step-number {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 23px;
+	height: 23px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 50%;
+	font-size: 11px;
+}
+.form-step.current {
+	color: var(--x-accent, #1672b1);
+}
+.current .step-number {
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+	color: #fff;
+	border-color: transparent;
+}
+.birth-form-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 250px;
+	gap: 24px;
+	align-items: start;
+}
+.birth-form-panel {
 	min-width: 0;
+	background: var(--x-paper, #fff);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 16px;
+	padding: 30px;
+	box-shadow: 0 8px 32px #233e4905;
 }
-
-.page-bazi-input .auth-tab.active {
-	border-bottom-color: #667eea;
+.form-section + .form-section {
+	border-top: 1px solid var(--x-line, #dbe9ed);
+	padding-top: 27px;
+	margin-top: 27px;
 }
-
-.page-bazi-input .auth-form-fields {
-	margin-bottom: 20rpx;
+.form-section,
+.form-help {
+	display: block;
+}
+.form-section-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 23px;
+}
+.section-mark {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 27px;
+	height: 27px;
+	border-radius: 8px;
+	background: var(--x-tint, #e7f4fc);
+	color: var(--x-accent, #1672b1);
+	font-size: 15px;
+}
+.form-section-title {
+	font-family: var(--x-serif, 'Noto Serif SC', 'Songti SC', SimSun, serif);
+	font-size: 21px;
+	color: var(--x-ink, #233e49);
+	font-weight: 500;
+}
+.birth-field-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 22px;
+}
+.birth-field {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.birth-field.full {
+	grid-column: 1 / -1;
+}
+.field-label {
+	font-size: 13px;
+	color: var(--x-body, #425d65);
+}
+.field-optional {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	margin-left: 7px;
+}
+.birth-name-input {
 	width: 100%;
+	height: 45px;
+	padding: 0 13px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	background: var(--x-paper, #fff);
+	color: var(--x-ink, #233e49);
+	box-sizing: border-box;
+	font-size: 13px;
 }
-
-.page-bazi-input .auth-form-hint {
+.birth-segmented {
+	display: flex;
+	flex-direction: row;
+	padding: 3px;
+	min-height: 45px;
+	background: var(--x-tint, #e7f4fc);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	box-sizing: border-box;
+	gap: 4px;
+}
+.birth-segment {
+	flex: 1;
+	margin: 0;
+	padding: 7px 8px;
+	line-height: 23px;
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	color: var(--x-muted, #667d82);
+	font-size: 12px;
+}
+.birth-segment.selected {
+	background: var(--x-paper, #fff);
+	color: var(--x-accent, #1672b1);
+	box-shadow: 0 1px 5px #233e4910;
+}
+button::after {
+	border: 0;
+}
+.birth-time-control {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0;
+	padding: 15px 16px;
+	gap: 12px;
+	line-height: 1.7;
+	background: var(--x-paper, #fff);
+	color: var(--x-ink, #233e49);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 10px;
+	text-align: left;
+}
+.birth-selected-time {
+	font-size: 16px;
+	font-variant-numeric: tabular-nums;
+}
+.birth-edit-label {
+	color: var(--x-accent, #1672b1);
+	font-size: 12px;
+	white-space: nowrap;
+}
+.birth-time-hint {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	line-height: 1.85;
+}
+.birth-summary {
+	padding: 16px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 10px;
+	background: var(--x-gradient-soft, linear-gradient(125deg, #e7f4fc, #fff, #e6f6ed));
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin-top: 20px;
+}
+.birth-summary-row {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20rpx;
-	width: 100%;
-	flex-wrap: wrap;
+	gap: 16px;
 }
-
-.page-bazi-input .auth-form-hint > view {
-	margin-right: 8rpx;
-	margin-bottom: 8rpx;
+.birth-summary-label {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	flex-shrink: 0;
 }
-
-.page-bazi-input .auth-form-hint > view:last-child {
-	margin-right: 0;
+.birth-summary-value {
+	font-size: 13px;
+	color: var(--x-body, #425d65);
+	text-align: right;
 }
-
-.page-bazi-input .auth-error {
+.pillar-preview {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	padding: 16rpx 20rpx;
-	background: rgba(245, 101, 101, 0.1);
-	border-radius: 12rpx;
-	border-left: 4rpx solid #f56565;
-	margin-bottom: 20rpx;
-	width: 100%;
-}
-
-.page-bazi-input .auth-form-actions {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-}
-
-/* 表单卡片样式 - 使用响应式类 */
-.page-bazi-input .form-card {
-  /* 已在 responsive-card 中定义 */
-}
-
-.page-bazi-input .form-header-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-bazi-input .form-header-text > view {
-	margin-bottom: 6px;
-}
-
-.page-bazi-input .form-header-text > view:last-child {
-	margin-bottom: 0;
-}
-
-.page-bazi-input .form-section-card {
-	background: linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
-	border-radius: 12px;
-	padding: 24px 22px;
-	border: 1px solid #e2e8f0;
-}
-
-.page-bazi-input .form-submit {
-	width: 100%;
-	margin-top: 28px;
-	display: flex;
-	justify-content: center;
-}
-
-.page-bazi-input .form-row {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	gap: 16rpx;
-}
-
-.page-bazi-input .form-row > view {
-	margin-right: 0;
-	margin-bottom: 0;
-}
-
-.page-bazi-input .form-row > view:last-child {
-	margin-right: 0;
-}
-
-@media (min-width: 720px) {
-	.page-bazi-input .form-row {
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 0;
-	}
-
-	.page-bazi-input .form-row > view {
-		margin-right: 24rpx;
-		margin-bottom: 24rpx;
-	}
-
-	.page-bazi-input .form-row > view:last-child {
-		margin-right: 0;
-	}
-}
-
-.layout-medium .page-bazi-input .form-row,
-.layout-wide .page-bazi-input .form-row {
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0;
-}
-
-.layout-medium .page-bazi-input .form-row > view,
-.layout-wide .page-bazi-input .form-row > view {
-	margin-right: 24rpx;
-	margin-bottom: 24rpx;
-}
-
-.layout-medium .page-bazi-input .form-row > view:last-child,
-.layout-wide .page-bazi-input .form-row > view:last-child {
-	margin-right: 0;
-}
-
-.page-bazi-input .form-group {
 	flex: 1;
-	width: 240rpx;
-	display: flex;
-	flex-direction: column;
-}
-
-.page-bazi-input .form-group > view {
-	margin-bottom: 12rpx;
-}
-
-.page-bazi-input .form-group > view:last-child {
-	margin-bottom: 0;
-}
-
-.page-bazi-input .form-group-single {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-}
-
-.page-bazi-input .form-group-single > view {
-	margin-bottom: 10px;
-}
-
-.page-bazi-input .form-group-single > view:last-child {
-	margin-bottom: 0;
-}
-
-.page-bazi-input .form-group-single.calendar-type-selector {
-	margin-bottom: 24rpx;
-}
-
-.page-bazi-input .form-label {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.page-bazi-input .form-control {
-	width: 100%;
-}
-
-.page-bazi-input .segtab-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	overflow: hidden;
-}
-
-.page-bazi-input .segtab-wrapper :deep(.tm-segtab) {
-	width: 100%;
-}
-
-.page-bazi-input .info-cards {
-	display: flex;
-	flex-direction: column;
-	margin-top: 8rpx;
-	gap: 12rpx;
-}
-
-.page-bazi-input .info-cards > view {
-	width: 100%;
-	margin-right: 0;
-	margin-bottom: 0;
-}
-
-@media (min-width: 720px) {
-	.page-bazi-input .info-cards {
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 0;
-	}
-
-	.page-bazi-input .info-cards > view {
-		width: calc(50% - 8rpx);
-		margin-right: 16rpx;
-		margin-bottom: 16rpx;
-	}
-
-	.page-bazi-input .info-cards > view:nth-child(2n) {
-		margin-right: 0;
-	}
-}
-
-.layout-medium .page-bazi-input .info-cards,
-.layout-wide .page-bazi-input .info-cards {
+	min-width: 0;
+	justify-content: flex-end;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 0;
+	gap: 9px;
 }
-
-.layout-medium .page-bazi-input .info-cards > view,
-.layout-wide .page-bazi-input .info-cards > view {
-	width: calc(50% - 8rpx);
-	margin-right: 16rpx;
-	margin-bottom: 16rpx;
+.pillar-chip {
+	border: 1px solid var(--x-line, #dbe9ed);
+	padding: 6px 11px;
+	border-radius: 7px;
+	color: var(--x-accent, #1672b1);
+	background: var(--x-paper, #fff);
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 19px;
 }
-
-.layout-medium .page-bazi-input .info-cards > view:nth-child(2n),
-.layout-wide .page-bazi-input .info-cards > view:nth-child(2n) {
-	margin-right: 0;
-}
-
-.page-bazi-input .info-card {
-	background: transparent;
-	border-radius: 14rpx;
-	padding: 20rpx 24rpx;
-	border: 1rpx solid transparent;
-	box-shadow: none;
-}
-
-.page-bazi-input .info-card-header {
+.birth-form-bottom {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: 12rpx;
+	justify-content: space-between;
+	gap: 18px;
+	padding-top: 24px;
+	margin-top: 27px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
 }
-
-.page-bazi-input .bazi-display {
+.birth-form-bottom .birth-time-hint {
+	max-width: 240px;
+}
+.birth-submit {
+	flex-shrink: 0;
+	min-width: 140px;
+	margin: 0;
+	border-radius: 9px;
+	padding: 12px 22px;
+	line-height: 23px;
+	font-size: 13px;
+	color: #fff;
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+}
+.birth-submit[disabled] {
+	opacity: 0.45;
+	color: #fff;
+}
+.form-help {
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 14px;
+	padding: 25px 23px;
+	background: var(--x-gradient-soft, linear-gradient(125deg, #e7f4fc, #fff, #e6f6ed));
+}
+.help-decoration {
+	display: block;
+	color: var(--x-accent, #1672b1);
+	font-size: 27px;
+	margin-bottom: 15px;
+}
+.help-title {
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 20px;
+	color: var(--x-ink, #233e49);
+	line-height: 1.7;
+}
+.help-copy {
+	display: block;
+	font-size: 12px;
+	line-height: 1.95;
+	color: var(--x-muted, #667d82);
+	margin-top: 12px;
+}
+.help-list {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
+	flex-direction: column;
+	gap: 13px;
+	margin-top: 20px;
+	padding-top: 17px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
 }
-
-.page-bazi-input .bazi-display > view {
-	margin-right: 8rpx;
-	margin-bottom: 8rpx;
+.help-item {
+	font-size: 11px;
+	line-height: 1.85;
+	color: var(--x-body, #425d65);
 }
-
-.page-bazi-input .bazi-display > view:last-child {
-	margin-right: 0;
+.help-link {
+	display: block;
+	font-size: 12px;
+	color: var(--x-accent, #1672b1);
+	margin-top: 21px;
+	padding-top: 14px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
 }
-
-/* 按钮样式已在 app-shell.css 中定义 */
-
-.page-bazi-input .submit-button-wrapper {
-	position: relative;
-	width: 100%;
+@media (max-width: 1080px) {
+	.birth-form-layout {
+		grid-template-columns: minmax(0, 1fr) 210px;
+		gap: 17px;
+	}
+	.birth-form-panel {
+		padding: 25px;
+	}
+	.form-help {
+		padding: 22px 18px;
+	}
 }
-
-.page-bazi-input .submit-button {
-	position: relative;
-	z-index: 2;
+@media (max-width: 800px) {
+	.birth-form-layout {
+		grid-template-columns: 1fr;
+	}
+	.form-help {
+		margin-top: 0;
+	}
+	.help-list {
+		margin-top: 12px;
+	}
 }
-
-.page-bazi-input .submit-button :deep(.tm-button) {
-	background: linear-gradient(135deg, #4c51bf 0%, #2a3fb8 100%) !important;
-	color: #ffffff !important;
-	box-shadow: 0 14rpx 28rpx rgba(44, 64, 180, 0.28) !important;
+@media (max-width: 520px) {
+	.birth-form-panel {
+		padding: 21px 17px;
+		border-radius: 12px;
+	}
+	.birth-field-grid {
+		grid-template-columns: 1fr;
+		gap: 19px;
+	}
+	.birth-form-bottom {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 14px;
+	}
+	.birth-form-bottom .birth-time-hint {
+		max-width: none;
+	}
+	.birth-submit {
+		width: 100%;
+	}
+	.birth-summary-row {
+		align-items: flex-start;
+	}
+	.birth-summary-value {
+		font-size: 12px;
+	}
+	.pillar-chip {
+		padding: 5px 8px;
+		font-size: 18px;
+	}
+	.form-steps {
+		gap: 13px;
+		font-size: 11px;
+	}
+	.birth-selected-time {
+		font-size: 14px;
+	}
 }
-
-.page-bazi-input .submit-button-wrapper.disabled .submit-button :deep(.tm-button) {
-	background: #d2d6dc !important;
-	color: #a0aec0 !important;
-	box-shadow: none !important;
-}
-
-.page-bazi-input .submit-button:active {
-	transform: scale(0.98);
-}
-
-.page-bazi-input .submit-button-glow {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%);
-	border-radius: 16rpx;
-	z-index: 1;
-	opacity: 0.6;
-}
-
-.page-bazi-input .submit-button-wrapper.disabled .submit-button-glow {
-	opacity: 0.15;
-}
-
-.page-bazi-input .error-container {
-	padding: 16rpx 20rpx;
-	background: rgba(245, 101, 101, 0.1);
-	border-radius: 12rpx;
-	border-left: 4rpx solid #f56565;
-	width: 100%;
-}
-
-.page-bazi-input .announcement-list {
-	max-height: 60vh;
-	overflow-y: auto;
-}</style>
+</style>
