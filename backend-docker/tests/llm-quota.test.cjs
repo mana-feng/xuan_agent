@@ -22,7 +22,7 @@ function loadModule(relative, dependencies) {
 }
 
 function quotaDatabase(count = 1) {
-  const state = { count, records: 0, unavailable: false, failInsert: false, connections: 0 };
+  const state = { count, records: 0, tokenUsage: [], unavailable: false, failInsert: false, connections: 0 };
   let rowLock = Promise.resolve();
   const quota = value => ({ user_id: 41, remaining_daily_count: value, remaining_token: 0, per_minute_limit: 1 });
   const db = {
@@ -46,10 +46,11 @@ function quotaDatabase(count = 1) {
         let releaseLock;
         let localCount;
         let localRecords = 0;
+        let localTokenUsage = [];
         const unlock = () => { releaseLock?.(); releaseLock = null; };
         return {
           beginTransaction: async () => {},
-          execute: async sql => {
+          execute: async (sql, params) => {
             if (sql.includes('UPDATE user_llm_quotas')) {
               const previous = rowLock;
               rowLock = new Promise(resolve => { releaseLock = resolve; });
@@ -62,6 +63,7 @@ function quotaDatabase(count = 1) {
             if (sql.includes('INSERT INTO llm_usage_records')) {
               if (state.failInsert) throw new Error('usage insert failed');
               localRecords++;
+              localTokenUsage.push(params[1]);
               return [{ affectedRows: 1 }];
             }
             if (sql.includes('SELECT')) return [[quota(localCount ?? state.count)]];
@@ -70,6 +72,7 @@ function quotaDatabase(count = 1) {
           commit: async () => {
             if (localCount !== undefined) state.count = localCount;
             state.records += localRecords;
+            state.tokenUsage.push(...localTokenUsage);
             unlock();
           },
           rollback: async () => { unlock(); },
@@ -95,6 +98,17 @@ async function fixture(t, { count = 1, provider = 'ollama' } = {}) {
     const request = JSON.parse(body);
     const mode = request.messages?.[0]?.content || request.contents?.[0]?.parts?.[0]?.text || 'success';
     const streaming = provider === 'gemini' ? req.url.includes(':streamGenerateContent') : request.stream;
+    if (mode === 'usage') {
+      const usage = { prompt_tokens: 120, completion_tokens: 15, total_tokens: 135 };
+      if (streaming) {
+        res.setHeader('Content-Type', 'text/event-stream');
+        res.end('data: ' + JSON.stringify({ choices: [{ delta: { content: '阳遁四局' }, finish_reason: 'stop' }], usage }) + '\n\ndata: [DONE]\n\n');
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ choices: [{ message: { content: '阳遁四局' } }], usage }));
+      }
+      return;
+    }
     if (mode === 'http-error') { res.writeHead(500); res.end('{"error":"upstream failed"}'); return; }
     if (mode === 'upstream-401' || mode === 'upstream-403') {
       res.writeHead(Number(mode.slice(-3)));
@@ -182,6 +196,17 @@ async function fixture(t, { count = 1, provider = 'ollama' } = {}) {
       socket.on('close', () => { clearTimeout(timeout); resolve(messages); });
     }),
   };
+}
+
+for (const transport of ['http', 'ws']) {
+  for (const stream of [false, true]) {
+    test(`${transport}: real provider token counts reach the committed usage record, stream=${stream}`, async t => {
+      const f = await fixture(t, { provider: 'openai' });
+      if (transport === 'http') assert.equal((await f.request('usage', stream)).status, 200);
+      else assert.ok((await f.ws('usage', stream)).some(item => item.event === 'done'));
+      assert.deepEqual(f.state.tokenUsage, [135]);
+    });
+  }
 }
 
 for (const endpoint of ['chat', 'agent']) {

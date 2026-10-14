@@ -164,7 +164,7 @@ function buildLLMPayload(cfg, messages, stream) {
 		return payload;
 	}
 
-	return {
+	const payload = {
 		model: cfg.model,
 		messages: messages.map((item) => ({
 			role: item.role || 'user',
@@ -173,6 +173,11 @@ function buildLLMPayload(cfg, messages, stream) {
 		stream: Boolean(stream),
 		...extra,
 	};
+	// Compatible providers may opt out explicitly if they do not support usage chunks.
+	if (provider === 'openai' && payload.stream) {
+		payload.stream_options = { include_usage: true, ...payload.stream_options };
+	}
+	return payload;
 }
 
 function buildLLMRequest(cfg, messages, stream) {
@@ -310,6 +315,17 @@ function createLLMRequestControl() {
 	};
 }
 
+function extractLLMTokenUsage(cfg, data) {
+	const valid = value => Number.isSafeInteger(value) && value >= 0;
+	const usage = data?.usage;
+	if (valid(usage?.total_tokens)) return usage.total_tokens;
+	if (valid(usage?.prompt_tokens) && valid(usage?.completion_tokens)) {
+		const total = usage.prompt_tokens + usage.completion_tokens;
+		return valid(total) ? total : 0;
+	}
+	return 0;
+}
+
 /** Consume provider SSE/NDJSON to completion, rejecting empty, error or cut-off responses. */
 async function consumeLLMStream(cfg, body, onText) {
 	const provider = normalizeProvider(cfg?.provider);
@@ -319,6 +335,7 @@ async function consumeLLMStream(cfg, body, onText) {
 	let eventData = [];
 	let completed = false;
 	let hasVisibleText = false;
+	let tokensUsed = 0;
 
 	const emit = (text) => {
 		if (!text) return;
@@ -330,6 +347,8 @@ async function consumeLLMStream(cfg, body, onText) {
 		let data;
 		try { data = JSON.parse(raw); } catch (_) { throw llmResponseError('Malformed LLM stream'); }
 		if (data.error || data.type === 'error') throw llmResponseError('LLM upstream returned an error');
+		// Usage is cumulative and can arrive in a separate chunk after finish_reason.
+		tokensUsed = Math.max(tokensUsed, extractLLMTokenUsage(cfg, data));
 		emit(extractLLMStreamText(cfg, data, stripThinkChunk));
 		if (provider === 'ollama') completed ||= data.done === true;
 		else if (provider === 'anthropic') completed ||= data.type === 'message_stop';
@@ -363,6 +382,7 @@ async function consumeLLMStream(cfg, body, onText) {
 	emit(flushLLMStreamText(cfg, stripThinkChunk));
 	if (!completed) throw llmResponseError('LLM stream ended without completion');
 	if (!hasVisibleText) throw llmResponseError('LLM returned an empty answer');
+	return { tokensUsed };
 }
 
 function validateLLMResponse(cfg, data) {
@@ -384,6 +404,7 @@ module.exports = {
 	createThinkBlockStripper,
 	extractLLMStreamText,
 	extractLLMText,
+	extractLLMTokenUsage,
 	flushLLMStreamText,
 	isApiKeyOptionalProvider,
 	isLLMConfigReady,

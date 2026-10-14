@@ -12,6 +12,7 @@ const {
 	consumeLLMStream,
 	createLLMRequestControl,
 	validateLLMResponse,
+	extractLLMTokenUsage,
 	isLLMConfigReady,
 } = require('../services/llm');
 const config = require('../config');
@@ -206,13 +207,16 @@ function initWebSocketServer(server) {
 					if (ws.readyState !== 1) throw new Error('Client disconnected');
 					ws.send(JSON.stringify({ event: 'delta', text }) + '\n');
 				};
+				let tokensUsed = 0;
 				if (stream) {
-					await consumeLLMStream(cfg, llmRes.body, sendText);
+					({ tokensUsed } = await consumeLLMStream(cfg, llmRes.body, sendText));
 				} else {
-					sendText(validateLLMResponse(cfg, await llmRes.json()));
+					const data = await llmRes.json();
+					sendText(validateLLMResponse(cfg, data));
+					tokensUsed = extractLLMTokenUsage(cfg, data);
 				}
 				control.signal.throwIfAborted();
-				await reservation.commit();
+				await reservation.commit(tokensUsed);
 				ws.send(JSON.stringify({ event: 'done' }) + '\n');
 				ws.close();
 			} catch (err) {

@@ -13,6 +13,7 @@ const {
 	consumeLLMStream,
 	createLLMRequestControl,
 	validateLLMResponse,
+	extractLLMTokenUsage,
 	isLLMConfigReady,
 } = require('../services/llm');
 const { authMiddleware } = require('../middleware/auth');
@@ -105,11 +106,11 @@ async function handleLLMRequest(req, res, { scope = 'chat', requireQuota = false
 			res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
 			res.setHeader('Cache-Control', 'no-cache');
 			res.setHeader('Connection', 'keep-alive');
-			await consumeLLMStream(cfg, llmRes.body, (text) => {
+			const usage = await consumeLLMStream(cfg, llmRes.body, (text) => {
 				res.write(`data: ${JSON.stringify({ event: 'delta', text })}\n\n`);
 			});
 			control.signal.throwIfAborted();
-			await reservation?.commit();
+			await reservation?.commit(usage.tokensUsed);
 			res.write('data: [DONE]\n\n');
 			res.end();
 			return;
@@ -118,7 +119,7 @@ async function handleLLMRequest(req, res, { scope = 'chat', requireQuota = false
 		const data = await llmRes.json();
 		const text = validateLLMResponse(cfg, data);
 		control.signal.throwIfAborted();
-		await reservation?.commit();
+		await reservation?.commit(extractLLMTokenUsage(cfg, data));
 		return res.json({ reply: text });
 	} catch (err) {
 		await reservation?.rollback?.();
