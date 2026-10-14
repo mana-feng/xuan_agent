@@ -1,14 +1,14 @@
 <template>
-	<SectionBlock
-		icon="tmicon-applicationgroup"
-		title="可控工具"
-		subtitle="先让 Agent 判断最合适的排盘方式，也可以直接打开对应页面"
-	>
+	<view class="tool-section">
+		<view class="tools-heading">
+			<text>选择一种方式，开始探索</text>
+			<text class="tools-caption">也可以直接排盘</text>
+		</view>
 		<view class="tool-grid">
 			<view v-for="card in toolCards" :key="card.target" class="tool-card">
 				<view class="tool-card__head">
 					<view class="tool-card__icon">
-						<tm-icon :name="card.icon" :font-size="26" color="#4338ca"></tm-icon>
+						<tm-icon :name="card.icon" :font-size="26" color="var(--x-accent)"></tm-icon>
 					</view>
 					<view class="tool-card__title-wrap">
 						<text class="tool-card__title">{{ card.title }}</text>
@@ -20,16 +20,15 @@
 					<text v-for="badge in card.badges" :key="badge" class="tool-card__tag">{{ badge }}</text>
 				</view>
 				<view class="tool-card__actions">
-					<button class="tool-btn tool-btn--ghost" v-bind="h5Button(() => emit('open-target', card.target))" :aria-label="'立即打开' + card.title" @tap="emit('open-target', card.target)">立即打开</button>
-					<button class="tool-btn tool-btn--primary" v-bind="h5Button(() => emit('quick-prompt', card.prompt))" :aria-label="'让 Agent 帮我用' + card.title" @tap="emit('quick-prompt', card.prompt)">让 Agent 帮我用</button>
+					<button class="tool-btn tool-btn--primary" v-bind="h5Button(() => emit('open-target', card.target))" :aria-label="'立即打开' + card.title" @tap="emit('open-target', card.target)">开始排盘 ↗</button>
+					<button class="tool-btn tool-btn--secondary" v-bind="h5Button(() => emit('quick-prompt', card.prompt))" :aria-label="'让 Agent 帮我用' + card.title" @tap="emit('quick-prompt', card.prompt)">问问 AI</button>
 				</view>
 			</view>
 		</view>
-	</SectionBlock>
+	</view>
 </template>
 
 <script setup lang="ts">
-import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { AgentTarget, ToolCard } from '@/features/agent/types';
 import { h5Button } from '@/utils/keyboard';
 
@@ -44,127 +43,31 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-.tool-grid {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-
-.tool-card {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	padding: 16px;
-	border-radius: 18px;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 247, 255, 0.98) 100%);
-	border: 1px solid rgba(99, 102, 241, 0.12);
-	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-}
-
-.tool-card__head {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 12px;
-}
-
-.tool-card__icon {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 44px;
-	height: 44px;
-	border-radius: 14px;
-	background: linear-gradient(135deg, rgba(79, 70, 229, 0.14), rgba(14, 165, 233, 0.16));
-}
-
-.tool-card__title-wrap {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-	flex: 1;
-	min-width: 0;
-}
-
-.tool-card__title {
-	font-size: 16px;
-	font-weight: 700;
-	color: #111827;
-}
-
-.tool-card__subtitle {
-	font-size: 12px;
-	color: #6366f1;
-}
-
-.tool-card__summary {
-	font-size: 13px;
-	line-height: 1.65;
-	color: #475569;
-}
-
-.tool-card__tags {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
-.tool-card__tag {
-	padding: 4px 8px;
-	border-radius: 999px;
-	background: rgba(99, 102, 241, 0.08);
-	font-size: 12px;
-	color: #4338ca;
-}
-
-.tool-card__actions {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 10px;
-}
-
-.tool-btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0 16px;
-	height: 38px;
-	border-radius: 999px;
-	font-size: 13px;
-	font-weight: 700;
-}
-
-.tool-btn::after {
-	border: none;
-}
-
-.tool-btn--ghost {
-	background: rgba(15, 23, 42, 0.06);
-	color: #0f172a;
-}
-
-.tool-btn--primary {
-	background: linear-gradient(135deg, #4338ca 0%, #1d4ed8 100%);
-	color: #ffffff;
-}
-
+.tool-section { padding-top:16px; }
+.tools-heading { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:15px; margin-bottom:16px; font-size:16px; font-weight:600; color:var(--x-ink); }
+.tools-caption { font-size:12px; font-weight:400; color:var(--x-muted); }
+.tool-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.tool-card { display:flex; flex-direction:column; min-width:0; gap:14px; padding:20px; background:var(--x-paper); border:1px solid var(--x-line); border-radius:15px; transition:border-color .2s; }
+.tool-card:hover { border-color:var(--x-accent); }
+.tool-card__head { display:flex; flex-direction:row; align-items:center; gap:12px; }
+.tool-card__icon { width:40px; height:40px; display:flex; flex-direction:row; align-items:center; justify-content:center; border-radius:11px; background:var(--x-gradient-soft); flex-shrink:0; }
+.tool-card:nth-child(2) .tool-card__icon { background:#eaf2fb; }
+.tool-card:nth-child(3) .tool-card__icon { background:#e7f5ed; }
+.tool-card:nth-child(4) .tool-card__icon { background:#e6f4f3; }
+.tool-card__title-wrap { display:flex; flex-direction:column; min-width:0; gap:5px; }
+.tool-card__title { font-size:17px; font-family:var(--x-serif); font-weight:600; color:var(--x-ink); }
+.tool-card__subtitle { font-size:12px; line-height:1.6; color:var(--x-muted); }
+.tool-card__summary { font-size:13px; line-height:1.8; color:var(--x-body); flex:1; }
+.tool-card__tags { display:flex; flex-direction:row; flex-wrap:wrap; gap:6px; }
+.tool-card__tag { font-size:12px; line-height:1.5; color:var(--x-body); background:var(--x-bg); padding:4px 7px; border-radius:5px; }
+.tool-card__actions { display:flex; flex-direction:row; align-items:center; gap:8px; border-top:1px solid var(--x-line); padding-top:12px; }
+.tool-btn { min-height:40px; margin:0; padding:0 10px; font-size:13px; line-height:1.5; border:0; border-radius:8px; background:transparent; display:flex; flex-direction:row; align-items:center; justify-content:center; white-space:nowrap; }
+.tool-btn::after { border:0; }
+.tool-btn--primary { flex:1; background:var(--x-gradient); color:#fff; font-weight:600; }
+.tool-btn--secondary { flex-shrink:0; color:var(--x-body); }
 /* #ifdef H5 */
-.tool-btn:focus-visible {
-	outline: 3px solid #0e7490;
-	outline-offset: 3px;
-}
+.tool-btn:focus-visible { outline:3px solid var(--x-accent); outline-offset:3px; }
 /* #endif */
-
-@media (min-width: 900px) {
-	.tool-grid {
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.tool-card {
-		width: calc(33.333% - 8px);
-	}
-}
+@media(max-width:1280px) { .tool-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:570px) { .tool-grid { grid-template-columns:1fr; gap:12px; } .tool-card { padding:18px; } .tools-caption { display:none; } }
 </style>

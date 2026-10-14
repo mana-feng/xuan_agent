@@ -11,7 +11,7 @@ const dom = new JSDOM('<!doctype html><html><body></body></html>');
 for (const name of ['window', 'document', 'Element', 'HTMLElement', 'SVGElement']) {
 	global[name] = dom.window[name];
 }
-const { createApp } = require('vue');
+const { createApp, nextTick } = require('vue');
 const sourceRoot = path.resolve(__dirname, '../src');
 const originalResolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...args) {
@@ -62,6 +62,50 @@ function press(element, key) {
 	keydown(element, key);
 	return keyup(element, key);
 }
+
+test('announcement dialog keeps keyboard focus inside and restores the opener and scrolling on close', async () => {
+	const opener = document.createElement('button');
+	document.body.append(opener);
+	opener.focus();
+	document.body.style.overflow = 'auto';
+	let closes = 0;
+	const mounted = mount('components/layout/AnnouncementDialog.vue', { announcements: [], loading: false, error: '', onClose: () => closes++ });
+	try {
+		await nextTick();
+		await nextTick();
+		const dialog = mounted.host.querySelector('[role="dialog"]');
+		const close = mounted.host.querySelector('[aria-label="关闭公告"]');
+		const done = mounted.host.querySelector('.announcement-done');
+		assert.ok(dialog.contains(document.activeElement), 'opening the dialog moves focus out of the background');
+		assert.equal(document.body.style.overflow, 'hidden');
+		done.focus();
+		keydown(done, 'Tab');
+		assert.equal(document.activeElement, close, 'Tab wraps from the last control to the first');
+		opener.focus();
+		assert.ok(dialog.contains(document.activeElement), 'background cannot take keyboard focus while open');
+		keydown(close, 'Escape');
+		assert.equal(closes, 1);
+	} finally { mounted.dispose(); }
+	assert.equal(document.activeElement, opener);
+	assert.equal(document.body.style.overflow, 'auto');
+	opener.remove();
+});
+
+test('announcement failure offers retry without a contradictory empty message and cached content remains readable', () => {
+	let retries = 0;
+	const mounted = mount('components/layout/AnnouncementDialog.vue', { announcements: [], loading: false, error: '模拟请求失败', onRetry: () => retries++ });
+	try {
+		assert.match(mounted.host.textContent, /模拟请求失败/);
+		assert.doesNotMatch(mounted.host.textContent, /暂无公告/);
+		press(mounted.host.querySelector('.announcement-retry'), 'Enter');
+		assert.equal(retries, 1);
+	} finally { mounted.dispose(); }
+	const cached = mount('components/layout/AnnouncementDialog.vue', { announcements: [{ id: 1, title: '使用提醒', content: '第一行\n第二行', expiresAt: null }], loading: false, error: '模拟请求失败' });
+	try {
+		assert.match(cached.host.textContent, /第一行\n第二行/);
+		assert.match(cached.host.textContent, /模拟请求失败/);
+	} finally { cached.dispose(); }
+});
 
 const consoleProps = {
 	subtitle: '', pendingAction: null, contextItems: [], messages: [], lastMessageId: '',
@@ -161,6 +205,25 @@ test('palace offers one explicit expansion action and hides it inside the expand
 	const expanded = mount('pages/ziwei/components/PalaceContent.nvue', { palace, expanded: true });
 	try { assert.equal(expanded.host.querySelector('.palace-expand'), null); }
 	finally { expanded.dispose(); }
+});
+
+test('palace overview limits dense metadata while expanded details retain all chart fields', () => {
+	const data = { ...palace, majorStars: [{ name: '紫微', brightness: '庙', mutagen: '科' }], minorStars: [{ name: '文昌', brightness: '旺' }], adjectiveStars: [{ name: '天喜' }], boshi12: '博士', jiangqian12: '将星', suiqian12: '岁建' };
+	const compact = mount('pages/ziwei/components/PalaceContent.nvue', { palace: data });
+	try {
+		assert.match(compact.host.textContent, /紫微/);
+		assert.doesNotMatch(compact.host.textContent, /小限|110|将星|天喜/);
+	} finally { compact.dispose(); }
+	const details = mount('pages/ziwei/components/PalaceContent.nvue', { palace: data, expanded: true, dynamicStars: ['流禄'], scopeMutagens: { 紫微: [{scope:'decadal',label:'大禄'}] } });
+	try {
+		for (const value of ['紫微', '文昌', '天喜', '博士', '将星', '岁建', '110', '流禄', '大禄']) assert.ok(details.host.textContent.includes(value), `missing ${value}`);
+	} finally { details.dispose(); }
+});
+
+test('compact palace labels follow the selected timeline scope instead of the first available scope', () => {
+	const mounted = mount('pages/ziwei/components/PalaceContent.nvue', { palace, activeScope: 'decadal', dynamicLabels: [{type:'hourly',text:'时命宫'},{type:'decadal',text:'大兄弟'}] });
+	try { assert.match(mounted.host.textContent, /大兄弟/); assert.doesNotMatch(mounted.host.textContent, /时命宫/); }
+	finally { mounted.dispose(); }
 });
 
 test('an activation key cannot leak to a document listener installed by the action', () => {

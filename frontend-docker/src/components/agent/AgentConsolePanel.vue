@@ -1,29 +1,30 @@
 <template>
-	<SectionBlock icon="tmicon-monitoring" title="Agent 对话" :subtitle="subtitle">
+	<view class="console-panel">
 		<view class="agent-console">
 			<view v-if="pendingAction" class="action-banner">
 				<view class="action-banner__text">
-					<text class="action-banner__title">Agent 建议执行</text>
+					<text class="action-banner__title">下一步建议</text>
 					<text class="action-banner__body">{{ pendingAction.reason || pendingAction.label }}</text>
 				</view>
 				<button class="action-btn" v-bind="h5Button(applyPending, sending)" :disabled="sending" @tap="applyPending">{{ pendingAction.label }}</button>
 			</view>
 
 			<view v-if="contextItems.length" class="context-banner">
-				<text class="context-banner__title">当前可继续接手的盘面</text>
+				<text class="context-banner__title">已关联盘面</text>
 				<view class="context-banner__items">
 					<text v-for="item in contextItems" :key="item" class="context-banner__item">{{ item }}</text>
 				</view>
 			</view>
 
 			<scroll-view
-				class="message-list"
+				v-if="visibleMessages.length"
+                class="message-list"
 				scroll-y
 				:scroll-with-animation="true"
 				:scroll-into-view="lastMessageId"
 			>
 				<view
-					v-for="msg in messages"
+					v-for="msg in visibleMessages"
 					:id="msg.id"
 					:key="msg.id"
 					class="message-item"
@@ -54,24 +55,23 @@
 					auto-height
 					maxlength="-1"
 					:disabled="sending"
-					placeholder="例如：我想看职业方向，帮我判断该走八字还是紫微，并直接带我打开对应页面"
+					placeholder="最近有什么想了解的？例如：我正在考虑换工作，该从哪个角度看看……"
 					confirm-type="send"
 					@confirm="sendMessage"
 				/>
 				<view class="compose-actions">
 					<text class="compose-tip">{{ composeTip }}</text>
 					<button class="send-btn" v-bind="h5Button(sendMessage, sendDisabled)" :disabled="sendDisabled" @tap="sendMessage">
-						{{ sending ? '发送中...' : '发送给 Agent' }}
+						{{ sending ? '发送中...' : '开始探索 ↗' }}
 					</button>
 				</view>
 			</view>
 		</view>
-	</SectionBlock>
+	</view>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { NavigateAction, UiMessage } from '@/features/agent/types';
 import { h5Button } from '@/utils/keyboard';
 
@@ -97,6 +97,7 @@ const draftValue = computed({
 	set: (value: string) => emit('update:modelValue', value),
 });
 
+const visibleMessages = computed(() => props.messages.filter(message => !message.seed));
 const sendDisabled = computed(() => props.sending || !draftValue.value.trim());
 const sendMessage = () => {
 	if (!sendDisabled.value) emit('send');
@@ -120,242 +121,31 @@ const composeKeyboardEvents = (() => {
 </script>
 
 <style scoped>
-.agent-console {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-
-.action-banner,
-.context-banner {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 14px 16px;
-	border-radius: 18px;
-}
-
-.action-banner {
-	background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(14, 165, 233, 0.1));
-	border: 1px solid rgba(79, 70, 229, 0.14);
-}
-
-.action-banner__text {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-}
-
-.action-banner__title {
-	font-size: 13px;
-	font-weight: 700;
-	color: #312e81;
-}
-
-.action-banner__body {
-	font-size: 13px;
-	line-height: 1.6;
-	color: #3730a3;
-}
-
-.context-banner {
-	background: rgba(248, 250, 252, 0.96);
-	border: 1px solid #e2e8f0;
-}
-
-.context-banner__title {
-	font-size: 13px;
-	font-weight: 700;
-	color: #0f172a;
-}
-
-.context-banner__items {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
-.context-banner__item {
-	padding: 5px 8px;
-	border-radius: 999px;
-	background: rgba(15, 23, 42, 0.05);
-	font-size: 12px;
-	color: #334155;
-}
-
-.message-list {
-	height: 920rpx;
-	min-height: 360px;
-	max-height: 680px;
-	padding: 14px;
-	border-radius: 20px;
-	background: linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(255, 255, 255, 0.98) 100%);
-	border: 1px solid rgba(148, 163, 184, 0.18);
-}
-
-.message-item {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-	margin-bottom: 12px;
-	align-items: flex-start;
-}
-
-.message-item--user {
-	flex-direction: row-reverse;
-}
-
-.message-avatar {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 34px;
-	height: 34px;
-	border-radius: 999px;
-	background: linear-gradient(135deg, #4338ca, #0ea5e9);
-	flex-shrink: 0;
-}
-
-.message-item--user .message-avatar {
-	background: linear-gradient(135deg, #0f172a, #334155);
-}
-
-.message-avatar__text {
-	font-size: 12px;
-	font-weight: 700;
-	color: #ffffff;
-}
-
-.message-bubble {
-	max-width: 84%;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	padding: 12px 14px;
-	border-radius: 18px;
-	background: #ffffff;
-	border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.message-item--user .message-bubble {
-	background: linear-gradient(135deg, #4338ca 0%, #1d4ed8 100%);
-	border-color: transparent;
-}
-
-.message-item--error .message-bubble {
-	background: rgba(254, 242, 242, 0.96);
-	border-color: rgba(248, 113, 113, 0.24);
-}
-
-.message-text {
-	font-size: 13px;
-	line-height: 1.7;
-	color: #0f172a;
-	white-space: pre-wrap;
-}
-
-.message-item--user .message-text {
-	color: #ffffff;
-}
-
-.message-item--error .message-text {
-	color: #991b1b;
-}
-
-.message-meta {
-	font-size: 11px;
-	color: #94a3b8;
-}
-
-.message-item--user .message-meta {
-	color: rgba(255, 255, 255, 0.72);
-}
-
-.waiting-indicator {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 8px;
-}
-
-.waiting-indicator__text,
-.waiting-indicator__dots {
-	font-size: 13px;
-	color: #475569;
-}
-
-.compose-box {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 14px;
-	border-radius: 20px;
-	background: rgba(255, 255, 255, 0.98);
-	border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.compose-input {
-	width: 100%;
-	min-height: 110px;
-	padding: 12px 14px;
-	border-radius: 16px;
-	background: rgba(248, 250, 252, 0.96);
-	font-size: 14px;
-	line-height: 1.6;
-	color: #0f172a;
-}
-
-.compose-actions {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	gap: 10px;
-}
-
-.compose-tip {
-	flex: 1;
-	min-width: 0;
-	font-size: 12px;
-	line-height: 1.5;
-	color: #64748b;
-}
-
-.action-btn,
-.send-btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0 16px;
-	height: 38px;
-	border-radius: 999px;
-	font-size: 13px;
-	font-weight: 700;
-	background: linear-gradient(135deg, #4338ca 0%, #1d4ed8 100%);
-	color: #ffffff;
-}
-
-.action-btn::after,
-.send-btn::after {
-	border: none;
-}
-
-.send-btn[disabled],
-.action-btn[disabled] {
-	opacity: 0.55;
-}
-
-/* #ifdef H5 */
-.action-btn:focus-visible,
-.send-btn:focus-visible {
-	outline: 3px solid #0e7490;
-	outline-offset: 3px;
-}
-.compose-input:focus-within {
-	outline: 3px solid #0e7490;
-	outline-offset: 2px;
-}
-/* #endif */
+.console-panel { border:1px solid var(--x-line); background:var(--x-paper); border-radius:17px; box-shadow:0 6px 26px #276b7510; overflow:hidden; }
+.agent-console { display:flex; flex-direction:row; flex-direction:column; }
+.compose-box { padding:21px 23px 16px; background:var(--x-paper); }
+.compose-input { width:100%; min-height:84px; font-size:14px; line-height:1.8; color:var(--x-ink); background:transparent; padding:0; }
+.compose-input :deep(textarea), .compose-input :deep(.uni-textarea-placeholder) { padding:0!important; font:inherit; line-height:1.8; }
+.compose-actions { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:20px; padding-top:12px; }
+.compose-tip { font-size:10px; color:var(--x-muted); line-height:1.7; flex:1; }
+.send-btn,.action-btn { background:var(--x-gradient); color:white; border:0; padding:0 19px; min-height:40px; border-radius:9px; font-size:12px; display:flex; flex-direction:row; align-items:center; justify-content:center; flex-shrink:0; }
+.send-btn[disabled],.action-btn[disabled] { opacity:.5; }
+.action-banner,.context-banner { display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; gap:10px; padding:14px 22px; background:var(--x-gradient-soft); border-bottom:1px solid var(--x-line); }
+.action-banner__text { display:flex; flex-direction:row; flex-direction:column; flex:1; gap:5px; }
+.action-banner__title,.context-banner__title { font-size:11px; font-weight:600; color:var(--x-accent); }
+.action-banner__body { font-size:12px; color:var(--x-body); }
+.context-banner { background:var(--x-paper); }
+.context-banner__items { display:flex; flex-direction:row; flex-wrap:wrap; gap:5px; min-width:0; max-width:100%; flex-shrink:1; }
+.context-banner__item { padding:4px 8px; background:var(--x-tint); border-radius:6px; font-size:10px; color:var(--x-body); max-width:100%; overflow-wrap:anywhere; line-height:1.6; }
+.message-list { height:340px; max-height:48vh; padding:20px; border-bottom:1px solid var(--x-line); background:var(--x-bg); }
+.message-item { display:flex; flex-direction:row; align-items:flex-start; gap:10px; margin-bottom:18px; }
+.message-item--user { flex-direction:row-reverse; }
+.message-avatar { display:flex; flex-direction:row; align-items:center; justify-content:center; background:var(--x-gradient-soft); color:var(--x-accent); width:30px; height:30px; border-radius:10px; flex-shrink:0; font-size:11px; }
+.message-bubble { display:flex; flex-direction:row; flex-direction:column; gap:8px; padding:13px 17px; max-width:85%; background:var(--x-paper); border:1px solid var(--x-line); border-radius:2px 13px 13px; }
+.message-item--user .message-bubble { background:var(--x-gradient); border:0; color:white; border-radius:13px 2px 13px 13px; }
+.message-text { font-size:13px; line-height:1.85; white-space:pre-wrap; overflow-wrap:anywhere; }
+.message-meta { font-size:9px; opacity:.65; }
+.message-item--error .message-bubble { border-color:#efc6bf; background:#fff6f3; color:#a54536; }
+.waiting-indicator { display:flex; flex-direction:row; gap:8px; font-size:12px; color:var(--x-muted); }
+@media(max-width:600px) { .compose-box { padding:18px 16px 15px; } .compose-input { font-size:13px; min-height:100px; } .compose-actions { gap:12px; align-items:flex-end; } .compose-tip { font-size:9px; } .send-btn { padding:0 13px; font-size:11px; } .message-list { padding:14px; } }
 </style>
