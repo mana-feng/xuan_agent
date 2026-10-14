@@ -37,6 +37,7 @@ onMounted(async () => {
 @import './styles/app-shell.css';
 /* 引入页面基础图案样式 */
 @import './styles/page-patterns.css';
+@import './styles/workbench.css';
 
 /* #ifdef APP-PLUS */
 @font-face {

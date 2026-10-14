@@ -29,7 +29,7 @@ const props = withDefaults(
 		plain?: boolean;
 	}>(),
 	{
-		iconColor: '#667eea',
+		iconColor: 'var(--x-accent, #1672b1)',
 		iconSize: 26,
 		plain: false,
 		subtitle: undefined,
