@@ -27,7 +27,7 @@ before(async () => {
 	const compiled = await build({
 		absWorkingDir: path.resolve(__dirname, '..'),
 		stdin: { contents: "export { default } from './src/pages/auth/auth.nvue'; export { default as TmText } from './src/libs/tmui/components/tm-text/tm-text.vue';", resolveDir: path.resolve(__dirname, '..'), loader: 'ts' },
-		bundle: true, platform: 'node', format: 'cjs', write: false, external: ['vue', 'pinia'],
+		bundle: true, platform: 'node', format: 'cjs', write: false, external: ['vue', 'pinia', '@dcloudio/uni-app'],
 		define: { 'import.meta.env': '{"VITE_API_BASE_URL":"http://test.local","DEV":false}' },
 		plugins: [{ name: 'actual-uni-components', setup(builder) {
 			builder.onLoad({ filter: /\.(n?vue)$/ }, ({ path: filename }) => {
@@ -50,6 +50,9 @@ before(async () => {
 	});
 	const production = new Module(__filename, module);
 	production.paths = module.paths;
+	const nativeRequire = production.require.bind(production);
+	// Native page lifecycle registration is outside this DOM document-reading test.
+	production.require = name => name === '@dcloudio/uni-app' ? { onLoad() {} } : nativeRequire(name);
 	resetPlatform();
 	production._compile(compiled.outputFiles[0].text, __filename);
 	AuthPage = production.exports.default;

@@ -5,7 +5,7 @@
 				v-if="!isLoggedIn"
 				name="tmicon-md-person"
 				:font-size="28"
-				color="#667eea"
+				color="var(--x-accent, #1672b1)"
 			></tm-icon>
 			<view v-else class="avatar-circle">
 				<text class="avatar-text">{{ userInitial }}</text>
@@ -41,22 +41,22 @@
 						v-bind="h5Button(handleLogin)"
 						@click="handleLogin"
 					>
-						<tm-icon name="tmicon-md-login" :font-size="20" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-md-login" :font-size="20" color="var(--x-accent, #1672b1)"></tm-icon>
 						<text class="menu-label">登录/注册</text>
 					</view>
 
 					<view class="menu-item" v-bind="h5Button(handleAnnouncements)" @click="handleAnnouncements">
-						<tm-icon name="tmicon-bullhorn" :font-size="20" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-bullhorn" :font-size="20" color="var(--x-accent, #1672b1)"></tm-icon>
 						<text class="menu-label">公告</text>
 					</view>
 
 					<view class="menu-item" v-bind="h5Button(handleHistory)" @click="handleHistory">
-						<tm-icon name="tmicon-history" :font-size="20" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-history" :font-size="20" color="var(--x-accent, #1672b1)"></tm-icon>
 						<text class="menu-label">历史记录</text>
 					</view>
 
 					<view class="menu-item" v-bind="h5Button(handleAbout)" @click="handleAbout">
-						<tm-icon name="tmicon-info-circle" :font-size="20" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-info-circle" :font-size="20" color="var(--x-accent, #1672b1)"></tm-icon>
 						<text class="menu-label">关于</text>
 					</view>
 
@@ -74,6 +74,7 @@
 import { ref, computed, nextTick } from 'vue';
 import { useUserStore } from '@/store/user';
 import { h5Button } from '@/utils/keyboard';
+import pagesConfig from '@/pages.json';
 
 const userStore = useUserStore();
 const showDropdown = ref(false);
@@ -105,8 +106,21 @@ function closeDropdown() {
 
 function handleLogin() {
 	closeDropdown();
+	const pages = getCurrentPages();
+	const currentPage = pages[pages.length - 1];
+	const path = currentPage?.route ? `/${currentPage.route}` : '';
+	const supported = path !== '/pages/auth/auth' && pagesConfig.pages.some(page => `/${page.path}` === path);
+	let returnTo = supported ? path : '';
+	if (supported) {
+		const options = (currentPage as any).options || (currentPage as any).$page?.options || {};
+		if (path === '/pages/chat/index' && ['bazi', 'ziwei', 'liuyao', 'qimen'].includes(options.from)) {
+			returnTo += `?from=${options.from}`;
+		} else if (['/pages/index/index', '/pages/ziwei/index', '/pages/qimen/index'].includes(path) && String(options.edit) === '1') {
+			returnTo += '?edit=1';
+		}
+	}
 	uni.navigateTo({
-		url: '/pages/auth/auth',
+		url: '/pages/auth/auth' + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : ''),
 	});
 }
 
@@ -188,7 +202,7 @@ function handleLogout() {
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: var(--x-gradient);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -205,7 +219,7 @@ function handleLogout() {
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: var(--x-gradient);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -228,7 +242,7 @@ function handleLogout() {
 
 .dropdown-menu {
 	position: absolute;
-	top: 48px;
+	top: 66px;
 	right: 12px;
 	width: 240px;
 	background: #ffffff;
@@ -254,7 +268,7 @@ function handleLogout() {
 	flex-direction: row;
 	align-items: center;
 	padding: 16px;
-	background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+	background: var(--x-gradient-soft);
 	border-bottom: 1px solid #e5e7eb;
 }
 
@@ -284,7 +298,7 @@ function handleLogout() {
 .not-logged-in-hint {
 	padding: 16px;
 	text-align: center;
-	background: rgba(102, 126, 234, 0.05);
+	background: var(--x-tint);
 	border-bottom: 1px solid #e5e7eb;
 }
 
