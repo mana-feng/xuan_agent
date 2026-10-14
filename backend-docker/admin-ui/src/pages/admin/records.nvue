@@ -31,6 +31,7 @@
 							<tm-radio label="八字" value="bazi"></tm-radio>
 							<tm-radio label="六爻" value="liuyao"></tm-radio>
 							<tm-radio label="紫微" value="ziwei"></tm-radio>
+							<tm-radio label="奇门" value="qimen"></tm-radio>
 						</tm-radio-group>
 					</view>
 
@@ -159,10 +160,12 @@
 				<view class="record-form">
 					<view class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="排盘类型"></tm-text>
-						<tm-radio-group v-model="recordForm.type" model="button">
+						<tm-text v-if="editingRecord" :label="getChartTypeLabel(editingRecord.chartType)"></tm-text>
+						<tm-radio-group v-else v-model="recordForm.type" model="button">
 							<tm-radio label="八字" value="bazi"></tm-radio>
 							<tm-radio label="六爻" value="liuyao"></tm-radio>
 							<tm-radio label="紫微" value="ziwei"></tm-radio>
+							<tm-radio label="奇门" value="qimen"></tm-radio>
 						</tm-radio-group>
 					</view>
 
@@ -177,12 +180,12 @@
 
 					<tm-input
 						v-model="recordForm.name"
-						label="姓名（可选）"
-						placeholder="请输入姓名"
+						:label="isQimenRecord ? '记录标题（可选）' : '姓名（可选）'"
+						:placeholder="isQimenRecord ? '请输入记录标题' : '请输入姓名'"
 						:margin="[0, 0, 20, 0]"
 					></tm-input>
 
-					<view class="form-item">
+					<view v-if="!isQimenRecord" class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="性别"></tm-text>
 						<tm-radio-group v-model="recordForm.gender" model="button">
 							<tm-radio label="男" value="0"></tm-radio>
@@ -190,7 +193,12 @@
 						</tm-radio-group>
 					</view>
 
+					<view v-if="isQimenRecord" class="form-item">
+						<tm-text :label="editingRecord ? '起局时间：' + formatDate(editingRecord.birthDatetime) : '请在前台奇门页面完成起局并保存'" :margin="[0, 0, 10, 0]"></tm-text>
+						<tm-text label="管理端仅可修改奇门记录标题与所属用户；起局时间、规则与盘面保留原值。需要调整起局参数时，请在前台重新起局。" :font-size="22" color="#666"></tm-text>
+					</view>
 					<tm-input
+						v-else
 						v-model="recordForm.birthDatetime"
 						label="时间"
 						placeholder="格式：YYYY-MM-DD HH:mm:ss"
@@ -198,7 +206,7 @@
 						required
 					></tm-input>
 
-					<view class="form-item">
+					<view v-if="!isQimenRecord" class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="历法类型"></tm-text>
 						<tm-radio-group v-model="recordForm.calendarType" model="button">
 							<tm-radio label="阳历" value="solar"></tm-radio>
@@ -215,6 +223,7 @@
 							block
 							type="primary"
 							:loading="recordFormLoading"
+							:disabled="!editingRecord && isQimenRecord"
 							:label="editingRecord ? '保存' : '创建'"
 							@tap="handleSubmitRecord"
 							:margin="[20, 0, 0, 0]"
@@ -308,12 +317,13 @@ const recordForm = ref({
 	type: 'bazi' as ChartType,
 	userId: null as number | null,
 	name: '',
-	gender: '0',
+	gender: '0' as string | null,
 	birthDatetime: '',
 	calendarType: 'solar',
 });
 const recordFormError = ref('');
 const recordFormLoading = ref(false);
+const isQimenRecord = computed(() => (editingRecord.value?.chartType || recordForm.value.type) === 'qimen');
 
 const showDetailDialog = ref(false);
 const recordDetail = ref<(AdminChartRecordInfo & { rawPayload?: any }) | null>(null);
@@ -393,7 +403,7 @@ function handleCreateRecord() {
 		type: chartTypeFilter.value === 'all' ? 'bazi' : (chartTypeFilter.value as ChartType),
 		userId: null,
 		name: '',
-		gender: '0',
+		gender: chartTypeFilter.value === 'qimen' ? null : '0',
 		birthDatetime: '',
 		calendarType: 'solar',
 	};
@@ -407,7 +417,7 @@ function handleEditRecord(record: AdminChartRecordInfo) {
 		type: record.chartType,
 		userId: record.userId,
 		name: record.name || '',
-		gender: record.gender || '0',
+		gender: record.chartType === 'qimen' ? null : record.gender || '0',
 		birthDatetime: record.birthDatetime || '',
 		calendarType: record.calendarType || 'solar',
 	};
@@ -423,12 +433,16 @@ function handleCancelRecord() {
 
 async function handleSubmitRecord() {
 	recordFormError.value = '';
+	if (!editingRecord.value && isQimenRecord.value) {
+		recordFormError.value = '请在前台奇门页面完成起局并保存';
+		return;
+	}
 
 	if (!recordForm.value.userId || recordForm.value.userId <= 0) {
 		recordFormError.value = '请输入正确的用户ID';
 		return;
 	}
-	if (!recordForm.value.birthDatetime) {
+	if (!isQimenRecord.value && !recordForm.value.birthDatetime) {
 		recordFormError.value = '请输入时间';
 		return;
 	}
@@ -441,15 +455,21 @@ async function handleSubmitRecord() {
 				editingRecord.value.gender !== recordForm.value.gender ||
 				editingRecord.value.calendarType !== recordForm.value.calendarType;
 
-			const result = await updateChartRecord(editingRecord.value.id, {
-				type: recordForm.value.type,
+			const changes = editingRecord.value.chartType === 'qimen' ? {
+				// Omit every calculation field so the API leaves the input/snapshot intact.
+				type: 'qimen' as const,
 				userId: recordForm.value.userId,
 				name: recordForm.value.name || null,
-				gender: recordForm.value.gender,
+			} : {
+				type: editingRecord.value.chartType,
+				userId: recordForm.value.userId,
+				name: recordForm.value.name || null,
+				gender: recordForm.value.gender ?? undefined,
 				birthDatetime: recordForm.value.birthDatetime,
 				calendarType: recordForm.value.calendarType || null,
 				rawPayload: shouldClearRawPayload ? null : undefined,
-			});
+			};
+			const result = await updateChartRecord(editingRecord.value.id, changes);
 			if (result.success) {
 				uni.showToast({ title: '保存成功', icon: 'success' });
 				showRecordDialog.value = false;
@@ -464,7 +484,7 @@ async function handleSubmitRecord() {
 			type: recordForm.value.type,
 			userId: recordForm.value.userId,
 			name: recordForm.value.name || undefined,
-			gender: recordForm.value.gender,
+			gender: recordForm.value.gender ?? undefined,
 			birthDatetime: recordForm.value.birthDatetime,
 			calendarType: recordForm.value.calendarType,
 		});
@@ -534,6 +554,7 @@ function getCalendarTypeLabel(calendarType: string | null | undefined) {
 function getChartTypeLabel(type: ChartType) {
 	if (type === 'bazi') return '八字';
 	if (type === 'liuyao') return '六爻';
+	if (type === 'qimen') return '奇门';
 	return '紫微';
 }
 

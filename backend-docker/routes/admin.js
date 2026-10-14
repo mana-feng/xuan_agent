@@ -18,6 +18,7 @@ const ADMIN_RECORD_TYPE_TABLE_MAP = Object.freeze({
 	bazi: 'bazi_records',
 	liuyao: 'liuyao_records',
 	ziwei: 'ziwei_records',
+	qimen: 'qimen_records',
 });
 const ADMIN_RECORD_TYPES = Object.keys(ADMIN_RECORD_TYPE_TABLE_MAP);
 
@@ -436,9 +437,9 @@ router.get('/stats', adminMiddleware, async (req, res) => {
 	const queries = {
 		totalUsers: 'SELECT COUNT(*) as count FROM users',
 		totalRecords:
-			'SELECT (SELECT COUNT(*) FROM bazi_records) + (SELECT COUNT(*) FROM liuyao_records) + (SELECT COUNT(*) FROM ziwei_records) as count',
+			'SELECT (SELECT COUNT(*) FROM bazi_records) + (SELECT COUNT(*) FROM liuyao_records) + (SELECT COUNT(*) FROM ziwei_records) + (SELECT COUNT(*) FROM qimen_records) as count',
 		todayUsers: `SELECT COUNT(*) as count FROM users WHERE DATE(created_at) = CURDATE()`,
-		todayRecords: `SELECT (SELECT COUNT(*) FROM bazi_records WHERE DATE(created_at) = CURDATE()) + (SELECT COUNT(*) FROM liuyao_records WHERE DATE(created_at) = CURDATE()) + (SELECT COUNT(*) FROM ziwei_records WHERE DATE(created_at) = CURDATE()) as count`,
+		todayRecords: `SELECT (SELECT COUNT(*) FROM bazi_records WHERE DATE(created_at) = CURDATE()) + (SELECT COUNT(*) FROM liuyao_records WHERE DATE(created_at) = CURDATE()) + (SELECT COUNT(*) FROM ziwei_records WHERE DATE(created_at) = CURDATE()) + (SELECT COUNT(*) FROM qimen_records WHERE DATE(created_at) = CURDATE()) as count`,
 		adminUsers: "SELECT COUNT(*) as count FROM users WHERE role = 'admin'",
 	};
 
@@ -1191,6 +1192,7 @@ router.delete('/users/:id', adminMiddleware, apiSignatureMiddleware(), async (re
 	try {
 		// 先删除该用户的所有八字记录
 		await db.run('DELETE FROM bazi_records WHERE user_id = ?', [id]);
+		await db.run('DELETE FROM qimen_records WHERE user_id = ?', [id]);
 
 		// 再删除用户
 		const result = await db.run('DELETE FROM users WHERE id = ?', [id]);
@@ -1210,7 +1212,7 @@ router.delete('/users/:id', adminMiddleware, apiSignatureMiddleware(), async (re
  * 获取八字记录列表
  */
 /**
- * 获取统一排盘记录列表（八字/六爻/紫微）
+ * 获取统一排盘记录列表（八字/六爻/紫微/奇门）
  */
 router.get('/chart-records', adminMiddleware, async (req, res) => {
 	const page = Math.max(1, parseInt(req.query.page, 10) || 1);

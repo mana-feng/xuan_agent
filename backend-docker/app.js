@@ -216,6 +216,7 @@ async function bootstrap() {
 			baziRouter = require('./routes/bazi');
 			const liuyaoRouter = require('./routes/liuyao');
 			const ziweiRouter = require('./routes/ziwei');
+			const qimenRouter = require('./routes/qimen');
 			const llmRouter = require('./routes/llm');
 			const adminRouter = require('./routes/admin');
 			const announcementRouter = require('./routes/announcement');
@@ -225,6 +226,7 @@ async function bootstrap() {
 			app.use('/api/bazi', baziRouter);
 			app.use('/api/liuyao', liuyaoRouter);
 			app.use('/api/ziwei', ziweiRouter);
+			app.use('/api/qimen', qimenRouter);
 			app.use('/api/llm', llmRouter);
 			app.use('/api/admin', adminRouter);
 			app.use('/api/announcements', announcementRouter);

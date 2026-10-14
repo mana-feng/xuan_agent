@@ -14,6 +14,7 @@ const TYPE_TABLE_MAP = {
 	bazi: 'bazi_records',
 	liuyao: 'liuyao_records',
 	ziwei: 'ziwei_records',
+	qimen: 'qimen_records',
 };
 
 function normalizeChartType(inputType) {

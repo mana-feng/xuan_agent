@@ -49,7 +49,7 @@ export interface RecordListResponse {
 	totalPages: number;
 }
 
-export type ChartType = 'bazi' | 'liuyao' | 'ziwei';
+export type ChartType = 'bazi' | 'liuyao' | 'ziwei' | 'qimen';
 export type ChartTypeFilter = ChartType | 'all';
 
 export interface AdminChartRecordInfo extends BaziRecordInfo {
