@@ -98,7 +98,7 @@ function buildSecurityHeaders(options: { cspHeader: string; httpsEnabled: boolea
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, __dirname);
 	const devPort = Number(process.env.VITE_DEV_PORT || env.VITE_DEV_PORT) || 3000;
-	const apiTarget = env.VITE_API_PROXY_TARGET || "http://localhost:3001";
+	const apiTarget = process.env.VITE_API_PROXY_TARGET || env.VITE_API_PROXY_TARGET || "http://localhost:3001";
 	const cspNonce = env.VITE_CSP_NONCE || "local-dev-csp-nonce";
 	const connectSrcExtra = [resolveOrigin(apiTarget), env.VITE_CSP_CONNECT_SRC].filter(Boolean);
 	const scriptHashes = (env.VITE_CSP_SCRIPT_HASHES || "")
@@ -116,6 +116,9 @@ export default defineConfig(({ mode }) => {
 	const securityHeaders = buildSecurityHeaders({ cspHeader, httpsEnabled: false });
 
 	return {
+		cacheDir: process.env.VITE_CACHE_DIR || path.resolve(__dirname, '.local-dev/vite-cache'),
+		// The pinned Qimen engine lives outside node_modules and is CommonJS.
+		optimizeDeps: { include: ['qimen-engine'] },
 		server: {
 			port: devPort,
 			strictPort: true,
@@ -137,6 +140,7 @@ export default defineConfig(({ mode }) => {
 		},
 		resolve: {
 			alias: {
+				"qimen-engine": path.resolve(__dirname, "vendor/qfdk-qimen/lib/qimen.js"),
 				"@": path.resolve(__dirname, "src"),
 			},
 		},
@@ -146,7 +150,7 @@ export default defineConfig(({ mode }) => {
 			__INTLIFY_PROD_DEVTOOLS__: false,
 		},
 		plugins: [
-			progress({
+			process.env.VITE_BUILD_PROGRESS !== "false" && progress({
 				format: "building [:bar] :percent",
 				total: 100,
 				width: 100,
@@ -183,6 +187,7 @@ export default defineConfig(({ mode }) => {
 			},
 		},
 		build: {
+			commonjsOptions: { include: [/node_modules/, /vendor[\\/]qfdk-qimen/] },
 			sourcemap: false,
 			cssCodeSplit: true,
 			minify: "terser",

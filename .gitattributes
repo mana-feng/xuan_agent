@@ -1,0 +1,6 @@
+# Preserve the audited upstream source and its recorded byte hashes.
+/frontend-docker/vendor/qfdk-qimen/** -text -whitespace
+
+# Archived inputs, outputs and logs are referenced by SHA-256 in the reports.
+# Keep their original bytes and formatting when checking out on Windows.
+/docs/** -text -whitespace

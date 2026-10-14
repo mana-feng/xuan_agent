@@ -9,7 +9,7 @@ const originalLoad = Module._load;
 let platform = { hooks: { load: [], show: [] }, requests: [] };
 
 Module._resolveFilename = function (request, parent, ...rest) {
-  const resolved = request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request;
+  const resolved = request === 'qimen-engine' ? path.join(sourceRoot, '../vendor/qfdk-qimen/lib/qimen.js') : request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request;
   return originalResolve.call(this, resolved, parent, ...rest);
 };
 Module._extensions['.ts'] = (module, filename) => {
@@ -25,6 +25,7 @@ Module._load = function (request, parent, isMain) {
   if (request === '@dcloudio/uni-app') return {
     onLoad: callback => platform.hooks.load.push(callback),
     onShow: callback => platform.hooks.show.push(callback),
+    onHide() {},
   };
   if (request === 'vue') return {
     ...originalLoad.call(this, request, parent, isMain),

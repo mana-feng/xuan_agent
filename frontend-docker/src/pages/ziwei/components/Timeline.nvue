@@ -99,7 +99,7 @@
 							@click="selectMonth(month)"
 						>
 							<text class="timeline-label">{{ month.monthName }}</text>
-							<text class="timeline-ganzhi">{{ month.ganZhi }}</text>
+							<text class="timeline-ganzhi">{{ monthGanZhi(month) }}</text>
 					</view>
 					<view class="timeline-tail-spacer"></view>
 				</view>
@@ -111,6 +111,8 @@
 <script lang="ts" setup>
 import { computed, defineProps, defineEmits, watch, ref, reactive, onBeforeUnmount } from 'vue';
 import { Lunar, LunarYear, Solar } from 'lunar-javascript';
+import { calculateZiweiHoroscope } from '@/utils/ziweiHoroscope';
+import { getZiweiBirthLunarYear, getZiweiDateForNominalAge, getZiweiLunarYearStart } from '@/utils/ziweiTimelineDates';
 
 const props = defineProps<{
 	astrolabe: any;
@@ -398,22 +400,21 @@ const yearlyScopeBoundsCache = new Map<string, YearScopeBounds>();
 const yearListCache = new Map<string, any[]>();
 const monthListCache = new Map<string, any[]>();
 
-function buildDecadalFastYearList(
-	currentDecade: any,
-	now: Date,
-	currentAge: number,
-): TimelineYearItem[] {
+function buildDecadalFastYearList(currentDecade: any): TimelineYearItem[] {
 	const startAge = currentDecade.range[0];
 	const endAge = currentDecade.range[1];
 	const total = Math.max(0, endAge - startAge + 1);
-	const currentSolarYear = now.getFullYear();
-	const startYear = currentSolarYear + (startAge - currentAge);
+	const birthYear = getZiweiBirthLunarYear(props.astrolabe);
+	if (birthYear === null) return [];
+	const startYear = birthYear + startAge - 1;
 	const years: TimelineYearItem[] = [];
 	for (let i = 0; i < total; i += 1) {
 		const age = startAge + i;
 		const year = startYear + i;
-		const date = buildDateInYear(year, now);
+		const date = getZiweiDateForNominalAge(props.astrolabe, age);
+		if (!date) continue;
 		const h = getHoroscopeAt(date);
+		if (!h) continue;
 		years.push({
 			id: `year-${date.getTime()}-${age}`,
 			year,
@@ -465,13 +466,13 @@ onBeforeUnmount(() => {
 
 function getHoroscopeAt(date: Date) {
 	if (!props.astrolabe) return null;
-	const normalized = toDateOnly(date);
-	const key = toDateKey(normalized);
+	// Preserve the selected clock: 23:00 advances the entire effective chart day.
+	const key = String(date.getTime());
 	if (horoscopeCache.has(key)) {
 		return horoscopeCache.get(key) || null;
 	}
 	try {
-		const result = props.astrolabe.horoscope(new Date(normalized.getTime()));
+		const result = calculateZiweiHoroscope(props.astrolabe, date);
 		horoscopeCache.set(key, result);
 		return result;
 	} catch (e) {
@@ -481,17 +482,7 @@ function getHoroscopeAt(date: Date) {
 }
 
 function firstDayOfLunarYear(lunarYear: number): Date | null {
-	try {
-		const yearData = LunarYear.fromYear(lunarYear);
-		const months = yearData?.getMonths?.();
-		if (!Array.isArray(months)) return null;
-		const firstMonth = months.find((m: any) => m?.getMonth?.() === 1 && !m?.isLeap?.());
-		if (!firstMonth) return null;
-		const solar = Solar.fromJulianDay(firstMonth.getFirstJulianDay());
-		return new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
-	} catch (e) {
-		return null;
-	}
+	return getZiweiLunarYearStart(lunarYear);
 }
 
 function resolveYearScopeBounds(baseDate: Date, _yearlyToken: string): YearScopeBounds {
@@ -529,6 +520,15 @@ const currentHoroscope = computed(() => {
 	}
 });
 
+const currentEffectiveDate = computed(() => {
+	// Read the calculator's normalized civil day so selection uses its exact
+	// late-Zi policy, including a year or leap-month boundary.
+	const [year, month, day] = String(currentHoroscope.value?.solarDate || '').split('-').map(Number);
+	return year && month && day
+		? new Date(year, month - 1, day)
+		: toDateOnly(new Date(props.targetDate));
+});
+
 const currentDecadalIndex = computed(() => currentHoroscope.value?.decadal?.index ?? -1);
 
 const currentScopeToken = computed(() => {
@@ -558,20 +558,17 @@ const sortedDecades = computed(() => {
 const yearList = computed(() => {
 	if (!props.astrolabe || !currentHoroscope.value) return [];
 
-	const now = toDateOnly(new Date(props.targetDate));
 	const currentAge = currentHoroscope.value.age.nominalAge;
 	const currentDecade = sortedDecades.value.find((d: any) => d.index === currentDecadalIndex.value)
 		|| sortedDecades.value.find((d: any) => currentAge >= d.range[0] && currentAge <= d.range[1]);
 
 	if (!currentDecade) return [];
 
-	const startAge = Number(currentDecade.range?.[0] || 0);
-	const startYear = now.getFullYear() + (startAge - currentAge);
-	const cacheKey = `dec-fast-${currentDecade.index}-${currentDecade.range[0]}-${currentDecade.range[1]}-${startYear}-${now.getMonth()}-${now.getDate()}`;
+	const cacheKey = `dec-lunar-${currentDecade.index}-${currentDecade.range[0]}-${currentDecade.range[1]}`;
 	const cached = yearListCache.get(cacheKey);
 	if (cached) return cached;
 
-	const years = buildDecadalFastYearList(currentDecade, now, currentAge);
+	const years = buildDecadalFastYearList(currentDecade);
 
 	yearListCache.set(cacheKey, years);
 	return years;
@@ -587,7 +584,7 @@ const activeYearItem = computed(() => {
 		if (matched) return matched;
 	}
 
-	const targetYear = toDateOnly(new Date(props.targetDate)).getFullYear();
+	const targetYear = currentEffectiveDate.value.getFullYear();
 	const sameYear = list.find((item: any) => item.year === targetYear);
 	if (sameYear) return sameYear;
 
@@ -601,7 +598,7 @@ const monthList = computed(() => {
 	if (!yearlyToken) return [];
 	const activeYear = activeYearItem.value;
 	const bounds = resolveYearScopeBounds(
-		activeYear?.date ? new Date(activeYear.date) : new Date(props.targetDate),
+		activeYear?.date ? new Date(activeYear.date) : currentEffectiveDate.value,
 		yearlyToken,
 	);
 	const yearStart = bounds.start;
@@ -641,6 +638,9 @@ const monthList = computed(() => {
 			startDate: new Date(cursor.getTime()),
 		});
 	}
+	months.forEach((month, index) => {
+		month.endDate = new Date((months[index + 1]?.startDate || yearEnd).getTime());
+	});
 
 	monthListCache.set(monthCacheKey, months);
 	return months;
@@ -665,9 +665,19 @@ const isCurrentYear = (yearItem: any) => {
 
 const isCurrentMonth = (monthItem: any) => {
 	if (props.viewMode === 'yearly' || props.viewMode === 'decadal' || props.viewMode === 'origin') return false;
-	const token = currentScopeToken.value.monthly;
-	if (token) return monthItem.token === token;
-	return false;
+	// A leap month can share the same gan-zhi and palace index as the regular
+	// month. Its actual civil interval, not that token, identifies selection.
+	const target = currentEffectiveDate.value.getTime();
+	return target >= monthItem.startDate.getTime() && target < monthItem.endDate.getTime();
+};
+
+const monthGanZhi = (monthItem: any): string => {
+	// A leap month's latter half advances the configured flow month. Keep the
+	// active row in sync with that chart; other rows describe their day-one link.
+	const current = currentHoroscope.value?.monthly;
+	return isCurrentMonth(monthItem) && current
+		? `${current.heavenlyStem}${current.earthlyBranch}`
+		: monthItem.ganZhi;
 };
 
 // 5. Scroll Management
@@ -694,11 +704,10 @@ const selectDecade = (dec: any) => {
 		return;
 	}
 	let nextDate = baseDate;
-	if (!isCurrentDecade(dec) && currentHoroscope.value) {
-		const currentAge = currentHoroscope.value.age.nominalAge;
-		const currentYear = toDateOnly(new Date(props.targetDate)).getFullYear();
-		const targetYear = currentYear + (dec.range[0] - currentAge);
-		nextDate = buildDateInYear(targetYear, new Date(props.targetDate));
+	if (!isCurrentDecade(dec)) {
+		const start = getZiweiDateForNominalAge(props.astrolabe, Number(dec.range?.[0]));
+		if (!start) return;
+		nextDate = start;
 	}
 	emitSelection('decadal', nextDate);
 };
@@ -729,13 +738,13 @@ const selectMonth = (monthItem: any) => {
 
 <style scoped>
 .timeline-container {
-	--line: #d0d0d0;
-	--line-soft: #e5e7eb;
-	--ink: #222;
-	--ink-soft: #6b7280;
-	--active-bg: #efefef;
-	--active-line: #a3a3a3;
-	--badge: #8b5cf6;
+	--line: var(--x-line, #dbe9ed);
+	--line-soft: var(--x-line, #dbe9ed);
+	--ink: var(--x-ink, #233e49);
+	--ink-soft: var(--x-muted, #667d82);
+	--active-bg: var(--x-tint, #e7f4fc);
+	--active-line: var(--x-accent, #1672b1);
+	--badge: var(--x-accent, #1672b1);
 	display: flex;
 	flex-direction: column;
 	background: #fff;
@@ -759,7 +768,7 @@ const selectMonth = (monthItem: any) => {
 .line-label {
 	width: 70px;
 	border-right: 1px solid var(--line-soft);
-	background: #fafafa;
+	background: var(--x-bg, #f3fafb);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -830,7 +839,7 @@ const selectMonth = (monthItem: any) => {
 	height: 42px;
 	border-radius: 8px;
 	background: #fff;
-	border: 1px solid #e5e7eb;
+	border: 1px solid var(--x-line, #dbe9ed);
 	transition: border-color 140ms ease, background-color 140ms ease;
 }
 

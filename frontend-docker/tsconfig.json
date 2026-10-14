@@ -14,6 +14,7 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
+      "qimen-engine": ["vendor/qfdk-qimen/lib/qimen"],
       "@/*": [
         "src/*"
       ]

@@ -4,6 +4,9 @@ export interface ChartInput {
 	gender: number; // 0: male, 1: female
 	timestamp: number | null;
 	recordId: number | null;
+	timeZone?: string;
+	timeZoneSource?: 'explicit' | 'legacy-device';
+	ruleVersion?: string;
 }
 
 export interface ChartPullData {
@@ -11,6 +14,9 @@ export interface ChartPullData {
 	gender: number;
 	timestamp: number;
 	recordId?: number | null;
+	timeZone?: string;
+	timeZoneSource?: 'explicit' | 'legacy-device';
+	ruleVersion?: string;
 }
 
 export function emptyChartInput(): ChartInput {
@@ -27,11 +33,13 @@ export function snapshotChartInput(data: ChartPullData): ChartInput & { timestam
 		gender: Number(data.gender) === 1 ? 1 : 0,
 		timestamp,
 		recordId: data.recordId ?? null,
+		...(data.timeZone ? { timeZone: data.timeZone, timeZoneSource: data.timeZoneSource || 'explicit' as const } : {}),
+		...(data.ruleVersion ? { ruleVersion: data.ruleVersion } : {}),
 	};
 }
 
 export function chartCalculationKey(input: ChartInput): string {
-	return input.timestamp === null ? '' : `${input.timestamp}:${input.gender}`;
+	return input.timestamp === null ? '' : `${input.timestamp}:${input.gender}${input.timeZone ? `:${input.timeZone}:${input.ruleVersion || ''}` : ''}`;
 }
 
 export function readChartInput(key: string): ChartInput | null {

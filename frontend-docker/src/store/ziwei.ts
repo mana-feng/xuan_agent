@@ -4,8 +4,9 @@
  * 使用 iztro 库进行排盘计算
  */
 import { defineStore } from 'pinia';
-import { astro } from 'iztro';
-import { Solar } from 'lunar-javascript';
+import { calculateZiwei, ZIWEI_RULES } from '@/utils/ziweiCalculation';
+import { calculateZiweiHoroscope } from '@/utils/ziweiHoroscope';
+import { deviceTimeZone } from '@/utils/chartTime';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 import { chartCalculationKey, emptyChartInput, persistChartInput, readChartInput, snapshotChartInput } from '@/utils/chartInput';
 import type { ChartPullData } from '@/utils/chartInput';
@@ -48,6 +49,7 @@ export const useZiweiStore = defineStore('ziwei', {
 	state: () => {
 		return {
 			astrolabe: null as IFunctionalAstrolabe | null,
+			calculation: null as ReturnType<typeof calculateZiwei>['metadata'] | null,
 			input: emptyChartInput(),
 			calculatedFor: '',
 			viewMode: 'origin' as ViewMode,
@@ -65,11 +67,13 @@ export const useZiweiStore = defineStore('ziwei', {
 						? state.targetDate.getTime()
 						: new Date(state.targetDate as any).getTime();
 				if (!Number.isFinite(timestamp)) return null;
-				const cacheKey = toDateKey(timestamp);
+				// Timeline selects a civil calendar day, not a birth-zone instant.
+				// Keep its Date semantics aligned with Timeline and ziweiExport.
+				const cacheKey = `${toDateKey(timestamp)}:${toHourIndex(new Date(timestamp).getHours())}`;
 				if (!cacheKey) return null;
 				// Use a fresh Date instance to avoid accidental in-place Date mutation side effects.
 				return getCachedHoroscope(state.astrolabe as object, cacheKey, () =>
-					state.astrolabe!.horoscope(new Date(timestamp)),
+					calculateZiweiHoroscope(state.astrolabe!, new Date(timestamp)),
 				);
 			} catch (e) {
 				console.error('Failed to generate horoscope:', e);
@@ -92,17 +96,16 @@ export const useZiweiStore = defineStore('ziwei', {
 			this.pull({ ...this.input, timestamp: this.input.timestamp });
 		},
 		pull(data: ChartPullData) {
-			const input = snapshotChartInput(data);
-			const { timestamp, gender } = input;
-
-			const solar = Solar.fromDate(new Date(timestamp));
-			const dateStr = solar.toYmd();
-			const hourIndex = toHourIndex(solar.getHour());
-
-			const genderStr = gender === 0 ? '男' : '女';
+			const input = snapshotChartInput({ ...data,
+				timeZone: data.timeZone || deviceTimeZone(),
+				timeZoneSource: data.timeZoneSource || (data.timeZone ? 'explicit' : 'legacy-device'),
+				ruleVersion: ZIWEI_RULES.id,
+			});
 
 			try {
-				this.astrolabe = astro.bySolar(dateStr, hourIndex, genderStr, true, 'zh-CN');
+				const result = calculateZiwei(input);
+				this.astrolabe = result.chart;
+				this.calculation = result.metadata;
 				this.targetDate = new Date(); // Reset target date to now
 				this.viewMode = 'origin';
 				this.focusPalaceIndex = null;
@@ -112,6 +115,7 @@ export const useZiweiStore = defineStore('ziwei', {
 			} catch (e) {
 				console.error('Ziwei calculation failed:', e);
 				this.astrolabe = null;
+				this.calculation = null;
 				throw e;
 			}
 		},
