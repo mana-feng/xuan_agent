@@ -13,7 +13,7 @@ let compiled;
 test.before(async () => { compiled = (await build({
   absWorkingDir: path.resolve(__dirname, '..'),
   stdin: {
-    contents: "export { request } from './src/services/api/index'; export { useAgentPage } from './src/features/agent/useAgentPage'; export { useUserStore } from './src/store/user'; export { useBaziStore } from './src/store/bazi'; export * from './src/pages/chat/index.nvue';",
+    contents: "export { request } from './src/services/api/index'; export { useAgentPage } from './src/features/agent/useAgentPage'; export { useUserStore } from './src/store/user'; export { useBaziStore } from './src/store/bazi'; export { useZiweiStore } from './src/store/ziwei'; export { executeLiuyaoChart } from './src/features/liuyao/executor'; export { useQimenStore } from './src/store/qimen'; export * from './src/pages/chat/index.nvue';",
     resolveDir: path.resolve(__dirname, '..'), loader: 'ts',
   },
   bundle: true, platform: 'node', format: 'cjs', write: false,
@@ -23,7 +23,7 @@ test.before(async () => { compiled = (await build({
     builder.onLoad({ filter: /pages[\\/]chat[\\/]index\.nvue$/ }, ({ path: filename }) => {
       let source = fs.readFileSync(filename, 'utf8').match(/<script[^>]*>([\s\S]*?)<\/script>/)[1];
       source = source.replace(/\/\/ #ifndef H5[\s\S]*?\/\/ #endif/g, '');
-      return { contents: `${source}\nexport { panelRef, buildMessages, sendToLLM, sendWithHttp, sendWithHttpStream };`, loader: 'ts', resolveDir: path.dirname(filename) };
+      return { contents: `${source}\nexport { panelRef, chatContext, buildMessages, sendToLLM, sendWithHttp, sendWithHttpStream };`, loader: 'ts', resolveDir: path.dirname(filename) };
     });
   } }],
 })).outputFiles[0].text; });
@@ -31,6 +31,8 @@ test.before(async () => { compiled = (await build({
 function setup({ simulatedLatency = 0 } = {}) {
   const storage = new Map();
   const requests = [];
+  const mountedHooks = [];
+  const loadHooks = [];
   global.uni = {
     getStorageSync: key => storage.get(key), setStorageSync: (key, value) => storage.set(key, value), removeStorageSync: key => storage.delete(key),
     getSystemInfoSync: () => ({}), showToast() {}, showModal() {},
@@ -45,8 +47,8 @@ function setup({ simulatedLatency = 0 } = {}) {
   loaded.paths = module.paths;
   const nativeRequire = loaded.require.bind(loaded);
   loaded.require = name => {
-    if (name === 'vue') return { ...vue, onMounted() {}, onUnmounted() {} };
-    if (name === '@dcloudio/uni-app') return { onLoad() {}, onUnload() {} };
+    if (name === 'vue') return { ...vue, onMounted(callback) { mountedHooks.push(callback); }, onUnmounted() {} };
+    if (name === '@dcloudio/uni-app') return { onLoad(callback) { loadHooks.push(callback); }, onUnload() {} };
     if (name === '@/chat/ChatPanel.vue') return {};
     return nativeRequire(name);
   };
@@ -55,14 +57,19 @@ function setup({ simulatedLatency = 0 } = {}) {
   source.useUserStore().setAuth({ email: 'test@example.test', access_token: 'test-access-token' });
   const displayed = [];
   let finished = 0;
+  let sending = false;
   const history = [];
   source.panelRef.value = {
-    setSending() {}, createWaitingMessage() {}, updateQuotaInfo() {},
+    setSending(value) { sending = value; }, createWaitingMessage() {}, updateQuotaInfo() {},
     getMessages: () => history,
-    appendAssistant: (text, status) => displayed.push({ text, status }),
-    finishStreaming: () => { finished++; },
+    appendAssistant: (text, status) => {
+      displayed.push({ text, status });
+      // ChatPanel's public API ends sending on complete/error messages, but not deltas.
+      if (status !== 'stream') sending = false;
+    },
+    finishStreaming: () => { finished++; sending = false; },
   };
-  return { ...source, requests, displayed, history, get finished() { return finished; } };
+  return { ...source, requests, displayed, history, mountedHooks, loadHooks, get finished() { return finished; }, get sending() { return sending; } };
 }
 const flush = () => new Promise(resolve => setImmediate(resolve));
 const message = [{ role: 'user', content: '你好' }];
@@ -72,6 +79,128 @@ function responseStream(events) {
     for (const event of events) controller.enqueue(encoder.encode(event));
     controller.close();
   } }), { status: 200 });
+}
+
+for (const context of ['liuyao', 'ziwei', 'qimen']) {
+  test(`${context} initializes its hint before an immediate send and never interrupts the active stream`, async t => {
+    const f = setup();
+    if (context === 'liuyao') f.executeLiuyaoChart({ title: '合作如何推进', gender: '女', date: new Date(2022, 2, 3, 8), params: [1, 0, 3, 0, 1, 4], methodLabel: '手工起卦' });
+    if (context === 'ziwei') f.useZiweiStore().pull({ realname: '当前盘主', gender: 1, timestamp: Date.parse('1991-06-15T16:05:00Z'), timeZone: 'America/New_York' });
+    if (context === 'qimen') f.useQimenStore().pull({ question: '合作如何推进', timestamp: Date.parse('2026-10-13T10:25:00+08:00'), timeZone: 'Asia/Shanghai', ruleVersion: 'qimen-chai-bu-v1', recordId: null });
+    f.chatContext.value = context;
+    const delayedInitializers = [];
+    const originalTimer = global.setTimeout;
+    t.mock.method(global, 'setTimeout', (callback, delay, ...args) => {
+      if (delay === 120) { delayedInitializers.push(callback); return 0; }
+      if (delay === 300) return 0; // Successful completion's later quota refresh is unrelated.
+      return originalTimer(callback, delay, ...args);
+    });
+    let controller;
+    const encoder = new TextEncoder();
+    t.mock.method(global, 'fetch', async () => new Response(new ReadableStream({ start(stream) {
+      controller = stream;
+      stream.enqueue(encoder.encode('data: {"event":"delta","text":"第一段"}\n\n'));
+    } }), { status: 200 }));
+    f.mountedHooks.forEach(callback => callback());
+    const initializedBeforeSend = f.displayed.some(item => item.status === 'ready' && item.text.includes('已为您加载'));
+    const pending = f.sendToLLM('立即开始解读');
+    await flush();
+    delayedInitializers.forEach(callback => callback());
+    const stayedSending = f.sending;
+    controller.enqueue(encoder.encode('data: {"event":"delta","text":"第二段"}\n\ndata: [DONE]\n\n'));
+    controller.close();
+    await pending;
+    assert.equal(initializedBeforeSend, true, 'the chart hint must exist before the first user turn');
+    assert.equal(stayedSending, true, 'initialization must not clear the sending flag during a stream');
+    assert.deepEqual(f.displayed.map(item => item.status), ['ready', 'stream', 'stream']);
+    assert.equal(f.finished, 1);
+  });
+}
+
+for (const context of ['liuyao', 'ziwei', 'qimen']) {
+  test(`${context} without chart data immediately shows a neutral hint without inventing model context`, () => {
+    const f = setup();
+    f.chatContext.value = context;
+    f.mountedHooks.forEach(callback => callback());
+    assert.ok(f.displayed.some(item => item.status === 'ready' && item.text.includes('尚未关联')));
+    assert.ok(f.displayed.every(item => !item.text.includes('已为您加载')));
+    assert.deepEqual(f.buildMessages('你好'), [{ role: 'user', content: '你好' }]);
+  });
+}
+
+for (const stream of [false, true]) {
+  test(`Qimen ${stream ? 'stream' : 'HTTP'} request includes the computed board once and keeps authentication`, async t => {
+    const f = setup();
+    f.useQimenStore().pull({ question: '合作如何推进', timestamp: Date.parse('2026-10-13T10:25:00+08:00'), timeZone: 'Asia/Shanghai', ruleVersion: 'qimen-chai-bu-v1', recordId: 17 });
+    f.loadHooks.forEach(callback => callback({ from: 'qimen' }));
+    const originalTimer = global.setTimeout;
+    t.mock.method(global, 'setTimeout', (callback, delay, ...args) => delay === 300 ? 0 : originalTimer(callback, delay, ...args));
+    let sent;
+    if (stream) {
+      t.mock.method(global, 'fetch', async (url, options) => {
+        assert.equal(url, 'http://test.local/api/llm/chat');
+        assert.equal(options.method, 'POST');
+        assert.equal(options.headers.Authorization, 'Bearer test-access-token');
+        sent = JSON.parse(options.body);
+        return responseStream(['data: {"event":"delta","text":"根据当前奇门盘局"}\n\ndata: [DONE]\n\n']);
+      });
+    }
+    const messages = f.buildMessages('请分析这个盘');
+    if (stream) await f.sendWithHttpStream(messages);
+    else {
+      await f.sendWithHttp(messages);
+      const request = f.requests.find(item => item.url.endsWith('/api/llm/chat'));
+      assert.equal(request.header.Authorization, 'Bearer test-access-token');
+      sent = request.data;
+    }
+    assert.equal(sent.stream, stream);
+    assert.equal(sent.messages.filter(item => item.role === 'system').length, 1);
+    assert.match(sent.messages[0].content, /User Qimen/);
+    assert.match(sent.messages[0].content, /合作如何推进/);
+    assert.match(sent.messages[0].content, /qimen-chai-bu-v1/);
+    for (const key of ['diPan', 'tianPan', 'jiuXing', 'baMen', 'baShen']) assert.ok(sent.messages[0].content.includes(key), key);
+    assert.equal(sent.messages.at(-1).content, '请分析这个盘');
+    assert.equal(f.displayed.some(item => item.text.includes('User Qimen')), false, 'system context must stay out of the visible transcript');
+  });
+}
+
+for (const scenario of ['HTTP 429', 'SSE error after partial text', 'non-stream HTTP 429']) {
+  test(`${scenario} refreshes the displayed quota without another generation`, async t => {
+    const f = setup();
+    const quotaUpdates = [];
+    f.panelRef.value.updateQuotaInfo = info => quotaUpdates.push(info);
+    let streamCalls = 0;
+    if (scenario === 'non-stream HTTP 429') {
+      const originalFetch = global.fetch;
+      global.fetch = undefined;
+      t.after(() => { global.fetch = originalFetch; });
+    } else {
+      t.mock.method(global, 'fetch', async () => {
+        streamCalls++;
+        return scenario === 'HTTP 429'
+          ? new Response(JSON.stringify({ error: '额度不足', code: 'QUOTA_EXCEEDED' }), { status: 429 })
+          : responseStream(['data: {"event":"delta","text":"partial"}\n\n', 'data: {"error":"upstream failed after charging"}\n\n']);
+      });
+    }
+    t.mock.method(global.uni, 'request', options => {
+      f.requests.push(options);
+      if (options.url.endsWith('/api/llm/chat')) {
+        options.success({ statusCode: 429, data: { error: '额度不足', code: 'QUOTA_EXCEEDED' } });
+      } else if (options.url.endsWith('/api/llm/quota')) {
+        options.success({ statusCode: 200, data: { remainingCount: 0, remainingTokens: 0 } });
+      } else {
+        options.success({ statusCode: 200, data: {} });
+      }
+    });
+    await f.sendToLLM('请分析');
+    await flush();
+    assert.ok(f.displayed.some(item => item.status === 'error'));
+    assert.deepEqual(quotaUpdates, [{ remainingCount: 0, remainingTokens: 0 }]);
+    const quotaRequests = f.requests.filter(item => item.url.endsWith('/api/llm/quota'));
+    assert.equal(quotaRequests.length, 1);
+    assert.equal(quotaRequests[0].method, 'GET');
+    assert.equal(streamCalls + f.requests.filter(item => item.url.endsWith('/api/llm/chat')).length, 1);
+  });
 }
 
 test('Agent can finish a 90 second non-stream response before its LLM deadline', async () => {

@@ -1,20 +1,32 @@
 <template>
 	<tm-app>
-		<view class="chat-page-shell">
+		<PageScaffold title="带着命盘，继续探索" :subtitle="contextSummary ? '结合原盘和你的问题，让思路一点点清晰。' : contextCaption"><view class="chat-page-shell">
+			<view v-if="contextSummary" class="chart-context" role="group" :aria-label="contextCaption">
+				<view class="chart-context-details">
+					<text class="chart-context-type">已关联{{ contextSummary.type }}</text>
+					<text class="chart-context-title">{{ contextSummary.title }}</text>
+					<text class="chart-context-time">{{ contextSummary.time }} · {{ contextSummary.zone }}</text>
+				</view>
+				<button class="chart-context-open" v-bind="h5Button(openOriginalChart)" @tap="openOriginalChart">查看原盘 ↗</button>
+			</view>
 			<chat-panel
 				ref="panelRef"
 				class="chat-panel-wrapper"
 				:disable-auto-restore="shouldDisableRestore"
+				:session-identity="sessionIdentity"
+				:session-account="sessionAccount"
+				@session-reset="resetChatRequest"
 				@send="handleSend"
 			/>
-		</view>
+		</view></PageScaffold>
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import ChatPanel from '@/chat/ChatPanel.vue';
+import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { request, refreshAccessToken } from '@/services/api/index';
 import { LLM_REQUEST_TIMEOUT_MS, supportsLLMStreaming } from '@/features/llm/requestPolicy';
 import { API_BASE_URL } from '@/config/config';
@@ -22,16 +34,20 @@ import { signRequest } from '@/utils/api-signature';
 import { getAccessToken } from '@/utils/tokenStore';
 import { bootstrapApp } from '@/utils/bootstrap';
 import { encodeTOON } from '@/utils/toon';
+import { civilString, zonedParts } from '@/utils/chartTime';
+import { h5Button } from '@/utils/keyboard';
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
 import { useYunStore } from '@/store/yun';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { useZiweiStore } from '@/store/ziwei';
+import { useQimenStore } from '@/store/qimen';
 import { buildBaziExportPayload } from '@/utils/baziExport';
 import { buildLiuyaoExportPayload } from '@/utils/liuyaoExport';
 import { buildZiweiExportPayload } from '@/utils/ziweiExport';
+import { buildQimenExportPayload } from '@/utils/qimenExport';
 
-type ChatContext = 'bazi' | 'liuyao' | 'ziwei';
+type ChatContext = 'bazi' | 'liuyao' | 'ziwei' | 'qimen';
 type ChatRole = 'system' | 'user' | 'assistant';
 type ChatMessage = {
 	role: ChatRole;
@@ -43,20 +59,52 @@ type ParsedHttpError = {
 };
 
 const panelRef = ref<any>(null);
-const chatContext = ref<ChatContext>('bazi');
+const chatContext = ref<ChatContext | null>('bazi');
 const shouldDisableRestore = ref(false);
 let activeStreamController: AbortController | null = null;
 onUnmounted(() => activeStreamController?.abort());
 
 const userStore = useUserStore();
+const sessionAccount = computed(() => userStore.isLoggedIn ? userStore.email || '' : '');
 const baziStore = useBaziStore();
 const yunStore = useYunStore();
 const liuyaoStore = useLiuyaoStore();
 const ziweiStore = useZiweiStore();
+const qimenStore = useQimenStore();
+// Use original inputs, not a changing presentation/export or the shared profile.
+const sessionIdentity = computed(() => {
+	if (!userStore.isLoggedIn || !userStore.email || !chatContext.value) return null;
+	const base = { account: userStore.email, chartType: chatContext.value };
+	if (chatContext.value === 'liuyao') {
+		if (!liuyaoStore.profile || liuyaoStore.compiled?.params?.length !== 6) return null;
+		return { ...base, recordId: liuyaoStore.recordId, chart: {
+			profile: liuyaoStore.profile, params: liuyaoStore.compiled.params,
+			castingAt: liuyaoStore.castingAt ?? liuyaoStore.createdAt,
+		} };
+	}
+	const store = { bazi: baziStore, ziwei: ziweiStore, qimen: qimenStore }[chatContext.value];
+	const { recordId, ...chart } = store.input;
+	if (typeof chart.timestamp !== 'number' || !Number.isFinite(chart.timestamp)) return null;
+	return { ...base, recordId, chart };
+});
+
+function resetChatRequest() {
+	activeStreamController?.abort();
+}
+// The visible summary and every request read one export, so they cannot describe
+// different chart identities or clocks. Vue invalidates it when that chart changes.
+const exportedContext = computed(buildExportedContext);
+const contextSummary = computed(() => exportedContext.value?.summary || null);
+const contextCaption = computed(() => {
+	const summary = contextSummary.value;
+	return summary
+		? `已关联${summary.type} · ${summary.title} · ${summary.time} · ${summary.zone}`
+		: '从你关心的问题开始，让思路一点点清晰。';
+});
 
 onLoad((options: Record<string, unknown>) => {
 	const from = String(options?.from || '').toLowerCase();
-	if (from === 'bazi' || from === 'liuyao' || from === 'ziwei') {
+	if (from === 'bazi' || from === 'liuyao' || from === 'ziwei' || from === 'qimen') {
 		chatContext.value = from as ChatContext;
 		shouldDisableRestore.value = true;
 		// Direct links and reloads start with empty stores. Restore only the
@@ -67,29 +115,55 @@ onLoad((options: Record<string, unknown>) => {
 		} else if (from === 'ziwei') {
 			ziweiStore.restoreInput();
 			ziweiStore.ensureComputed();
+		} else if (from === 'qimen') {
+			qimenStore.restoreInput();
+			qimenStore.ensureComputed();
 		} else {
 			liuyaoStore.restoreLastResult();
 		}
+	} else if (from) {
+		chatContext.value = null;
 	}
 });
 
 onMounted(() => {
-	setTimeout(() => {
-		void loadQuotaInfo();
-		if (chatContext.value === 'liuyao') {
-			panelRef.value?.appendAssistant('已为您加载六爻排盘结果，您可以让 AI 为您解读卦象。', 'ready');
-		} else if (chatContext.value === 'ziwei') {
-			panelRef.value?.appendAssistant('已为您加载紫微排盘结果，您可以让 AI 为您解答命盘重点。', 'ready');
-		}
-	}, 120);
+	// The child panel ref is available at mount. Add the context hint before a
+	// user can start streaming; a delayed ready message would end its sending state.
+	if (chatContext.value === 'liuyao') {
+		panelRef.value?.appendAssistant(contextSummary.value
+			? '已为您加载六爻排盘结果，您可以让 AI 为您解读卦象。'
+			: '当前尚未关联六爻卦象。您可以先完成起卦，也可以直接提出问题。', 'ready');
+	} else if (chatContext.value === 'ziwei') {
+		panelRef.value?.appendAssistant(contextSummary.value
+			? '已为您加载紫微排盘结果，您可以让 AI 为您解答命盘重点。'
+			: '当前尚未关联紫微命盘。您可以先完成排盘，也可以直接提出问题。', 'ready');
+	} else if (chatContext.value === 'qimen') {
+		panelRef.value?.appendAssistant(contextSummary.value
+			? '已为您加载奇门盘局，您可以结合所问之事，让 AI 为您解读九宫、星门与时机。'
+			: '当前尚未关联奇门盘局。您可以先完成起局，也可以直接提出问题。', 'ready');
+	}
+	void loadQuotaInfo();
 });
 
 function handleSend(text: string) {
 	void sendToLLM(text);
 }
 
+function openOriginalChart() {
+	if (!contextSummary.value || !chatContext.value) return;
+	const routes: Record<ChatContext, string> = {
+		bazi: '/pages/index/detail', ziwei: '/pages/ziwei/result',
+		liuyao: '/pages/liuyao/result', qimen: '/pages/qimen/result',
+	};
+	// Keep this chat mounted, including its messages and any response in progress.
+	// Result pages read the same active chart store; no re-cast or input reset.
+	uni.navigateTo({ url: routes[chatContext.value] });
+}
+
 async function loadQuotaInfo() {
 	await bootstrapApp();
+	await nextTick();
+	const panel = panelRef.value?.captureSession?.() || panelRef.value;
 	const accessToken = getAccessToken();
 	if (!userStore.isLoggedIn || !accessToken) return;
 
@@ -100,7 +174,7 @@ async function loadQuotaInfo() {
 		});
 		if (res?.success && res.data) {
 			await nextTick();
-			panelRef.value?.updateQuotaInfo(res.data);
+			panel?.updateQuotaInfo(res.data);
 		}
 	} catch (err: any) {
 		const errorText = String(err?.error || err?.message || err?.errMsg || '').toLowerCase();
@@ -162,26 +236,60 @@ function isQuotaErrorText(value: unknown): boolean {
 	return text.includes('quota') || text.includes('limit') || text.includes('rate') || text.includes('额度');
 }
 
-function buildContextSystemPrompt(): string | null {
+function buildExportedContext() {
 	try {
+		if (!chatContext.value) return null;
+		if (chatContext.value !== 'liuyao') {
+			const input = { bazi: baziStore, ziwei: ziweiStore, qimen: qimenStore }[chatContext.value].input;
+			if (typeof input.timestamp !== 'number' || !Number.isFinite(new Date(input.timestamp).getTime())) return null;
+		}
+		if (chatContext.value === 'qimen') {
+			if (!qimenStore.chart) return null;
+			const payload = buildQimenExportPayload(qimenStore);
+			return {
+				prompt: `User Qimen chart (TOON):\n${encodeTOON(payload)}`,
+				summary: { type: '奇门盘局', title: payload.input.question || '未填写问题',
+					time: civilString(zonedParts(payload.input.timestamp, payload.input.timeZone)), zone: payload.input.timeZone },
+			};
+		}
+
 		if (chatContext.value === 'liuyao') {
+			if (!Array.isArray(liuyaoStore.compiled?.params) || liuyaoStore.compiled.params.length !== 6) return null;
 			const payload = buildLiuyaoExportPayload(liuyaoStore);
-			return payload ? `User Liuyao result:\n${payload}` : null;
+			return payload ? {
+				prompt: `User Liuyao result:\n${payload}`,
+				summary: { type: '六爻卦象', title: liuyaoStore.profile?.title || '未填写问题',
+					time: payload.split('\n')[0].trim() || '时间未记录', zone: '时区未记录' },
+			} : null;
 		}
 
 		if (chatContext.value === 'ziwei') {
 			const payload = buildZiweiExportPayload(ziweiStore.input, ziweiStore);
-			const toon = payload ? encodeTOON(payload) : '';
-			return toon ? `User Ziwei profile (TOON):\n${toon}` : null;
+			if (!payload) return null;
+			const profile = payload.profile as { name: string; birthTimestamp: number; birthSolarISO: string; timeZone: string | null; timeZoneSource: string };
+			return {
+				prompt: `User Ziwei profile (TOON):\n${encodeTOON(payload)}`,
+				summary: { type: '紫微命盘', title: profile.name,
+					time: profile.timeZone ? civilString(zonedParts(profile.birthTimestamp, profile.timeZone)) : profile.birthSolarISO || '时间未记录',
+					zone: !profile.timeZone ? '时区未记录' : profile.timeZoneSource === 'legacy-device' ? `${profile.timeZone}（原时区未记录）` : profile.timeZone },
+			};
 		}
 
+		if (!baziStore.sizhu.year || !baziStore.sizhu.month || !baziStore.sizhu.day || !baziStore.sizhu.time) return null;
 		const payload = buildBaziExportPayload(baziStore.input, baziStore, yunStore);
-		const toon = payload ? encodeTOON(payload) : '';
-		return toon ? `User Bazi profile (TOON):\n${toon}` : null;
+		return payload ? {
+			prompt: `User Bazi profile (TOON):\n${encodeTOON(payload)}`,
+			summary: { type: '八字命盘', title: payload.basic.name || '未填写姓名',
+				time: payload.basic.solarString || '时间未记录', zone: '时区未记录' },
+		} : null;
 	} catch (err) {
 		console.error('build context prompt failed:', err);
 		return null;
 	}
+}
+
+function buildContextSystemPrompt(): string | null {
+	return exportedContext.value?.prompt || null;
 }
 
 function buildMessages(inputText: string): ChatMessage[] {
@@ -267,13 +375,16 @@ function parseHttpErrorText(bodyText: string, status: number): ParsedHttpError {
 }
 
 async function sendToLLM(text: string) {
-	const panel = panelRef.value;
+	const panel = panelRef.value?.captureSession?.() || panelRef.value;
 	if (!panel) return;
 
 	panel.setSending(true);
 	panel.createWaitingMessage();
 
 	try {
+		// Persist the user's question and pending reply before contacting the model.
+		await panel.flushSession?.();
+		if (panel.isCurrent?.() === false) return;
 		const messages = buildMessages(text);
 		if (!messages.length) {
 			throw new Error('消息不能为空');
@@ -283,14 +394,14 @@ async function sendToLLM(text: string) {
 		if (supportsLLMStreaming()) {
 			// Once sent, a failed response may already have consumed quota. Never
 			// silently start another generation on a network or upstream error.
-			await sendWithHttpStream(messages);
+			await sendWithHttpStream(messages, panel);
 		} else {
-			await sendWithHttp(messages);
+			await sendWithHttp(messages, panel);
 		}
 		// #endif
 
 		// #ifndef H5
-		await sendWithHttp(messages);
+		await sendWithHttp(messages, panel);
 		// #endif
 	} catch (err: any) {
 		const normalizedErr = normalizeClientError(err);
@@ -300,12 +411,15 @@ async function sendToLLM(text: string) {
 		} else {
 			panel.appendAssistant(`调用失败：${errorText}`, 'error');
 		}
+		// A rejected or interrupted response may already have consumed quota.
+		// Refresh the displayed balance without sending another generation.
+		void loadQuotaInfo();
 	} finally {
 		panel.setSending(false);
 	}
 }
 
-async function sendWithHttp(messages: ChatMessage[]) {
+async function sendWithHttp(messages: ChatMessage[], panel = panelRef.value) {
 	const res = await request('/api/llm/chat', {
 		method: 'POST',
 		needAuth: true,
@@ -328,15 +442,14 @@ async function sendWithHttp(messages: ChatMessage[]) {
 		throw new Error('回复为空，请检查后端配置');
 	}
 
-	panelRef.value?.appendAssistant(reply, 'ready');
+	panel?.appendAssistant(reply, 'ready');
 	setTimeout(() => {
 		void loadQuotaInfo();
 	}, 300);
 }
 
 // #ifdef H5
-async function sendWithHttpStream(messages: ChatMessage[]) {
-	const panel = panelRef.value;
+async function sendWithHttpStream(messages: ChatMessage[], panel = panelRef.value) {
 	if (!panel) return;
 	if (typeof fetch !== 'function') {
 		throw new Error('当前环境不支持流式请求');
@@ -449,22 +562,15 @@ async function sendWithHttpStream(messages: ChatMessage[]) {
 </script>
 
 <style scoped>
-.chat-panel-wrapper {
-	width: 100%;
-	height: 100%;
-}
-
-.chat-page-shell {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
-	padding-top: var(--safe-top);
-	overflow: hidden;
-	background:
-		radial-gradient(circle at 18% 14%, rgba(59, 130, 246, 0.12), transparent 34%),
-		radial-gradient(circle at 82% 0%, rgba(14, 165, 233, 0.1), transparent 28%),
-		linear-gradient(180deg, #eef4ff 0%, #f8fafc 100%);
-	box-sizing: border-box;
-}
+.chat-panel-wrapper { width:100%; flex:1; min-height:0; }
+.chart-context { display:flex; flex-direction:row; align-items:center; gap:16px; padding:16px 20px; border-bottom:1px solid var(--x-line); background:var(--x-tint-end); flex-shrink:0; }
+.chart-context-details { display:flex; flex-direction:column; gap:4px; flex:1; min-width:0; }
+.chart-context-type { color:var(--x-teal, #287e73); font-size:11px; font-weight:600; }
+.chart-context-title { color:var(--x-ink); font-size:15px; font-weight:600; overflow-wrap:anywhere; }
+.chart-context-time { color:var(--x-muted); font-size:11px; line-height:1.6; overflow-wrap:anywhere; }
+.chart-context-open { flex-shrink:0; margin:0; padding:9px 12px; min-height:40px; border:1px solid var(--x-line); border-radius:8px; background:var(--x-paper); color:var(--x-teal, #287e73); font-size:12px; line-height:20px; }
+.chart-context-open::after { border:0; }
+.chart-context-open:focus-visible { outline:2px solid var(--x-teal, #287e73); outline-offset:3px; }
+.chat-page-shell { display:flex; flex-direction:column; height:calc(100dvh - 230px); min-height:490px; max-height:900px; border:1px solid var(--x-line); border-radius:16px; overflow:hidden; background:var(--x-paper); }
+@media(max-width:760px) { .chat-page-shell { height:calc(100dvh - 246px); min-height:430px; } .chart-context { padding:12px 14px; gap:10px; } .chart-context-title { font-size:14px; } }
 </style>
