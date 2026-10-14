@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "24_unique_2026_terms": true,
+    "144_unique_year_term_roots": true,
+    "2026_product_utc_within_observed_2_seconds": true,
+    "all_sampled_astronomy_tt_within_3_seconds": true,
+    "official_hko_minute_agreement_24": true,
+    "jpl_boundary_48_of_48": true,
+    "2026_constant_tt_minus_utc_69_184": true,
+    "old_baseline_timescale_correction_within_2_seconds": true,
+    "ui_extras_707_unique_cases": true,
+    "void_horse_all_707": true,
+    "raw_hidden_method_differences_preserved": true,
+    "selected_hidden_rule_707_of_707": true,
+    "selected_hidden_rule_includes_75_center_82_jia": true,
+    "pre_1960_and_future_utc_not_claimed_known": true,
+    "external_sources_unmodified": true,
+    "product_algorithm_unchanged_since_707_capture": true
+  },
+  "passed": 16,
+  "total": 16,
+  "cautions": [
+    "707 hidden-stem rule checks validate a selected modern convention, not an ancient universal standard.",
+    "Year samples are not an exhaustive 1900-2099 audit; future UTC is not yet known.",
+    "UI output field checks do not assert browser rendering."
+  ]
+}

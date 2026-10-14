@@ -1,0 +1,666 @@
+{
+  "samples": 873,
+  "mismatches": [
+    {
+      "field": "soul",
+      "total": 873,
+      "equal": 139,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": "巨门",
+        "actual": "贪狼"
+      }
+    },
+    {
+      "field": "boshi12.子",
+      "total": 873,
+      "equal": 785,
+      "example": {
+        "sample": {
+          "id": "cycle-1987-2-14-0",
+          "category": "sexagenary-grid",
+          "civil": "1987-02-22 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 540973800000,
+          "gender": 0
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.子",
+      "total": 873,
+      "equal": 746,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-2-16-1",
+          "category": "sexagenary-grid",
+          "civil": "1984-02-08 16:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 445077000000,
+          "gender": 1
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "star.旬空",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "丑",
+          "子"
+        ],
+        "actual": [
+          "丑"
+        ]
+      }
+    },
+    {
+      "field": "star.截空",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "丑",
+          "子"
+        ],
+        "actual": null
+      }
+    },
+    {
+      "field": "jiangqian12.丑",
+      "total": 873,
+      "equal": 664,
+      "example": {
+        "sample": {
+          "id": "cycle-1985-4-8-1",
+          "category": "sexagenary-grid",
+          "civil": "1985-04-22 08:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 482977800000,
+          "gender": 1
+        },
+        "expected": "华蓋",
+        "actual": "华盖"
+      }
+    },
+    {
+      "field": "suiqian12.丑",
+      "total": 873,
+      "equal": 693,
+      "example": {
+        "sample": {
+          "id": "cycle-1985-4-8-1",
+          "category": "sexagenary-grid",
+          "civil": "1985-04-22 08:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 482977800000,
+          "gender": 1
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "boshi12.寅",
+      "total": 873,
+      "equal": 772,
+      "example": {
+        "sample": {
+          "id": "cycle-1990-2-10-1",
+          "category": "sexagenary-grid",
+          "civil": "1990-02-08 10:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 634444200000,
+          "gender": 1
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.寅",
+      "total": 873,
+      "equal": 798,
+      "example": {
+        "sample": {
+          "id": "cycle-1986-2-14-1",
+          "category": "sexagenary-grid",
+          "civil": "1986-02-16 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 508919400000,
+          "gender": 1
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "boshi12.卯",
+      "total": 873,
+      "equal": 827,
+      "example": {
+        "sample": {
+          "id": "cycle-1991-2-10-0",
+          "category": "sexagenary-grid",
+          "civil": "1991-02-15 10:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 666585000000,
+          "gender": 0
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.卯",
+      "total": 873,
+      "equal": 563,
+      "example": {
+        "sample": {
+          "id": "cycle-1987-2-14-0",
+          "category": "sexagenary-grid",
+          "civil": "1987-02-22 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 540973800000,
+          "gender": 0
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "jiangqian12.辰",
+      "total": 873,
+      "equal": 677,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-2-16-1",
+          "category": "sexagenary-grid",
+          "civil": "1984-02-08 16:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 445077000000,
+          "gender": 1
+        },
+        "expected": "华蓋",
+        "actual": "华盖"
+      }
+    },
+    {
+      "field": "suiqian12.辰",
+      "total": 873,
+      "equal": 766,
+      "example": {
+        "sample": {
+          "id": "cycle-1988-2-12-1",
+          "category": "sexagenary-grid",
+          "civil": "1988-02-28 12:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 573021000000,
+          "gender": 1
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "star.大耗",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "辰"
+        ],
+        "actual": null
+      }
+    },
+    {
+      "field": "boshi12.巳",
+      "total": 873,
+      "equal": 824,
+      "example": {
+        "sample": {
+          "id": "cycle-1992-2-8-1",
+          "category": "sexagenary-grid",
+          "civil": "1992-02-16 08:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 698200200000,
+          "gender": 1
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.巳",
+      "total": 873,
+      "equal": 799,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "star.天使",
+      "total": 873,
+      "equal": 446,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "未"
+        ]
+      }
+    },
+    {
+      "field": "boshi12.午",
+      "total": 873,
+      "equal": 486,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.午",
+      "total": 873,
+      "equal": 746,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-2-16-1",
+          "category": "sexagenary-grid",
+          "civil": "1984-02-08 16:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 445077000000,
+          "gender": 1
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "jiangqian12.未",
+      "total": 873,
+      "equal": 518,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": "华蓋",
+        "actual": "华盖"
+      }
+    },
+    {
+      "field": "suiqian12.未",
+      "total": 873,
+      "equal": 693,
+      "example": {
+        "sample": {
+          "id": "cycle-1985-4-8-1",
+          "category": "sexagenary-grid",
+          "civil": "1985-04-22 08:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 482977800000,
+          "gender": 1
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "star.天伤",
+      "total": 873,
+      "equal": 446,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "巳"
+        ]
+      }
+    },
+    {
+      "field": "boshi12.申",
+      "total": 873,
+      "equal": 799,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-2-16-1",
+          "category": "sexagenary-grid",
+          "civil": "1984-02-08 16:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 445077000000,
+          "gender": 1
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.申",
+      "total": 873,
+      "equal": 798,
+      "example": {
+        "sample": {
+          "id": "cycle-1986-2-14-1",
+          "category": "sexagenary-grid",
+          "civil": "1986-02-16 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 508919400000,
+          "gender": 1
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "star.劫煞",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "申"
+        ],
+        "actual": null
+      }
+    },
+    {
+      "field": "boshi12.酉",
+      "total": 873,
+      "equal": 830,
+      "example": {
+        "sample": {
+          "id": "cycle-1985-4-8-1",
+          "category": "sexagenary-grid",
+          "civil": "1985-04-22 08:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 482977800000,
+          "gender": 1
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.酉",
+      "total": 873,
+      "equal": 563,
+      "example": {
+        "sample": {
+          "id": "cycle-1987-2-14-0",
+          "category": "sexagenary-grid",
+          "civil": "1987-02-22 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 540973800000,
+          "gender": 0
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "jiangqian12.戌",
+      "total": 873,
+      "equal": 760,
+      "example": {
+        "sample": {
+          "id": "cycle-1986-2-14-1",
+          "category": "sexagenary-grid",
+          "civil": "1986-02-16 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 508919400000,
+          "gender": 1
+        },
+        "expected": "华蓋",
+        "actual": "华盖"
+      }
+    },
+    {
+      "field": "suiqian12.戌",
+      "total": 873,
+      "equal": 766,
+      "example": {
+        "sample": {
+          "id": "cycle-1988-2-12-1",
+          "category": "sexagenary-grid",
+          "civil": "1988-02-28 12:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 573021000000,
+          "gender": 1
+        },
+        "expected": "岁破",
+        "actual": "大耗"
+      }
+    },
+    {
+      "field": "boshi12.亥",
+      "total": 873,
+      "equal": 788,
+      "example": {
+        "sample": {
+          "id": "cycle-1986-2-14-1",
+          "category": "sexagenary-grid",
+          "civil": "1986-02-16 14:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 508919400000,
+          "gender": 1
+        },
+        "expected": "蜚廉",
+        "actual": "飞廉"
+      }
+    },
+    {
+      "field": "suiqian12.亥",
+      "total": 873,
+      "equal": 799,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": "太岁",
+        "actual": "岁建"
+      }
+    },
+    {
+      "field": "star.凤閣",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": [
+          "亥"
+        ],
+        "actual": null
+      }
+    },
+    {
+      "field": "star.华盖",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": null,
+        "actual": [
+          "未"
+        ]
+      }
+    },
+    {
+      "field": "star.天德",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": null,
+        "actual": [
+          "申"
+        ]
+      }
+    },
+    {
+      "field": "star.凤阁",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": null,
+        "actual": [
+          "亥"
+        ]
+      }
+    },
+    {
+      "field": "star.截路",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": null,
+        "actual": [
+          "子"
+        ]
+      }
+    },
+    {
+      "field": "star.空亡",
+      "total": 873,
+      "equal": 0,
+      "example": {
+        "sample": {
+          "id": "cycle-1984-1-0-0",
+          "category": "sexagenary-grid",
+          "civil": "1984-01-01 00:30:00",
+          "timeZone": "Asia/Hong_Kong",
+          "timestamp": 441736200000,
+          "gender": 0
+        },
+        "expected": null,
+        "actual": [
+          "丑"
+        ]
+      }
+    }
+  ]
+}

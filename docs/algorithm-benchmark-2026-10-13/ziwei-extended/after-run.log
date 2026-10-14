@@ -1,0 +1,18 @@
+{"compared":2000,"checks":752000,"equal":750920,"unresolved":0}
+{"compared":4000,"checks":1504000,"equal":1502284,"unresolved":0}
+{"compared":6000,"checks":2256000,"equal":2252700,"unresolved":0}
+{"compared":8000,"checks":3008000,"equal":3003584,"unresolved":0}
+{"compared":10000,"checks":3760000,"equal":3754628,"unresolved":0}
+{"compared":12000,"checks":4512000,"equal":4505272,"unresolved":0}
+{"compared":14000,"checks":5264000,"equal":5255960,"unresolved":0}
+{"compared":16000,"checks":6016000,"equal":6007156,"unresolved":0}
+{"compared":18000,"checks":6768000,"equal":6757952,"unresolved":0}
+{
+  "cases": 18433,
+  "checks": 6930991,
+  "equal": 6920811,
+  "brightnessDifferences": 0,
+  "unresolved": 0,
+  "durationMs": 287777,
+  "brightnessCellCoverage": 232
+}

@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-12",
+  "unitTests": { "command": "node --test tests/*.test.cjs", "passed": 148, "failed": 0 },
+  "typecheck": { "command": "node node_modules/vue-tsc/bin/vue-tsc.js --noEmit", "exitCode": 0 },
+  "qimenCoverage": { "realCalculations": 1440, "distinctJu": 18, "kind": "structural invariants, not independent goldens" },
+  "browserChecks": [
+    "Vue: lunar leap 2023-02-15 23:00 -> solar 2023-04-05 23:00 -> soul Chen, earth-five class, calculation date 2023-04-06",
+    "Vue: edit restores original birth civil date/time and Asia/Shanghai zone",
+    "Vue: non-existent leap month 2023-03 rejected without replacing confirmed timestamp",
+    "Vue 390px: dialog client/scroll 354/354, no horizontal overflow after action-button fix",
+    "Vue 834px: dialog 440/440 and document 834/834, no horizontal overflow",
+    "HTML: all twelve palace DOM contents match between late Zi and next midnight, excluding the center raw-birth label",
+    "HTML: 2026-06-05 16:52 yields yang-five, JiaShen, TianZhu and JingMen in palace seven",
+    "HTML: 2026 summer-solstice 16:24 yang-six -> 16:26 yin-nine",
+    "HTML: New York DST gap and unresolved duplicate clock times show errors and clear old results",
+    "HTML: nine palace selections update real detail fields; phone 373px and tablet 817px iframe have no horizontal overflow"
+  ],
+  "review": "Read-only review caught horoscope civil-date regression and confirmed-time DST selector mismatch; both fixed with regression tests.",
+  "limits": [
+    "No universal accuracy percentage; no multi-school or true-solar-time comparison",
+    "Qimen integration is a reusable module plus HTML preview; no new production Qimen account/AI/history module",
+    "Formal Vue browser uses isolated synthetic account/API data; chart calculators are real",
+    "No production database, real-model, native app or mini-program acceptance test"
+  ]
+}

@@ -1,0 +1,65 @@
+✔ sheng / ke 基础关系 (0.6655ms)
+✔ relation 以主体视角判方向 (0.1783ms)
+✔ 十干克应关键组合 (0.1182ms)
+✔ 克应表完整 9x9 = 81 组 (0.137ms)
+✔ 六仪击刑：地盘戊落震三宫 (0.2595ms)
+✔ 五不遇时：时干克日干且同阴阳 (0.1135ms)
+✔ 三奇得使 + 飞鸟跌穴：天盘丙加地盘戊 (0.0947ms)
+✔ 奇仪入墓：天盘乙落坤二宫 (0.0907ms)
+✔ 九星伏吟：九星各归本位 (0.1365ms)
+✔ 门迫：门克宫记为门迫 (0.3763ms)
+✔ 空亡令吉凶力量减半 (0.1579ms)
+✔ 驿马临宫标注 (0.0705ms)
+✔ calculate 固定时间产出完整解断结构 (7.702ms)
+node:internal/modules/cjs/loader:1520
+  throw err;
+  ^
+
+Error: Cannot find module '../app'
+Require stack:
+- F:\github\xuan_agent\frontend-docker\vendor\qfdk-qimen\test\localtime.test.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1517:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+    at Module._load (node:internal/modules/cjs/loader:1294:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+    at Object.<anonymous> (F:\github\xuan_agent\frontend-docker\vendor\qfdk-qimen\test\localtime.test.js:8:13)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'F:\\github\\xuan_agent\\frontend-docker\\vendor\\qfdk-qimen\\test\\localtime.test.js'
+  ]
+}
+
+Node.js v24.19.0
+✖ frontend-docker\vendor\qfdk-qimen\test\localtime.test.js (95.5785ms)
+✔ 2026-06-05 申时 = 阳遁六局上元 (5.9295ms)
+✔ 值符落艮八宫、值符星天任 (0.5954ms)
+✔ 阳遁六局地盘三奇六仪排布 (1.6903ms)
+✔ 八神阳遁顺时针，从值符艮八起 (0.8411ms)
+✔ 九星伏吟（皆归本位） (0.8132ms)
+✔ 八门伏吟（皆归本位） (0.6178ms)
+✔ 伏吟盘天盘=地盘 (0.5913ms)
+✔ 暗干（甲申时，时干甲寄中5起局，旬首六仪庚入中） (0.8149ms)
+✔ 权威盘 2026-03-21 = 阳遁3局 (0.5238ms)
+✔ 权威盘 2026-06-09 = 阳遁3局 (0.4667ms)
+✔ 权威盘 2026-07-15 = 阴遁5局 (0.3608ms)
+✔ 权威盘 2026-09-23 = 阴遁1局 (0.3538ms)
+✔ 权威盘 2026-12-08 = 阴遁7局 (0.3707ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 26
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 207.5145
+
+✖ failing tests:
+
+test at frontend-docker\vendor\qfdk-qimen\test\localtime.test.js:1:1
+✖ frontend-docker\vendor\qfdk-qimen\test\localtime.test.js (95.5785ms)
+  'test failed'

@@ -1,0 +1,136 @@
+{
+  "cases": 18433,
+  "checks": 6930991,
+  "equal": 6920811,
+  "differences": 10180,
+  "rawDifferences": 236793,
+  "core81": 1493073,
+  "early": 183,
+  "emptyLabelPolicyChecks": 36866,
+  "uniqueComparedFields": 649,
+  "differenceClassifications": {
+    "documented-sihua-school-difference": 10180
+  },
+  "groups": {
+    "soul": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "body": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "minor": {
+      "compared": 258062,
+      "equal": 258062,
+      "different": 0
+    },
+    "adjective": {
+      "compared": 645155,
+      "equal": 645155,
+      "different": 0
+    },
+    "empty-pair": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "empty-selection": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "changsheng12": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "boshi12": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "jiangqian12": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "suiqian12": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "ages": {
+      "compared": 2211960,
+      "equal": 2211960,
+      "different": 0
+    },
+    "isBodyPalace": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "isOriginalPalace": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "decadalStem": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "decadalBranch": {
+      "compared": 221196,
+      "equal": 221196,
+      "different": 0
+    },
+    "brightness": {
+      "compared": 368660,
+      "equal": 368660,
+      "different": 0
+    },
+    "lunarDate": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "gender": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "zodiac": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "core81": {
+      "compared": 1493073,
+      "equal": 1482893,
+      "different": 10180
+    },
+    "solarDate": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "time": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "timeRange": {
+      "compared": 18433,
+      "equal": 18433,
+      "different": 0
+    },
+    "early": {
+      "compared": 183,
+      "equal": 183,
+      "different": 0
+    }
+  }
+}

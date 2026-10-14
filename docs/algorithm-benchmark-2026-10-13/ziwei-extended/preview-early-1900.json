@@ -1,0 +1,6615 @@
+[
+  {
+    "sample": {
+      "id": "range-1900-01-01-00:30",
+      "category": "supported-range",
+      "civil": "1900-01-01 00:30:00",
+      "timeZone": "UTC",
+      "timestamp": -2208987000000,
+      "gender": 1
+    },
+    "fortel": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "蜚廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ],
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.天福": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "star.三台": [
+        "卯"
+      ],
+      "star.天贵": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.大耗": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.旬空": [
+        "巳",
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "岁破",
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.天马": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.劫煞": [
+        "申"
+      ],
+      "star.截空": [
+        "申",
+        "酉"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "star.恩光": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "太岁",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ],
+      "star.八座": [
+        "亥"
+      ]
+    },
+    "actual": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天福": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.三台": [
+        "卯"
+      ],
+      "star.天贵": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "大耗",
+      "star.天马": [
+        "巳"
+      ],
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.旬空": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.华盖": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.天德": [
+        "申"
+      ],
+      "star.截路": [
+        "申"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.恩光": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.空亡": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "岁建",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.八座": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "飞廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ]
+    },
+    "rawDifferences": [
+      {
+        "field": "boshi12.子",
+        "expected": "蜚廉",
+        "actual": "飞廉",
+        "classification": "alias-蜚廉-飞廉"
+      },
+      {
+        "field": "star.大耗",
+        "expected": [
+          "辰"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.旬空",
+        "expected": [
+          "巳",
+          "辰"
+        ],
+        "actual": [
+          "巳"
+        ],
+        "classification": "two-palace-pair-versus-year-polarity-single-palace"
+      },
+      {
+        "field": "suiqian12.巳",
+        "expected": "岁破",
+        "actual": "大耗",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.劫煞",
+        "expected": [
+          "申"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.截空",
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": null,
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "suiqian12.亥",
+        "expected": "太岁",
+        "actual": "岁建",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.华盖",
+        "expected": null,
+        "actual": [
+          "未"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.天德",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.截路",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "star.空亡",
+        "expected": null,
+        "actual": [
+          "酉"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      }
+    ],
+    "independentChecks": {
+      "soul": {
+        "expected": "巨门",
+        "actual": "巨门"
+      },
+      "body": {
+        "expected": "天机",
+        "actual": "天机"
+      },
+      "minor.天魁": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.咸池": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天才": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天寿": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天空": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天姚": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.蜚廉": {
+        "expected": [
+          "丑"
+        ],
+        "actual": [
+          "丑"
+        ]
+      },
+      "adjective.天福": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.孤辰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.封诰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.天月": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "minor.左辅": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "adjective.龙池": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "adjective.三台": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "adjective.天贵": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "minor.文曲": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.红鸾": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.月德": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.阴煞": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "minor.陀罗": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.天马": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.天虚": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.禄存": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.台辅": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.解神": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "minor.擎羊": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天哭": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "minor.天钺": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天厨": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天刑": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "minor.火星": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.天官": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.破碎": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.恩光": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "minor.文昌": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.铃星": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.天喜": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.寡宿": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.右弼": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地空": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地劫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.凤阁": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.年解": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天巫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.八座": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天伤": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.天使": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "empty-pair.截路空亡": {
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": [
+          "申",
+          "酉"
+        ]
+      },
+      "empty-selection.旬空": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.华盖": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天德": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "changsheng12.寅": {
+        "expected": "病",
+        "actual": "病"
+      },
+      "boshi12.寅": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "jiangqian12.寅": {
+        "expected": "亡神",
+        "actual": "亡神"
+      },
+      "suiqian12.寅": {
+        "expected": "贯索",
+        "actual": "贯索"
+      },
+      "ages.寅.0": {
+        "expected": 12,
+        "actual": 12
+      },
+      "ages.寅.1": {
+        "expected": 24,
+        "actual": 24
+      },
+      "ages.寅.2": {
+        "expected": 36,
+        "actual": 36
+      },
+      "ages.寅.3": {
+        "expected": 48,
+        "actual": 48
+      },
+      "ages.寅.4": {
+        "expected": 60,
+        "actual": 60
+      },
+      "ages.寅.5": {
+        "expected": 72,
+        "actual": 72
+      },
+      "ages.寅.6": {
+        "expected": 84,
+        "actual": 84
+      },
+      "ages.寅.7": {
+        "expected": 96,
+        "actual": 96
+      },
+      "ages.寅.8": {
+        "expected": 108,
+        "actual": 108
+      },
+      "ages.寅.9": {
+        "expected": 120,
+        "actual": 120
+      },
+      "isBodyPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.寅": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "changsheng12.卯": {
+        "expected": "死",
+        "actual": "死"
+      },
+      "boshi12.卯": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "jiangqian12.卯": {
+        "expected": "将星",
+        "actual": "将星"
+      },
+      "suiqian12.卯": {
+        "expected": "官符",
+        "actual": "官符"
+      },
+      "ages.卯.0": {
+        "expected": 11,
+        "actual": 11
+      },
+      "ages.卯.1": {
+        "expected": 23,
+        "actual": 23
+      },
+      "ages.卯.2": {
+        "expected": 35,
+        "actual": 35
+      },
+      "ages.卯.3": {
+        "expected": 47,
+        "actual": 47
+      },
+      "ages.卯.4": {
+        "expected": 59,
+        "actual": 59
+      },
+      "ages.卯.5": {
+        "expected": 71,
+        "actual": 71
+      },
+      "ages.卯.6": {
+        "expected": 83,
+        "actual": 83
+      },
+      "ages.卯.7": {
+        "expected": 95,
+        "actual": 95
+      },
+      "ages.卯.8": {
+        "expected": 107,
+        "actual": 107
+      },
+      "ages.卯.9": {
+        "expected": 119,
+        "actual": 119
+      },
+      "isBodyPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.卯": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "brightness.天府.卯": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.辰": {
+        "expected": "墓",
+        "actual": "墓"
+      },
+      "boshi12.辰": {
+        "expected": "伏兵",
+        "actual": "伏兵"
+      },
+      "jiangqian12.辰": {
+        "expected": "攀鞍",
+        "actual": "攀鞍"
+      },
+      "suiqian12.辰": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "ages.辰.0": {
+        "expected": 10,
+        "actual": 10
+      },
+      "ages.辰.1": {
+        "expected": 22,
+        "actual": 22
+      },
+      "ages.辰.2": {
+        "expected": 34,
+        "actual": 34
+      },
+      "ages.辰.3": {
+        "expected": 46,
+        "actual": 46
+      },
+      "ages.辰.4": {
+        "expected": 58,
+        "actual": 58
+      },
+      "ages.辰.5": {
+        "expected": 70,
+        "actual": 70
+      },
+      "ages.辰.6": {
+        "expected": 82,
+        "actual": 82
+      },
+      "ages.辰.7": {
+        "expected": 94,
+        "actual": 94
+      },
+      "ages.辰.8": {
+        "expected": 106,
+        "actual": 106
+      },
+      "ages.辰.9": {
+        "expected": 118,
+        "actual": 118
+      },
+      "isBodyPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "decadalBranch.辰": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "brightness.太阴.辰": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.文曲.辰": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.巳": {
+        "expected": "绝",
+        "actual": "绝"
+      },
+      "boshi12.巳": {
+        "expected": "官府",
+        "actual": "官府"
+      },
+      "jiangqian12.巳": {
+        "expected": "岁驿",
+        "actual": "岁驿"
+      },
+      "suiqian12.巳": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "ages.巳.0": {
+        "expected": 9,
+        "actual": 9
+      },
+      "ages.巳.1": {
+        "expected": 21,
+        "actual": 21
+      },
+      "ages.巳.2": {
+        "expected": 33,
+        "actual": 33
+      },
+      "ages.巳.3": {
+        "expected": 45,
+        "actual": 45
+      },
+      "ages.巳.4": {
+        "expected": 57,
+        "actual": 57
+      },
+      "ages.巳.5": {
+        "expected": 69,
+        "actual": 69
+      },
+      "ages.巳.6": {
+        "expected": 81,
+        "actual": 81
+      },
+      "ages.巳.7": {
+        "expected": 93,
+        "actual": 93
+      },
+      "ages.巳.8": {
+        "expected": 105,
+        "actual": 105
+      },
+      "ages.巳.9": {
+        "expected": 117,
+        "actual": 117
+      },
+      "isBodyPalace.巳": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.巳": {
+        "expected": true,
+        "actual": true
+      },
+      "decadalStem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "decadalBranch.巳": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "brightness.廉贞.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.贪狼.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.陀罗.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.午": {
+        "expected": "胎",
+        "actual": "胎"
+      },
+      "boshi12.午": {
+        "expected": "博士",
+        "actual": "博士"
+      },
+      "jiangqian12.午": {
+        "expected": "息神",
+        "actual": "息神"
+      },
+      "suiqian12.午": {
+        "expected": "龙德",
+        "actual": "龙德"
+      },
+      "ages.午.0": {
+        "expected": 8,
+        "actual": 8
+      },
+      "ages.午.1": {
+        "expected": 20,
+        "actual": 20
+      },
+      "ages.午.2": {
+        "expected": 32,
+        "actual": 32
+      },
+      "ages.午.3": {
+        "expected": 44,
+        "actual": 44
+      },
+      "ages.午.4": {
+        "expected": 56,
+        "actual": 56
+      },
+      "ages.午.5": {
+        "expected": 68,
+        "actual": 68
+      },
+      "ages.午.6": {
+        "expected": 80,
+        "actual": 80
+      },
+      "ages.午.7": {
+        "expected": 92,
+        "actual": 92
+      },
+      "ages.午.8": {
+        "expected": 104,
+        "actual": 104
+      },
+      "ages.午.9": {
+        "expected": 116,
+        "actual": 116
+      },
+      "isBodyPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "decadalBranch.午": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "brightness.巨门.午": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "changsheng12.未": {
+        "expected": "养",
+        "actual": "养"
+      },
+      "boshi12.未": {
+        "expected": "力士",
+        "actual": "力士"
+      },
+      "jiangqian12.未": {
+        "expected": "华盖",
+        "actual": "华盖"
+      },
+      "suiqian12.未": {
+        "expected": "白虎",
+        "actual": "白虎"
+      },
+      "ages.未.0": {
+        "expected": 7,
+        "actual": 7
+      },
+      "ages.未.1": {
+        "expected": 19,
+        "actual": 19
+      },
+      "ages.未.2": {
+        "expected": 31,
+        "actual": 31
+      },
+      "ages.未.3": {
+        "expected": 43,
+        "actual": 43
+      },
+      "ages.未.4": {
+        "expected": 55,
+        "actual": 55
+      },
+      "ages.未.5": {
+        "expected": 67,
+        "actual": 67
+      },
+      "ages.未.6": {
+        "expected": 79,
+        "actual": 79
+      },
+      "ages.未.7": {
+        "expected": 91,
+        "actual": 91
+      },
+      "ages.未.8": {
+        "expected": 103,
+        "actual": 103
+      },
+      "ages.未.9": {
+        "expected": 115,
+        "actual": 115
+      },
+      "isBodyPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "decadalBranch.未": {
+        "expected": "未",
+        "actual": "未"
+      },
+      "brightness.天相.未": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "brightness.擎羊.未": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.申": {
+        "expected": "长生",
+        "actual": "长生"
+      },
+      "boshi12.申": {
+        "expected": "青龙",
+        "actual": "青龙"
+      },
+      "jiangqian12.申": {
+        "expected": "劫煞",
+        "actual": "劫煞"
+      },
+      "suiqian12.申": {
+        "expected": "天德",
+        "actual": "天德"
+      },
+      "ages.申.0": {
+        "expected": 6,
+        "actual": 6
+      },
+      "ages.申.1": {
+        "expected": 18,
+        "actual": 18
+      },
+      "ages.申.2": {
+        "expected": 30,
+        "actual": 30
+      },
+      "ages.申.3": {
+        "expected": 42,
+        "actual": 42
+      },
+      "ages.申.4": {
+        "expected": 54,
+        "actual": 54
+      },
+      "ages.申.5": {
+        "expected": 66,
+        "actual": 66
+      },
+      "ages.申.6": {
+        "expected": 78,
+        "actual": 78
+      },
+      "ages.申.7": {
+        "expected": 90,
+        "actual": 90
+      },
+      "ages.申.8": {
+        "expected": 102,
+        "actual": 102
+      },
+      "ages.申.9": {
+        "expected": 114,
+        "actual": 114
+      },
+      "isBodyPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "decadalBranch.申": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "brightness.天同.申": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.天梁.申": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.酉": {
+        "expected": "沐浴",
+        "actual": "沐浴"
+      },
+      "boshi12.酉": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "jiangqian12.酉": {
+        "expected": "灾煞",
+        "actual": "灾煞"
+      },
+      "suiqian12.酉": {
+        "expected": "吊客",
+        "actual": "吊客"
+      },
+      "ages.酉.0": {
+        "expected": 5,
+        "actual": 5
+      },
+      "ages.酉.1": {
+        "expected": 17,
+        "actual": 17
+      },
+      "ages.酉.2": {
+        "expected": 29,
+        "actual": 29
+      },
+      "ages.酉.3": {
+        "expected": 41,
+        "actual": 41
+      },
+      "ages.酉.4": {
+        "expected": 53,
+        "actual": 53
+      },
+      "ages.酉.5": {
+        "expected": 65,
+        "actual": 65
+      },
+      "ages.酉.6": {
+        "expected": 77,
+        "actual": 77
+      },
+      "ages.酉.7": {
+        "expected": 89,
+        "actual": 89
+      },
+      "ages.酉.8": {
+        "expected": 101,
+        "actual": 101
+      },
+      "ages.酉.9": {
+        "expected": 113,
+        "actual": 113
+      },
+      "isBodyPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "decadalBranch.酉": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "brightness.武曲.酉": {
+        "expected": "利",
+        "actual": "利"
+      },
+      "brightness.七杀.酉": {
+        "expected": "旺",
+        "actual": "庙"
+      },
+      "brightness.火星.酉": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.戌": {
+        "expected": "冠带",
+        "actual": "冠带"
+      },
+      "boshi12.戌": {
+        "expected": "将军",
+        "actual": "将军"
+      },
+      "jiangqian12.戌": {
+        "expected": "天煞",
+        "actual": "天煞"
+      },
+      "suiqian12.戌": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "ages.戌.0": {
+        "expected": 4,
+        "actual": 4
+      },
+      "ages.戌.1": {
+        "expected": 16,
+        "actual": 16
+      },
+      "ages.戌.2": {
+        "expected": 28,
+        "actual": 28
+      },
+      "ages.戌.3": {
+        "expected": 40,
+        "actual": 40
+      },
+      "ages.戌.4": {
+        "expected": 52,
+        "actual": 52
+      },
+      "ages.戌.5": {
+        "expected": 64,
+        "actual": 64
+      },
+      "ages.戌.6": {
+        "expected": 76,
+        "actual": 76
+      },
+      "ages.戌.7": {
+        "expected": 88,
+        "actual": 88
+      },
+      "ages.戌.8": {
+        "expected": 100,
+        "actual": 100
+      },
+      "ages.戌.9": {
+        "expected": 112,
+        "actual": 112
+      },
+      "isBodyPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "decadalBranch.戌": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "brightness.太阳.戌": {
+        "expected": "不",
+        "actual": "不"
+      },
+      "brightness.文昌.戌": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.铃星.戌": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.亥": {
+        "expected": "临官",
+        "actual": "临官"
+      },
+      "boshi12.亥": {
+        "expected": "奏书",
+        "actual": "奏书"
+      },
+      "jiangqian12.亥": {
+        "expected": "指背",
+        "actual": "指背"
+      },
+      "suiqian12.亥": {
+        "expected": "岁建",
+        "actual": "岁建"
+      },
+      "ages.亥.0": {
+        "expected": 3,
+        "actual": 3
+      },
+      "ages.亥.1": {
+        "expected": 15,
+        "actual": 15
+      },
+      "ages.亥.2": {
+        "expected": 27,
+        "actual": 27
+      },
+      "ages.亥.3": {
+        "expected": 39,
+        "actual": 39
+      },
+      "ages.亥.4": {
+        "expected": 51,
+        "actual": 51
+      },
+      "ages.亥.5": {
+        "expected": 63,
+        "actual": 63
+      },
+      "ages.亥.6": {
+        "expected": 75,
+        "actual": 75
+      },
+      "ages.亥.7": {
+        "expected": 87,
+        "actual": 87
+      },
+      "ages.亥.8": {
+        "expected": 99,
+        "actual": 99
+      },
+      "ages.亥.9": {
+        "expected": 111,
+        "actual": 111
+      },
+      "isBodyPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "decadalBranch.亥": {
+        "expected": "亥",
+        "actual": "亥"
+      },
+      "changsheng12.子": {
+        "expected": "帝旺",
+        "actual": "帝旺"
+      },
+      "boshi12.子": {
+        "expected": "飞廉",
+        "actual": "飞廉"
+      },
+      "jiangqian12.子": {
+        "expected": "咸池",
+        "actual": "咸池"
+      },
+      "suiqian12.子": {
+        "expected": "晦气",
+        "actual": "晦气"
+      },
+      "ages.子.0": {
+        "expected": 2,
+        "actual": 2
+      },
+      "ages.子.1": {
+        "expected": 14,
+        "actual": 14
+      },
+      "ages.子.2": {
+        "expected": 26,
+        "actual": 26
+      },
+      "ages.子.3": {
+        "expected": 38,
+        "actual": 38
+      },
+      "ages.子.4": {
+        "expected": 50,
+        "actual": 50
+      },
+      "ages.子.5": {
+        "expected": 62,
+        "actual": 62
+      },
+      "ages.子.6": {
+        "expected": 74,
+        "actual": 74
+      },
+      "ages.子.7": {
+        "expected": 86,
+        "actual": 86
+      },
+      "ages.子.8": {
+        "expected": 98,
+        "actual": 98
+      },
+      "ages.子.9": {
+        "expected": 110,
+        "actual": 110
+      },
+      "isBodyPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.子": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "brightness.天机.子": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.丑": {
+        "expected": "衰",
+        "actual": "衰"
+      },
+      "boshi12.丑": {
+        "expected": "喜神",
+        "actual": "喜神"
+      },
+      "jiangqian12.丑": {
+        "expected": "月煞",
+        "actual": "月煞"
+      },
+      "suiqian12.丑": {
+        "expected": "丧门",
+        "actual": "丧门"
+      },
+      "ages.丑.0": {
+        "expected": 1,
+        "actual": 1
+      },
+      "ages.丑.1": {
+        "expected": 13,
+        "actual": 13
+      },
+      "ages.丑.2": {
+        "expected": 25,
+        "actual": 25
+      },
+      "ages.丑.3": {
+        "expected": 37,
+        "actual": 37
+      },
+      "ages.丑.4": {
+        "expected": 49,
+        "actual": 49
+      },
+      "ages.丑.5": {
+        "expected": 61,
+        "actual": 61
+      },
+      "ages.丑.6": {
+        "expected": 73,
+        "actual": 73
+      },
+      "ages.丑.7": {
+        "expected": 85,
+        "actual": 85
+      },
+      "ages.丑.8": {
+        "expected": 97,
+        "actual": 97
+      },
+      "ages.丑.9": {
+        "expected": 109,
+        "actual": 109
+      },
+      "isBodyPalace.丑": {
+        "expected": true,
+        "actual": true
+      },
+      "isOriginalPalace.丑": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.丑": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "brightness.紫微.丑": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "brightness.破军.丑": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "lunarDate": {
+        "expected": "一八九九年腊月初一",
+        "actual": "一八九九年腊月初一"
+      },
+      "gender": {
+        "expected": "女",
+        "actual": "女"
+      },
+      "zodiac": {
+        "expected": "猪",
+        "actual": "猪"
+      },
+      "solarDate": {
+        "expected": "1900-01-01",
+        "actual": "1900-01-01"
+      },
+      "time": {
+        "expected": "早子时",
+        "actual": "早子时"
+      },
+      "timeRange": {
+        "expected": "00:00~01:00",
+        "actual": "00:00~01:00"
+      },
+      "early.lunar.year": {
+        "expected": 1899,
+        "actual": 1899
+      },
+      "early.lunar.month": {
+        "expected": 12,
+        "actual": 12
+      },
+      "early.lunar.day": {
+        "expected": 1,
+        "actual": 1
+      },
+      "early.lunar.isLeap": {
+        "expected": false,
+        "actual": false
+      },
+      "early.fiveClass": {
+        "expected": "水二局",
+        "actual": "水二局"
+      },
+      "early.palace.寅": {
+        "expected": "父母",
+        "actual": "父母"
+      },
+      "early.stem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.寅": {
+        "expected": [
+          12,
+          21
+        ],
+        "actual": [
+          12,
+          21
+        ]
+      },
+      "early.palace.卯": {
+        "expected": "福德",
+        "actual": "福德"
+      },
+      "early.stem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.卯": {
+        "expected": [
+          22,
+          31
+        ],
+        "actual": [
+          22,
+          31
+        ]
+      },
+      "early.major.天府": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "early.palace.辰": {
+        "expected": "田宅",
+        "actual": "田宅"
+      },
+      "early.stem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "early.range.辰": {
+        "expected": [
+          32,
+          41
+        ],
+        "actual": [
+          32,
+          41
+        ]
+      },
+      "early.major.太阴": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "early.palace.巳": {
+        "expected": "官禄",
+        "actual": "官禄"
+      },
+      "early.stem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "early.range.巳": {
+        "expected": [
+          42,
+          51
+        ],
+        "actual": [
+          42,
+          51
+        ]
+      },
+      "early.major.廉贞": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "early.major.贪狼": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "early.palace.午": {
+        "expected": "仆役",
+        "actual": "仆役"
+      },
+      "early.stem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "early.range.午": {
+        "expected": [
+          52,
+          61
+        ],
+        "actual": [
+          52,
+          61
+        ]
+      },
+      "early.major.巨门": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "early.palace.未": {
+        "expected": "迁移",
+        "actual": "迁移"
+      },
+      "early.stem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "early.range.未": {
+        "expected": [
+          62,
+          71
+        ],
+        "actual": [
+          62,
+          71
+        ]
+      },
+      "early.major.天相": {
+        "expected": "未",
+        "actual": "未"
+      },
+      "early.palace.申": {
+        "expected": "疾厄",
+        "actual": "疾厄"
+      },
+      "early.stem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "early.range.申": {
+        "expected": [
+          72,
+          81
+        ],
+        "actual": [
+          72,
+          81
+        ]
+      },
+      "early.major.天同": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "early.major.天梁": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "early.palace.酉": {
+        "expected": "财帛",
+        "actual": "财帛"
+      },
+      "early.stem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "early.range.酉": {
+        "expected": [
+          82,
+          91
+        ],
+        "actual": [
+          82,
+          91
+        ]
+      },
+      "early.major.武曲": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "early.major.七杀": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "early.palace.戌": {
+        "expected": "子女",
+        "actual": "子女"
+      },
+      "early.stem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "early.range.戌": {
+        "expected": [
+          92,
+          101
+        ],
+        "actual": [
+          92,
+          101
+        ]
+      },
+      "early.major.太阳": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "early.palace.亥": {
+        "expected": "夫妻",
+        "actual": "夫妻"
+      },
+      "early.stem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "early.range.亥": {
+        "expected": [
+          102,
+          111
+        ],
+        "actual": [
+          102,
+          111
+        ]
+      },
+      "early.palace.子": {
+        "expected": "兄弟",
+        "actual": "兄弟"
+      },
+      "early.stem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.子": {
+        "expected": [
+          112,
+          121
+        ],
+        "actual": [
+          112,
+          121
+        ]
+      },
+      "early.major.天机": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "early.palace.丑": {
+        "expected": "命宫",
+        "actual": "命宫"
+      },
+      "early.stem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.丑": {
+        "expected": [
+          2,
+          11
+        ],
+        "actual": [
+          2,
+          11
+        ]
+      },
+      "early.major.紫微": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.major.破军": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.soulPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.bodyPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      }
+    },
+    "checkDifferences": [
+      {
+        "field": "brightness.七杀.酉",
+        "expected": "旺",
+        "actual": "庙",
+        "classification": "primary-table-disagreement;unresolved-provenance-of-production-choice"
+      }
+    ]
+  },
+  {
+    "sample": {
+      "id": "range-1900-01-01-23:30",
+      "category": "supported-range",
+      "civil": "1900-01-01 23:30:00",
+      "timeZone": "UTC",
+      "timestamp": -2208904200000,
+      "gender": 1
+    },
+    "fortel": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "蜚廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ],
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.天福": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.大耗": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.旬空": [
+        "巳",
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "star.三台": [
+        "辰"
+      ],
+      "star.天贵": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "岁破",
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.天马": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.劫煞": [
+        "申"
+      ],
+      "star.截空": [
+        "申",
+        "酉"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "star.八座": [
+        "戌"
+      ],
+      "star.恩光": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "太岁",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ]
+    },
+    "actual": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天福": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.三台": [
+        "辰"
+      ],
+      "star.天贵": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "大耗",
+      "star.天马": [
+        "巳"
+      ],
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.旬空": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.华盖": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.天德": [
+        "申"
+      ],
+      "star.截路": [
+        "申"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.空亡": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.八座": [
+        "戌"
+      ],
+      "star.恩光": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "岁建",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "飞廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ]
+    },
+    "rawDifferences": [
+      {
+        "field": "boshi12.子",
+        "expected": "蜚廉",
+        "actual": "飞廉",
+        "classification": "alias-蜚廉-飞廉"
+      },
+      {
+        "field": "star.大耗",
+        "expected": [
+          "辰"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.旬空",
+        "expected": [
+          "巳",
+          "辰"
+        ],
+        "actual": [
+          "巳"
+        ],
+        "classification": "two-palace-pair-versus-year-polarity-single-palace"
+      },
+      {
+        "field": "suiqian12.巳",
+        "expected": "岁破",
+        "actual": "大耗",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.劫煞",
+        "expected": [
+          "申"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.截空",
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": null,
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "suiqian12.亥",
+        "expected": "太岁",
+        "actual": "岁建",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.华盖",
+        "expected": null,
+        "actual": [
+          "未"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.天德",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.截路",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "star.空亡",
+        "expected": null,
+        "actual": [
+          "酉"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      }
+    ],
+    "independentChecks": {
+      "soul": {
+        "expected": "巨门",
+        "actual": "巨门"
+      },
+      "body": {
+        "expected": "天机",
+        "actual": "天机"
+      },
+      "minor.天魁": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.咸池": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天才": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天寿": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天空": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天姚": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.蜚廉": {
+        "expected": [
+          "丑"
+        ],
+        "actual": [
+          "丑"
+        ]
+      },
+      "adjective.天福": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.孤辰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.封诰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.天月": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "minor.左辅": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "adjective.龙池": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "minor.文曲": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.红鸾": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.月德": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.阴煞": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.三台": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.天贵": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "minor.陀罗": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.天马": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.天虚": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.禄存": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.台辅": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.解神": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "minor.擎羊": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天哭": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "minor.天钺": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天厨": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天刑": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "minor.火星": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.天官": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.破碎": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "minor.文昌": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.铃星": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.天喜": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.寡宿": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.八座": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.恩光": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.右弼": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地空": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地劫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.凤阁": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.年解": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天巫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天伤": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.天使": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "empty-pair.截路空亡": {
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": [
+          "申",
+          "酉"
+        ]
+      },
+      "empty-selection.旬空": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.华盖": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天德": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "changsheng12.寅": {
+        "expected": "病",
+        "actual": "病"
+      },
+      "boshi12.寅": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "jiangqian12.寅": {
+        "expected": "亡神",
+        "actual": "亡神"
+      },
+      "suiqian12.寅": {
+        "expected": "贯索",
+        "actual": "贯索"
+      },
+      "ages.寅.0": {
+        "expected": 12,
+        "actual": 12
+      },
+      "ages.寅.1": {
+        "expected": 24,
+        "actual": 24
+      },
+      "ages.寅.2": {
+        "expected": 36,
+        "actual": 36
+      },
+      "ages.寅.3": {
+        "expected": 48,
+        "actual": 48
+      },
+      "ages.寅.4": {
+        "expected": 60,
+        "actual": 60
+      },
+      "ages.寅.5": {
+        "expected": 72,
+        "actual": 72
+      },
+      "ages.寅.6": {
+        "expected": 84,
+        "actual": 84
+      },
+      "ages.寅.7": {
+        "expected": 96,
+        "actual": 96
+      },
+      "ages.寅.8": {
+        "expected": 108,
+        "actual": 108
+      },
+      "ages.寅.9": {
+        "expected": 120,
+        "actual": 120
+      },
+      "isBodyPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.寅": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "brightness.紫微.寅": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.天府.寅": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.卯": {
+        "expected": "死",
+        "actual": "死"
+      },
+      "boshi12.卯": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "jiangqian12.卯": {
+        "expected": "将星",
+        "actual": "将星"
+      },
+      "suiqian12.卯": {
+        "expected": "官符",
+        "actual": "官符"
+      },
+      "ages.卯.0": {
+        "expected": 11,
+        "actual": 11
+      },
+      "ages.卯.1": {
+        "expected": 23,
+        "actual": 23
+      },
+      "ages.卯.2": {
+        "expected": 35,
+        "actual": 35
+      },
+      "ages.卯.3": {
+        "expected": 47,
+        "actual": 47
+      },
+      "ages.卯.4": {
+        "expected": 59,
+        "actual": 59
+      },
+      "ages.卯.5": {
+        "expected": 71,
+        "actual": 71
+      },
+      "ages.卯.6": {
+        "expected": 83,
+        "actual": 83
+      },
+      "ages.卯.7": {
+        "expected": 95,
+        "actual": 95
+      },
+      "ages.卯.8": {
+        "expected": 107,
+        "actual": 107
+      },
+      "ages.卯.9": {
+        "expected": 119,
+        "actual": 119
+      },
+      "isBodyPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.卯": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "brightness.太阴.卯": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.辰": {
+        "expected": "墓",
+        "actual": "墓"
+      },
+      "boshi12.辰": {
+        "expected": "伏兵",
+        "actual": "伏兵"
+      },
+      "jiangqian12.辰": {
+        "expected": "攀鞍",
+        "actual": "攀鞍"
+      },
+      "suiqian12.辰": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "ages.辰.0": {
+        "expected": 10,
+        "actual": 10
+      },
+      "ages.辰.1": {
+        "expected": 22,
+        "actual": 22
+      },
+      "ages.辰.2": {
+        "expected": 34,
+        "actual": 34
+      },
+      "ages.辰.3": {
+        "expected": 46,
+        "actual": 46
+      },
+      "ages.辰.4": {
+        "expected": 58,
+        "actual": 58
+      },
+      "ages.辰.5": {
+        "expected": 70,
+        "actual": 70
+      },
+      "ages.辰.6": {
+        "expected": 82,
+        "actual": 82
+      },
+      "ages.辰.7": {
+        "expected": 94,
+        "actual": 94
+      },
+      "ages.辰.8": {
+        "expected": 106,
+        "actual": 106
+      },
+      "ages.辰.9": {
+        "expected": 118,
+        "actual": 118
+      },
+      "isBodyPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "decadalBranch.辰": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "brightness.贪狼.辰": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "brightness.文曲.辰": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.巳": {
+        "expected": "绝",
+        "actual": "绝"
+      },
+      "boshi12.巳": {
+        "expected": "官府",
+        "actual": "官府"
+      },
+      "jiangqian12.巳": {
+        "expected": "岁驿",
+        "actual": "岁驿"
+      },
+      "suiqian12.巳": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "ages.巳.0": {
+        "expected": 9,
+        "actual": 9
+      },
+      "ages.巳.1": {
+        "expected": 21,
+        "actual": 21
+      },
+      "ages.巳.2": {
+        "expected": 33,
+        "actual": 33
+      },
+      "ages.巳.3": {
+        "expected": 45,
+        "actual": 45
+      },
+      "ages.巳.4": {
+        "expected": 57,
+        "actual": 57
+      },
+      "ages.巳.5": {
+        "expected": 69,
+        "actual": 69
+      },
+      "ages.巳.6": {
+        "expected": 81,
+        "actual": 81
+      },
+      "ages.巳.7": {
+        "expected": 93,
+        "actual": 93
+      },
+      "ages.巳.8": {
+        "expected": 105,
+        "actual": 105
+      },
+      "ages.巳.9": {
+        "expected": 117,
+        "actual": 117
+      },
+      "isBodyPalace.巳": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.巳": {
+        "expected": true,
+        "actual": true
+      },
+      "decadalStem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "decadalBranch.巳": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "brightness.巨门.巳": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.陀罗.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.午": {
+        "expected": "胎",
+        "actual": "胎"
+      },
+      "boshi12.午": {
+        "expected": "博士",
+        "actual": "博士"
+      },
+      "jiangqian12.午": {
+        "expected": "息神",
+        "actual": "息神"
+      },
+      "suiqian12.午": {
+        "expected": "龙德",
+        "actual": "龙德"
+      },
+      "ages.午.0": {
+        "expected": 8,
+        "actual": 8
+      },
+      "ages.午.1": {
+        "expected": 20,
+        "actual": 20
+      },
+      "ages.午.2": {
+        "expected": 32,
+        "actual": 32
+      },
+      "ages.午.3": {
+        "expected": 44,
+        "actual": 44
+      },
+      "ages.午.4": {
+        "expected": 56,
+        "actual": 56
+      },
+      "ages.午.5": {
+        "expected": 68,
+        "actual": 68
+      },
+      "ages.午.6": {
+        "expected": 80,
+        "actual": 80
+      },
+      "ages.午.7": {
+        "expected": 92,
+        "actual": 92
+      },
+      "ages.午.8": {
+        "expected": 104,
+        "actual": 104
+      },
+      "ages.午.9": {
+        "expected": 116,
+        "actual": 116
+      },
+      "isBodyPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "decadalBranch.午": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "brightness.廉贞.午": {
+        "expected": "平",
+        "actual": "平"
+      },
+      "brightness.天相.午": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.未": {
+        "expected": "养",
+        "actual": "养"
+      },
+      "boshi12.未": {
+        "expected": "力士",
+        "actual": "力士"
+      },
+      "jiangqian12.未": {
+        "expected": "华盖",
+        "actual": "华盖"
+      },
+      "suiqian12.未": {
+        "expected": "白虎",
+        "actual": "白虎"
+      },
+      "ages.未.0": {
+        "expected": 7,
+        "actual": 7
+      },
+      "ages.未.1": {
+        "expected": 19,
+        "actual": 19
+      },
+      "ages.未.2": {
+        "expected": 31,
+        "actual": 31
+      },
+      "ages.未.3": {
+        "expected": 43,
+        "actual": 43
+      },
+      "ages.未.4": {
+        "expected": 55,
+        "actual": 55
+      },
+      "ages.未.5": {
+        "expected": 67,
+        "actual": 67
+      },
+      "ages.未.6": {
+        "expected": 79,
+        "actual": 79
+      },
+      "ages.未.7": {
+        "expected": 91,
+        "actual": 91
+      },
+      "ages.未.8": {
+        "expected": 103,
+        "actual": 103
+      },
+      "ages.未.9": {
+        "expected": 115,
+        "actual": 115
+      },
+      "isBodyPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "decadalBranch.未": {
+        "expected": "未",
+        "actual": "未"
+      },
+      "brightness.天梁.未": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.擎羊.未": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.申": {
+        "expected": "长生",
+        "actual": "长生"
+      },
+      "boshi12.申": {
+        "expected": "青龙",
+        "actual": "青龙"
+      },
+      "jiangqian12.申": {
+        "expected": "劫煞",
+        "actual": "劫煞"
+      },
+      "suiqian12.申": {
+        "expected": "天德",
+        "actual": "天德"
+      },
+      "ages.申.0": {
+        "expected": 6,
+        "actual": 6
+      },
+      "ages.申.1": {
+        "expected": 18,
+        "actual": 18
+      },
+      "ages.申.2": {
+        "expected": 30,
+        "actual": 30
+      },
+      "ages.申.3": {
+        "expected": 42,
+        "actual": 42
+      },
+      "ages.申.4": {
+        "expected": 54,
+        "actual": 54
+      },
+      "ages.申.5": {
+        "expected": 66,
+        "actual": 66
+      },
+      "ages.申.6": {
+        "expected": 78,
+        "actual": 78
+      },
+      "ages.申.7": {
+        "expected": 90,
+        "actual": 90
+      },
+      "ages.申.8": {
+        "expected": 102,
+        "actual": 102
+      },
+      "ages.申.9": {
+        "expected": 114,
+        "actual": 114
+      },
+      "isBodyPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "decadalBranch.申": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "brightness.七杀.申": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.酉": {
+        "expected": "沐浴",
+        "actual": "沐浴"
+      },
+      "boshi12.酉": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "jiangqian12.酉": {
+        "expected": "灾煞",
+        "actual": "灾煞"
+      },
+      "suiqian12.酉": {
+        "expected": "吊客",
+        "actual": "吊客"
+      },
+      "ages.酉.0": {
+        "expected": 5,
+        "actual": 5
+      },
+      "ages.酉.1": {
+        "expected": 17,
+        "actual": 17
+      },
+      "ages.酉.2": {
+        "expected": 29,
+        "actual": 29
+      },
+      "ages.酉.3": {
+        "expected": 41,
+        "actual": 41
+      },
+      "ages.酉.4": {
+        "expected": 53,
+        "actual": 53
+      },
+      "ages.酉.5": {
+        "expected": 65,
+        "actual": 65
+      },
+      "ages.酉.6": {
+        "expected": 77,
+        "actual": 77
+      },
+      "ages.酉.7": {
+        "expected": 89,
+        "actual": 89
+      },
+      "ages.酉.8": {
+        "expected": 101,
+        "actual": 101
+      },
+      "ages.酉.9": {
+        "expected": 113,
+        "actual": 113
+      },
+      "isBodyPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "decadalBranch.酉": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "brightness.天同.酉": {
+        "expected": "平",
+        "actual": "平"
+      },
+      "brightness.火星.酉": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.戌": {
+        "expected": "冠带",
+        "actual": "冠带"
+      },
+      "boshi12.戌": {
+        "expected": "将军",
+        "actual": "将军"
+      },
+      "jiangqian12.戌": {
+        "expected": "天煞",
+        "actual": "天煞"
+      },
+      "suiqian12.戌": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "ages.戌.0": {
+        "expected": 4,
+        "actual": 4
+      },
+      "ages.戌.1": {
+        "expected": 16,
+        "actual": 16
+      },
+      "ages.戌.2": {
+        "expected": 28,
+        "actual": 28
+      },
+      "ages.戌.3": {
+        "expected": 40,
+        "actual": 40
+      },
+      "ages.戌.4": {
+        "expected": 52,
+        "actual": 52
+      },
+      "ages.戌.5": {
+        "expected": 64,
+        "actual": 64
+      },
+      "ages.戌.6": {
+        "expected": 76,
+        "actual": 76
+      },
+      "ages.戌.7": {
+        "expected": 88,
+        "actual": 88
+      },
+      "ages.戌.8": {
+        "expected": 100,
+        "actual": 100
+      },
+      "ages.戌.9": {
+        "expected": 112,
+        "actual": 112
+      },
+      "isBodyPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "decadalBranch.戌": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "brightness.武曲.戌": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "brightness.文昌.戌": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.铃星.戌": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.亥": {
+        "expected": "临官",
+        "actual": "临官"
+      },
+      "boshi12.亥": {
+        "expected": "奏书",
+        "actual": "奏书"
+      },
+      "jiangqian12.亥": {
+        "expected": "指背",
+        "actual": "指背"
+      },
+      "suiqian12.亥": {
+        "expected": "岁建",
+        "actual": "岁建"
+      },
+      "ages.亥.0": {
+        "expected": 3,
+        "actual": 3
+      },
+      "ages.亥.1": {
+        "expected": 15,
+        "actual": 15
+      },
+      "ages.亥.2": {
+        "expected": 27,
+        "actual": 27
+      },
+      "ages.亥.3": {
+        "expected": 39,
+        "actual": 39
+      },
+      "ages.亥.4": {
+        "expected": 51,
+        "actual": 51
+      },
+      "ages.亥.5": {
+        "expected": 63,
+        "actual": 63
+      },
+      "ages.亥.6": {
+        "expected": 75,
+        "actual": 75
+      },
+      "ages.亥.7": {
+        "expected": 87,
+        "actual": 87
+      },
+      "ages.亥.8": {
+        "expected": 99,
+        "actual": 99
+      },
+      "ages.亥.9": {
+        "expected": 111,
+        "actual": 111
+      },
+      "isBodyPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "decadalBranch.亥": {
+        "expected": "亥",
+        "actual": "亥"
+      },
+      "brightness.太阳.亥": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.子": {
+        "expected": "帝旺",
+        "actual": "帝旺"
+      },
+      "boshi12.子": {
+        "expected": "飞廉",
+        "actual": "飞廉"
+      },
+      "jiangqian12.子": {
+        "expected": "咸池",
+        "actual": "咸池"
+      },
+      "suiqian12.子": {
+        "expected": "晦气",
+        "actual": "晦气"
+      },
+      "ages.子.0": {
+        "expected": 2,
+        "actual": 2
+      },
+      "ages.子.1": {
+        "expected": 14,
+        "actual": 14
+      },
+      "ages.子.2": {
+        "expected": 26,
+        "actual": 26
+      },
+      "ages.子.3": {
+        "expected": 38,
+        "actual": 38
+      },
+      "ages.子.4": {
+        "expected": 50,
+        "actual": 50
+      },
+      "ages.子.5": {
+        "expected": 62,
+        "actual": 62
+      },
+      "ages.子.6": {
+        "expected": 74,
+        "actual": 74
+      },
+      "ages.子.7": {
+        "expected": 86,
+        "actual": 86
+      },
+      "ages.子.8": {
+        "expected": 98,
+        "actual": 98
+      },
+      "ages.子.9": {
+        "expected": 110,
+        "actual": 110
+      },
+      "isBodyPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.子": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "brightness.破军.子": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.丑": {
+        "expected": "衰",
+        "actual": "衰"
+      },
+      "boshi12.丑": {
+        "expected": "喜神",
+        "actual": "喜神"
+      },
+      "jiangqian12.丑": {
+        "expected": "月煞",
+        "actual": "月煞"
+      },
+      "suiqian12.丑": {
+        "expected": "丧门",
+        "actual": "丧门"
+      },
+      "ages.丑.0": {
+        "expected": 1,
+        "actual": 1
+      },
+      "ages.丑.1": {
+        "expected": 13,
+        "actual": 13
+      },
+      "ages.丑.2": {
+        "expected": 25,
+        "actual": 25
+      },
+      "ages.丑.3": {
+        "expected": 37,
+        "actual": 37
+      },
+      "ages.丑.4": {
+        "expected": 49,
+        "actual": 49
+      },
+      "ages.丑.5": {
+        "expected": 61,
+        "actual": 61
+      },
+      "ages.丑.6": {
+        "expected": 73,
+        "actual": 73
+      },
+      "ages.丑.7": {
+        "expected": 85,
+        "actual": 85
+      },
+      "ages.丑.8": {
+        "expected": 97,
+        "actual": 97
+      },
+      "ages.丑.9": {
+        "expected": 109,
+        "actual": 109
+      },
+      "isBodyPalace.丑": {
+        "expected": true,
+        "actual": true
+      },
+      "isOriginalPalace.丑": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.丑": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "brightness.天机.丑": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "lunarDate": {
+        "expected": "一八九九年腊月初二",
+        "actual": "一八九九年腊月初二"
+      },
+      "gender": {
+        "expected": "女",
+        "actual": "女"
+      },
+      "zodiac": {
+        "expected": "猪",
+        "actual": "猪"
+      },
+      "solarDate": {
+        "expected": "1900-01-02",
+        "actual": "1900-01-02"
+      },
+      "time": {
+        "expected": "早子时",
+        "actual": "早子时"
+      },
+      "timeRange": {
+        "expected": "00:00~01:00",
+        "actual": "00:00~01:00"
+      },
+      "early.lunar.year": {
+        "expected": 1899,
+        "actual": 1899
+      },
+      "early.lunar.month": {
+        "expected": 12,
+        "actual": 12
+      },
+      "early.lunar.day": {
+        "expected": 2,
+        "actual": 2
+      },
+      "early.lunar.isLeap": {
+        "expected": false,
+        "actual": false
+      },
+      "early.fiveClass": {
+        "expected": "水二局",
+        "actual": "水二局"
+      },
+      "early.palace.寅": {
+        "expected": "父母",
+        "actual": "父母"
+      },
+      "early.stem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.寅": {
+        "expected": [
+          12,
+          21
+        ],
+        "actual": [
+          12,
+          21
+        ]
+      },
+      "early.major.紫微": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "early.major.天府": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "early.palace.卯": {
+        "expected": "福德",
+        "actual": "福德"
+      },
+      "early.stem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.卯": {
+        "expected": [
+          22,
+          31
+        ],
+        "actual": [
+          22,
+          31
+        ]
+      },
+      "early.major.太阴": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "early.palace.辰": {
+        "expected": "田宅",
+        "actual": "田宅"
+      },
+      "early.stem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "early.range.辰": {
+        "expected": [
+          32,
+          41
+        ],
+        "actual": [
+          32,
+          41
+        ]
+      },
+      "early.major.贪狼": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "early.palace.巳": {
+        "expected": "官禄",
+        "actual": "官禄"
+      },
+      "early.stem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "early.range.巳": {
+        "expected": [
+          42,
+          51
+        ],
+        "actual": [
+          42,
+          51
+        ]
+      },
+      "early.major.巨门": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "early.palace.午": {
+        "expected": "仆役",
+        "actual": "仆役"
+      },
+      "early.stem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "early.range.午": {
+        "expected": [
+          52,
+          61
+        ],
+        "actual": [
+          52,
+          61
+        ]
+      },
+      "early.major.廉贞": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "early.major.天相": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "early.palace.未": {
+        "expected": "迁移",
+        "actual": "迁移"
+      },
+      "early.stem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "early.range.未": {
+        "expected": [
+          62,
+          71
+        ],
+        "actual": [
+          62,
+          71
+        ]
+      },
+      "early.major.天梁": {
+        "expected": "未",
+        "actual": "未"
+      },
+      "early.palace.申": {
+        "expected": "疾厄",
+        "actual": "疾厄"
+      },
+      "early.stem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "early.range.申": {
+        "expected": [
+          72,
+          81
+        ],
+        "actual": [
+          72,
+          81
+        ]
+      },
+      "early.major.七杀": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "early.palace.酉": {
+        "expected": "财帛",
+        "actual": "财帛"
+      },
+      "early.stem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "early.range.酉": {
+        "expected": [
+          82,
+          91
+        ],
+        "actual": [
+          82,
+          91
+        ]
+      },
+      "early.major.天同": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "early.palace.戌": {
+        "expected": "子女",
+        "actual": "子女"
+      },
+      "early.stem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "early.range.戌": {
+        "expected": [
+          92,
+          101
+        ],
+        "actual": [
+          92,
+          101
+        ]
+      },
+      "early.major.武曲": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "early.palace.亥": {
+        "expected": "夫妻",
+        "actual": "夫妻"
+      },
+      "early.stem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "early.range.亥": {
+        "expected": [
+          102,
+          111
+        ],
+        "actual": [
+          102,
+          111
+        ]
+      },
+      "early.major.太阳": {
+        "expected": "亥",
+        "actual": "亥"
+      },
+      "early.palace.子": {
+        "expected": "兄弟",
+        "actual": "兄弟"
+      },
+      "early.stem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.子": {
+        "expected": [
+          112,
+          121
+        ],
+        "actual": [
+          112,
+          121
+        ]
+      },
+      "early.major.破军": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "early.palace.丑": {
+        "expected": "命宫",
+        "actual": "命宫"
+      },
+      "early.stem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.丑": {
+        "expected": [
+          2,
+          11
+        ],
+        "actual": [
+          2,
+          11
+        ]
+      },
+      "early.major.天机": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.soulPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.bodyPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      }
+    },
+    "checkDifferences": []
+  },
+  {
+    "sample": {
+      "id": "range-1900-01-30-00:30",
+      "category": "supported-range",
+      "civil": "1900-01-30 00:30:00",
+      "timeZone": "UTC",
+      "timestamp": -2206481400000,
+      "gender": 1
+    },
+    "fortel": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "蜚廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ],
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.天福": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "star.恩光": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.大耗": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.旬空": [
+        "巳",
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "岁破",
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.天马": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.八座": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.劫煞": [
+        "申"
+      ],
+      "star.截空": [
+        "申",
+        "酉"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.三台": [
+        "申"
+      ],
+      "star.天贵": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "太岁",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ]
+    },
+    "actual": {
+      "soul": "巨门",
+      "body": "天机",
+      "changsheng12.寅": "病",
+      "boshi12.寅": "病符",
+      "jiangqian12.寅": "亡神",
+      "suiqian12.寅": "贯索",
+      "star.恩光": [
+        "寅"
+      ],
+      "star.封诰": [
+        "寅"
+      ],
+      "star.天福": [
+        "寅"
+      ],
+      "star.天月": [
+        "寅"
+      ],
+      "star.孤辰": [
+        "寅"
+      ],
+      "changsheng12.卯": "死",
+      "boshi12.卯": "大耗",
+      "jiangqian12.卯": "将星",
+      "suiqian12.卯": "官符",
+      "star.左辅": [
+        "卯"
+      ],
+      "star.龙池": [
+        "卯"
+      ],
+      "changsheng12.辰": "墓",
+      "boshi12.辰": "伏兵",
+      "jiangqian12.辰": "攀鞍",
+      "suiqian12.辰": "小耗",
+      "star.文曲": [
+        "辰"
+      ],
+      "star.红鸾": [
+        "辰"
+      ],
+      "star.月德": [
+        "辰"
+      ],
+      "star.阴煞": [
+        "辰"
+      ],
+      "changsheng12.巳": "绝",
+      "boshi12.巳": "官府",
+      "jiangqian12.巳": "岁驿",
+      "suiqian12.巳": "大耗",
+      "star.天马": [
+        "巳"
+      ],
+      "star.陀罗": [
+        "巳"
+      ],
+      "star.旬空": [
+        "巳"
+      ],
+      "star.天虚": [
+        "巳"
+      ],
+      "changsheng12.午": "胎",
+      "boshi12.午": "博士",
+      "jiangqian12.午": "息神",
+      "suiqian12.午": "龙德",
+      "star.禄存": [
+        "午"
+      ],
+      "star.解神": [
+        "午"
+      ],
+      "star.八座": [
+        "午"
+      ],
+      "star.台辅": [
+        "午"
+      ],
+      "star.天伤": [
+        "午"
+      ],
+      "changsheng12.未": "养",
+      "boshi12.未": "力士",
+      "jiangqian12.未": "华盖",
+      "suiqian12.未": "白虎",
+      "star.擎羊": [
+        "未"
+      ],
+      "star.华盖": [
+        "未"
+      ],
+      "star.天哭": [
+        "未"
+      ],
+      "changsheng12.申": "长生",
+      "boshi12.申": "青龙",
+      "jiangqian12.申": "劫煞",
+      "suiqian12.申": "天德",
+      "star.天钺": [
+        "申"
+      ],
+      "star.三台": [
+        "申"
+      ],
+      "star.天贵": [
+        "申"
+      ],
+      "star.天厨": [
+        "申"
+      ],
+      "star.天德": [
+        "申"
+      ],
+      "star.截路": [
+        "申"
+      ],
+      "star.天刑": [
+        "申"
+      ],
+      "star.天使": [
+        "申"
+      ],
+      "changsheng12.酉": "沐浴",
+      "boshi12.酉": "小耗",
+      "jiangqian12.酉": "灾煞",
+      "suiqian12.酉": "吊客",
+      "star.火星": [
+        "酉"
+      ],
+      "star.天官": [
+        "酉"
+      ],
+      "star.空亡": [
+        "酉"
+      ],
+      "star.破碎": [
+        "酉"
+      ],
+      "changsheng12.戌": "冠带",
+      "boshi12.戌": "将军",
+      "jiangqian12.戌": "天煞",
+      "suiqian12.戌": "病符",
+      "star.文昌": [
+        "戌"
+      ],
+      "star.铃星": [
+        "戌"
+      ],
+      "star.天喜": [
+        "戌"
+      ],
+      "star.寡宿": [
+        "戌"
+      ],
+      "changsheng12.亥": "临官",
+      "boshi12.亥": "奏书",
+      "jiangqian12.亥": "指背",
+      "suiqian12.亥": "岁建",
+      "star.右弼": [
+        "亥"
+      ],
+      "star.地空": [
+        "亥"
+      ],
+      "star.地劫": [
+        "亥"
+      ],
+      "star.凤阁": [
+        "亥"
+      ],
+      "star.天巫": [
+        "亥"
+      ],
+      "star.年解": [
+        "亥"
+      ],
+      "changsheng12.子": "帝旺",
+      "boshi12.子": "飞廉",
+      "jiangqian12.子": "咸池",
+      "suiqian12.子": "晦气",
+      "star.天魁": [
+        "子"
+      ],
+      "star.天姚": [
+        "子"
+      ],
+      "star.咸池": [
+        "子"
+      ],
+      "star.天才": [
+        "子"
+      ],
+      "star.天寿": [
+        "子"
+      ],
+      "star.天空": [
+        "子"
+      ],
+      "changsheng12.丑": "衰",
+      "boshi12.丑": "喜神",
+      "jiangqian12.丑": "月煞",
+      "suiqian12.丑": "丧门",
+      "star.蜚廉": [
+        "丑"
+      ]
+    },
+    "rawDifferences": [
+      {
+        "field": "boshi12.子",
+        "expected": "蜚廉",
+        "actual": "飞廉",
+        "classification": "alias-蜚廉-飞廉"
+      },
+      {
+        "field": "star.大耗",
+        "expected": [
+          "辰"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.旬空",
+        "expected": [
+          "巳",
+          "辰"
+        ],
+        "actual": [
+          "巳"
+        ],
+        "classification": "two-palace-pair-versus-year-polarity-single-palace"
+      },
+      {
+        "field": "suiqian12.巳",
+        "expected": "岁破",
+        "actual": "大耗",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.劫煞",
+        "expected": [
+          "申"
+        ],
+        "actual": null,
+        "classification": "Fortel-adjective-present;product-default-repertoire-omits"
+      },
+      {
+        "field": "star.截空",
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": null,
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "suiqian12.亥",
+        "expected": "太岁",
+        "actual": "岁建",
+        "classification": "alias-太岁-岁建-or-岁破-大耗"
+      },
+      {
+        "field": "star.华盖",
+        "expected": null,
+        "actual": [
+          "未"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.天德",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "Fortel-deity-only;product-also-lists-as-adjective"
+      },
+      {
+        "field": "star.截路",
+        "expected": null,
+        "actual": [
+          "申"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      },
+      {
+        "field": "star.空亡",
+        "expected": null,
+        "actual": [
+          "酉"
+        ],
+        "classification": "same-pair-two-Fortel-copies-versus-two-product-names"
+      }
+    ],
+    "independentChecks": {
+      "soul": {
+        "expected": "巨门",
+        "actual": "巨门"
+      },
+      "body": {
+        "expected": "天机",
+        "actual": "天机"
+      },
+      "minor.天魁": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.咸池": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天才": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天寿": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天空": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.天姚": {
+        "expected": [
+          "子"
+        ],
+        "actual": [
+          "子"
+        ]
+      },
+      "adjective.蜚廉": {
+        "expected": [
+          "丑"
+        ],
+        "actual": [
+          "丑"
+        ]
+      },
+      "adjective.天福": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.孤辰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.封诰": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.天月": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "adjective.恩光": {
+        "expected": [
+          "寅"
+        ],
+        "actual": [
+          "寅"
+        ]
+      },
+      "minor.左辅": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "adjective.龙池": {
+        "expected": [
+          "卯"
+        ],
+        "actual": [
+          "卯"
+        ]
+      },
+      "minor.文曲": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.红鸾": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.月德": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "adjective.阴煞": {
+        "expected": [
+          "辰"
+        ],
+        "actual": [
+          "辰"
+        ]
+      },
+      "minor.陀罗": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.天马": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.天虚": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "minor.禄存": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.台辅": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.解神": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.八座": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "minor.擎羊": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天哭": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "minor.天钺": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天厨": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天刑": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.三台": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "adjective.天贵": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "minor.火星": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.天官": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "adjective.破碎": {
+        "expected": [
+          "酉"
+        ],
+        "actual": [
+          "酉"
+        ]
+      },
+      "minor.文昌": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.铃星": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.天喜": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "adjective.寡宿": {
+        "expected": [
+          "戌"
+        ],
+        "actual": [
+          "戌"
+        ]
+      },
+      "minor.右弼": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地空": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "minor.地劫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.凤阁": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.年解": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天巫": {
+        "expected": [
+          "亥"
+        ],
+        "actual": [
+          "亥"
+        ]
+      },
+      "adjective.天伤": {
+        "expected": [
+          "午"
+        ],
+        "actual": [
+          "午"
+        ]
+      },
+      "adjective.天使": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "empty-pair.截路空亡": {
+        "expected": [
+          "申",
+          "酉"
+        ],
+        "actual": [
+          "申",
+          "酉"
+        ]
+      },
+      "empty-selection.旬空": {
+        "expected": [
+          "巳"
+        ],
+        "actual": [
+          "巳"
+        ]
+      },
+      "adjective.华盖": {
+        "expected": [
+          "未"
+        ],
+        "actual": [
+          "未"
+        ]
+      },
+      "adjective.天德": {
+        "expected": [
+          "申"
+        ],
+        "actual": [
+          "申"
+        ]
+      },
+      "changsheng12.寅": {
+        "expected": "病",
+        "actual": "病"
+      },
+      "boshi12.寅": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "jiangqian12.寅": {
+        "expected": "亡神",
+        "actual": "亡神"
+      },
+      "suiqian12.寅": {
+        "expected": "贯索",
+        "actual": "贯索"
+      },
+      "ages.寅.0": {
+        "expected": 12,
+        "actual": 12
+      },
+      "ages.寅.1": {
+        "expected": 24,
+        "actual": 24
+      },
+      "ages.寅.2": {
+        "expected": 36,
+        "actual": 36
+      },
+      "ages.寅.3": {
+        "expected": 48,
+        "actual": 48
+      },
+      "ages.寅.4": {
+        "expected": 60,
+        "actual": 60
+      },
+      "ages.寅.5": {
+        "expected": 72,
+        "actual": 72
+      },
+      "ages.寅.6": {
+        "expected": 84,
+        "actual": 84
+      },
+      "ages.寅.7": {
+        "expected": 96,
+        "actual": 96
+      },
+      "ages.寅.8": {
+        "expected": 108,
+        "actual": 108
+      },
+      "ages.寅.9": {
+        "expected": 120,
+        "actual": 120
+      },
+      "isBodyPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.寅": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.寅": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "brightness.贪狼.寅": {
+        "expected": "平",
+        "actual": "平"
+      },
+      "changsheng12.卯": {
+        "expected": "死",
+        "actual": "死"
+      },
+      "boshi12.卯": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "jiangqian12.卯": {
+        "expected": "将星",
+        "actual": "将星"
+      },
+      "suiqian12.卯": {
+        "expected": "官符",
+        "actual": "官符"
+      },
+      "ages.卯.0": {
+        "expected": 11,
+        "actual": 11
+      },
+      "ages.卯.1": {
+        "expected": 23,
+        "actual": 23
+      },
+      "ages.卯.2": {
+        "expected": 35,
+        "actual": 35
+      },
+      "ages.卯.3": {
+        "expected": 47,
+        "actual": 47
+      },
+      "ages.卯.4": {
+        "expected": 59,
+        "actual": 59
+      },
+      "ages.卯.5": {
+        "expected": 71,
+        "actual": 71
+      },
+      "ages.卯.6": {
+        "expected": 83,
+        "actual": 83
+      },
+      "ages.卯.7": {
+        "expected": 95,
+        "actual": 95
+      },
+      "ages.卯.8": {
+        "expected": 107,
+        "actual": 107
+      },
+      "ages.卯.9": {
+        "expected": 119,
+        "actual": 119
+      },
+      "isBodyPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.卯": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.卯": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "brightness.天机.卯": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.巨门.卯": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.辰": {
+        "expected": "墓",
+        "actual": "墓"
+      },
+      "boshi12.辰": {
+        "expected": "伏兵",
+        "actual": "伏兵"
+      },
+      "jiangqian12.辰": {
+        "expected": "攀鞍",
+        "actual": "攀鞍"
+      },
+      "suiqian12.辰": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "ages.辰.0": {
+        "expected": 10,
+        "actual": 10
+      },
+      "ages.辰.1": {
+        "expected": 22,
+        "actual": 22
+      },
+      "ages.辰.2": {
+        "expected": 34,
+        "actual": 34
+      },
+      "ages.辰.3": {
+        "expected": 46,
+        "actual": 46
+      },
+      "ages.辰.4": {
+        "expected": 58,
+        "actual": 58
+      },
+      "ages.辰.5": {
+        "expected": 70,
+        "actual": 70
+      },
+      "ages.辰.6": {
+        "expected": 82,
+        "actual": 82
+      },
+      "ages.辰.7": {
+        "expected": 94,
+        "actual": 94
+      },
+      "ages.辰.8": {
+        "expected": 106,
+        "actual": 106
+      },
+      "ages.辰.9": {
+        "expected": 118,
+        "actual": 118
+      },
+      "isBodyPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.辰": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "decadalBranch.辰": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "brightness.紫微.辰": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "brightness.天相.辰": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "brightness.文曲.辰": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.巳": {
+        "expected": "绝",
+        "actual": "绝"
+      },
+      "boshi12.巳": {
+        "expected": "官府",
+        "actual": "官府"
+      },
+      "jiangqian12.巳": {
+        "expected": "岁驿",
+        "actual": "岁驿"
+      },
+      "suiqian12.巳": {
+        "expected": "大耗",
+        "actual": "大耗"
+      },
+      "ages.巳.0": {
+        "expected": 9,
+        "actual": 9
+      },
+      "ages.巳.1": {
+        "expected": 21,
+        "actual": 21
+      },
+      "ages.巳.2": {
+        "expected": 33,
+        "actual": 33
+      },
+      "ages.巳.3": {
+        "expected": 45,
+        "actual": 45
+      },
+      "ages.巳.4": {
+        "expected": 57,
+        "actual": 57
+      },
+      "ages.巳.5": {
+        "expected": 69,
+        "actual": 69
+      },
+      "ages.巳.6": {
+        "expected": 81,
+        "actual": 81
+      },
+      "ages.巳.7": {
+        "expected": 93,
+        "actual": 93
+      },
+      "ages.巳.8": {
+        "expected": 105,
+        "actual": 105
+      },
+      "ages.巳.9": {
+        "expected": 117,
+        "actual": 117
+      },
+      "isBodyPalace.巳": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.巳": {
+        "expected": true,
+        "actual": true
+      },
+      "decadalStem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "decadalBranch.巳": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "brightness.天梁.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.陀罗.巳": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "changsheng12.午": {
+        "expected": "胎",
+        "actual": "胎"
+      },
+      "boshi12.午": {
+        "expected": "博士",
+        "actual": "博士"
+      },
+      "jiangqian12.午": {
+        "expected": "息神",
+        "actual": "息神"
+      },
+      "suiqian12.午": {
+        "expected": "龙德",
+        "actual": "龙德"
+      },
+      "ages.午.0": {
+        "expected": 8,
+        "actual": 8
+      },
+      "ages.午.1": {
+        "expected": 20,
+        "actual": 20
+      },
+      "ages.午.2": {
+        "expected": 32,
+        "actual": 32
+      },
+      "ages.午.3": {
+        "expected": 44,
+        "actual": 44
+      },
+      "ages.午.4": {
+        "expected": 56,
+        "actual": 56
+      },
+      "ages.午.5": {
+        "expected": 68,
+        "actual": 68
+      },
+      "ages.午.6": {
+        "expected": 80,
+        "actual": 80
+      },
+      "ages.午.7": {
+        "expected": 92,
+        "actual": 92
+      },
+      "ages.午.8": {
+        "expected": 104,
+        "actual": 104
+      },
+      "ages.午.9": {
+        "expected": 116,
+        "actual": 116
+      },
+      "isBodyPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.午": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "decadalBranch.午": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "brightness.七杀.午": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "changsheng12.未": {
+        "expected": "养",
+        "actual": "养"
+      },
+      "boshi12.未": {
+        "expected": "力士",
+        "actual": "力士"
+      },
+      "jiangqian12.未": {
+        "expected": "华盖",
+        "actual": "华盖"
+      },
+      "suiqian12.未": {
+        "expected": "白虎",
+        "actual": "白虎"
+      },
+      "ages.未.0": {
+        "expected": 7,
+        "actual": 7
+      },
+      "ages.未.1": {
+        "expected": 19,
+        "actual": 19
+      },
+      "ages.未.2": {
+        "expected": 31,
+        "actual": 31
+      },
+      "ages.未.3": {
+        "expected": 43,
+        "actual": 43
+      },
+      "ages.未.4": {
+        "expected": 55,
+        "actual": 55
+      },
+      "ages.未.5": {
+        "expected": 67,
+        "actual": 67
+      },
+      "ages.未.6": {
+        "expected": 79,
+        "actual": 79
+      },
+      "ages.未.7": {
+        "expected": 91,
+        "actual": 91
+      },
+      "ages.未.8": {
+        "expected": 103,
+        "actual": 103
+      },
+      "ages.未.9": {
+        "expected": 115,
+        "actual": 115
+      },
+      "isBodyPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.未": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "decadalBranch.未": {
+        "expected": "未",
+        "actual": "未"
+      },
+      "brightness.擎羊.未": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.申": {
+        "expected": "长生",
+        "actual": "长生"
+      },
+      "boshi12.申": {
+        "expected": "青龙",
+        "actual": "青龙"
+      },
+      "jiangqian12.申": {
+        "expected": "劫煞",
+        "actual": "劫煞"
+      },
+      "suiqian12.申": {
+        "expected": "天德",
+        "actual": "天德"
+      },
+      "ages.申.0": {
+        "expected": 6,
+        "actual": 6
+      },
+      "ages.申.1": {
+        "expected": 18,
+        "actual": 18
+      },
+      "ages.申.2": {
+        "expected": 30,
+        "actual": 30
+      },
+      "ages.申.3": {
+        "expected": 42,
+        "actual": 42
+      },
+      "ages.申.4": {
+        "expected": 54,
+        "actual": 54
+      },
+      "ages.申.5": {
+        "expected": 66,
+        "actual": 66
+      },
+      "ages.申.6": {
+        "expected": 78,
+        "actual": 78
+      },
+      "ages.申.7": {
+        "expected": 90,
+        "actual": 90
+      },
+      "ages.申.8": {
+        "expected": 102,
+        "actual": 102
+      },
+      "ages.申.9": {
+        "expected": 114,
+        "actual": 114
+      },
+      "isBodyPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.申": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "decadalBranch.申": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "brightness.廉贞.申": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.酉": {
+        "expected": "沐浴",
+        "actual": "沐浴"
+      },
+      "boshi12.酉": {
+        "expected": "小耗",
+        "actual": "小耗"
+      },
+      "jiangqian12.酉": {
+        "expected": "灾煞",
+        "actual": "灾煞"
+      },
+      "suiqian12.酉": {
+        "expected": "吊客",
+        "actual": "吊客"
+      },
+      "ages.酉.0": {
+        "expected": 5,
+        "actual": 5
+      },
+      "ages.酉.1": {
+        "expected": 17,
+        "actual": 17
+      },
+      "ages.酉.2": {
+        "expected": 29,
+        "actual": 29
+      },
+      "ages.酉.3": {
+        "expected": 41,
+        "actual": 41
+      },
+      "ages.酉.4": {
+        "expected": 53,
+        "actual": 53
+      },
+      "ages.酉.5": {
+        "expected": 65,
+        "actual": 65
+      },
+      "ages.酉.6": {
+        "expected": 77,
+        "actual": 77
+      },
+      "ages.酉.7": {
+        "expected": 89,
+        "actual": 89
+      },
+      "ages.酉.8": {
+        "expected": 101,
+        "actual": 101
+      },
+      "ages.酉.9": {
+        "expected": 113,
+        "actual": 113
+      },
+      "isBodyPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.酉": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "decadalBranch.酉": {
+        "expected": "酉",
+        "actual": "酉"
+      },
+      "brightness.火星.酉": {
+        "expected": "得",
+        "actual": "得"
+      },
+      "changsheng12.戌": {
+        "expected": "冠带",
+        "actual": "冠带"
+      },
+      "boshi12.戌": {
+        "expected": "将军",
+        "actual": "将军"
+      },
+      "jiangqian12.戌": {
+        "expected": "天煞",
+        "actual": "天煞"
+      },
+      "suiqian12.戌": {
+        "expected": "病符",
+        "actual": "病符"
+      },
+      "ages.戌.0": {
+        "expected": 4,
+        "actual": 4
+      },
+      "ages.戌.1": {
+        "expected": 16,
+        "actual": 16
+      },
+      "ages.戌.2": {
+        "expected": 28,
+        "actual": 28
+      },
+      "ages.戌.3": {
+        "expected": 40,
+        "actual": 40
+      },
+      "ages.戌.4": {
+        "expected": 52,
+        "actual": 52
+      },
+      "ages.戌.5": {
+        "expected": 64,
+        "actual": 64
+      },
+      "ages.戌.6": {
+        "expected": 76,
+        "actual": 76
+      },
+      "ages.戌.7": {
+        "expected": 88,
+        "actual": 88
+      },
+      "ages.戌.8": {
+        "expected": 100,
+        "actual": 100
+      },
+      "ages.戌.9": {
+        "expected": 112,
+        "actual": 112
+      },
+      "isBodyPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.戌": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "decadalBranch.戌": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "brightness.破军.戌": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.文昌.戌": {
+        "expected": "陷",
+        "actual": "陷"
+      },
+      "brightness.铃星.戌": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.亥": {
+        "expected": "临官",
+        "actual": "临官"
+      },
+      "boshi12.亥": {
+        "expected": "奏书",
+        "actual": "奏书"
+      },
+      "jiangqian12.亥": {
+        "expected": "指背",
+        "actual": "指背"
+      },
+      "suiqian12.亥": {
+        "expected": "岁建",
+        "actual": "岁建"
+      },
+      "ages.亥.0": {
+        "expected": 3,
+        "actual": 3
+      },
+      "ages.亥.1": {
+        "expected": 15,
+        "actual": 15
+      },
+      "ages.亥.2": {
+        "expected": 27,
+        "actual": 27
+      },
+      "ages.亥.3": {
+        "expected": 39,
+        "actual": 39
+      },
+      "ages.亥.4": {
+        "expected": 51,
+        "actual": 51
+      },
+      "ages.亥.5": {
+        "expected": 63,
+        "actual": 63
+      },
+      "ages.亥.6": {
+        "expected": 75,
+        "actual": 75
+      },
+      "ages.亥.7": {
+        "expected": 87,
+        "actual": 87
+      },
+      "ages.亥.8": {
+        "expected": 99,
+        "actual": 99
+      },
+      "ages.亥.9": {
+        "expected": 111,
+        "actual": 111
+      },
+      "isBodyPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.亥": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "decadalBranch.亥": {
+        "expected": "亥",
+        "actual": "亥"
+      },
+      "brightness.天同.亥": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.子": {
+        "expected": "帝旺",
+        "actual": "帝旺"
+      },
+      "boshi12.子": {
+        "expected": "飞廉",
+        "actual": "飞廉"
+      },
+      "jiangqian12.子": {
+        "expected": "咸池",
+        "actual": "咸池"
+      },
+      "suiqian12.子": {
+        "expected": "晦气",
+        "actual": "晦气"
+      },
+      "ages.子.0": {
+        "expected": 2,
+        "actual": 2
+      },
+      "ages.子.1": {
+        "expected": 14,
+        "actual": 14
+      },
+      "ages.子.2": {
+        "expected": 26,
+        "actual": 26
+      },
+      "ages.子.3": {
+        "expected": 38,
+        "actual": 38
+      },
+      "ages.子.4": {
+        "expected": 50,
+        "actual": 50
+      },
+      "ages.子.5": {
+        "expected": 62,
+        "actual": 62
+      },
+      "ages.子.6": {
+        "expected": 74,
+        "actual": 74
+      },
+      "ages.子.7": {
+        "expected": 86,
+        "actual": 86
+      },
+      "ages.子.8": {
+        "expected": 98,
+        "actual": 98
+      },
+      "ages.子.9": {
+        "expected": 110,
+        "actual": 110
+      },
+      "isBodyPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "isOriginalPalace.子": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "decadalBranch.子": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "brightness.武曲.子": {
+        "expected": "旺",
+        "actual": "旺"
+      },
+      "brightness.天府.子": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "changsheng12.丑": {
+        "expected": "衰",
+        "actual": "衰"
+      },
+      "boshi12.丑": {
+        "expected": "喜神",
+        "actual": "喜神"
+      },
+      "jiangqian12.丑": {
+        "expected": "月煞",
+        "actual": "月煞"
+      },
+      "suiqian12.丑": {
+        "expected": "丧门",
+        "actual": "丧门"
+      },
+      "ages.丑.0": {
+        "expected": 1,
+        "actual": 1
+      },
+      "ages.丑.1": {
+        "expected": 13,
+        "actual": 13
+      },
+      "ages.丑.2": {
+        "expected": 25,
+        "actual": 25
+      },
+      "ages.丑.3": {
+        "expected": 37,
+        "actual": 37
+      },
+      "ages.丑.4": {
+        "expected": 49,
+        "actual": 49
+      },
+      "ages.丑.5": {
+        "expected": 61,
+        "actual": 61
+      },
+      "ages.丑.6": {
+        "expected": 73,
+        "actual": 73
+      },
+      "ages.丑.7": {
+        "expected": 85,
+        "actual": 85
+      },
+      "ages.丑.8": {
+        "expected": 97,
+        "actual": 97
+      },
+      "ages.丑.9": {
+        "expected": 109,
+        "actual": 109
+      },
+      "isBodyPalace.丑": {
+        "expected": true,
+        "actual": true
+      },
+      "isOriginalPalace.丑": {
+        "expected": false,
+        "actual": false
+      },
+      "decadalStem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "decadalBranch.丑": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "brightness.太阳.丑": {
+        "expected": "不",
+        "actual": "不"
+      },
+      "brightness.太阴.丑": {
+        "expected": "庙",
+        "actual": "庙"
+      },
+      "lunarDate": {
+        "expected": "一八九九年腊月三十",
+        "actual": "一八九九年腊月三十"
+      },
+      "gender": {
+        "expected": "女",
+        "actual": "女"
+      },
+      "zodiac": {
+        "expected": "猪",
+        "actual": "猪"
+      },
+      "solarDate": {
+        "expected": "1900-01-30",
+        "actual": "1900-01-30"
+      },
+      "time": {
+        "expected": "早子时",
+        "actual": "早子时"
+      },
+      "timeRange": {
+        "expected": "00:00~01:00",
+        "actual": "00:00~01:00"
+      },
+      "early.lunar.year": {
+        "expected": 1899,
+        "actual": 1899
+      },
+      "early.lunar.month": {
+        "expected": 12,
+        "actual": 12
+      },
+      "early.lunar.day": {
+        "expected": 30,
+        "actual": 30
+      },
+      "early.lunar.isLeap": {
+        "expected": false,
+        "actual": false
+      },
+      "early.fiveClass": {
+        "expected": "水二局",
+        "actual": "水二局"
+      },
+      "early.palace.寅": {
+        "expected": "父母",
+        "actual": "父母"
+      },
+      "early.stem.寅": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.寅": {
+        "expected": [
+          12,
+          21
+        ],
+        "actual": [
+          12,
+          21
+        ]
+      },
+      "early.major.贪狼": {
+        "expected": "寅",
+        "actual": "寅"
+      },
+      "early.palace.卯": {
+        "expected": "福德",
+        "actual": "福德"
+      },
+      "early.stem.卯": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.卯": {
+        "expected": [
+          22,
+          31
+        ],
+        "actual": [
+          22,
+          31
+        ]
+      },
+      "early.major.天机": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "early.major.巨门": {
+        "expected": "卯",
+        "actual": "卯"
+      },
+      "early.palace.辰": {
+        "expected": "田宅",
+        "actual": "田宅"
+      },
+      "early.stem.辰": {
+        "expected": "戊",
+        "actual": "戊"
+      },
+      "early.range.辰": {
+        "expected": [
+          32,
+          41
+        ],
+        "actual": [
+          32,
+          41
+        ]
+      },
+      "early.major.紫微": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "early.major.天相": {
+        "expected": "辰",
+        "actual": "辰"
+      },
+      "early.palace.巳": {
+        "expected": "官禄",
+        "actual": "官禄"
+      },
+      "early.stem.巳": {
+        "expected": "己",
+        "actual": "己"
+      },
+      "early.range.巳": {
+        "expected": [
+          42,
+          51
+        ],
+        "actual": [
+          42,
+          51
+        ]
+      },
+      "early.major.天梁": {
+        "expected": "巳",
+        "actual": "巳"
+      },
+      "early.palace.午": {
+        "expected": "仆役",
+        "actual": "仆役"
+      },
+      "early.stem.午": {
+        "expected": "庚",
+        "actual": "庚"
+      },
+      "early.range.午": {
+        "expected": [
+          52,
+          61
+        ],
+        "actual": [
+          52,
+          61
+        ]
+      },
+      "early.major.七杀": {
+        "expected": "午",
+        "actual": "午"
+      },
+      "early.palace.未": {
+        "expected": "迁移",
+        "actual": "迁移"
+      },
+      "early.stem.未": {
+        "expected": "辛",
+        "actual": "辛"
+      },
+      "early.range.未": {
+        "expected": [
+          62,
+          71
+        ],
+        "actual": [
+          62,
+          71
+        ]
+      },
+      "early.palace.申": {
+        "expected": "疾厄",
+        "actual": "疾厄"
+      },
+      "early.stem.申": {
+        "expected": "壬",
+        "actual": "壬"
+      },
+      "early.range.申": {
+        "expected": [
+          72,
+          81
+        ],
+        "actual": [
+          72,
+          81
+        ]
+      },
+      "early.major.廉贞": {
+        "expected": "申",
+        "actual": "申"
+      },
+      "early.palace.酉": {
+        "expected": "财帛",
+        "actual": "财帛"
+      },
+      "early.stem.酉": {
+        "expected": "癸",
+        "actual": "癸"
+      },
+      "early.range.酉": {
+        "expected": [
+          82,
+          91
+        ],
+        "actual": [
+          82,
+          91
+        ]
+      },
+      "early.palace.戌": {
+        "expected": "子女",
+        "actual": "子女"
+      },
+      "early.stem.戌": {
+        "expected": "甲",
+        "actual": "甲"
+      },
+      "early.range.戌": {
+        "expected": [
+          92,
+          101
+        ],
+        "actual": [
+          92,
+          101
+        ]
+      },
+      "early.major.破军": {
+        "expected": "戌",
+        "actual": "戌"
+      },
+      "early.palace.亥": {
+        "expected": "夫妻",
+        "actual": "夫妻"
+      },
+      "early.stem.亥": {
+        "expected": "乙",
+        "actual": "乙"
+      },
+      "early.range.亥": {
+        "expected": [
+          102,
+          111
+        ],
+        "actual": [
+          102,
+          111
+        ]
+      },
+      "early.major.天同": {
+        "expected": "亥",
+        "actual": "亥"
+      },
+      "early.palace.子": {
+        "expected": "兄弟",
+        "actual": "兄弟"
+      },
+      "early.stem.子": {
+        "expected": "丙",
+        "actual": "丙"
+      },
+      "early.range.子": {
+        "expected": [
+          112,
+          121
+        ],
+        "actual": [
+          112,
+          121
+        ]
+      },
+      "early.major.武曲": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "early.major.天府": {
+        "expected": "子",
+        "actual": "子"
+      },
+      "early.palace.丑": {
+        "expected": "命宫",
+        "actual": "命宫"
+      },
+      "early.stem.丑": {
+        "expected": "丁",
+        "actual": "丁"
+      },
+      "early.range.丑": {
+        "expected": [
+          2,
+          11
+        ],
+        "actual": [
+          2,
+          11
+        ]
+      },
+      "early.major.太阳": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.major.太阴": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.soulPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      },
+      "early.bodyPalace": {
+        "expected": "丑",
+        "actual": "丑"
+      }
+    },
+    "checkDifferences": []
+  }
+]

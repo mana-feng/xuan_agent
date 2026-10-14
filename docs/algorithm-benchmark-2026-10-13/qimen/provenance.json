@@ -1,0 +1,34 @@
+{
+  "capturedAtUTC": "2026-10-12T17:45:34.930797+00:00",
+  "externalRepository": "https://github.com/kentang2017/kinqimen",
+  "externalCommit": "127ead87aa24a74d40c893a5351e22a1a89d0945",
+  "externalSourceUnmodified": true,
+  "externalPrecision": "civil minute, UTC+8 implicit",
+  "independence": "Separately maintained Qimen implementations and different calendar packages; sxtwl and lunar-javascript have shared ShouXing astronomical algorithm lineage. Not a wholly independent astronomical oracle.",
+  "pythonVersion": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "sxtwl": "2.0.6",
+    "ephem": "4.1.6",
+    "bidict": "0.23.1"
+  },
+  "sha256": {
+    ".local-dev/qimen-benchmark/kinqimen/kinqimen.py": "d804df7b3d30a6f92470330d6adfd0c5ce320e36b1635a33c537065ee3d04682",
+    ".local-dev/qimen-benchmark/kinqimen/config.py": "088a2ef95b890addf9dff13c303ec45d4d70462abc236f39ada5af046419e0d3",
+    ".local-dev/qimen-benchmark/kinqimen/jieqi.py": "ebf7b344831984eb17061d46c77108375887d04c2ec7774176765d961b9c3cf9",
+    ".local-dev/qimen-benchmark/kinqimen/angan.py": "980d62e931bda09673ccec8ee7d8234c6fafbacfb51c1b26f7ad9abfca4bae37",
+    ".local-dev/qimen-benchmark/kinqimen/requirements.txt": "fa0cb0fc518aef75d9a73ab313e152e49de08427f2b0bad4282a5a63aa2663a0",
+    ".local-dev/qimen-benchmark/kinqimen/README.md": "d40566ae5b470e20f29e14a80130bcb333d8640fec1ccd984fcb46b9f19616e9",
+    "frontend-docker/vendor/qfdk-qimen/lib/bamen.js": "e19b741a74980af11bdff8f256e91c282807b915d2a699607c96bcf3b43f4841",
+    "frontend-docker/vendor/qfdk-qimen/lib/bashen.js": "7f054df4e8a380dee69c5490d4a93bf780b7043511fd7d684f9c4d2cc63e9f64",
+    "frontend-docker/vendor/qfdk-qimen/lib/constants.js": "a2f9aa6a636e7944751cc8f17f5a2ef6163711eb594b5da5b14b31204eb55cb3",
+    "frontend-docker/vendor/qfdk-qimen/lib/dipan.js": "6c37aa6242f4739e506d9183980db580a7f72c44a9f30a65c0f0000c1b9f8635",
+    "frontend-docker/vendor/qfdk-qimen/lib/jieduan.js": "40ae12b9c8028861a91d4ad9c073f71e7accf477c9a048cb34b754aa8fafe1ae",
+    "frontend-docker/vendor/qfdk-qimen/lib/jiuxing.js": "f1f52bb712104aad4e5f25adcc8f3ba78a38fe412ff89580cacc85b673934a38",
+    "frontend-docker/vendor/qfdk-qimen/lib/qimen.js": "b80c2e42a12a4c59e1818b5c43da86e6b646e7802f4d610b0c2bc7ea65719643",
+    "frontend-docker/src/utils/qimenCalculation.ts": "9ddd37fd8e11119d6beaff66dbaab303af3060bbd78fd90363c73e24b642c431",
+    "frontend-docker/src/utils/chartTime.ts": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8",
+    "frontend-docker/node_modules/lunar-javascript/lunar.js": "9750324bfe1aa63c146f8c72b1143df924466c11c8a5277d7d9225c541a18aaa",
+    "frontend-docker/node_modules/lunar-javascript/package.json": "39b062864077ca2980683db5f209cb78339f74e4d5c1dea77b4a6263da116c02"
+  },
+  "inputSha256": "1d2ea6da79b7db264868b1394d14737e3ed40eb04c23edce1ad3c3848d17c71f"
+}

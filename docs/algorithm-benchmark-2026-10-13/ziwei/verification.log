@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "cases": 18433,
+  "comparedCases": 18430,
+  "fields": 1492830,
+  "equal": 1482650,
+  "school": 10180,
+  "unknown": 0,
+  "unsupported": 3,
+  "publishedLiteralFields": 29
+}

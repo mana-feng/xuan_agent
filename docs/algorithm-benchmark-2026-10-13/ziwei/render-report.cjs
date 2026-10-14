@@ -1,0 +1,32 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const s = JSON.parse(fs.readFileSync(path.join(__dirname, 'summary.json'), 'utf8'));
+const c = s.counts;
+const n = value => value.toLocaleString('en-US');
+const revision = s.provenance.independentEngine.revision;
+const source = file => `https://github.com/airicyu/fortel-ziweidoushu/blob/${revision}/${file}`;
+const tr = cells => `<tr>${cells.map(v => `<td>${v}</td>`).join('')}</tr>`;
+const fields = { input: '民用时间和子时归一化', lunar: '独立农历换算', core: '命宫／身宫／五行局', palace: '十二宫名称和宫干', decadal: '大限起止年龄', major: '十四主星落宫', sihua: '四化星名和落宫' };
+const groupNames = { 'sexagenary-grid': '60 年 × 12 月 × 12 时辰 × 男女', 'lunar-day-grid': '连续 30 日 × 12 时辰 × 男女', 'leap-boundary': '2020／2023／2033 闰月与晚子边界', 'year-hour-boundary': '春节／立春／小时边界', 'timezone-fixture': '历史夏令时、重复小时、半小时／四分之一小时偏移', 'supported-range': '支持范围两端（可对照部分）', 'published-example': 'Fortel 作者公布的 1952-04-09 寅时女命例' };
+const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>紫微独立引擎对照基准 · 2026-10-13</title><style>body{margin:0;background:#f4f6f8;color:#172a3a;font:16px/1.65 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1120px;margin:32px auto;padding:32px;background:white;border-radius:16px}h1{font-size:30px}h2{margin-top:32px;font-size:22px}table{width:100%;border-collapse:collapse;margin:16px 0}th,td{text-align:left;border-bottom:1px solid #dbe3e8;padding:10px;vertical-align:top}th{background:#edf3f7}.callout{padding:18px;background:#eaf4ef;border-left:5px solid #23734a;border-radius:6px}.warn{background:#fff4df;border-color:#a76713}code{font-size:13px;overflow-wrap:anywhere}a{color:#125d96}small{color:#556777}.metrics{display:flex;gap:16px;flex-wrap:wrap}.metrics div{flex:1;min-width:155px;padding:16px;background:#f1f5f8;border-radius:8px}.metrics strong{font-size:28px;display:block}@media(max-width:720px){main{margin:0;padding:18px;border-radius:0}table{font-size:13px}td,th{padding:6px}}</style><main>
+<small>2026-10-13 · 实际执行独立实现 · ziwei-civil-v1</small><h1>紫微排盘：Fortel 与当前产品逐字段对照</h1>
+<p class="callout">对 <b>${n(c.comparedCases)}</b> 张可比较命盘实际执行两个引擎，比较 <b>${n(c.fields)}</b> 个字段值。原始全字段一致 <b>${n(c.rawIdenticalCases)}</b> 张；仅有事先识别的门派四化差异 <b>${n(c.schoolDifferenceCases)}</b> 张；待解释差异 <b>${n(c.unresolvedCases)}</b> 张。</p>
+<div class="metrics"><div>输入样本<strong>${n(c.cases)}</strong></div><div>每盘字段<strong>${s.fieldsPerComparedCase}</strong></div><div>原始相等字段<strong>${n(c.equalFields)}</strong></div><div>基准不支持<strong>${c.baselineUnsupportedCases}</strong></div></div>
+<p>本次对照使用 <a href="${source('README.md')}">airicyu/fortel-ziweidoushu 1.3.4</a>（MIT，中州派），生产端实际加载仓库的 <code>calculateZiwei</code>，版本为 iztro ${s.provenance.production.engine} + lunar-javascript ${s.provenance.production.lunar}。没有用 iztro 输出生成预期结果，也没有改写两个引擎的排盘或四化表。</p>
+<h2>哪些项目实际比过</h2><table><thead><tr><th>字段组</th><th>比较数</th><th>原始一致</th><th>已知门派差异</th><th>待解释</th></tr></thead><tbody>${Object.entries(s.fieldGroups).map(([key, v]) => tr([fields[key], n(v.compared), n(v.equal), n(v.schoolDifference), n(v.unresolved)])).join('')}</tbody></table>
+<p>“核心”包括命宫、身宫、五行局；十二宫按地支对齐后核对名称与宫干；十四主星逐星核对地支；四化同时核对化星名称与落宫；大限核对十二宫的起止年龄。实测覆盖全部 <b>30 农历日 × 5 五行局＝150</b> 种组合。</p>
+<h2>样本覆盖</h2><table><thead><tr><th>样本组</th><th>可比较</th><th>原始全同</th><th>仅门派差异</th><th>待解释</th></tr></thead><tbody>${Object.entries(s.groups).map(([key, v]) => tr([groupNames[key], n(v.cases), n(v.rawIdentical), n(v.schoolOnly), n(v.unresolved)])).join('')}</tbody></table>
+<h2>明确保留的差异</h2><p class="callout warn">${n(c.schoolDifferenceFields)} 个字段值存在原始差异，均属于下表的化科配置。不能把这部分写成“100% 全盘一致”，也不能仅凭不同门派的配置判定生产算法出错。</p>
+<table><thead><tr><th>生年天干</th><th>Fortel 中州派化科</th><th>当前 iztro 默认化科</th></tr></thead><tbody>${Object.entries(s.schoolDifference).map(([stem, v]) => tr([stem, v.fortel, v.iztro])).join('')}</tbody></table>
+<p>这三项来自执行前阅读 <a href="${source('src/model/starDerivative.ts#L67')}">Fortel 四化源码</a> 与本地 iztro <code>lib/data/heavenlyStems.js</code>。差异星的落宫也保留原始值。遇到农历不同的样本时，脚本不会自动套用“门派差异”标签。</p>
+<h2>规则如何对齐</h2><p>两套引擎都采用农历正月初一换年；Fortel 的 <a href="${source('src/model/destinyConfig.ts#L53')}">闰月 day &gt; 15 逻辑</a>与产品规则一致。Fortel 使用民用日期和时辰，不提供 IANA 时区解析，也不自动执行产品的“23:00 整盘按次日”政策。因此基准适配器从样本写明的本地日期独立加一天，再传入早子时；不读取生产端的换日、农历或时辰计算结果。</p>
+<p>时区样本的时间戳由明确的 ISO UTC 偏移创建，然后核对生产端还原的民用时间，包含上海 1991 夏令时、纽约 2024 重复小时与跳时前后、Lord Howe 半小时夏令时、加德满都四分之一小时偏移。它们验证产品时区接线与固定规则，不能宣称 Fortel 自身验证了 IANA 数据库。</p>
+<h2>独立性与版本证据</h2><p>Fortel 自行实现 <a href="${source('src/model/majorStar.ts#L65')}">五种五行局 × 三十日紫微安星表和十四主星排列</a>、<a href="${source('src/model/destinyBoard.ts#L148')}">命身宫／宫干／五行局／大限</a>，历法来自 <a href="${source('src/calendar/jjonline/js-calendar-converter/calendar.js')}">jjonline calendar</a>。它的唯一运行依赖为 <code>util</code>，源码未引用 iztro 或 lunar-javascript。</p>
+<p>npm 包声明的 Git SHA：<code>${revision}</code>。npm 包内 25 个源文件中，24 个与该 Git 归档在统一 CRLF/LF 后一致；<code>minorStar.ts</code> 的两处辛年流魁／流钺表有差异，属于本次未比较的运限范围，<a href="npm-vs-git-source.diff">原始差异文件</a>已保留。因此不能把该 Git 源码称为 npm 包的完全同一副本。本次真正执行的 npm 包以 SHA-256 固定：<code>${s.provenance.independentEngine.tarballSha256}</code>。原始和统一换行后的文件哈希、执行时生产文件哈希，都保存在 <a href="summary.json">summary.json</a>。</p>
+<h2>复现与原始数据</h2><p>使用现有依赖离线重跑：<code>pwsh -File docs/algorithm-benchmark-2026-10-13/ziwei/reproduce.ps1</code>。新环境加 <code>-Download</code> 下载固定版本，或用 <code>-Node</code> 指定 Node 路径。脚本只在 <code>.local-dev/ziwei-benchmark</code> 下载与解压，不安装到共享 node_modules。</p>
+<p><a href="run-benchmark.cjs">比较器源码</a> · <a href="reproduce.ps1">复现脚本</a> · <a href="inputs.json">全部输入</a> · <a href="all-results.jsonl.gz">全部预期／实际／差异（gzip JSONL）</a> · <a href="selected-fixtures.json">边界案例可读 JSON</a> · <a href="published-reference.json">作者公开命例的 29 个文字基准字段</a> · <a href="unresolved.json">待解释差异</a> · <a href="unsupported.json">基准不支持记录</a> · <a href="run.log">执行日志</a> · <a href="verify-artifacts.cjs">产物完整性核对脚本</a></p>
+<h2>证据边界</h2><p>这是独立代码实现之间的交叉验证，证明所测规则与字段得到一致或可解释的结果。Fortel 不支持 1900-01-31 以前的公历转换，因此这部分共 ${c.baselineUnsupportedCases} 个输入没有独立对照，已保留生产结果与基准异常。未比较全部辅杂星、亮度、流年／月／日／时等运限，也未验证命理解读或预测效度。</p>
+<small>生成时间 ${s.generatedAt}；实际比较耗时 ${(s.durationMs / 1000).toFixed(1)} 秒；Node ${s.provenance.runtime.node}，${s.provenance.runtime.platform}，主机时区 ${s.provenance.runtime.hostTimeZone}，tzdata ${s.provenance.runtime.tzdata}。</small></main></html>`;
+fs.writeFileSync(path.join(__dirname, 'report.html'), html);
+console.log('Wrote ziwei/report.html from summary.json');

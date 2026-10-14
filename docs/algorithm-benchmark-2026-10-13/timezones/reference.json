@@ -1,0 +1,30 @@
+{
+  "implementation": "Python zoneinfo (independent conversion implementation; common IANA authority)",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "tzdata": "2026.5",
+  "ianaVersion": "2026e",
+  "zones": [
+    "Asia/Shanghai",
+    "Asia/Singapore",
+    "Asia/Taipei",
+    "Asia/Hong_Kong",
+    "Asia/Tokyo",
+    "America/New_York",
+    "America/Los_Angeles",
+    "Europe/London",
+    "Australia/Sydney",
+    "UTC",
+    "Australia/Lord_Howe",
+    "Asia/Kathmandu",
+    "Pacific/Apia"
+  ],
+  "fromYear": 1900,
+  "toYear": 2099,
+  "transitions": 1712,
+  "cases": 27300,
+  "unique": 18984,
+  "gaps": 3320,
+  "folds": 4996,
+  "source": "https://docs.python.org/3/library/zoneinfo.html",
+  "inputSha256": "8279a7d8608172a351381fc833a44afe84d918518b2edc71e3f264a95894d5ee"
+}

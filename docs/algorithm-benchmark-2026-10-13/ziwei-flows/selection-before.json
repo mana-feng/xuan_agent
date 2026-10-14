@@ -1,0 +1,2998 @@
+{
+  "counts": {
+    "targets": 128,
+    "yearRows": 1280,
+    "yearRowsMatchingIndependentAge": 1091,
+    "decadeSelections": 1280,
+    "decadeSelectionsInRange": 1171,
+    "monthRows": 1598,
+    "monthRowsMatchingIndependentDate": 1598,
+    "activeMonths": 128,
+    "activeMonthsUnique": 128
+  },
+  "issues": [
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-01-25"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2016,
+        "age": 14,
+        "date": "2016-01-25"
+      },
+      "expectedAge": 13
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2017,
+        "age": 15,
+        "date": "2017-01-25"
+      },
+      "expectedAge": 14
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-01-25"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2019,
+        "age": 17,
+        "date": "2019-01-25"
+      },
+      "expectedAge": 16
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2022,
+        "age": 20,
+        "date": "2022-01-25"
+      },
+      "expectedAge": 19
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-01-25",
+      "row": {
+        "year": 2024,
+        "age": 22,
+        "date": "2024-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-01-25",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        23,
+        32
+      ],
+      "selected": "2025-01-25",
+      "expectedAge": 22
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-01-25",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-01-25",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        53,
+        62
+      ],
+      "selected": "2055-01-25",
+      "expectedAge": 52
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-01-25",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-01-25",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        83,
+        92
+      ],
+      "selected": "2085-01-25",
+      "expectedAge": 82
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-01-25",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-01-25",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-04"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2016,
+        "age": 14,
+        "date": "2016-02-04"
+      },
+      "expectedAge": 13
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-04"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2019,
+        "age": 17,
+        "date": "2019-02-04"
+      },
+      "expectedAge": 16
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-04"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-04",
+      "row": {
+        "year": 2024,
+        "age": 22,
+        "date": "2024-02-04"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-10",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-10"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-10",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-10"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2020-02-10",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-10"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2020-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-01-25",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-01-25",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-04",
+      "row": {
+        "year": 2017,
+        "age": 14,
+        "date": "2017-02-04"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-04",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-02-04"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-04",
+      "row": {
+        "year": 2022,
+        "age": 19,
+        "date": "2022-02-04"
+      },
+      "expectedAge": 20
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-04",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-02-04"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-04",
+      "row": {
+        "year": 2025,
+        "age": 22,
+        "date": "2025-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2016,
+        "age": 13,
+        "date": "2016-02-10"
+      },
+      "expectedAge": 14
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2017,
+        "age": 14,
+        "date": "2017-02-10"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2019,
+        "age": 16,
+        "date": "2019-02-10"
+      },
+      "expectedAge": 17
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-02-10"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2022,
+        "age": 19,
+        "date": "2022-02-10"
+      },
+      "expectedAge": 20
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-02-10"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2024,
+        "age": 21,
+        "date": "2024-02-10"
+      },
+      "expectedAge": 22
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2021-02-10",
+      "row": {
+        "year": 2025,
+        "age": 22,
+        "date": "2025-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-01-25",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-01-25",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-04"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2016,
+        "age": 14,
+        "date": "2016-02-04"
+      },
+      "expectedAge": 13
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-04"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2019,
+        "age": 17,
+        "date": "2019-02-04"
+      },
+      "expectedAge": 16
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-04"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-04",
+      "row": {
+        "year": 2024,
+        "age": 22,
+        "date": "2024-02-04"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-10",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-10"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-10",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-10"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2022-02-10",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-10"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2022-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-01-25"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2016,
+        "age": 14,
+        "date": "2016-01-25"
+      },
+      "expectedAge": 13
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2017,
+        "age": 15,
+        "date": "2017-01-25"
+      },
+      "expectedAge": 14
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-01-25"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2019,
+        "age": 17,
+        "date": "2019-01-25"
+      },
+      "expectedAge": 16
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2022,
+        "age": 20,
+        "date": "2022-01-25"
+      },
+      "expectedAge": 19
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-01-25",
+      "row": {
+        "year": 2024,
+        "age": 22,
+        "date": "2024-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-01-25",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        23,
+        32
+      ],
+      "selected": "2025-01-25",
+      "expectedAge": 22
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-01-25",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-01-25",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        53,
+        62
+      ],
+      "selected": "2055-01-25",
+      "expectedAge": 52
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-01-25",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-01-25",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        83,
+        92
+      ],
+      "selected": "2085-01-25",
+      "expectedAge": 82
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-01-25",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-01-25",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-04"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2016,
+        "age": 14,
+        "date": "2016-02-04"
+      },
+      "expectedAge": 13
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-04"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2019,
+        "age": 17,
+        "date": "2019-02-04"
+      },
+      "expectedAge": 16
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-04"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-04",
+      "row": {
+        "year": 2024,
+        "age": 22,
+        "date": "2024-02-04"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-10",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-10"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-10",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-10"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2023-02-10",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-10"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2023-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-01-25",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-01-25",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-04",
+      "row": {
+        "year": 2017,
+        "age": 14,
+        "date": "2017-02-04"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-04",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-02-04"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-04",
+      "row": {
+        "year": 2022,
+        "age": 19,
+        "date": "2022-02-04"
+      },
+      "expectedAge": 20
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-04",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-02-04"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-04",
+      "row": {
+        "year": 2025,
+        "age": 22,
+        "date": "2025-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-10",
+      "row": {
+        "year": 2015,
+        "age": 13,
+        "date": "2015-02-10"
+      },
+      "expectedAge": 12
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-10",
+      "row": {
+        "year": 2018,
+        "age": 16,
+        "date": "2018-02-10"
+      },
+      "expectedAge": 15
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2024-02-10",
+      "row": {
+        "year": 2021,
+        "age": 19,
+        "date": "2021-02-10"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2024-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2024-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-01-25",
+      "row": {
+        "year": 2020,
+        "age": 17,
+        "date": "2020-01-25"
+      },
+      "expectedAge": 18
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-01-25",
+      "row": {
+        "year": 2023,
+        "age": 20,
+        "date": "2023-01-25"
+      },
+      "expectedAge": 21
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-04",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-04",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-02-04"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-04",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-04",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-04",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-04",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2025-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2025-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2027,
+        "age": 24,
+        "date": "2027-02-10"
+      },
+      "expectedAge": 25
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-10"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2026-02-10",
+      "row": {
+        "year": 2035,
+        "age": 32,
+        "date": "2035-02-10"
+      },
+      "expectedAge": 33
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2027-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2027-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2027-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2027-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-04",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-04",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-02-04"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-04",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-04",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-04",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-04",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2028-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2028-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2027,
+        "age": 24,
+        "date": "2027-02-10"
+      },
+      "expectedAge": 25
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-10"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2029-02-10",
+      "row": {
+        "year": 2035,
+        "age": 32,
+        "date": "2035-02-10"
+      },
+      "expectedAge": 33
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-04",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-04",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-02-04"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-04",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-04",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-04",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-04",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2030-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2030-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2025,
+        "age": 23,
+        "date": "2025-01-25"
+      },
+      "expectedAge": 22
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-01-25"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-01-25"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2028,
+        "age": 26,
+        "date": "2028-01-25"
+      },
+      "expectedAge": 25
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-01-25"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2030,
+        "age": 28,
+        "date": "2030-01-25"
+      },
+      "expectedAge": 27
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2033,
+        "age": 31,
+        "date": "2033-01-25"
+      },
+      "expectedAge": 30
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-01-25",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-01-25"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-01-25",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-01-25",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-01-25",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-01-25",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        53,
+        62
+      ],
+      "selected": "2055-01-25",
+      "expectedAge": 52
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-01-25",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-01-25",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        83,
+        92
+      ],
+      "selected": "2085-01-25",
+      "expectedAge": 82
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-01-25",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-01-25",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-04",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-04",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-02-04"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-04",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-04",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-04",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-04",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2031-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2031-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2027,
+        "age": 24,
+        "date": "2027-02-10"
+      },
+      "expectedAge": 25
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-10"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2032-02-10",
+      "row": {
+        "year": 2035,
+        "age": 32,
+        "date": "2035-02-10"
+      },
+      "expectedAge": 33
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-04",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-04"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-04",
+      "row": {
+        "year": 2027,
+        "age": 25,
+        "date": "2027-02-04"
+      },
+      "expectedAge": 24
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-04",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-04",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-04",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        3,
+        12
+      ],
+      "selected": "2005-02-04",
+      "expectedAge": 2
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-04",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        33,
+        42
+      ],
+      "selected": "2035-02-04",
+      "expectedAge": 32
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-04",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        63,
+        72
+      ],
+      "selected": "2065-02-04",
+      "expectedAge": 62
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-04",
+      "expectedAge": 72
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-04",
+      "range": [
+        93,
+        102
+      ],
+      "selected": "2095-02-04",
+      "expectedAge": 92
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-10",
+      "row": {
+        "year": 2026,
+        "age": 24,
+        "date": "2026-02-10"
+      },
+      "expectedAge": 23
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-10",
+      "row": {
+        "year": 2029,
+        "age": 27,
+        "date": "2029-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-10",
+      "row": {
+        "year": 2032,
+        "age": 30,
+        "date": "2032-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2033-02-10",
+      "row": {
+        "year": 2034,
+        "age": 32,
+        "date": "2034-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2033-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2027,
+        "age": 24,
+        "date": "2027-02-10"
+      },
+      "expectedAge": 25
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-10"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-10"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-10"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-10"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2034-02-10",
+      "row": {
+        "year": 2035,
+        "age": 32,
+        "date": "2035-02-10"
+      },
+      "expectedAge": 33
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-01-25",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-01-25"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-04",
+      "row": {
+        "year": 2028,
+        "age": 25,
+        "date": "2028-02-04"
+      },
+      "expectedAge": 26
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-04",
+      "row": {
+        "year": 2030,
+        "age": 27,
+        "date": "2030-02-04"
+      },
+      "expectedAge": 28
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-04",
+      "row": {
+        "year": 2031,
+        "age": 28,
+        "date": "2031-02-04"
+      },
+      "expectedAge": 29
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-04",
+      "row": {
+        "year": 2033,
+        "age": 30,
+        "date": "2033-02-04"
+      },
+      "expectedAge": 31
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-10",
+      "row": {
+        "year": 2037,
+        "age": 35,
+        "date": "2037-02-10"
+      },
+      "expectedAge": 34
+    },
+    {
+      "kind": "year-row-age",
+      "target": "2035-02-10",
+      "row": {
+        "year": 2040,
+        "age": 38,
+        "date": "2040-02-10"
+      },
+      "expectedAge": 37
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2035-02-10",
+      "range": [
+        13,
+        22
+      ],
+      "selected": "2015-02-10",
+      "expectedAge": 12
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2035-02-10",
+      "range": [
+        43,
+        52
+      ],
+      "selected": "2045-02-10",
+      "expectedAge": 42
+    },
+    {
+      "kind": "decade-selection",
+      "target": "2035-02-10",
+      "range": [
+        73,
+        82
+      ],
+      "selected": "2075-02-10",
+      "expectedAge": 72
+    }
+  ],
+  "limitations": [
+    "Fortel reference calendar is bounded; decade selections after 2100 are not assigned a reference result."
+  ]
+}

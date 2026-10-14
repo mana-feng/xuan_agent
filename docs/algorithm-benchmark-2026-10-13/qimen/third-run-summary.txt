@@ -1,0 +1,70 @@
+{
+  "groupCounts": {
+    "all": {
+      "total": 707,
+      "equalAllFields": 707
+    },
+    "ordinary-grid": {
+      "total": 576,
+      "equalAllFields": 576
+    },
+    "yang": {
+      "total": 361,
+      "equalAllFields": 361
+    },
+    "center-five-xunshou": {
+      "total": 109,
+      "equalAllFields": 109
+    },
+    "center-five-hour-stem": {
+      "total": 75,
+      "equalAllFields": 75
+    },
+    "late-zi": {
+      "total": 28,
+      "equalAllFields": 28
+    },
+    "yin": {
+      "total": 346,
+      "equalAllFields": 346
+    },
+    "solar-term": {
+      "total": 72,
+      "equalAllFields": 72
+    },
+    "range-sample": {
+      "total": 30,
+      "equalAllFields": 30
+    },
+    "leap-day": {
+      "total": 4,
+      "equalAllFields": 4
+    }
+  },
+  "fieldCounts": {
+    "siZhu__equal": 707,
+    "siZhu__different": 0,
+    "juShu__equal": 707,
+    "juShu__different": 0,
+    "xunShou__equal": 707,
+    "xunShou__different": 0,
+    "diPan__equal": 707,
+    "diPan__different": 0,
+    "tianPanOuter__equal": 707,
+    "tianPanOuter__different": 0,
+    "jiuXing__equal": 707,
+    "jiuXing__different": 0,
+    "baMen__equal": 707,
+    "baMen__different": 0,
+    "baShen__equal": 707,
+    "baShen__different": 0,
+    "zhiFuGong__equal": 707,
+    "zhiFuGong__different": 0,
+    "zhiFuXing__equal": 707,
+    "zhiFuXing__different": 0,
+    "zhiShiGong__equal": 707,
+    "zhiShiGong__different": 0,
+    "zhiShiMen__equal": 707,
+    "zhiShiMen__different": 0
+  }
+}

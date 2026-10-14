@@ -1,0 +1,15 @@
+{
+  "counts": {
+    "births": 8,
+    "decadeStarts": 96,
+    "lastDecadeFinalDays": 8,
+    "afterLastDecade": 8,
+    "fields": 19664,
+    "equal": 19430,
+    "schoolDifferences": 234,
+    "rejected": 8,
+    "skipped": 0
+  },
+  "issues": 0,
+  "firstIssues": []
+}

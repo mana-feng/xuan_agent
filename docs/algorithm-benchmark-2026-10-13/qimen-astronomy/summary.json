@@ -1,0 +1,216 @@
+{
+  "jplTerms2026": 24,
+  "product2026UtcErrorSeconds": {
+    "min": -1.520658,
+    "max": 1.550475,
+    "maxAbs": 1.550475
+  },
+  "sxtwl2026UtcErrorSeconds": {
+    "min": -18.885435,
+    "max": -15.431541,
+    "maxAbs": 18.885435
+  },
+  "sxtwlAfterOnlyTimeScaleCorrectionSeconds": {
+    "min": -1.2800931645377602,
+    "max": 1.7038328540549514,
+    "maxAbs": 1.7038328540549514
+  },
+  "sxtwlOldDeltaTRangeSeconds": {
+    "min": 85.8701130649485,
+    "max": 87.37588945831588,
+    "maxAbs": 87.37588945831588
+  },
+  "hkoMinuteAgreement": {
+    "jpl": 24,
+    "lunar": 24,
+    "sxtwl": 19
+  },
+  "boundaryFixtures": {
+    "total": 48,
+    "equal": 48
+  },
+  "sampledYearResults": {
+    "1900": {
+      "terms": 24,
+      "utcStatus": "not-defined-in-this-era",
+      "ut1Status": "historical-deltaT-model",
+      "TTastronomyResidualSeconds": {
+        "min": -0.946323573589325,
+        "max": 1.543503999710083,
+        "maxAbs": 1.543503999710083
+      },
+      "UT1modelResidualSeconds": {
+        "min": -0.5493432283401489,
+        "max": 1.8903136253356934,
+        "maxAbs": 1.8903136253356934
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": 42.94,
+        "max": 45.93,
+        "maxAbs": 45.93
+      },
+      "productDeltaTRangeSeconds": {
+        "min": -2.2872957154104134,
+        "max": -1.2604327309046455,
+        "maxAbs": 2.2872957154104134
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": -1.9605421558795832,
+        "max": -0.7802146959669232,
+        "maxAbs": 1.9605421558795832
+      }
+    },
+    "1950": {
+      "terms": 24,
+      "utcStatus": "not-defined-in-this-era",
+      "ut1Status": "historical-deltaT-model",
+      "TTastronomyResidualSeconds": {
+        "min": -0.6636857986450195,
+        "max": 2.2170066833496094,
+        "maxAbs": 2.2170066833496094
+      },
+      "UT1modelResidualSeconds": {
+        "min": -0.826871395111084,
+        "max": 2.0543843507766724,
+        "maxAbs": 2.0543843507766724
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": 12.511,
+        "max": 14.887,
+        "maxAbs": 14.887
+      },
+      "productDeltaTRangeSeconds": {
+        "min": 29.09253483895117,
+        "max": 29.478636229821515,
+        "maxAbs": 29.478636229821515
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": 28.93704640291652,
+        "max": 29.31125642669781,
+        "maxAbs": 29.31125642669781
+      }
+    },
+    "2000": {
+      "terms": 24,
+      "utcStatus": "known-leap-seconds",
+      "ut1Status": "IERS-or-model",
+      "TTastronomyResidualSeconds": {
+        "min": -0.8901581168174744,
+        "max": 1.2007176876068115,
+        "maxAbs": 1.2007176876068115
+      },
+      "UT1modelResidualSeconds": {
+        "min": -0.9032338857650757,
+        "max": 1.1696979403495789,
+        "maxAbs": 1.1696979403495789
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": -0.713,
+        "max": 1.342,
+        "maxAbs": 1.342
+      },
+      "productDeltaTRangeSeconds": {
+        "min": 63.87248760384384,
+        "max": 64.06442885321032,
+        "maxAbs": 64.06442885321032
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": 63.831668832506196,
+        "max": 64.0864929766064,
+        "maxAbs": 64.0864929766064
+      }
+    },
+    "2026": {
+      "terms": 24,
+      "utcStatus": "known-leap-seconds",
+      "ut1Status": "IERS-or-model",
+      "TTastronomyResidualSeconds": {
+        "min": -1.2810632586479187,
+        "max": 1.7028674483299255,
+        "maxAbs": 1.7028674483299255
+      },
+      "UT1modelResidualSeconds": {
+        "min": -1.1550933122634888,
+        "max": 1.871444284915924,
+        "maxAbs": 1.871444284915924
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": -1.52,
+        "max": 1.551,
+        "maxAbs": 1.551
+      },
+      "productDeltaTRangeSeconds": {
+        "min": 68.97626582345757,
+        "max": 68.99397105202505,
+        "maxAbs": 68.99397105202505
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": 69.08672450615752,
+        "max": 69.15205563088982,
+        "maxAbs": 69.15205563088982
+      }
+    },
+    "2050": {
+      "terms": 24,
+      "utcStatus": "assumes-no-future-leap-seconds",
+      "ut1Status": "future-deltaT-prediction",
+      "TTastronomyResidualSeconds": {
+        "min": -1.3657942414283752,
+        "max": 2.0849213004112244,
+        "maxAbs": 2.0849213004112244
+      },
+      "UT1modelResidualSeconds": {
+        "min": -2.7622058987617493,
+        "max": 1.9855454564094543,
+        "maxAbs": 2.7622058987617493
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": -5.538,
+        "max": -0.489,
+        "maxAbs": 5.538
+      },
+      "productDeltaTRangeSeconds": {
+        "min": 71.07254032929939,
+        "max": 73.14403752011211,
+        "maxAbs": 73.14403752011211
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": 71.44544959455708,
+        "max": 71.66698739598701,
+        "maxAbs": 71.66698739598701
+      }
+    },
+    "2099": {
+      "terms": 24,
+      "utcStatus": "assumes-no-future-leap-seconds",
+      "ut1Status": "future-deltaT-prediction",
+      "TTastronomyResidualSeconds": {
+        "min": -1.3262450695037842,
+        "max": 1.4671415090560913,
+        "maxAbs": 1.4671415090560913
+      },
+      "UT1modelResidualSeconds": {
+        "min": -91.56940877437592,
+        "max": -88.64804059267044,
+        "maxAbs": 91.56940877437592
+      },
+      "UTC_or_scenario_roundedResidualSeconds": {
+        "min": -118.442,
+        "max": -114.897,
+        "maxAbs": 118.442
+      },
+      "productDeltaTRangeSeconds": {
+        "min": 184.13623478648853,
+        "max": 186.49926062721332,
+        "maxAbs": 186.49926062721332
+      },
+      "skyfieldDeltaTRangeSeconds": {
+        "min": 95.19002420218725,
+        "max": 95.9056721083374,
+        "maxAbs": 95.9056721083374
+      }
+    }
+  },
+  "recommendation2026": "Do not shift production terms by -17 seconds. Independent JPL confirms product within 2 seconds for all 2026 terms; regression guard band 3 seconds. Correct the old baseline attribution.",
+  "scopeCaution": "2-second observed 2026 agreement is not a global 1900-2099 guarantee. Future UTC and pre-1960 UTC are not known quantities."
+}

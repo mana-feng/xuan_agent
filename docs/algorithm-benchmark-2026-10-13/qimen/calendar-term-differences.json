@@ -1,0 +1,173 @@
+{
+  "lunarJavascriptVersion": "1.7.7",
+  "rows": [
+    {
+      "sxtwlIndex": 1,
+      "civilSecond": "2026-01-05 16:22:53.352814",
+      "term": "小寒",
+      "lunarJavascript": "2026-01-05 16:23:10",
+      "deltaSeconds": 16.648
+    },
+    {
+      "sxtwlIndex": 2,
+      "civilSecond": "2026-01-20 09:44:39.448700",
+      "term": "大寒",
+      "lunarJavascript": "2026-01-20 09:44:56",
+      "deltaSeconds": 16.552
+    },
+    {
+      "sxtwlIndex": 3,
+      "civilSecond": "2026-02-04 04:01:51.392784",
+      "term": "立春",
+      "lunarJavascript": "2026-02-04 04:02:08",
+      "deltaSeconds": 16.608
+    },
+    {
+      "sxtwlIndex": 4,
+      "civilSecond": "2026-02-18 23:51:39.050903",
+      "term": "雨水",
+      "lunarJavascript": "2026-02-18 23:51:56",
+      "deltaSeconds": 16.95
+    },
+    {
+      "sxtwlIndex": 5,
+      "civilSecond": "2026-03-05 21:58:42.766113",
+      "term": "惊蛰",
+      "lunarJavascript": "2026-03-05 21:59:00",
+      "deltaSeconds": 17.234
+    },
+    {
+      "sxtwlIndex": 6,
+      "civilSecond": "2026-03-20 22:45:41.706848",
+      "term": "春分",
+      "lunarJavascript": "2026-03-20 22:45:59",
+      "deltaSeconds": 17.294
+    },
+    {
+      "sxtwlIndex": 7,
+      "civilSecond": "2026-04-05 02:39:42.951736",
+      "term": "清明",
+      "lunarJavascript": "2026-04-05 02:40:00",
+      "deltaSeconds": 17.049
+    },
+    {
+      "sxtwlIndex": 8,
+      "civilSecond": "2026-04-20 09:38:51.085968",
+      "term": "谷雨",
+      "lunarJavascript": "2026-04-20 09:39:08",
+      "deltaSeconds": 16.915
+    },
+    {
+      "sxtwlIndex": 9,
+      "civilSecond": "2026-05-05 19:48:26.611633",
+      "term": "立夏",
+      "lunarJavascript": "2026-05-05 19:48:44",
+      "deltaSeconds": 17.389
+    },
+    {
+      "sxtwlIndex": 10,
+      "civilSecond": "2026-05-21 08:36:27.961578",
+      "term": "小满",
+      "lunarJavascript": "2026-05-21 08:36:45",
+      "deltaSeconds": 17.039
+    },
+    {
+      "sxtwlIndex": 11,
+      "civilSecond": "2026-06-05 23:48:03.705139",
+      "term": "芒种",
+      "lunarJavascript": "2026-06-05 23:48:21",
+      "deltaSeconds": 17.295
+    },
+    {
+      "sxtwlIndex": 12,
+      "civilSecond": "2026-06-21 16:24:12.495575",
+      "term": "夏至",
+      "lunarJavascript": "2026-06-21 16:24:30",
+      "deltaSeconds": 17.505
+    },
+    {
+      "sxtwlIndex": 13,
+      "civilSecond": "2026-07-07 09:56:39.626541",
+      "term": "小暑",
+      "lunarJavascript": "2026-07-07 09:56:57",
+      "deltaSeconds": 17.374
+    },
+    {
+      "sxtwlIndex": 14,
+      "civilSecond": "2026-07-23 03:12:47.733192",
+      "term": "大暑",
+      "lunarJavascript": "2026-07-23 03:13:05",
+      "deltaSeconds": 17.267
+    },
+    {
+      "sxtwlIndex": 15,
+      "civilSecond": "2026-08-07 19:42:25.635223",
+      "term": "立秋",
+      "lunarJavascript": "2026-08-07 19:42:43",
+      "deltaSeconds": 17.365
+    },
+    {
+      "sxtwlIndex": 16,
+      "civilSecond": "2026-08-23 10:18:30.824203",
+      "term": "处暑",
+      "lunarJavascript": "2026-08-23 10:18:49",
+      "deltaSeconds": 18.176
+    },
+    {
+      "sxtwlIndex": 17,
+      "civilSecond": "2026-09-07 22:40:58.534241",
+      "term": "白露",
+      "lunarJavascript": "2026-09-07 22:41:16",
+      "deltaSeconds": 17.466
+    },
+    {
+      "sxtwlIndex": 18,
+      "civilSecond": "2026-09-23 08:04:55.899582",
+      "term": "秋分",
+      "lunarJavascript": "2026-09-23 08:05:14",
+      "deltaSeconds": 18.101
+    },
+    {
+      "sxtwlIndex": 19,
+      "civilSecond": "2026-10-08 14:28:59.424133",
+      "term": "寒露",
+      "lunarJavascript": "2026-10-08 14:29:17",
+      "deltaSeconds": 17.576
+    },
+    {
+      "sxtwlIndex": 20,
+      "civilSecond": "2026-10-23 17:37:39.214783",
+      "term": "霜降",
+      "lunarJavascript": "2026-10-23 17:37:57",
+      "deltaSeconds": 17.786
+    },
+    {
+      "sxtwlIndex": 21,
+      "civilSecond": "2026-11-07 17:51:46.301880",
+      "term": "立冬",
+      "lunarJavascript": "2026-11-07 17:52:05",
+      "deltaSeconds": 18.699
+    },
+    {
+      "sxtwlIndex": 22,
+      "civilSecond": "2026-11-22 15:23:03.031082",
+      "term": "小雪",
+      "lunarJavascript": "2026-11-22 15:23:21",
+      "deltaSeconds": 17.969
+    },
+    {
+      "sxtwlIndex": 23,
+      "civilSecond": "2026-12-07 10:52:13.578873",
+      "term": "大雪",
+      "lunarJavascript": "2026-12-07 10:52:32",
+      "deltaSeconds": 18.422
+    },
+    {
+      "sxtwlIndex": 0,
+      "civilSecond": "2026-12-22 04:49:55.310669",
+      "term": "冬至",
+      "lunarJavascript": "2026-12-22 04:50:14",
+      "deltaSeconds": 18.69
+    }
+  ]
+}

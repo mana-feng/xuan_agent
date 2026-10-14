@@ -1,0 +1,24 @@
+✔ saved chart / edit / cache / export preserve birth zone and rule metadata (394.9994ms)
+✔ legacy records are marked unconfirmed instead of guessing a birth location (15.7894ms)
+✔ zone-only change invalidates the calculation cache (30.5452ms)
+✔ horoscope timeline stays on selected civil day for an overseas birth zone (28.4128ms)
+✔ civil editor honors chosen zone and does not normalize DST gaps (8.1034ms)
+✖ changing DST occurrence updates an already confirmed timestamp before submit (9.5081ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1014.5978
+
+✖ failing tests:
+
+test at tests\ziwei-time-flow.test.cjs:64:1
+✖ changing DST occurrence updates an already confirmed timestamp before submit (9.5081ms)
+  TypeError: page.changeOverlapChoice is not a function
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\ziwei-time-flow.test.cjs:69:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

@@ -1,0 +1,21 @@
+{
+  "normalCaseFields": 189,
+  "groups": [
+    {"name":"Five dynamic scopes: decadal/yearly/monthly/daily/hourly", "fieldsPerScope":29, "total":145, "fields":"soul index (1), stem/branch (2), twelve palace names (12), four transformed stars (4), ten auxiliary star positions (10)", "evidence":"Fortel unmodified tables + independently coded cited palace/date formulas", "display":"Expanded PalaceContent shows labels/stars for all five; mode selects which four transformations are marked"},
+    {"name":"Annual extra star", "total":1, "fields":"年解 branch", "evidence":"Fortel MiniStar.MINI_STAR_DISSOLVE rule with target annual branch", "display":"yearly dynamic star list"},
+    {"name":"Annual decorations", "total":24, "fields":"岁前12 and 将前12 at all twelve branches", "evidence":"Fortel independent target-branch placements", "display":"Yearly mode replaces natal decorative rows"},
+    {"name":"Small limit", "total":14, "fields":"nominal age, soul index, twelve palace names", "evidence":"Independent birth-branch start table and male/female cyclic progression", "display":"Expanded labels include 小限; nominal age used by timeline"},
+    {"name":"Calendar", "total":5, "fields":"normalized solar date, lunar year/month/day/leap flag", "evidence":"Fortel independent conversion and explicit late-Zi full-day policy", "display":"Dates drive all layers and selection"}
+  ],
+  "extraBehavioralChecks": [
+    "Invalid nominal ages are explicitly rejected: each invalid-domain fixture counts one rejection field, not 189 invented positions.",
+    "Timeline year item ages and decade selection dates compared with independent Fortel lunar year.",
+    "Timeline month starts compared with independent Fortel lunar-to-solar dates, including leap-month unique selection.",
+    "Timezone/DST fixtures across seven independent Node process host zones compare all 189 fields, including five scopes, small limit, annual decorations and calendar.",
+    "18 timeline clock-boundary fixtures compare 180 fields around lunar new year, regular/leap month transitions and leap-month day 15/16, including the active row's displayed stem/branch; expected dates come from Fortel.",
+    "All timeline decade choices after 2100 are compared with sxtwl 2.0.6; supported birth-year endpoints 1900/2099 also check every decade start, the final valid day and the next day's rejection.",
+    "Raw Fortel palace results remain a second comparison, including documented leap/childhood convention differences.",
+    "UI mutagen/star attachment and focused surrounding-palace mapping are covered by root-owned ziwei-display.test.cjs; browser rendering is root-owned, not claimed by this harness."
+  ],
+  "notDisplayedAsAlgorithms": ["hourly four transformations and hourly stem/branch are returned by the engine but no hourly top-level selection button exists; still verified here", "age mutagen/stem/branch are not exposed as selected scope; visible age labels are covered", "dynamic star type/color metadata is presentation, not a separate astronomical/mathematical rule"]
+}

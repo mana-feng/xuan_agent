@@ -1,0 +1,113 @@
+Compared 2000/18433; unresolved cases 0
+Compared 4000/18433; unresolved cases 0
+Compared 6000/18433; unresolved cases 0
+Compared 8000/18433; unresolved cases 0
+Compared 10000/18433; unresolved cases 0
+Compared 12000/18433; unresolved cases 0
+Compared 14000/18433; unresolved cases 0
+Compared 16000/18433; unresolved cases 0
+Compared 18000/18433; unresolved cases 0
+{
+  "counts": {
+    "cases": 18433,
+    "comparedCases": 18430,
+    "rawIdenticalCases": 13156,
+    "schoolDifferenceCases": 5274,
+    "unresolvedCases": 0,
+    "baselineUnsupportedCases": 3,
+    "fields": 1492830,
+    "equalFields": 1482650,
+    "schoolDifferenceFields": 10180,
+    "unresolvedFields": 0
+  },
+  "groups": {
+    "sexagenary-grid": {
+      "cases": 17280,
+      "rawIdentical": 12072,
+      "schoolOnly": 5208,
+      "unresolved": 0
+    },
+    "lunar-day-grid": {
+      "cases": 720,
+      "rawIdentical": 720,
+      "schoolOnly": 0,
+      "unresolved": 0
+    },
+    "leap-boundary": {
+      "cases": 312,
+      "rawIdentical": 260,
+      "schoolOnly": 52,
+      "unresolved": 0
+    },
+    "year-hour-boundary": {
+      "cases": 80,
+      "rawIdentical": 74,
+      "schoolOnly": 6,
+      "unresolved": 0
+    },
+    "timezone-fixture": {
+      "cases": 28,
+      "rawIdentical": 26,
+      "schoolOnly": 2,
+      "unresolved": 0
+    },
+    "supported-range": {
+      "cases": 9,
+      "rawIdentical": 4,
+      "schoolOnly": 5,
+      "unresolved": 0
+    },
+    "published-example": {
+      "cases": 1,
+      "rawIdentical": 0,
+      "schoolOnly": 1,
+      "unresolved": 0
+    }
+  },
+  "fieldGroups": {
+    "input": {
+      "compared": 73720,
+      "equal": 73720,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "lunar": {
+      "compared": 73720,
+      "equal": 73720,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "core": {
+      "compared": 55290,
+      "equal": 55290,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "palace": {
+      "compared": 442320,
+      "equal": 442320,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "decadal": {
+      "compared": 442320,
+      "equal": 442320,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "major": {
+      "compared": 258020,
+      "equal": 258020,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "sihua": {
+      "compared": 147440,
+      "equal": 137260,
+      "schoolDifference": 10180,
+      "unresolved": 0
+    }
+  },
+  "durationMs": 265178,
+  "lunarDayClassCoverage": 150
+}

@@ -1,0 +1,98 @@
+{
+  "bugs": {
+    "url": "https://github.com/airicyu/fortel-ziweidoushu/issues"
+  },
+  "dist": {
+    "shasum": "ed72347cf6846ac7aa370c21b9741fbb41615d0d",
+    "tarball": "https://registry.npmjs.org/fortel-ziweidoushu/-/fortel-ziweidoushu-1.3.4.tgz",
+    "fileCount": 112,
+    "integrity": "sha512-ZcCkzotbgAPKmdU2XjW/l0HQcTjouWYTDezPyggmrUPs/rWReEYefWeE8q+mwI3imeM0s2ntdsNpPdX2xlyQ1A==",
+    "signatures": [
+      {
+        "sig": "MEUCIA+EMUOlEb/KMh61YX8dmFtuUUUGzqmW0CzexgeKuWdIAiEAyoBqYrsvSOEQ3prsMfuZtlG9P0HGUFN/r2x6BBCKQiw=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "unpackedSize": 1273137
+  },
+  "main": "build/main.js",
+  "name": "fortel-ziweidoushu",
+  "author": {
+    "name": "airicyu"
+  },
+  "module": "build/main.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "gitHead": "39584e11ad9ddb124bd4b337a3b148c2f0b25611",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./src ./test --ext .ts",
+    "test": "jest --coverage",
+    "build": "tsc",
+    "start": "ts-node ./src/main.ts",
+    "watch": "tsc --watch",
+    "format": "prettier --write ./src/**.ts ./test/**.ts",
+    "release": "npm i & npm run build & npm run bundleType & npm run webpack",
+    "webpack": "webpack",
+    "prebuild": "rimraf build",
+    "bundleType": "api-extractor run --local --verbose",
+    "test:watch": "jest --coverage --watch"
+  },
+  "typings": "build/types/main.d.ts",
+  "_npmUser": {
+    "name": "airicyu",
+    "email": "airic.yu@gmail.com"
+  },
+  "homepage": "https://github.com/airicyu/fortel-ziweidoushu#readme",
+  "keywords": [
+    "紫微斗數",
+    "ziweidoushu",
+    "Zi Wei Dou Shu",
+    "Chinese Astrology"
+  ],
+  "repository": {
+    "url": "git+https://github.com/airicyu/fortel-ziweidoushu.git",
+    "type": "git"
+  },
+  "_npmVersion": "10.9.2",
+  "description": "紫微斗數排盤 Zi Wei Dou Shu",
+  "directories": {},
+  "maintainers": [
+    {
+      "name": "airicyu",
+      "email": "airic.yu@gmail.com"
+    }
+  ],
+  "_nodeVersion": "22.14.0",
+  "dependencies": {
+    "util": "^0.12.5"
+  },
+  "_hasShrinkwrap": false,
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0",
+    "rimraf": "^5.0.5",
+    "process": "^0.11.10",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "webpack": "^5.89.0",
+    "prettier": "^3.1.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^18.11.12",
+    "webpack-cli": "^5.1.4",
+    "@tsconfig/node18": "^18.2.2",
+    "eslint-plugin-jest": "^27.6.0",
+    "eslint-config-prettier": "^9.1.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0"
+  },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/fortel-ziweidoushu_1.3.4_1746445467270_0.23680965722166003",
+    "host": "s3://npm-registry-packages-npm-production"
+  },
+  "_id": "fortel-ziweidoushu@1.3.4",
+  "version": "1.3.4"
+}

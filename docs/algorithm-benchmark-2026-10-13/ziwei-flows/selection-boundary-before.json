@@ -1,0 +1,874 @@
+{
+  "counts": {
+    "targets": 128,
+    "yearRows": 1280,
+    "yearRowsMatchingIndependentAge": 1280,
+    "decadeSelections": 1280,
+    "decadeSelectionsInRange": 1280,
+    "monthRows": 1598,
+    "monthRowsMatchingIndependentDate": 1598,
+    "activeMonths": 128,
+    "activeMonthsUnique": 128
+  },
+  "boundaryCases": 18,
+  "boundaryFields": 162,
+  "boundaries": [
+    {
+      "target": "2024-02-09 22:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 10,
+        "hourIndex": 9
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 10,
+        "hourIndex": 10
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 9,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "target": "2024-02-09 23:30",
+      "expected": {
+        "age": 22,
+        "year": 2024,
+        "month": 1,
+        "yearStem": "甲",
+        "yearBranch": "辰",
+        "monthStem": "丙",
+        "monthBranch": "寅",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 10,
+        "hourIndex": 10
+      },
+      "differences": [
+        {
+          "field": "age",
+          "expected": 22,
+          "actual": 21
+        },
+        {
+          "field": "year",
+          "expected": 2024,
+          "actual": 2023
+        },
+        {
+          "field": "month",
+          "expected": 1,
+          "actual": 12
+        },
+        {
+          "field": "yearStem",
+          "expected": "甲",
+          "actual": "癸"
+        },
+        {
+          "field": "yearBranch",
+          "expected": "辰",
+          "actual": "卯"
+        },
+        {
+          "field": "monthStem",
+          "expected": "丙",
+          "actual": "乙"
+        },
+        {
+          "field": "monthBranch",
+          "expected": "寅",
+          "actual": "丑"
+        },
+        {
+          "field": "dayIndex",
+          "expected": 7,
+          "actual": 10
+        },
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "target": "2024-02-10 0:30",
+      "expected": {
+        "age": 22,
+        "year": 2024,
+        "month": 1,
+        "yearStem": "甲",
+        "yearBranch": "辰",
+        "monthStem": "丙",
+        "monthBranch": "寅",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "actual": {
+        "age": 22,
+        "year": 2024,
+        "month": 1,
+        "yearStem": "甲",
+        "yearBranch": "辰",
+        "monthStem": "丙",
+        "monthBranch": "寅",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": []
+    },
+    {
+      "target": "2023-03-21 22:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": 2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 0,
+        "hourIndex": 11
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": 2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 0,
+        "hourIndex": 0
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 11,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "target": "2023-03-21 23:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": 2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 0,
+        "hourIndex": 0
+      },
+      "differences": [
+        {
+          "field": "month",
+          "expected": -2,
+          "actual": 2
+        },
+        {
+          "field": "dayIndex",
+          "expected": 7,
+          "actual": 0
+        },
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "target": "2023-03-22 0:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": []
+    },
+    {
+      "target": "2023-04-04 22:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 8,
+        "hourIndex": 7
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 8,
+        "hourIndex": 8
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "target": "2023-04-04 23:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 9
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 8,
+        "hourIndex": 8
+      },
+      "differences": [
+        {
+          "field": "dayIndex",
+          "expected": 9,
+          "actual": 8
+        },
+        {
+          "field": "hourIndex",
+          "expected": 9,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "target": "2023-04-05 0:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 9
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 9
+      },
+      "differences": []
+    },
+    {
+      "target": "2023-04-05 22:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 8
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 9
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 8,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "target": "2023-04-05 23:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "丙",
+        "monthBranch": "辰",
+        "dayIndex": 11,
+        "hourIndex": 11
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "乙",
+        "monthBranch": "卯",
+        "dayIndex": 9,
+        "hourIndex": 9
+      },
+      "differences": [
+        {
+          "field": "monthStem",
+          "expected": "丙",
+          "actual": "乙"
+        },
+        {
+          "field": "monthBranch",
+          "expected": "辰",
+          "actual": "卯"
+        },
+        {
+          "field": "dayIndex",
+          "expected": 11,
+          "actual": 9
+        },
+        {
+          "field": "hourIndex",
+          "expected": 11,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "target": "2023-04-06 0:30",
+      "expected": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "丙",
+        "monthBranch": "辰",
+        "dayIndex": 11,
+        "hourIndex": 11
+      },
+      "actual": {
+        "age": 21,
+        "year": 2023,
+        "month": -2,
+        "yearStem": "癸",
+        "yearBranch": "卯",
+        "monthStem": "丙",
+        "monthBranch": "辰",
+        "dayIndex": 11,
+        "hourIndex": 11
+      },
+      "differences": []
+    },
+    {
+      "target": "2033-12-21 22:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": 11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 7,
+        "hourIndex": 6
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": 11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 6,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "target": "2033-12-21 23:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 2,
+        "hourIndex": 2
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": 11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": [
+        {
+          "field": "month",
+          "expected": -11,
+          "actual": 11
+        },
+        {
+          "field": "dayIndex",
+          "expected": 2,
+          "actual": 7
+        },
+        {
+          "field": "hourIndex",
+          "expected": 2,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "target": "2033-12-22 0:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 2,
+        "hourIndex": 2
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "甲",
+        "monthBranch": "子",
+        "dayIndex": 2,
+        "hourIndex": 2
+      },
+      "differences": []
+    },
+    {
+      "target": "2034-01-19 22:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 7,
+        "hourIndex": 6
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 6,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "target": "2034-01-19 23:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 3,
+        "hourIndex": 3
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": -11,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 7,
+        "hourIndex": 7
+      },
+      "differences": [
+        {
+          "field": "month",
+          "expected": 12,
+          "actual": -11
+        },
+        {
+          "field": "dayIndex",
+          "expected": 3,
+          "actual": 7
+        },
+        {
+          "field": "hourIndex",
+          "expected": 3,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "target": "2034-01-20 0:30",
+      "expected": {
+        "age": 31,
+        "year": 2033,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 3,
+        "hourIndex": 3
+      },
+      "actual": {
+        "age": 31,
+        "year": 2033,
+        "month": 12,
+        "yearStem": "癸",
+        "yearBranch": "丑",
+        "monthStem": "乙",
+        "monthBranch": "丑",
+        "dayIndex": 3,
+        "hourIndex": 3
+      },
+      "differences": []
+    }
+  ],
+  "issues": [
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2024-02-09 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 9,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2024-02-09 23:30",
+      "differences": [
+        {
+          "field": "age",
+          "expected": 22,
+          "actual": 21
+        },
+        {
+          "field": "year",
+          "expected": 2024,
+          "actual": 2023
+        },
+        {
+          "field": "month",
+          "expected": 1,
+          "actual": 12
+        },
+        {
+          "field": "yearStem",
+          "expected": "甲",
+          "actual": "癸"
+        },
+        {
+          "field": "yearBranch",
+          "expected": "辰",
+          "actual": "卯"
+        },
+        {
+          "field": "monthStem",
+          "expected": "丙",
+          "actual": "乙"
+        },
+        {
+          "field": "monthBranch",
+          "expected": "寅",
+          "actual": "丑"
+        },
+        {
+          "field": "dayIndex",
+          "expected": 7,
+          "actual": 10
+        },
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-03-21 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 11,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-03-21 23:30",
+      "differences": [
+        {
+          "field": "month",
+          "expected": -2,
+          "actual": 2
+        },
+        {
+          "field": "dayIndex",
+          "expected": 7,
+          "actual": 0
+        },
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-04-04 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 7,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-04-04 23:30",
+      "differences": [
+        {
+          "field": "dayIndex",
+          "expected": 9,
+          "actual": 8
+        },
+        {
+          "field": "hourIndex",
+          "expected": 9,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-04-05 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 8,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2023-04-05 23:30",
+      "differences": [
+        {
+          "field": "monthStem",
+          "expected": "丙",
+          "actual": "乙"
+        },
+        {
+          "field": "monthBranch",
+          "expected": "辰",
+          "actual": "卯"
+        },
+        {
+          "field": "dayIndex",
+          "expected": 11,
+          "actual": 9
+        },
+        {
+          "field": "hourIndex",
+          "expected": 11,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2033-12-21 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 6,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2033-12-21 23:30",
+      "differences": [
+        {
+          "field": "month",
+          "expected": -11,
+          "actual": 11
+        },
+        {
+          "field": "dayIndex",
+          "expected": 2,
+          "actual": 7
+        },
+        {
+          "field": "hourIndex",
+          "expected": 2,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2034-01-19 22:30",
+      "differences": [
+        {
+          "field": "hourIndex",
+          "expected": 6,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "kind": "late-zi-selection-boundary",
+      "target": "2034-01-19 23:30",
+      "differences": [
+        {
+          "field": "month",
+          "expected": 12,
+          "actual": -11
+        },
+        {
+          "field": "dayIndex",
+          "expected": 3,
+          "actual": 7
+        },
+        {
+          "field": "hourIndex",
+          "expected": 3,
+          "actual": 7
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Fortel reference calendar is bounded; decade selections after 2100 are not assigned a reference result."
+  ]
+}

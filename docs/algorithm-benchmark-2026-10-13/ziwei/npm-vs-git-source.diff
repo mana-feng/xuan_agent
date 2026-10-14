@@ -1,0 +1,22 @@
+diff --git a/.local-dev/ziwei-benchmark/source/fortel-ziweidoushu-39584e11ad9ddb124bd4b337a3b148c2f0b25611/src/model/minorStar.ts b/.local-dev/ziwei-benchmark/package/src/model/minorStar.ts
+index d801f4f..6b689fc 100644
+--- a/.local-dev/ziwei-benchmark/source/fortel-ziweidoushu-39584e11ad9ddb124bd4b337a3b148c2f0b25611/src/model/minorStar.ts
++++ b/.local-dev/ziwei-benchmark/package/src/model/minorStar.ts
+@@ -84,7 +84,7 @@ class MinorStar implements Star {
+             },
+             hasRuntime: () => true,
+             evalRuntimeGround: (sky: Sky) => {
+-                return Ground.get([1, 0, 11, 11, 1, 0, 1, 2, 3, 3][sky.index])
++                return Ground.get([1, 0, 11, 11, 1, 0, 1, 6, 3, 3][sky.index])
+             },
+         })
+ 
+@@ -95,7 +95,7 @@ class MinorStar implements Star {
+             },
+             hasRuntime: () => true,
+             evalRuntimeGround: (sky: Sky) => {
+-                return Ground.get([7, 8, 9, 9, 7, 8, 7, 6, 5, 5][sky.index])
++                return Ground.get([7, 8, 9, 9, 7, 8, 7, 2, 5, 5][sky.index])
+             },
+         })
+ 

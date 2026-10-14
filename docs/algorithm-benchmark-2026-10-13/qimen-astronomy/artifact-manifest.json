@@ -1,0 +1,28 @@
+{
+  "sha256": {
+    "analyze.py": "e32d8c03ed9a26666c553989eeda8fe43f88ec94c1fb72b5196f32a12923108c",
+    "compare-clock.cjs": "409ee1a7520e446655605b95e4a5b91eb2b49b0664f2608249ff25c4e3fea10f",
+    "compare-ui-extras.py": "8cf729a643155a4b06b203636592d806e1a5d246aa3d6a29a0064ac5caf5dd48",
+    "compute-jpl.py": "18cb83610bce8d24079eb32b2f3a6705cf873cfb543c1c9f42f16265952ba851",
+    "delta-t-diagnosis.json": "0f5669307fa68b8abbfe35d9e56ebbe9cb7a9574beb16a7b91a5df5fd24ed2ef",
+    "hidden-stem-rule-comparison.json": "ca604c38a663a58aa0677de89acd9f71a4f12de5d948bf3f86b01e157e3c674f",
+    "hidden-stem-rule-oracle.py": "3e12c76aa2ad3ba412c33a0fcc29e61e21a93838ddc1f115c384c2cde66ad127",
+    "hidden-stem-rule-summary.json": "5736329c3e4b4bd8650819fad62499014c4528eb67037cee9d2a6951a9700213",
+    "hko-24SolarTerms-2026.xml": "3af98679f43d4d689941c55ba2a19f146ff111a6dff681235dc2b7110974ac74",
+    "hko-minute-comparison.json": "f2f8dbfb04b630d194d2e8af0a95bb1d914eb3f559c1a6e0dd2a08ab13bd2f47",
+    "iers-bulletin-c72.txt": "310e172eadacacca3adf92cb9bd646fcc0d6320e35e996a106d2644ede3b52f0",
+    "jpl-boundary-fixtures.json": "39d77a2529323fcdb2d79e07730f1befc58cd8c59ec3ffa041df33395624c436",
+    "jpl-de440s-2026.json": "b6a7937fc26f61f2833d52cf5044b8e9f53bce653708dd909f70e1cb9a57208d",
+    "jpl-de440s-year-samples.json": "85034b49a128a5acf6e8ab85f93c190c70ea00db7902d339dbfdbeafda38cf8c",
+    "provenance.json": "b5dec13e6e15ecb4eb1d052e808bca3dafa4e861673c0588a295d974c603279a",
+    "README.txt": "76f90936310fce05b00cb792426235abe063cc1021b5ef922387277515af1e07",
+    "summary.json": "8ad4225714ea69ecb0b329c19c7161860b4f5c62ef00f5ddbebc71eb9f5fbac8",
+    "third-extra-output.json": "9143d90152272d8e680ccf67d561aaa7c8f55c2848d0d1b54212e8ec89231011",
+    "third-extra-runner.go": "1d1ebe3224a083ba52792ebc9f384d6a549b51c2f59dfee143ca1f8e98858068",
+    "time-scale-comparison.json": "56ebf7fd902efda36f6d3e71ed9c55ab0f784a4effd7302a7bda3a7d901a8068",
+    "ui-extra-comparison.json": "4d90b6e280cf0fc49016100c60bd401f6dd2ae18b34c451d2364915ec1f38480",
+    "ui-extra-summary.json": "9d1363c3570891b9b085ecf1670a2e90a067888373a8c54f57f1955333e6c7df",
+    "verification.json": "bb5637ecb52048ab06d468b202eeb9cc98b19bf6e1c8cc675c3a50ea8db3fbfa",
+    "verify-evidence.py": "d4461da557681ac718d2ffb3ae463a2dacb41be605227c2e3237560e44025f0c"
+  }
+}

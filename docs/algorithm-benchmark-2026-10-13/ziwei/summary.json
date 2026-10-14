@@ -1,0 +1,497 @@
+{
+  "generatedAt": "2026-10-12T17:53:32.147Z",
+  "durationMs": 265178,
+  "counts": {
+    "cases": 18433,
+    "comparedCases": 18430,
+    "rawIdenticalCases": 13156,
+    "schoolDifferenceCases": 5274,
+    "unresolvedCases": 0,
+    "baselineUnsupportedCases": 3,
+    "fields": 1492830,
+    "equalFields": 1482650,
+    "schoolDifferenceFields": 10180,
+    "unresolvedFields": 0
+  },
+  "groups": {
+    "sexagenary-grid": {
+      "cases": 17280,
+      "rawIdentical": 12072,
+      "schoolOnly": 5208,
+      "unresolved": 0
+    },
+    "lunar-day-grid": {
+      "cases": 720,
+      "rawIdentical": 720,
+      "schoolOnly": 0,
+      "unresolved": 0
+    },
+    "leap-boundary": {
+      "cases": 312,
+      "rawIdentical": 260,
+      "schoolOnly": 52,
+      "unresolved": 0
+    },
+    "year-hour-boundary": {
+      "cases": 80,
+      "rawIdentical": 74,
+      "schoolOnly": 6,
+      "unresolved": 0
+    },
+    "timezone-fixture": {
+      "cases": 28,
+      "rawIdentical": 26,
+      "schoolOnly": 2,
+      "unresolved": 0
+    },
+    "supported-range": {
+      "cases": 9,
+      "rawIdentical": 4,
+      "schoolOnly": 5,
+      "unresolved": 0
+    },
+    "published-example": {
+      "cases": 1,
+      "rawIdentical": 0,
+      "schoolOnly": 1,
+      "unresolved": 0
+    }
+  },
+  "fieldGroups": {
+    "input": {
+      "compared": 73720,
+      "equal": 73720,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "lunar": {
+      "compared": 73720,
+      "equal": 73720,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "core": {
+      "compared": 55290,
+      "equal": 55290,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "palace": {
+      "compared": 442320,
+      "equal": 442320,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "decadal": {
+      "compared": 442320,
+      "equal": 442320,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "major": {
+      "compared": 258020,
+      "equal": 258020,
+      "schoolDifference": 0,
+      "unresolved": 0
+    },
+    "sihua": {
+      "compared": 147440,
+      "equal": 137260,
+      "schoolDifference": 10180,
+      "unresolved": 0
+    }
+  },
+  "fieldsPerComparedCase": 81,
+  "schoolDifference": {
+    "戊": {
+      "fortel": "太阳",
+      "iztro": "右弼"
+    },
+    "庚": {
+      "fortel": "天府",
+      "iztro": "太阴"
+    },
+    "壬": {
+      "fortel": "天府",
+      "iztro": "左辅"
+    }
+  },
+  "lunarDayClassCoverage": [
+    "土五局/1",
+    "土五局/10",
+    "土五局/11",
+    "土五局/12",
+    "土五局/13",
+    "土五局/14",
+    "土五局/15",
+    "土五局/16",
+    "土五局/17",
+    "土五局/18",
+    "土五局/19",
+    "土五局/2",
+    "土五局/20",
+    "土五局/21",
+    "土五局/22",
+    "土五局/23",
+    "土五局/24",
+    "土五局/25",
+    "土五局/26",
+    "土五局/27",
+    "土五局/28",
+    "土五局/29",
+    "土五局/3",
+    "土五局/30",
+    "土五局/4",
+    "土五局/5",
+    "土五局/6",
+    "土五局/7",
+    "土五局/8",
+    "土五局/9",
+    "木三局/1",
+    "木三局/10",
+    "木三局/11",
+    "木三局/12",
+    "木三局/13",
+    "木三局/14",
+    "木三局/15",
+    "木三局/16",
+    "木三局/17",
+    "木三局/18",
+    "木三局/19",
+    "木三局/2",
+    "木三局/20",
+    "木三局/21",
+    "木三局/22",
+    "木三局/23",
+    "木三局/24",
+    "木三局/25",
+    "木三局/26",
+    "木三局/27",
+    "木三局/28",
+    "木三局/29",
+    "木三局/3",
+    "木三局/30",
+    "木三局/4",
+    "木三局/5",
+    "木三局/6",
+    "木三局/7",
+    "木三局/8",
+    "木三局/9",
+    "水二局/1",
+    "水二局/10",
+    "水二局/11",
+    "水二局/12",
+    "水二局/13",
+    "水二局/14",
+    "水二局/15",
+    "水二局/16",
+    "水二局/17",
+    "水二局/18",
+    "水二局/19",
+    "水二局/2",
+    "水二局/20",
+    "水二局/21",
+    "水二局/22",
+    "水二局/23",
+    "水二局/24",
+    "水二局/25",
+    "水二局/26",
+    "水二局/27",
+    "水二局/28",
+    "水二局/29",
+    "水二局/3",
+    "水二局/30",
+    "水二局/4",
+    "水二局/5",
+    "水二局/6",
+    "水二局/7",
+    "水二局/8",
+    "水二局/9",
+    "火六局/1",
+    "火六局/10",
+    "火六局/11",
+    "火六局/12",
+    "火六局/13",
+    "火六局/14",
+    "火六局/15",
+    "火六局/16",
+    "火六局/17",
+    "火六局/18",
+    "火六局/19",
+    "火六局/2",
+    "火六局/20",
+    "火六局/21",
+    "火六局/22",
+    "火六局/23",
+    "火六局/24",
+    "火六局/25",
+    "火六局/26",
+    "火六局/27",
+    "火六局/28",
+    "火六局/29",
+    "火六局/3",
+    "火六局/30",
+    "火六局/4",
+    "火六局/5",
+    "火六局/6",
+    "火六局/7",
+    "火六局/8",
+    "火六局/9",
+    "金四局/1",
+    "金四局/10",
+    "金四局/11",
+    "金四局/12",
+    "金四局/13",
+    "金四局/14",
+    "金四局/15",
+    "金四局/16",
+    "金四局/17",
+    "金四局/18",
+    "金四局/19",
+    "金四局/2",
+    "金四局/20",
+    "金四局/21",
+    "金四局/22",
+    "金四局/23",
+    "金四局/24",
+    "金四局/25",
+    "金四局/26",
+    "金四局/27",
+    "金四局/28",
+    "金四局/29",
+    "金四局/3",
+    "金四局/30",
+    "金四局/4",
+    "金四局/5",
+    "金四局/6",
+    "金四局/7",
+    "金四局/8",
+    "金四局/9"
+  ],
+  "provenance": {
+    "independentEngine": {
+      "package": "fortel-ziweidoushu",
+      "version": "1.3.4",
+      "license": "MIT",
+      "source": "https://github.com/airicyu/fortel-ziweidoushu",
+      "revision": "39584e11ad9ddb124bd4b337a3b148c2f0b25611",
+      "tarball": "https://registry.npmjs.org/fortel-ziweidoushu/-/fortel-ziweidoushu-1.3.4.tgz",
+      "tarballSha256": "cfccf313cab829d5824733f5c29f00f2ba6f39262e0dabaa9f9be74091539bad",
+      "sourceZipSha256": "72dcfb3dc229ddfe0ddd36f6d9aeda62f97db786ba40976b44875f3a3c1c8a8d",
+      "runtimeDependencies": {
+        "util": "^0.12.5"
+      },
+      "calendarSource": "src/calendar/jjonline/js-calendar-converter/calendar.js",
+      "sourceHashes": [
+        {
+          "file": "src/calendar/calender.ts",
+          "packageSha256": "c93a177ad51c0a0a563c259e3d3f0cb6705baeba83bfb8646539d2e9a0ede846",
+          "gitSourceSha256": "12538212e40634211db582fe8866a5912e99435542dd00fbffa9b1ecc15d2ca5",
+          "packageLfSha256": "12538212e40634211db582fe8866a5912e99435542dd00fbffa9b1ecc15d2ca5",
+          "gitSourceLfSha256": "12538212e40634211db582fe8866a5912e99435542dd00fbffa9b1ecc15d2ca5"
+        },
+        {
+          "file": "src/calendar/defaultCalendar.ts",
+          "packageSha256": "2198f946d48ad98781946a2f886e5ba71005a4ff37e02c7e30d2a9a125fae848",
+          "gitSourceSha256": "222a8f7418e33e8e860f69609846fe53418286c2ee9946c8649eb7150eaeacec",
+          "packageLfSha256": "222a8f7418e33e8e860f69609846fe53418286c2ee9946c8649eb7150eaeacec",
+          "gitSourceLfSha256": "222a8f7418e33e8e860f69609846fe53418286c2ee9946c8649eb7150eaeacec"
+        },
+        {
+          "file": "src/calendar/jjonline/js-calendar-converter/calendar.js",
+          "packageSha256": "466af75688d9e76cc02d9a3983ca5c874d143e961482b960c4b6687274cc40ed",
+          "gitSourceSha256": "86bf4db9d41edd99d99d52cb8d72cc104d10bbc71c40555b1e10c3481dbfbe11",
+          "packageLfSha256": "86bf4db9d41edd99d99d52cb8d72cc104d10bbc71c40555b1e10c3481dbfbe11",
+          "gitSourceLfSha256": "86bf4db9d41edd99d99d52cb8d72cc104d10bbc71c40555b1e10c3481dbfbe11"
+        },
+        {
+          "file": "src/criteria/boardCriteria.ts",
+          "packageSha256": "a4a91b9f2a5415fe1a5d681cfd37ad9001250e57a72b1b468a6a0e4a72635d61",
+          "gitSourceSha256": "94ed3e41af9ee6fe2269fae21be421c052808961a915f03a144592c794cb017f",
+          "packageLfSha256": "94ed3e41af9ee6fe2269fae21be421c052808961a915f03a144592c794cb017f",
+          "gitSourceLfSha256": "94ed3e41af9ee6fe2269fae21be421c052808961a915f03a144592c794cb017f"
+        },
+        {
+          "file": "src/main.ts",
+          "packageSha256": "8733016d90b12fde5d6393e01b6b3e6a1e85450d8de636a1b92302394aaa275a",
+          "gitSourceSha256": "2830a8699cba54d14959ea3659e15570f90a6bd3441cf2d0a2de8086979e176a",
+          "packageLfSha256": "2830a8699cba54d14959ea3659e15570f90a6bd3441cf2d0a2de8086979e176a",
+          "gitSourceLfSha256": "2830a8699cba54d14959ea3659e15570f90a6bd3441cf2d0a2de8086979e176a"
+        },
+        {
+          "file": "src/model/cell.ts",
+          "packageSha256": "3b6d6bb96aa718d5633dd88219fcef9cf0c6c670344d2e71664d18f17f2e3c37",
+          "gitSourceSha256": "c132d99ec8b95e1a9561e1f31bf51404dcc956b65346b46ca8e8deb6dff932c4",
+          "packageLfSha256": "c132d99ec8b95e1a9561e1f31bf51404dcc956b65346b46ca8e8deb6dff932c4",
+          "gitSourceLfSha256": "c132d99ec8b95e1a9561e1f31bf51404dcc956b65346b46ca8e8deb6dff932c4"
+        },
+        {
+          "file": "src/model/dayTimeGround.ts",
+          "packageSha256": "d3be5ef2da1917e89fc1b9bd41556dfce6ae366813efd5718efb6a9e760f8f01",
+          "gitSourceSha256": "f9d2ec79edd083df9c7468c1affede81d2b400e44cf2a2d1c4217e391439514f",
+          "packageLfSha256": "f9d2ec79edd083df9c7468c1affede81d2b400e44cf2a2d1c4217e391439514f",
+          "gitSourceLfSha256": "f9d2ec79edd083df9c7468c1affede81d2b400e44cf2a2d1c4217e391439514f"
+        },
+        {
+          "file": "src/model/destinyBoard.ts",
+          "packageSha256": "69e5d6a75d43a705fbdea9d0bb5c4c00cda14b66c7d27ed73be79b0a591cdde2",
+          "gitSourceSha256": "9a4f394460acb06c38efc8130600655bb2ff30c72688adf5d963d0f372106959",
+          "packageLfSha256": "9a4f394460acb06c38efc8130600655bb2ff30c72688adf5d963d0f372106959",
+          "gitSourceLfSha256": "9a4f394460acb06c38efc8130600655bb2ff30c72688adf5d963d0f372106959"
+        },
+        {
+          "file": "src/model/destinyConfig.ts",
+          "packageSha256": "c51773044d6aa931a8379eb136ea462459bf9482caf92e3cc1d7b9e18e6afcb9",
+          "gitSourceSha256": "6a7bbca367f437ca924eb27809004beb17bbbfd43330f57dc9e7f7ac819ffa6e",
+          "packageLfSha256": "6a7bbca367f437ca924eb27809004beb17bbbfd43330f57dc9e7f7ac819ffa6e",
+          "gitSourceLfSha256": "6a7bbca367f437ca924eb27809004beb17bbbfd43330f57dc9e7f7ac819ffa6e"
+        },
+        {
+          "file": "src/model/ground.ts",
+          "packageSha256": "6dddbdecadfc07e38581122d8f862bbd526c8b4232a1bdd18d655d76ea223fcc",
+          "gitSourceSha256": "6974dfa0c73df17475e212e7c1ece6673e83a419843f87a6cd07fad16f77bd1b",
+          "packageLfSha256": "6974dfa0c73df17475e212e7c1ece6673e83a419843f87a6cd07fad16f77bd1b",
+          "gitSourceLfSha256": "6974dfa0c73df17475e212e7c1ece6673e83a419843f87a6cd07fad16f77bd1b"
+        },
+        {
+          "file": "src/model/lifeStage.ts",
+          "packageSha256": "0d71de96a31a6e4009be8a7deef3404977794fa01084e77f00096fb8b3e9e2f9",
+          "gitSourceSha256": "9834b94191d66247f404e4d84e64bdffe22f374913eed59207278a7fa3c2416c",
+          "packageLfSha256": "9834b94191d66247f404e4d84e64bdffe22f374913eed59207278a7fa3c2416c",
+          "gitSourceLfSha256": "9834b94191d66247f404e4d84e64bdffe22f374913eed59207278a7fa3c2416c"
+        },
+        {
+          "file": "src/model/majorStar.ts",
+          "packageSha256": "c7270131d46c3b7e76e5ba847654cf6411c32d50a2d47d609aa73b42c111d5f7",
+          "gitSourceSha256": "a05c7a16866603ec82e0f157a4875bfcf7ae4093242d6e01bd3a08a960e1b59b",
+          "packageLfSha256": "a05c7a16866603ec82e0f157a4875bfcf7ae4093242d6e01bd3a08a960e1b59b",
+          "gitSourceLfSha256": "a05c7a16866603ec82e0f157a4875bfcf7ae4093242d6e01bd3a08a960e1b59b"
+        },
+        {
+          "file": "src/model/miniStar.ts",
+          "packageSha256": "73d4767f8d4800d2bd8416887321daaf9239858098c7b9d3be7b30939e395587",
+          "gitSourceSha256": "51ff2b7067008d066981dc3f4e487bfea66387aaa38088b222c3659c9f64edd3",
+          "packageLfSha256": "51ff2b7067008d066981dc3f4e487bfea66387aaa38088b222c3659c9f64edd3",
+          "gitSourceLfSha256": "51ff2b7067008d066981dc3f4e487bfea66387aaa38088b222c3659c9f64edd3"
+        },
+        {
+          "file": "src/model/minorStar.ts",
+          "packageSha256": "1ab514859e4c6e9e47fd3449d23506dad6646403445bc374eec65112951fffc5",
+          "gitSourceSha256": "9361b01c78e16646cd7ca51c3ed8f53d5b08def1890a00a2b9156617c3e3c320",
+          "packageLfSha256": "ba5a0361063242e131946d241ebb28d84db1583f7d2d37116fb47d25c682fda9",
+          "gitSourceLfSha256": "9361b01c78e16646cd7ca51c3ed8f53d5b08def1890a00a2b9156617c3e3c320"
+        },
+        {
+          "file": "src/model/miscEnums.ts",
+          "packageSha256": "42c8128882a986d331ed42a3a4013923f006187246426f8d5fb29e3610177c33",
+          "gitSourceSha256": "fb051ff034f2bda2760ba39dc843812a50798285bd83b1d09ce103959c3a285b",
+          "packageLfSha256": "fb051ff034f2bda2760ba39dc843812a50798285bd83b1d09ce103959c3a285b",
+          "gitSourceLfSha256": "fb051ff034f2bda2760ba39dc843812a50798285bd83b1d09ce103959c3a285b"
+        },
+        {
+          "file": "src/model/runtime.ts",
+          "packageSha256": "7f05456825713aa463af8c2342f29597610ccbd9a923903d16b77fc9db0d13ab",
+          "gitSourceSha256": "d574fb0181740d0ee80f50cdec4c1899b08335d19703ceacdbfa06f24322f172",
+          "packageLfSha256": "d574fb0181740d0ee80f50cdec4c1899b08335d19703ceacdbfa06f24322f172",
+          "gitSourceLfSha256": "d574fb0181740d0ee80f50cdec4c1899b08335d19703ceacdbfa06f24322f172"
+        },
+        {
+          "file": "src/model/sky.ts",
+          "packageSha256": "cd57c3f71dd8573501f3c9def4e5dbe21abb02b9f9b214a7c3db9a75ed9c099a",
+          "gitSourceSha256": "8753ed3e8e0fb5034933215e8f1344a6ec34dd90344b189ff19ac6f65d5c9456",
+          "packageLfSha256": "8753ed3e8e0fb5034933215e8f1344a6ec34dd90344b189ff19ac6f65d5c9456",
+          "gitSourceLfSha256": "8753ed3e8e0fb5034933215e8f1344a6ec34dd90344b189ff19ac6f65d5c9456"
+        },
+        {
+          "file": "src/model/star.ts",
+          "packageSha256": "ae3b657db2d60f1ded4fc771f78be513f2cb2c83c65dd83c9b669e408834b570",
+          "gitSourceSha256": "3e855a61e606306f3efd7f1a650999e971c9c1c34297f6f0e104c8e6de18b94c",
+          "packageLfSha256": "3e855a61e606306f3efd7f1a650999e971c9c1c34297f6f0e104c8e6de18b94c",
+          "gitSourceLfSha256": "3e855a61e606306f3efd7f1a650999e971c9c1c34297f6f0e104c8e6de18b94c"
+        },
+        {
+          "file": "src/model/starDerivative.ts",
+          "packageSha256": "7882518555161276b0378aee8d798c946ec8fda4b590c5bb210a663d26fc6269",
+          "gitSourceSha256": "bc3a05a376400a061f0a2b8621ed095d720c5b254bc49f38605cff9feaa95b52",
+          "packageLfSha256": "bc3a05a376400a061f0a2b8621ed095d720c5b254bc49f38605cff9feaa95b52",
+          "gitSourceLfSha256": "bc3a05a376400a061f0a2b8621ed095d720c5b254bc49f38605cff9feaa95b52"
+        },
+        {
+          "file": "src/model/temple.ts",
+          "packageSha256": "18110c8b0ae1570f16c3c7cc831bb84134fc0724b8bc5f13b8e494bf6e097207",
+          "gitSourceSha256": "45a62b71e260fd99a7137245c5ef8d3b1b492bc8d51df251b45713fcbe92b3ef",
+          "packageLfSha256": "45a62b71e260fd99a7137245c5ef8d3b1b492bc8d51df251b45713fcbe92b3ef",
+          "gitSourceLfSha256": "45a62b71e260fd99a7137245c5ef8d3b1b492bc8d51df251b45713fcbe92b3ef"
+        },
+        {
+          "file": "src/types/js-calendar-converter/js-calendar-converter.d.ts",
+          "packageSha256": "bebb15fc76afd149d0d6d1a68e4042a8d1f20d226e4e0614daf6e603bafd2508",
+          "gitSourceSha256": "4c8e80d5a9d8a2f06a48c765735cd9eff1d8e2d930ded089969b8b17c6f3c459",
+          "packageLfSha256": "4c8e80d5a9d8a2f06a48c765735cd9eff1d8e2d930ded089969b8b17c6f3c459",
+          "gitSourceLfSha256": "4c8e80d5a9d8a2f06a48c765735cd9eff1d8e2d930ded089969b8b17c6f3c459"
+        },
+        {
+          "file": "src/util/destinyConfigBuilder.ts",
+          "packageSha256": "c9b1c761ea6ecd094f3b5b4a77cccea37eff67c1a8f44b270e581023b20a7af1",
+          "gitSourceSha256": "57d51132beccab30b9070645e84b74c99b92ff80332d007677c7425dff4627a3",
+          "packageLfSha256": "57d51132beccab30b9070645e84b74c99b92ff80332d007677c7425dff4627a3",
+          "gitSourceLfSha256": "57d51132beccab30b9070645e84b74c99b92ff80332d007677c7425dff4627a3"
+        },
+        {
+          "file": "src/util/destinyConfigTextParser.ts",
+          "packageSha256": "976834d16b267133b8b8b819a89061ffdcb1ee1e44814f27dd94070f5fa0765c",
+          "gitSourceSha256": "9685afd31e5c5f9147213c1a5a37c03add5491151891a341a8bfd522bd69bb49",
+          "packageLfSha256": "9685afd31e5c5f9147213c1a5a37c03add5491151891a341a8bfd522bd69bb49",
+          "gitSourceLfSha256": "9685afd31e5c5f9147213c1a5a37c03add5491151891a341a8bfd522bd69bb49"
+        },
+        {
+          "file": "src/util/starUtil.ts",
+          "packageSha256": "33a70ff23a575b21b2ad0d52e3e5d64d5c3c076fc232829d5dd10d7ee146a6c3",
+          "gitSourceSha256": "1000f08fea0b377e28a98b1804db2dd0155f304e0aae7f1dd29280679e59156d",
+          "packageLfSha256": "1000f08fea0b377e28a98b1804db2dd0155f304e0aae7f1dd29280679e59156d",
+          "gitSourceLfSha256": "1000f08fea0b377e28a98b1804db2dd0155f304e0aae7f1dd29280679e59156d"
+        },
+        {
+          "file": "src/utils.ts",
+          "packageSha256": "1ab117682687b54075867152e7da2c1d85af54b55cef68252c3fb1780a2d0d20",
+          "gitSourceSha256": "f0d87675d091bb007005b5fa275b1a790a022fee09c0cb7a6bd98de04ec4180c",
+          "packageLfSha256": "f0d87675d091bb007005b5fa275b1a790a022fee09c0cb7a6bd98de04ec4180c",
+          "gitSourceLfSha256": "f0d87675d091bb007005b5fa275b1a790a022fee09c0cb7a6bd98de04ec4180c"
+        }
+      ],
+      "sourceDifferences": [
+        {
+          "file": "src/model/minorStar.ts",
+          "packageSha256": "1ab514859e4c6e9e47fd3449d23506dad6646403445bc374eec65112951fffc5",
+          "gitSourceSha256": "9361b01c78e16646cd7ca51c3ed8f53d5b08def1890a00a2b9156617c3e3c320",
+          "packageLfSha256": "ba5a0361063242e131946d241ebb28d84db1583f7d2d37116fb47d25c682fda9",
+          "gitSourceLfSha256": "9361b01c78e16646cd7ca51c3ed8f53d5b08def1890a00a2b9156617c3e3c320"
+        }
+      ],
+      "sourceDifferenceExplanation": "24/25 source files match after CRLF-to-LF normalization. Two Xin-year Tiankui/Tianyue entries differ between npm and declared Git source. Natal evalGround calls evalRuntimeGround, so this affects natal charts too, but these stars were outside the81 compared fields. The extended benchmark tests the pinned npm values explicitly. The Git source is not represented as byte-identical to npm."
+    },
+    "production": {
+      "rule": "ziwei-civil-v1",
+      "engine": "2.5.7",
+      "lunar": "1.7.7",
+      "fileHashes": {
+        "frontend-docker/src/utils/ziweiCalculation.ts": "28ce202108cb5ed5a0266d7860a367ad58334b47e7cd448ff491d18a56d6761b",
+        "frontend-docker/src/utils/chartTime.ts": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8"
+      }
+    },
+    "runtime": {
+      "node": "v24.19.0",
+      "platform": "win32",
+      "hostTimeZone": "Asia/Singapore",
+      "tzdata": "2026b"
+    }
+  },
+  "limitations": [
+    "Agreement between two implementations is corroboration, not an authoritative proof of every Ziwei tradition.",
+    "Fortel receives fixture-declared local civil date/hour; the benchmark independently applies the stated 23:00 full next-day policy. Fortel itself does not supply IANA conversion or the production late-Zi policy.",
+    "Timezone inputs use explicit UTC offsets; production local time is checked against the declared civil fixture. No production date converter is used to create benchmark inputs.",
+    "Three year-stem fame-star differences are retained raw; neither engine was configured or patched to hide them.",
+    "Minor stars (except four-transformation star location), brightness, flow-year/month/day/hour charts, and astrological interpretations are outside this comparison."
+  ],
+  "extendedFollowup": "../ziwei-extended/report.html: all current81 core fields re-executed plus295 additional checks; the3 early1900 baseline gaps are closed using sxtwl and Fortel pure configuration."
+}

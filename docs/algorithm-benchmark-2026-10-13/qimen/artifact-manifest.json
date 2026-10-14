@@ -1,0 +1,22 @@
+{
+  "benchmark.py": "6853b0b455712df97717da509f62a1a31553c08dc19b0a6b33b2feee03e7fe7e",
+  "calendar-term-differences.json": "109431ce52b086e498ff68aaee4e915de57b83d6d1930c6f8b3ac9c1c8846332",
+  "comparison.json": "1fd19ac7e2cd14ebfd3518459e0ee280819753b0a573f1f72b0e781b174fc297",
+  "diagnostic-cases.json": "27443e38c77188f8e3a036ef47aa1a91174b25c4e823b2fe00f3f8487c02c3aa",
+  "external-output.json": "5c0f61276344f870a2af87eb7a331923fc26de76730d1f6157b20cb8a41d14c2",
+  "independent-solar-term-check.json": "cad7cc530a3152af42e25d3bee0cca606ac488e44a253b95a604e22853f0aff4",
+  "inputs.json": "1d2ea6da79b7db264868b1394d14737e3ed40eb04c23edce1ad3c3848d17c71f",
+  "product-output.json": "a837daa09346fc744c7d14823bc2b2a2c64b1ad0607124a7c409487184da7128",
+  "product-runner.cjs": "8cc44ccdc86358dc36bdc4a7c6e1daca3f23f36c1f1ad0f771d44af7d2132350",
+  "provenance.json": "c883d522112d6be78c6c5c94b700858cd7a8bc572ab566650e440003dc653c16",
+  "README.txt": "adb3b0a38440090e0ca100f540ca8987cf713b09ef424132694a269dde771915",
+  "run-summary.txt": "a6c45b9a3e314ddd5055eae0f0a3be95ae77a4aa955d0e00cbee8ec71d02205f",
+  "solar-term-anchors.json": "4006d448cc3fde295cdfcd22927999517c4045e5c120b44f110f4d82205fe0d9",
+  "summary.json": "a6c45b9a3e314ddd5055eae0f0a3be95ae77a4aa955d0e00cbee8ec71d02205f",
+  "third-comparison.json": "8ca178474cdf125985cbcf08601e60f2f6b69ebc1e949164c7141a92772a8039",
+  "third-output.json": "a4a12b4249b87c78b8960facbc06bb042f5446fd18fb1f2e3805f8a2245cc193",
+  "third-run-summary.txt": "ec0cce16f9fae61668b5438497a3186fcfc567ab479189ad6851ab5a4c14a861",
+  "third-runner.go": "969e3a1d0b99c6391936d38edac7d0bb961b22d0e8a88cb7c20012f5f6864355",
+  "third-summary.json": "0ed1582322058fdfa494a3e2273ffdb206fee994e0c2ff4a0428731ccf0aa4b2",
+  "verification.json": "0348ecf0425511a5966982b11980130c9954cce3354a380a9d61bf015baeab1d"
+}

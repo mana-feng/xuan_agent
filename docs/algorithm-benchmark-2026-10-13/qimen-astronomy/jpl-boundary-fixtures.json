@@ -1,0 +1,1158 @@
+{
+  "toleranceSeconds": 3,
+  "note": "2026 only; fixtures derive from JPL, not the product calendar.",
+  "rows": [
+    {
+      "id": "小寒-before",
+      "jplUtc": "2026-01-05T08:23:09.455939+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1767601386455,
+      "expectedTerm": "冬至",
+      "actualTerm": "冬至",
+      "equal": true,
+      "calculationCivil": "2026-01-05 16:23:06",
+      "juShu": {
+        "jieQiName": "冬至",
+        "type": "yang",
+        "number": "1",
+        "yuan": "上元",
+        "fullName": "阳遁1局 (上元)",
+        "formatCode": "yang-1"
+      },
+      "siZhu": {
+        "year": "乙巳",
+        "month": "戊子",
+        "day": "己卯",
+        "time": "壬申"
+      }
+    },
+    {
+      "id": "小寒-after",
+      "jplUtc": "2026-01-05T08:23:09.455939+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1767601392455,
+      "expectedTerm": "小寒",
+      "actualTerm": "小寒",
+      "equal": true,
+      "calculationCivil": "2026-01-05 16:23:12",
+      "juShu": {
+        "jieQiName": "小寒",
+        "type": "yang",
+        "number": "2",
+        "yuan": "上元",
+        "fullName": "阳遁2局 (上元)",
+        "formatCode": "yang-2"
+      },
+      "siZhu": {
+        "year": "乙巳",
+        "month": "己丑",
+        "day": "己卯",
+        "time": "壬申"
+      }
+    },
+    {
+      "id": "大寒-before",
+      "jplUtc": "2026-01-20T01:44:56.071517+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1768873493071,
+      "expectedTerm": "小寒",
+      "actualTerm": "小寒",
+      "equal": true,
+      "calculationCivil": "2026-01-20 09:44:53",
+      "juShu": {
+        "jieQiName": "小寒",
+        "type": "yang",
+        "number": "2",
+        "yuan": "上元",
+        "fullName": "阳遁2局 (上元)",
+        "formatCode": "yang-2"
+      },
+      "siZhu": {
+        "year": "乙巳",
+        "month": "己丑",
+        "day": "甲午",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "大寒-after",
+      "jplUtc": "2026-01-20T01:44:56.071517+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1768873499071,
+      "expectedTerm": "大寒",
+      "actualTerm": "大寒",
+      "equal": true,
+      "calculationCivil": "2026-01-20 09:44:59",
+      "juShu": {
+        "jieQiName": "大寒",
+        "type": "yang",
+        "number": "3",
+        "yuan": "上元",
+        "fullName": "阳遁3局 (上元)",
+        "formatCode": "yang-3"
+      },
+      "siZhu": {
+        "year": "乙巳",
+        "month": "己丑",
+        "day": "甲午",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "立春-before",
+      "jplUtc": "2026-02-03T20:02:07.950852+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1770148924950,
+      "expectedTerm": "大寒",
+      "actualTerm": "大寒",
+      "equal": true,
+      "calculationCivil": "2026-02-04 04:02:04",
+      "juShu": {
+        "jieQiName": "大寒",
+        "type": "yang",
+        "number": "3",
+        "yuan": "上元",
+        "fullName": "阳遁3局 (上元)",
+        "formatCode": "yang-3"
+      },
+      "siZhu": {
+        "year": "乙巳",
+        "month": "己丑",
+        "day": "己酉",
+        "time": "丙寅"
+      }
+    },
+    {
+      "id": "立春-after",
+      "jplUtc": "2026-02-03T20:02:07.950852+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1770148930950,
+      "expectedTerm": "立春",
+      "actualTerm": "立春",
+      "equal": true,
+      "calculationCivil": "2026-02-04 04:02:10",
+      "juShu": {
+        "jieQiName": "立春",
+        "type": "yang",
+        "number": "8",
+        "yuan": "上元",
+        "fullName": "阳遁8局 (上元)",
+        "formatCode": "yang-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚寅",
+        "day": "己酉",
+        "time": "丙寅"
+      }
+    },
+    {
+      "id": "雨水-before",
+      "jplUtc": "2026-02-18T15:51:55.500356+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1771429912500,
+      "expectedTerm": "立春",
+      "actualTerm": "立春",
+      "equal": true,
+      "calculationCivil": "2026-02-18 23:51:52",
+      "juShu": {
+        "jieQiName": "立春",
+        "type": "yang",
+        "number": "8",
+        "yuan": "上元",
+        "fullName": "阳遁8局 (上元)",
+        "formatCode": "yang-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚寅",
+        "day": "甲子",
+        "time": "甲子"
+      }
+    },
+    {
+      "id": "雨水-after",
+      "jplUtc": "2026-02-18T15:51:55.500356+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1771429918500,
+      "expectedTerm": "雨水",
+      "actualTerm": "雨水",
+      "equal": true,
+      "calculationCivil": "2026-02-18 23:51:58",
+      "juShu": {
+        "jieQiName": "雨水",
+        "type": "yang",
+        "number": "9",
+        "yuan": "上元",
+        "fullName": "阳遁9局 (上元)",
+        "formatCode": "yang-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚寅",
+        "day": "甲子",
+        "time": "甲子"
+      }
+    },
+    {
+      "id": "惊蛰-before",
+      "jplUtc": "2026-03-05T13:58:59.118604+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1772719136118,
+      "expectedTerm": "雨水",
+      "actualTerm": "雨水",
+      "equal": true,
+      "calculationCivil": "2026-03-05 21:58:56",
+      "juShu": {
+        "jieQiName": "雨水",
+        "type": "yang",
+        "number": "3",
+        "yuan": "下元",
+        "fullName": "阳遁3局 (下元)",
+        "formatCode": "yang-3"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚寅",
+        "day": "戊寅",
+        "time": "癸亥"
+      }
+    },
+    {
+      "id": "惊蛰-after",
+      "jplUtc": "2026-03-05T13:58:59.118604+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1772719142118,
+      "expectedTerm": "惊蛰",
+      "actualTerm": "惊蛰",
+      "equal": true,
+      "calculationCivil": "2026-03-05 21:59:02",
+      "juShu": {
+        "jieQiName": "惊蛰",
+        "type": "yang",
+        "number": "4",
+        "yuan": "下元",
+        "fullName": "阳遁4局 (下元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "辛卯",
+        "day": "戊寅",
+        "time": "癸亥"
+      }
+    },
+    {
+      "id": "春分-before",
+      "jplUtc": "2026-03-20T14:45:57.449525+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1774017954449,
+      "expectedTerm": "惊蛰",
+      "actualTerm": "惊蛰",
+      "equal": true,
+      "calculationCivil": "2026-03-20 22:45:54",
+      "juShu": {
+        "jieQiName": "惊蛰",
+        "type": "yang",
+        "number": "4",
+        "yuan": "下元",
+        "fullName": "阳遁4局 (下元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "辛卯",
+        "day": "癸巳",
+        "time": "癸亥"
+      }
+    },
+    {
+      "id": "春分-after",
+      "jplUtc": "2026-03-20T14:45:57.449525+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1774017960449,
+      "expectedTerm": "春分",
+      "actualTerm": "春分",
+      "equal": true,
+      "calculationCivil": "2026-03-20 22:46:00",
+      "juShu": {
+        "jieQiName": "春分",
+        "type": "yang",
+        "number": "6",
+        "yuan": "下元",
+        "fullName": "阳遁6局 (下元)",
+        "formatCode": "yang-6"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "辛卯",
+        "day": "癸巳",
+        "time": "癸亥"
+      }
+    },
+    {
+      "id": "清明-before",
+      "jplUtc": "2026-04-04T18:39:59.172919+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1775327996172,
+      "expectedTerm": "春分",
+      "actualTerm": "春分",
+      "equal": true,
+      "calculationCivil": "2026-04-05 02:39:56",
+      "juShu": {
+        "jieQiName": "春分",
+        "type": "yang",
+        "number": "3",
+        "yuan": "上元",
+        "fullName": "阳遁3局 (上元)",
+        "formatCode": "yang-3"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "辛卯",
+        "day": "己酉",
+        "time": "乙丑"
+      }
+    },
+    {
+      "id": "清明-after",
+      "jplUtc": "2026-04-04T18:39:59.172919+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1775328002172,
+      "expectedTerm": "清明",
+      "actualTerm": "清明",
+      "equal": true,
+      "calculationCivil": "2026-04-05 02:40:02",
+      "juShu": {
+        "jieQiName": "清明",
+        "type": "yang",
+        "number": "4",
+        "yuan": "上元",
+        "fullName": "阳遁4局 (上元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "壬辰",
+        "day": "己酉",
+        "time": "乙丑"
+      }
+    },
+    {
+      "id": "谷雨-before",
+      "jplUtc": "2026-04-20T01:39:06.517509+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1776649143517,
+      "expectedTerm": "清明",
+      "actualTerm": "清明",
+      "equal": true,
+      "calculationCivil": "2026-04-20 09:39:03",
+      "juShu": {
+        "jieQiName": "清明",
+        "type": "yang",
+        "number": "4",
+        "yuan": "上元",
+        "fullName": "阳遁4局 (上元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "壬辰",
+        "day": "甲子",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "谷雨-after",
+      "jplUtc": "2026-04-20T01:39:06.517509+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1776649149517,
+      "expectedTerm": "谷雨",
+      "actualTerm": "谷雨",
+      "equal": true,
+      "calculationCivil": "2026-04-20 09:39:09",
+      "juShu": {
+        "jieQiName": "谷雨",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "壬辰",
+        "day": "甲子",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "立夏-before",
+      "jplUtc": "2026-05-05T11:48:43.665682+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1777981720665,
+      "expectedTerm": "谷雨",
+      "actualTerm": "谷雨",
+      "equal": true,
+      "calculationCivil": "2026-05-05 19:48:40",
+      "juShu": {
+        "jieQiName": "谷雨",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "壬辰",
+        "day": "己卯",
+        "time": "甲戌"
+      }
+    },
+    {
+      "id": "立夏-after",
+      "jplUtc": "2026-05-05T11:48:43.665682+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1777981726665,
+      "expectedTerm": "立夏",
+      "actualTerm": "立夏",
+      "equal": true,
+      "calculationCivil": "2026-05-05 19:48:46",
+      "juShu": {
+        "jieQiName": "立夏",
+        "type": "yang",
+        "number": "4",
+        "yuan": "上元",
+        "fullName": "阳遁4局 (上元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "己卯",
+        "time": "甲戌"
+      }
+    },
+    {
+      "id": "小满-before",
+      "jplUtc": "2026-05-21T00:36:44.329478+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1779323801329,
+      "expectedTerm": "立夏",
+      "actualTerm": "立夏",
+      "equal": true,
+      "calculationCivil": "2026-05-21 08:36:41",
+      "juShu": {
+        "jieQiName": "立夏",
+        "type": "yang",
+        "number": "4",
+        "yuan": "上元",
+        "fullName": "阳遁4局 (上元)",
+        "formatCode": "yang-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "乙未",
+        "time": "庚辰"
+      }
+    },
+    {
+      "id": "小满-after",
+      "jplUtc": "2026-05-21T00:36:44.329478+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1779323807329,
+      "expectedTerm": "小满",
+      "actualTerm": "小满",
+      "equal": true,
+      "calculationCivil": "2026-05-21 08:36:47",
+      "juShu": {
+        "jieQiName": "小满",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "乙未",
+        "time": "庚辰"
+      }
+    },
+    {
+      "id": "芒种-before",
+      "jplUtc": "2026-06-05T15:48:21.890048+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1780674498890,
+      "expectedTerm": "小满",
+      "actualTerm": "小满",
+      "equal": true,
+      "calculationCivil": "2026-06-05 23:48:18",
+      "juShu": {
+        "jieQiName": "小满",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "辛亥",
+        "time": "戊子"
+      }
+    },
+    {
+      "id": "芒种-after",
+      "jplUtc": "2026-06-05T15:48:21.890048+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1780674504890,
+      "expectedTerm": "芒种",
+      "actualTerm": "芒种",
+      "equal": true,
+      "calculationCivil": "2026-06-05 23:48:24",
+      "juShu": {
+        "jieQiName": "芒种",
+        "type": "yang",
+        "number": "6",
+        "yuan": "上元",
+        "fullName": "阳遁6局 (上元)",
+        "formatCode": "yang-6"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "辛亥",
+        "time": "戊子"
+      }
+    },
+    {
+      "id": "夏至-before",
+      "jplUtc": "2026-06-21T08:24:30.348761+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1782030267348,
+      "expectedTerm": "芒种",
+      "actualTerm": "芒种",
+      "equal": true,
+      "calculationCivil": "2026-06-21 16:24:27",
+      "juShu": {
+        "jieQiName": "芒种",
+        "type": "yang",
+        "number": "6",
+        "yuan": "上元",
+        "fullName": "阳遁6局 (上元)",
+        "formatCode": "yang-6"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "丙寅",
+        "time": "丙申"
+      }
+    },
+    {
+      "id": "夏至-after",
+      "jplUtc": "2026-06-21T08:24:30.348761+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1782030273348,
+      "expectedTerm": "夏至",
+      "actualTerm": "夏至",
+      "equal": true,
+      "calculationCivil": "2026-06-21 16:24:33",
+      "juShu": {
+        "jieQiName": "夏至",
+        "type": "yin",
+        "number": "9",
+        "yuan": "上元",
+        "fullName": "阴遁9局 (上元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "丙寅",
+        "time": "丙申"
+      }
+    },
+    {
+      "id": "小暑-before",
+      "jplUtc": "2026-07-07T01:56:57.374585+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1783389414374,
+      "expectedTerm": "夏至",
+      "actualTerm": "夏至",
+      "equal": true,
+      "calculationCivil": "2026-07-07 09:56:54",
+      "juShu": {
+        "jieQiName": "夏至",
+        "type": "yin",
+        "number": "9",
+        "yuan": "上元",
+        "fullName": "阴遁9局 (上元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "壬午",
+        "time": "乙巳"
+      }
+    },
+    {
+      "id": "小暑-after",
+      "jplUtc": "2026-07-07T01:56:57.374585+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1783389420374,
+      "expectedTerm": "小暑",
+      "actualTerm": "小暑",
+      "equal": true,
+      "calculationCivil": "2026-07-07 09:57:00",
+      "juShu": {
+        "jieQiName": "小暑",
+        "type": "yin",
+        "number": "8",
+        "yuan": "上元",
+        "fullName": "阴遁8局 (上元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "乙未",
+        "day": "壬午",
+        "time": "乙巳"
+      }
+    },
+    {
+      "id": "大暑-before",
+      "jplUtc": "2026-07-22T19:13:05.220123+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1784747582220,
+      "expectedTerm": "小暑",
+      "actualTerm": "小暑",
+      "equal": true,
+      "calculationCivil": "2026-07-23 03:13:02",
+      "juShu": {
+        "jieQiName": "小暑",
+        "type": "yin",
+        "number": "8",
+        "yuan": "上元",
+        "fullName": "阴遁8局 (上元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "乙未",
+        "day": "戊戌",
+        "time": "甲寅"
+      }
+    },
+    {
+      "id": "大暑-after",
+      "jplUtc": "2026-07-22T19:13:05.220123+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1784747588220,
+      "expectedTerm": "大暑",
+      "actualTerm": "大暑",
+      "equal": true,
+      "calculationCivil": "2026-07-23 03:13:08",
+      "juShu": {
+        "jieQiName": "大暑",
+        "type": "yin",
+        "number": "7",
+        "yuan": "上元",
+        "fullName": "阴遁7局 (上元)",
+        "formatCode": "yin-7"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "乙未",
+        "day": "戊戌",
+        "time": "甲寅"
+      }
+    },
+    {
+      "id": "立秋-before",
+      "jplUtc": "2026-08-07T11:42:44.520658+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1786102961520,
+      "expectedTerm": "大暑",
+      "actualTerm": "大暑",
+      "equal": true,
+      "calculationCivil": "2026-08-07 19:42:41",
+      "juShu": {
+        "jieQiName": "大暑",
+        "type": "yin",
+        "number": "7",
+        "yuan": "上元",
+        "fullName": "阴遁7局 (上元)",
+        "formatCode": "yin-7"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "乙未",
+        "day": "癸丑",
+        "time": "壬戌"
+      }
+    },
+    {
+      "id": "立秋-after",
+      "jplUtc": "2026-08-07T11:42:44.520658+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1786102967520,
+      "expectedTerm": "立秋",
+      "actualTerm": "立秋",
+      "equal": true,
+      "calculationCivil": "2026-08-07 19:42:47",
+      "juShu": {
+        "jieQiName": "立秋",
+        "type": "yin",
+        "number": "2",
+        "yuan": "上元",
+        "fullName": "阴遁2局 (上元)",
+        "formatCode": "yin-2"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "癸丑",
+        "time": "壬戌"
+      }
+    },
+    {
+      "id": "处暑-before",
+      "jplUtc": "2026-08-23T02:18:48.430157+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1787451525430,
+      "expectedTerm": "立秋",
+      "actualTerm": "立秋",
+      "equal": true,
+      "calculationCivil": "2026-08-23 10:18:45",
+      "juShu": {
+        "jieQiName": "立秋",
+        "type": "yin",
+        "number": "5",
+        "yuan": "中元",
+        "fullName": "阴遁5局 (中元)",
+        "formatCode": "yin-5"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "己巳",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "处暑-after",
+      "jplUtc": "2026-08-23T02:18:48.430157+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1787451531430,
+      "expectedTerm": "处暑",
+      "actualTerm": "处暑",
+      "equal": true,
+      "calculationCivil": "2026-08-23 10:18:51",
+      "juShu": {
+        "jieQiName": "处暑",
+        "type": "yin",
+        "number": "4",
+        "yuan": "中元",
+        "fullName": "阴遁4局 (中元)",
+        "formatCode": "yin-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "己巳",
+        "time": "己巳"
+      }
+    },
+    {
+      "id": "白露-before",
+      "jplUtc": "2026-09-07T14:41:17.218657+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1788792074218,
+      "expectedTerm": "处暑",
+      "actualTerm": "处暑",
+      "equal": true,
+      "calculationCivil": "2026-09-07 22:41:14",
+      "juShu": {
+        "jieQiName": "处暑",
+        "type": "yin",
+        "number": "4",
+        "yuan": "中元",
+        "fullName": "阴遁4局 (中元)",
+        "formatCode": "yin-4"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "甲申",
+        "time": "乙亥"
+      }
+    },
+    {
+      "id": "白露-after",
+      "jplUtc": "2026-09-07T14:41:17.218657+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1788792080218,
+      "expectedTerm": "白露",
+      "actualTerm": "白露",
+      "equal": true,
+      "calculationCivil": "2026-09-07 22:41:20",
+      "juShu": {
+        "jieQiName": "白露",
+        "type": "yin",
+        "number": "3",
+        "yuan": "中元",
+        "fullName": "阴遁3局 (中元)",
+        "formatCode": "yin-3"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丁酉",
+        "day": "甲申",
+        "time": "乙亥"
+      }
+    },
+    {
+      "id": "秋分-before",
+      "jplUtc": "2026-09-23T00:05:13.165566+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1790121910165,
+      "expectedTerm": "白露",
+      "actualTerm": "白露",
+      "equal": true,
+      "calculationCivil": "2026-09-23 08:05:10",
+      "juShu": {
+        "jieQiName": "白露",
+        "type": "yin",
+        "number": "3",
+        "yuan": "中元",
+        "fullName": "阴遁3局 (中元)",
+        "formatCode": "yin-3"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丁酉",
+        "day": "庚子",
+        "time": "庚辰"
+      }
+    },
+    {
+      "id": "秋分-after",
+      "jplUtc": "2026-09-23T00:05:13.165566+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1790121916165,
+      "expectedTerm": "秋分",
+      "actualTerm": "秋分",
+      "equal": true,
+      "calculationCivil": "2026-09-23 08:05:16",
+      "juShu": {
+        "jieQiName": "秋分",
+        "type": "yin",
+        "number": "1",
+        "yuan": "中元",
+        "fullName": "阴遁1局 (中元)",
+        "formatCode": "yin-1"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丁酉",
+        "day": "庚子",
+        "time": "庚辰"
+      }
+    },
+    {
+      "id": "寒露-before",
+      "jplUtc": "2026-10-08T06:29:17.498709+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1791440954498,
+      "expectedTerm": "秋分",
+      "actualTerm": "秋分",
+      "equal": true,
+      "calculationCivil": "2026-10-08 14:29:14",
+      "juShu": {
+        "jieQiName": "秋分",
+        "type": "yin",
+        "number": "1",
+        "yuan": "中元",
+        "fullName": "阴遁1局 (中元)",
+        "formatCode": "yin-1"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "丁酉",
+        "day": "乙卯",
+        "time": "癸未"
+      }
+    },
+    {
+      "id": "寒露-after",
+      "jplUtc": "2026-10-08T06:29:17.498709+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1791440960498,
+      "expectedTerm": "寒露",
+      "actualTerm": "寒露",
+      "equal": true,
+      "calculationCivil": "2026-10-08 14:29:20",
+      "juShu": {
+        "jieQiName": "寒露",
+        "type": "yin",
+        "number": "9",
+        "yuan": "中元",
+        "fullName": "阴遁9局 (中元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "乙卯",
+        "time": "癸未"
+      }
+    },
+    {
+      "id": "霜降-before",
+      "jplUtc": "2026-10-23T09:37:56.289337+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1792748273289,
+      "expectedTerm": "寒露",
+      "actualTerm": "寒露",
+      "equal": true,
+      "calculationCivil": "2026-10-23 17:37:53",
+      "juShu": {
+        "jieQiName": "寒露",
+        "type": "yin",
+        "number": "9",
+        "yuan": "中元",
+        "fullName": "阴遁9局 (中元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "庚午",
+        "time": "乙酉"
+      }
+    },
+    {
+      "id": "霜降-after",
+      "jplUtc": "2026-10-23T09:37:56.289337+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1792748279289,
+      "expectedTerm": "霜降",
+      "actualTerm": "霜降",
+      "equal": true,
+      "calculationCivil": "2026-10-23 17:37:59",
+      "juShu": {
+        "jieQiName": "霜降",
+        "type": "yin",
+        "number": "8",
+        "yuan": "中元",
+        "fullName": "阴遁8局 (中元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "庚午",
+        "time": "乙酉"
+      }
+    },
+    {
+      "id": "立冬-before",
+      "jplUtc": "2026-11-07T09:52:04.337443+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1794045121337,
+      "expectedTerm": "霜降",
+      "actualTerm": "霜降",
+      "equal": true,
+      "calculationCivil": "2026-11-07 17:52:01",
+      "juShu": {
+        "jieQiName": "霜降",
+        "type": "yin",
+        "number": "8",
+        "yuan": "中元",
+        "fullName": "阴遁8局 (中元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "乙酉",
+        "time": "乙酉"
+      }
+    },
+    {
+      "id": "立冬-after",
+      "jplUtc": "2026-11-07T09:52:04.337443+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1794045127337,
+      "expectedTerm": "立冬",
+      "actualTerm": "立冬",
+      "equal": true,
+      "calculationCivil": "2026-11-07 17:52:07",
+      "juShu": {
+        "jieQiName": "立冬",
+        "type": "yin",
+        "number": "9",
+        "yuan": "中元",
+        "fullName": "阴遁9局 (中元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "己亥",
+        "day": "乙酉",
+        "time": "乙酉"
+      }
+    },
+    {
+      "id": "小雪-before",
+      "jplUtc": "2026-11-22T07:23:20.563275+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1795332197563,
+      "expectedTerm": "立冬",
+      "actualTerm": "立冬",
+      "equal": true,
+      "calculationCivil": "2026-11-22 15:23:17",
+      "juShu": {
+        "jieQiName": "立冬",
+        "type": "yin",
+        "number": "9",
+        "yuan": "中元",
+        "fullName": "阴遁9局 (中元)",
+        "formatCode": "yin-9"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "己亥",
+        "day": "庚子",
+        "time": "甲申"
+      }
+    },
+    {
+      "id": "小雪-after",
+      "jplUtc": "2026-11-22T07:23:20.563275+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1795332203563,
+      "expectedTerm": "小雪",
+      "actualTerm": "小雪",
+      "equal": true,
+      "calculationCivil": "2026-11-22 15:23:23",
+      "juShu": {
+        "jieQiName": "小雪",
+        "type": "yin",
+        "number": "8",
+        "yuan": "中元",
+        "fullName": "阴遁8局 (中元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "己亥",
+        "day": "庚子",
+        "time": "甲申"
+      }
+    },
+    {
+      "id": "大雪-before",
+      "jplUtc": "2026-12-07T02:52:31.469033+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1796611948469,
+      "expectedTerm": "小雪",
+      "actualTerm": "小雪",
+      "equal": true,
+      "calculationCivil": "2026-12-07 10:52:28",
+      "juShu": {
+        "jieQiName": "小雪",
+        "type": "yin",
+        "number": "8",
+        "yuan": "中元",
+        "fullName": "阴遁8局 (中元)",
+        "formatCode": "yin-8"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "己亥",
+        "day": "乙卯",
+        "time": "辛巳"
+      }
+    },
+    {
+      "id": "大雪-after",
+      "jplUtc": "2026-12-07T02:52:31.469033+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1796611954469,
+      "expectedTerm": "大雪",
+      "actualTerm": "大雪",
+      "equal": true,
+      "calculationCivil": "2026-12-07 10:52:34",
+      "juShu": {
+        "jieQiName": "大雪",
+        "type": "yin",
+        "number": "7",
+        "yuan": "中元",
+        "fullName": "阴遁7局 (中元)",
+        "formatCode": "yin-7"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚子",
+        "day": "乙卯",
+        "time": "辛巳"
+      }
+    },
+    {
+      "id": "冬至-before",
+      "jplUtc": "2026-12-21T20:50:14.182713+00:00",
+      "jplOffsetSeconds": -3,
+      "timestamp": 1797886211182,
+      "expectedTerm": "大雪",
+      "actualTerm": "大雪",
+      "equal": true,
+      "calculationCivil": "2026-12-22 04:50:11",
+      "juShu": {
+        "jieQiName": "大雪",
+        "type": "yin",
+        "number": "7",
+        "yuan": "中元",
+        "fullName": "阴遁7局 (中元)",
+        "formatCode": "yin-7"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚子",
+        "day": "庚午",
+        "time": "戊寅"
+      }
+    },
+    {
+      "id": "冬至-after",
+      "jplUtc": "2026-12-21T20:50:14.182713+00:00",
+      "jplOffsetSeconds": 3,
+      "timestamp": 1797886217182,
+      "expectedTerm": "冬至",
+      "actualTerm": "冬至",
+      "equal": true,
+      "calculationCivil": "2026-12-22 04:50:17",
+      "juShu": {
+        "jieQiName": "冬至",
+        "type": "yang",
+        "number": "7",
+        "yuan": "中元",
+        "fullName": "阳遁7局 (中元)",
+        "formatCode": "yang-7"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "庚子",
+        "day": "庚午",
+        "time": "戊寅"
+      }
+    }
+  ]
+}

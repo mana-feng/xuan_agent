@@ -1,0 +1,5595 @@
+{
+  "generatedAt": "2026-10-12T18:23:56.209Z",
+  "durationMs": 21546,
+  "cases": 873,
+  "checks": 257706,
+  "equal": 257526,
+  "brightnessDifferences": 180,
+  "unresolved": 0,
+  "groups": {
+    "sexagenary-grid": {
+      "cases": 422,
+      "rawDifferences": 5403,
+      "checkDifferences": 83
+    },
+    "lunar-day-grid": {
+      "cases": 18,
+      "rawDifferences": 231,
+      "checkDifferences": 2
+    },
+    "leap-boundary": {
+      "cases": 312,
+      "rawDifferences": 4006,
+      "checkDifferences": 70
+    },
+    "year-hour-boundary": {
+      "cases": 80,
+      "rawDifferences": 1024,
+      "checkDifferences": 22
+    },
+    "timezone-fixture": {
+      "cases": 28,
+      "rawDifferences": 362,
+      "checkDifferences": 2
+    },
+    "supported-range": {
+      "cases": 12,
+      "rawDifferences": 151,
+      "checkDifferences": 1
+    },
+    "published-example": {
+      "cases": 1,
+      "rawDifferences": 14,
+      "checkDifferences": 0
+    }
+  },
+  "stats": {
+    "soul": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安命主"
+    },
+    "body": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.禄存": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.右弼": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.咸池": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天空": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.擎羊": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.蜚廉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.恩光": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.左辅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.孤辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.封诰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天巫": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.天魁": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.龙池": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.文曲": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.红鸾": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.月德": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.天钺": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.天马": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天福": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天虚": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天官": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.台辅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.阴煞": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.解神": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.三台": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天哭": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天刑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天贵": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.八座": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.火星": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.破碎": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.文昌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.铃星": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天喜": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.寡宿": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天月": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.地空": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.地劫": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "minor.陀罗": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天厨": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.凤阁": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.年解": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天才": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天寿": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天姚": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "adjective.天伤": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安天伤天使诀"
+    },
+    "adjective.天使": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安天伤天使诀"
+    },
+    "empty-pair.截路空亡": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel+Quanshu-vol2-安截路空亡诀"
+    },
+    "empty-selection.旬空": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel-pair+explicit-year-polarity-display-convention"
+    },
+    "adjective.华盖": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel-deity-placement"
+    },
+    "adjective.天德": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel-deity-placement"
+    },
+    "changsheng12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.寅.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.寅.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.武曲.寅": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.寅": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.卯.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.卯.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.太阳.卯": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.卯": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.辰.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.辰.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.七杀.辰": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.辰": {
+      "compared": 161,
+      "equal": 161,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.巳.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.巳.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.天机.巳": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.午.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.午.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.紫微.午": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.未.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.未.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "changsheng12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.申.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.申.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.破军.申": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.酉.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.酉.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.火星.酉": {
+      "compared": 121,
+      "equal": 121,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.戌.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.戌.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.廉贞.戌": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.戌": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.戌": {
+      "compared": 161,
+      "equal": 161,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.戌": {
+      "compared": 156,
+      "equal": 156,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.亥.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.亥.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.太阴.亥": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.亥": {
+      "compared": 387,
+      "equal": 387,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.子.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.子.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.贪狼.子": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "changsheng12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "boshi12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "jiangqian12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "suiqian12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "ages.丑.0": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.1": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.2": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.3": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.4": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.5": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.6": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.7": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.8": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "ages.丑.9": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Quanshu-vol2-安小限诀"
+    },
+    "isBodyPalace.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "isOriginalPalace.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "goch.tw/article/info/45-original-teacher-table"
+    },
+    "decadalStem.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "decadalBranch.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "brightness.天同.丑": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.丑": {
+      "compared": 108,
+      "equal": 108,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.丑": {
+      "compared": 387,
+      "equal": 387,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "lunarDate": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel-lunar+literal-Chinese-number-format"
+    },
+    "gender": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "input"
+    },
+    "zodiac": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "Fortel-year-branch+traditional-zodiac-mapping"
+    },
+    "solarDate": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "fixture-civil+declared-23-rollover"
+    },
+    "time": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "literal-hour-branch-definition"
+    },
+    "timeRange": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0,
+      "source": "literal-two-hour-interval"
+    },
+    "brightness.破军.寅": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.寅": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.卯": {
+      "compared": 74,
+      "equal": 74,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.辰": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.辰": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.巳": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.午": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.午": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.未": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.未": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.申": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.申": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.酉": {
+      "compared": 23,
+      "equal": 0,
+      "different": 23,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.酉": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.戌": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.戌": {
+      "compared": 73,
+      "equal": 73,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.亥": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.子": {
+      "compared": 23,
+      "equal": 23,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.子": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.丑": {
+      "compared": 74,
+      "equal": 74,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.卯": {
+      "compared": 65,
+      "equal": 65,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.巳": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.未": {
+      "compared": 65,
+      "equal": 65,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.酉": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.寅": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.卯": {
+      "compared": 83,
+      "equal": 83,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.辰": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.巳": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.巳": {
+      "compared": 83,
+      "equal": 83,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.午": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.午": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.未": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.未": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.申": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.酉": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.酉": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.酉": {
+      "compared": 83,
+      "equal": 83,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.戌": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.戌": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.亥": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.亥": {
+      "compared": 83,
+      "equal": 83,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.子": {
+      "compared": 38,
+      "equal": 38,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.寅": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.卯": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.辰": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.巳": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.巳": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.午": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.未": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.申": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.申": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.申": {
+      "compared": 59,
+      "equal": 59,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.酉": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.酉": {
+      "compared": 96,
+      "equal": 0,
+      "different": 96,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.戌": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.子": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.子": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.子": {
+      "compared": 63,
+      "equal": 63,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.丑": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.丑": {
+      "compared": 96,
+      "equal": 96,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.辰": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.辰": {
+      "compared": 65,
+      "equal": 65,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.辰": {
+      "compared": 63,
+      "equal": 63,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.巳": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.巳": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.午": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.未": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.申": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.申": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.申": {
+      "compared": 71,
+      "equal": 71,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.酉": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.酉": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.戌": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.戌": {
+      "compared": 65,
+      "equal": 65,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.亥": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.子": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.丑": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.丑": {
+      "compared": 104,
+      "equal": 104,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.卯": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.卯": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.巳": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.巳": {
+      "compared": 63,
+      "equal": 63,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.午": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.午": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.未": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.未": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.未": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.未": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.申": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.申": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.酉": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.戌": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.戌": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.亥": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.亥": {
+      "compared": 76,
+      "equal": 76,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.丑": {
+      "compared": 64,
+      "equal": 64,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.寅": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.卯": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.卯": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.卯": {
+      "compared": 77,
+      "equal": 77,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.辰": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.辰": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.巳": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.午": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.申": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.酉": {
+      "compared": 78,
+      "equal": 78,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.戌": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.亥": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.亥": {
+      "compared": 77,
+      "equal": 77,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.子": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.子": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.丑": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.丑": {
+      "compared": 134,
+      "equal": 134,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.丑": {
+      "compared": 67,
+      "equal": 67,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.寅": {
+      "compared": 62,
+      "equal": 62,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.寅": {
+      "compared": 43,
+      "equal": 43,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.辰": {
+      "compared": 43,
+      "equal": 43,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.午": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.申": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.寅": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.寅": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.卯": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.辰": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.辰": {
+      "compared": 59,
+      "equal": 59,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.巳": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.午": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.午": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.未": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.申": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.酉": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.戌": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.亥": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.子": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.丑": {
+      "compared": 54,
+      "equal": 54,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.未": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.丑": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.丑": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.午": {
+      "compared": 63,
+      "equal": 63,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.申": {
+      "compared": 63,
+      "equal": 63,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.子": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.寅": {
+      "compared": 89,
+      "equal": 89,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.寅": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.寅": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.卯": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.卯": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文昌.卯": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.辰": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.辰": {
+      "compared": 85,
+      "equal": 85,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.巳": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.午": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.午": {
+      "compared": 85,
+      "equal": 85,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.未": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.未": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.戌": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.亥": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.亥": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.文曲.亥": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.子": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.丑": {
+      "compared": 60,
+      "equal": 60,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.寅": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.寅": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.卯": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.辰": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.辰": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.巳": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.巳": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.酉": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.酉": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.亥": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.子": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.子": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.丑": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.丑": {
+      "compared": 69,
+      "equal": 69,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.午": {
+      "compared": 57,
+      "equal": 57,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.铃星.巳": {
+      "compared": 62,
+      "equal": 62,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.火星.亥": {
+      "compared": 62,
+      "equal": 62,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.巳": {
+      "compared": 88,
+      "equal": 88,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.未": {
+      "compared": 88,
+      "equal": 88,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.寅": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.寅": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.卯": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.卯": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.辰": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.午": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.未": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.未": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.酉": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.戌": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.亥": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.亥": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.子": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.丑": {
+      "compared": 50,
+      "equal": 50,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.未": {
+      "compared": 101,
+      "equal": 101,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.酉": {
+      "compared": 101,
+      "equal": 101,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.申": {
+      "compared": 46,
+      "equal": 46,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.戌": {
+      "compared": 46,
+      "equal": 46,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.陀罗.戌": {
+      "compared": 49,
+      "equal": 49,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.擎羊.子": {
+      "compared": 49,
+      "equal": 49,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.七杀.寅": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天同.卯": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.武曲.辰": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阳.巳": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.破军.午": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天机.未": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.紫微.申": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天府.申": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.太阴.酉": {
+      "compared": 61,
+      "equal": 0,
+      "different": 61,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.贪狼.戌": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.巨门.亥": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.廉贞.子": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天相.子": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "brightness.天梁.丑": {
+      "compared": 61,
+      "equal": 61,
+      "different": 0,
+      "source": "Quanshu-vol2-branch-ordered-table"
+    },
+    "early.lunar.year": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "sxtwl2.0.6"
+    },
+    "early.lunar.month": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "sxtwl2.0.6"
+    },
+    "early.lunar.day": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "sxtwl2.0.6"
+    },
+    "early.lunar.isLeap": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "sxtwl2.0.6"
+    },
+    "early.fiveClass": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.寅": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.寅": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.寅": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.卯": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.卯": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.卯": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.天府": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.辰": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.辰": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.辰": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.太阴": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.巳": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.巳": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.巳": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.廉贞": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.贪狼": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.午": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.午": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.午": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.巨门": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.未": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.未": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.未": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.天相": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.申": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.申": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.申": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.天同": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.天梁": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.酉": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.酉": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.酉": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.武曲": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.七杀": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.戌": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.戌": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.戌": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.太阳": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.亥": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.亥": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.亥": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.子": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.子": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.子": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.天机": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.palace.丑": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.stem.丑": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.range.丑": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.紫微": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.major.破军": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.soulPalace": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    },
+    "early.bodyPalace": {
+      "compared": 3,
+      "equal": 3,
+      "different": 0,
+      "source": "Fortel1.3.4"
+    }
+  },
+  "rawStats": {
+    "soul": {
+      "compared": 873,
+      "equal": 139,
+      "different": 734
+    },
+    "body": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.子": {
+      "compared": 873,
+      "equal": 785,
+      "different": 88
+    },
+    "jiangqian12.子": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.子": {
+      "compared": 873,
+      "equal": 746,
+      "different": 127
+    },
+    "star.禄存": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.右弼": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.咸池": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天空": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.旬空": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.截空": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "changsheng12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "jiangqian12.丑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.丑": {
+      "compared": 873,
+      "equal": 693,
+      "different": 180
+    },
+    "star.擎羊": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.蜚廉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.恩光": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.寅": {
+      "compared": 873,
+      "equal": 772,
+      "different": 101
+    },
+    "jiangqian12.寅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.寅": {
+      "compared": 873,
+      "equal": 798,
+      "different": 75
+    },
+    "star.左辅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.孤辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.封诰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天巫": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.卯": {
+      "compared": 873,
+      "equal": 827,
+      "different": 46
+    },
+    "jiangqian12.卯": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.卯": {
+      "compared": 873,
+      "equal": 563,
+      "different": 310
+    },
+    "star.天魁": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.龙池": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "jiangqian12.辰": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.辰": {
+      "compared": 873,
+      "equal": 766,
+      "different": 107
+    },
+    "star.文曲": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.红鸾": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.大耗": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.月德": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.巳": {
+      "compared": 873,
+      "equal": 824,
+      "different": 49
+    },
+    "jiangqian12.巳": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.巳": {
+      "compared": 873,
+      "equal": 799,
+      "different": 74
+    },
+    "star.天钺": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天马": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天福": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天虚": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天使": {
+      "compared": 873,
+      "equal": 446,
+      "different": 427
+    },
+    "changsheng12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.午": {
+      "compared": 873,
+      "equal": 486,
+      "different": 387
+    },
+    "jiangqian12.午": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.午": {
+      "compared": 873,
+      "equal": 746,
+      "different": 127
+    },
+    "star.天官": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.台辅": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.阴煞": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.解神": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.三台": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "jiangqian12.未": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.未": {
+      "compared": 873,
+      "equal": 693,
+      "different": 180
+    },
+    "star.天哭": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天刑": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天贵": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天伤": {
+      "compared": 873,
+      "equal": 446,
+      "different": 427
+    },
+    "changsheng12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.申": {
+      "compared": 873,
+      "equal": 799,
+      "different": 74
+    },
+    "jiangqian12.申": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.申": {
+      "compared": 873,
+      "equal": 798,
+      "different": 75
+    },
+    "star.劫煞": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.八座": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.酉": {
+      "compared": 873,
+      "equal": 830,
+      "different": 43
+    },
+    "jiangqian12.酉": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.酉": {
+      "compared": 873,
+      "equal": 563,
+      "different": 310
+    },
+    "star.火星": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.破碎": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "jiangqian12.戌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.戌": {
+      "compared": 873,
+      "equal": 766,
+      "different": 107
+    },
+    "star.文昌": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.铃星": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天喜": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.寡宿": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天月": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "changsheng12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "boshi12.亥": {
+      "compared": 873,
+      "equal": 788,
+      "different": 85
+    },
+    "jiangqian12.亥": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "suiqian12.亥": {
+      "compared": 873,
+      "equal": 799,
+      "different": 74
+    },
+    "star.地空": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.地劫": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.陀罗": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天厨": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.凤阁": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.年解": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天才": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天寿": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.天姚": {
+      "compared": 873,
+      "equal": 873,
+      "different": 0
+    },
+    "star.华盖": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.天德": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.截路": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    },
+    "star.空亡": {
+      "compared": 873,
+      "equal": 0,
+      "different": 873
+    }
+  },
+  "brightnessCells": {
+    "武曲.寅": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 108
+    },
+    "天相.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "太阳.卯": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "天梁.卯": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "七杀.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "文曲.辰": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 161
+    },
+    "天机.巳": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 108
+    },
+    "紫微.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "破军.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 108
+    },
+    "火星.酉": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 121
+    },
+    "廉贞.戌": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 108
+    },
+    "天府.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "文昌.戌": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 161
+    },
+    "铃星.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 156
+    },
+    "太阴.亥": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 108
+    },
+    "陀罗.亥": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 387
+    },
+    "贪狼.子": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 108
+    },
+    "天同.丑": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 108
+    },
+    "巨门.丑": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 108
+    },
+    "擎羊.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 387
+    },
+    "破军.寅": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 23
+    },
+    "文昌.寅": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 61
+    },
+    "擎羊.卯": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 74
+    },
+    "廉贞.辰": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 23
+    },
+    "天府.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 23
+    },
+    "太阴.巳": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 23
+    },
+    "贪狼.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 23
+    },
+    "铃星.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "天同.未": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 23
+    },
+    "巨门.未": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 23
+    },
+    "武曲.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 23
+    },
+    "天相.申": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 23
+    },
+    "太阳.酉": {
+      "expected": "平",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 23
+    },
+    "天梁.酉": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 23
+    },
+    "七杀.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 23
+    },
+    "火星.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 73
+    },
+    "天机.亥": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 23
+    },
+    "紫微.子": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 23
+    },
+    "文曲.子": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 61
+    },
+    "陀罗.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 74
+    },
+    "铃星.卯": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 65
+    },
+    "文昌.巳": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "火星.未": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 65
+    },
+    "文曲.酉": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "廉贞.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 38
+    },
+    "火星.卯": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 83
+    },
+    "破军.辰": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 38
+    },
+    "天同.巳": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 38
+    },
+    "文曲.巳": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 83
+    },
+    "武曲.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 38
+    },
+    "天府.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 38
+    },
+    "太阳.未": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 38
+    },
+    "太阴.未": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 38
+    },
+    "贪狼.申": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 38
+    },
+    "天机.酉": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 38
+    },
+    "巨门.酉": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 38
+    },
+    "文昌.酉": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 83
+    },
+    "紫微.戌": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 38
+    },
+    "天相.戌": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 38
+    },
+    "天梁.亥": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 38
+    },
+    "铃星.亥": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 83
+    },
+    "七杀.子": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 38
+    },
+    "文曲.寅": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 61
+    },
+    "天府.卯": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 96
+    },
+    "太阴.辰": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 96
+    },
+    "廉贞.巳": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 96
+    },
+    "贪狼.巳": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 96
+    },
+    "巨门.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 96
+    },
+    "天相.未": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 96
+    },
+    "天同.申": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 96
+    },
+    "天梁.申": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 96
+    },
+    "铃星.申": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 59
+    },
+    "武曲.酉": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 96
+    },
+    "七杀.酉": {
+      "expected": "旺",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 96
+    },
+    "太阳.戌": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 96
+    },
+    "天机.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 96
+    },
+    "文昌.子": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 61
+    },
+    "火星.子": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 63
+    },
+    "紫微.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 96
+    },
+    "破军.丑": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 96
+    },
+    "天同.辰": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 104
+    },
+    "文昌.辰": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 65
+    },
+    "铃星.辰": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 63
+    },
+    "武曲.巳": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 104
+    },
+    "破军.巳": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 104
+    },
+    "太阳.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 104
+    },
+    "天府.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 104
+    },
+    "天机.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 104
+    },
+    "太阴.申": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 104
+    },
+    "火星.申": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 71
+    },
+    "紫微.酉": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 104
+    },
+    "贪狼.酉": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 104
+    },
+    "巨门.戌": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 104
+    },
+    "文曲.戌": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 65
+    },
+    "天相.亥": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 104
+    },
+    "天梁.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 104
+    },
+    "廉贞.丑": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 104
+    },
+    "七杀.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 104
+    },
+    "廉贞.卯": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 76
+    },
+    "破军.卯": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 76
+    },
+    "天府.巳": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 76
+    },
+    "火星.巳": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 63
+    },
+    "天同.午": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 76
+    },
+    "太阴.午": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 76
+    },
+    "武曲.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 76
+    },
+    "贪狼.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 76
+    },
+    "文昌.未": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 61
+    },
+    "文曲.未": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 61
+    },
+    "太阳.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 76
+    },
+    "巨门.申": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 76
+    },
+    "天相.酉": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 76
+    },
+    "天机.戌": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 76
+    },
+    "天梁.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 76
+    },
+    "紫微.亥": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 76
+    },
+    "七杀.亥": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 76
+    },
+    "铃星.丑": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 64
+    },
+    "贪狼.寅": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 134
+    },
+    "天机.卯": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 134
+    },
+    "巨门.卯": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 134
+    },
+    "文曲.卯": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 77
+    },
+    "紫微.辰": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 134
+    },
+    "天相.辰": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 134
+    },
+    "天梁.巳": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 134
+    },
+    "七杀.午": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 134
+    },
+    "廉贞.申": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 134
+    },
+    "铃星.酉": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 78
+    },
+    "破军.戌": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 134
+    },
+    "天同.亥": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 134
+    },
+    "文昌.亥": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 77
+    },
+    "武曲.子": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 134
+    },
+    "天府.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 134
+    },
+    "太阳.丑": {
+      "expected": "不",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 134
+    },
+    "太阴.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 134
+    },
+    "火星.丑": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 67
+    },
+    "铃星.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 62
+    },
+    "陀罗.寅": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 43
+    },
+    "擎羊.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 43
+    },
+    "文昌.午": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 60
+    },
+    "文曲.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 60
+    },
+    "紫微.寅": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 54
+    },
+    "天府.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "太阴.卯": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 54
+    },
+    "贪狼.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "火星.辰": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 59
+    },
+    "巨门.巳": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 54
+    },
+    "廉贞.午": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 54
+    },
+    "天相.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "天梁.未": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 54
+    },
+    "七杀.申": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "天同.酉": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 54
+    },
+    "武曲.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "太阳.亥": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 54
+    },
+    "破军.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 54
+    },
+    "天机.丑": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 54
+    },
+    "铃星.未": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 61
+    },
+    "文昌.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "文曲.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "文曲.午": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 63
+    },
+    "文昌.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 63
+    },
+    "铃星.子": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 60
+    },
+    "火星.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 89
+    },
+    "天机.寅": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 60
+    },
+    "太阴.寅": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 60
+    },
+    "紫微.卯": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 60
+    },
+    "贪狼.卯": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 60
+    },
+    "文昌.卯": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 60
+    },
+    "巨门.辰": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 60
+    },
+    "陀罗.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 85
+    },
+    "天相.巳": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 60
+    },
+    "天梁.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "擎羊.午": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 85
+    },
+    "廉贞.未": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 60
+    },
+    "七杀.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "天同.戌": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 60
+    },
+    "武曲.亥": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 60
+    },
+    "破军.亥": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 60
+    },
+    "文曲.亥": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 60
+    },
+    "太阳.子": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 60
+    },
+    "天府.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 60
+    },
+    "太阳.寅": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 69
+    },
+    "巨门.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 69
+    },
+    "天相.卯": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 69
+    },
+    "天机.辰": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 69
+    },
+    "天梁.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 69
+    },
+    "紫微.巳": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 69
+    },
+    "七杀.巳": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 69
+    },
+    "廉贞.酉": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 69
+    },
+    "破军.酉": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 69
+    },
+    "天府.亥": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 69
+    },
+    "天同.子": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 69
+    },
+    "太阴.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 69
+    },
+    "武曲.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 69
+    },
+    "贪狼.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 69
+    },
+    "火星.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 57
+    },
+    "铃星.巳": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 62
+    },
+    "火星.亥": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 62
+    },
+    "陀罗.巳": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 88
+    },
+    "擎羊.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 88
+    },
+    "天同.寅": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 50
+    },
+    "天梁.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 50
+    },
+    "武曲.卯": {
+      "expected": "利",
+      "actualValues": [
+        "利"
+      ],
+      "cases": 50
+    },
+    "七杀.卯": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "太阳.辰": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "天机.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 50
+    },
+    "紫微.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 50
+    },
+    "破军.未": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "天府.酉": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "太阴.戌": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "廉贞.亥": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 50
+    },
+    "贪狼.亥": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 50
+    },
+    "巨门.子": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 50
+    },
+    "天相.丑": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 50
+    },
+    "陀罗.未": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 101
+    },
+    "擎羊.酉": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 101
+    },
+    "陀罗.申": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 46
+    },
+    "擎羊.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 46
+    },
+    "陀罗.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 49
+    },
+    "擎羊.子": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 49
+    },
+    "七杀.寅": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "天同.卯": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 61
+    },
+    "武曲.辰": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "太阳.巳": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 61
+    },
+    "破军.午": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "天机.未": {
+      "expected": "陷",
+      "actualValues": [
+        "陷"
+      ],
+      "cases": 61
+    },
+    "紫微.申": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 61
+    },
+    "天府.申": {
+      "expected": "得",
+      "actualValues": [
+        "得"
+      ],
+      "cases": 61
+    },
+    "太阴.酉": {
+      "expected": "旺",
+      "actualValues": [
+        "不"
+      ],
+      "cases": 61
+    },
+    "贪狼.戌": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "巨门.亥": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 61
+    },
+    "廉贞.子": {
+      "expected": "平",
+      "actualValues": [
+        "平"
+      ],
+      "cases": 61
+    },
+    "天相.子": {
+      "expected": "庙",
+      "actualValues": [
+        "庙"
+      ],
+      "cases": 61
+    },
+    "天梁.丑": {
+      "expected": "旺",
+      "actualValues": [
+        "旺"
+      ],
+      "cases": 61
+    }
+  },
+  "source": "https://zh.wikisource.org/w/index.php?oldid=1963110&title=紫微斗數全書/卷二",
+  "productionHashes": {
+    "ziweiCalculation.ts": "28ce202108cb5ed5a0266d7860a367ad58334b47e7cd448ff491d18a56d6761b",
+    "chartTime.ts": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8"
+  },
+  "sourceHashes": {
+    "fortelBuild": "d3183ce63c52a0b2b4214d88ca02817afd08fd1e288908cb9faf48d5de23fc25",
+    "primaryRules": "5206d5516ce529dfc64076e2732384629ce76328c8b0476f469ab940702f5874",
+    "calendar1900": "ac03fe86905b53f4b74e7ea82e6b30021b1b0c8ad1d6255fa6991b7fd6940807"
+  }
+}

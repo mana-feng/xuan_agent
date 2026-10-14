@@ -1,0 +1,2138 @@
+{
+  "generatedAt": "2026-10-12T18:42:32.701Z",
+  "hostZone": "Asia/Singapore",
+  "counts": {
+    "cases": 4788,
+    "fields": 902676,
+    "equal": 896736,
+    "schoolDifference": 5940,
+    "confirmedRuleMismatch": 0,
+    "unresolved": 0,
+    "domainCases": 12,
+    "domainRejected": 12,
+    "rawFortelPalaceCompared": 19104,
+    "rawFortelPalaceEqual": 18548,
+    "rawFortelPalaceDifference": 556
+  },
+  "groups": {
+    "60-year-cycle": {
+      "cases": 2880,
+      "identical": 557,
+      "schoolOnly": 2323,
+      "mismatch": 0
+    },
+    "60-day-all-hours": {
+      "cases": 780,
+      "identical": 372,
+      "schoolOnly": 408,
+      "mismatch": 0
+    },
+    "calendar-boundary": {
+      "cases": 372,
+      "identical": 120,
+      "schoolOnly": 252,
+      "mismatch": 0
+    },
+    "age-boundary": {
+      "cases": 744,
+      "identical": 102,
+      "schoolOnly": 642,
+      "mismatch": 0
+    }
+  },
+  "coverage": {
+    "decadal": {
+      "stems": [
+        "丁",
+        "丙",
+        "乙",
+        "壬",
+        "己",
+        "庚",
+        "戊",
+        "甲",
+        "癸",
+        "辛"
+      ],
+      "branches": [
+        "丑",
+        "亥",
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "巳",
+        "戌",
+        "未",
+        "申",
+        "辰",
+        "酉"
+      ],
+      "palaces": [
+        0,
+        1,
+        10,
+        11,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "yearly": {
+      "stems": [
+        "丁",
+        "丙",
+        "乙",
+        "壬",
+        "己",
+        "庚",
+        "戊",
+        "甲",
+        "癸",
+        "辛"
+      ],
+      "branches": [
+        "丑",
+        "亥",
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "巳",
+        "戌",
+        "未",
+        "申",
+        "辰",
+        "酉"
+      ],
+      "palaces": [
+        0,
+        1,
+        10,
+        11,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "monthly": {
+      "stems": [
+        "丁",
+        "丙",
+        "乙",
+        "壬",
+        "己",
+        "庚",
+        "戊",
+        "甲",
+        "癸",
+        "辛"
+      ],
+      "branches": [
+        "丑",
+        "亥",
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "巳",
+        "戌",
+        "未",
+        "申",
+        "辰",
+        "酉"
+      ],
+      "palaces": [
+        0,
+        1,
+        10,
+        11,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "daily": {
+      "stems": [
+        "丁",
+        "丙",
+        "乙",
+        "壬",
+        "己",
+        "庚",
+        "戊",
+        "甲",
+        "癸",
+        "辛"
+      ],
+      "branches": [
+        "丑",
+        "亥",
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "巳",
+        "戌",
+        "未",
+        "申",
+        "辰",
+        "酉"
+      ],
+      "palaces": [
+        0,
+        1,
+        10,
+        11,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "hourly": {
+      "stems": [
+        "丁",
+        "丙",
+        "乙",
+        "壬",
+        "己",
+        "庚",
+        "戊",
+        "甲",
+        "癸",
+        "辛"
+      ],
+      "branches": [
+        "丑",
+        "亥",
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "巳",
+        "戌",
+        "未",
+        "申",
+        "辰",
+        "酉"
+      ],
+      "palaces": [
+        0,
+        1,
+        10,
+        11,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  "fieldStats": {
+    "age.nominalAge": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "calendar.solarDate": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "calendar.lunarYear": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "calendar.lunarMonth": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "calendar.lunarDay": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "calendar.isLeap": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "age.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.stem": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.branch": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.mutagen.禄": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.mutagen.权": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.mutagen.科": {
+      "compared": 4776,
+      "equal": 3814,
+      "schoolDifference": 962,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.mutagen.忌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.禄存": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.天魁": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.天钺": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.文昌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.文曲": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.擎羊": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.陀罗": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.天马": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.红鸾": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "decadal.star.天喜": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.stem": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.branch": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.mutagen.禄": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.mutagen.权": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.mutagen.科": {
+      "compared": 4776,
+      "equal": 3716,
+      "schoolDifference": 1060,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.mutagen.忌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.禄存": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.天魁": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.天钺": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.文昌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.文曲": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.擎羊": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.陀罗": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.天马": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.红鸾": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.天喜": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.star.年解": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.suiqian12.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "yearly.jiangqian12.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.stem": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.branch": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.mutagen.禄": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.mutagen.权": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.mutagen.科": {
+      "compared": 4776,
+      "equal": 3888,
+      "schoolDifference": 888,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.mutagen.忌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.禄存": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.天魁": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.天钺": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.文昌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.文曲": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.擎羊": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.陀罗": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.天马": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.红鸾": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "monthly.star.天喜": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.stem": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.branch": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.mutagen.禄": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.mutagen.权": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.mutagen.科": {
+      "compared": 4776,
+      "equal": 3358,
+      "schoolDifference": 1418,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.mutagen.忌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.禄存": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.天魁": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.天钺": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.文昌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.文曲": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.擎羊": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.陀罗": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.天马": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.红鸾": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "daily.star.天喜": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.index": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.stem": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.branch": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.子": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.丑": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.寅": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.卯": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.辰": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.巳": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.午": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.未": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.申": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.酉": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.戌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.palace.亥": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.mutagen.禄": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.mutagen.权": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.mutagen.科": {
+      "compared": 4776,
+      "equal": 3164,
+      "schoolDifference": 1612,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.mutagen.忌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.禄存": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.天魁": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.天钺": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.文昌": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.文曲": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.擎羊": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.陀罗": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.天马": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.红鸾": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    },
+    "hourly.star.天喜": {
+      "compared": 4776,
+      "equal": 4776,
+      "schoolDifference": 0,
+      "confirmedRuleMismatch": 0,
+      "unresolved": 0
+    }
+  },
+  "manifest": [
+    {
+      "file": "frontend-docker/src/store/ziwei.ts",
+      "sha256": "63fbcd5c1bcb4437513951bb09bd4bba80c57a56d884d5ddbcbc39af29046611"
+    },
+    {
+      "file": "frontend-docker/src/utils/ziweiCalculation.ts",
+      "sha256": "fd45ef08fe7baa85cc965f49751e43b6a6410a86551a7e7b5010d09bc84023b3"
+    },
+    {
+      "file": "frontend-docker/src/utils/chartTime.ts",
+      "sha256": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8"
+    },
+    {
+      "file": "frontend-docker/src/utils/ziweiHoroscope.ts",
+      "sha256": "ba45c6ad54db74552b1ffceb51ccbaf860e562fd9f961b42dc86c681c5c7cb01"
+    },
+    {
+      "file": "frontend-docker/src/utils/ziweiTimelineDates.ts",
+      "sha256": "56351ec9445ee29c1d1c48d638f2730773156530d5b3b1e3203c85bab9be033e"
+    },
+    {
+      "file": "frontend-docker/src/pages/ziwei/components/Timeline.nvue",
+      "sha256": "e79e0feb3a53eadc25b2b60af1d7f7c6dfee39f2f99f1c6aa921b35b8ff82f78"
+    },
+    {
+      "file": "docs/algorithm-benchmark-2026-10-13/ziwei-flows/oracle.cjs",
+      "sha256": "788f54c5e3558ad0a5166dc345df17c6d863a68a5141e65698af32bc8588e619"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/src/model/runtime.ts",
+      "sha256": "7f05456825713aa463af8c2342f29597610ccbd9a923903d16b77fc9db0d13ab"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/src/model/minorStar.ts",
+      "sha256": "1ab514859e4c6e9e47fd3449d23506dad6646403445bc374eec65112951fffc5"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/src/model/destinyBoard.ts",
+      "sha256": "69e5d6a75d43a705fbdea9d0bb5c4c00cda14b66c7d27ed73be79b0a591cdde2"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/calendar/calender.js",
+      "sha256": "2b488ae7408e1a353d9ea7a591a711f44f84f4ae181c3ceb6a49c88d17b0dcb9"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/calendar/defaultCalendar.js",
+      "sha256": "109557ce573c1c03054061aa260e07a77aef7ff99c47bc88417b475e9dd80743"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/calendar/jjonline/js-calendar-converter/calendar.js",
+      "sha256": "7b70862232c60b52ec05744e864d733251290b18b5a1c863b25539be07f288f1"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/criteria/boardCriteria.js",
+      "sha256": "1eb277728b4cadf650c8d857cff77050d218ea9242983631c5934e4375881441"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/main.js",
+      "sha256": "d3183ce63c52a0b2b4214d88ca02817afd08fd1e288908cb9faf48d5de23fc25"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/cell.js",
+      "sha256": "2fa91136b3dcc110bec2b332a2137ea43dbf2ecafa253e558c72685cff651dc9"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/dayTimeGround.js",
+      "sha256": "ba43b0cb2a03be47f443a8e94f6b44d195b289279c227b926415d31d46410406"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/destinyBoard.js",
+      "sha256": "b8ba997a02e1d770ff1a5461015b2a61b6f7df1cf9957b6440a161570fde412d"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/destinyConfig.js",
+      "sha256": "32a3dbb8e968fe90ffe538b7e33cc5f5b8d24c683928cc4daf730847a92e5b8b"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/ground.js",
+      "sha256": "9de1bf9cf713dfd2ef55f1e4708a4a167bc3cfa9e40e957989ebc9978fdb9c8d"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/lifeStage.js",
+      "sha256": "89213c15216dbaddd7648765b23963ac6481aaf862f82490775e20b75319eaf5"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/majorStar.js",
+      "sha256": "01ede76cf9abb4a113c9d38a6c910f19e0ae044697d86527bf0a90323b3d95d5"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/miniStar.js",
+      "sha256": "7f196afcd694e7a30f13441f508dc1fba72ca2dc232a02f4252de208088298e3"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/minorStar.js",
+      "sha256": "c29a894113a25e53e2b3cb9d5cd6d630ae97e0d50009c27d934b377a7c6dd7bc"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/miscEnums.js",
+      "sha256": "e8df8302789dabccd5902ae46539b9490949d8cb707c46da24b412756780e0bf"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/runtime.js",
+      "sha256": "6e2134b1b8da566b5bc2a63e5da845cd7efdfc312fd1f5e56fddab817733a7be"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/sky.js",
+      "sha256": "caa03e9e3ad6b1e1bc4c57d9089917f66298a2e21475ef05f973749a9e1e67a6"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/star.js",
+      "sha256": "828b1435187c4267cf5b8c2f60721f44476dcecd305df79fb6546d54fcf8b793"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/starDerivative.js",
+      "sha256": "8efd51c3fa6b19bb164e993aaa4bbb612e9a47c478b6a1f3ccf14b6864b705cf"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/model/temple.js",
+      "sha256": "a3e93b32ee2f7b60cd628092c92defa6fc1b7216c5b6be0e843c62ced384e5c3"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/util/destinyConfigBuilder.js",
+      "sha256": "115a6213c6f7da0ff16a9f9870be08e09c748da3f730eba1b1a252703d31c608"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/util/destinyConfigTextParser.js",
+      "sha256": "24002c1bbc0654b22e50ae605bb960d9b2f3d8c0f4e4fe1e6197f05e17cb9ba0"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/util/starUtil.js",
+      "sha256": "11e87c45e381f0b47f3b15fbf892c2bc2397dec03b8592f96766ac41806764c7"
+    },
+    {
+      "file": ".local-dev/ziwei-benchmark/package/build/utils.js",
+      "sha256": "0d223c4f176be84d4fa6bb87a646ddf2cc1461f10797fd39ca6e249321675995"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/analyzer.js",
+      "sha256": "ce88ebcac850ff6810678b783b0ffba12e762b6dc0f42653be57ad30e043e865"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/astro.js",
+      "sha256": "b829b0c141af31ce85f3b54b847a6804e6d3a342843b17184b0e763fd40136a5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/FunctionalAstrolabe.js",
+      "sha256": "843f55ba39e20107bb00e83f26116ceb3281d88f092081e1d4bb1a9e0e5ab5fc"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/FunctionalHoroscope.js",
+      "sha256": "2a2b4671460d1e05aec67b6f58e4feed30fee3909c5c9834991d50c03f5e4506"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/FunctionalPalace.js",
+      "sha256": "f9be5552443820ec31f20a4848c25d65dab4d2375b0994b94efcf7447db3b4a1"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/FunctionalSurpalaces.js",
+      "sha256": "1445eb745dd8196fb56279896dad1354cbad5a4e87c26e188eeff337b14a3699"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/index.js",
+      "sha256": "5bfb8bcbfe48ad29f897e874ae234f85c21a21454b77a2eaf96f31fddc8f08e5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/astro/palace.js",
+      "sha256": "e8473fcb49ab2da101633b6ab4db1faa09b538735cf6bb74c781bfaa59e06ac6"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/convertor.js",
+      "sha256": "9f6de9a3021f9ba1d91cc39ed62166ae8326523df8146bafb287f2aabcf0d10b"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/days.js",
+      "sha256": "7842bf44f18572ff658a2aacb407a7e1bee6b38adff2d687713c104894c0cf6a"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/heavenlyStemAndEarthlyBranch.js",
+      "sha256": "16600ad7ec00d3694eb26f8945d432fe31800835f5e32ff2c3607322d5743210"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/index.js",
+      "sha256": "c8957125e6f1074e92eb4bd5c7651d3f88797183e1ac4dd21bc5ce57e9e3216e"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/leap.js",
+      "sha256": "fcf5c8293276d6cf73062706a85033088c127f7fb314f071446d15a137d711b5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/misc.js",
+      "sha256": "519892d1767928d395902cc51743950a1531b7a8bdca5b328c11180b45f9bb0b"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/rules/constants.js",
+      "sha256": "0b0fd950ae5c9facfaace65dcc084fa30521ac0b6e065a8037627e378571c887"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/rules/index.js",
+      "sha256": "0aee02de0cb842290f4e892609d0b4b43d0c29cc89b2c248d7f01ccaa77d2462"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/rules/lunarInfo.js",
+      "sha256": "57736d36516fd78d84c0644362aafeb78b8ea4d41d677e4c50d4624fd49b7e88"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/calendar/rules/solarTermInfo.js",
+      "sha256": "b46bc16a82ce5a83a3e04b36e85b1595dc872e574adb67923be1f48b6b673d27"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/constants.js",
+      "sha256": "8dba02dee9608136b97c98d82db9cc6635d700383ef049191ca619eb147dfa8f"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/earthlyBranches.js",
+      "sha256": "010ebb6525d01221e65beac172051b6ad5502d65d936912092f452d68c87fc52"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/heavenlyStems.js",
+      "sha256": "4eb6ee5e3a09db4ede931053de526ab258d0d76908922a1f980d7f996f226191"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/index.js",
+      "sha256": "912b211f4d75033507d493af61371a72d4e36940b797b78ebf450d13214ddf65"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/stars.js",
+      "sha256": "5beaa7a3827cb1db422d9fcbe1f1d479bf7a4b6ccfe159ab5ea608d2c6d46b36"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/astro.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/calendar.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/general.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/index.js",
+      "sha256": "a62208924cdaa6fc982496b084056e72b4a28634639bab63d04a90d8854e366c"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/palace.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/data/types/star.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/index.js",
+      "sha256": "d6eb78d5e9a63bb9d731ccd27aa5b5935d215f2f5efc6f324b975158f8e627d5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/brightness.js",
+      "sha256": "c5059329527a67278c8af634074ea61b9570e96fcda866d2d1d27ce7074a34fc"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/earthlyBranch.js",
+      "sha256": "5f03d1a5425b313d1c2b026d5e26ca16e0a477da4512d119ec3d09580141b9dd"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/fiveElementsClass.js",
+      "sha256": "974094cc7afa5ec327a376677e7b897619906964462f3d093b8f8416b9311ffe"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/gender.js",
+      "sha256": "af0f522ea13020d83bd99db8cd61eb2aea2a34d3403f9647092a2ff7cdd5d54a"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/heavenlyStem.js",
+      "sha256": "b301760a1c783b48f372bdcef3a32a4e23b236c2c08fc670f7e3d4636cee1f97"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/mutagen.js",
+      "sha256": "c38316f1759cfa0e806659895e5359fd4bab3ae55ce44216d9fb37e009d98f13"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/palace.js",
+      "sha256": "8b1b21d922b0609fdd27fc5d9f5cc012d6245bf94e5c6df2e771078f7451b72c"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/en-US/star.js",
+      "sha256": "4f5adba13a76b5374e43a8422297574a9145ef1365b0f60720fc266cbfd7a47c"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/brightness.js",
+      "sha256": "5c39071760172a930b2aef7df785eae9c8353fc754f8883c801ca54854682661"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/earthlyBranch.js",
+      "sha256": "f39a5def33fc835b1f9f4895b8eed887e343954eb80468eaec66017523c948f5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/fiveElementsClass.js",
+      "sha256": "b78ab98e6d556c4a8bff80275f68a021fc60ecaea978b9f567d4db6d82fe680e"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/gender.js",
+      "sha256": "91f64d7773eabae2f83c3d6dfca19286474f8ab1743c474763263a75b099a760"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/heavenlyStem.js",
+      "sha256": "04db242a4587d51dfaaabbd7264f2330774bcbde052cd91e68c03149a7d22e77"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/mutagen.js",
+      "sha256": "4870a4f9d20b406bbc2cad798fb4dda0b2e5b6759b490b390571b6fc725353df"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/palace.js",
+      "sha256": "f3b84fb931c6f31e5616af6d0f428d9bbf4e91d6217a2f659ca388b4d75a9214"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ja-JP/star.js",
+      "sha256": "c5e9cbd416c4aee725124f65b8a443d8c01611671cbdc0bd395459025a52a284"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/brightness.js",
+      "sha256": "c5059329527a67278c8af634074ea61b9570e96fcda866d2d1d27ce7074a34fc"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/earthlyBranch.js",
+      "sha256": "83e4102fe0f5653fcc30ed9fc4447ae748b127fca796d7f29892136c5912f823"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/fiveElementsClass.js",
+      "sha256": "b38bbf13322aa79fbbd28cbc48668ca43616647c0eb96d5c5d2ceedb9cf696f1"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/gender.js",
+      "sha256": "3e705bd2db64d02c872a7ad99ad1579e112ce4da4392da4fcc94bcb8029f57ce"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/heavenlyStem.js",
+      "sha256": "8037aa5982cf9f413602a880e89067cdd62aa649baafb2b1c56c2758945f360f"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/mutagen.js",
+      "sha256": "3431a861b0581904e65dda5b3da68478dcf25bc453c1ef2965dd832bf9d44278"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/palace.js",
+      "sha256": "25b902caa325c740fe90d30eaf87d1a8dd0cafa2873e386cfcdb0ab9f4359011"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/ko-KR/star.js",
+      "sha256": "f35f4c9996406016b6af4fea7bdea442a2fd8c45e1f96061eed6f4152a6d23d7"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/brightness.js",
+      "sha256": "9aefdbdbec3bc988bb3fb0f313800a4c80212ab5e3734aac0728bcee1ad1fa84"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/earthlyBranch.js",
+      "sha256": "fbed5e73a9d67585cfd75b3776e044018c676f158a563475c0a08150d0386523"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/fiveElementsClass.js",
+      "sha256": "ac73d267933a33a00bad58812783d719ed97f2bb4143d9d0fecec130731aa4fc"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/gender.js",
+      "sha256": "ab17a2fe31028bce5d70d2b93a57afcd7d634a93ded897a97e6d8722b776950f"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/heavenlyStem.js",
+      "sha256": "b1e9176e787909a5c960ee7896836d5204af82565baac99c801caa10ca0c8cd5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/mutagen.js",
+      "sha256": "51b7a10061b38111c018319ece68e8680834677efe589bed6a8d3e147ae8b483"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/palace.js",
+      "sha256": "10c987bfe3ae5f69c3ea7c656f4403070d1cf0da654a891c58d596efdc43b9b9"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/vi-VN/star.js",
+      "sha256": "bf3c85b28d7cb624f21be0bfb9d9208b704a0f5fab9ad5d6f45fd9567ecf2e38"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/brightness.js",
+      "sha256": "734c7aaebafebf7fed115d1d11a58f96e803aa284986021cdaf2faa3e4739784"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/earthlyBranch.js",
+      "sha256": "f39a5def33fc835b1f9f4895b8eed887e343954eb80468eaec66017523c948f5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/fiveElementsClass.js",
+      "sha256": "0e5a91ccfeb633d2513a3e4dd0bf010e4c31a743eade0c92fec9f89dcbf372ae"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/gender.js",
+      "sha256": "91f64d7773eabae2f83c3d6dfca19286474f8ab1743c474763263a75b099a760"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/heavenlyStem.js",
+      "sha256": "04db242a4587d51dfaaabbd7264f2330774bcbde052cd91e68c03149a7d22e77"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/mutagen.js",
+      "sha256": "82d7be132cffc5108367cd09eef151282bbdf8cab1e9342736267ada343c9383"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/palace.js",
+      "sha256": "dbc52381eaafbb3e195bf5df65bfddcff6f4d4d391fbb20dfcb02380f738a90e"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-CN/star.js",
+      "sha256": "6cdb514e2f95471b5caeb6a4b55858e1ca872488d82b0d8afae1119c64cca7a3"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/brightness.js",
+      "sha256": "5c39071760172a930b2aef7df785eae9c8353fc754f8883c801ca54854682661"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/earthlyBranch.js",
+      "sha256": "f39a5def33fc835b1f9f4895b8eed887e343954eb80468eaec66017523c948f5"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/fiveElementsClass.js",
+      "sha256": "0e5a91ccfeb633d2513a3e4dd0bf010e4c31a743eade0c92fec9f89dcbf372ae"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/gender.js",
+      "sha256": "91f64d7773eabae2f83c3d6dfca19286474f8ab1743c474763263a75b099a760"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/heavenlyStem.js",
+      "sha256": "04db242a4587d51dfaaabbd7264f2330774bcbde052cd91e68c03149a7d22e77"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/index.js",
+      "sha256": "a5d32e131dd05a27f871f1f3f577d25354af37047ad34df252b3cef46036e118"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/mutagen.js",
+      "sha256": "4870a4f9d20b406bbc2cad798fb4dda0b2e5b6759b490b390571b6fc725353df"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/palace.js",
+      "sha256": "f3b84fb931c6f31e5616af6d0f428d9bbf4e91d6217a2f659ca388b4d75a9214"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/locales/zh-TW/star.js",
+      "sha256": "ad7385550d90a6cb881d1cf4fb2214f1dd031c5100c850dc2ba2cf6cbb0430b4"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/Brightness.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/EarthlyBranch.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/FiveElementsClass.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/Gender.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/HeavenlyStem.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/index.js",
+      "sha256": "7978e55f5c9539918eaa65853d96b8c9a8e9166873b23425615112c7f7bffb24"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/mutagen.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/Palace.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/i18n/types/Star.js",
+      "sha256": "d43aa81f5bc89faa359e0f97c814ba25155591ff078fbb9bfd40f8c7c9683230"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/index.js",
+      "sha256": "10ab83d0ebfe3e5b335589767f4851034e1cf029c7ca7cbc231c22b562c7e4fb"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/adjectiveStar.js",
+      "sha256": "e4d3a933feb983dbc9ae9d52e22023827b0eed5b67977042628c6cb7f48c5303"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/decorationStar.js",
+      "sha256": "7325d3475a9d0d72a7bb0bce43d6e4aeba9628ba7e28df2c937cc9afc3f4fc55"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/decorativeStar.js",
+      "sha256": "9dbc2f3fa75291e4eafb369eeffd958ceee88c06aa1ede59ed59f5fab4fa41fe"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/FunctionalStar.js",
+      "sha256": "bb913dfc36ac9b9e16d147df1d175f3ddde0ebf93da37230d2cd10201411ab4b"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/horoscopeStar.js",
+      "sha256": "f3f06b8f0f840089cc606b45e3a6e02fc78ddfaa74e912157aaf5b31c15a5faa"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/index.js",
+      "sha256": "2d9843a0929cacf7c18c3c479963a12616940c24fb655020257e77643c2b125d"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/location.js",
+      "sha256": "f1948b44eb25608edd2ba5eb5ce58d31db1a54a5d760600e05b4dd1948ca7d2d"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/majorStar.js",
+      "sha256": "2cd962d04bf474ca57233a2ef2c087d7dfbfe4b0f0e05eb0ed4788223a444de1"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/minorStar.js",
+      "sha256": "75bf50b51809cc08de226803fe3bc9943199e9365fe4428474897c2c1788a3bf"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/star/star.js",
+      "sha256": "b3a961c00f3fcf732e59bddea8ec46838a1a5046bba099b6c22323759e49c3d9"
+    },
+    {
+      "file": "frontend-docker/node_modules/iztro/lib/utils/index.js",
+      "sha256": "a8cf90cede5d5200d6d8d9686254a99f0ec495ffdbf8c6487919c3e7ed7fa732"
+    }
+  ]
+}

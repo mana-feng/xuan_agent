@@ -1,0 +1,2712 @@
+[
+  {
+    "sample": {
+      "id": "birth-1-0/2071-06-15 12:00",
+      "birth": {
+        "id": "birth-1-0",
+        "civil": "1952-01-15 00:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2071-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 11,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "太阴",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-1-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-1-0",
+        "civil": "1952-01-15 00:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 0,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "夫妻",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "兄弟",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "命宫",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "父母",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "福德",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "田宅",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "官禄",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "仆役",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "迁移",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "疾厄",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "财帛",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "子女",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "太阴",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-1-1/2071-06-15 12:00",
+      "birth": {
+        "id": "birth-1-1",
+        "civil": "1952-01-15 00:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2071-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 11,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "太阴",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-1-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-1-1",
+        "civil": "1952-01-15 00:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 10,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "命宫",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "父母",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "福德",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "田宅",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "官禄",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "仆役",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "迁移",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "疾厄",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "财帛",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "子女",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "夫妻",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "兄弟",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "太阴",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-2-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-2-0",
+        "civil": "1952-02-15 02:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-2-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-2-1",
+        "civil": "1952-02-15 02:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-3-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-3-0",
+        "civil": "1952-03-15 04:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-3-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-3-1",
+        "civil": "1952-03-15 04:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-4-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-4-0",
+        "civil": "1952-04-15 06:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-4-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-4-1",
+        "civil": "1952-04-15 06:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-5-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-5-0",
+        "civil": "1952-05-15 08:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-5-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-5-1",
+        "civil": "1952-05-15 08:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-6-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-6-0",
+        "civil": "1952-06-15 10:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-6-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-6-1",
+        "civil": "1952-06-15 10:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-7-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-7-0",
+        "civil": "1952-07-15 12:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-7-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-7-1",
+        "civil": "1952-07-15 12:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "decadal.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-8-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-8-0",
+        "civil": "1952-08-15 14:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-8-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-8-1",
+        "civil": "1952-08-15 14:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-9-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-9-0",
+        "civil": "1952-09-15 16:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-9-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-9-1",
+        "civil": "1952-09-15 16:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-10-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-10-0",
+        "civil": "1952-10-15 18:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-10-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-10-1",
+        "civil": "1952-10-15 18:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-11-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-11-0",
+        "civil": "1952-11-15 20:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-11-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-11-1",
+        "civil": "1952-11-15 20:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-12-0/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-12-0",
+        "civil": "1952-12-15 22:30",
+        "gender": 0,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  },
+  {
+    "sample": {
+      "id": "birth-12-1/2072-06-15 12:00",
+      "birth": {
+        "id": "birth-12-1",
+        "civil": "1952-12-15 22:30",
+        "gender": 1,
+        "timeZone": "Asia/Shanghai",
+        "offset": "+08:00"
+      },
+      "target": "2072-06-15 12:00",
+      "group": "age-boundary"
+    },
+    "differences": [
+      {
+        "field": "age.index",
+        "expected": 8,
+        "actual": -1,
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.子",
+        "expected": "福德",
+        "actual": "兄弟",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.丑",
+        "expected": "田宅",
+        "actual": "命宫",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.寅",
+        "expected": "官禄",
+        "actual": "父母",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.卯",
+        "expected": "仆役",
+        "actual": "福德",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.辰",
+        "expected": "迁移",
+        "actual": "田宅",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.巳",
+        "expected": "疾厄",
+        "actual": "官禄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.午",
+        "expected": "财帛",
+        "actual": "仆役",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.未",
+        "expected": "子女",
+        "actual": "迁移",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.申",
+        "expected": "夫妻",
+        "actual": "疾厄",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.酉",
+        "expected": "兄弟",
+        "actual": "财帛",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.戌",
+        "expected": "命宫",
+        "actual": "子女",
+        "classification": "unresolved"
+      },
+      {
+        "field": "age.palace.亥",
+        "expected": "父母",
+        "actual": "夫妻",
+        "classification": "unresolved"
+      },
+      {
+        "field": "yearly.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      },
+      {
+        "field": "daily.mutagen.科",
+        "expected": "天府",
+        "actual": "左辅",
+        "classification": "documented-sihua-school"
+      }
+    ],
+    "rawFortelPalaceDifferences": []
+  }
+]

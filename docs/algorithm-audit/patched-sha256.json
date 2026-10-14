@@ -1,0 +1,30 @@
+[
+  {
+    "file": "bamen.js",
+    "sha256": "e19b741a74980af11bdff8f256e91c282807b915d2a699607c96bcf3b43f4841"
+  },
+  {
+    "file": "bashen.js",
+    "sha256": "7f054df4e8a380dee69c5490d4a93bf780b7043511fd7d684f9c4d2cc63e9f64"
+  },
+  {
+    "file": "constants.js",
+    "sha256": "a2f9aa6a636e7944751cc8f17f5a2ef6163711eb594b5da5b14b31204eb55cb3"
+  },
+  {
+    "file": "dipan.js",
+    "sha256": "6c37aa6242f4739e506d9183980db580a7f72c44a9f30a65c0f0000c1b9f8635"
+  },
+  {
+    "file": "jieduan.js",
+    "sha256": "40ae12b9c8028861a91d4ad9c073f71e7accf477c9a048cb34b754aa8fafe1ae"
+  },
+  {
+    "file": "jiuxing.js",
+    "sha256": "f1f52bb712104aad4e5f25adcc8f3ba78a38fe412ff89580cacc85b673934a38"
+  },
+  {
+    "file": "qimen.js",
+    "sha256": "b80c2e42a12a4c59e1818b5c43da86e6b646e7802f4d610b0c2bc7ea65719643"
+  }
+]

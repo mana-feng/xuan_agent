@@ -1,0 +1,66 @@
+{
+  "checkedAt": "2026-10-13",
+  "baseline": {
+    "name": "fortel-ziweidoushu",
+    "version": "1.3.4",
+    "path": ".local-dev/ziwei-benchmark/package",
+    "repository": "https://github.com/airicyu/fortel-ziweidoushu",
+    "declaredGitCommit": "39584e11ad9ddb124bd4b337a3b148c2f0b25611",
+    "mutationPolicy": "Unmodified npm runtime. Source hashes in summary.json. The expected side never imports iztro, lunar-lite or product helpers.",
+    "rawRuntimeDifference": "getRuntimContext treats target leap months differently from the selected profile: month soul uses unadjusted lunarMonth, day soul additionally advances by the preceding regular month length. Its childhood ten-year lookup uses natal palace instead of the explicit childhood sequence. Raw API differences remain in all-results.jsonl.gz; they are not silently corrected."
+  },
+  "primarySources": [
+    {
+      "id": "sxtwl",
+      "title": "sxtwl_cpp：寿星天文历 C++ 实现及 Python 接口",
+      "url": "https://github.com/yuangu/sxtwl_cpp",
+      "locations": "README description and installed sxtwl 2.0.6 interface: fromSolar/fromLunar/getLunarMonthNum/getDayGZ",
+      "use": "Independent astronomical calendar for every selected date after Fortel's calendar ceiling, plus supported birth years 1900/2099 and their twelve decade starts/final endpoint. Injected through Fortel's public calendar parameter; the npm package remains unchanged. No future comparison is silently skipped."
+    },
+    {
+      "id": "cust-19",
+      "title": "翁彩瓊教學講義：紫微斗數命盤步驟二十至二十八",
+      "url": "https://cc.cust.edu.tw/~wtcbee/index.files/teaching/98-2/Geomancy2/lesson/19.pdf",
+      "locations": "PDF page 8 (zero-based 7), explicit 天魁/天鉞 table; pages 12 and 14, four transformations",
+      "use": "Independent published table supports Xin stem: Tian Kui at Wu and Tian Yue at Yin, matching the unmodified npm package and product. The older declared Git source swaps these two. Page 6 prose also conflicts with its own table for some stems, so the table is cited precisely, not presented as a universally uncontested edition."
+    },
+    {
+      "id": "cust-21",
+      "title": "翁彩瓊教學講義：紫微斗數命盤步驟",
+      "url": "https://cc.cust.edu.tw/~wtcbee/index.files/teaching/98-1/Geomancy2/lesson/21",
+      "locations": "PDF pages 15-20, annual Dou Jun and annual Wen Chang",
+      "use": "Independent teaching source for reverse birth-month / forward birth-hour Dou Jun and the stem-dependent Wen Chang table."
+    },
+    {
+      "id": "jingcheng-ch10",
+      "title": "紫微斗数精成 第10章 大限流年流月流日流时",
+      "url": "https://www.chinazwds.com/Home/ArticleDetails/04d006ad219044a4bb44fe28c3e8a009",
+      "locations": "第五节 paragraphs 1-4",
+      "use": "Book text: advance one palace per lunar month, one per day from the monthly soul, and one per hour from the daily soul. Runtime auxiliary stars follow the corresponding stem/branch."
+    },
+    {
+      "id": "quanshu-2",
+      "title": "紫微斗數全書 卷二",
+      "url": "https://zh.wikisource.org/zh-hant/紫微斗數全書/卷二",
+      "locations": "安十二宮例; 起五行寅例; 安天馬; 安祿存; 安擎羊陀羅; 安祿權科忌",
+      "use": "Original public-domain rule text: palace order, five-tiger stem progression and auxiliary-star positions. This edition's Xin noble-star wording and Ren transformation differ from other tables, so source variants are retained."
+    },
+    {
+      "id": "xiaoxian-association",
+      "title": "中華民國紫微斗數協會：流年、小限",
+      "url": "https://qqqtseng.pixnet.net/blog/posts/9468359501",
+      "locations": "2019-09-03, paragraph listing the four birth-branch groups",
+      "use": "Publisher's rule explanation for Xiaoxian: Yin-Wu-Xu starts Chen, Shen-Zi-Chen starts Xu, Si-You-Chou starts Wei, Hai-Mao-Wei starts Chou; male forward, female backward. Twelve-year cycle has no 120-year truncation."
+    }
+  ],
+  "explicitProfile": {
+    "calendar": "Fortel's independent jjonline solar/lunar conversion, checked against product returned lunar-date text",
+    "yearAgeBoundary": "Lunar new year, not solar Jan 1 or Li Chun",
+    "lateZi": "23:00 advances the entire selected civil date; the rule was already explicitly declared in ZIWEI_RULES",
+    "leapMonth": "Effective month advances after lunar day 15; this configured convention is applied to the cited Dou Jun formula. It is not claimed that Fortel raw runtime agrees on leap-day placement.",
+    "hourStem": "Five-rat progression from independent day stem; hours advance by one branch",
+    "childhood": "Before first bureau age: age 1 Ming, 2 Wealth, 3 Health, 4 Spouse, 5 Happiness, 6 Career. Explicit engine convention, separately distinguished from Fortel raw runtime.",
+    "mutagenSchool": "Raw Fortel table retained. Product differs only at Hua Ke for Wu (Sun vs Right Assistant), Geng (Treasury vs Moon), Ren (Treasury vs Left Assistant). These are separately counted, never labelled exact agreement.",
+    "selectionTimezone": "Timeline Date selects device civil date/hour; changing birth timezone must not reinterpret the selected date as an instant in the birth zone."
+  }
+}

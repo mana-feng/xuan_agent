@@ -1,0 +1,101 @@
+{
+  "capturedAtUTC": "2026-10-12T18:32:44.368785+00:00",
+  "jplAndLibraries": {
+    "ephemeris": "NASA JPL DE440s",
+    "ephemerisUrl": "https://ssd.jpl.nasa.gov/ftp/eph/planets/bsp/de440s.bsp",
+    "ephemerisSha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+    "definition": "Earth geocenter observes apparent Sun, light-time/aberration/deflection applied, true ecliptic and equinox of date, longitude multiple of 15 degrees.",
+    "timeScale": "Search TT/TDB; output UTC via leap seconds. TT-UTC=69.184 s throughout 2026, IERS Bulletin C72.",
+    "leapSecondAuthority": "https://hpiers.obspm.fr/iers/bul/bulc/bulletinc.72",
+    "packages": {
+      "skyfield": "1.54",
+      "jplephem": "2.24",
+      "numpy": "2.4.2",
+      "sgp4": "2.25",
+      "certifi": "2026.7.22"
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "requestedRootBracketSeconds": 0.000864,
+    "accuracyCaution": "Search precision is not absolute ephemeris/model accuracy. Full-vs-2000B is a sensitivity check, not an independent ephemeris."
+  },
+  "externalRepositories": {
+    "atopx/qimen": {
+      "commit": "8eb06d007d4a5fcc5352d9054f81469e5f023f45",
+      "statusPorcelain": ""
+    },
+    "kentang2017/kinqimen": {
+      "commit": "127ead87aa24a74d40c893a5351e22a1a89d0945",
+      "statusPorcelain": ""
+    },
+    "deminzhang/qimen-go": {
+      "commit": "4d3f58fa0f401b5b3a337f119138e99e90685dda",
+      "statusPorcelain": ""
+    },
+    "SpenserCai/qimen-rs": {
+      "commit": "c4e7fb140402245a3dc3409b362d6ccaad60755b",
+      "statusPorcelain": ""
+    }
+  },
+  "sha256": {
+    ".local-dev/qimen-astronomy/de440s.bsp": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+    ".local-dev/qimen-astronomy/sxtwl-2.0.6.tar.gz": "d00e3091f05767d5914bc31fef2b012790edb1d6728c967ddb18c164e67e86ff",
+    ".local-dev/qimen-astronomy/sxtwl-2.0.6/src/eph.cpp": "03cdbba2733830df3b38cf8cd8967b5ff6f339a31a6f562141049a5ac1f82a6f",
+    "frontend-docker/vendor/qfdk-qimen/lib/qimen.js": "b80c2e42a12a4c59e1818b5c43da86e6b646e7802f4d610b0c2bc7ea65719643",
+    "frontend-docker/vendor/qfdk-qimen/lib/bamen.js": "e19b741a74980af11bdff8f256e91c282807b915d2a699607c96bcf3b43f4841",
+    "frontend-docker/src/utils/qimenCalculation.ts": "9ddd37fd8e11119d6beaff66dbaab303af3060bbd78fd90363c73e24b642c431",
+    "frontend-docker/node_modules/lunar-javascript/lunar.js": "9750324bfe1aa63c146f8c72b1143df924466c11c8a5277d7d9225c541a18aaa",
+    "frontend-docker/node_modules/lunar-javascript/package.json": "39b062864077ca2980683db5f209cb78339f74e4d5c1dea77b4a6263da116c02",
+    ".local-dev/qimen-benchmark/atopx-qimen/plate/builders.go": "6fcf7f74243f6453283888dcdbeb27f58e31bf981a58815cc5d448c5f766d16a",
+    ".local-dev/qimen-benchmark/atopx-qimen/qimen.go": "ec286bb196914f0be10ea377c1f01f8875fce927c7b358acfd0e13f21c47c287",
+    ".local-dev/qimen-astronomy/deminzhang-qimen-go/xuan/qimen.go": "9361e1e371fa746fa15a06aa4492d345f19eabf0124aacd96472b00236beda27",
+    ".local-dev/qimen-astronomy/deminzhang-qimen-go/xuan/qimen_defs.go": "bf72740ac7f320682e4e382ea624eb7526b9370e34a19e5c771a7a5c77154b95",
+    ".local-dev/qimen-astronomy/qimen-rs/docs/extensions.md": "2ccb7cc816af0629110b603ee6a5f45a740fe9f2b44b6d89268564cec4106168",
+    "docs/algorithm-benchmark-2026-10-13/qimen/inputs.json": "1d2ea6da79b7db264868b1394d14737e3ed40eb04c23edce1ad3c3848d17c71f",
+    "docs/algorithm-benchmark-2026-10-13/qimen/product-output.json": "a837daa09346fc744c7d14823bc2b2a2c64b1ad0607124a7c409487184da7128",
+    "docs/algorithm-benchmark-2026-10-13/qimen/external-output.json": "5c0f61276344f870a2af87eb7a331923fc26de76730d1f6157b20cb8a41d14c2",
+    "docs/algorithm-benchmark-2026-10-13/qimen/third-output.json": "a4a12b4249b87c78b8960facbc06bb042f5446fd18fb1f2e3805f8a2245cc193",
+    "docs/algorithm-benchmark-2026-10-13/qimen-astronomy/hko-24SolarTerms-2026.xml": "3af98679f43d4d689941c55ba2a19f146ff111a6dff681235dc2b7110974ac74",
+    "docs/algorithm-benchmark-2026-10-13/qimen-astronomy/iers-bulletin-c72.txt": "310e172eadacacca3adf92cb9bd646fcc0d6320e35e996a106d2644ede3b52f0",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/almanac_east_asia.py": "753d12ba6ad4f162f4f3c6db7d3be7be96273076a403cccde46ac617f08f88db",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/framelib.py": "59aacb72b06132e77f0d2e696bb5190717c9fa4feefa12304232be19625aad34",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/timelib.py": "a949b768909835ce3b504e89321241fbb5647065cfb17b0db225a285896109fd",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/data/iers.npz": "c7d7536d898dfa9f8cd43e8044ff51e108cc8289675a13fee9822010a1c4935c",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/data/delta_t.npz": "2d12bd3e789543b78a1f53c8b76ed7fecffdf7e5149cfb6a0aed21a8b3db5ff6",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/data/historic_deltat.npy": "f5346b780b36a0325b1847dc6c0083d66edc7e88b7f648b4c98a67bbd02b5d3f",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/data/morrison_stephenson_deltat.npy": "439e05269890df41dd75820f3f2ef467539e36eb36753e8ee8b4b78d29baad52",
+    ".local-dev/qimen-astronomy/python-deps/skyfield/data/nutation.npz": "db231254da3bcbef24faa994eadb80f378d39460aa407026c156e6627c30f11a"
+  },
+  "productAlgorithmUnchangedSince707Capture": {
+    "frontend-docker/vendor/qfdk-qimen/lib/qimen.js": true,
+    "frontend-docker/vendor/qfdk-qimen/lib/bamen.js": true,
+    "frontend-docker/src/utils/qimenCalculation.ts": true,
+    "frontend-docker/node_modules/lunar-javascript/lunar.js": true,
+    "frontend-docker/node_modules/lunar-javascript/package.json": true
+  },
+  "hiddenRuleSource": {
+    "title": "转盘奇门暗干排法",
+    "url": "https://zhidao.baidu.com/question/397640584.html",
+    "answerDate": "2014-03-05",
+    "locator": "Accepted answer, paragraphs distinguishing 甲 versus non-甲; web extraction lines 87,104-109.",
+    "shortQuote": "时辰非甲，跟非伏吟局一样排法。",
+    "ruleParaphrase": "Non-Jia hours use the duty-door palace as the hour-stem anchor and fly the nine instruments through numbered palaces according to Yin/Yang. Jia alone uses its xun instrument anchored in center five.",
+    "evidenceLevel": "Original dated public Q&A; anonymous author in current extraction. It is evidence that this particular convention predates the software, not a classical authority or proof of a universally correct convention.",
+    "centerInterpretation": "The answer says duty-door palace but does not spell out hosted-vs-unhosted center behavior. This reference uses the unhosted numeric duty-door position from the separately run atopx engine; that convention is stated explicitly rather than attributed verbatim to the answer.",
+    "independentInputSource": "atopx/qimen 8eb06d007d4a5fcc5352d9054f81469e5f023f45; rawChiefPalaces.zhiShi from unchanged actual execution.",
+    "otherSourcesInvestigated": [
+      {
+        "source": "deminzhang/qimen-go",
+        "commit": "4d3f58fa0f401b5b3a337f119138e99e90685dda",
+        "path": "xuan/qimen.go:517-530",
+        "finding": "Uses center when hour instrument repeats native earth stem; therefore a different rule for some non-Jia hours."
+      },
+      {
+        "source": "SpenserCai/qimen-rs",
+        "commit": "c4e7fb140402245a3dc3409b362d6ccaad60755b",
+        "path": "docs/extensions.md:167-179",
+        "finding": "Explicitly cites the preceding Go implementation for the repeated-stem variant; not independent corroboration of the Jia-only exception."
+      }
+    ]
+  },
+  "scope": "Only benchmark scripts/data written; product algorithm and all checked third-party sources unchanged."
+}

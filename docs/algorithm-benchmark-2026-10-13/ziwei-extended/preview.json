@@ -1,0 +1,1016 @@
+{
+  "samples": 873,
+  "stats": {
+    "soul": {
+      "total": 873,
+      "equal": 139
+    },
+    "body": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.子": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.子": {
+      "total": 873,
+      "equal": 785
+    },
+    "jiangqian12.子": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.子": {
+      "total": 873,
+      "equal": 746
+    },
+    "star.禄存": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.右弼": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.咸池": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天空": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.旬空": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.截空": {
+      "total": 873,
+      "equal": 0
+    },
+    "changsheng12.丑": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.丑": {
+      "total": 873,
+      "equal": 873
+    },
+    "jiangqian12.丑": {
+      "total": 873,
+      "equal": 664
+    },
+    "suiqian12.丑": {
+      "total": 873,
+      "equal": 693
+    },
+    "star.擎羊": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.蜚廉": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.恩光": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.寅": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.寅": {
+      "total": 873,
+      "equal": 772
+    },
+    "jiangqian12.寅": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.寅": {
+      "total": 873,
+      "equal": 798
+    },
+    "star.左辅": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.孤辰": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.封诰": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天巫": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.卯": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.卯": {
+      "total": 873,
+      "equal": 827
+    },
+    "jiangqian12.卯": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.卯": {
+      "total": 873,
+      "equal": 563
+    },
+    "star.天魁": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.龙池": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.辰": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.辰": {
+      "total": 873,
+      "equal": 873
+    },
+    "jiangqian12.辰": {
+      "total": 873,
+      "equal": 677
+    },
+    "suiqian12.辰": {
+      "total": 873,
+      "equal": 766
+    },
+    "star.文曲": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.红鸾": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.大耗": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.月德": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.巳": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.巳": {
+      "total": 873,
+      "equal": 824
+    },
+    "jiangqian12.巳": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.巳": {
+      "total": 873,
+      "equal": 799
+    },
+    "star.天钺": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天马": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天福": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天虚": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天使": {
+      "total": 873,
+      "equal": 446
+    },
+    "changsheng12.午": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.午": {
+      "total": 873,
+      "equal": 486
+    },
+    "jiangqian12.午": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.午": {
+      "total": 873,
+      "equal": 746
+    },
+    "star.天官": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.台辅": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.阴煞": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.解神": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.三台": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.未": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.未": {
+      "total": 873,
+      "equal": 873
+    },
+    "jiangqian12.未": {
+      "total": 873,
+      "equal": 518
+    },
+    "suiqian12.未": {
+      "total": 873,
+      "equal": 693
+    },
+    "star.天哭": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天刑": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天贵": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天伤": {
+      "total": 873,
+      "equal": 446
+    },
+    "changsheng12.申": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.申": {
+      "total": 873,
+      "equal": 799
+    },
+    "jiangqian12.申": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.申": {
+      "total": 873,
+      "equal": 798
+    },
+    "star.劫煞": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.八座": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.酉": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.酉": {
+      "total": 873,
+      "equal": 830
+    },
+    "jiangqian12.酉": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.酉": {
+      "total": 873,
+      "equal": 563
+    },
+    "star.火星": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.破碎": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.戌": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.戌": {
+      "total": 873,
+      "equal": 873
+    },
+    "jiangqian12.戌": {
+      "total": 873,
+      "equal": 760
+    },
+    "suiqian12.戌": {
+      "total": 873,
+      "equal": 766
+    },
+    "star.文昌": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.铃星": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天喜": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.寡宿": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天月": {
+      "total": 873,
+      "equal": 873
+    },
+    "changsheng12.亥": {
+      "total": 873,
+      "equal": 873
+    },
+    "boshi12.亥": {
+      "total": 873,
+      "equal": 788
+    },
+    "jiangqian12.亥": {
+      "total": 873,
+      "equal": 873
+    },
+    "suiqian12.亥": {
+      "total": 873,
+      "equal": 799
+    },
+    "star.地空": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.地劫": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.陀罗": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天厨": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.凤閣": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.年解": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天才": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天寿": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.天姚": {
+      "total": 873,
+      "equal": 873
+    },
+    "star.华盖": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.天德": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.凤阁": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.截路": {
+      "total": 873,
+      "equal": 0
+    },
+    "star.空亡": {
+      "total": 873,
+      "equal": 0
+    }
+  },
+  "examples": {
+    "soul": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": "巨门",
+      "actual": "贪狼"
+    },
+    "star.旬空": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "丑",
+        "子"
+      ],
+      "actual": [
+        "丑"
+      ]
+    },
+    "star.截空": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "丑",
+        "子"
+      ],
+      "actual": null
+    },
+    "star.大耗": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "辰"
+      ],
+      "actual": null
+    },
+    "suiqian12.巳": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "star.天使": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "巳"
+      ],
+      "actual": [
+        "未"
+      ]
+    },
+    "boshi12.午": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "jiangqian12.未": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": "华蓋",
+      "actual": "华盖"
+    },
+    "star.天伤": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "未"
+      ],
+      "actual": [
+        "巳"
+      ]
+    },
+    "star.劫煞": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "申"
+      ],
+      "actual": null
+    },
+    "suiqian12.亥": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "star.凤閣": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": [
+        "亥"
+      ],
+      "actual": null
+    },
+    "star.华盖": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": null,
+      "actual": [
+        "未"
+      ]
+    },
+    "star.天德": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": null,
+      "actual": [
+        "申"
+      ]
+    },
+    "star.凤阁": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": null,
+      "actual": [
+        "亥"
+      ]
+    },
+    "star.截路": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": null,
+      "actual": [
+        "子"
+      ]
+    },
+    "star.空亡": {
+      "sample": {
+        "id": "cycle-1984-1-0-0",
+        "category": "sexagenary-grid",
+        "civil": "1984-01-01 00:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 441736200000,
+        "gender": 0
+      },
+      "expected": null,
+      "actual": [
+        "丑"
+      ]
+    },
+    "suiqian12.子": {
+      "sample": {
+        "id": "cycle-1984-2-16-1",
+        "category": "sexagenary-grid",
+        "civil": "1984-02-08 16:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 445077000000,
+        "gender": 1
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "jiangqian12.辰": {
+      "sample": {
+        "id": "cycle-1984-2-16-1",
+        "category": "sexagenary-grid",
+        "civil": "1984-02-08 16:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 445077000000,
+        "gender": 1
+      },
+      "expected": "华蓋",
+      "actual": "华盖"
+    },
+    "suiqian12.午": {
+      "sample": {
+        "id": "cycle-1984-2-16-1",
+        "category": "sexagenary-grid",
+        "civil": "1984-02-08 16:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 445077000000,
+        "gender": 1
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "boshi12.申": {
+      "sample": {
+        "id": "cycle-1984-2-16-1",
+        "category": "sexagenary-grid",
+        "civil": "1984-02-08 16:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 445077000000,
+        "gender": 1
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "jiangqian12.丑": {
+      "sample": {
+        "id": "cycle-1985-4-8-1",
+        "category": "sexagenary-grid",
+        "civil": "1985-04-22 08:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 482977800000,
+        "gender": 1
+      },
+      "expected": "华蓋",
+      "actual": "华盖"
+    },
+    "suiqian12.丑": {
+      "sample": {
+        "id": "cycle-1985-4-8-1",
+        "category": "sexagenary-grid",
+        "civil": "1985-04-22 08:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 482977800000,
+        "gender": 1
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "suiqian12.未": {
+      "sample": {
+        "id": "cycle-1985-4-8-1",
+        "category": "sexagenary-grid",
+        "civil": "1985-04-22 08:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 482977800000,
+        "gender": 1
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "boshi12.酉": {
+      "sample": {
+        "id": "cycle-1985-4-8-1",
+        "category": "sexagenary-grid",
+        "civil": "1985-04-22 08:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 482977800000,
+        "gender": 1
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "suiqian12.寅": {
+      "sample": {
+        "id": "cycle-1986-2-14-1",
+        "category": "sexagenary-grid",
+        "civil": "1986-02-16 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 508919400000,
+        "gender": 1
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "suiqian12.申": {
+      "sample": {
+        "id": "cycle-1986-2-14-1",
+        "category": "sexagenary-grid",
+        "civil": "1986-02-16 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 508919400000,
+        "gender": 1
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "jiangqian12.戌": {
+      "sample": {
+        "id": "cycle-1986-2-14-1",
+        "category": "sexagenary-grid",
+        "civil": "1986-02-16 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 508919400000,
+        "gender": 1
+      },
+      "expected": "华蓋",
+      "actual": "华盖"
+    },
+    "boshi12.亥": {
+      "sample": {
+        "id": "cycle-1986-2-14-1",
+        "category": "sexagenary-grid",
+        "civil": "1986-02-16 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 508919400000,
+        "gender": 1
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "boshi12.子": {
+      "sample": {
+        "id": "cycle-1987-2-14-0",
+        "category": "sexagenary-grid",
+        "civil": "1987-02-22 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 540973800000,
+        "gender": 0
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "suiqian12.卯": {
+      "sample": {
+        "id": "cycle-1987-2-14-0",
+        "category": "sexagenary-grid",
+        "civil": "1987-02-22 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 540973800000,
+        "gender": 0
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "suiqian12.酉": {
+      "sample": {
+        "id": "cycle-1987-2-14-0",
+        "category": "sexagenary-grid",
+        "civil": "1987-02-22 14:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 540973800000,
+        "gender": 0
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "suiqian12.辰": {
+      "sample": {
+        "id": "cycle-1988-2-12-1",
+        "category": "sexagenary-grid",
+        "civil": "1988-02-28 12:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 573021000000,
+        "gender": 1
+      },
+      "expected": "太岁",
+      "actual": "岁建"
+    },
+    "suiqian12.戌": {
+      "sample": {
+        "id": "cycle-1988-2-12-1",
+        "category": "sexagenary-grid",
+        "civil": "1988-02-28 12:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 573021000000,
+        "gender": 1
+      },
+      "expected": "岁破",
+      "actual": "大耗"
+    },
+    "boshi12.寅": {
+      "sample": {
+        "id": "cycle-1990-2-10-1",
+        "category": "sexagenary-grid",
+        "civil": "1990-02-08 10:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 634444200000,
+        "gender": 1
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "boshi12.卯": {
+      "sample": {
+        "id": "cycle-1991-2-10-0",
+        "category": "sexagenary-grid",
+        "civil": "1991-02-15 10:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 666585000000,
+        "gender": 0
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    },
+    "boshi12.巳": {
+      "sample": {
+        "id": "cycle-1992-2-8-1",
+        "category": "sexagenary-grid",
+        "civil": "1992-02-16 08:30:00",
+        "timeZone": "Asia/Hong_Kong",
+        "timestamp": 698200200000,
+        "gender": 1
+      },
+      "expected": "蜚廉",
+      "actual": "飞廉"
+    }
+  },
+  "names": {
+    "actual": [
+      "star.左辅",
+      "star.封诰",
+      "star.天巫",
+      "star.孤辰",
+      "star.天魁",
+      "star.龙池",
+      "star.文曲",
+      "star.红鸾",
+      "star.月德",
+      "star.天钺",
+      "star.天马",
+      "star.天福",
+      "star.天虚",
+      "star.天伤",
+      "star.解神",
+      "star.三台",
+      "star.台辅",
+      "star.天官",
+      "star.阴煞",
+      "star.天贵",
+      "star.华盖",
+      "star.天刑",
+      "star.天哭",
+      "star.天使",
+      "star.八座",
+      "star.天德",
+      "star.火星",
+      "star.破碎",
+      "star.文昌",
+      "star.铃星",
+      "star.天喜",
+      "star.天月",
+      "star.寡宿",
+      "star.地空",
+      "star.地劫",
+      "star.陀罗",
+      "star.天姚",
+      "star.凤阁",
+      "star.天才",
+      "star.天寿",
+      "star.天厨",
+      "star.年解",
+      "star.右弼",
+      "star.禄存",
+      "star.咸池",
+      "star.天空",
+      "star.截路",
+      "star.擎羊",
+      "star.恩光",
+      "star.旬空",
+      "star.空亡",
+      "star.蜚廉"
+    ],
+    "expected": [
+      "star.禄存",
+      "star.右弼",
+      "star.咸池",
+      "star.天空",
+      "star.旬空",
+      "star.截空",
+      "star.擎羊",
+      "star.蜚廉",
+      "star.恩光",
+      "star.左辅",
+      "star.孤辰",
+      "star.封诰",
+      "star.天巫",
+      "star.天魁",
+      "star.龙池",
+      "star.文曲",
+      "star.红鸾",
+      "star.大耗",
+      "star.月德",
+      "star.天钺",
+      "star.天马",
+      "star.天福",
+      "star.天虚",
+      "star.天使",
+      "star.天官",
+      "star.台辅",
+      "star.阴煞",
+      "star.解神",
+      "star.三台",
+      "star.天哭",
+      "star.天刑",
+      "star.天贵",
+      "star.天伤",
+      "star.劫煞",
+      "star.八座",
+      "star.火星",
+      "star.破碎",
+      "star.文昌",
+      "star.铃星",
+      "star.天喜",
+      "star.寡宿",
+      "star.天月",
+      "star.地空",
+      "star.地劫",
+      "star.陀罗",
+      "star.天厨",
+      "star.凤閣",
+      "star.年解",
+      "star.天才",
+      "star.天寿",
+      "star.天姚"
+    ]
+  }
+}

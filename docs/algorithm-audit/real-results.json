@@ -1,0 +1,2459 @@
+{
+  "generatedAt": "2026-10-12T11:18:38.154Z",
+  "ziweiRules": {
+    "id": "ziwei-civil-v1",
+    "engine": "iztro@2.5.7",
+    "yearDivide": "normal",
+    "ageDivide": "normal",
+    "horoscopeDivide": "normal",
+    "dayDivide": "forward",
+    "algorithm": "default",
+    "fixLeap": true,
+    "clock": "civil",
+    "lateZi": "23:00 full next-day rollover"
+  },
+  "qimenRules": {
+    "id": "qimen-chai-bu-v1",
+    "engine": "qfdk/qimen",
+    "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+    "patch": "xuan-1",
+    "method": "时家转盘·符头拆补",
+    "clock": "北京时间 UTC+08:00",
+    "dayDivide": "23:00",
+    "solarTerms": "exact",
+    "center": "中五寄坤二，天禽随芮"
+  },
+  "ziwei": [
+    {
+      "civil": "2023-04-05 23:00",
+      "before": {
+        "soul": "卯",
+        "body": "卯",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年闰二月十五",
+        "majorStars": [
+          {
+            "palace": "兄弟",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "命宫",
+            "branch": "卯",
+            "stars": []
+          },
+          {
+            "palace": "父母",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              },
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "夫妻",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "soul": "辰",
+        "body": "辰",
+        "fiveElements": "土五局",
+        "lunarDate": "二〇二三年闰二月十六",
+        "majorStars": [
+          {
+            "palace": "夫妻",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "兄弟",
+            "branch": "卯",
+            "stars": []
+          },
+          {
+            "palace": "命宫",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "父母",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              },
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "id": "ziwei-civil-v1",
+        "engine": "iztro@2.5.7",
+        "yearDivide": "normal",
+        "ageDivide": "normal",
+        "horoscopeDivide": "normal",
+        "dayDivide": "forward",
+        "algorithm": "default",
+        "fixLeap": true,
+        "clock": "civil",
+        "lateZi": "23:00 full next-day rollover",
+        "timeZone": "Asia/Shanghai",
+        "birthCivil": "2023-04-05 23:00:00",
+        "calculationDate": "2023-04-06",
+        "timeIndex": 0,
+        "lateZiRollover": true,
+        "lunar": {
+          "year": 2023,
+          "month": 2,
+          "day": 16,
+          "isLeap": true
+        }
+      },
+      "allPalacesEqualNextMidnight": true
+    },
+    {
+      "civil": "2023-04-06 23:00",
+      "before": {
+        "soul": "卯",
+        "body": "卯",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年闰二月十六",
+        "majorStars": [
+          {
+            "palace": "兄弟",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "命宫",
+            "branch": "卯",
+            "stars": []
+          },
+          {
+            "palace": "父母",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              },
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "夫妻",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "soul": "辰",
+        "body": "辰",
+        "fiveElements": "土五局",
+        "lunarDate": "二〇二三年闰二月十七",
+        "majorStars": [
+          {
+            "palace": "夫妻",
+            "branch": "寅",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "兄弟",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "命宫",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "父母",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "id": "ziwei-civil-v1",
+        "engine": "iztro@2.5.7",
+        "yearDivide": "normal",
+        "ageDivide": "normal",
+        "horoscopeDivide": "normal",
+        "dayDivide": "forward",
+        "algorithm": "default",
+        "fixLeap": true,
+        "clock": "civil",
+        "lateZi": "23:00 full next-day rollover",
+        "timeZone": "Asia/Shanghai",
+        "birthCivil": "2023-04-06 23:00:00",
+        "calculationDate": "2023-04-07",
+        "timeIndex": 0,
+        "lateZiRollover": true,
+        "lunar": {
+          "year": 2023,
+          "month": 2,
+          "day": 17,
+          "isLeap": true
+        }
+      },
+      "allPalacesEqualNextMidnight": true
+    },
+    {
+      "civil": "2023-04-19 23:00",
+      "before": {
+        "soul": "卯",
+        "body": "卯",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年闰二月廿九",
+        "majorStars": [
+          {
+            "palace": "兄弟",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "命宫",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "父母",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              },
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "亥",
+            "stars": []
+          },
+          {
+            "palace": "子女",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "夫妻",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "soul": "辰",
+        "body": "辰",
+        "fiveElements": "土五局",
+        "lunarDate": "二〇二三年三月初一",
+        "majorStars": [
+          {
+            "palace": "夫妻",
+            "branch": "寅",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "兄弟",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              },
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "命宫",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "父母",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "未",
+            "stars": []
+          },
+          {
+            "palace": "官禄",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "酉",
+            "stars": []
+          },
+          {
+            "palace": "迁移",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              },
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "id": "ziwei-civil-v1",
+        "engine": "iztro@2.5.7",
+        "yearDivide": "normal",
+        "ageDivide": "normal",
+        "horoscopeDivide": "normal",
+        "dayDivide": "forward",
+        "algorithm": "default",
+        "fixLeap": true,
+        "clock": "civil",
+        "lateZi": "23:00 full next-day rollover",
+        "timeZone": "Asia/Shanghai",
+        "birthCivil": "2023-04-19 23:00:00",
+        "calculationDate": "2023-04-20",
+        "timeIndex": 0,
+        "lateZiRollover": true,
+        "lunar": {
+          "year": 2023,
+          "month": 3,
+          "day": 1,
+          "isLeap": false
+        }
+      },
+      "allPalacesEqualNextMidnight": true
+    },
+    {
+      "civil": "2023-01-21 23:00",
+      "before": {
+        "soul": "丑",
+        "body": "丑",
+        "fiveElements": "木三局",
+        "lunarDate": "二〇二二年腊月三十",
+        "majorStars": [
+          {
+            "palace": "父母",
+            "branch": "寅",
+            "stars": [
+              {
+                "name": "贪狼",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              },
+              {
+                "name": "巨门",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": "权"
+              },
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "天梁",
+                "mutagen": "禄"
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "未",
+            "stars": []
+          },
+          {
+            "palace": "疾厄",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "酉",
+            "stars": []
+          },
+          {
+            "palace": "子女",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "破军",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "夫妻",
+            "branch": "亥",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "兄弟",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": "忌"
+              },
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "命宫",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              },
+              {
+                "name": "太阴",
+                "mutagen": ""
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "soul": "寅",
+        "body": "寅",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年正月初一",
+        "majorStars": [
+          {
+            "palace": "命宫",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "父母",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              },
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "亥",
+            "stars": []
+          },
+          {
+            "palace": "夫妻",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "兄弟",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "id": "ziwei-civil-v1",
+        "engine": "iztro@2.5.7",
+        "yearDivide": "normal",
+        "ageDivide": "normal",
+        "horoscopeDivide": "normal",
+        "dayDivide": "forward",
+        "algorithm": "default",
+        "fixLeap": true,
+        "clock": "civil",
+        "lateZi": "23:00 full next-day rollover",
+        "timeZone": "Asia/Shanghai",
+        "birthCivil": "2023-01-21 23:00:00",
+        "calculationDate": "2023-01-22",
+        "timeIndex": 0,
+        "lateZiRollover": true,
+        "lunar": {
+          "year": 2023,
+          "month": 1,
+          "day": 1,
+          "isLeap": false
+        }
+      },
+      "allPalacesEqualNextMidnight": true
+    },
+    {
+      "civil": "2023-02-19 23:00",
+      "before": {
+        "soul": "寅",
+        "body": "寅",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年正月廿九",
+        "majorStars": [
+          {
+            "palace": "命宫",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "父母",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              },
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "子女",
+            "branch": "亥",
+            "stars": []
+          },
+          {
+            "palace": "夫妻",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "兄弟",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "soul": "卯",
+        "body": "卯",
+        "fiveElements": "水二局",
+        "lunarDate": "二〇二三年二月初一",
+        "majorStars": [
+          {
+            "palace": "兄弟",
+            "branch": "寅",
+            "stars": []
+          },
+          {
+            "palace": "命宫",
+            "branch": "卯",
+            "stars": [
+              {
+                "name": "天府",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "父母",
+            "branch": "辰",
+            "stars": [
+              {
+                "name": "太阴",
+                "mutagen": "科"
+              }
+            ]
+          },
+          {
+            "palace": "福德",
+            "branch": "巳",
+            "stars": [
+              {
+                "name": "廉贞",
+                "mutagen": ""
+              },
+              {
+                "name": "贪狼",
+                "mutagen": "忌"
+              }
+            ]
+          },
+          {
+            "palace": "田宅",
+            "branch": "午",
+            "stars": [
+              {
+                "name": "巨门",
+                "mutagen": "权"
+              }
+            ]
+          },
+          {
+            "palace": "官禄",
+            "branch": "未",
+            "stars": [
+              {
+                "name": "天相",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "仆役",
+            "branch": "申",
+            "stars": [
+              {
+                "name": "天同",
+                "mutagen": ""
+              },
+              {
+                "name": "天梁",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "迁移",
+            "branch": "酉",
+            "stars": [
+              {
+                "name": "武曲",
+                "mutagen": ""
+              },
+              {
+                "name": "七杀",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "疾厄",
+            "branch": "戌",
+            "stars": [
+              {
+                "name": "太阳",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "财帛",
+            "branch": "亥",
+            "stars": []
+          },
+          {
+            "palace": "子女",
+            "branch": "子",
+            "stars": [
+              {
+                "name": "天机",
+                "mutagen": ""
+              }
+            ]
+          },
+          {
+            "palace": "夫妻",
+            "branch": "丑",
+            "stars": [
+              {
+                "name": "紫微",
+                "mutagen": ""
+              },
+              {
+                "name": "破军",
+                "mutagen": "禄"
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "id": "ziwei-civil-v1",
+        "engine": "iztro@2.5.7",
+        "yearDivide": "normal",
+        "ageDivide": "normal",
+        "horoscopeDivide": "normal",
+        "dayDivide": "forward",
+        "algorithm": "default",
+        "fixLeap": true,
+        "clock": "civil",
+        "lateZi": "23:00 full next-day rollover",
+        "timeZone": "Asia/Shanghai",
+        "birthCivil": "2023-02-19 23:00:00",
+        "calculationDate": "2023-02-20",
+        "timeIndex": 0,
+        "lateZiRollover": true,
+        "lunar": {
+          "year": 2023,
+          "month": 2,
+          "day": 1,
+          "isLeap": false
+        }
+      },
+      "allPalacesEqualNextMidnight": true
+    }
+  ],
+  "qimen": [
+    {
+      "basicInfo": {
+        "date": "2026-06-05 16:52:00 星期五 双子座",
+        "lunarDate": "二〇二六年四月二十",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "庚戌",
+        "time": "甲申"
+      },
+      "juShu": {
+        "jieQiName": "小满",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "xunShou": "庚",
+      "dayXunShou": "壬",
+      "luoGongGan": "甲",
+      "sanQiLiuYi": {
+        "1": "癸",
+        "2": "丁",
+        "3": "丙",
+        "4": "乙",
+        "5": "戊",
+        "6": "己",
+        "7": "庚",
+        "8": "辛",
+        "9": "壬"
+      },
+      "tianPan": {
+        "1": "癸",
+        "2": "丁",
+        "3": "丙",
+        "4": "乙",
+        "5": "戊",
+        "6": "己",
+        "7": "庚",
+        "8": "辛",
+        "9": "壬"
+      },
+      "jiuXing": {
+        "1": "天蓬",
+        "2": "禽芮",
+        "3": "天冲",
+        "4": "天辅",
+        "5": "",
+        "6": "天心",
+        "7": "天柱",
+        "8": "天任",
+        "9": "天英"
+      },
+      "baMen": {
+        "1": "休门",
+        "2": "死门",
+        "3": "伤门",
+        "4": "杜门",
+        "5": "",
+        "6": "开门",
+        "7": "惊门",
+        "8": "生门",
+        "9": "景门"
+      },
+      "baShen": {
+        "1": "太阴",
+        "2": "九天",
+        "3": "白虎",
+        "4": "玄武",
+        "5": "",
+        "6": "腾蛇",
+        "7": "值符",
+        "8": "六合",
+        "9": "九地"
+      },
+      "diPan": {
+        "1": "癸",
+        "2": "丁",
+        "3": "丙",
+        "4": "乙",
+        "5": "戊",
+        "6": "己",
+        "7": "庚",
+        "8": "辛",
+        "9": "壬"
+      },
+      "anGan": {
+        "1": "丙",
+        "2": "乙",
+        "3": "戊",
+        "4": "己",
+        "5": "庚",
+        "6": "辛",
+        "7": "壬",
+        "8": "癸",
+        "9": "丁"
+      },
+      "zhiFuGong": "7",
+      "zhiFuYuanGong": "7",
+      "zhiFuXing": "天柱",
+      "zhiShiGong": "7",
+      "zhiShiMen": "惊门",
+      "kongWangZhi": [
+        "午",
+        "未"
+      ],
+      "kongWangGong": [
+        "9",
+        "2"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2026-06-05 16:52:00",
+        "calculationCivil": "2026-06-05 16:52:00",
+        "timestamp": 1780649520000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2026-06-05 23:47:00 星期五 双子座",
+        "lunarDate": "二〇二六年四月二十",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "癸巳",
+        "day": "辛亥",
+        "time": "戊子"
+      },
+      "juShu": {
+        "jieQiName": "小满",
+        "type": "yang",
+        "number": "5",
+        "yuan": "上元",
+        "fullName": "阳遁5局 (上元)",
+        "formatCode": "yang-5"
+      },
+      "xunShou": "庚",
+      "dayXunShou": "壬",
+      "luoGongGan": "戊",
+      "sanQiLiuYi": {
+        "1": "辛",
+        "2": "庚",
+        "3": "乙",
+        "4": "壬",
+        "5": "戊",
+        "6": "癸",
+        "7": "己",
+        "8": "丙",
+        "9": "丁"
+      },
+      "tianPan": {
+        "1": "辛",
+        "2": "庚",
+        "3": "乙",
+        "4": "壬",
+        "5": "戊",
+        "6": "癸",
+        "7": "己",
+        "8": "丙",
+        "9": "丁"
+      },
+      "jiuXing": {
+        "1": "天任",
+        "2": "天柱",
+        "3": "天辅",
+        "4": "天英",
+        "5": "",
+        "6": "天蓬",
+        "7": "天心",
+        "8": "天冲",
+        "9": "禽芮"
+      },
+      "baMen": {
+        "1": "生门",
+        "2": "惊门",
+        "3": "杜门",
+        "4": "景门",
+        "5": "",
+        "6": "休门",
+        "7": "开门",
+        "8": "伤门",
+        "9": "死门"
+      },
+      "baShen": {
+        "1": "六合",
+        "2": "值符",
+        "3": "玄武",
+        "4": "九地",
+        "5": "",
+        "6": "太阴",
+        "7": "腾蛇",
+        "8": "白虎",
+        "9": "九天"
+      },
+      "diPan": {
+        "1": "癸",
+        "2": "丁",
+        "3": "丙",
+        "4": "乙",
+        "5": "戊",
+        "6": "己",
+        "7": "庚",
+        "8": "辛",
+        "9": "壬"
+      },
+      "anGan": {
+        "1": "乙",
+        "2": "戊",
+        "3": "己",
+        "4": "庚",
+        "5": "辛",
+        "6": "壬",
+        "7": "癸",
+        "8": "丁",
+        "9": "丙"
+      },
+      "zhiFuGong": "2",
+      "zhiFuYuanGong": "7",
+      "zhiFuXing": "天柱",
+      "zhiShiGong": "2",
+      "zhiShiMen": "惊门",
+      "kongWangZhi": [
+        "午",
+        "未"
+      ],
+      "kongWangGong": [
+        "9",
+        "2"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2026-06-05 23:47:00",
+        "calculationCivil": "2026-06-05 23:47:00",
+        "timestamp": 1780674420000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2026-06-05 23:49:00 星期五 双子座",
+        "lunarDate": "二〇二六年四月二十",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "辛亥",
+        "time": "戊子"
+      },
+      "juShu": {
+        "jieQiName": "芒种",
+        "type": "yang",
+        "number": "6",
+        "yuan": "上元",
+        "fullName": "阳遁6局 (上元)",
+        "formatCode": "yang-6"
+      },
+      "xunShou": "庚",
+      "dayXunShou": "壬",
+      "luoGongGan": "戊",
+      "sanQiLiuYi": {
+        "1": "丁",
+        "2": "戊",
+        "3": "辛",
+        "4": "癸",
+        "5": "乙",
+        "6": "庚",
+        "7": "壬",
+        "8": "丙",
+        "9": "己"
+      },
+      "tianPan": {
+        "1": "丁",
+        "2": "戊",
+        "3": "辛",
+        "4": "癸",
+        "5": "乙",
+        "6": "庚",
+        "7": "壬",
+        "8": "丙",
+        "9": "己"
+      },
+      "jiuXing": {
+        "1": "天冲",
+        "2": "天心",
+        "3": "天英",
+        "4": "禽芮",
+        "5": "",
+        "6": "天任",
+        "7": "天蓬",
+        "8": "天辅",
+        "9": "天柱"
+      },
+      "baMen": {
+        "1": "开门",
+        "2": "景门",
+        "3": "生门",
+        "4": "伤门",
+        "5": "",
+        "6": "惊门",
+        "7": "死门",
+        "8": "休门",
+        "9": "杜门"
+      },
+      "baShen": {
+        "1": "腾蛇",
+        "2": "九地",
+        "3": "六合",
+        "4": "白虎",
+        "5": "",
+        "6": "值符",
+        "7": "九天",
+        "8": "太阴",
+        "9": "玄武"
+      },
+      "diPan": {
+        "1": "壬",
+        "2": "癸",
+        "3": "丁",
+        "4": "丙",
+        "5": "乙",
+        "6": "戊",
+        "7": "己",
+        "8": "庚",
+        "9": "辛"
+      },
+      "anGan": {
+        "1": "丙",
+        "2": "乙",
+        "3": "戊",
+        "4": "己",
+        "5": "庚",
+        "6": "辛",
+        "7": "壬",
+        "8": "癸",
+        "9": "丁"
+      },
+      "zhiFuGong": "6",
+      "zhiFuYuanGong": "8",
+      "zhiFuXing": "天任",
+      "zhiShiGong": "3",
+      "zhiShiMen": "生门",
+      "kongWangZhi": [
+        "午",
+        "未"
+      ],
+      "kongWangGong": [
+        "9",
+        "2"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2026-06-05 23:49:00",
+        "calculationCivil": "2026-06-05 23:49:00",
+        "timestamp": 1780674540000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2026-06-21 16:24:00 星期日 (父亲节) 双子座",
+        "lunarDate": "二〇二六年五月初七",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "丙寅",
+        "time": "丙申"
+      },
+      "juShu": {
+        "jieQiName": "芒种",
+        "type": "yang",
+        "number": "6",
+        "yuan": "上元",
+        "fullName": "阳遁6局 (上元)",
+        "formatCode": "yang-6"
+      },
+      "xunShou": "辛",
+      "dayXunShou": "戊",
+      "luoGongGan": "丙",
+      "sanQiLiuYi": {
+        "1": "庚",
+        "2": "己",
+        "3": "丙",
+        "4": "辛",
+        "5": "乙",
+        "6": "壬",
+        "7": "戊",
+        "8": "丁",
+        "9": "癸"
+      },
+      "tianPan": {
+        "1": "庚",
+        "2": "己",
+        "3": "丙",
+        "4": "辛",
+        "5": "乙",
+        "6": "壬",
+        "7": "戊",
+        "8": "丁",
+        "9": "癸"
+      },
+      "jiuXing": {
+        "1": "天任",
+        "2": "天柱",
+        "3": "天辅",
+        "4": "天英",
+        "5": "",
+        "6": "天蓬",
+        "7": "天心",
+        "8": "天冲",
+        "9": "禽芮"
+      },
+      "baMen": {
+        "1": "开门",
+        "2": "景门",
+        "3": "生门",
+        "4": "伤门",
+        "5": "",
+        "6": "惊门",
+        "7": "死门",
+        "8": "休门",
+        "9": "杜门"
+      },
+      "baShen": {
+        "1": "玄武",
+        "2": "太阴",
+        "3": "九天",
+        "4": "值符",
+        "5": "",
+        "6": "白虎",
+        "7": "六合",
+        "8": "九地",
+        "9": "腾蛇"
+      },
+      "diPan": {
+        "1": "壬",
+        "2": "癸",
+        "3": "丁",
+        "4": "丙",
+        "5": "乙",
+        "6": "戊",
+        "7": "己",
+        "8": "庚",
+        "9": "辛"
+      },
+      "anGan": {
+        "1": "丁",
+        "2": "丙",
+        "3": "乙",
+        "4": "戊",
+        "5": "己",
+        "6": "庚",
+        "7": "辛",
+        "8": "壬",
+        "9": "癸"
+      },
+      "zhiFuGong": "4",
+      "zhiFuYuanGong": "9",
+      "zhiFuXing": "天英",
+      "zhiShiGong": "2",
+      "zhiShiMen": "景门",
+      "kongWangZhi": [
+        "辰",
+        "巳"
+      ],
+      "kongWangGong": [
+        "4",
+        "4"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2026-06-21 16:24:00",
+        "calculationCivil": "2026-06-21 16:24:00",
+        "timestamp": 1782030240000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2026-06-21 16:26:00 星期日 (父亲节) 双子座",
+        "lunarDate": "二〇二六年五月初七",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "丙午",
+        "month": "甲午",
+        "day": "丙寅",
+        "time": "丙申"
+      },
+      "juShu": {
+        "jieQiName": "夏至",
+        "type": "yin",
+        "number": "9",
+        "yuan": "上元",
+        "fullName": "阴遁9局 (上元)",
+        "formatCode": "yin-9"
+      },
+      "xunShou": "辛",
+      "dayXunShou": "戊",
+      "luoGongGan": "丙",
+      "sanQiLiuYi": {
+        "1": "丁",
+        "2": "辛",
+        "3": "戊",
+        "4": "丙",
+        "5": "壬",
+        "6": "己",
+        "7": "乙",
+        "8": "癸",
+        "9": "庚"
+      },
+      "tianPan": {
+        "1": "丁",
+        "2": "辛",
+        "3": "戊",
+        "4": "丙",
+        "5": "壬",
+        "6": "己",
+        "7": "乙",
+        "8": "癸",
+        "9": "庚"
+      },
+      "jiuXing": {
+        "1": "天冲",
+        "2": "天心",
+        "3": "天英",
+        "4": "禽芮",
+        "5": "",
+        "6": "天任",
+        "7": "天蓬",
+        "8": "天辅",
+        "9": "天柱"
+      },
+      "baMen": {
+        "1": "景门",
+        "2": "生门",
+        "3": "惊门",
+        "4": "开门",
+        "5": "",
+        "6": "杜门",
+        "7": "伤门",
+        "8": "死门",
+        "9": "休门"
+      },
+      "baShen": {
+        "1": "玄武",
+        "2": "值符",
+        "3": "六合",
+        "4": "太阴",
+        "5": "",
+        "6": "九地",
+        "7": "九天",
+        "8": "白虎",
+        "9": "腾蛇"
+      },
+      "diPan": {
+        "1": "乙",
+        "2": "丙",
+        "3": "丁",
+        "4": "癸",
+        "5": "壬",
+        "6": "辛",
+        "7": "庚",
+        "8": "己",
+        "9": "戊"
+      },
+      "anGan": {
+        "1": "己",
+        "2": "戊",
+        "3": "乙",
+        "4": "丙",
+        "5": "丁",
+        "6": "癸",
+        "7": "壬",
+        "8": "辛",
+        "9": "庚"
+      },
+      "zhiFuGong": "2",
+      "zhiFuYuanGong": "6",
+      "zhiFuXing": "天心",
+      "zhiShiGong": "4",
+      "zhiShiMen": "开门",
+      "kongWangZhi": [
+        "辰",
+        "巳"
+      ],
+      "kongWangGong": [
+        "4",
+        "4"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2026-06-21 16:26:00",
+        "calculationCivil": "2026-06-21 16:26:00",
+        "timestamp": 1782030360000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2023-01-21 23:00:00 星期六 水瓶座",
+        "lunarDate": "二〇二二年腊月三十",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "壬寅",
+        "month": "癸丑",
+        "day": "庚辰",
+        "time": "丙子"
+      },
+      "juShu": {
+        "jieQiName": "大寒",
+        "type": "yang",
+        "number": "3",
+        "yuan": "上元",
+        "fullName": "阳遁3局 (上元)",
+        "formatCode": "yang-3"
+      },
+      "xunShou": "己",
+      "dayXunShou": "己",
+      "luoGongGan": "丙",
+      "sanQiLiuYi": {
+        "1": "己",
+        "2": "丙",
+        "3": "乙",
+        "4": "壬",
+        "5": "庚",
+        "6": "戊",
+        "7": "癸",
+        "8": "丁",
+        "9": "辛"
+      },
+      "tianPan": {
+        "1": "己",
+        "2": "丙",
+        "3": "乙",
+        "4": "壬",
+        "5": "庚",
+        "6": "戊",
+        "7": "癸",
+        "8": "丁",
+        "9": "辛"
+      },
+      "jiuXing": {
+        "1": "天辅",
+        "2": "天蓬",
+        "3": "禽芮",
+        "4": "天柱",
+        "5": "",
+        "6": "天冲",
+        "7": "天任",
+        "8": "天英",
+        "9": "天心"
+      },
+      "baMen": {
+        "1": "景门",
+        "2": "生门",
+        "3": "惊门",
+        "4": "开门",
+        "5": "",
+        "6": "杜门",
+        "7": "伤门",
+        "8": "死门",
+        "9": "休门"
+      },
+      "baShen": {
+        "1": "值符",
+        "2": "玄武",
+        "3": "太阴",
+        "4": "六合",
+        "5": "",
+        "6": "九天",
+        "7": "九地",
+        "8": "腾蛇",
+        "9": "白虎"
+      },
+      "diPan": {
+        "1": "丙",
+        "2": "乙",
+        "3": "戊",
+        "4": "己",
+        "5": "庚",
+        "6": "辛",
+        "7": "壬",
+        "8": "癸",
+        "9": "丁"
+      },
+      "anGan": {
+        "1": "庚",
+        "2": "辛",
+        "3": "壬",
+        "4": "癸",
+        "5": "丁",
+        "6": "丙",
+        "7": "乙",
+        "8": "戊",
+        "9": "己"
+      },
+      "zhiFuGong": "1",
+      "zhiFuYuanGong": "4",
+      "zhiFuXing": "天辅",
+      "zhiShiGong": "6",
+      "zhiShiMen": "杜门",
+      "kongWangZhi": [
+        "申",
+        "酉"
+      ],
+      "kongWangGong": [
+        "2",
+        "7"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2023-01-21 23:00:00",
+        "calculationCivil": "2023-01-21 23:00:00",
+        "timestamp": 1674313200000
+      }
+    },
+    {
+      "basicInfo": {
+        "date": "2023-01-22 00:00:00 星期日 水瓶座",
+        "lunarDate": "二〇二三年正月初一",
+        "type": "四柱",
+        "method": "时家",
+        "purpose": "综合",
+        "location": "默认位置"
+      },
+      "siZhu": {
+        "year": "壬寅",
+        "month": "癸丑",
+        "day": "庚辰",
+        "time": "丙子"
+      },
+      "juShu": {
+        "jieQiName": "大寒",
+        "type": "yang",
+        "number": "3",
+        "yuan": "上元",
+        "fullName": "阳遁3局 (上元)",
+        "formatCode": "yang-3"
+      },
+      "xunShou": "己",
+      "dayXunShou": "己",
+      "luoGongGan": "丙",
+      "sanQiLiuYi": {
+        "1": "己",
+        "2": "丙",
+        "3": "乙",
+        "4": "壬",
+        "5": "庚",
+        "6": "戊",
+        "7": "癸",
+        "8": "丁",
+        "9": "辛"
+      },
+      "tianPan": {
+        "1": "己",
+        "2": "丙",
+        "3": "乙",
+        "4": "壬",
+        "5": "庚",
+        "6": "戊",
+        "7": "癸",
+        "8": "丁",
+        "9": "辛"
+      },
+      "jiuXing": {
+        "1": "天辅",
+        "2": "天蓬",
+        "3": "禽芮",
+        "4": "天柱",
+        "5": "",
+        "6": "天冲",
+        "7": "天任",
+        "8": "天英",
+        "9": "天心"
+      },
+      "baMen": {
+        "1": "景门",
+        "2": "生门",
+        "3": "惊门",
+        "4": "开门",
+        "5": "",
+        "6": "杜门",
+        "7": "伤门",
+        "8": "死门",
+        "9": "休门"
+      },
+      "baShen": {
+        "1": "值符",
+        "2": "玄武",
+        "3": "太阴",
+        "4": "六合",
+        "5": "",
+        "6": "九天",
+        "7": "九地",
+        "8": "腾蛇",
+        "9": "白虎"
+      },
+      "diPan": {
+        "1": "丙",
+        "2": "乙",
+        "3": "戊",
+        "4": "己",
+        "5": "庚",
+        "6": "辛",
+        "7": "壬",
+        "8": "癸",
+        "9": "丁"
+      },
+      "anGan": {
+        "1": "庚",
+        "2": "辛",
+        "3": "壬",
+        "4": "癸",
+        "5": "丁",
+        "6": "丙",
+        "7": "乙",
+        "8": "戊",
+        "9": "己"
+      },
+      "zhiFuGong": "1",
+      "zhiFuYuanGong": "4",
+      "zhiFuXing": "天辅",
+      "zhiShiGong": "6",
+      "zhiShiMen": "杜门",
+      "kongWangZhi": [
+        "申",
+        "酉"
+      ],
+      "kongWangGong": [
+        "2",
+        "7"
+      ],
+      "maStar": {
+        "zhi": "寅",
+        "gong": "8"
+      },
+      "metadata": {
+        "id": "qimen-chai-bu-v1",
+        "engine": "qfdk/qimen",
+        "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+        "patch": "xuan-1",
+        "method": "时家转盘·符头拆补",
+        "clock": "北京时间 UTC+08:00",
+        "dayDivide": "23:00",
+        "solarTerms": "exact",
+        "center": "中五寄坤二，天禽随芮",
+        "inputZone": "Asia/Shanghai",
+        "inputCivil": "2023-01-22 00:00:00",
+        "calculationCivil": "2023-01-22 00:00:00",
+        "timestamp": 1674316800000
+      }
+    }
+  ]
+}

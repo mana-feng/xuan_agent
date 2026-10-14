@@ -1,0 +1,12 @@
+{
+  "cases": 707,
+  "outputRowsEach": {
+    "product-output.json": 707,
+    "external-output.json": 707,
+    "third-output.json": 707
+  },
+  "normalizedFieldCount": 12,
+  "thirdExactMatches": 707,
+  "sourceHashesStillMatch": true,
+  "errorsEach": 0
+}

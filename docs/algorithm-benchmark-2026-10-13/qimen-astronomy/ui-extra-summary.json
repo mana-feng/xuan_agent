@@ -1,0 +1,27 @@
+{
+  "cases": 707,
+  "equalByField": {
+    "hourVoidBranches": 707,
+    "hourVoidPalaces": 707,
+    "hourHorseBranch": 707,
+    "hourHorsePalace": 707,
+    "hiddenStemsRawDifferentMethods": 32
+  },
+  "sources": {
+    "product": "qfdk/qimen 1d0d1c5b39755e67525a11e68bab9b73baae1937 + xuan-1",
+    "voidAndHorse": "kentang2017/kinqimen 127ead87aa24a74d40c893a5351e22a1a89d0945 unchanged .pan(1)",
+    "hiddenStems": "atopx/qimen 8eb06d007d4a5fcc5352d9054f81469e5f023f45 unchanged MethodTime/StyleRotate/JuRuleChaiBu"
+  },
+  "normalization": "Void/horse branch-to-palace mapping only: 子1 丑寅8 卯3 辰巳4 午9 未申2 酉7 戌亥6. Void palace order ignored; repeated palace per branch preserved. No names or palaces swapped.",
+  "voidRepeatedPalaceArrays": 230,
+  "voidRepeatedPalaceMeaning": "Each branch maps separately, so 辰巳 returns [4,4] and 戌亥 returns [6,6]. Actual UI uses includes() and shows only one marker per palace; this is not a wrong palace.",
+  "hiddenStemConclusion": {
+    "productRule": "时干加值使真实落宫，三奇六仪按宫数阳顺阴逆；甲时以旬首六仪入中5。",
+    "goRule": "地盘干随值使门在外八宫整体转动，中心干保持不变（门下藏干）。",
+    "classification": "Different declared algorithms; raw equality is descriptive, not a product failure rate. The separate hidden-stem-rule-comparison.json checks the Jia-only convention through an independent formula based on a dated original public answer and third-engine inputs, with explicit limits on source authority.",
+    "sourceProduct": "frontend-docker/vendor/qfdk-qimen/lib/qimen.js:721-759",
+    "sourceGo": "atopx-qimen/plate/builders.go:20-44 and qimen.go:226",
+    "uiInitialGap": "At the initial audit, draft UI displayed 暗干 without identifying its method. Parent has now added the exact rule to index.html:107; source text was re-read. Browser validation remains with parent. Do not replace the calculation with Go results merely to make the raw benchmark agree."
+  },
+  "coverageCaution": "These are engine-output comparisons for fields read by the actual draft page, not a browser rendering assertion. Parent owns browser validation. Carried TianQin stem uses ground center5 and QinRui location, already covered by main baseline ground/star comparisons."
+}

@@ -1,0 +1,12 @@
+{
+  "correction": "The first full-run script originally hashed source files at COMPLETION. Root patched the production file during that running process; the loaded CommonJS module kept the old calculation, but the end-time hash read the new file. The raw summary is preserved separately and explicitly invalid as a description of the loaded before module. No result fields or counts were changed.",
+  "rawSummary": "raw-summary-end-time-hash.json",
+  "rawResults": "all-results.jsonl.gz",
+  "loadedBeforeSource": "sources/ziweiCalculation.before.ts",
+  "loadedBeforeSourceSha256": "28ce202108cb5ed5a0266d7860a367ad58334b47e7cd448ff491d18a56d6761b",
+  "corroboration": "The pre-run873-case preview records the identical source hash. The before source was copied during the full run before root patched it; it matches that preview. The complete before run retained all3747 original brightness errors, whereas the after process sees zero.",
+  "executionStartApproximateDerivedFromDuration": "2026-10-12T18:24:48.880Z",
+  "originalEndTimeHash": "fd45ef08fe7baa85cc965f49751e43b6a6410a86551a7e7b5010d09bc84023b3",
+  "afterStartTimeHash": "fd45ef08fe7baa85cc965f49751e43b6a6410a86551a7e7b5010d09bc84023b3",
+  "afterHashCapture": "Captured immediately at module startup; the after process independently re-executed376 fields per input."
+}

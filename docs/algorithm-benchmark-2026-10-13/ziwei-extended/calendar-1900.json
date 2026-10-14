@@ -1,0 +1,32 @@
+{
+  "1900-01-01": {
+    "lunarYear": 1899,
+    "lunarMonth": 12,
+    "lunarDay": 1,
+    "isLeap": false,
+    "monthSky": 2,
+    "monthGround": 0,
+    "daySky": 0,
+    "dayGround": 10
+  },
+  "1900-01-02": {
+    "lunarYear": 1899,
+    "lunarMonth": 12,
+    "lunarDay": 2,
+    "isLeap": false,
+    "monthSky": 2,
+    "monthGround": 0,
+    "daySky": 1,
+    "dayGround": 11
+  },
+  "1900-01-30": {
+    "lunarYear": 1899,
+    "lunarMonth": 12,
+    "lunarDay": 30,
+    "isLeap": false,
+    "monthSky": 3,
+    "monthGround": 1,
+    "daySky": 9,
+    "dayGround": 3
+  }
+}

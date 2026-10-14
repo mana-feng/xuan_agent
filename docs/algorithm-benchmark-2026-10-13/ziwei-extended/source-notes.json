@@ -1,0 +1,116 @@
+{
+  "independentEngine": {
+    "name": "fortel-ziweidoushu",
+    "version": "1.3.4",
+    "license": "MIT",
+    "source": "https://github.com/airicyu/fortel-ziweidoushu",
+    "declaredGitHead": "39584e11ad9ddb124bd4b337a3b148c2f0b25611",
+    "npmSha256": "cfccf313cab829d5824733f5c29f00f2ba6f39262e0dabaa9f9be74091539bad",
+    "provenanceWarning": "Executed npm source differs from its declared Git SHA in the Xin-year Tiankui/Tianyue entries. evalGround calls evalRuntimeGround, so the differences also affect natal charts. The old 81-field benchmark did not compare those stars. This extended benchmark executes the pinned npm artifact and records this distinction. npm Xin-year Tiankui=午,Tianyue=寅; declared Git source reverses them. Both npm and product use the 马虎 variant; Quanshu's printed 虎马 order differs."
+  },
+  "primaryText": {
+    "name": "紫微斗数全书 卷二 安身命例",
+    "url": "https://zh.wikisource.org/w/index.php?oldid=1963110&title=紫微斗數全書/卷二",
+    "revision": "1963110",
+    "revisionDate": "2020-09-04T14:06:00Z",
+    "workCopyright": "Historical public-domain text; Wikisource transcription attribution retained",
+    "usedSections": [
+      "安命主",
+      "安小限诀",
+      "安天伤天使诀",
+      "安截路空亡诀",
+      "末尾按地支排列的庙旺表"
+    ],
+    "transcription": "primary-rules.cjs; preserved branch-ordered groups rather than copied production rows",
+    "scopeCaution": "Only the named sections are used as oracles. Other passages differ from the selected civil-v1 convention (e.g. whole leap month, some sihua, Xin noble-star order); the benchmark does not claim the entire product follows every passage of Quanshu."
+  },
+  "supplementaryOriginalTeaching": [
+    {
+      "name": "王星东：东派斗数问答正副截空旬空",
+      "date": "2023-05-25",
+      "url": "https://blog.sina.com.cn/s/blog_133e591180102z55j.html",
+      "usedFor": "Select the positive empty branch by birth-year yin/yang; retain Fortel's full two-branch pair separately."
+    },
+    {
+      "name": "星林学苑／紫微研究苑：来因宫",
+      "url": "https://goch.tw/article/info/45",
+      "usedFor": "Independent ten-stem-to-branch table: 甲戌乙酉丙申丁未戊午己巳庚辰辛卯壬寅癸亥. Web search indexed full original article; direct open returned502."
+    },
+    {
+      "name": "晋贤紫微斗数：安星规律 天魁天钺的机遇",
+      "date": "2021-12-03",
+      "url": "https://little-yin.com/2021/12/03/opportunity/",
+      "usedFor": "Documents Xin-year exception (Tiankui午/Tianyue寅) separately from Quanshu's printed order; Fortel npm agreement alone is not presented as proof of a unique tradition."
+    }
+  ],
+  "calendarGap": {
+    "engine": "sxtwl 2.0.6",
+    "source": "https://github.com/yuangu/sxtwl_cpp",
+    "method": "Execute astronomical solar-to-lunar conversion for1900-01-01,1900-01-02,1900-01-30, then feed returned lunar date and stem/branch fields into Fortel's pure DestinyConfig constructor. No product lunar data is supplied to the baseline.",
+    "files": [
+      "calendar-1900.py",
+      "calendar-1900.json",
+      "calendar-1900.log"
+    ]
+  },
+  "confirmedUpstreamDefect": {
+    "release": "https://github.com/SylarLong/iztro/releases/tag/v2.6.1",
+    "releaseDate": "2026-09-03",
+    "issue": "https://github.com/SylarLong/iztro/issues/270",
+    "revision": "b78dfe391f65e938d79f2419dddb80f74c6bbb8e",
+    "source": "https://raw.githubusercontent.com/SylarLong/iztro/b78dfe391f65e938d79f2419dddb80f74c6bbb8e/src/data/stars.ts",
+    "sourceSha256": "b616ea6bf47086ef01ac897eb4f9122ec30d44716ed5debc373db361066e8c76",
+    "fixes": [
+      {
+        "star": "太阳",
+        "branch": "酉",
+        "old": "陷",
+        "primaryText": "平",
+        "upstream261": "平"
+      },
+      {
+        "star": "太阴",
+        "branch": "酉",
+        "old": "不",
+        "primaryText": "旺",
+        "upstream261": "旺"
+      },
+      {
+        "star": "七杀",
+        "branch": "酉",
+        "old": "庙",
+        "primaryText": "旺",
+        "upstream261": "旺"
+      }
+    ],
+    "role": "The independent classic first exposed these differences. Upstream is used to classify them as acknowledged old-data bugs, never as the independent oracle.",
+    "localSource": "sources/iztro261-stars.ts"
+  },
+  "rejectedCandidates": [
+    {
+      "source": "https://github.com/Vinbcent/ziwei-chart",
+      "revision": "fb15acbdc54923fa28d3d01c32a796cb7157c4f0",
+      "reason": "tools/extract.js calls iztro and exports brightness/misc-star tables; gen-brightness.js consumes extracted.json."
+    },
+    {
+      "source": "https://github.com/jhihwei/zwds",
+      "revision": "62b0005b9190338f86e8d3dda1eeb235a256e0e6",
+      "reason": "排盤規則.md explicitly cites iztro.com for brightness; rejected as an independent brightness oracle."
+    },
+    {
+      "source": "https://github.com/gasolin/zwds",
+      "revision": "01cf072c1bef7e8065c9d3692e466f5f1ab99969",
+      "reason": "Independent2008 MIT implementation, but brightness method is TODO/pass; cannot establish displayed brightness."
+    },
+    {
+      "source": "https://patents.google.com/patent/CN101556628A/zh",
+      "date": "2009-10-14",
+      "reason": "Original patent table1 is independent and was visually inspected, but gives a materially different brightness table. Not used to silently replace the selected classic table; candidate retained in research cache."
+    },
+    {
+      "source": "https://gist.github.com/nandinpao/59cab50ece7318d9d6a8bb6d7a993255",
+      "date": "2024-04-04",
+      "reason": "No derivation provenance; not accepted merely because nearly identical to product."
+    }
+  ]
+}

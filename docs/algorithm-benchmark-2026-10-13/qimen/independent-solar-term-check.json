@@ -1,0 +1,578 @@
+[
+  {
+    "id": "qm-20260105-1621",
+    "civil": "2026-01-05 16:21",
+    "sxtwlAnchor": "2026-01-05 16:22:53.352814",
+    "expectedTerm": "冬至",
+    "productTerm": "冬至",
+    "equal": true
+  },
+  {
+    "id": "qm-20260105-1622",
+    "civil": "2026-01-05 16:22",
+    "sxtwlAnchor": "2026-01-05 16:22:53.352814",
+    "expectedTerm": "冬至",
+    "productTerm": "冬至",
+    "equal": true
+  },
+  {
+    "id": "qm-20260105-1623",
+    "civil": "2026-01-05 16:23",
+    "sxtwlAnchor": "2026-01-05 16:22:53.352814",
+    "expectedTerm": "小寒",
+    "productTerm": "冬至",
+    "equal": false
+  },
+  {
+    "id": "qm-20260120-0943",
+    "civil": "2026-01-20 09:43",
+    "sxtwlAnchor": "2026-01-20 09:44:39.448700",
+    "expectedTerm": "小寒",
+    "productTerm": "小寒",
+    "equal": true
+  },
+  {
+    "id": "qm-20260120-0944",
+    "civil": "2026-01-20 09:44",
+    "sxtwlAnchor": "2026-01-20 09:44:39.448700",
+    "expectedTerm": "小寒",
+    "productTerm": "小寒",
+    "equal": true
+  },
+  {
+    "id": "qm-20260120-0945",
+    "civil": "2026-01-20 09:45",
+    "sxtwlAnchor": "2026-01-20 09:44:39.448700",
+    "expectedTerm": "大寒",
+    "productTerm": "大寒",
+    "equal": true
+  },
+  {
+    "id": "qm-20260204-0400",
+    "civil": "2026-02-04 04:00",
+    "sxtwlAnchor": "2026-02-04 04:01:51.392784",
+    "expectedTerm": "大寒",
+    "productTerm": "大寒",
+    "equal": true
+  },
+  {
+    "id": "qm-20260204-0401",
+    "civil": "2026-02-04 04:01",
+    "sxtwlAnchor": "2026-02-04 04:01:51.392784",
+    "expectedTerm": "大寒",
+    "productTerm": "大寒",
+    "equal": true
+  },
+  {
+    "id": "qm-20260204-0402",
+    "civil": "2026-02-04 04:02",
+    "sxtwlAnchor": "2026-02-04 04:01:51.392784",
+    "expectedTerm": "立春",
+    "productTerm": "大寒",
+    "equal": false
+  },
+  {
+    "id": "qm-20260218-2350",
+    "civil": "2026-02-18 23:50",
+    "sxtwlAnchor": "2026-02-18 23:51:39.050903",
+    "expectedTerm": "立春",
+    "productTerm": "立春",
+    "equal": true
+  },
+  {
+    "id": "qm-20260218-2351",
+    "civil": "2026-02-18 23:51",
+    "sxtwlAnchor": "2026-02-18 23:51:39.050903",
+    "expectedTerm": "立春",
+    "productTerm": "立春",
+    "equal": true
+  },
+  {
+    "id": "qm-20260218-2352",
+    "civil": "2026-02-18 23:52",
+    "sxtwlAnchor": "2026-02-18 23:51:39.050903",
+    "expectedTerm": "雨水",
+    "productTerm": "雨水",
+    "equal": true
+  },
+  {
+    "id": "qm-20260305-2157",
+    "civil": "2026-03-05 21:57",
+    "sxtwlAnchor": "2026-03-05 21:58:42.766113",
+    "expectedTerm": "雨水",
+    "productTerm": "雨水",
+    "equal": true
+  },
+  {
+    "id": "qm-20260305-2158",
+    "civil": "2026-03-05 21:58",
+    "sxtwlAnchor": "2026-03-05 21:58:42.766113",
+    "expectedTerm": "雨水",
+    "productTerm": "雨水",
+    "equal": true
+  },
+  {
+    "id": "qm-20260305-2159",
+    "civil": "2026-03-05 21:59",
+    "sxtwlAnchor": "2026-03-05 21:58:42.766113",
+    "expectedTerm": "惊蛰",
+    "productTerm": "惊蛰",
+    "equal": true
+  },
+  {
+    "id": "qm-20260320-2244",
+    "civil": "2026-03-20 22:44",
+    "sxtwlAnchor": "2026-03-20 22:45:41.706848",
+    "expectedTerm": "惊蛰",
+    "productTerm": "惊蛰",
+    "equal": true
+  },
+  {
+    "id": "qm-20260320-2245",
+    "civil": "2026-03-20 22:45",
+    "sxtwlAnchor": "2026-03-20 22:45:41.706848",
+    "expectedTerm": "惊蛰",
+    "productTerm": "惊蛰",
+    "equal": true
+  },
+  {
+    "id": "qm-20260320-2246",
+    "civil": "2026-03-20 22:46",
+    "sxtwlAnchor": "2026-03-20 22:45:41.706848",
+    "expectedTerm": "春分",
+    "productTerm": "春分",
+    "equal": true
+  },
+  {
+    "id": "qm-20260405-0238",
+    "civil": "2026-04-05 02:38",
+    "sxtwlAnchor": "2026-04-05 02:39:42.951736",
+    "expectedTerm": "春分",
+    "productTerm": "春分",
+    "equal": true
+  },
+  {
+    "id": "qm-20260405-0239",
+    "civil": "2026-04-05 02:39",
+    "sxtwlAnchor": "2026-04-05 02:39:42.951736",
+    "expectedTerm": "春分",
+    "productTerm": "春分",
+    "equal": true
+  },
+  {
+    "id": "qm-20260405-0240",
+    "civil": "2026-04-05 02:40",
+    "sxtwlAnchor": "2026-04-05 02:39:42.951736",
+    "expectedTerm": "清明",
+    "productTerm": "清明",
+    "equal": true
+  },
+  {
+    "id": "qm-20260420-0937",
+    "civil": "2026-04-20 09:37",
+    "sxtwlAnchor": "2026-04-20 09:38:51.085968",
+    "expectedTerm": "清明",
+    "productTerm": "清明",
+    "equal": true
+  },
+  {
+    "id": "qm-20260420-0938",
+    "civil": "2026-04-20 09:38",
+    "sxtwlAnchor": "2026-04-20 09:38:51.085968",
+    "expectedTerm": "清明",
+    "productTerm": "清明",
+    "equal": true
+  },
+  {
+    "id": "qm-20260420-0939",
+    "civil": "2026-04-20 09:39",
+    "sxtwlAnchor": "2026-04-20 09:38:51.085968",
+    "expectedTerm": "谷雨",
+    "productTerm": "清明",
+    "equal": false
+  },
+  {
+    "id": "qm-20260505-1947",
+    "civil": "2026-05-05 19:47",
+    "sxtwlAnchor": "2026-05-05 19:48:26.611633",
+    "expectedTerm": "谷雨",
+    "productTerm": "谷雨",
+    "equal": true
+  },
+  {
+    "id": "qm-20260505-1948",
+    "civil": "2026-05-05 19:48",
+    "sxtwlAnchor": "2026-05-05 19:48:26.611633",
+    "expectedTerm": "谷雨",
+    "productTerm": "谷雨",
+    "equal": true
+  },
+  {
+    "id": "qm-20260505-1949",
+    "civil": "2026-05-05 19:49",
+    "sxtwlAnchor": "2026-05-05 19:48:26.611633",
+    "expectedTerm": "立夏",
+    "productTerm": "立夏",
+    "equal": true
+  },
+  {
+    "id": "qm-20260521-0835",
+    "civil": "2026-05-21 08:35",
+    "sxtwlAnchor": "2026-05-21 08:36:27.961578",
+    "expectedTerm": "立夏",
+    "productTerm": "立夏",
+    "equal": true
+  },
+  {
+    "id": "qm-20260521-0836",
+    "civil": "2026-05-21 08:36",
+    "sxtwlAnchor": "2026-05-21 08:36:27.961578",
+    "expectedTerm": "立夏",
+    "productTerm": "立夏",
+    "equal": true
+  },
+  {
+    "id": "qm-20260521-0837",
+    "civil": "2026-05-21 08:37",
+    "sxtwlAnchor": "2026-05-21 08:36:27.961578",
+    "expectedTerm": "小满",
+    "productTerm": "小满",
+    "equal": true
+  },
+  {
+    "id": "qm-20260605-2347",
+    "civil": "2026-06-05 23:47",
+    "sxtwlAnchor": "2026-06-05 23:48:03.705139",
+    "expectedTerm": "小满",
+    "productTerm": "小满",
+    "equal": true
+  },
+  {
+    "id": "qm-20260605-2348",
+    "civil": "2026-06-05 23:48",
+    "sxtwlAnchor": "2026-06-05 23:48:03.705139",
+    "expectedTerm": "小满",
+    "productTerm": "小满",
+    "equal": true
+  },
+  {
+    "id": "qm-20260605-2349",
+    "civil": "2026-06-05 23:49",
+    "sxtwlAnchor": "2026-06-05 23:48:03.705139",
+    "expectedTerm": "芒种",
+    "productTerm": "芒种",
+    "equal": true
+  },
+  {
+    "id": "qm-20260621-1623",
+    "civil": "2026-06-21 16:23",
+    "sxtwlAnchor": "2026-06-21 16:24:12.495575",
+    "expectedTerm": "芒种",
+    "productTerm": "芒种",
+    "equal": true
+  },
+  {
+    "id": "qm-20260621-1624",
+    "civil": "2026-06-21 16:24",
+    "sxtwlAnchor": "2026-06-21 16:24:12.495575",
+    "expectedTerm": "芒种",
+    "productTerm": "芒种",
+    "equal": true
+  },
+  {
+    "id": "qm-20260621-1625",
+    "civil": "2026-06-21 16:25",
+    "sxtwlAnchor": "2026-06-21 16:24:12.495575",
+    "expectedTerm": "夏至",
+    "productTerm": "夏至",
+    "equal": true
+  },
+  {
+    "id": "qm-20260707-0955",
+    "civil": "2026-07-07 09:55",
+    "sxtwlAnchor": "2026-07-07 09:56:39.626541",
+    "expectedTerm": "夏至",
+    "productTerm": "夏至",
+    "equal": true
+  },
+  {
+    "id": "qm-20260707-0956",
+    "civil": "2026-07-07 09:56",
+    "sxtwlAnchor": "2026-07-07 09:56:39.626541",
+    "expectedTerm": "夏至",
+    "productTerm": "夏至",
+    "equal": true
+  },
+  {
+    "id": "qm-20260707-0957",
+    "civil": "2026-07-07 09:57",
+    "sxtwlAnchor": "2026-07-07 09:56:39.626541",
+    "expectedTerm": "小暑",
+    "productTerm": "小暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260723-0311",
+    "civil": "2026-07-23 03:11",
+    "sxtwlAnchor": "2026-07-23 03:12:47.733192",
+    "expectedTerm": "小暑",
+    "productTerm": "小暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260723-0312",
+    "civil": "2026-07-23 03:12",
+    "sxtwlAnchor": "2026-07-23 03:12:47.733192",
+    "expectedTerm": "小暑",
+    "productTerm": "小暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260723-0313",
+    "civil": "2026-07-23 03:13",
+    "sxtwlAnchor": "2026-07-23 03:12:47.733192",
+    "expectedTerm": "大暑",
+    "productTerm": "小暑",
+    "equal": false
+  },
+  {
+    "id": "qm-20260807-1941",
+    "civil": "2026-08-07 19:41",
+    "sxtwlAnchor": "2026-08-07 19:42:25.635223",
+    "expectedTerm": "大暑",
+    "productTerm": "大暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260807-1942",
+    "civil": "2026-08-07 19:42",
+    "sxtwlAnchor": "2026-08-07 19:42:25.635223",
+    "expectedTerm": "大暑",
+    "productTerm": "大暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260807-1943",
+    "civil": "2026-08-07 19:43",
+    "sxtwlAnchor": "2026-08-07 19:42:25.635223",
+    "expectedTerm": "立秋",
+    "productTerm": "立秋",
+    "equal": true
+  },
+  {
+    "id": "qm-20260823-1017",
+    "civil": "2026-08-23 10:17",
+    "sxtwlAnchor": "2026-08-23 10:18:30.824203",
+    "expectedTerm": "立秋",
+    "productTerm": "立秋",
+    "equal": true
+  },
+  {
+    "id": "qm-20260823-1018",
+    "civil": "2026-08-23 10:18",
+    "sxtwlAnchor": "2026-08-23 10:18:30.824203",
+    "expectedTerm": "立秋",
+    "productTerm": "立秋",
+    "equal": true
+  },
+  {
+    "id": "qm-20260823-1019",
+    "civil": "2026-08-23 10:19",
+    "sxtwlAnchor": "2026-08-23 10:18:30.824203",
+    "expectedTerm": "处暑",
+    "productTerm": "处暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260907-2239",
+    "civil": "2026-09-07 22:39",
+    "sxtwlAnchor": "2026-09-07 22:40:58.534241",
+    "expectedTerm": "处暑",
+    "productTerm": "处暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260907-2240",
+    "civil": "2026-09-07 22:40",
+    "sxtwlAnchor": "2026-09-07 22:40:58.534241",
+    "expectedTerm": "处暑",
+    "productTerm": "处暑",
+    "equal": true
+  },
+  {
+    "id": "qm-20260907-2241",
+    "civil": "2026-09-07 22:41",
+    "sxtwlAnchor": "2026-09-07 22:40:58.534241",
+    "expectedTerm": "白露",
+    "productTerm": "处暑",
+    "equal": false
+  },
+  {
+    "id": "qm-20260923-0803",
+    "civil": "2026-09-23 08:03",
+    "sxtwlAnchor": "2026-09-23 08:04:55.899582",
+    "expectedTerm": "白露",
+    "productTerm": "白露",
+    "equal": true
+  },
+  {
+    "id": "qm-20260923-0804",
+    "civil": "2026-09-23 08:04",
+    "sxtwlAnchor": "2026-09-23 08:04:55.899582",
+    "expectedTerm": "白露",
+    "productTerm": "白露",
+    "equal": true
+  },
+  {
+    "id": "qm-20260923-0805",
+    "civil": "2026-09-23 08:05",
+    "sxtwlAnchor": "2026-09-23 08:04:55.899582",
+    "expectedTerm": "秋分",
+    "productTerm": "白露",
+    "equal": false
+  },
+  {
+    "id": "qm-20261008-1427",
+    "civil": "2026-10-08 14:27",
+    "sxtwlAnchor": "2026-10-08 14:28:59.424133",
+    "expectedTerm": "秋分",
+    "productTerm": "秋分",
+    "equal": true
+  },
+  {
+    "id": "qm-20261008-1428",
+    "civil": "2026-10-08 14:28",
+    "sxtwlAnchor": "2026-10-08 14:28:59.424133",
+    "expectedTerm": "秋分",
+    "productTerm": "秋分",
+    "equal": true
+  },
+  {
+    "id": "qm-20261008-1429",
+    "civil": "2026-10-08 14:29",
+    "sxtwlAnchor": "2026-10-08 14:28:59.424133",
+    "expectedTerm": "寒露",
+    "productTerm": "秋分",
+    "equal": false
+  },
+  {
+    "id": "qm-20261023-1736",
+    "civil": "2026-10-23 17:36",
+    "sxtwlAnchor": "2026-10-23 17:37:39.214783",
+    "expectedTerm": "寒露",
+    "productTerm": "寒露",
+    "equal": true
+  },
+  {
+    "id": "qm-20261023-1737",
+    "civil": "2026-10-23 17:37",
+    "sxtwlAnchor": "2026-10-23 17:37:39.214783",
+    "expectedTerm": "寒露",
+    "productTerm": "寒露",
+    "equal": true
+  },
+  {
+    "id": "qm-20261023-1738",
+    "civil": "2026-10-23 17:38",
+    "sxtwlAnchor": "2026-10-23 17:37:39.214783",
+    "expectedTerm": "霜降",
+    "productTerm": "霜降",
+    "equal": true
+  },
+  {
+    "id": "qm-20261107-1750",
+    "civil": "2026-11-07 17:50",
+    "sxtwlAnchor": "2026-11-07 17:51:46.301880",
+    "expectedTerm": "霜降",
+    "productTerm": "霜降",
+    "equal": true
+  },
+  {
+    "id": "qm-20261107-1751",
+    "civil": "2026-11-07 17:51",
+    "sxtwlAnchor": "2026-11-07 17:51:46.301880",
+    "expectedTerm": "霜降",
+    "productTerm": "霜降",
+    "equal": true
+  },
+  {
+    "id": "qm-20261107-1752",
+    "civil": "2026-11-07 17:52",
+    "sxtwlAnchor": "2026-11-07 17:51:46.301880",
+    "expectedTerm": "立冬",
+    "productTerm": "霜降",
+    "equal": false
+  },
+  {
+    "id": "qm-20261122-1522",
+    "civil": "2026-11-22 15:22",
+    "sxtwlAnchor": "2026-11-22 15:23:03.031082",
+    "expectedTerm": "立冬",
+    "productTerm": "立冬",
+    "equal": true
+  },
+  {
+    "id": "qm-20261122-1523",
+    "civil": "2026-11-22 15:23",
+    "sxtwlAnchor": "2026-11-22 15:23:03.031082",
+    "expectedTerm": "立冬",
+    "productTerm": "立冬",
+    "equal": true
+  },
+  {
+    "id": "qm-20261122-1524",
+    "civil": "2026-11-22 15:24",
+    "sxtwlAnchor": "2026-11-22 15:23:03.031082",
+    "expectedTerm": "小雪",
+    "productTerm": "小雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261207-1051",
+    "civil": "2026-12-07 10:51",
+    "sxtwlAnchor": "2026-12-07 10:52:13.578873",
+    "expectedTerm": "小雪",
+    "productTerm": "小雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261207-1052",
+    "civil": "2026-12-07 10:52",
+    "sxtwlAnchor": "2026-12-07 10:52:13.578873",
+    "expectedTerm": "小雪",
+    "productTerm": "小雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261207-1053",
+    "civil": "2026-12-07 10:53",
+    "sxtwlAnchor": "2026-12-07 10:52:13.578873",
+    "expectedTerm": "大雪",
+    "productTerm": "大雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261222-0448",
+    "civil": "2026-12-22 04:48",
+    "sxtwlAnchor": "2026-12-22 04:49:55.310669",
+    "expectedTerm": "大雪",
+    "productTerm": "大雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261222-0449",
+    "civil": "2026-12-22 04:49",
+    "sxtwlAnchor": "2026-12-22 04:49:55.310669",
+    "expectedTerm": "大雪",
+    "productTerm": "大雪",
+    "equal": true
+  },
+  {
+    "id": "qm-20261222-0450",
+    "civil": "2026-12-22 04:50",
+    "sxtwlAnchor": "2026-12-22 04:49:55.310669",
+    "expectedTerm": "冬至",
+    "productTerm": "大雪",
+    "equal": false
+  }
+]

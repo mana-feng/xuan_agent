@@ -1,0 +1,10 @@
+{
+  "cases": 27300,
+  "disambiguationChecks": 81900,
+  "roundTrips": 28976,
+  "differences": 0,
+  "node": "v24.19.0",
+  "tzdata": "2026b",
+  "icu": "78.3",
+  "sourceSha256": "65128b82f16cd86e0a825a5e780d1a138ff96c2b2aadbed33b02d86ed6531dd8"
+}

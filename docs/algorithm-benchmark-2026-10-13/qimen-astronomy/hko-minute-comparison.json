@@ -1,0 +1,246 @@
+{
+  "source": "https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2026.xml",
+  "precision": "Official table only supports nearest-minute comparison; it is not a second-resolution oracle.",
+  "rows": [
+    {
+      "term": "小寒",
+      "hkoMinute": "2026-01-05 16:23",
+      "jplRoundedMinute": "2026-01-05 16:23",
+      "lunarRoundedMinute": "2026-01-05 16:23",
+      "sxtwlRoundedMinute": "2026-01-05 16:23",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "大寒",
+      "hkoMinute": "2026-01-20 09:45",
+      "jplRoundedMinute": "2026-01-20 09:45",
+      "lunarRoundedMinute": "2026-01-20 09:45",
+      "sxtwlRoundedMinute": "2026-01-20 09:45",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "立春",
+      "hkoMinute": "2026-02-04 04:02",
+      "jplRoundedMinute": "2026-02-04 04:02",
+      "lunarRoundedMinute": "2026-02-04 04:02",
+      "sxtwlRoundedMinute": "2026-02-04 04:02",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "雨水",
+      "hkoMinute": "2026-02-18 23:52",
+      "jplRoundedMinute": "2026-02-18 23:52",
+      "lunarRoundedMinute": "2026-02-18 23:52",
+      "sxtwlRoundedMinute": "2026-02-18 23:52",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "惊蛰",
+      "hkoMinute": "2026-03-05 21:59",
+      "jplRoundedMinute": "2026-03-05 21:59",
+      "lunarRoundedMinute": "2026-03-05 21:59",
+      "sxtwlRoundedMinute": "2026-03-05 21:59",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "春分",
+      "hkoMinute": "2026-03-20 22:46",
+      "jplRoundedMinute": "2026-03-20 22:46",
+      "lunarRoundedMinute": "2026-03-20 22:46",
+      "sxtwlRoundedMinute": "2026-03-20 22:46",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "清明",
+      "hkoMinute": "2026-04-05 02:40",
+      "jplRoundedMinute": "2026-04-05 02:40",
+      "lunarRoundedMinute": "2026-04-05 02:40",
+      "sxtwlRoundedMinute": "2026-04-05 02:40",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "谷雨",
+      "hkoMinute": "2026-04-20 09:39",
+      "jplRoundedMinute": "2026-04-20 09:39",
+      "lunarRoundedMinute": "2026-04-20 09:39",
+      "sxtwlRoundedMinute": "2026-04-20 09:39",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "立夏",
+      "hkoMinute": "2026-05-05 19:49",
+      "jplRoundedMinute": "2026-05-05 19:49",
+      "lunarRoundedMinute": "2026-05-05 19:49",
+      "sxtwlRoundedMinute": "2026-05-05 19:48",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": false
+    },
+    {
+      "term": "小满",
+      "hkoMinute": "2026-05-21 08:37",
+      "jplRoundedMinute": "2026-05-21 08:37",
+      "lunarRoundedMinute": "2026-05-21 08:37",
+      "sxtwlRoundedMinute": "2026-05-21 08:36",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": false
+    },
+    {
+      "term": "芒种",
+      "hkoMinute": "2026-06-05 23:48",
+      "jplRoundedMinute": "2026-06-05 23:48",
+      "lunarRoundedMinute": "2026-06-05 23:48",
+      "sxtwlRoundedMinute": "2026-06-05 23:48",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "夏至",
+      "hkoMinute": "2026-06-21 16:25",
+      "jplRoundedMinute": "2026-06-21 16:25",
+      "lunarRoundedMinute": "2026-06-21 16:25",
+      "sxtwlRoundedMinute": "2026-06-21 16:24",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": false
+    },
+    {
+      "term": "小暑",
+      "hkoMinute": "2026-07-07 09:57",
+      "jplRoundedMinute": "2026-07-07 09:57",
+      "lunarRoundedMinute": "2026-07-07 09:57",
+      "sxtwlRoundedMinute": "2026-07-07 09:57",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "大暑",
+      "hkoMinute": "2026-07-23 03:13",
+      "jplRoundedMinute": "2026-07-23 03:13",
+      "lunarRoundedMinute": "2026-07-23 03:13",
+      "sxtwlRoundedMinute": "2026-07-23 03:13",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "立秋",
+      "hkoMinute": "2026-08-07 19:43",
+      "jplRoundedMinute": "2026-08-07 19:43",
+      "lunarRoundedMinute": "2026-08-07 19:43",
+      "sxtwlRoundedMinute": "2026-08-07 19:42",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": false
+    },
+    {
+      "term": "处暑",
+      "hkoMinute": "2026-08-23 10:19",
+      "jplRoundedMinute": "2026-08-23 10:19",
+      "lunarRoundedMinute": "2026-08-23 10:19",
+      "sxtwlRoundedMinute": "2026-08-23 10:19",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "白露",
+      "hkoMinute": "2026-09-07 22:41",
+      "jplRoundedMinute": "2026-09-07 22:41",
+      "lunarRoundedMinute": "2026-09-07 22:41",
+      "sxtwlRoundedMinute": "2026-09-07 22:41",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "秋分",
+      "hkoMinute": "2026-09-23 08:05",
+      "jplRoundedMinute": "2026-09-23 08:05",
+      "lunarRoundedMinute": "2026-09-23 08:05",
+      "sxtwlRoundedMinute": "2026-09-23 08:05",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "寒露",
+      "hkoMinute": "2026-10-08 14:29",
+      "jplRoundedMinute": "2026-10-08 14:29",
+      "lunarRoundedMinute": "2026-10-08 14:29",
+      "sxtwlRoundedMinute": "2026-10-08 14:29",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "霜降",
+      "hkoMinute": "2026-10-23 17:38",
+      "jplRoundedMinute": "2026-10-23 17:38",
+      "lunarRoundedMinute": "2026-10-23 17:38",
+      "sxtwlRoundedMinute": "2026-10-23 17:38",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "立冬",
+      "hkoMinute": "2026-11-07 17:52",
+      "jplRoundedMinute": "2026-11-07 17:52",
+      "lunarRoundedMinute": "2026-11-07 17:52",
+      "sxtwlRoundedMinute": "2026-11-07 17:52",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "小雪",
+      "hkoMinute": "2026-11-22 15:23",
+      "jplRoundedMinute": "2026-11-22 15:23",
+      "lunarRoundedMinute": "2026-11-22 15:23",
+      "sxtwlRoundedMinute": "2026-11-22 15:23",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    },
+    {
+      "term": "大雪",
+      "hkoMinute": "2026-12-07 10:53",
+      "jplRoundedMinute": "2026-12-07 10:53",
+      "lunarRoundedMinute": "2026-12-07 10:53",
+      "sxtwlRoundedMinute": "2026-12-07 10:52",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": false
+    },
+    {
+      "term": "冬至",
+      "hkoMinute": "2026-12-22 04:50",
+      "jplRoundedMinute": "2026-12-22 04:50",
+      "lunarRoundedMinute": "2026-12-22 04:50",
+      "sxtwlRoundedMinute": "2026-12-22 04:50",
+      "jplEqual": true,
+      "lunarEqual": true,
+      "sxtwlEqual": true
+    }
+  ]
+}
