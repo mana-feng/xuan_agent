@@ -16,8 +16,8 @@
 				aria-haspopup="dialog"
 			>
 				<view class="picker-content">
-					<text v-if="displaySymbol" class="yao-symbol">{{ displaySymbol }}</text>
-					<text v-if="displayName" class="yao-name">{{ displayName }}</text>
+					<YaoGlyph v-if="displayName" :value="options[selectedIndex].value" />
+					<text class="yao-name">{{ displayName || '请选择爻象' }}</text>
 				</view>
 				<text class="yao-chevron">⌄</text>
 			</view>
@@ -29,6 +29,7 @@
 import { computed, ref } from 'vue';
 import { h5Button } from '@/utils/keyboard';
 import { getYaoName } from '@/features/liuyao/uiHelpers';
+import YaoGlyph from './YaoGlyph.vue';
 
 const props = defineProps({
 	modelValue: { type: [String, Number], default: '' },
@@ -48,12 +49,6 @@ function openPicker() {
 const selectedIndex = computed(() => {
 	const idx = props.options.findIndex((opt) => String(opt.value) === String(props.modelValue));
 	return idx >= 0 ? idx : 0;
-});
-
-const displaySymbol = computed(() => {
-	const opt = props.options[selectedIndex.value];
-	if (!opt) return '';
-	return opt.symbol || opt.label || '';
 });
 
 const displayName = computed(() => {
@@ -99,23 +94,16 @@ function onChange(e: any) {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 15px;
+	gap: 12px;
 	flex-wrap: nowrap;
-}
-.yao-symbol {
-	color: var(--x-accent, #1672b1);
-	font-size: 17px;
-	font-weight: 600;
-	min-width: 75px;
-	text-align: center;
-	white-space: pre;
-	font-family: monospace;
-	letter-spacing: 1px;
+	flex: 1;
+	min-width: 0;
 }
 .yao-name {
 	color: var(--x-body, #425d65);
 	font-size: 12px;
 	white-space: nowrap;
+	flex-shrink: 0;
 }
 .yao-chevron {
 	color: var(--x-muted, #667d82);

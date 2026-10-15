@@ -159,6 +159,33 @@ test('online generation and disabled submission obey their live disabled state',
 	}
 });
 
+test('hexagram preview reads top to bottom and keeps moving markers separate from the strokes', () => {
+	const mounted = mount('components/liuyao/ParamPreview.vue', { params: [1, 4, 0, 3, 1, 0] });
+	try {
+		const rows = [...mounted.host.querySelectorAll('[role="listitem"]')];
+		assert.equal(rows.length, 6);
+		assert.deepEqual(rows.map(row => row.querySelector('.yao-prefix').textContent), ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻']);
+		assert.deepEqual(rows.map(row => row.querySelector('.yao-name').textContent), ['少阴', '少阳', '老阳', '少阴', '老阴', '少阳']);
+		assert.deepEqual(rows.map(row => row.querySelectorAll('.yao-stroke').length), [2, 1, 1, 2, 2, 1]);
+		assert.deepEqual(rows.map(row => row.querySelector('.yao-motion').textContent.trim()), ['', '', '○', '', '×', '']);
+		assert.equal(rows[2].querySelector('.yao-strokes').textContent.trim(), '');
+		assert.match(mounted.host.querySelector('.param-summary').textContent, /2.*动爻/);
+	} finally { mounted.dispose(); }
+});
+
+test('partially generated online hexagram keeps six positions without inventing uncast lines', () => {
+	const mounted = mount('components/liuyao/ParamPreview.vue', { params: [4] });
+	try {
+		const rows = [...mounted.host.querySelectorAll('[role="listitem"]')];
+		assert.equal(rows.length, 6);
+		assert.equal(rows[5].querySelector('.yao-prefix').textContent, '初爻');
+		assert.equal(rows[5].querySelector('.yao-name').textContent, '老阴');
+		assert.equal(mounted.host.querySelectorAll('.yao-stroke').length, 2);
+		assert.equal(mounted.host.querySelectorAll('.yao-pending').length, 5);
+		assert.match(mounted.host.querySelector('.param-summary').textContent, /1.*6/);
+	} finally { mounted.dispose(); }
+});
+
 test('manual yao picker opens once by keyboard and names the actual line', () => {
 	const mounted = mount('components/liuyao/YaoSelector.vue', {
 		label: '初爻',
@@ -173,6 +200,8 @@ test('manual yao picker opens once by keyboard and names the actual line', () =>
 		mounted.host.querySelector('uni-picker').addEventListener('click', () => opens++);
 		const trigger = mounted.host.querySelector('.picker-trigger');
 		assert.match(trigger.getAttribute('aria-label') || '', /初爻.*少阴/);
+		assert.equal(mounted.host.querySelectorAll('.yao-stroke').length, 2);
+		assert.equal(mounted.host.querySelector('[role="img"]').getAttribute('aria-label'), '阴爻，静爻');
 		press(trigger, 'Enter');
 		press(trigger, ' ');
 		assert.equal(opens, 2);
