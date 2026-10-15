@@ -189,7 +189,7 @@
                 :round="12"
                 :padding="[18, 22]"
                 :loading="saving"
-                :disabled="saving"
+                :disabled="saving || loading"
                 label="保存配置"
                 @tap="handleSave"
               ></tm-button>
@@ -226,6 +226,8 @@ const userStore = useUserStore();
 const saving = ref(false);
 const loading = ref(false);
 const currentScope = ref<LlmScope>('chat');
+let configGeneration = 0;
+let historyGeneration = 0;
 
 const scopeOptions: Array<{ value: LlmScope; label: string; hint: string }> = [
   { value: 'chat', label: 'Chat 页面', hint: '登录后使用，保留额度校验' },
@@ -283,9 +285,9 @@ const currentProviderLabel = computed(() => {
   return item ? item.label : '选择供应商';
 });
 
-function buildScopeUrl(path: string) {
+function buildScopeUrl(path: string, scope: LlmScope = currentScope.value) {
   const separator = path.includes('?') ? '&' : '?';
-  return `${path}${separator}scope=${currentScope.value}`;
+  return `${path}${separator}scope=${scope}`;
 }
 
 function normalizeConfigPayload(res: any) {
@@ -303,9 +305,13 @@ function resetForm() {
 }
 
 async function loadConfig() {
+  const scope = currentScope.value;
+  const generation = ++configGeneration;
+  const isCurrent = () => scope === currentScope.value && generation === configGeneration;
   loading.value = true;
   try {
-    const res = await request(buildScopeUrl('/api/admin/llm-config'), { method: 'GET', needAuth: true });
+    const res = await request(buildScopeUrl('/api/admin/llm-config', scope), { method: 'GET', needAuth: true });
+    if (!isCurrent()) return;
     const payload = normalizeConfigPayload(res);
 
     if (payload?.provider !== undefined) {
@@ -321,35 +327,42 @@ async function loadConfig() {
       resetForm();
     }
 
-    await loadModelHistory();
+    await loadModelHistory(scope);
   } catch (err) {
+    if (!isCurrent()) return;
     console.warn('load llm config failed:', err);
     uni.showToast({ title: '加载失败', icon: 'none' });
   } finally {
-    loading.value = false;
+    if (isCurrent()) loading.value = false;
   }
 }
 
-async function loadModelHistory() {
+async function loadModelHistory(scope: LlmScope = currentScope.value) {
+  const generation = ++historyGeneration;
+  const isCurrent = () => scope === currentScope.value && generation === historyGeneration;
   try {
-    const res = await request<HistoryModel[]>(buildScopeUrl('/api/admin/llm-models'), {
+    const res = await request<HistoryModel[]>(buildScopeUrl('/api/admin/llm-models', scope), {
       method: 'GET',
       needAuth: true,
     });
-    modelHistory.value = Array.isArray(res?.data) ? res.data : [];
+    if (isCurrent()) modelHistory.value = Array.isArray(res?.data) ? res.data : [];
   } catch (err) {
+    if (!isCurrent()) return;
     console.error('load llm model history failed:', err);
     modelHistory.value = [];
   }
 }
 
 async function activateModel(modelId: number) {
+  const scope = currentScope.value;
+  const generation = configGeneration;
   try {
-    await request(buildScopeUrl(`/api/admin/llm-models/${modelId}/activate`), {
+    await request(buildScopeUrl(`/api/admin/llm-models/${modelId}/activate`, scope), {
       method: 'POST',
       needAuth: true,
-      data: { scope: currentScope.value },
+      data: { scope },
     });
+    if (scope !== currentScope.value || generation !== configGeneration) return;
     uni.showToast({ title: '已切换', icon: 'success', duration: 1500 });
     await loadConfig();
   } catch (err) {
@@ -359,6 +372,8 @@ async function activateModel(modelId: number) {
 }
 
 async function deleteModel(modelId: number) {
+  const scope = currentScope.value;
+  const generation = configGeneration;
   try {
     const modal = await uni.showModal({
       title: '确认删除',
@@ -370,11 +385,12 @@ async function deleteModel(modelId: number) {
       return;
     }
 
-    await request(buildScopeUrl(`/api/admin/llm-models/${modelId}`), {
+    await request(buildScopeUrl(`/api/admin/llm-models/${modelId}`, scope), {
       method: 'DELETE',
       needAuth: true,
-      data: { scope: currentScope.value },
+      data: { scope },
     });
+    if (scope !== currentScope.value || generation !== configGeneration) return;
     uni.showToast({ title: '已删除', icon: 'success' });
     await loadModelHistory();
   } catch (err) {
@@ -403,6 +419,7 @@ function switchScope(scope: LlmScope) {
     return;
   }
   currentScope.value = scope;
+  ++historyGeneration;
   resetForm();
   modelHistory.value = [];
   void loadConfig();
@@ -413,21 +430,23 @@ onMounted(() => {
 });
 
 async function handleSave() {
+  if (loading.value || saving.value) return;
   if (!userStore.isAdmin) {
     uni.showToast({ title: '仅管理员可操作', icon: 'none' });
     return;
   }
 
+  const scope = currentScope.value;
+  const generation = configGeneration;
+  const payload = { ...form, scope };
   saving.value = true;
   try {
-    await request(buildScopeUrl('/api/admin/llm-config'), {
+    await request(buildScopeUrl('/api/admin/llm-config', scope), {
       method: 'PUT',
       needAuth: true,
-      data: {
-        ...form,
-        scope: currentScope.value,
-      },
+      data: payload,
     });
+    if (scope !== currentScope.value || generation !== configGeneration) return;
     uni.showToast({ title: '已保存', icon: 'success', duration: 1500 });
     await loadConfig();
   } catch (err) {

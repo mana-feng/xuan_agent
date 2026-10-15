@@ -22,6 +22,15 @@ const ADMIN_RECORD_TYPE_TABLE_MAP = Object.freeze({
 });
 const ADMIN_RECORD_TYPES = Object.keys(ADMIN_RECORD_TYPE_TABLE_MAP);
 
+function resolveLLMScope(req) {
+	const queryScope = req.query && req.query.scope;
+	const bodyScope = req.body && req.body.scope;
+	const scopes = [queryScope, bodyScope].filter(value => value !== undefined);
+	if (scopes.some(value => value !== 'chat' && value !== 'agent')) return null;
+	if (queryScope !== undefined && bodyScope !== undefined && queryScope !== bodyScope) return null;
+	return scopes[0] || 'chat';
+}
+
 function normalizeAdminRecordType(inputType, { allowAll = false, defaultType = 'bazi' } = {}) {
 	const normalized = String(inputType || '').trim().toLowerCase();
 	if (allowAll && normalized === 'all') {
@@ -307,11 +316,13 @@ router.put('/analytics-snippet', adminMiddleware, apiSignatureMiddleware(), asyn
  * 获取 LLM 配置
  */
 router.get('/llm-config', adminMiddleware, async (req, res) => {
+	const scope = resolveLLMScope(req);
+	if (!scope) return res.status(400).json({ error: '无效或冲突的模型配置场景' });
 	try {
-		const cfg = await ConfigService.getLLMConfig(db);
+		const cfg = await ConfigService.getLLMConfig(db, scope);
 		// 尝试从历史记录中获取当前激活的模型名称
 		try {
-			const models = await ConfigService.getLLMModels(db);
+			const models = await ConfigService.getLLMModels(db, scope);
 			const activeModel = models.find(m => m.is_active === 1);
 			if (activeModel) {
 				cfg.name = activeModel.name;
@@ -330,6 +341,8 @@ router.get('/llm-config', adminMiddleware, async (req, res) => {
  * 保存 LLM 配置
  */
 router.put('/llm-config', adminMiddleware, apiSignatureMiddleware(), async (req, res) => {
+	const scope = resolveLLMScope(req);
+	if (!scope) return res.status(400).json({ error: '无效或冲突的模型配置场景' });
 	const { provider, baseUrl, apiKey, model, extra, name } = req.body || {};
 	try {
 		await ConfigService.setLLMConfig(db, {
@@ -339,7 +352,7 @@ router.put('/llm-config', adminMiddleware, apiSignatureMiddleware(), async (req,
 			model,
 			extra: extra !== undefined && extra !== null ? String(extra) : '',
 			name,
-		});
+		}, scope);
 		res.json({ success: true });
 	} catch (e) {
 		console.error('Admin route error');
@@ -351,8 +364,10 @@ router.put('/llm-config', adminMiddleware, apiSignatureMiddleware(), async (req,
  * 获取所有历史模型配置
  */
 router.get('/llm-models', adminMiddleware, async (req, res) => {
+	const scope = resolveLLMScope(req);
+	if (!scope) return res.status(400).json({ error: '无效或冲突的模型配置场景' });
 	try {
-		const models = await ConfigService.getLLMModels(db);
+		const models = await ConfigService.getLLMModels(db, scope);
 		res.json({ success: true, data: models });
 	} catch (e) {
 		console.error('Admin route error');
@@ -364,12 +379,14 @@ router.get('/llm-models', adminMiddleware, async (req, res) => {
  * 切换激活的模型配置
  */
 router.post('/llm-models/:id/activate', adminMiddleware, apiSignatureMiddleware(), async (req, res) => {
+	const scope = resolveLLMScope(req);
+	if (!scope) return res.status(400).json({ error: '无效或冲突的模型配置场景' });
 	try {
 		const modelId = parseInt(req.params.id, 10);
 		if (!modelId || isNaN(modelId)) {
 			return res.status(400).json({ error: '无效的模型 ID' });
 		}
-		await ConfigService.activateLLMModel(db, modelId);
+		await ConfigService.activateLLMModel(db, modelId, scope);
 		res.json({ success: true, message: '操作成功' });
 	} catch (e) {
 		console.error('Admin route error');
@@ -381,12 +398,14 @@ router.post('/llm-models/:id/activate', adminMiddleware, apiSignatureMiddleware(
  * 删除模型配置
  */
 router.delete('/llm-models/:id', adminMiddleware, apiSignatureMiddleware(), async (req, res) => {
+	const scope = resolveLLMScope(req);
+	if (!scope) return res.status(400).json({ error: '无效或冲突的模型配置场景' });
 	try {
 		const modelId = parseInt(req.params.id, 10);
 		if (!modelId || isNaN(modelId)) {
 			return res.status(400).json({ error: '无效的模型 ID' });
 		}
-		await ConfigService.deleteLLMModel(db, modelId);
+		await ConfigService.deleteLLMModel(db, modelId, scope);
 		res.json({ success: true, message: '操作成功' });
 	} catch (e) {
 		console.error('Admin route error');
