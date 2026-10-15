@@ -148,7 +148,7 @@ export default defineConfig(({ mode }) => {
 			__INTLIFY_PROD_DEVTOOLS__: false,
 		},
 		plugins: [
-			progress({
+			process.env.VITE_BUILD_PROGRESS !== "false" && progress({
 				format: "building [:bar] :percent",
 				total: 100,
 				width: 100,
