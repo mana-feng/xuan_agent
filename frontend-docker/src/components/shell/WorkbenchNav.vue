@@ -17,18 +17,21 @@
   <view v-if="menuOpen" class="x-menu-scrim" aria-hidden="true" @tap="closeMenu" />
   <view class="x-topbar">
     <view class="x-topbar-left"><button class="x-menu-toggle" v-bind="h5Button(() => menuOpen = !menuOpen)" aria-label="展开导航" :aria-expanded="menuOpen" @tap="menuOpen = !menuOpen">☰</button><text class="x-breadcrumb">{{ activeLabel }}</text><text class="x-topbar-divider">/</text><text class="x-topbar-caption">让每一次探索，更了解自己</text></view>
-    <view class="x-topbar-right"><button class="x-palette" v-bind="h5Button(openPalette)" aria-label="选择渐变配色" @tap="openPalette"><text class="x-palette-dot" />{{ paletteName }}⌄</button><UserAvatarDropdown /></view>
+    <view class="x-topbar-right"><button class="x-palette" v-bind="h5Button(openPalette)" aria-label="选择渐变配色" aria-haspopup="dialog" :aria-expanded="paletteOpen" @tap="openPalette"><text class="x-palette-dot" />{{ paletteName }}⌄</button><UserAvatarDropdown /></view>
   </view>
+  <PaletteDialog v-if="paletteOpen" :palette="palette" @select="selectPalette" @close="paletteOpen = false" />
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
 import UserAvatarDropdown from '@/components/UserAvatarDropdown.vue';
+import PaletteDialog from './PaletteDialog.vue';
 import { h5Button } from '@/utils/keyboard';
 import { useModalFocus } from '@/utils/useModalFocus';
 import { useWorkbenchTheme } from '@/features/workbench/theme';
-const { paletteName, palettes, changePalette } = useWorkbenchTheme();
+const { palette, paletteName, changePalette } = useWorkbenchTheme();
+const paletteOpen = ref(false);
 const menuOpen = ref(false);
 const compact = ref(false);
 const sidebar = ref();
@@ -58,7 +61,12 @@ function go(path: string) {
 }
 function announcements() { menuOpen.value = false; uni.$emit('openAnnouncements'); }
 function openPalette() {
-  uni.showActionSheet({ itemList: palettes.map(item => item.name), success: result => changePalette(result.tapIndex) });
+  closeMenu();
+  paletteOpen.value = true;
+}
+function selectPalette(index: number) {
+  changePalette(index);
+  paletteOpen.value = false;
 }
 onMounted(() => {
   updateActive();

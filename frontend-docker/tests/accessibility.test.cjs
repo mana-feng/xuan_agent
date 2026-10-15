@@ -107,6 +107,27 @@ test('announcement failure offers retry without a contradictory empty message an
 	} finally { cached.dispose(); }
 });
 
+test('palette cards show the current choice, select once by keyboard and restore focus on dismissal', async () => {
+	const opener = document.createElement('button'); document.body.append(opener); opener.focus();
+	const selections = []; let closes = 0;
+	const mounted = mount('components/shell/PaletteDialog.vue', { palette: 'aurora', onSelect: index => selections.push(index), onClose: () => closes++ });
+	try {
+		await nextTick(); await nextTick();
+		const options = mounted.host.querySelectorAll('.palette-option');
+		assert.equal(options.length, 3);
+		assert.equal(options[0].getAttribute('aria-pressed'), 'true');
+		assert.equal(options[1].getAttribute('aria-pressed'), 'false');
+		assert.match(options[0].textContent, /青蓝流光/);
+		assert.ok(mounted.host.querySelector('[role="dialog"]').contains(document.activeElement));
+		press(options[1], ' ');
+		assert.deepEqual(selections, [1], 'choosing amber must emit its actual palette index once');
+		keydown(options[1], 'Escape'); assert.equal(closes, 1);
+	} finally { mounted.dispose(); }
+	assert.equal(document.activeElement, opener);
+	opener.remove();
+	assert.notEqual(document.body.style.overflow, 'hidden');
+});
+
 const consoleProps = {
 	subtitle: '', pendingAction: null, contextItems: [], messages: [], lastMessageId: '',
 	modelValue: '请帮我排盘', sending: false, composeTip: '',

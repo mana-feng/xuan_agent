@@ -1,9 +1,9 @@
 import { computed, ref } from 'vue';
 
 export const palettes = [
-  { id: 'aurora', name: '青蓝流光' },
-  { id: 'sunset', name: '琥珀暖阳' },
-  { id: 'lake', name: '湖光青翠' },
+  { id: 'aurora', name: '青蓝流光', description: '清透蓝绿，轻盈明亮', colors: ['#1672b1', '#147f91', '#11785f'] },
+  { id: 'sunset', name: '琥珀暖阳', description: '温润琥珀，柔和静谧', colors: ['#b35424', '#a96918', '#927117'] },
+  { id: 'lake', name: '湖光青翠', description: '湖蓝青翠，清新舒缓', colors: ['#176d9e', '#197b8e', '#0f776f'] },
 ] as const;
 const palette = ref('aurora');
 let restored = false;
