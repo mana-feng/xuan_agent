@@ -13,10 +13,12 @@
   ],
   "rule": "时家转盘·符头拆补 / 23:00 换日 / 北京时间 UTC+08:00 / 中五寄坤二、天禽随芮",
   "ruleNaming": "Upstream README calls its method 茅山 and a test comment calls it 置闰. This adapter names the actual fu-tou / term-table implementation, not those conflicting labels.",
-  "validation": "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/report.html",
+  "validation": "https://github.com/mana-feng/xuan_agent/blob/29f9c9e2d3beacccc5c31eeb5c6a4496672da5c9/docs/algorithm-audit/report.html",
   "hashes": [
-    "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/upstream-sha256.json",
-    "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/patched-sha256.json"
+    "https://github.com/mana-feng/xuan_agent/blob/29f9c9e2d3beacccc5c31eeb5c6a4496672da5c9/docs/algorithm-audit/upstream-sha256.json",
+    "https://github.com/mana-feng/xuan_agent/blob/29f9c9e2d3beacccc5c31eeb5c6a4496672da5c9/docs/algorithm-audit/patched-sha256.json"
   ],
-  "knownLimits": "No true solar time; no flying-plate, zhiyin leap insertion, or alternative school comparison. Upstream maturity and passing invariants alone are not independent correctness proof."
+  "knownLimits": "No true solar time; no flying-plate, zhiyin leap insertion, or alternative school comparison. Upstream maturity and passing invariants alone are not independent correctness proof.",
+  "sourceMainCommit": "16ccd70400c0d8dc1d893698a15b5e559f338a8e",
+  "validationNote": "Audit report and engine hash files are unchanged between published main 29f9c9e and the local sync source 16ccd70."
 }
