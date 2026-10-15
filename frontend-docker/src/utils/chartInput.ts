@@ -38,7 +38,10 @@ export function snapshotChartInput(data: ChartPullData): ChartInput & { timestam
 		gender: Number(data.gender) === 1 ? 1 : 0,
 		timestamp,
 		recordId: data.recordId ?? null,
-		...(data.timeZone ? { timeZone: data.timeZone, timeZoneSource: data.timeZoneSource || 'explicit' as const } : {}),
+		...(data.timeZone ? { timeZone: data.timeZone,
+			// Preserve optional metadata on frozen charts across reload and recalculation.
+			...(data.timeZoneSource ? { timeZoneSource: data.timeZoneSource } : !data.calculation ? { timeZoneSource: 'explicit' as const } : {}),
+		} : {}),
 		...(data.ruleVersion ? { ruleVersion: data.ruleVersion } : {}),
 		...(data.calculation ? { calculation: JSON.parse(JSON.stringify(data.calculation)) } : {}),
 		...(data.rules ? { rules: { ...data.rules } } : {}),

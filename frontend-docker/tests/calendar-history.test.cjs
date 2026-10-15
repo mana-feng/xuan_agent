@@ -15,6 +15,18 @@ const timestamp = Date.parse('2026-10-15T16:30:00Z');
 const params = [1, 0, 3, 0, 1, 4];
 const defaults = { dayDivide: 'midnight', yearDivide: 'lichun', leapMonth: 'add-twelve' };
 
+test('reloading a history-created Bazi input keeps its encrypted conversation identity', () => {
+  const {resolveCalendar}=require('../src/utils/calendarContext.ts');
+  const {identityToken}=require('../src/chat/sessionSnapshot.ts');
+  const calculation=resolveCalendar(timestamp,'bazi',{timeZone:'Asia/Shanghai'});
+  const store=useBaziStore();store.pull({timestamp,gender:0,realname:'历史对话',recordId:71,calculation});
+  const identity=input=>{const {recordId,...chart}=input;return identityToken({account:'test@example.test',chartType:'bazi',recordId,chart});};
+  const before=identity(store.input);
+  assert.equal(store.input.timeZoneSource,undefined);
+  setActivePinia(createPinia());const restored=useBaziStore();restored.restoreInput();restored.ensureComputed();
+  assert.equal(identity(restored.input),before);
+});
+
 test('modern Bazi history restores saved rules rather than the new-page defaults', () => {
   const store = useBaziStore();
   store.pull({ timestamp: Date.parse('2026-10-15T23:30:00+08:00'), gender: 0, timeZone: 'Asia/Shanghai', rules: { ...defaults, dayDivide: 'zi' } });
