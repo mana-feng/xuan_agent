@@ -38,3 +38,20 @@ test('non-stream OpenAI usage is validated and never invents negative or non-num
   for (const value of [-1, NaN, Infinity, '15', 2.4]) assert.equal(extractLLMTokenUsage({ provider: 'openai' }, { usage: { total_tokens: value } }), 0);
   assert.equal(extractLLMTokenUsage({ provider: 'openai' }, {}), 0);
 });
+
+test('Ollama native token counts include prompt and generated tokens without double-counting cache', () => {
+  const cfg = { provider: 'ollama' };
+  assert.equal(extractLLMTokenUsage(cfg, {prompt_eval_count:120, prompt_eval_cached_count:100, eval_count:20}),140);
+  for (const value of [-1, NaN, Infinity, '15', 2.4, Number.MAX_SAFE_INTEGER]) {
+    assert.equal(extractLLMTokenUsage(cfg, {prompt_eval_count:value, eval_count:20}),0);
+  }
+  assert.equal(extractLLMTokenUsage(cfg, {eval_count:20}),0);
+});
+
+test('Ollama final NDJSON usage reaches HTTP and WebSocket callers once', async () => {
+  const frames=[{message:{content:'真实回答'},done:false},{message:{content:''},done:true,prompt_eval_count:120,eval_count:20}].map(frame=>JSON.stringify(frame)+'\n').join('');
+  let text='';
+  const result=await consumeLLMStream({provider:'ollama'},Readable.from([Buffer.from(frames)]),delta=>{text+=delta;});
+  assert.equal(text,'真实回答');
+  assert.equal(result.tokensUsed,140);
+});

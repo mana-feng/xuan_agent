@@ -317,6 +317,11 @@ function createLLMRequestControl() {
 
 function extractLLMTokenUsage(cfg, data) {
 	const valid = value => Number.isSafeInteger(value) && value >= 0;
+	if (normalizeProvider(cfg?.provider) === 'ollama') {
+		if (!valid(data?.prompt_eval_count) || !valid(data?.eval_count)) return 0;
+		const total = data.prompt_eval_count + data.eval_count;
+		return valid(total) ? total : 0;
+	}
 	const usage = data?.usage;
 	if (valid(usage?.total_tokens)) return usage.total_tokens;
 	if (valid(usage?.prompt_tokens) && valid(usage?.completion_tokens)) {
