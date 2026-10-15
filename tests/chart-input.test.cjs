@@ -9,8 +9,9 @@ const { useZiweiStore } = require('../src/store/ziwei.ts');
 const { buildBaziExportPayload } = require('../src/utils/baziExport.ts');
 const { buildZiweiExportPayload } = require('../src/utils/ziweiExport.ts');
 
-const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
-const second = { realname: '乙', gender: 1, timestamp: new Date(2022, 2, 3, 8, 0).getTime(), recordId: 22 };
+// Fixtures name their birth zone; CI and developer machines can use different host zones.
+const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: Date.parse('2026-10-10T12:30:00+08:00'), recordId: 11 };
+const second = { timeZone: 'Asia/Shanghai', realname: '乙', gender: 1, timestamp: Date.parse('2022-03-03T08:00:00+08:00'), recordId: 22 };
 let platform;
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });
 

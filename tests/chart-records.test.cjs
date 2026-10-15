@@ -11,8 +11,8 @@ const { executeLiuyaoChart } = require('../src/features/liuyao/executor.ts');
 const { buildBaziExportPayload } = require('../src/utils/baziExport.ts');
 const { buildZiweiExportPayload } = require('../src/utils/ziweiExport.ts');
 const { getPersistentItem, setPersistentItem } = require('../src/utils/persistentStorage.ts');
-const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(1990, 4, 20, 12, 30).getTime(), recordId: 11 };
-const second = { realname: '乙', gender: 1, timestamp: new Date(1985, 2, 3, 8, 0).getTime(), recordId: 22 };
+const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: Date.parse('1990-05-20T12:30:00+08:00'), recordId: 11 };
+const second = { timeZone: 'Asia/Shanghai', realname: '乙', gender: 1, timestamp: Date.parse('1985-03-03T08:00:00+08:00'), recordId: 22 };
 let platform;
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });
 function chart(type, input) { useUserStore().set(input); (type === 'bazi' ? useBaziStore() : useZiweiStore()).pull(input); }
@@ -21,7 +21,7 @@ function record(type, input, id = 11) {
   return { id, type, title: input.realname, gender: String(input.gender), birthDatetime: String(input.timestamp), createdAt: '2026-01-01T00:00:00.000Z', rawPayload: { lite: true, user: input } };
 }
 function liuyao() {
-  return executeLiuyaoChart({ title: '旧日起卦', gender: '女', date: new Date(1998, 6, 12, 10, 30), params: [1, 0, 3, 4, 1, 0], methodLabel: '手工指定' });
+  return executeLiuyaoChart({ title: '旧日起卦', gender: '女', date: new Date('1998-07-12T10:30:00+08:00'), params: [1, 0, 3, 4, 1, 0], methodLabel: '手工指定' });
 }
 test('Bazi export keeps chart name and gender after Ziwei updates the shared user', () => {
   chart('bazi', first); chart('ziwei', second);
@@ -84,7 +84,7 @@ test('Liuyao save retains casting date, repeated save updates, reload/replay pre
   const initial = liuyao(); let page = loadPage('pages/liuyao/result.nvue', ['saveLiuyao']);
   await page.saveLiuyao(); await page.saveLiuyao();
   let records = getPersistentItem('local_liuyao_records'); assert.equal(records.length, 1);
-  assert.equal(records[0].rawPayload.options.date, new Date(1998, 6, 12, 10, 30).toISOString());
+  assert.equal(records[0].rawPayload.options.date, new Date('1998-07-12T10:30:00+08:00').toISOString());
   const id = records[0].id; reload();
   const history = loadPage('pages/history/list.nvue', ['openChart']); history.openChart(records[0]); platform.flushTimers();
   assert.equal(platform.routes.at(-1), '/pages/liuyao/result');
@@ -133,13 +133,13 @@ for (const type of ['bazi', 'ziwei']) test(`${type} restores epoch and pre-1970 
   loadPage(result, []);
   const store = type === 'bazi' ? useBaziStore() : useZiweiStore();
   assert.equal(store.input.timestamp, 0);
-  store.pull({ ...input, gender: 1, timestamp: new Date(1960, 1, 3, 4, 5).getTime() });
+  store.pull({ ...input, gender: 1, timestamp: Date.parse('1960-02-03T04:05:00+08:00') });
   platform.hooks.show[0]();
   assert.equal(type === 'bazi' ? store.table[0].data.day : store.astrolabe.gender, type === 'bazi' ? '元女' : '女');
   assert.equal(type === 'bazi' ? store.solar.year : Number(store.astrolabe.solarDate.slice(0, 4)), 1960);
 });
 test('birth with an empty pre-luck period selects a valid initial year instead of rejecting month calculation', async () => {
-  chart('bazi', { ...first, gender: 1, timestamp: new Date(1960, 1, 3, 4, 5).getTime() });
+  chart('bazi', { ...first, gender: 1, timestamp: Date.parse('1960-02-03T04:05:00+08:00') });
   const yun = useYunStore();
   assert.ok(yun.year_list.length > 0);
   assert.ok(yun.month_list.length > 0);
