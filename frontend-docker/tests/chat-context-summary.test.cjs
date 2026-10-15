@@ -75,6 +75,13 @@ test('Liuyao summary retains the question and the exported casting clock without
   assert.equal(page.buildMessages('请分析')[0].content, `User Liuyao result:\n${payload}`);
 });
 
+test('Liuyao AI context explicitly names moving positions and the top-to-bottom row order', () => {
+  executeLiuyaoChart({ title: '动爻位置验收', gender: '', date: new Date(2023, 2, 22, 12), params: [3, 4, 1, 0, 1, 0], methodLabel: '手工指定' });
+  const payload = buildLiuyaoExportPayload(useLiuyaoStore());
+  assert.match(payload, /动爻：初爻、二爻/);
+  assert.match(payload, /自上而下：上爻、五爻、四爻、三爻、二爻、初爻/);
+});
+
 test('Qimen summary shows the original entered time and zone from the exact exported chart', () => {
   const store = useQimenStore();
   store.pull({ question: '奇门原盘：合作时机', timestamp, timeZone: 'America/New_York', recordId: 44 });

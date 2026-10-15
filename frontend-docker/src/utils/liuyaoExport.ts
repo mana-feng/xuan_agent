@@ -215,6 +215,10 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 		}
 		
 		const yaoRows = getYaoRows(c, d);
+		const positionNames = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
+		const movingPositions = positionNames.filter((_, index) => ['3', '4'].includes(String(safeAt(c.params, index))));
+		lines.push(` 动爻：${movingPositions.length ? movingPositions.join('、') : '无（静卦）'}`);
+		lines.push(' 以下六爻自上而下：上爻、五爻、四爻、三爻、二爻、初爻（初爻为第一爻）');
 		
 		yaoRows.forEach((row, index) => {
 			const paramIndex = 5 - index;
