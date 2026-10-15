@@ -186,28 +186,62 @@ test('partially generated online hexagram keeps six positions without inventing 
 	} finally { mounted.dispose(); }
 });
 
-test('manual yao picker opens once by keyboard and names the actual line', () => {
+test('manual yao choices show four graphical states and select the canonical value once by keyboard', async () => {
+	const selected = [], changes = [];
 	const mounted = mount('components/liuyao/YaoSelector.vue', {
 		label: '初爻',
 		modelValue: '0',
 		options: [
 			{ label: '请选择', value: '' },
 			{ label: '少阴', name: '少阴', value: 0 },
+			{ label: '少阳', name: '少阳', value: 1 },
+			{ label: '老阳', name: '老阳', value: 3 },
+			{ label: '老阴', name: '老阴', value: 4 },
 		],
+		'onUpdate:modelValue': value => selected.push(value), onChange: event => changes.push(event.detail.value),
 	});
 	try {
-		let opens = 0;
-		mounted.host.querySelector('uni-picker').addEventListener('click', () => opens++);
 		const trigger = mounted.host.querySelector('.picker-trigger');
 		assert.match(trigger.getAttribute('aria-label') || '', /初爻.*少阴/);
-		assert.equal(mounted.host.querySelectorAll('.yao-stroke').length, 2);
+		assert.equal(mounted.host.querySelectorAll('.yao-stroke').length, 2, 'manual selection must use the same broken yin line as the preview');
 		assert.equal(mounted.host.querySelector('[role="img"]').getAttribute('aria-label'), '阴爻，静爻');
-		press(trigger, 'Enter');
-		press(trigger, ' ');
-		assert.equal(opens, 2);
+		trigger.focus(); press(trigger, 'Enter'); await nextTick(); await nextTick();
+		const dialog = mounted.host.querySelector('[role="dialog"]');
+		assert.ok(dialog); assert.equal(dialog.getAttribute('aria-label'), '选择初爻');
+		assert.equal(mounted.host.querySelector('uni-picker'), null, 'do not fall back to a textual native wheel');
+		const choices = [...dialog.querySelectorAll('.yao-choice-option')];
+		assert.equal(choices.length, 4);
+		assert.deepEqual(choices.map(choice => choice.querySelectorAll('.yao-stroke').length), [2, 1, 1, 2]);
+		assert.deepEqual(choices.map(choice => choice.querySelector('.yao-motion').textContent.trim()), ['', '', '○', '×']);
+		assert.equal(choices[0].getAttribute('aria-pressed'), 'true');
+		key(choices[2], 'keydown', 'Enter'); key(choices[2], 'keydown', 'Enter', true); key(choices[2], 'keyup', 'Enter');
+		await nextTick(); await nextTick();
+		assert.deepEqual(selected, ['3']); assert.deepEqual(changes, [3]);
+		assert.equal(mounted.host.querySelector('[role="dialog"]'), null);
+		assert.equal(document.activeElement, trigger);
 	} finally {
 		mounted.dispose();
 	}
+});
+
+test('dismissing manual yao choices leaves the original value intact and clearing is explicit', async () => {
+	const selected = [];
+	const mounted = mount('components/liuyao/YaoSelector.vue', {
+		label: '上爻', modelValue: 4,
+		options: [{ value: '', label: '请选择' }, ...[0, 1, 3, 4].map(value => ({ value }))],
+		'onUpdate:modelValue': value => selected.push(value),
+	});
+	try {
+		const trigger = mounted.host.querySelector('.picker-trigger'); trigger.focus();
+		press(trigger, ' '); await nextTick(); await nextTick();
+		const dialog = mounted.host.querySelector('[role="dialog"]');
+		key(dialog, 'keydown', 'Escape'); await nextTick();
+		assert.deepEqual(selected, []); assert.equal(document.activeElement, trigger);
+		press(trigger, 'Enter'); await nextTick(); await nextTick();
+		press(mounted.host.querySelector('.yao-choice-clear'), 'Enter'); await nextTick();
+		assert.deepEqual(selected, ['']);
+		assert.equal(mounted.host.querySelector('[role="dialog"]'), null);
+	} finally { mounted.dispose(); }
 });
 
 test('birth time settings expand by keyboard and preserve the selected zone and DST occurrence when folded', async () => {
