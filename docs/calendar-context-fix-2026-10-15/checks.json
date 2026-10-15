@@ -1,0 +1,59 @@
+{
+  "tests": {
+    "total": 333,
+    "passed": 333,
+    "failed": 0
+  },
+  "typecheck": {
+    "exitCode": 0
+  },
+  "h5Build": {
+    "exitCode": 0,
+    "progressPlugin": false,
+    "note": "Existing progress plugin disabled with VITE_BUILD_PROGRESS=false because node_modules is a read-only shared junction; compiler/minifier unchanged."
+  },
+  "diffCheck": {
+    "exitCode": 0
+  },
+  "browser": {
+    "calculation": "production source",
+    "api": "isolated local UI simulation",
+    "model": "fixed simulation stream, not a live model",
+    "productionDatabase": false,
+    "viewports": [
+      [
+        320,
+        740
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        834,
+        1112
+      ]
+    ],
+    "flows": [
+      "Bazi new chart America/New_York 23:00 rule -> save -> history reopen -> chat",
+      "Liuyao 2023-03-22 noon, lunar-year and original-month conventions -> save -> history reopen -> chat",
+      "Legacy minute-only history -> original-zone prompt -> confirm -> old defaults retained"
+    ],
+    "horizontalOverflow": false
+  },
+  "regressions": {
+    "flowHoursDST": {
+      "dates": [
+        "2024-03-10",
+        "2024-11-03"
+      ],
+      "hostZones": [
+        "Asia/Shanghai",
+        "America/New_York",
+        "UTC"
+      ],
+      "allTwelveBranches": true
+    },
+    "targetedTests": 26
+  }
+}

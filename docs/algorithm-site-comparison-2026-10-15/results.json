@@ -1,0 +1,439 @@
+{
+  "generatedAt": "2026-10-15T10:57:40.965Z",
+  "scope": "Current production functions; external pure Liuyao modules freshly downloaded; Fortel 1.3.4 previously acquired; archived independent Qimen outputs reused.",
+  "sources": {
+    "hexagram-data.js": {
+      "sha256": "3326bb08d6aded652a4cfd4b14704c7591ccf6e5c3647442b525b0a8427732a5"
+    },
+    "hexagram-liuyao.js": {
+      "sha256": "a25507d7279773c40e57c3cd4e5e662f29efb74efce9ad2eff03ce027c7aff57"
+    },
+    "hexagram-meihua.js": {
+      "sha256": "9b548b94dda68de21c25c270b3a6dbbad70f0b297c731ab46ce7a218969835e4"
+    },
+    "hexagram-readme.md": {
+      "sha256": "9bee1104ac5ab1bd648cc580d58fbba899eee38923a98434ff3886a56a7f1d1f"
+    },
+    "mingpan-bazi.ts": {
+      "sha256": "176c6916f6514dbb2162d800d6d0dcc8dbb2504f207895b220c2395dc6939d8f"
+    },
+    "mingpan-readme.md": {
+      "sha256": "7d853b757caf40648ef5efe097e3e70c8dfa8d4d3d4b20b3e74053cbdf239d24"
+    },
+    "mingpan-time.ts": {
+      "sha256": "d253fc036dfc7e8748bf29d6c0f0502a80b12c908cac7ca9fb9d27543f7be652"
+    },
+    "mingpan-ziwei.ts": {
+      "sha256": "8c2b0a3d54361f829b09931dbfcc693e32ff8eaa81ebe2393483242316c6af12"
+    },
+    "paipan-readme.md": {
+      "sha256": "887849c333ff9e8791df4fe386e300522414982020d2e450da9541ae3d82c0ac"
+    }
+  },
+  "liuyao": {
+    "cases": 4096,
+    "compared": [
+      "本卦宫属",
+      "世应",
+      "纳甲",
+      "本卦六亲",
+      "六神",
+      "变卦阴阳爻序"
+    ],
+    "differences": 0,
+    "examples": [],
+    "dayStemCases": 60,
+    "godDifferences": [],
+    "changedRelativeDifferences": 3200,
+    "changedRelativeExplanation": "Project derives changed relatives from ORIGINAL palace; external hexagram-lab derives them from CHANGED palace. Count is preserved, not treated as equivalent.",
+    "timeQigua": [
+      {
+        "civil": "2023-03-22T12:00:00+08:00",
+        "lunar": "二〇二三年闰二月初一",
+        "lunarYearBranchNumber": 4,
+        "projectYearBranchNumber": 4,
+        "rawLunarMonth": -2,
+        "project": [
+          1,
+          3,
+          0,
+          1,
+          0,
+          1
+        ],
+        "regularLunarMonthAndYear": [
+          0,
+          3,
+          0,
+          0,
+          0,
+          1
+        ],
+        "projectName": "火泽睽",
+        "alternativeName": "山水蒙"
+      },
+      {
+        "civil": "2023-04-06T12:00:00+08:00",
+        "lunar": "二〇二三年闰二月十六",
+        "lunarYearBranchNumber": 4,
+        "projectYearBranchNumber": 4,
+        "rawLunarMonth": -2,
+        "project": [
+          1,
+          1,
+          1,
+          1,
+          3,
+          0
+        ],
+        "regularLunarMonthAndYear": [
+          0,
+          1,
+          1,
+          0,
+          3,
+          0
+        ],
+        "projectName": "泽天夬",
+        "alternativeName": "水风井"
+      },
+      {
+        "civil": "2024-02-05T12:00:00+08:00",
+        "lunar": "二〇二三年腊月廿六",
+        "lunarYearBranchNumber": 4,
+        "projectYearBranchNumber": 5,
+        "rawLunarMonth": 12,
+        "project": [
+          1,
+          3,
+          0,
+          1,
+          0,
+          1
+        ],
+        "regularLunarMonthAndYear": [
+          3,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "projectName": "火泽睽",
+        "alternativeName": "泽天夬"
+      }
+    ]
+  },
+  "timeExamples": [
+    {
+      "civil": "2026-10-15T22:59:00+08:00",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "壬戌",
+        "time": "辛亥"
+      },
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "壬戌",
+          "hour": "辛亥"
+        }
+      },
+      "ziweiDate": "2026-10-15",
+      "ziweiLunar": {
+        "year": 2026,
+        "month": 9,
+        "day": 6,
+        "isLeap": false
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "壬戌",
+        "time": "辛亥"
+      },
+      "fullNextDayDayPillar": "壬戌"
+    },
+    {
+      "civil": "2026-10-15T23:00:00+08:00",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "壬戌",
+        "time": "壬子"
+      },
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "壬戌",
+          "hour": "壬子"
+        }
+      },
+      "ziweiDate": "2026-10-16",
+      "ziweiLunar": {
+        "year": 2026,
+        "month": 9,
+        "day": 7,
+        "isLeap": false
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "fullNextDayDayPillar": "癸亥"
+    },
+    {
+      "civil": "2026-10-16T00:00:00+08:00",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "癸亥",
+          "hour": "壬子"
+        }
+      },
+      "ziweiDate": "2026-10-16",
+      "ziweiLunar": {
+        "year": 2026,
+        "month": 9,
+        "day": 7,
+        "isLeap": false
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "fullNextDayDayPillar": "癸亥"
+    }
+  ],
+  "ziwei": {
+    "cases": 60,
+    "compared": [
+      "命宫",
+      "身宫",
+      "五行局",
+      "十四主星落宫"
+    ],
+    "coreDifferences": [],
+    "keDifferences": 28,
+    "keExamples": [
+      {
+        "date": "1952-04-09",
+        "hour": 0,
+        "gender": 0,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      },
+      {
+        "date": "1952-04-09",
+        "hour": 0,
+        "gender": 1,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      },
+      {
+        "date": "1952-04-09",
+        "hour": 12,
+        "gender": 0,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      },
+      {
+        "date": "1952-04-09",
+        "hour": 12,
+        "gender": 1,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      },
+      {
+        "date": "1952-04-09",
+        "hour": 23,
+        "gender": 0,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      },
+      {
+        "date": "1952-04-09",
+        "hour": 23,
+        "gender": 1,
+        "projectKe": "左辅",
+        "baselineKe": "天府"
+      }
+    ],
+    "leapOptions": [
+      {
+        "date": "2023-04-05",
+        "lunar": "二〇二三年闰二月十五",
+        "projectFixLeapTrue": {
+          "soul": "酉",
+          "bureau": "木三局"
+        },
+        "mingpanAdapterFixLeapFalse": {
+          "soul": "酉",
+          "bureau": "木三局"
+        },
+        "caveat": "Isolates the parameter read from Mingpan source; not an execution of its full service."
+      },
+      {
+        "date": "2023-04-06",
+        "lunar": "二〇二三年闰二月十六",
+        "projectFixLeapTrue": {
+          "soul": "戌",
+          "bureau": "水二局"
+        },
+        "mingpanAdapterFixLeapFalse": {
+          "soul": "酉",
+          "bureau": "木三局"
+        },
+        "caveat": "Isolates the parameter read from Mingpan source; not an execution of its full service."
+      }
+    ]
+  },
+  "qimen": {
+    "cases": 707,
+    "currentVsArchivedProductDifferences": [],
+    "compared": [
+      "basicInfo",
+      "siZhu",
+      "juShu",
+      "xunShou",
+      "dayXunShou",
+      "luoGongGan",
+      "sanQiLiuYi",
+      "tianPan",
+      "jiuXing",
+      "baMen",
+      "baShen",
+      "diPan",
+      "anGan",
+      "zhiFuGong",
+      "zhiFuYuanGong",
+      "zhiFuXing",
+      "zhiShiGong",
+      "zhiShiMen",
+      "kongWangZhi",
+      "kongWangGong",
+      "maStar"
+    ],
+    "archivedIndependentComparison": {
+      "total": 707,
+      "equalAllFields": 707
+    },
+    "caveat": "Product and independent Go implementation both freshly executed. Comparison is limited to the specified 12 normalized field groups and 707 fixtures, not every date, astronomy standard or school.",
+    "freshIndependentExecution": {
+      "engine": "atopx/qimen",
+      "commit": "8eb06d007d4a5fcc5352d9054f81469e5f023f45",
+      "cases": 707,
+      "identicalToArchivedBaseline": true,
+      "comparison": "Fresh current product vs fresh Go output, 12 normalized field groups. Only display suffixes, combined Qin/Rui labels and the predeclared center lodging are normalized; no palace permutation.",
+      "directComparisonDifferences": []
+    }
+  },
+  "hostZones": [
+    {
+      "host": "Asia/Shanghai",
+      "inputTimestamp": 1792081800000,
+      "declaredZone": "Asia/Shanghai",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "baziCivil": "2026/10/16 00:30:00",
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "癸亥",
+          "hour": "壬子"
+        }
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "ziweiDate": "2026-10-16"
+    },
+    {
+      "host": "America/New_York",
+      "inputTimestamp": 1792081800000,
+      "declaredZone": "Asia/Shanghai",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "壬戌",
+        "time": "丙午"
+      },
+      "baziCivil": "2026/10/15 12:30:00",
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "壬戌",
+          "hour": "丙午"
+        }
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "ziweiDate": "2026-10-16"
+    },
+    {
+      "host": "UTC",
+      "inputTimestamp": 1792081800000,
+      "declaredZone": "Asia/Shanghai",
+      "bazi": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "壬戌",
+        "time": "戊申"
+      },
+      "baziCivil": "2026/10/15 16:30:00",
+      "liuyao": {
+        "xkong": "子丑",
+        "gz": {
+          "year": "丙午",
+          "month": "戊戌",
+          "day": "壬戌",
+          "hour": "戊申"
+        }
+      },
+      "qimen": {
+        "year": "丙午",
+        "month": "戊戌",
+        "day": "癸亥",
+        "time": "壬子"
+      },
+      "ziweiDate": "2026-10-16"
+    }
+  ],
+  "engineVersions": {
+    "lunar": "1.7.7",
+    "iztro": "2.5.7",
+    "fortel": "1.3.4"
+  }
+}

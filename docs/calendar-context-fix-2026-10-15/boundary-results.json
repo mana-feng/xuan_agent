@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-10-15T13:17:01.791Z",
+  "baseline": {
+    "repository": "https://github.com/hkargv/paipan",
+    "commit": "0785b33e14c9e57a49cfd6e78d84510de30eaa60",
+    "sha256": "44eb831f3461619f0d14add790d3021f089a02142fe49b51237ebfddc713f5ac",
+    "note": "GetGZ zwz=true corresponds to midnight day pillar, zwz=false to 23:00 day pillar. No baseline source changes; lunar correction shares ShouXing lineage."
+  },
+  "bazi": {
+    "cases": 3864,
+    "differences": []
+  },
+  "liuyaoCalendar": {
+    "cases": 3864,
+    "differences": []
+  },
+  "timeCasting": {
+    "cases": 15456,
+    "differences": []
+  },
+  "structure": {
+    "cases": 4096,
+    "differences": [],
+    "changedRelativesDifferent": 3200
+  },
+  "solarTerm": {
+    "cases": 8,
+    "differences": []
+  },
+  "skippedDSTGaps": 0
+}

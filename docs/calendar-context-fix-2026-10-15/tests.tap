@@ -1,0 +1,2018 @@
+TAP version 13
+# [Vue warn]: Missing required prop: "loading" 
+#   at <AnnouncementDialog announcements= [] >
+# [Vue warn]: Missing required prop: "error" 
+#   at <AnnouncementDialog announcements= [] >
+# [Vue warn]: Missing required prop: "loading" 
+#   at <AnnouncementDialog announcements= [] >
+# [Vue warn]: Missing required prop: "error" 
+#   at <AnnouncementDialog announcements= [] >
+# Subtest: announcement dialog keeps keyboard focus inside and restores the opener and scrolling on close
+ok 1 - announcement dialog keeps keyboard focus inside and restores the opener and scrolling on close
+  ---
+  duration_ms: 312.5572
+  type: 'test'
+  ...
+# Subtest: closing a modal restores the scrolled viewport and existing inline styles without a smooth scroll
+ok 2 - closing a modal restores the scrolled viewport and existing inline styles without a smooth scroll
+  ---
+  duration_ms: 15.3899
+  type: 'test'
+  ...
+# Subtest: nested modals keep the original scroll position locked until the outer modal closes
+ok 3 - nested modals keep the original scroll position locked until the outer modal closes
+  ---
+  duration_ms: 22.2435
+  type: 'test'
+  ...
+# Subtest: announcement failure offers retry without a contradictory empty message and cached content remains readable
+ok 4 - announcement failure offers retry without a contradictory empty message and cached content remains readable
+  ---
+  duration_ms: 9.6101
+  type: 'test'
+  ...
+# Subtest: palette cards show the current choice, select once by keyboard and restore focus on dismissal
+ok 5 - palette cards show the current choice, select once by keyboard and restore focus on dismissal
+  ---
+  duration_ms: 59.6824
+  type: 'test'
+  ...
+# Subtest: send is a Tab stop and Enter/Space sends once while held keys do not repeat
+ok 6 - send is a Tab stop and Enter/Space sends once while held keys do not repeat
+  ---
+  duration_ms: 67.2623
+  type: 'test'
+  ...
+# Subtest: sending and blank drafts cannot send from keyboard or pointer events
+ok 7 - sending and blank drafts cannot send from keyboard or pointer events
+  ---
+  duration_ms: 7.2865
+  type: 'test'
+  ...
+# Subtest: quick prompt is focusable and keyboard activation emits its actual prompt once
+ok 8 - quick prompt is focusable and keyboard activation emits its actual prompt once
+  ---
+  duration_ms: 20.1829
+  type: 'test'
+  ...
+# Subtest: tool actions expose distinct keyboard actions for navigation and Agent prompt
+ok 9 - tool actions expose distinct keyboard actions for navigation and Agent prompt
+  ---
+  duration_ms: 32.4462
+  type: 'test'
+  ...
+# Subtest: palace offers one explicit expansion action and hides it inside the expanded view
+ok 10 - palace offers one explicit expansion action and hides it inside the expanded view
+  ---
+  duration_ms: 77.0971
+  type: 'test'
+  ...
+# Subtest: palace overview limits dense metadata while expanded details retain all chart fields
+ok 11 - palace overview limits dense metadata while expanded details retain all chart fields
+  ---
+  duration_ms: 7.4623
+  type: 'test'
+  ...
+# Subtest: compact palace labels follow the selected timeline scope instead of the first available scope
+ok 12 - compact palace labels follow the selected timeline scope instead of the first available scope
+  ---
+  duration_ms: 2.5868
+  type: 'test'
+  ...
+# Subtest: an activation key cannot leak to a document listener installed by the action
+ok 13 - an activation key cannot leak to a document listener installed by the action
+  ---
+  duration_ms: 2.0058
+  type: 'test'
+  ...
+# Subtest: the textarea confirm key cannot also confirm a newly opened modal
+ok 14 - the textarea confirm key cannot also confirm a newly opened modal
+  ---
+  duration_ms: 1.5322
+  type: 'test'
+  ...
+# Subtest: anonymous free input is blocked before API traffic and retains the draft and conversation
+ok 15 - anonymous free input is blocked before API traffic and retains the draft and conversation
+  ---
+  duration_ms: 11.9028
+  type: 'test'
+  ...
+# Subtest: anonymous quick prompts share the guard and confirmed guidance opens login without sending
+ok 16 - anonymous quick prompts share the guard and confirmed guidance opens login without sending
+  ---
+  duration_ms: 3.2745
+  type: 'test'
+  ...
+# Subtest: canceling login guidance stays on the page and repeated clicks do not stack dialogs
+ok 17 - canceling login guidance stays on the page and repeated clicks do not stack dialogs
+  ---
+  duration_ms: 2.1394
+  type: 'test'
+  ...
+# Subtest: authenticated input uses the real API client with Bearer credentials and displays the reply
+ok 18 - authenticated input uses the real API client with Bearer credentials and displays the reply
+  ---
+  duration_ms: 5.7408
+  type: 'test'
+  ...
+# Subtest: a removed token cannot send even when the reactive login label was previously evaluated
+ok 19 - a removed token cannot send even when the reactive login label was previously evaluated
+  ---
+  duration_ms: 3.8858
+  type: 'test'
+  ...
+# Subtest: empty input does not send or prompt for login
+ok 20 - empty input does not send or prompt for login
+  ---
+  duration_ms: 2.1142
+  type: 'test'
+  ...
+# Subtest: Agent sends the independent identities of both charts in its model context
+ok 21 - Agent sends the independent identities of both charts in its model context
+  ---
+  duration_ms: 148.332
+  type: 'test'
+  ...
+# Subtest: Agent initialization restores both chart caches with their matching identities
+ok 22 - Agent initialization restores both chart caches with their matching identities
+  ---
+  duration_ms: 81.8065
+  type: 'test'
+  ...
+# Subtest: the homepage Qimen card opens the manual chart form without an Agent request
+ok 23 - the homepage Qimen card opens the manual chart form without an Agent request
+  ---
+  duration_ms: 10.1245
+  type: 'test'
+  ...
+# Subtest: Qimen card and quick prompts resolve to manual navigation
+ok 24 - Qimen card and quick prompts resolve to manual navigation
+  ---
+  duration_ms: 1.413
+  type: 'test'
+  ...
+# Subtest: Agent navigation directives accept Qimen and supply a readable default label
+ok 25 - Agent navigation directives accept Qimen and supply a readable default label
+  ---
+  duration_ms: 0.8041
+  type: 'test'
+  ...
+# Subtest: Qimen names are recognized before generic palace and divination terms
+ok 26 - Qimen names are recognized before generic palace and divination terms
+  ---
+  duration_ms: 0.2508
+  type: 'test'
+  ...
+# Subtest: Qimen stays manual even with birth data and an existing Ziwei palace context
+ok 27 - Qimen stays manual even with birth data and an existing Ziwei palace context
+  ---
+  duration_ms: 2.9309
+  type: 'test'
+  ...
+# Subtest: an explicit none action preserves clarification instead of inferring an action
+ok 28 - an explicit none action preserves clarification instead of inferring an action
+  ---
+  duration_ms: 0.3896
+  type: 'test'
+  ...
+# Subtest: the choose-a-tool prompt stays in clarification when no action is supplied
+ok 29 - the choose-a-tool prompt stays in clarification when no action is supplied
+  ---
+  duration_ms: 0.1985
+  type: 'test'
+  ...
+# Subtest: multiple named tools do not trigger a fallback or a cached palace action
+ok 30 - multiple named tools do not trigger a fallback or a cached palace action
+  ---
+  duration_ms: 0.1917
+  type: 'test'
+  ...
+# Subtest: a single requested tool takes precedence over other tools mentioned in reply prose
+ok 31 - a single requested tool takes precedence over other tools mentioned in reply prose
+  ---
+  duration_ms: 0.3316
+  type: 'test'
+  ...
+# Subtest: a valid navigation directive still resolves a multiple-tool choice
+ok 32 - a valid navigation directive still resolves a multiple-tool choice
+  ---
+  duration_ms: 0.2813
+  type: 'test'
+  ...
+# Subtest: login preserves punctuation in the submitted credential
+ok 33 - login preserves punctuation in the submitted credential
+  ---
+  duration_ms: 272.3011
+  type: 'test'
+  ...
+# Subtest: login preserves boundary whitespace in the submitted credential
+ok 34 - login preserves boundary whitespace in the submitted credential
+  ---
+  duration_ms: 67.7164
+  type: 'test'
+  ...
+# Subtest: login preserves ordinary characters in the submitted credential
+ok 35 - login preserves ordinary characters in the submitted credential
+  ---
+  duration_ms: 46.8993
+  type: 'test'
+  ...
+# Subtest: registration sends the code with the account request so verification and creation are atomic
+ok 36 - registration sends the code with the account request so verification and creation are atomic
+  ---
+  duration_ms: 39.7013
+  type: 'test'
+  ...
+# Subtest: 用户服务协议 opens readable scrollable content and closes back to the registration form
+ok 37 - 用户服务协议 opens readable scrollable content and closes back to the registration form
+  ---
+  duration_ms: 273.4896
+  type: 'test'
+  ...
+# Subtest: 隐私权政策 opens readable scrollable content and closes back to the registration form
+ok 38 - 隐私权政策 opens readable scrollable content and closes back to the registration form
+  ---
+  duration_ms: 18.3767
+  type: 'test'
+  ...
+# Subtest: agreement controls use their wrapper for keyboard activation and Escape closes the reader
+ok 39 - agreement controls use their wrapper for keyboard activation and Escape closes the reader
+  ---
+  duration_ms: 46.7912
+  type: 'test'
+  ...
+# Subtest: avatar login returns to the unsaved Qimen result and the restored page can save to the account
+ok 40 - avatar login returns to the unsaved Qimen result and the restored page can save to the account
+  ---
+  duration_ms: 334.6661
+  type: 'test'
+  ...
+# Subtest: avatar login retains the supported return destination /pages/chat/index?from=qimen
+ok 41 - avatar login retains the supported return destination /pages/chat/index?from=qimen
+  ---
+  duration_ms: 21.7147
+  type: 'test'
+  ...
+# Subtest: avatar login retains the supported return destination /pages/ziwei/index?edit=1
+ok 42 - avatar login retains the supported return destination /pages/ziwei/index?edit=1
+  ---
+  duration_ms: 19.7871
+  type: 'test'
+  ...
+# Subtest: avatar login retains the supported return destination /pages/history/list
+ok 43 - avatar login retains the supported return destination /pages/history/list
+  ---
+  duration_ms: 18.6809
+  type: 'test'
+  ...
+# Subtest: avatar does not carry unsupported or recursive origin pages/auth/auth
+ok 44 - avatar does not carry unsupported or recursive origin pages/auth/auth
+  ---
+  duration_ms: 18.7237
+  type: 'test'
+  ...
+# Subtest: avatar does not carry unsupported or recursive origin pages/not-registered/result
+ok 45 - avatar does not carry unsupported or recursive origin pages/not-registered/result
+  ---
+  duration_ms: 16.5317
+  type: 'test'
+  ...
+# Subtest: avatar does not carry unsupported or recursive origin https://example.test
+ok 46 - avatar does not carry unsupported or recursive origin https://example.test
+  ---
+  duration_ms: 14.52
+  type: 'test'
+  ...
+# Subtest: submitLogin honors supported internal return destination /pages/qimen/result
+ok 47 - submitLogin honors supported internal return destination /pages/qimen/result
+  ---
+  duration_ms: 56.6596
+  type: 'test'
+  ...
+# Subtest: submitLogin honors supported internal return destination %2Fpages%2Fqimen%2Fresult
+ok 48 - submitLogin honors supported internal return destination %2Fpages%2Fqimen%2Fresult
+  ---
+  duration_ms: 55.7602
+  type: 'test'
+  ...
+# Subtest: submitLogin honors supported internal return destination /pages/chat/index?from=qimen
+ok 49 - submitLogin honors supported internal return destination /pages/chat/index?from=qimen
+  ---
+  duration_ms: 40.0907
+  type: 'test'
+  ...
+# Subtest: submitLogin honors supported internal return destination /pages/qimen/index?edit=1
+ok 50 - submitLogin honors supported internal return destination /pages/qimen/index?edit=1
+  ---
+  duration_ms: 42.3588
+  type: 'test'
+  ...
+# Subtest: submitLogin retains the default homepage when no return path was supplied
+ok 51 - submitLogin retains the default homepage when no return path was supplied
+  ---
+  duration_ms: 36.3219
+  type: 'test'
+  ...
+# Subtest: submitRegister honors supported internal return destination /pages/qimen/result
+ok 52 - submitRegister honors supported internal return destination /pages/qimen/result
+  ---
+  duration_ms: 32.8581
+  type: 'test'
+  ...
+# Subtest: submitRegister honors supported internal return destination %2Fpages%2Fqimen%2Fresult
+ok 53 - submitRegister honors supported internal return destination %2Fpages%2Fqimen%2Fresult
+  ---
+  duration_ms: 44.2636
+  type: 'test'
+  ...
+# Subtest: submitRegister honors supported internal return destination /pages/chat/index?from=qimen
+ok 54 - submitRegister honors supported internal return destination /pages/chat/index?from=qimen
+  ---
+  duration_ms: 51.2947
+  type: 'test'
+  ...
+# Subtest: submitRegister honors supported internal return destination /pages/qimen/index?edit=1
+ok 55 - submitRegister honors supported internal return destination /pages/qimen/index?edit=1
+  ---
+  duration_ms: 34.2419
+  type: 'test'
+  ...
+# Subtest: submitRegister retains the default homepage when no return path was supplied
+ok 56 - submitRegister retains the default homepage when no return path was supplied
+  ---
+  duration_ms: 33.6596
+  type: 'test'
+  ...
+# Subtest: auth rejects external, malformed, unknown and recursive redirect targets
+ok 57 - auth rejects external, malformed, unknown and recursive redirect targets
+  ---
+  duration_ms: 501.211
+  type: 'test'
+  ...
+# Subtest: a failed login stays on auth and a successful retry still returns to the original chart
+ok 58 - a failed login stays on auth and a successful retry still returns to the original chart
+  ---
+  duration_ms: 50.7247
+  type: 'test'
+  ...
+# Subtest: a late refresh success cannot sign the user back in after logout
+ok 59 - a late refresh success cannot sign the user back in after logout
+  ---
+  duration_ms: 37.3814
+  type: 'test'
+  ...
+# Subtest: old refresh success cannot replace or clear a newly signed-in account
+ok 60 - old refresh success cannot replace or clear a newly signed-in account
+  ---
+  duration_ms: 1.5086
+  type: 'test'
+  ...
+# Subtest: old refresh failure cannot replace or clear a newly signed-in account
+ok 61 - old refresh failure cannot replace or clear a newly signed-in account
+  ---
+  duration_ms: 0.9832
+  type: 'test'
+  ...
+# Subtest: a protected request cannot clear the new login after its old refresh succeeds
+ok 62 - a protected request cannot clear the new login after its old refresh succeeds
+  ---
+  duration_ms: 1.9093
+  type: 'test'
+  ...
+# Subtest: a protected request cannot clear the new login after its old refresh fails
+ok 63 - a protected request cannot clear the new login after its old refresh fails
+  ---
+  duration_ms: 0.8357
+  type: 'test'
+  ...
+# Subtest: a repeated 401 invalidates reactive login state as well as tokens
+ok 64 - a repeated 401 invalidates reactive login state as well as tokens
+  ---
+  duration_ms: 4.2668
+  type: 'test'
+  ...
+# Subtest: login and registration inputs keep visible accessible names after typing
+ok 65 - login and registration inputs keep visible accessible names after typing
+  ---
+  duration_ms: 970.1114
+  type: 'test'
+  ...
+# Subtest: tabs, agreement links and home navigation accept keyboard focus and activation
+ok 66 - tabs, agreement links and home navigation accept keyboard focus and activation
+  ---
+  duration_ms: 28.1676
+  type: 'test'
+  ...
+# Subtest: Enter submits login, announces failure inline, and keyboard retry preserves credentials and returnTo
+ok 67 - Enter submits login, announces failure inline, and keyboard retry preserves credentials and returnTo
+  ---
+  duration_ms: 126.9939
+  type: 'test'
+  ...
+# Subtest: pending login ignores repeated Enter and pointer activation until it can be retried
+ok 68 - pending login ignores repeated Enter and pointer activation until it can be retried
+  ---
+  duration_ms: 135.7213
+  type: 'test'
+  ...
+# Subtest: pressing Enter immediately after fast typing submits the latest password
+ok 69 - pressing Enter immediately after fast typing submits the latest password
+  ---
+  duration_ms: 131.1562
+  type: 'test'
+  ...
+# Subtest: login: Enter confirms a Chinese candidate without submitting when composition ends after keyup
+ok 70 - login: Enter confirms a Chinese candidate without submitting when composition ends after keyup
+  ---
+  duration_ms: 122.1303
+  type: 'test'
+  ...
+# Subtest: login: Enter confirms a Chinese candidate without submitting when composition ends before keyup
+ok 71 - login: Enter confirms a Chinese candidate without submitting when composition ends before keyup
+  ---
+  duration_ms: 135.7437
+  type: 'test'
+  ...
+# Subtest: register: Enter confirms a Chinese candidate without submitting when composition ends after keyup
+ok 72 - register: Enter confirms a Chinese candidate without submitting when composition ends after keyup
+  ---
+  duration_ms: 138.2491
+  type: 'test'
+  ...
+# Subtest: register: Enter confirms a Chinese candidate without submitting when composition ends before keyup
+ok 73 - register: Enter confirms a Chinese candidate without submitting when composition ends before keyup
+  ---
+  duration_ms: 134.7552
+  type: 'test'
+  ...
+# Subtest: registration Enter validates the confirmation, then submits code and password together
+ok 74 - registration Enter validates the confirmation, then submits code and password together
+  ---
+  duration_ms: 257.0799
+  type: 'test'
+  ...
+# Subtest: verification failure can retry by keyboard and success announces its countdown inline
+ok 75 - verification failure can retry by keyboard and success announces its countdown inline
+  ---
+  duration_ms: 126.6406
+  type: 'test'
+  ...
+# Subtest: Bazi uses the declared birth zone on every host, including all derived table fields
+ok 76 - Bazi uses the declared birth zone on every host, including all derived table fields
+  ---
+  duration_ms: 133.5128
+  type: 'test'
+  ...
+# Subtest: Liuyao date, profile, six gods and void branches use the declared zone
+ok 77 - Liuyao date, profile, six gods and void branches use the declared zone
+  ---
+  duration_ms: 7.0641
+  type: 'test'
+  ...
+# Subtest: Bazi freezes its exact rules, civil time and zone in the persisted input
+ok 78 - Bazi freezes its exact rules, civil time and zone in the persisted input
+  ---
+  duration_ms: 22.1029
+  type: 'test'
+  ...
+# Subtest: both day boundaries are explicit, and day pillar and void branches agree
+ok 79 - both day boundaries are explicit, and day pillar and void branches agree
+  ---
+  duration_ms: 6.6094
+  type: 'test'
+  ...
+# Subtest: Liuyao time casting explicitly supports both leap-month conventions
+ok 80 - Liuyao time casting explicitly supports both leap-month conventions
+  ---
+  duration_ms: 5.0799
+  type: 'test'
+  ...
+# Subtest: Liuyao time casting separates lunar-year and LiChun-year conventions
+ok 81 - Liuyao time casting separates lunar-year and LiChun-year conventions
+  ---
+  duration_ms: 3.9472
+  type: 'test'
+  ...
+# Subtest: an old local Bazi cache with only a timestamp is never silently recalculated
+ok 82 - an old local Bazi cache with only a timestamp is never silently recalculated
+  ---
+  duration_ms: 2.9804
+  type: 'test'
+  ...
+# Subtest: historical second-resolution zone offsets survive save and replay
+ok 83 - historical second-resolution zone offsets survive save and replay
+  ---
+  duration_ms: 18.2937
+  type: 'test'
+  ...
+# Subtest: minute-only legacy labels require the original zone instead of guessing its offset
+ok 84 - minute-only legacy labels require the original zone instead of guessing its offset
+  ---
+  duration_ms: 0.9445
+  type: 'test'
+  ...
+# Subtest: 23:00 lunar-date rollover never advances the LiChun year before the actual term
+ok 85 - 23:00 lunar-date rollover never advances the LiChun year before the actual term
+  ---
+  duration_ms: 1.59
+  type: 'test'
+  ...
+# Subtest: local Liuyao cache validates engine versions and instant consistency before mutating state
+ok 86 - local Liuyao cache validates engine versions and instant consistency before mutating state
+  ---
+  duration_ms: 4.0113
+  type: 'test'
+  ...
+# Subtest: an unsupported Bazi cache is reported without crashing or overwriting the saved record
+ok 87 - an unsupported Bazi cache is reported without crashing or overwriting the saved record
+  ---
+  duration_ms: 22.0628
+  type: 'test'
+  ...
+# Subtest: modern Bazi history restores saved rules rather than the new-page defaults
+ok 88 - modern Bazi history restores saved rules rather than the new-page defaults
+  ---
+  duration_ms: 91.8874
+  type: 'test'
+  ...
+# Subtest: legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+ok 89 - legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+  ---
+  duration_ms: 24.0027
+  type: 'test'
+  ...
+# Subtest: legacy Liuyao recovers original civil time and keeps saved params without time recasting
+ok 90 - legacy Liuyao recovers original civil time and keeps saved params without time recasting
+  ---
+  duration_ms: 7.2793
+  type: 'test'
+  ...
+# Subtest: Liuyao saved payload includes frozen context, and reopening survives a host zone change
+ok 91 - Liuyao saved payload includes frozen context, and reopening survives a host zone change
+  ---
+  duration_ms: 139.7079
+  type: 'test'
+  ...
+# Subtest: an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+ok 92 - an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+  ---
+  duration_ms: 49.2558
+  type: 'test'
+  ...
+# Subtest: unsupported saved engine or rule versions are rejected without overwriting a current chart
+ok 93 - unsupported saved engine or rule versions are rejected without overwriting a current chart
+  ---
+  duration_ms: 11.6529
+  type: 'test'
+  ...
+# Subtest: Bazi and Liuyao exports carry the frozen calculation convention into AI context
+ok 94 - Bazi and Liuyao exports carry the frozen calculation convention into AI context
+  ---
+  duration_ms: 81.6596
+  type: 'test'
+  ...
+# Subtest: historical minute-only history cannot guess a second offset across LiChun
+ok 95 - historical minute-only history cannot guess a second offset across LiChun
+  ---
+  duration_ms: 5.3173
+  type: 'test'
+  ...
+# Subtest: history list uses the saved chart clock and identifies unknown legacy zones
+ok 96 - history list uses the saved chart clock and identifies unknown legacy zones
+  ---
+  duration_ms: 75.4422
+  type: 'test'
+  ...
+# Subtest: recent explorations also confirms unknown legacy zones and displays the saved clock
+ok 97 - recent explorations also confirms unknown legacy zones and displays the saved clock
+  ---
+  duration_ms: 49.5594
+  type: 'test'
+  ...
+# Subtest: minute-only legacy cache preserves its original solar-term side after save and reopen
+ok 98 - minute-only legacy cache preserves its original solar-term side after save and reopen
+  ---
+  duration_ms: 51.9763
+  type: 'test'
+  ...
+# Subtest: Bazi editor rejects nonexistent DST time and switches between repeated occurrences
+ok 99 - Bazi editor rejects nonexistent DST time and switches between repeated occurrences
+  ---
+  duration_ms: 149.262
+  type: 'test'
+  ...
+# Subtest: You-palace brightness matches the original table and upstream 2.6.1 correction
+ok 100 - You-palace brightness matches the original table and upstream 2.6.1 correction
+  ---
+  duration_ms: 214.9505
+  type: 'test'
+  ...
+# Subtest: explicit birth zone ignores host time zone (including historical DST)
+ok 101 - explicit birth zone ignores host time zone (including historical DST)
+  ---
+  duration_ms: 4096.0146
+  type: 'test'
+  ...
+# Subtest: invalid civil dates and DST gaps are rejected; folds require explicit choice
+ok 102 - invalid civil dates and DST gaps are rejected; folds require explicit choice
+  ---
+  duration_ms: 3.3008
+  type: 'test'
+  ...
+# Subtest: 23:00 full next-day rollover 2023-04-05 -> 2023-04-06
+ok 103 - 23:00 full next-day rollover 2023-04-05 -> 2023-04-06
+  ---
+  duration_ms: 82.2005
+  type: 'test'
+  ...
+# Subtest: 23:00 full next-day rollover 2023-04-06 -> 2023-04-07
+ok 104 - 23:00 full next-day rollover 2023-04-06 -> 2023-04-07
+  ---
+  duration_ms: 76.8774
+  type: 'test'
+  ...
+# Subtest: 23:00 full next-day rollover 2023-04-19 -> 2023-04-20
+ok 105 - 23:00 full next-day rollover 2023-04-19 -> 2023-04-20
+  ---
+  duration_ms: 81.9086
+  type: 'test'
+  ...
+# Subtest: 23:00 full next-day rollover 2023-01-21 -> 2023-01-22
+ok 106 - 23:00 full next-day rollover 2023-01-21 -> 2023-01-22
+  ---
+  duration_ms: 81.4847
+  type: 'test'
+  ...
+# Subtest: 23:00 full next-day rollover 2023-02-19 -> 2023-02-20
+ok 107 - 23:00 full next-day rollover 2023-02-19 -> 2023-02-20
+  ---
+  duration_ms: 79.8752
+  type: 'test'
+  ...
+# Subtest: manual soul/body formula and HKO lunar dates at leap month split
+ok 108 - manual soul/body formula and HKO lunar dates at leap month split
+  ---
+  duration_ms: 232.547
+  type: 'test'
+  ...
+# Subtest: hour boundary mapping 22:59 / 23 / 00:59 / 01
+ok 109 - hour boundary mapping 22:59 / 23 / 00:59 / 01
+  ---
+  duration_ms: 143.6667
+  type: 'test'
+  ...
+# Subtest: manual fourteen-star placement on first lunar day (water two class)
+ok 110 - manual fourteen-star placement on first lunar day (water two class)
+  ---
+  duration_ms: 37.2195
+  type: 'test'
+  ...
+# Subtest: birth zone historical daylight offsets are applied (Shanghai 1991)
+ok 111 - birth zone historical daylight offsets are applied (Shanghai 1991)
+  ---
+  duration_ms: 0.5765
+  type: 'test'
+  ...
+# Subtest: Bazi export keeps the input that generated its pillars after a Ziwei chart
+ok 112 - Bazi export keeps the input that generated its pillars after a Ziwei chart
+  ---
+  duration_ms: 239.8594
+  type: 'test'
+  ...
+# Subtest: Ziwei export keeps its own identity after a Bazi chart
+ok 113 - Ziwei export keeps its own identity after a Bazi chart
+  ---
+  duration_ms: 1265.1785
+  type: 'test'
+  ...
+# Subtest: Bazi direct result restores the Bazi cache despite another module having a profile
+ok 114 - Bazi direct result restores the Bazi cache despite another module having a profile
+  ---
+  duration_ms: 136.5394
+  type: 'test'
+  ...
+# Subtest: Bazi result fully recalculates changed birth time and gender with an existing solar year
+ok 115 - Bazi result fully recalculates changed birth time and gender with an existing solar year
+  ---
+  duration_ms: 93.7963
+  type: 'test'
+  ...
+# Subtest: Bazi edit opens its input page and carries the displayed chart identity
+ok 116 - Bazi edit opens its input page and carries the displayed chart identity
+  ---
+  duration_ms: 144.2534
+  type: 'test'
+  ...
+# Subtest: saving Bazi uses the displayed chart input and record instead of the latest other chart
+ok 117 - saving Bazi uses the displayed chart input and record instead of the latest other chart
+  ---
+  duration_ms: 162.8535
+  type: 'test'
+  ...
+# Subtest: saving Ziwei uses its displayed chart identity and record after Bazi input changes
+ok 118 - saving Ziwei uses its displayed chart identity and record after Bazi input changes
+  ---
+  duration_ms: 158.2706
+  type: 'test'
+  ...
+# Subtest: a Bazi save response cannot attach the previous chart record to a newly generated chart
+ok 119 - a Bazi save response cannot attach the previous chart record to a newly generated chart
+  ---
+  duration_ms: 48.3858
+  type: 'test'
+  ...
+# Subtest: a Ziwei save response cannot attach the previous chart record to a newly generated chart
+ok 120 - a Ziwei save response cannot attach the previous chart record to a newly generated chart
+  ---
+  duration_ms: 171.6265
+  type: 'test'
+  ...
+# Subtest: an edited Bazi form keeps its record when the existing page is shown again
+ok 121 - an edited Bazi form keeps its record when the existing page is shown again
+  ---
+  duration_ms: 66.7229
+  type: 'test'
+  ...
+# Subtest: an edited Ziwei form keeps its record when the existing page is shown again
+ok 122 - an edited Ziwei form keeps its record when the existing page is shown again
+  ---
+  duration_ms: 125.5632
+  type: 'test'
+  ...
+# Subtest: changing only Bazi gender recalculates the gender-dependent chart rows
+ok 123 - changing only Bazi gender recalculates the gender-dependent chart rows
+  ---
+  duration_ms: 49.8114
+  type: 'test'
+  ...
+# Subtest: Ziwei direct result restores only its own cached profile
+ok 124 - Ziwei direct result restores only its own cached profile
+  ---
+  duration_ms: 110.1723
+  type: 'test'
+  ...
+# Subtest: changing only Ziwei gender recomputes its chart when the result page is shown
+ok 125 - changing only Ziwei gender recomputes its chart when the result page is shown
+  ---
+  duration_ms: 151.5478
+  type: 'test'
+  ...
+# Subtest: Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation
+ok 126 - Bazi chat sends the Bazi identity with its pillars after a Ziwei calculation
+  ---
+  duration_ms: 307.7239
+  type: 'test'
+  ...
+# Subtest: Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation
+ok 127 - Ziwei chat sends the Ziwei identity with its chart after a Bazi calculation
+  ---
+  duration_ms: 938.9895
+  type: 'test'
+  ...
+# Subtest: history replay rebuilds from record identity even when cached Bazi contains another input
+ok 128 - history replay rebuilds from record identity even when cached Bazi contains another input
+  ---
+  duration_ms: 103.6075
+  type: 'test'
+  ...
+# Subtest: ordinary chat exposes account changes even when no chart identity exists
+ok 129 - ordinary chat exposes account changes even when no chart identity exists
+  ---
+  duration_ms: 140.9054
+  type: 'test'
+  ...
+# Subtest: Bazi summary identifies the actual exported chart even after the shared profile changes
+ok 130 - Bazi summary identifies the actual exported chart even after the shared profile changes
+  ---
+  duration_ms: 209.2804
+  type: 'test'
+  ...
+# Subtest: Ziwei summary uses the exported birth zone and civil clock instead of the device clock
+ok 131 - Ziwei summary uses the exported birth zone and civil clock instead of the device clock
+  ---
+  duration_ms: 3313.3009
+  type: 'test'
+  ...
+# Subtest: Liuyao summary retains the question and the exported casting clock without inventing a zone
+ok 132 - Liuyao summary retains the question and the exported casting clock without inventing a zone
+  ---
+  duration_ms: 37.4929
+  type: 'test'
+  ...
+# Subtest: Qimen summary shows the original entered time and zone from the exact exported chart
+ok 133 - Qimen summary shows the original entered time and zone from the exact exported chart
+  ---
+  duration_ms: 48.39
+  type: 'test'
+  ...
+# Subtest: an invalid chart source cannot accidentally associate a different active Bazi chart
+ok 134 - an invalid chart source cannot accidentally associate a different active Bazi chart
+  ---
+  duration_ms: 46.5905
+  type: 'test'
+  ...
+# Subtest: bazi opens the original result without replacing its input or the conversation
+ok 135 - bazi opens the original result without replacing its input or the conversation
+  ---
+  duration_ms: 102.118
+  type: 'test'
+  ...
+# Subtest: ziwei opens the original result without replacing its input or the conversation
+ok 136 - ziwei opens the original result without replacing its input or the conversation
+  ---
+  duration_ms: 1224.6779
+  type: 'test'
+  ...
+# Subtest: liuyao opens the original result without replacing its input or the conversation
+ok 137 - liuyao opens the original result without replacing its input or the conversation
+  ---
+  duration_ms: 46.1541
+  type: 'test'
+  ...
+# Subtest: qimen opens the original result without replacing its input or the conversation
+ok 138 - qimen opens the original result without replacing its input or the conversation
+  ---
+  duration_ms: 46.8073
+  type: 'test'
+  ...
+# Subtest: missing chart data has neither a summary nor a navigable original chart
+ok 139 - missing chart data has neither a summary nor a navigable original chart
+  ---
+  duration_ms: 17.6339
+  type: 'test'
+  ...
+# Subtest: an input without a calculated Bazi chart cannot fabricate an associated summary or prompt
+ok 140 - an input without a calculated Bazi chart cannot fabricate an associated summary or prompt
+  ---
+  duration_ms: 24.1964
+  type: 'test'
+  ...
+# Subtest: summary and subsequent requests both follow a real chart change
+ok 141 - summary and subsequent requests both follow a real chart change
+  ---
+  duration_ms: 26.4099
+  type: 'test'
+  ...
+# Subtest: a Ziwei export without a saved zone shows its recorded ISO instant and leaves the zone unknown
+ok 142 - a Ziwei export without a saved zone shows its recorded ISO instant and leaves the zone unknown
+  ---
+  duration_ms: 2247.3971
+  type: 'test'
+  ...
+# Subtest: a malformed Liuyao result has no associated chart even if its export can produce placeholder text
+ok 143 - a malformed Liuyao result has no associated chart even if its export can produce placeholder text
+  ---
+  duration_ms: 25.9612
+  type: 'test'
+  ...
+# Subtest: an invalid timestamp suppresses the chart without a misleading summary or export error
+ok 144 - an invalid timestamp suppresses the chart without a misleading summary or export error
+  ---
+  duration_ms: 37.2729
+  type: 'test'
+  ...
+# Subtest: direct bazi chat restores its cached chart before building the first request
+ok 145 - direct bazi chat restores its cached chart before building the first request
+  ---
+  duration_ms: 516.0505
+  type: 'test'
+  ...
+# Subtest: bazi chat preserves the active chart without recalculating or replacing it from cache
+ok 146 - bazi chat preserves the active chart without recalculating or replacing it from cache
+  ---
+  duration_ms: 93.0619
+  type: 'test'
+  ...
+# Subtest: direct ziwei chat restores its cached chart before building the first request
+ok 147 - direct ziwei chat restores its cached chart before building the first request
+  ---
+  duration_ms: 1350.0169
+  type: 'test'
+  ...
+# Subtest: ziwei chat preserves the active chart without recalculating or replacing it from cache
+ok 148 - ziwei chat preserves the active chart without recalculating or replacing it from cache
+  ---
+  duration_ms: 1096.0223
+  type: 'test'
+  ...
+# Subtest: direct Liuyao chat restores the saved result after a cold start
+ok 149 - direct Liuyao chat restores the saved result after a cold start
+  ---
+  duration_ms: 50.688
+  type: 'test'
+  ...
+# Subtest: Liuyao chat preserves the current result when its local cache differs
+ok 150 - Liuyao chat preserves the current result when its local cache differs
+  ---
+  duration_ms: 41.0803
+  type: 'test'
+  ...
+# Subtest: a direct chat with no valid cache stays usable without inventing chart context
+ok 151 - a direct chat with no valid cache stays usable without inventing chart context
+  ---
+  duration_ms: 37.7206
+  type: 'test'
+  ...
+# Subtest: hard reload restores the current conversation and draft without submitting a request
+ok 152 - hard reload restores the current conversation and draft without submitting a request
+  ---
+  duration_ms: 126.4532
+  type: 'test'
+  ...
+# Subtest: switching account during a pending save neither leaks memory nor writes stale messages
+ok 153 - switching account during a pending save neither leaks memory nor writes stale messages
+  ---
+  duration_ms: 28.1879
+  type: 'test'
+  ...
+# Subtest: saving an unsaved chart migrates its active conversation and retires the draft key
+ok 154 - saving an unsaved chart migrates its active conversation and retires the draft key
+  ---
+  duration_ms: 77.7032
+  type: 'test'
+  ...
+# Subtest: clear invalidates pending writes, cancels the active session and survives a reload
+ok 155 - clear invalidates pending writes, cancels the active session and survives a reload
+  ---
+  duration_ms: 4.5433
+  type: 'test'
+  ...
+# Subtest: a storage failure stays visible until an explicit retry confirms the write
+ok 156 - a storage failure stays visible until an explicit retry confirms the write
+  ---
+  duration_ms: 22.2614
+  type: 'test'
+  ...
+# Subtest: corrupt data is reported and is not silently overwritten on opening
+ok 157 - corrupt data is reported and is not silently overwritten on opening
+  ---
+  duration_ms: 3.8102
+  type: 'test'
+  ...
+# Subtest: retry after crypto initialization becomes available saves the current draft
+ok 158 - retry after crypto initialization becomes available saves the current draft
+  ---
+  duration_ms: 52.519
+  type: 'test'
+  ...
+# Subtest: only the newest overlapping save can become the restored draft
+ok 159 - only the newest overlapping save can become the restored draft
+  ---
+  duration_ms: 52.5716
+  type: 'test'
+  ...
+# Subtest: switching charts before debounce completes retains the final draft on return
+ok 160 - switching charts before debounce completes retains the final draft on return
+  ---
+  duration_ms: 69.4497
+  type: 'test'
+  ...
+# Subtest: stream completion during chart-save migration is persisted before reporting saved
+ok 161 - stream completion during chart-save migration is persisted before reporting saved
+  ---
+  duration_ms: 75.2047
+  type: 'test'
+  ...
+# Subtest: auth expiry during restore cannot overwrite saved content with the mount hint
+ok 162 - auth expiry during restore cannot overwrite saved content with the mount hint
+  ---
+  duration_ms: 51.3868
+  type: 'test'
+  ...
+# Subtest: a chart gaining its record ID during restore migrates the unread saved snapshot
+ok 163 - a chart gaining its record ID during restore migrates the unread saved snapshot
+  ---
+  duration_ms: 94.7003
+  type: 'test'
+  ...
+# Subtest: logout immediately invalidates local account and token while remote revocation is pending
+ok 164 - logout immediately invalidates local account and token while remote revocation is pending
+  ---
+  duration_ms: 24.0099
+  type: 'test'
+  ...
+# Subtest: encrypted snapshots round trip drafts and preserve interrupted responses without completing them
+ok 165 - encrypted snapshots round trip drafts and preserve interrupted responses without completing them
+  ---
+  duration_ms: 82.026
+  type: 'test'
+  ...
+# Subtest: account, module, chart input and saved record identities isolate conversations
+ok 166 - account, module, chart input and saved record identities isolate conversations
+  ---
+  duration_ms: 34.8497
+  type: 'test'
+  ...
+# Subtest: rejects plaintext, legacy, corrupt, mismatched and expired snapshots instead of restoring global history
+ok 167 - rejects plaintext, legacy, corrupt, mismatched and expired snapshots instead of restoring global history
+  ---
+  duration_ms: 95.9056
+  type: 'test'
+  ...
+# Subtest: no crypto or unavailable storage fails explicitly and never writes plaintext
+ok 168 - no crypto or unavailable storage fails explicitly and never writes plaintext
+  ---
+  duration_ms: 4.4256
+  type: 'test'
+  ...
+# Subtest: invalidation before encryption finishes prevents a cleared or switched session from being written again
+ok 169 - invalidation before encryption finishes prevents a cleared or switched session from being written again
+  ---
+  duration_ms: 27.9489
+  type: 'test'
+  ...
+# Subtest: clear removes only the selected session and import requires its exact identity
+ok 170 - clear removes only the selected session and import requires its exact identity
+  ---
+  duration_ms: 97.5382
+  type: 'test'
+  ...
+# Subtest: ordinary chat clears private messages and invalidates pending replies on logout and account switch
+ok 171 - ordinary chat clears private messages and invalidates pending replies on logout and account switch
+  ---
+  duration_ms: 362.1028
+  type: 'test'
+  ...
+# Subtest: real chat controls save and restore conversation, draft and incomplete streaming after remount
+ok 172 - real chat controls save and restore conversation, draft and incomplete streaming after remount
+  ---
+  duration_ms: 507.0481
+  type: 'test'
+  ...
+# Subtest: logout and clear remove visible content and invalidate late response callbacks
+ok 173 - logout and clear remove visible content and invalidate late response callbacks
+  ---
+  duration_ms: 242.6914
+  type: 'test'
+  ...
+# Subtest: a failed partial reply remains incomplete immediately and after restore
+ok 174 - a failed partial reply remains incomplete immediately and after restore
+  ---
+  duration_ms: 239.2736
+  type: 'test'
+  ...
+# Subtest: late response callbacks are inert after the panel unmounts
+ok 175 - late response callbacks are inert after the panel unmounts
+  ---
+  duration_ms: 15.5145
+  type: 'test'
+  ...
+# Subtest: method selection supports Tab and Enter/Space once even for held keys
+ok 176 - method selection supports Tab and Enter/Space once even for held keys
+  ---
+  duration_ms: 151.4119
+  type: 'test'
+  ...
+# Subtest: online generation and disabled submission obey their live disabled state
+ok 177 - online generation and disabled submission obey their live disabled state
+  ---
+  duration_ms: 666.5572
+  type: 'test'
+  ...
+# Subtest: hexagram preview reads top to bottom and keeps moving markers separate from the strokes
+ok 178 - hexagram preview reads top to bottom and keeps moving markers separate from the strokes
+  ---
+  duration_ms: 8.2577
+  type: 'test'
+  ...
+# Subtest: partially generated online hexagram keeps six positions without inventing uncast lines
+ok 179 - partially generated online hexagram keeps six positions without inventing uncast lines
+  ---
+  duration_ms: 3.2221
+  type: 'test'
+  ...
+# Subtest: manual yao choices show four graphical states and select the canonical value once by keyboard
+ok 180 - manual yao choices show four graphical states and select the canonical value once by keyboard
+  ---
+  duration_ms: 38.0195
+  type: 'test'
+  ...
+# Subtest: dismissing manual yao choices leaves the original value intact and clearing is explicit
+ok 181 - dismissing manual yao choices leaves the original value intact and clearing is explicit
+  ---
+  duration_ms: 36.3666
+  type: 'test'
+  ...
+# Subtest: birth time settings expand by keyboard and preserve the selected zone and DST occurrence when folded
+ok 182 - birth time settings expand by keyboard and preserve the selected zone and DST occurrence when folded
+  ---
+  duration_ms: 182.6422
+  type: 'test'
+  ...
+# Subtest: shared time card keeps supplied calendar data and exposes edit and optional restore actions by keyboard
+ok 183 - shared time card keeps supplied calendar data and exposes edit and optional restore actions by keyboard
+  ---
+  duration_ms: 4.4227
+  type: 'test'
+  ...
+# Subtest: both birth pages retain the exact clock when switching the shared display to lunar dates
+ok 184 - both birth pages retain the exact clock when switching the shared display to lunar dates
+  ---
+  duration_ms: 264.7234
+  type: 'test'
+  ...
+# Subtest: birth editor corrects the day boundary and restores focus to its trigger after Escape
+ok 185 - birth editor corrects the day boundary and restores focus to its trigger after Escape
+  ---
+  duration_ms: 35.7996
+  type: 'test'
+  ...
+# Subtest: date and clock fields accept distant birth years directly and adjust a leap day when the year changes
+ok 186 - date and clock fields accept distant birth years directly and adjust a leap day when the year changes
+  ---
+  duration_ms: 24.0799
+  type: 'test'
+  ...
+# Subtest: lunar date fields preserve an explicit leap month without treating it as a Gregorian date
+ok 187 - lunar date fields preserve an explicit leap month without treating it as a Gregorian date
+  ---
+  duration_ms: 22.1067
+  type: 'test'
+  ...
+# Subtest: lunar editor preserves supported solar boundary dates and clamps to their matching lunar boundaries
+ok 188 - lunar editor preserves supported solar boundary dates and clamps to their matching lunar boundaries
+  ---
+  duration_ms: 63.3356
+  type: 'test'
+  ...
+# Subtest: out-of-range fields clamp to the nearest boundary without range hints
+ok 189 - out-of-range fields clamp to the nearest boundary without range hints
+  ---
+  duration_ms: 26.5764
+  type: 'test'
+  ...
+# Subtest: day correction follows Gregorian leap years and selected lunar month
+ok 190 - day correction follows Gregorian leap years and selected lunar month
+  ---
+  duration_ms: 69.5328
+  type: 'test'
+  ...
+# Subtest: partial year entry remains editable until blur and repeating the same boundary updates the displayed input
+ok 191 - partial year entry remains editable until blur and repeating the same boundary updates the displayed input
+  ---
+  duration_ms: 22.4093
+  type: 'test'
+  ...
+# Subtest: recent record accepts Tab focus and Enter or Space opens that record once
+ok 192 - recent record accepts Tab focus and Enter or Space opens that record once
+  ---
+  duration_ms: 490.8682
+  type: 'test'
+  ...
+# Subtest: history pagination changes the actual rows by keyboard and excludes disabled pages from Tab order
+ok 193 - history pagination changes the actual rows by keyboard and excludes disabled pages from Tab order
+  ---
+  duration_ms: 277.0209
+  type: 'test'
+  ...
+# Subtest: Qimen type selection hides the gender controls and returning to all records shows cleared controls
+ok 194 - Qimen type selection hides the gender controls and returning to all records shows cleared controls
+  ---
+  duration_ms: 172.2
+  type: 'test'
+  ...
+# Subtest: casting opens with a current snapshot and the picker reopens at the selected time
+ok 195 - casting opens with a current snapshot and the picker reopens at the selected time
+  ---
+  duration_ms: 61.5808
+  type: 'test'
+  ...
+# Subtest: picker accepts timestamp and event values and rejects invalid or rolled-over dates
+ok 196 - picker accepts timestamp and event values and rejects invalid or rolled-over dates
+  ---
+  duration_ms: 4.151
+  type: 'test'
+  ...
+# Subtest: selected casting time reaches the real chart engine independently of birth time
+ok 197 - selected casting time reaches the real chart engine independently of birth time
+  ---
+  duration_ms: 68.5381
+  type: 'test'
+  ...
+# Subtest: changing casting time invalidates generated time parameters
+ok 198 - changing casting time invalidates generated time parameters
+  ---
+  duration_ms: 7.1012
+  type: 'test'
+  ...
+# Subtest: a previous result cannot complete another method and manual yin zero is valid
+ok 199 - a previous result cannot complete another method and manual yin zero is valid
+  ---
+  duration_ms: 16.1111
+  type: 'test'
+  ...
+# Subtest: reset leaves every method ready to use and restores a fresh current snapshot
+ok 200 - reset leaves every method ready to use and restores a fresh current snapshot
+  ---
+  duration_ms: 10.0394
+  type: 'test'
+  ...
+# Subtest: editing method inputs invalidates the old preview before another chart can start
+ok 201 - editing method inputs invalidates the old preview before another chart can start
+  ---
+  duration_ms: 9.9784
+  type: 'test'
+  ...
+# Subtest: all eight displayed methods generate a six-line real chart from their own input
+ok 202 - all eight displayed methods generate a six-line real chart from their own input
+  ---
+  duration_ms: 49.0887
+  type: 'test'
+  ...
+# Subtest: liuyao initializes its hint before an immediate send and never interrupts the active stream
+ok 203 - liuyao initializes its hint before an immediate send and never interrupts the active stream
+  ---
+  duration_ms: 484.9191
+  type: 'test'
+  ...
+# Subtest: ziwei initializes its hint before an immediate send and never interrupts the active stream
+ok 204 - ziwei initializes its hint before an immediate send and never interrupts the active stream
+  ---
+  duration_ms: 1984.3037
+  type: 'test'
+  ...
+# Subtest: qimen initializes its hint before an immediate send and never interrupts the active stream
+ok 205 - qimen initializes its hint before an immediate send and never interrupts the active stream
+  ---
+  duration_ms: 55.7858
+  type: 'test'
+  ...
+# Subtest: liuyao without chart data immediately shows a neutral hint without inventing model context
+ok 206 - liuyao without chart data immediately shows a neutral hint without inventing model context
+  ---
+  duration_ms: 22.0589
+  type: 'test'
+  ...
+# Subtest: ziwei without chart data immediately shows a neutral hint without inventing model context
+ok 207 - ziwei without chart data immediately shows a neutral hint without inventing model context
+  ---
+  duration_ms: 26.7391
+  type: 'test'
+  ...
+# Subtest: qimen without chart data immediately shows a neutral hint without inventing model context
+ok 208 - qimen without chart data immediately shows a neutral hint without inventing model context
+  ---
+  duration_ms: 27.1077
+  type: 'test'
+  ...
+# Subtest: Qimen HTTP request includes the computed board once and keeps authentication
+ok 209 - Qimen HTTP request includes the computed board once and keeps authentication
+  ---
+  duration_ms: 45.186
+  type: 'test'
+  ...
+# Subtest: Qimen stream request includes the computed board once and keeps authentication
+ok 210 - Qimen stream request includes the computed board once and keeps authentication
+  ---
+  duration_ms: 48.8441
+  type: 'test'
+  ...
+# Subtest: HTTP 429 refreshes the displayed quota without another generation
+ok 211 - HTTP 429 refreshes the displayed quota without another generation
+  ---
+  duration_ms: 29.0445
+  type: 'test'
+  ...
+# Subtest: SSE error after partial text refreshes the displayed quota without another generation
+ok 212 - SSE error after partial text refreshes the displayed quota without another generation
+  ---
+  duration_ms: 30.5343
+  type: 'test'
+  ...
+# Subtest: non-stream HTTP 429 refreshes the displayed quota without another generation
+ok 213 - non-stream HTTP 429 refreshes the displayed quota without another generation
+  ---
+  duration_ms: 21.0547
+  type: 'test'
+  ...
+# Subtest: Agent can finish a 90 second non-stream response before its LLM deadline
+ok 214 - Agent can finish a 90 second non-stream response before its LLM deadline
+  ---
+  duration_ms: 28.4968
+  type: 'test'
+  ...
+# Subtest: non-stream chat also waits for slow LLM responses while ordinary APIs keep their default
+ok 215 - non-stream chat also waits for slow LLM responses while ordinary APIs keep their default
+  ---
+  duration_ms: 24.6671
+  type: 'test'
+  ...
+# Subtest: an error after an SSE POST never automatically issues a second chargeable generation
+ok 216 - an error after an SSE POST never automatically issues a second chargeable generation
+  ---
+  duration_ms: 25.1688
+  type: 'test'
+  ...
+# Subtest: a failed stream transport does not automatically retry even when the server may have committed
+ok 217 - a failed stream transport does not automatically retry even when the server may have committed
+  ---
+  duration_ms: 24.9258
+  type: 'test'
+  ...
+# Subtest: lack of streaming capability selects ordinary HTTP before any stream request is sent
+ok 218 - lack of streaming capability selects ordinary HTTP before any stream request is sent
+  ---
+  duration_ms: 23.9514
+  type: 'test'
+  ...
+# Subtest: stream EOF without DONE is rejected and never marked as a completed answer
+ok 219 - stream EOF without DONE is rejected and never marked as a completed answer
+  ---
+  duration_ms: 34.2601
+  type: 'test'
+  ...
+# Subtest: completed SSE uses an abort signal and finishes once
+ok 220 - completed SSE uses an abort signal and finishes once
+  ---
+  duration_ms: 25.5461
+  type: 'test'
+  ...
+# Subtest: SSE deadline aborts the pending request without automatically retrying
+ok 221 - SSE deadline aborts the pending request without automatically retrying
+  ---
+  duration_ms: 26.4268
+  type: 'test'
+  ...
+# Subtest: every stateless chat turn includes one current chart context without writing it into UI history
+ok 222 - every stateless chat turn includes one current chart context without writing it into UI history
+  ---
+  duration_ms: 88.7347
+  type: 'test'
+  ...
+# Subtest: the UI send order of user then waiting includes the current user prompt only once
+ok 223 - the UI send order of user then waiting includes the current user prompt only once
+  ---
+  duration_ms: 25.0255
+  type: 'test'
+  ...
+# Subtest: SSE auth 401 refreshes once and rebuilds headers with the new access token
+ok 224 - SSE auth 401 refreshes once and rebuilds headers with the new access token
+  ---
+  duration_ms: 19.1586
+  type: 'test'
+  ...
+# Subtest: SSE auth 401 does not send another generation when refresh fails
+ok 225 - SSE auth 401 does not send another generation when refresh fails
+  ---
+  duration_ms: 24.3161
+  type: 'test'
+  ...
+# Subtest: SSE repeated auth 401 stops after one refresh and one retry
+ok 226 - SSE repeated auth 401 stops after one refresh and one retry
+  ---
+  duration_ms: 19.26
+  type: 'test'
+  ...
+# Subtest: SSE upstream 401 cannot be mistaken for local login expiry or retried
+ok 227 - SSE upstream 401 cannot be mistaken for local login expiry or retried
+  ---
+  duration_ms: 16.6419
+  type: 'test'
+  ...
+# Subtest: simultaneous SSE auth 401 responses share the existing refresh lock
+ok 228 - simultaneous SSE auth 401 responses share the existing refresh lock
+  ---
+  duration_ms: 39.6836
+  type: 'test'
+  ...
+# Subtest: manual benchmark: 2026-06-05 16:52 BEFORE Mangzhong = yang five, JiaShen, fixed plates
+ok 229 - manual benchmark: 2026-06-05 16:52 BEFORE Mangzhong = yang five, JiaShen, fixed plates
+  ---
+  duration_ms: 45.9433
+  type: 'test'
+  ...
+# Subtest: solar terms change at the instant, not midnight (summer/winter solstice)
+ok 230 - solar terms change at the instant, not midnight (summer/winter solstice)
+  ---
+  duration_ms: 16.6194
+  type: 'test'
+  ...
+# Subtest: late Zi day and FuTou use next day consistently
+ok 231 - late Zi day and FuTou use next day consistently
+  ---
+  duration_ms: 4.4156
+  type: 'test'
+  ...
+# Subtest: middle-palace XunShou counts ZhiShi from 5 before lodging to 2
+ok 232 - middle-palace XunShou counts ZhiShi from 5 before lodging to 2
+  ---
+  duration_ms: 261.7038
+  type: 'test'
+  ...
+# Subtest: same instant gives same Beijing Qimen result in every input zone
+ok 233 - same instant gives same Beijing Qimen result in every input zone
+  ---
+  duration_ms: 2.8783
+  type: 'test'
+  ...
+# Subtest: HKO independent minute anchors for 2026 Mangzhong and summer solstice
+ok 234 - HKO independent minute anchors for 2026 Mangzhong and summer solstice
+  ---
+  duration_ms: 2.6209
+  type: 'test'
+  ...
+# Subtest: 1440 real charts cover all 18 Yin/Yang Ju and complete rotating plates
+ok 235 - 1440 real charts cover all 18 Yin/Yang Ju and complete rotating plates
+  ---
+  duration_ms: 867.0861
+  type: 'test'
+  ...
+# Subtest: Qimen earlier DST occurrence survives real form → API route → history restoration
+ok 236 - Qimen earlier DST occurrence survives real form → API route → history restoration
+  ---
+  duration_ms: 320.0389
+  type: 'test'
+  ...
+# Subtest: Qimen later DST occurrence survives real form → API route → history restoration
+ok 237 - Qimen later DST occurrence survives real form → API route → history restoration
+  ---
+  duration_ms: 71.4862
+  type: 'test'
+  ...
+# Subtest: quarter-hour zone crosses UTC year boundary and backend rejects a mismatched instant
+ok 238 - quarter-hour zone crosses UTC year boundary and backend rejects a mismatched instant
+  ---
+  duration_ms: 65.7313
+  type: 'test'
+  ...
+# Subtest: phone palace opens an accessible sheet and Escape restores focus and scrolling
+ok 239 - phone palace opens an accessible sheet and Escape restores focus and scrolling
+  ---
+  duration_ms: 550.6247
+  type: 'test'
+  ...
+# Subtest: touch selection and backdrop dismissal restore focus to the selected palace
+ok 240 - touch selection and backdrop dismissal restore focus to the selected palace
+  ---
+  duration_ms: 34.7892
+  type: 'test'
+  ...
+# Subtest: tablet keeps inline detail and changing width releases a phone sheet
+ok 241 - tablet keeps inline detail and changing width releases a phone sheet
+  ---
+  duration_ms: 39.4892
+  type: 'test'
+  ...
+# Subtest: leaving a phone result closes the sheet and releases the scroll lock
+ok 242 - leaving a phone result closes the sheet and releases the scroll lock
+  ---
+  duration_ms: 30.9655
+  type: 'test'
+  ...
+# Subtest: all-history and recent explorations request Qimen and retain same-ID records across types
+ok 243 - all-history and recent explorations request Qimen and retain same-ID records across types
+  ---
+  duration_ms: 111.9468
+  type: 'test'
+  ...
+# Subtest: selecting Qimen clears a previous gender constraint before fetching its records
+ok 244 - selecting Qimen clears a previous gender constraint before fetching its records
+  ---
+  duration_ms: 34.0075
+  type: 'test'
+  ...
+# Subtest: Qimen history and recent summaries use fixed Beijing time across device zones and Shanghai DST
+ok 245 - Qimen history and recent summaries use fixed Beijing time across device zones and Shanghai DST
+  ---
+  duration_ms: 4168.2423
+  type: 'test'
+  ...
+# Subtest: Qimen history recomputes the recorded input and keeps other chart stores untouched
+ok 246 - Qimen history recomputes the recorded input and keeps other chart stores untouched
+  ---
+  duration_ms: 53.533
+  type: 'test'
+  ...
+# Subtest: invalid Qimen history is rejected without navigating or replacing an active chart
+ok 247 - invalid Qimen history is rejected without navigating or replacing an active chart
+  ---
+  duration_ms: 2.3216
+  type: 'test'
+  ...
+# Subtest: Qimen account save, history reopen and update retain the chart, time zone and record identity
+ok 248 - Qimen account save, history reopen and update retain the chart, time zone and record identity
+  ---
+  duration_ms: 60.6188
+  type: 'test'
+  ...
+# Subtest: direct Qimen chat restores its cache and puts real chart data in every request
+ok 249 - direct Qimen chat restores its cache and puts real chart data in every request
+  ---
+  duration_ms: 133.4806
+  type: 'test'
+  ...
+# Subtest: a Qimen chat with no saved input does not invent a context or show an associated chart
+ok 250 - a Qimen chat with no saved input does not invent a context or show an associated chart
+  ---
+  duration_ms: 32.2388
+  type: 'test'
+  ...
+# Subtest: Qimen chat keeps the active chart when local cache contains an older input
+ok 251 - Qimen chat keeps the active chart when local cache contains an older input
+  ---
+  duration_ms: 35.0367
+  type: 'test'
+  ...
+# Subtest: Qimen result and AI export use the golden real chart and explicit clock
+ok 252 - Qimen result and AI export use the golden real chart and explicit clock
+  ---
+  duration_ms: 332.2462
+  type: 'test'
+  ...
+# Subtest: same instant in another zone yields identical palaces and survives reload with saved identity
+ok 253 - same instant in another zone yields identical palaces and survives reload with saved identity
+  ---
+  duration_ms: 10.7652
+  type: 'test'
+  ...
+# Subtest: invalid dates, timezone and incompatible rule version never reuse a stale chart
+ok 254 - invalid dates, timezone and incompatible rule version never reuse a stale chart
+  ---
+  duration_ms: 10.8889
+  type: 'test'
+  ...
+# Subtest: save creates then updates one record with the actual snapshot, no duplicate on concurrent clicks
+ok 255 - save creates then updates one record with the actual snapshot, no duplicate on concurrent clicks
+  ---
+  duration_ms: 297.827
+  type: 'test'
+  ...
+# Subtest: failed save leaves a retryable error without inventing a saved identity
+ok 256 - failed save leaves a retryable error without inventing a saved identity
+  ---
+  duration_ms: 50.4964
+  type: 'test'
+  ...
+# Subtest: pending save cannot attach its record ID to a different chart
+ok 257 - pending save cannot attach its record ID to a different chart
+  ---
+  duration_ms: 90.9293
+  type: 'test'
+  ...
+# Subtest: input rejects nonexistent DST time and accepts an explicitly disambiguated repeated time
+ok 258 - input rejects nonexistent DST time and accepts an explicitly disambiguated repeated time
+  ---
+  duration_ms: 44.7272
+  type: 'test'
+  ...
+# Subtest: recent explorations merges all four typed endpoints and shows only the latest three
+ok 259 - recent explorations merges all four typed endpoints and shows only the latest three
+  ---
+  duration_ms: 906.1459
+  type: 'test'
+  ...
+# Subtest: recent explorations does not fetch account records when signed out
+ok 260 - recent explorations does not fetch account records when signed out
+  ---
+  duration_ms: 22.7793
+  type: 'test'
+  ...
+# Subtest: recent explorations exposes a failed request and clears stale records
+ok 261 - recent explorations exposes a failed request and clears stale records
+  ---
+  duration_ms: 19.899
+  type: 'test'
+  ...
+# Subtest: recent exploration uses the same Ziwei restore identity as the history page
+ok 262 - recent exploration uses the same Ziwei restore identity as the history page
+  ---
+  duration_ms: 157.7792
+  type: 'test'
+  ...
+# Subtest: saving a Liuyao result twice creates once then updates its own returned ID
+ok 263 - saving a Liuyao result twice creates once then updates its own returned ID
+  ---
+  duration_ms: 144.2877
+  type: 'test'
+  ...
+# Subtest: saving Liuyao preserves the chosen casting time instead of when the page was generated
+ok 264 - saving Liuyao preserves the chosen casting time instead of when the page was generated
+  ---
+  duration_ms: 46.2246
+  type: 'test'
+  ...
+# Subtest: a cached Liuyao result retains its casting time and saved identity after reload
+ok 265 - a cached Liuyao result retains its casting time and saved identity after reload
+  ---
+  duration_ms: 90.6153
+  type: 'test'
+  ...
+# Subtest: concurrent Liuyao save clicks create only one record
+ok 266 - concurrent Liuyao save clicks create only one record
+  ---
+  duration_ms: 54.7311
+  type: 'test'
+  ...
+# Subtest: a rejected Liuyao save is not reported as successful or assigned a record ID
+ok 267 - a rejected Liuyao save is not reported as successful or assigned a record ID
+  ---
+  duration_ms: 34.7115
+  type: 'test'
+  ...
+# Subtest: legacy Liuyao local cache restores the chosen profile time without inventing a saved ID
+ok 268 - legacy Liuyao local cache restores the chosen profile time without inventing a saved ID
+  ---
+  duration_ms: 45.8692
+  type: 'test'
+  ...
+# Subtest: generating a new Liuyao chart after a saved chart creates a fresh record
+ok 269 - generating a new Liuyao chart after a saved chart creates a fresh record
+  ---
+  duration_ms: 28.0517
+  type: 'test'
+  ...
+# Subtest: a late Liuyao save response cannot give its record ID to a newly generated result
+ok 270 - a late Liuyao save response cannot give its record ID to a newly generated result
+  ---
+  duration_ms: 38.2317
+  type: 'test'
+  ...
+# Subtest: history loads all three types with equal numeric IDs and sorts across types
+ok 271 - history loads all three types with equal numeric IDs and sorts across types
+  ---
+  duration_ms: 89.3385
+  type: 'test'
+  ...
+# Subtest: history type selection fetches the selected existing endpoint and starts at page one
+ok 272 - history type selection fetches the selected existing endpoint and starts at page one
+  ---
+  duration_ms: 28.5722
+  type: 'test'
+  ...
+# Subtest: history paginates the full sorted response without losing records or requesting unsupported pagination
+ok 273 - history paginates the full sorted response without losing records or requesting unsupported pagination
+  ---
+  duration_ms: 23.3822
+  type: 'test'
+  ...
+# Subtest: history ignores an older request that finishes after a changed type filter
+ok 274 - history ignores an older request that finishes after a changed type filter
+  ---
+  duration_ms: 22.3481
+  type: 'test'
+  ...
+# Subtest: opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged
+ok 275 - opening a saved Ziwei record restores Ziwei and leaves the current Bazi input unchanged
+  ---
+  duration_ms: 129.7285
+  type: 'test'
+  ...
+# Subtest: opening a saved Liuyao record recomputes the saved parameters and keeps its record identity
+ok 276 - opening a saved Liuyao record recomputes the saved parameters and keeps its record identity
+  ---
+  duration_ms: 32.4568
+  type: 'test'
+  ...
+# Subtest: a saved Liuyao record saves back to the same typed record after being reopened
+ok 277 - a saved Liuyao record saves back to the same typed record after being reopened
+  ---
+  duration_ms: 52.1555
+  type: 'test'
+  ...
+# Subtest: opening Bazi lite history recomputes it without changing the current Ziwei input
+ok 278 - opening Bazi lite history recomputes it without changing the current Ziwei input
+  ---
+  duration_ms: 100.6133
+  type: 'test'
+  ...
+# Subtest: malformed Liuyao history is rejected without overwriting the current result
+ok 279 - malformed Liuyao history is rejected without overwriting the current result
+  ---
+  duration_ms: 23.6629
+  type: 'test'
+  ...
+# Subtest: deleting a Ziwei record sends its type and preserves same-ID records of other types
+ok 280 - deleting a Ziwei record sends its type and preserves same-ID records of other types
+  ---
+  duration_ms: 22.6645
+  type: 'test'
+  ...
+# Subtest: bazi: retrying a failed PUT after network error keeps the saved ID and updates again
+ok 281 - bazi: retrying a failed PUT after network error keeps the saved ID and updates again
+  ---
+  duration_ms: 113.3016
+  type: 'test'
+  ...
+# Subtest: bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again
+ok 282 - bazi: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again
+  ---
+  duration_ms: 46.1709
+  type: 'test'
+  ...
+# Subtest: bazi: HTTP 404 clears only the missing record ID so the next save can create it
+ok 283 - bazi: HTTP 404 clears only the missing record ID so the next save can create it
+  ---
+  duration_ms: 46.4323
+  type: 'test'
+  ...
+# Subtest: bazi: a late HTTP 404 cannot clear a new chart's record ID
+ok 284 - bazi: a late HTTP 404 cannot clear a new chart's record ID
+  ---
+  duration_ms: 49.7845
+  type: 'test'
+  ...
+# Subtest: ziwei: retrying a failed PUT after network error keeps the saved ID and updates again
+ok 285 - ziwei: retrying a failed PUT after network error keeps the saved ID and updates again
+  ---
+  duration_ms: 140.3805
+  type: 'test'
+  ...
+# Subtest: ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again
+ok 286 - ziwei: retrying a failed PUT after HTTP 500 keeps the saved ID and updates again
+  ---
+  duration_ms: 83.4983
+  type: 'test'
+  ...
+# Subtest: ziwei: HTTP 404 clears only the missing record ID so the next save can create it
+ok 287 - ziwei: HTTP 404 clears only the missing record ID so the next save can create it
+  ---
+  duration_ms: 88.8343
+  type: 'test'
+  ...
+# Subtest: ziwei: a late HTTP 404 cannot clear a new chart's record ID
+ok 288 - ziwei: a late HTTP 404 cannot clear a new chart's record ID
+  ---
+  duration_ms: 102.2914
+  type: 'test'
+  ...
+# Subtest: Bazi lunar input converts a leap month and retains the entered minute
+ok 289 - Bazi lunar input converts a leap month and retains the entered minute
+  ---
+  duration_ms: 1127.8616
+  type: 'test'
+  ...
+# Subtest: both birth pages preserve the earliest supported solar date through a lunar editor round trip
+ok 290 - both birth pages preserve the earliest supported solar date through a lunar editor round trip
+  ---
+  duration_ms: 259.2445
+  type: 'test'
+  ...
+# Subtest: Qimen time editor cancellation retains live-now mode and confirmation supplies the chosen civil time
+ok 291 - Qimen time editor cancellation retains live-now mode and confirmation supplies the chosen civil time
+  ---
+  duration_ms: 57.4792
+  type: 'test'
+  ...
+# Subtest: Qimen reports an invalid custom zone before opening a time editor
+ok 292 - Qimen reports an invalid custom zone before opening a time editor
+  ---
+  duration_ms: 22.9044
+  type: 'test'
+  ...
+# Subtest: runtime configuration and announcements identify the isolated simulation
+ok 293 - runtime configuration and announcements identify the isolated simulation
+  ---
+  duration_ms: 167.6631
+  type: 'test'
+  ...
+# Subtest: demo login, authenticated me, cookie refresh and logout follow the production token contract
+ok 294 - demo login, authenticated me, cookie refresh and logout follow the production token contract
+  ---
+  duration_ms: 172.1901
+  type: 'test'
+  ...
+# Subtest: email verification and registration remain local and never send email
+ok 295 - email verification and registration remain local and never send email
+  ---
+  duration_ms: 110.0928
+  type: 'test'
+  ...
+# Subtest: all four record types support real HTTP create, read, update and typed deletion
+ok 296 - all four record types support real HTTP create, read, update and typed deletion
+  ---
+  duration_ms: 482.5708
+  type: 'test'
+  ...
+# Subtest: qimen fixtures preserve calculation inputs and independent IDs for history restoration
+ok 297 - qimen fixtures preserve calculation inputs and independent IDs for history restoration
+  ---
+  duration_ms: 94.5886
+  type: 'test'
+  ...
+# Subtest: simulation qimen writes reject damaged contracts that the production route cannot restore
+ok 298 - simulation qimen writes reject damaged contracts that the production route cannot restore
+  ---
+  duration_ms: 324.3766
+  type: 'test'
+  ...
+# Subtest: local chat captures actual chart messages without authentication fields and resets them
+ok 299 - local chat captures actual chart messages without authentication fields and resets them
+  ---
+  duration_ms: 112.405
+  type: 'test'
+  ...
+# Subtest: history returns all fixtures by default, filters gender and keyword, and sorts before optional pagination
+ok 300 - history returns all fixtures by default, filters gender and keyword, and sorts before optional pagination
+  ---
+  duration_ms: 98.4112
+  type: 'test'
+  ...
+# Subtest: scenario controls exercise loading, empty, failed writes, unauthenticated and reset without persistence
+ok 301 - scenario controls exercise loading, empty, failed writes, unauthenticated and reset without persistence
+  ---
+  duration_ms: 316.9568
+  type: 'test'
+  ...
+# Subtest: ordinary chat and SSE deliver the consumer delta shape and deduct exactly one quota per generation
+ok 302 - ordinary chat and SSE deliver the consumer delta shape and deduct exactly one quota per generation
+  ---
+  duration_ms: 189.387
+  type: 'test'
+  ...
+# Subtest: stream error and interrupted streams expose failure instead of sending a false DONE
+ok 303 - stream error and interrupted streams expose failure instead of sending a false DONE
+  ---
+  duration_ms: 86.9109
+  type: 'test'
+  ...
+# Subtest: Agent emits the HTML action marker expected by the real frontend and leaves chart calculation there
+ok 304 - Agent emits the HTML action marker expected by the real frontend and leaves chart calculation there
+  ---
+  duration_ms: 86.9452
+  type: 'test'
+  ...
+# Subtest: control panel, invalid input and localhost-only origins are observable through HTTP
+ok 305 - control panel, invalid input and localhost-only origins are observable through HTTP
+  ---
+  duration_ms: 91.3541
+  type: 'test'
+  ...
+# Subtest: runner can restart from fresh memory without rewriting the frontend environment files
+ok 306 - runner can restart from fresh memory without rewriting the frontend environment files
+  ---
+  duration_ms: 690.4012
+  type: 'test'
+  ...
+# Subtest: flow-hour clocks retain all twelve branches across device DST transitions
+ok 307 - flow-hour clocks retain all twelve branches across device DST transitions
+  ---
+  duration_ms: 864.6069
+  type: 'test'
+  ...
+# Subtest: an empty childhood interval near a solar-term boundary does not break the month panel
+ok 308 - an empty childhood interval near a solar-term boundary does not break the month panel
+  ---
+  duration_ms: 29.2584
+  type: 'test'
+  ...
+# Subtest: all four selected-scope transformations remain attached to their natal star locations
+ok 309 - all four selected-scope transformations remain attached to their natal star locations
+  ---
+  duration_ms: 865.1797
+  type: 'test'
+  ...
+# Subtest: three-harmony and opposite-palace highlights surround the clicked physical palace in every scope
+ok 310 - three-harmony and opposite-palace highlights surround the clicked physical palace in every scope
+  ---
+  duration_ms: 426.0518
+  type: 'test'
+  ...
+# Subtest: opening palace details uses the focused cell after flying-transformation data updates
+ok 311 - opening palace details uses the focused cell after flying-transformation data updates
+  ---
+  duration_ms: 108.1441
+  type: 'test'
+  ...
+# Subtest: xiaoxian continues its twelve-year cycle after age 120 without changing nominal age
+ok 312 - xiaoxian continues its twelve-year cycle after age 120 without changing nominal age
+  ---
+  duration_ms: 282.2073
+  type: 'test'
+  ...
+# Subtest: late Zi remains Zi when the following device midnight is skipped by DST
+ok 313 - late Zi remains Zi when the following device midnight is skipped by DST
+  ---
+  duration_ms: 81.4601
+  type: 'test'
+  ...
+# Subtest: lunar boundary year is accepted only when its converted solar date is supported
+ok 314 - lunar boundary year is accepted only when its converted solar date is supported
+  ---
+  duration_ms: 31.5685
+  type: 'test'
+  ...
+# Subtest: explicit leap second month is distinct from ordinary second month
+ok 315 - explicit leap second month is distinct from ordinary second month
+  ---
+  duration_ms: 2.2289
+  type: 'test'
+  ...
+# Subtest: formal lunar editor preserves leap month and late Zi through confirmation
+ok 316 - formal lunar editor preserves leap month and late Zi through confirmation
+  ---
+  duration_ms: 357.0839
+  type: 'test'
+  ...
+# Subtest: saved chart / edit / cache / export preserve birth zone and rule metadata
+ok 317 - saved chart / edit / cache / export preserve birth zone and rule metadata
+  ---
+  duration_ms: 1095.0493
+  type: 'test'
+  ...
+# Subtest: legacy records are marked unconfirmed instead of guessing a birth location
+ok 318 - legacy records are marked unconfirmed instead of guessing a birth location
+  ---
+  duration_ms: 37.1729
+  type: 'test'
+  ...
+# Subtest: zone-only change invalidates the calculation cache
+ok 319 - zone-only change invalidates the calculation cache
+  ---
+  duration_ms: 60.9089
+  type: 'test'
+  ...
+# Subtest: horoscope timeline stays on selected civil day for an overseas birth zone
+ok 320 - horoscope timeline stays on selected civil day for an overseas birth zone
+  ---
+  duration_ms: 57.06
+  type: 'test'
+  ...
+# Subtest: civil editor honors chosen zone and does not normalize DST gaps
+ok 321 - civil editor honors chosen zone and does not normalize DST gaps
+  ---
+  duration_ms: 19.5819
+  type: 'test'
+  ...
+# Subtest: changing DST occurrence updates an already confirmed timestamp before submit
+ok 322 - changing DST occurrence updates an already confirmed timestamp before submit
+  ---
+  duration_ms: 21.5477
+  type: 'test'
+  ...
+# Subtest: runtime late Zi rolls the whole lunar year/month/day forward across New Year
+ok 323 - runtime late Zi rolls the whole lunar year/month/day forward across New Year
+  ---
+  duration_ms: 1045.6548
+  type: 'test'
+  ...
+# Subtest: pre-birth lunar years do not produce a fabricated decadal chart
+ok 324 - pre-birth lunar years do not produce a fabricated decadal chart
+  ---
+  duration_ms: 86.5047
+  type: 'test'
+  ...
+# Subtest: exported scope focus stays on the same physical palace as the visible selection
+ok 325 - exported scope focus stays on the same physical palace as the visible selection
+  ---
+  duration_ms: 1077.3294
+  type: 'test'
+  ...
+# Subtest: exported decadal anchors have their stated nominal ages across Lunar New Year
+ok 326 - exported decadal anchors have their stated nominal ages across Lunar New Year
+  ---
+  duration_ms: 944.1101
+  type: 'test'
+  ...
+# [1m[33m[@vue/compiler-sfc][0m[33m `defineProps` is a compiler macro and no longer needs to be imported.[0m
+# [1m[33m[@vue/compiler-sfc][0m[33m `defineEmits` is a compiler macro and no longer needs to be imported.[0m
+# Subtest: regular and leap months sharing a stem/branch are distinct selections
+ok 327 - regular and leap months sharing a stem/branch are distinct selections
+  ---
+  duration_ms: 820.2201
+  type: 'test'
+  ...
+# Subtest: reselecting the same month returns to the yearly layer but its leap counterpart does not
+ok 328 - reselecting the same month returns to the yearly layer but its leap counterpart does not
+  ---
+  duration_ms: 484.9345
+  type: 'test'
+  ...
+# Subtest: year rows anchor nominal ages to lunar years across changing new-year dates
+ok 329 - year rows anchor nominal ages to lunar years across changing new-year dates
+  ---
+  duration_ms: 265.8425
+  type: 'test'
+  ...
+# Subtest: selecting a decade reaches its starting nominal age even near the lunar new year
+ok 330 - selecting a decade reaches its starting nominal age even near the lunar new year
+  ---
+  duration_ms: 104.1095
+  type: 'test'
+  ...
+# Subtest: late Zi moves the active year and month across lunar new year without a stale date cache
+ok 331 - late Zi moves the active year and month across lunar new year without a stale date cache
+  ---
+  duration_ms: 658.1371
+  type: 'test'
+  ...
+# Subtest: late Zi selects the leap month from its effective calendar day
+ok 332 - late Zi selects the leap month from its effective calendar day
+  ---
+  duration_ms: 472.5248
+  type: 'test'
+  ...
+# Subtest: the active leap-month row displays the current half-month stem and branch
+ok 333 - the active leap-month row displays the current half-month stem and branch
+  ---
+  duration_ms: 476.5838
+  type: 'test'
+  ...
+1..333
+# tests 333
+# suites 0
+# pass 333
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15950.738

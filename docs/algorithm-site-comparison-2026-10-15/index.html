@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>排盘网站与当前项目算法对照 · 2026-10-15</title>
+<style>
+:root{color-scheme:light;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;color:#173747;background:#f4f8fa}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:40px 24px 64px}header{padding:30px;border:1px solid #cee5e6;border-radius:20px;background:linear-gradient(115deg,#e4f2ff,#e3f7ed)}h1{font-size:30px;line-height:1.4;margin:8px 0 14px}h2{font-size:22px;margin:36px 0 14px}h3{font-size:18px;margin:0 0 8px}p{margin:10px 0}a{color:#086b9b;text-underline-offset:3px}small,.muted{color:#597482}.tag{font-size:13px;color:#237570;letter-spacing:.08em}.panel{background:white;border:1px solid #dce8ed;border-radius:14px;padding:22px;margin:14px 0}.warn{border-left:4px solid #d29b39}.good{border-left:4px solid #309b87}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;background:white}th,td{text-align:left;vertical-align:top;padding:14px;border-bottom:1px solid #e1ebef}th{background:#eaf4f8;white-space:nowrap}td{min-width:160px}code{font:13px/1.6 ui-monospace,Consolas,monospace;background:#edf4f6;padding:2px 5px;border-radius:4px}ul,ol{padding-left:24px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stats b{display:block;font-size:25px;color:#087c79}.stats .panel{margin:0}footer{font-size:13px;color:#617681;margin-top:38px}@media(max-width:700px){main{padding:18px 14px 40px}header{padding:22px}h1{font-size:24px}.stats{grid-template-columns:1fr}.panel{padding:18px}th,td{padding:10px}}
+</style>
+<main>
+<aside class="panel good"><strong>修复前的算法调查快照</strong><p>下文记录时区修复前的代码与规则。时区、子时切换、历史兼容及最新验证结果，请查看 <a href="../calendar-context-fix-2026-10-15/index.html">后续修复与验证报告</a>。</p></aside>
+<header><div class="tag">算法规则调查 · 当前代码实测</div><h1>排盘差异主要来自时间口径与流派配置</h1><p>当前项目的紫微、六爻装卦和奇门，在本次指定字段与样本内有独立实现支持。需要优先处理的是八字、六爻对设备时区的依赖，以及未明确说明的子时、闰月规则。</p><small>检查日期：2026-10-15 ｜ 范围：frontend-docker 正式算法 ｜ 本次未修改生产算法，也未提交代码。</small></header>
+
+<h2>查看了哪些同类网站</h2>
+<p class="muted">闭源网站只能检查公开说明与可见配置，不能据此断言其内部实现正确。下表将这些材料与实际读取的开源算法分开。</p>
+<div class="scroll"><table><thead><tr><th>网站 / 项目</th><th>公开规则或代码</th><th>与当前项目的区别</th><th>证据范围</th></tr></thead><tbody>
+<tr><td><a href="https://p.china95.net/paipan/bazi/">元亨利贞 · 八字</a><br><a href="https://p.china95.net/paipan/liuyao/index.asp">六爻规则说明</a></td><td>八字可选普通时间或按经度校正真太阳时；六爻公开公历、农历两套时间起卦公式。</td><td>项目没有经度 / 真太阳时选项；六爻时间起卦固定采用农历型公式，另有闰月取数与年支来源的差异。</td><td>官方页面说明。未取得服务端源码，未宣称逐盘一致。</td></tr>
+<tr><td><a href="https://ziwei.pub/">紫微派</a> / <a href="https://docs.iztro.com/posts/config-n-plugin">紫微研习社 iztro</a></td><td>官方文档提供春节 / 立春换年、晚子归当日 / 次日、通行 / 中州安星等配置。</td><td>项目锁定春节换年、晚子归次日、通行规则、闰月分半；使用 iztro 2.5.7 并补回三处酉宫亮度修正。</td><td>同源引擎的规则参照，不是独立正确性基准；未核定线上页面当下实际版本。</td></tr>
+<tr><td><a href="https://www.yiyunpan.cn/qimen/">易运盘 · 奇门</a></td><td>页面有活盘、拆补、置闰选项；暗干另有旨归飞宫、阴盘转宫选项。</td><td>项目固定时家转盘、符头拆补，中五寄坤二、天禽随芮。选错起局方法或暗干规则就可能不同。</td><td>可见配置与官方说明，未取得内部算法。</td></tr>
+<tr><td><a href="https://qimen.astralogy.org/tw">Astralogy · 奇门</a></td><td>声明时家转盘拆补、23 点换日；支持经度校正，并声明不随真太阳时平移节气归属。</td><td>项目同属拆补转盘、23 点换日，但固定 UTC+8 钟表时，不提供真太阳时。</td><td>站方规则说明；其自报命中率和验证数字没有作为本项目的基准。</td></tr>
+<tr><td><a href="https://banxia-126.github.io/hexagram-lab/">术数排演</a><br><a href="https://github.com/banxia-126/hexagram-lab/blob/main/core/liuyao.js">六爻源代码</a></td><td>三钱法 / 大衍筮法、八宫推导、纳甲、六亲、六神；公开说明闰月取绝对月份。时间与流派设置可见。</td><td>项目目前为三钱法；装卦核心一致，但变卦六亲取本卦宫五行，对方取变卦宫五行。</td><td>已下载、审阅并执行其纯算法模块。历法仍有同源性，装卦比较固定相同日干支。</td></tr>
+<tr><td><a href="https://github.com/ChesterRa/mingpan">Mingpan / BaziWei</a><br><a href="https://github.com/ChesterRa/mingpan/blob/main/src/core/ziwei/IztroAdapter.ts">紫微适配代码</a></td><td>公开代码将海外墙钟时间转为 UTC+8，八字按 23 点换日；所读紫微适配代码向 iztro 传入 fixLeap=false。</td><td>项目紫微按所选地点墙钟排盘、fixLeap=true；八字则日柱仍用当日直到零点。这些都可造成边界盘差异。</td><td>源码检查，未执行其完整服务；八字历法、紫微安星与项目共享上游库，不能算独立基准。</td></tr>
+</tbody></table></div>
+
+<h2>本次实际执行的对照</h2>
+<div class="stats"><div class="panel good"><b>60 / 60</b>紫微命宫、身宫、五行局、十四主星落宫，与独立 Fortel 1.3.4 一致。</div><div class="panel good"><b>4096 / 4096</b>六爻本卦宫属、世应、纳甲、本卦六亲、固定日干的六神、变卦阴阳一致。</div><div class="panel good"><b>707 / 707</b>奇门与独立 Go 实现，12 类归一后字段一致；两边本次均重新执行。</div></div>
+<p class="muted">这些数字只覆盖所列字段与样本，不代表所有日期、所有星曜、所有流派均已验证，也不证明解读或预测有效。</p>
+
+<h2>需要优先处理的差异</h2>
+<article class="panel warn"><h3>1. 八字、六爻仍依赖设备时区</h3><p>实际调用当前八字 store 和六爻 computeDaily：同一时间戳 <code>2026-10-15T16:30:00Z</code>，八字输入声明同一 <code>Asia/Shanghai</code>，更换运行环境时区后结果变化。六爻的日期函数没有显式时区参数。紫微、奇门在这组输入中保持稳定。</p><div class="scroll"><table><tr><th>运行环境</th><th>八字所用钟面</th><th>八字 / 六爻日柱、时柱</th></tr><tr><td>上海</td><td>10 月 16 日 00:30</td><td>癸亥 · 壬子</td></tr><tr><td>纽约</td><td>10 月 15 日 12:30</td><td>壬戌 · 丙午</td></tr><tr><td>UTC</td><td>10 月 15 日 16:30</td><td>壬戌 · 戊申</td></tr></table></div><p><strong>判断：</strong>这是可复现的实现风险，尤其影响换设备、海外使用及历史重开。应显式保存并使用排盘时区，而不是读取设备本地时间。</p></article>
+
+<article class="panel warn"><h3>2. 子时换日口径不同</h3><p>北京时间 <code>2026-10-15 23:00</code>：八字、六爻输出日柱 <strong>壬戌</strong>、时柱 <strong>壬子</strong>；奇门日柱为次日的 <strong>癸亥</strong>、时柱 <strong>壬子</strong>；紫微整张盘按 <strong>10 月 16 日</strong>计算。</p><p>原因是八字 / 六爻使用 lunar-javascript 默认 EightChar sect=2，日柱零点换日；紫微和奇门明确选择 23 点换日。前者日柱、子时时干采用不同换日口径，不能未经流派约定就判定错误。应把规则写清楚，并在同类基准中选择相同设置后比较。</p></article>
+
+<article class="panel warn"><h3>3. 六爻时间起卦：闰月与年支有未说明的特殊处理</h3><p>项目把闰月按 <code>abs(月份)+12</code> 取数，闰二月即 14；术数排演公开说明按 2 取数。项目年支取八字立春年，所比较的农历年版本则用春节年。</p><div class="scroll"><table><tr><th>北京时间</th><th>项目</th><th>按农历年、闰月取原月数</th></tr><tr><td>2023-03-22 12:00，闰二月初一</td><td>火泽睽</td><td>山水蒙</td></tr><tr><td>2023-04-06 12:00，闰二月十六</td><td>泽天夬</td><td>水风井</td></tr><tr><td>2024-02-05 12:00，立春后春节前</td><td>火泽睽</td><td>泽天夬</td></tr></table></div><p><strong>判断：</strong>差异会改变本卦，需要明确规则依据并固化成可追溯配置；这里没有证据支持把“闰月加 12”直接当成所有网站通用规则。这是按源码与指定公式运行的对照，并非替闭源网站生成的实际排盘结果。</p></article>
+
+<h2>已有依据、应保留说明的流派差异</h2>
+<article class="panel"><h3>紫微：四化表与闰月分半</h3><p>本次 60 个样本的 17 类核心字段无差异，但有 28 个样本出现化科星不同：Fortel 中州派在戊、庚、壬年的化科为太阳、天府、天府；当前项目为右弼、太阴、左辅。这与已有基准中的预声明四化表差异一致，不应为追求相同而偷偷替换。</p><p>项目闰月初一至十五用原月、十六起按下一月安置相关宫星。隔离比较所读 Mingpan 参数 fixLeap=false：<strong>2023-04-06 午时</strong>，项目为命宫戌、水二局；不分半时为命宫酉、木三局。这里仅运行同一引擎的参数对照，没有执行 Mingpan 完整服务。</p></article>
+<article class="panel"><h3>六爻：变卦六亲没有计入“一致”数字</h3><p>4096 个组合中，有 <strong>3200 个</strong>变卦六亲数组不同。项目按<strong>本卦所属宫</strong>定变爻六亲；术数排演按<strong>变卦所属宫</strong>定六亲。两种实现不能在报告中合并为通过。当前项目无需因为外部开源代码不同就直接跟随修改；应对照同样采用本卦宫五行的纳甲基准单独核验。</p><p>另用 60 个日干支检查六神顺序，全部一致。未把外部实现没有提供的伏神字段宣称验证通过，也没有比较 AI 解读。</p></article>
+<article class="panel"><h3>奇门：方法名称必须以实际代码为准</h3><p>项目采用 qfdk/qimen 固定版本及 xuan-1 补丁。上游说明中的“茅山”、测试注释中的“置闰”存在命名冲突；本地按实际的符头与节气局表逻辑标为“时家转盘·符头拆补”。当前补丁明确处理实际交节时刻、23 点日界、立春年界，以及值使从原始中五宫计数后再寄宫。</p><p>本次重新运行独立 <a href="https://github.com/atopx/qimen/tree/8eb06d007d4a5fcc5352d9054f81469e5f023f45">atopx/qimen 固定版本</a>与当前产品，707 个样本在四柱、局数/三元/节气、旬首、地盘、外宫天盘、星、门、神及值符值使相关字段一致。归一仅涉及显示后缀、禽芮组合与事先声明的中宫寄宫，没有调换宫位。未覆盖暗干、AI 解读与所有流派。</p><p>Go 与 JavaScript 的奇门实现分别维护，但历法均有寿星算法渊源，不能把相同结果等同于完全独立的天文秒级精度证明。</p></article>
+
+<h2>建议的处理顺序</h2>
+<ol><li>先消除八字、六爻对设备时区的隐式依赖，并在历史中保存时区与规则版本。</li><li>明确八字 / 六爻的子时策略，以及六爻时间起卦的闰月、年支规则。不要把全站强制改成某一派而丢失旧盘口径。</li><li>展示实际使用的真太阳时、换日、换年、闰月和奇门定局规则；没有真太阳时功能时明确显示钟表时间。</li><li>保留独立实现和规则金样本。用相同流派配置做对照，新增边界输入时记录完整原始输出。</li></ol>
+
+<h2>证据与边界</h2>
+<p><a href="results.json">本次运行结果、反例和外部源码 SHA-256</a>。紫微独立基准为 <a href="https://github.com/airicyu/fortel-ziweidoushu">Fortel 1.3.4（中州派）</a>；六爻为已审阅的术数排演纯计算模块；奇门为固定提交的 atopx/qimen。当前依赖版本：lunar-javascript 1.7.7、iztro 2.5.7。</p>
+<p>紫微 60 例包括两性、零点 / 午时 / 晚子、春节前后、立春、闰月十五 / 十六及历史年份，使用固定 UTC+8 排除无意引入的历史夏令时差。测试中已排除一个“把历史香港时区误当固定 UTC+8”的夹具问题；没有将该测试设置错误计作产品错误。完整时区边界穷举不在本次 60 例的覆盖范围内。</p>
+<p>报告中的网站规则为本次访问或下载时的状态；闭源站点未做端到端逐盘提交。Mingpan 托管站未能通过网页读取工具访问，使用其官方代码仓库。未以网站宣传的准确率作为结论。</p>
+<footer>本次工作为调查、源码核对与独立算法对照；生产算法和界面保持原状。排盘规则的一致性与解释、预测是否有效，是不同的问题。</footer>
+</main>
+</html>

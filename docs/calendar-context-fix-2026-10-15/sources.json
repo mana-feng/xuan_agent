@@ -1,0 +1,18 @@
+{
+  "paipan.js": {
+    "url": "https://raw.githubusercontent.com/hkargv/paipan/0785b33e14c9e57a49cfd6e78d84510de30eaa60/js/paipan.js",
+    "repository": "https://github.com/hkargv/paipan",
+    "license": "https://github.com/hkargv/paipan/blob/0785b33e14c9e57a49cfd6e78d84510de30eaa60/LICENSE",
+    "sha256": "44eb831f3461619f0d14add790d3021f089a02142fe49b51237ebfddc713f5ac"
+  },
+  "hexagram-data.js": {
+    "url": "https://raw.githubusercontent.com/banxia-126/hexagram-lab/main/core/data.js",
+    "repository": "https://github.com/banxia-126/hexagram-lab",
+    "sha256": "3326bb08d6aded652a4cfd4b14704c7591ccf6e5c3647442b525b0a8427732a5"
+  },
+  "hexagram-liuyao.js": {
+    "url": "https://raw.githubusercontent.com/banxia-126/hexagram-lab/main/core/liuyao.js",
+    "repository": "https://github.com/banxia-126/hexagram-lab",
+    "sha256": "a25507d7279773c40e57c3cd4e5e662f29efb74efce9ad2eff03ce027c7aff57"
+  }
+}
