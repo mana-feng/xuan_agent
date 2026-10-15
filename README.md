@@ -1,187 +1,227 @@
 # 玄学AI Chat & Agent
 
-基于 AI Agent 的玄学排盘系统，支持八字/六爻/紫微排盘。
+支持**八字、六爻、紫微斗数、奇门遁甲**的排盘与 AI 对话应用。`main` 分支包含用户前端、Express 后端、MySQL 数据存储及管理端，覆盖排盘、记录保存、历史回放、AI 解读和额度管理。
 
-此仓库按运行方式维护两个分支：
+纯前端体验版及其部署、模型设置说明见 [`frontend` 分支](https://github.com/mana-feng/xuan_agent/tree/frontend)，在线入口为 [xuan.manafeng.com](https://xuan.manafeng.com/)。Pages 仅发布 `frontend` 分支；下文介绍 `main` 的完整前后端。
 
-| 分支 | 内容 | 部署方式 |
-| --- | --- | --- |
-| `main`（当前） | `frontend-docker/` 用户前端、`backend-docker/` 后端及管理端 | Node.js / MySQL / Docker |
-| [`frontend`](https://github.com/mana-feng/xuan_agent/tree/frontend) | 仓库根目录下的独立前端源码 | GitHub Pages：<https://xuan.manafeng.com/> |
-
-Pages 工作流只响应 `frontend` 分支；`main` 不发布静态站点。两个分支目录结构不同，请分别开发，按文件移植共享修复，避免直接整分支合并。
-
-迁移保留了原项目 Git 历史，并导入 2026-10-11 当前工作区的前后端源码、未提交修复及测试。原来的 `frontend-only/` 已拆分到 `frontend` 分支。本地 `.env`、依赖缓存、构建产物及历史运行报告保留在原工作区，不进入新源码提交。
-
-## 项目结构
-
-```
-.
-├── backend-docker/          # Node.js + Express 后端
-│   ├── routes/             # API 路由
-│   ├── services/           # 业务服务
-│   ├── middleware/         # 中间件
-│   ├── security.js         # 安全防护工具
-│   ├── security-middleware.js  # 安全中间件
-│   ├── admin-ui/           # 管理端前端
-│   └── .env.example        # 环境变量模板
-├── frontend-docker/        # 用户前端 (uni-app)
-│   ├── src/
-│   │   ├── features/agent/ # Agent 核心逻辑
-│   │   ├── pages/         # 页面组件
-│   │   └── store/         # 状态管理
-│   └── Dockerfile
-└── docker-compose.deploy.example.yml  # 部署配置模板
-```
-
-## 前置要求
-
-- **Node.js** 22（与 Pages 构建环境一致）
-- **npm** >= 8.0.0
-- **MySQL** 8.0+
-- **Docker & Docker Compose**（可选，用于容器化部署）
-
-## 快速开始
-
-### 本地开发
-
-**后端**
-
-```bash
-cd backend-docker
-npm install
-cp .env.example .env
-# 编辑 .env 填写必要配置
-npm run dev
-```
-
-**用户前端**
-
-```bash
-cd frontend-docker
-npm install
-npm run dev:h5
-```
-
-**管理端**
-
-```bash
-cd backend-docker/admin-ui
-npm install
-npm run dev:h5
-```
-
-
-访问：
-
-- 用户端：<http://localhost:3000>
-- 管理端：<http://localhost:3002>
+[核心功能](#核心功能) · [项目结构](#项目结构) · [快速开始](#快速开始) · [Docker 部署](#docker-部署) · [测试与验证](#测试与验证) · [界面预览](#界面预览)
 
 ## 核心功能
 
-- **八字排盘**：四柱排盘、十神分析、大运流年
-- **六爻排盘**：时间起卦、手动起卦、卦象分析
-- **紫微斗数**：命盘生成、十二宫位、星曜分析
-- **AI Agent**：自然语言交互、智能排盘调度
-- **管理系统**：用户管理、记录管理、LLM 配置
+| 模块 | 当前功能 |
+| --- | --- |
+| 八字 | 四柱、十神、大运流年；保存、编辑、回放与 AI 解读 |
+| 六爻 | 多种起卦方式、图形卡片选择手工爻象、统一卦爻预览、问题记录、结果导出与 AI 解读 |
+| 紫微斗数 | 十二宫、星曜、运限展示；公历/农历输入与闰月处理 |
+| 奇门遁甲 | 时家转盘·符头拆补，九宫、九星、八门、八神、天地盘及暗干；记录保存、历史回放和 AI 解读 |
+| AI Agent | 通过自然语言选择排盘工具、导航或执行受支持的排盘动作；结合当前排盘继续对话 |
+| 聊天 | 流式回复、额度与错误提示、关联原盘入口、本地会话自动保存，以及保存/恢复/清空对话 |
+| 用户与记录 | 邮箱验证码注册、登录、令牌刷新；四类排盘记录在 MySQL 中按用户保存 |
+| 管理端 | 用户、记录、LLM、调用额度、额度重置、SMTP 邮件、公告与访问统计 |
 
-## 界面预览
+用户界面采用统一工作台、响应式导航及卡片布局，支持配色切换。四类排盘共用时间展示卡片和日期时间选择组件，支持数字输入、日期校验与越界值回填；公历/农历、时区等选项按各排盘规则提供。
 
-### AI Agent
+### 时间与排盘规则
 
-|               排盘 Agent 首页               |                 Agent 对话                |
-| :-------------------------------------: | :-------------------------------------: |
-| ![Agent 首页](screenshots/agent-home.png) | ![Agent 对话](screenshots/agent-chat.png) |
+- 时间输入与计算规则分开保存、展示；涉及明确时区的输入使用 IANA 时区，并处理夏令时不存在或重复的时刻。
+- 奇门按北京时间 `UTC+08:00` 计算，采用 `23:00` 换日和精确节气交接；中五寄坤二、天禽随芮。结果页可展开查看输入时间、采用的规则与引擎版本。
+- 排盘计算在前端完成，服务端负责认证、用户记录、模型调用和额度。算法边界与独立基准对比材料见下方「测试与验证」。
 
-### 八字排盘
+### 记录与聊天保存
 
-|                  排盘输入                 |                  排盘结果                  |
-| :-----------------------------------: | :------------------------------------: |
-| ![八字排盘输入](screenshots/chart.png) | ![八字排盘结果](screenshots/bazi-result.png) |
+登录后保存的排盘记录写入 MySQL，支持历史检索、回放和更新；结果可复制或导出为 TOON。聊天页展示所关联的排盘，并提供返回原盘入口。
 
-|                   增强分析                   |                  大运流年                 |
-| :--------------------------------------: | :-----------------------------------: |
-| ![八字增强分析](screenshots/bazi-analysis.png) | ![八字大运流年](screenshots/bazi-dayun.png) |
+聊天会话在当前设备加密保存，按账号与排盘身份隔离，保存期为 30 天。页面显示保存状态和失败重试入口；这与服务端排盘记录是两种存储。浏览器清理站点数据、切换浏览器或站点来源会影响本地会话，文件恢复也受档案格式和会话范围校验约束。
 
-### 紫微斗数
+## 项目结构
 
-![紫微命盘](screenshots/ziwei.png)
-
-### 六爻排盘
-
-![六爻卦象](screenshots/liuyao.png)
-
-## 安全特性
-
-### 全局防护
-
-- Host 头部注入防护（Nginx + 后端双重验证）
-- CORS 白名单验证
-- SQL 注入防护
-- XSS 防护
-- 请求速率限制
-- Content Security Policy (CSP)
-- 输入验证与清理
-- API 请求签名验证
-
-### 聊天界面防护
-
-- **WebSocket 身份认证**：JWT Token 验证，无效或过期 Token 立即断开连接
-- **消息频率限制**：每用户每分钟最多 5 条消息，防止滥用
-- **额度管控**：每次对话前检查用户 LLM 额度，超额自动拒绝
-- **输入验证**：严格校验消息格式（JSON 解析、数组类型检查）
-- **错误信息脱敏**：服务端错误经脱敏处理后返回，防止敏感信息泄露
-- **LLM 响应清理**：自动剥离 Ollama 思考块等内部标记，过滤 HTML 标签
-- **安全日志记录**：记录 4xx/5xx 请求但过滤正常业务错误，便于安全审计
-
-## 技术栈
-
-- **后端**: Node.js, Express, MySQL
-- **前端**: Vue 3, TypeScript, uni-app
-- **AI**: 多模型适配 (Gemini, Ollama, Anthropic)
-- **部署**: Docker, Docker Compose
-- **安全**: 多层安全防护中间件
-
-## 环境变量配置
-
-本项目使用 `.env` 文件管理敏感配置。各模块的 `.env` 文件**不会被提交到仓库**，需自行从 `.env.example` 复制并填写：
-
-```bash
-# 后端
-cd backend-docker
-cp .env.example .env
-# 编辑 .env，至少配置 JWT_SECRET、API_SIGNATURE_SECRET、数据库密码
-
-# 前端
-cd frontend-docker
-cp .env.example .env
-# 编辑 .env，配置 API_SIGNATURE_SECRET
-
-# 管理端
-cd backend-docker/admin-ui
-cp .env.example .env
-# 编辑 .env，配置 API_SIGNATURE_SECRET
+```text
+.
+├── backend-docker/                  # Express API、MySQL、认证与模型代理
+│   ├── admin-ui/                    # 管理端，独立安装与启动
+│   ├── routes/                      # 认证、四类排盘记录、模型及管理接口
+│   ├── services/                    # 模型协议、额度事务与邮件服务
+│   ├── websocket/                   # WebSocket 聊天服务
+│   ├── tests/                       # 后端回归测试
+│   ├── init-mysql.sql               # 数据库初始化脚本
+│   └── .env.example
+├── frontend-docker/                 # uni-app 用户前端
+│   ├── src/features/                # Agent、历史、六爻、奇门及工作台功能
+│   ├── src/pages/                   # 排盘、聊天、账号及历史页面
+│   ├── src/chat/                    # 聊天面板、会话快照与恢复
+│   ├── src/components/form/         # 共享时间卡片和日期时间弹窗
+│   ├── src/store/                   # 四类排盘及用户状态
+│   ├── vendor/qfdk-qimen/           # 固定版本的奇门计算引擎
+│   ├── tests/                       # 算法、API 契约、会话与交互回归
+│   ├── scripts/ui-simulation/       # 正式页面的本地模拟 API 运行器
+│   └── ui-draft/                    # 独立 UI 草稿
+├── docs/                            # 算法对比、界面和真实服务验证证据
+├── screenshots/                     # 早期界面截图
+└── docker-compose.deploy.example.yml # 容器部署模板
 ```
 
-详细配置项请参考各目录下的 `.env.example` 文件中的注释说明。
+技术栈：Vue 3、TypeScript、uni-app、Pinia；Node.js、Express、MySQL；`lunar-javascript`、`iztro` 与本地固定版本奇门引擎。模型适配包括 OpenAI 兼容接口、Anthropic、Gemini 和 Ollama。
+
+## 快速开始
+
+### 环境准备
+
+使用 **Node.js 22、npm、MySQL 8.0+**；容器部署另需 Docker 与 Docker Compose。各子项目独立安装依赖，根目录不是统一的前端安装入口。
+
+以下命令分别从仓库根目录开始执行。已存在的 `.env` 应保留，按模板补齐配置即可；真实密钥、依赖缓存和构建产物已由 Git 忽略。
+
+### 启动后端
+
+先启动 MySQL，再准备后端：
+
+```sh
+cd backend-docker
+npm ci
+cp .env.example .env
+# 编辑 .env 后启动
+npm run dev
+```
+
+至少核对以下配置（模板中存在占位值，不能直接作为完成配置）：
+
+| 配置 | 本地开发说明 |
+| --- | --- |
+| `NODE_ENV` / `PORT` | 使用 `development`；API 端口通常为 `3001` |
+| `DB_HOST` / `DB_PORT` / `DB_USER` / `DB_PASS` / `DB_NAME` | 填写可连接的 MySQL；启动时会尝试创建数据库及初始化表，需要相应权限 |
+| `JWT_SECRET` / `API_SIGNATURE_SECRET` | 分别设置随机值，至少 32 字符；签名值需与两套完整版前端配置一致 |
+| `API_SIGNATURE_ENABLED` | 设置为 `true` 启用服务端签名校验 |
+| `CORS_ORIGINS` / `ALLOWED_HOSTS` | 包含实际使用的站点来源和主机；使用 `127.0.0.1` 时也要配置对应来源 |
+| `COOKIE_SECURE` | 本地 HTTP 为 `false`；生产 HTTPS 为 `true` |
+| `ALLOW_INSECURE_SECRETS` | 设为 `false`，并替换示例密钥 |
+| `ADMIN_USERNAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | 用于启动时初始化或同步管理员账号，自行设置凭据 |
+| `SKIP_DB` | 正常使用设为 `false`；跳过数据库不能验证登录、服务端保存或 AI 额度 |
+
+后端地址为 <http://127.0.0.1:3001>，健康检查为 `/api/health`。数据库连接失败时后端可能以降级模式继续监听，业务接口返回 `503`；健康检查成功不代表登录、数据库和模型已经可用。
+
+### 启动用户前端与管理端
+
+在两个终端分别运行：
+
+```sh
+# 用户前端
+cd frontend-docker
+npm ci
+cp .env.example .env
+# 按下表修改 .env
+npm run dev:h5
+```
+
+```sh
+# 管理端
+cd backend-docker/admin-ui
+npm ci
+cp .env.example .env
+# 按下表修改 .env
+npm run dev:h5
+```
+
+两者均通过 Vite 配置 `/api` 代理，本地 H5 可使用以下设置：
+
+| 配置 | 用户前端 | 管理端 |
+| --- | --- | --- |
+| `VITE_DEV_PORT` | `3000` | `3002` |
+| `VITE_API_BASE_URL` | `http://127.0.0.1:3000` | `http://127.0.0.1:3002` |
+| `VITE_API_PROXY_TARGET` | `http://127.0.0.1:3001` | `http://127.0.0.1:3001` |
+| `VITE_API_SIGNATURE_ENABLED` | `true` | `true` |
+| `VITE_API_SIGNATURE_SECRET` | 与后端 `API_SIGNATURE_SECRET` 一致 | 与后端 `API_SIGNATURE_SECRET` 一致 |
+| `VITE_CSP_ALLOW_UNSAFE_STYLE_INLINE` | 本地开发设为 `true`，允许组件内联样式 | 同左 |
+
+当前代码读取的是 `API_SIGNATURE_ENABLED` / `VITE_API_SIGNATURE_ENABLED`；部分模板仍出现 `*_DISABLED`，配置时请显式使用上表中的启用字段。`VITE_*` 是构建期配置，修改后需要重启开发服务或重新构建。
+
+访问用户端 <http://127.0.0.1:3000> 和管理端 <http://127.0.0.1:3002>。管理端登录后先配置邮件服务（普通用户注册需要邮箱验证码）、模型服务和额度。
+
+完整版由**后端**访问模型。Ollama 适配使用原生 `/api/chat`，可填写服务根地址或完整 `/api/chat` 地址，允许无 API Key。其他提供商按管理页填写接口、模型和鉴权信息。容器中的 `127.0.0.1` 指向容器自身，模型地址须从后端所在网络可达。
+
+后端模型超时默认 180 秒；完整版用户前端 `VITE_LLM_REQUEST_TIMEOUT_MS` 默认 195 秒，Nginx `/api` 代理读取超时为 195 秒。调整后端 `LLM_REQUEST_TIMEOUT_MS` 时同步调整客户端与代理。
+
+## 认证与模型请求
+
+后端使用 JWT 访问令牌与刷新令牌、邮箱验证码、按用户隔离的记录接口和额度事务。注册验证码消费与令牌轮换使用事务处理；HTTP / WebSocket 模型请求统一处理超时、取消、空响应和不完整流，失败时释放预留额度。
+
+CORS、Host 校验、请求签名、限流和 CSP 需结合部署环境配置。浏览器端的 `VITE_*` 配置会进入静态构建产物，不应填入后端 JWT 密钥或数据库密码；模型服务鉴权信息由后台管理。
 
 ## Docker 部署
 
-```bash
-# 复制部署配置
+```sh
 cp docker-compose.deploy.example.yml docker-compose.deploy.yml
-
-# 编辑 docker-compose.deploy.yml，替换所有 CHANGE_ME 值
-# 包括数据库密码、JWT_SECRET、API_SIGNATURE_SECRET 等
-
-# 拉取镜像并启动
+# 修改镜像、平台、域名和所有 CHANGE_ME 占位值后执行
 docker compose -f docker-compose.deploy.yml pull
 docker compose -f docker-compose.deploy.yml up -d
 ```
 
-访问：
-- 用户端：`http://localhost:3000`
-- 管理端：`http://localhost:3001`
+模板使用预构建镜像，**不会自动构建当前工作目录的代码**。部署前请检查：
+
+- 将 `yourdockerhub/...` 替换为自己的镜像；三个 Dockerfile 分别位于 `backend-docker`、`frontend-docker` 和 `backend-docker/admin-ui`。
+- 模板平台为 `linux/arm64`；按镜像和服务器实际架构调整。
+- 后端 `DB_PASS` 与 MySQL 对应账号密码必须一致；模板使用 root，因此需同时修改 `MYSQL_ROOT_PASSWORD`。
+- 配置真实域名、CORS、管理员凭据、随机密钥及 HTTPS；按当前代码显式设置 `API_SIGNATURE_ENABLED=true`。仅做本地 HTTP 测试时，需将模板的 `COOKIE_SECURE` 调整为 `false`。
+- 前端 `VITE_*` 在构建时生效；仅修改已启动容器的环境变量不会改写静态页面中的配置。现有 Dockerfile 的 Node 基础镜像仍为 `node:18-alpine`，与上述本地开发版本不同，容器构建需单独验证。
+
+默认容器访问地址：用户端 <http://127.0.0.1:3000>、管理端 <http://127.0.0.1:3001>；后端 API 在容器网络内通过 Nginx 代理访问。MySQL 使用 `db_data` 卷保存数据。
+
+## 测试与验证
+
+安装依赖后，从仓库根目录运行：
+
+```sh
+# 用户前端
+npm --prefix frontend-docker test
+npm --prefix frontend-docker run typecheck
+npm --prefix frontend-docker run build:h5
+
+# 管理端
+npm --prefix backend-docker/admin-ui run typecheck
+npm --prefix backend-docker/admin-ui run build:h5
+
+# 后端尚未定义 npm test，使用 Node 测试入口
+cd backend-docker
+node --test tests/*.test.cjs
+```
+
+各完整版模块还提供 `lint` 脚本；后端 ESLint 配置依赖 `frontend-docker` 中的插件，先安装用户前端依赖。单元及受控接口测试不等于真实数据库、模型、浏览器或容器验收；H5 验证也不代表小程序和 App 已验证。
+
+### 正式页面的模拟环境
+
+需要先检查界面和交互、暂不连接数据库与模型时：
+
+```sh
+cd frontend-docker
+npm run dev:simulation
+```
+
+默认页面为 <http://127.0.0.1:4174>，场景控制台为 <http://127.0.0.1:4318>。模拟环境使用正式页面，提供延迟、空历史、未登录、额度不足、服务失败和流中断等场景；账号、记录与 AI 回复为测试数据。启动参数、测试账号与行为说明见 [模拟运行器说明](frontend-docker/scripts/ui-simulation/README.md)。
+
+独立设计草稿可通过 `npm --prefix frontend-docker run dev:ui-draft` 启动，详见 [UI 草稿说明](frontend-docker/ui-draft/README.md)。
+
+### 已归档的验证资料
+
+- [紫微与奇门算法检查报告](docs/algorithm-audit/report.html)：历法边界、规则说明与修复记录。
+- [独立算法基准材料](docs/algorithm-benchmark-2026-10-13/)：紫微、奇门、时区和天文计算等对照数据。
+- [真实服务验证报告](docs/qimen-live-evidence-2026-10-13/index.html)：登录、奇门保存与回放、AI 回复、额度和失败场景。
+- [正式页面 UI 证据](docs/ui-production-evidence/) 与 [导航适配证据](docs/ui-navigation-evidence/)：不同屏幕尺寸的截图及交互记录。
+
+这些资料保留各次验证的日期、环境与范围；历史通过数不作为当前提交的实时测试结果。HTML 报告可从本地文件打开，关联证据保存在同目录。
+
+## 界面预览
+
+下列为仓库留存的正式页面截图，最新样式以本地运行页面为准。
+
+| Agent 工作台 | 关联排盘的聊天 |
+| --- | --- |
+| ![Agent 工作台](docs/ui-production-evidence/home-desktop.png) | ![AI 聊天](docs/ui-production-evidence/chat-desktop.png) |
+
+| 六爻排盘 | 紫微命盘 |
+| --- | --- |
+| ![六爻排盘](docs/ui-production-evidence/liuyao-desktop.png) | ![紫微命盘](docs/ui-production-evidence/ziwei-desktop.png) |
+
+| 八字移动端 | 奇门九宫 |
+| --- | --- |
+| ![八字移动端](docs/ui-production-evidence/bazi-mobile.png) | ![奇门九宫](docs/qimen-production-evidence-2026-10-13/tablet-result.png) |
 
 ## 免责声明
 
@@ -324,7 +364,7 @@ OpenAI核心工程师翁佳毅（Jiayi Weng）认为，人类没有自由意志�
 
 - **Bug 反馈**：请附上问题描述、复现步骤、平台信息及截图
 - **功能建议**：请说明使用场景和期望效果
-- **代码贡献**：提交前运行 lint 检查
+- **代码贡献**：提交前运行相关回归测试、类型检查、lint 与 H5 构建，并注明真实服务或浏览器验证的范围
 
 ## 许可证
 
