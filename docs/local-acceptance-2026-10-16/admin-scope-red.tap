@@ -1,0 +1,199 @@
+✖ get /llm-config: keeps Chat and Agent operations in their selected scope (3.8825ms)
+✖ get /llm-config: rejects unknown or conflicting scopes before any configuration access (1.6209ms)
+✖ put /llm-config: keeps Chat and Agent operations in their selected scope (0.903ms)
+✖ put /llm-config: rejects unknown or conflicting scopes before any configuration access (0.3963ms)
+✖ get /llm-models: keeps Chat and Agent operations in their selected scope (0.4161ms)
+✖ get /llm-models: rejects unknown or conflicting scopes before any configuration access (0.8551ms)
+✖ post /llm-models/:id/activate: keeps Chat and Agent operations in their selected scope (0.7122ms)
+✖ post /llm-models/:id/activate: rejects unknown or conflicting scopes before any configuration access (0.3884ms)
+✖ delete /llm-models/:id: keeps Chat and Agent operations in their selected scope (0.4544ms)
+✖ delete /llm-models/:id: rejects unknown or conflicting scopes before any configuration access (0.498ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.3535
+
+✖ failing tests:
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:47:3
+✖ get /llm-config: keeps Chat and Agent operations in their selected scope (3.8825ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  {} !== 'agent'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:52:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {},
+    expected: 'agent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:55:3
+✖ get /llm-config: rejects unknown or conflicting scopes before any configuration access (1.6209ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 400
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:58:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:47:3
+✖ put /llm-config: keeps Chat and Agent operations in their selected scope (0.903ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   apiKey: undefined,
+  +   baseUrl: undefined,
+  +   extra: '',
+  +   model: undefined,
+  +   name: undefined,
+  +   provider: undefined
+  + }
+  - 'agent'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:52:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { provider: undefined, baseUrl: undefined, apiKey: undefined, model: undefined, extra: '', name: undefined },
+    expected: 'agent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:55:3
+✖ put /llm-config: rejects unknown or conflicting scopes before any configuration access (0.3963ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 400
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:58:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:47:3
+✖ get /llm-models: keeps Chat and Agent operations in their selected scope (0.4161ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  {} !== 'agent'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:52:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {},
+    expected: 'agent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:55:3
+✖ get /llm-models: rejects unknown or conflicting scopes before any configuration access (0.8551ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 400
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:58:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:47:3
+✖ post /llm-models/:id/activate: keeps Chat and Agent operations in their selected scope (0.7122ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 'agent'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:52:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 'agent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:55:3
+✖ post /llm-models/:id/activate: rejects unknown or conflicting scopes before any configuration access (0.3884ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 400
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:58:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:47:3
+✖ delete /llm-models/:id: keeps Chat and Agent operations in their selected scope (0.4544ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 'agent'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:52:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 'agent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend-docker\tests\admin-llm-scope.test.cjs:55:3
+✖ delete /llm-models/:id: rejects unknown or conflicting scopes before any configuration access (0.498ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 400
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\backend-docker\tests\admin-llm-scope.test.cjs:58:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

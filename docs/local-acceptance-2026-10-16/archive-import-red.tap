@@ -1,0 +1,37 @@
+✔ hard reload restores the current conversation and draft without submitting a request (35.4292ms)
+✔ switching account during a pending save neither leaks memory nor writes stale messages (12.0124ms)
+✔ saving an unsaved chart migrates its active conversation and retires the draft key (34.1923ms)
+✔ clear invalidates pending writes, cancels the active session and survives a reload (1.233ms)
+✔ a storage failure stays visible until an explicit retry confirms the write (15.4364ms)
+✖ import never reports success when restored content could not be persisted (41.5992ms)
+✔ corrupt data is reported and is not silently overwritten on opening (2.5698ms)
+✔ retry after crypto initialization becomes available saves the current draft (27.9054ms)
+✔ only the newest overlapping save can become the restored draft (45.6939ms)
+✔ switching charts before debounce completes retains the final draft on return (37.795ms)
+✔ stream completion during chart-save migration is persisted before reporting saved (38.7804ms)
+✔ auth expiry during restore cannot overwrite saved content with the mount hint (29.0302ms)
+✔ a chart gaining its record ID during restore migrates the unread saved snapshot (53.1737ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1229.3697
+
+✖ failing tests:
+
+test at frontend-docker\tests\chat-session-lifecycle.test.cjs:77:1
+✖ import never reports success when restored content could not be persisted (41.5992ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\chat-session-lifecycle.test.cjs:85:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /未保存/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Invalid password rejected and bootstrap exposes no API secrets",
+    "status": "passed",
+    "durationMs": 67
+  },
+  {
+    "name": "bazi owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 67
+  },
+  {
+    "name": "ziwei owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 40
+  },
+  {
+    "name": "liuyao owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 35
+  },
+  {
+    "name": "qimen owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 48
+  },
+  {
+    "name": "Real limiter rejects request 11 within one minute without consuming model quota",
+    "status": "passed",
+    "durationMs": 36,
+    "detail": {
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        429
+      ]
+    }
+  }
+]

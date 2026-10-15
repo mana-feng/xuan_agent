@@ -1,0 +1,21 @@
+✔ hard reload restores the current conversation and draft without submitting a request (30.8917ms)
+✔ switching account during a pending save neither leaks memory nor writes stale messages (12.4958ms)
+✔ saving an unsaved chart migrates its active conversation and retires the draft key (32.556ms)
+✔ clear invalidates pending writes, cancels the active session and survives a reload (0.9559ms)
+✔ a storage failure stays visible until an explicit retry confirms the write (11.1956ms)
+✔ import never reports success when restored content could not be persisted (53.0237ms)
+✔ corrupt data is reported and is not silently overwritten on opening (1.1551ms)
+✔ retry after crypto initialization becomes available saves the current draft (21.4735ms)
+✔ only the newest overlapping save can become the restored draft (24.9007ms)
+✔ switching charts before debounce completes retains the final draft on return (31.4721ms)
+✔ stream completion during chart-save migration is persisted before reporting saved (32.0543ms)
+✔ auth expiry during restore cannot overwrite saved content with the mount hint (21.4861ms)
+✔ a chart gaining its record ID during restore migrates the unread saved snapshot (42.0701ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 636.0583

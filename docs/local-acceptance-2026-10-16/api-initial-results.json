@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Docker Nginx frontend/backend health",
+    "status": "passed",
+    "durationMs": 242
+  },
+  {
+    "name": "Admin login and administrator identity",
+    "status": "passed",
+    "durationMs": 33
+  },
+  {
+    "name": "Configure real local SMTP through admin API",
+    "status": "passed",
+    "durationMs": 385
+  },
+  {
+    "name": "Configure Ollama provider through admin API",
+    "status": "passed",
+    "durationMs": 350
+  },
+  {
+    "name": "Real SMTP verification email a",
+    "status": "passed",
+    "durationMs": 148
+  },
+  {
+    "name": "Registration rejects incorrect email verification code",
+    "status": "passed",
+    "durationMs": 90
+  },
+  {
+    "name": "Register verified real database account a",
+    "status": "passed",
+    "durationMs": 109
+  },
+  {
+    "name": "Admin grants test quota for account a",
+    "status": "passed",
+    "durationMs": 38
+  },
+  {
+    "name": "Real SMTP verification email b",
+    "status": "passed",
+    "durationMs": 87
+  },
+  {
+    "name": "Register verified real database account b",
+    "status": "passed",
+    "durationMs": 110
+  },
+  {
+    "name": "Admin grants test quota for account b",
+    "status": "passed",
+    "durationMs": 28
+  },
+  {
+    "name": "Ordinary user cannot access administrator statistics",
+    "status": "passed",
+    "durationMs": 9
+  },
+  {
+    "name": "Anonymous user cannot access saved chart history",
+    "status": "passed",
+    "durationMs": 15
+  },
+  {
+    "name": "Ollama real non-stream chat returns content and deducts quota once",
+    "status": "passed",
+    "durationMs": 26690
+  },
+  {
+    "name": "Per-minute model rate limit rejects immediate repeat without another deduction",
+    "status": "failed",
+    "durationMs": 15667,
+    "error": "Expected values to be strictly equal:\n\n200 !== 429\n"
+  },
+  {
+    "name": "Ollama real agent streaming completes with DONE",
+    "status": "passed",
+    "durationMs": 4379
+  }
+]

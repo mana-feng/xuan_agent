@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Seed real persisted records for browser pagination",
+    "status": "passed",
+    "durationMs": 130
+  },
+  {
+    "name": "Publish isolated local acceptance announcement for visible UI test",
+    "status": "passed",
+    "durationMs": 15
+  }
+]

@@ -1,0 +1,403 @@
+[
+  {
+    "name": "Docker Nginx frontend/backend health",
+    "status": "passed",
+    "durationMs": 242
+  },
+  {
+    "name": "Admin login and administrator identity",
+    "status": "passed",
+    "durationMs": 33
+  },
+  {
+    "name": "Configure real local SMTP through admin API",
+    "status": "passed",
+    "durationMs": 385
+  },
+  {
+    "name": "Configure Ollama provider through admin API",
+    "status": "passed",
+    "durationMs": 350
+  },
+  {
+    "name": "Real SMTP verification email a",
+    "status": "passed",
+    "durationMs": 148
+  },
+  {
+    "name": "Registration rejects incorrect email verification code",
+    "status": "passed",
+    "durationMs": 90
+  },
+  {
+    "name": "Register verified real database account a",
+    "status": "passed",
+    "durationMs": 109
+  },
+  {
+    "name": "Admin grants test quota for account a",
+    "status": "passed",
+    "durationMs": 38
+  },
+  {
+    "name": "Real SMTP verification email b",
+    "status": "passed",
+    "durationMs": 87
+  },
+  {
+    "name": "Register verified real database account b",
+    "status": "passed",
+    "durationMs": 110
+  },
+  {
+    "name": "Admin grants test quota for account b",
+    "status": "passed",
+    "durationMs": 28
+  },
+  {
+    "name": "Ordinary user cannot access administrator statistics",
+    "status": "passed",
+    "durationMs": 9
+  },
+  {
+    "name": "Anonymous user cannot access saved chart history",
+    "status": "passed",
+    "durationMs": 15
+  },
+  {
+    "name": "bazi: authenticated signed save to real MySQL",
+    "status": "passed",
+    "durationMs": 41
+  },
+  {
+    "name": "bazi: history round trip retains original payload, time and rules",
+    "status": "passed",
+    "durationMs": 1
+  },
+  {
+    "name": "bazi: reopen real history using production calculator",
+    "status": "passed",
+    "durationMs": 4
+  },
+  {
+    "name": "bazi: cross-account read/update/delete are isolated",
+    "status": "passed",
+    "durationMs": 43
+  },
+  {
+    "name": "bazi: duplicate PUT updates one saved identity",
+    "status": "passed",
+    "durationMs": 43
+  },
+  {
+    "name": "bazi: unsigned state mutation is rejected",
+    "status": "passed",
+    "durationMs": 15
+  },
+  {
+    "name": "ziwei: authenticated signed save to real MySQL",
+    "status": "passed",
+    "durationMs": 32
+  },
+  {
+    "name": "ziwei: history round trip retains original payload, time and rules",
+    "status": "passed",
+    "durationMs": 0
+  },
+  {
+    "name": "ziwei: reopen real history using production calculator",
+    "status": "passed",
+    "durationMs": 20
+  },
+  {
+    "name": "ziwei: cross-account read/update/delete are isolated",
+    "status": "passed",
+    "durationMs": 40
+  },
+  {
+    "name": "ziwei: duplicate PUT updates one saved identity",
+    "status": "passed",
+    "durationMs": 42
+  },
+  {
+    "name": "ziwei: unsigned state mutation is rejected",
+    "status": "passed",
+    "durationMs": 13
+  },
+  {
+    "name": "liuyao: authenticated signed save to real MySQL",
+    "status": "passed",
+    "durationMs": 29
+  },
+  {
+    "name": "liuyao: history round trip retains original payload, time and rules",
+    "status": "passed",
+    "durationMs": 0
+  },
+  {
+    "name": "liuyao: reopen real history using production calculator",
+    "status": "passed",
+    "durationMs": 1
+  },
+  {
+    "name": "liuyao: cross-account read/update/delete are isolated",
+    "status": "passed",
+    "durationMs": 45
+  },
+  {
+    "name": "liuyao: duplicate PUT updates one saved identity",
+    "status": "passed",
+    "durationMs": 41
+  },
+  {
+    "name": "liuyao: unsigned state mutation is rejected",
+    "status": "passed",
+    "durationMs": 5
+  },
+  {
+    "name": "qimen: authenticated signed save to real MySQL",
+    "status": "passed",
+    "durationMs": 26
+  },
+  {
+    "name": "qimen: history round trip retains original payload, time and rules",
+    "status": "passed",
+    "durationMs": 0
+  },
+  {
+    "name": "qimen: reopen real history using production calculator",
+    "status": "passed",
+    "durationMs": 1
+  },
+  {
+    "name": "qimen: cross-account read/update/delete are isolated",
+    "status": "passed",
+    "durationMs": 48
+  },
+  {
+    "name": "qimen: duplicate PUT updates one saved identity",
+    "status": "passed",
+    "durationMs": 38
+  },
+  {
+    "name": "qimen: unsigned state mutation is rejected",
+    "status": "passed",
+    "durationMs": 6
+  },
+  {
+    "name": "Qimen invalid zone and mismatched timestamp rejected",
+    "status": "passed",
+    "durationMs": 28
+  },
+  {
+    "name": "Admin read /api/admin/stats",
+    "status": "passed",
+    "durationMs": 25
+  },
+  {
+    "name": "Admin read /api/admin/stats/analytics",
+    "status": "passed",
+    "durationMs": 21
+  },
+  {
+    "name": "Admin read /api/admin/users",
+    "status": "passed",
+    "durationMs": 14
+  },
+  {
+    "name": "Admin read /api/admin/users-quotas",
+    "status": "passed",
+    "durationMs": 15
+  },
+  {
+    "name": "Admin read /api/admin/chart-records?chartType=qimen",
+    "status": "passed",
+    "durationMs": 16
+  },
+  {
+    "name": "Admin read /api/admin/email-configs",
+    "status": "passed",
+    "durationMs": 18
+  },
+  {
+    "name": "Admin read /api/admin/llm-models",
+    "status": "passed",
+    "durationMs": 16
+  },
+  {
+    "name": "Admin read /api/admin/quota-reset-config",
+    "status": "passed",
+    "durationMs": 6
+  },
+  {
+    "name": "Admin announcement create, public read, update and delete",
+    "status": "passed",
+    "durationMs": 101
+  },
+  {
+    "name": "Ollama real non-stream chat returns content and deducts quota once",
+    "status": "passed",
+    "durationMs": 26704
+  },
+  {
+    "name": "Ollama real agent streaming completes with DONE",
+    "status": "passed",
+    "durationMs": 4033
+  },
+  {
+    "name": "Quota exhaustion rejects model call without negative balance",
+    "status": "passed",
+    "durationMs": 102
+  },
+  {
+    "name": "Real upstream connection failure rolls quota back and preserves login",
+    "status": "passed",
+    "durationMs": 336
+  },
+  {
+    "name": "Real WebSocket through Nginx authenticates and finishes Ollama stream",
+    "status": "passed",
+    "durationMs": 1768
+  },
+  {
+    "name": "Admin user create/read/edit/role/delete on isolated test account",
+    "status": "passed",
+    "durationMs": 182
+  },
+  {
+    "name": "Admin typed record title edit preserves original raw payload",
+    "status": "passed",
+    "durationMs": 31
+  },
+  {
+    "name": "Usage analytics pageview reaches real statistics database",
+    "status": "passed",
+    "durationMs": 64
+  },
+  {
+    "name": "Refresh rotates cookie and rejects reuse of old refresh token",
+    "status": "passed",
+    "durationMs": 43
+  },
+  {
+    "name": "Logout revokes refresh session",
+    "status": "passed",
+    "durationMs": 26
+  },
+  {
+    "name": "Real database records new Ollama usage with positive token accounting",
+    "status": "passed",
+    "durationMs": 5
+  },
+  {
+    "name": "Agent configuration GET returns its own scope",
+    "status": "passed",
+    "durationMs": 22
+  },
+  {
+    "name": "Save Agent model does not overwrite Chat configuration",
+    "status": "passed",
+    "durationMs": 107
+  },
+  {
+    "name": "Model histories are scoped and scoped activation works",
+    "status": "passed",
+    "durationMs": 54
+  },
+  {
+    "name": "Wrong-scope activation cannot change Chat active model",
+    "status": "passed",
+    "durationMs": 48
+  },
+  {
+    "name": "Unknown and conflicting configuration scopes return 400",
+    "status": "passed",
+    "durationMs": 17
+  },
+  {
+    "name": "Explicitly configured Agent reaches real Ollama and completes streaming",
+    "status": "passed",
+    "durationMs": 29323
+  },
+  {
+    "name": "Ollama chat context configured to retain full Ziwei chart",
+    "status": "passed",
+    "durationMs": 192
+  },
+  {
+    "name": "Ollama agent context configured to retain full Ziwei chart",
+    "status": "passed",
+    "durationMs": 113
+  },
+  {
+    "name": "Invalid password rejected and bootstrap exposes no API secrets",
+    "status": "passed",
+    "durationMs": 67
+  },
+  {
+    "name": "bazi owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 67
+  },
+  {
+    "name": "ziwei owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 40
+  },
+  {
+    "name": "liuyao owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 35
+  },
+  {
+    "name": "qimen owner create, delete, missing-history check",
+    "status": "passed",
+    "durationMs": 48
+  },
+  {
+    "name": "Real limiter rejects request 11 within one minute without consuming model quota",
+    "status": "passed",
+    "durationMs": 36,
+    "detail": {
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        429
+      ]
+    }
+  },
+  {
+    "name": "Admin a record count includes all four chart types in list and detail",
+    "status": "passed",
+    "durationMs": 47,
+    "detail": {
+      "expected": 12
+    }
+  },
+  {
+    "name": "Admin b record count includes all four chart types in list and detail",
+    "status": "passed",
+    "durationMs": 37,
+    "detail": {
+      "expected": 11
+    }
+  },
+  {
+    "name": "Seed real persisted records for browser pagination",
+    "status": "passed",
+    "durationMs": 130
+  },
+  {
+    "name": "Publish isolated local acceptance announcement for visible UI test",
+    "status": "passed",
+    "durationMs": 15
+  }
+]

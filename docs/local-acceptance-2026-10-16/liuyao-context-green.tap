@@ -1,0 +1,25 @@
+✔ ordinary chat exposes account changes even when no chart identity exists (34.24ms)
+✔ Bazi summary identifies the actual exported chart even after the shared profile changes (57.4236ms)
+✔ Ziwei summary uses the exported birth zone and civil clock instead of the device clock (1152.346ms)
+✔ Liuyao summary retains the question and the exported casting clock without inventing a zone (15.2409ms)
+✔ Liuyao AI context explicitly names moving positions and the top-to-bottom row order (1.0191ms)
+✔ Qimen summary shows the original entered time and zone from the exact exported chart (14.0056ms)
+✔ an invalid chart source cannot accidentally associate a different active Bazi chart (13.6986ms)
+✔ bazi opens the original result without replacing its input or the conversation (30.301ms)
+✔ ziwei opens the original result without replacing its input or the conversation (536.6425ms)
+✔ liuyao opens the original result without replacing its input or the conversation (19.5511ms)
+✔ qimen opens the original result without replacing its input or the conversation (16.4671ms)
+✔ missing chart data has neither a summary nor a navigable original chart (10.1646ms)
+✔ an input without a calculated Bazi chart cannot fabricate an associated summary or prompt (10.2076ms)
+✔ summary and subsequent requests both follow a real chart change (14.4198ms)
+✔ a Ziwei export without a saved zone shows its recorded ISO instant and leaves the zone unknown (1004.4071ms)
+✔ a malformed Liuyao result has no associated chart even if its export can produce placeholder text (9.5854ms)
+✔ an invalid timestamp suppresses the chart without a misleading summary or export error (15.4758ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3538.3127

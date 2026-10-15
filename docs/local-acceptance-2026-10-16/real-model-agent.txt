@@ -1,0 +1,54 @@
+data: {"event":"delta","text":"八"}
+
+data: {"event":"delta","text":"字"}
+
+data: {"event":"delta","text":"、"}
+
+data: {"event":"delta","text":"紫"}
+
+data: {"event":"delta","text":"微"}
+
+data: {"event":"delta","text":"、"}
+
+data: {"event":"delta","text":"六爻"}
+
+data: {"event":"delta","text":"、"}
+
+data: {"event":"delta","text":"奇门"}
+
+data: {"event":"delta","text":"排盘入口"}
+
+data: {"event":"delta","text":"均"}
+
+data: {"event":"delta","text":"支持"}
+
+data: {"event":"delta","text":"文化"}
+
+data: {"event":"delta","text":"交流"}
+
+data: {"event":"delta","text":"，"}
+
+data: {"event":"delta","text":"旨"}
+
+data: {"event":"delta","text":"在传"}
+
+data: {"event":"delta","text":"承"}
+
+data: {"event":"delta","text":"传统"}
+
+data: {"event":"delta","text":"术数"}
+
+data: {"event":"delta","text":"文化"}
+
+data: {"event":"delta","text":"，"}
+
+data: {"event":"delta","text":"促进"}
+
+data: {"event":"delta","text":"学术"}
+
+data: {"event":"delta","text":"探"}
+
+data: {"event":"delta","text":"讨与知识共享。"}
+
+data: [DONE]
+

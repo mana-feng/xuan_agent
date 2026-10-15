@@ -1,0 +1,14 @@
+data: {"event":"delta","text":"本"}
+
+data: {"event":"delta","text":"地"}
+
+data: {"event":"delta","text":"模"}
+
+data: {"event":"delta","text":"型连"}
+
+data: {"event":"delta","text":"接"}
+
+data: {"event":"delta","text":"成功，已就绪。"}
+
+data: [DONE]
+

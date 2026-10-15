@@ -1,0 +1,57 @@
+✔ ordinary chat exposes account changes even when no chart identity exists (33.5305ms)
+✔ Bazi summary identifies the actual exported chart even after the shared profile changes (51.7997ms)
+✔ Ziwei summary uses the exported birth zone and civil clock instead of the device clock (1066.3171ms)
+✔ Liuyao summary retains the question and the exported casting clock without inventing a zone (14.6684ms)
+✖ Liuyao AI context explicitly names moving positions and the top-to-bottom row order (1.5396ms)
+✔ Qimen summary shows the original entered time and zone from the exact exported chart (13.7171ms)
+✔ an invalid chart source cannot accidentally associate a different active Bazi chart (16.3847ms)
+✔ bazi opens the original result without replacing its input or the conversation (35.8927ms)
+✔ ziwei opens the original result without replacing its input or the conversation (603.945ms)
+✔ liuyao opens the original result without replacing its input or the conversation (17.4345ms)
+✔ qimen opens the original result without replacing its input or the conversation (15.2563ms)
+✔ missing chart data has neither a summary nor a navigable original chart (9.5052ms)
+✔ an input without a calculated Bazi chart cannot fabricate an associated summary or prompt (12.048ms)
+✔ summary and subsequent requests both follow a real chart change (11.401ms)
+✔ a Ziwei export without a saved zone shows its recorded ISO instant and leaves the zone unknown (984.0069ms)
+✔ a malformed Liuyao result has no associated chart even if its export can produce placeholder text (9.3982ms)
+✔ an invalid timestamp suppresses the chart without a misleading summary or export error (14.3975ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3491.0362
+
+✖ failing tests:
+
+test at frontend-docker\tests\chat-context-summary.test.cjs:78:1
+✖ Liuyao AI context explicitly names moving positions and the top-to-bottom row order (1.5396ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /动爻：初爻、二爻/. Input:
+  
+  '2023年03月22日 12:00\n' +
+    ' 排盘口径：Asia/Shanghai · 钟表时间 · 日柱00:00换日 · 时间起卦年支按立春 · 闰月原月数加12\n' +
+    ' 规则版本：liuyao-civil-v1\n' +
+    ' 占问： 动爻位置验收\n' +
+    ' 癸卯年 乙卯月 己卯日 庚午时 (旬空：申酉)\n' +
+    ' 本卦：水火既济/坎\n' +
+    ' 变卦：水风井/震\n' +
+    ' 勾陈 　　 兄弟戊子水 --   应 兄弟戊子水 -- 　\n' +
+    ' 朱雀 　　 官鬼戊戌土 —    　 官鬼戊戌土 —  世\n' +
+    ' 青龙 　　 父母戊申金 --   　 父母戊申金 -- 　\n' +
+    ' 玄武  妻财戊午火  兄弟己亥水 —    世 父母辛酉金 —  　\n' +
+    ' 白虎 　　 官鬼己丑土 -- x 　 兄弟辛亥水 —  应\n' +
+    ' 螣蛇 　　 子孙己卯木 —  o 　 官鬼辛丑土 -- 　'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\chat-context-summary.test.cjs:81:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2023年03月22日 12:00\n 排盘口径：Asia/Shanghai · 钟表时间 · 日柱00:00换日 · 时间起卦年支按立春 · 闰月原月数加12\n 规则版本：liuyao-civil-v1\n 占问： 动爻位置验收\n 癸卯年 乙卯月 己卯日 庚午时 (旬空：申酉)\n 本卦：水火既济/坎\n 变卦：水风井/震\n 勾陈 　　 兄弟戊子水 --   应 兄弟戊子水 -- 　\n 朱雀 　　 官鬼戊戌土 —    　 官鬼戊戌土 —  世\n 青龙 　　 父母戊申金 --   　 父母戊申金 -- 　\n 玄武  妻财戊午火  兄弟己亥水 —    世 父母辛酉金 —  　\n 白虎 　　 官鬼己丑土 -- x 　 兄弟辛亥水 —  应\n 螣蛇 　　 子孙己卯木 —  o 　 官鬼辛丑土 -- 　',
+    expected: /动爻：初爻、二爻/,
+    operator: 'match',
+    diff: 'simple'
+  }

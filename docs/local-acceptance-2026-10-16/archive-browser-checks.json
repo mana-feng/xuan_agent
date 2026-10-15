@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-16",
+  "source": "User-assisted real export save; automated browser clear/import/reload",
+  "file": {
+    "bytes": 1495,
+    "sha256": "bb8112040989582272d55deff87ad129ed1ab1195bd4139aa0c9fcc589600601",
+    "envelope": "AES-GCM v1"
+  },
+  "checks": [
+    {
+      "name": "Clear resets messages and draft",
+      "passed": true
+    },
+    {
+      "name": "Real file import preserves messages and draft",
+      "passed": true
+    },
+    {
+      "name": "Reload preserves imported messages and draft",
+      "passed": true
+    },
+    {
+      "name": "Quota remains visible after clear, import and reload",
+      "passed": true
+    },
+    {
+      "name": "Clear/import/reload never automatically resends AI request",
+      "passed": true
+    }
+  ],
+  "invalidFile": "Plain unencrypted invalid-chat.json rejected in actual file chooser; existing conversation preserved",
+  "messageBubbles": 6,
+  "draft": "文件往返验收草稿：保留真实对话及未发送内容"
+}

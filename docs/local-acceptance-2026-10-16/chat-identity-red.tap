@@ -1,0 +1,101 @@
+TAP version 13
+# Subtest: reloading a history-created Bazi input keeps its encrypted conversation identity
+not ok 1 - reloading a history-created Bazi input keeps its encrypted conversation identity
+  ---
+  duration_ms: 186.5818
+  type: 'test'
+  location: 'F:\\github\\xuan_agent\\frontend-docker\\tests\\calendar-history.test.cjs:18:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '["[\\"test@example.test\\",\\"bazi\\",{\\"calculation\\":{\\"civil\\":\\"2026-10-16 00:30:00\\",\\"engine\\":\\"lunar-javascript@1.7.7\\",\\"module\\":\\"bazi\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"source\\":\\"new\\",\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000,\\"utcOffsetMinutes\\":480,\\"version\\":1},\\"gender\\":0,\\"realname\\":\\"历史对话\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"timeZone\\":\\"Asia/Shanghai\\",\\"timeZoneSource\\":\\"explicit\\",\\"timestamp\\":1792081800000}]",71]'
+    - '["[\\"test@example.test\\",\\"bazi\\",{\\"calculation\\":{\\"civil\\":\\"2026-10-16 00:30:00\\",\\"engine\\":\\"lunar-javascript@1.7.7\\",\\"module\\":\\"bazi\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"source\\":\\"new\\",\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000,\\"utcOffsetMinutes\\":480,\\"version\\":1},\\"gender\\":0,\\"realname\\":\\"历史对话\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000}]",71]'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '["[\\"test@example.test\\",\\"bazi\\",{\\"calculation\\":{\\"civil\\":\\"2026-10-16 00:30:00\\",\\"engine\\":\\"lunar-javascript@1.7.7\\",\\"module\\":\\"bazi\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"source\\":\\"new\\",\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000,\\"utcOffsetMinutes\\":480,\\"version\\":1},\\"gender\\":0,\\"realname\\":\\"历史对话\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000}]",71]'
+  actual: '["[\\"test@example.test\\",\\"bazi\\",{\\"calculation\\":{\\"civil\\":\\"2026-10-16 00:30:00\\",\\"engine\\":\\"lunar-javascript@1.7.7\\",\\"module\\":\\"bazi\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"source\\":\\"new\\",\\"timeZone\\":\\"Asia/Shanghai\\",\\"timestamp\\":1792081800000,\\"utcOffsetMinutes\\":480,\\"version\\":1},\\"gender\\":0,\\"realname\\":\\"历史对话\\",\\"ruleVersion\\":\\"bazi-civil-v1\\",\\"rules\\":{\\"dayDivide\\":\\"midnight\\",\\"leapMonth\\":\\"add-twelve\\",\\"yearDivide\\":\\"lichun\\"},\\"timeZone\\":\\"Asia/Shanghai\\",\\"timeZoneSource\\":\\"explicit\\",\\"timestamp\\":1792081800000}]",71]'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\calendar-history.test.cjs:27:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1382:25)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: modern Bazi history restores saved rules rather than the new-page defaults
+ok 2 - modern Bazi history restores saved rules rather than the new-page defaults
+  ---
+  duration_ms: 14.0561
+  type: 'test'
+  ...
+# Subtest: legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+ok 3 - legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+  ---
+  duration_ms: 6.9038
+  type: 'test'
+  ...
+# Subtest: legacy Liuyao recovers original civil time and keeps saved params without time recasting
+ok 4 - legacy Liuyao recovers original civil time and keeps saved params without time recasting
+  ---
+  duration_ms: 3.0242
+  type: 'test'
+  ...
+# Subtest: Liuyao saved payload includes frozen context, and reopening survives a host zone change
+ok 5 - Liuyao saved payload includes frozen context, and reopening survives a host zone change
+  ---
+  duration_ms: 1177.5904
+  type: 'test'
+  ...
+# Subtest: an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+ok 6 - an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+  ---
+  duration_ms: 26.7308
+  type: 'test'
+  ...
+# Subtest: unsupported saved engine or rule versions are rejected without overwriting a current chart
+ok 7 - unsupported saved engine or rule versions are rejected without overwriting a current chart
+  ---
+  duration_ms: 4.2569
+  type: 'test'
+  ...
+# Subtest: Bazi and Liuyao exports carry the frozen calculation convention into AI context
+ok 8 - Bazi and Liuyao exports carry the frozen calculation convention into AI context
+  ---
+  duration_ms: 80.8163
+  type: 'test'
+  ...
+# Subtest: historical minute-only history cannot guess a second offset across LiChun
+ok 9 - historical minute-only history cannot guess a second offset across LiChun
+  ---
+  duration_ms: 1.7517
+  type: 'test'
+  ...
+# Subtest: history list uses the saved chart clock and identifies unknown legacy zones
+ok 10 - history list uses the saved chart clock and identifies unknown legacy zones
+  ---
+  duration_ms: 596.7551
+  type: 'test'
+  ...
+# Subtest: recent explorations also confirms unknown legacy zones and displays the saved clock
+ok 11 - recent explorations also confirms unknown legacy zones and displays the saved clock
+  ---
+  duration_ms: 293.4753
+  type: 'test'
+  ...
+# Subtest: minute-only legacy cache preserves its original solar-term side after save and reopen
+ok 12 - minute-only legacy cache preserves its original solar-term side after save and reopen
+  ---
+  duration_ms: 11.036
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 35024.8901

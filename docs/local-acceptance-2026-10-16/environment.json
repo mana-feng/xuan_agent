@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-16",
+  "frontend": "http://127.0.0.1:4180",
+  "admin": "http://localhost:4181",
+  "backend": "Docker Express current source",
+  "database": "Docker MySQL8 xuan_acceptance_20261016",
+  "mail": "Docker Mailpit real SMTP, local capture only",
+  "model": "Host Ollama qwen3.8:latest",
+  "apiSignatureEnabled": true,
+  "mockedAPI": false,
+  "mockedModel": false
+}

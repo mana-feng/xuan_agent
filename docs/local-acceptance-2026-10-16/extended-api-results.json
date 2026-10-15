@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Quota exhaustion rejects model call without negative balance",
+    "status": "passed",
+    "durationMs": 102
+  },
+  {
+    "name": "Real upstream connection failure rolls quota back and preserves login",
+    "status": "passed",
+    "durationMs": 336
+  },
+  {
+    "name": "Real WebSocket through Nginx authenticates and finishes Ollama stream",
+    "status": "passed",
+    "durationMs": 1768
+  },
+  {
+    "name": "Admin user create/read/edit/role/delete on isolated test account",
+    "status": "passed",
+    "durationMs": 182
+  },
+  {
+    "name": "Admin typed record title edit preserves original raw payload",
+    "status": "passed",
+    "durationMs": 31
+  },
+  {
+    "name": "Usage analytics pageview reaches real statistics database",
+    "status": "passed",
+    "durationMs": 64
+  },
+  {
+    "name": "Refresh rotates cookie and rejects reuse of old refresh token",
+    "status": "passed",
+    "durationMs": 43
+  },
+  {
+    "name": "Logout revokes refresh session",
+    "status": "passed",
+    "durationMs": 26
+  },
+  {
+    "name": "Real database records new Ollama usage with positive token accounting",
+    "status": "passed",
+    "durationMs": 5
+  }
+]

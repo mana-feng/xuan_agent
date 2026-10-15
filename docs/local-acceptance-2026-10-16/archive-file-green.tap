@@ -1,0 +1,11 @@
+✔ download link is attached and its file URL stays valid while the browser starts saving (63.7699ms)
+✔ standard file chooser reads one encrypted archive and removes its DOM input (5.6037ms)
+✔ cancelled or oversized files leave no chooser behind and reject without reading content (4.3369ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 523.8808

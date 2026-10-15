@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: reloading a history-created Bazi input keeps its encrypted conversation identity
+ok 1 - reloading a history-created Bazi input keeps its encrypted conversation identity
+  ---
+  duration_ms: 139.8505
+  type: 'test'
+  ...
+# Subtest: modern Bazi history restores saved rules rather than the new-page defaults
+ok 2 - modern Bazi history restores saved rules rather than the new-page defaults
+  ---
+  duration_ms: 8.6965
+  type: 'test'
+  ...
+# Subtest: legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+ok 3 - legacy Bazi without a zone or civil snapshot asks for original zone instead of silently recomputing
+  ---
+  duration_ms: 5.1136
+  type: 'test'
+  ...
+# Subtest: legacy Liuyao recovers original civil time and keeps saved params without time recasting
+ok 4 - legacy Liuyao recovers original civil time and keeps saved params without time recasting
+  ---
+  duration_ms: 2.1298
+  type: 'test'
+  ...
+# Subtest: Liuyao saved payload includes frozen context, and reopening survives a host zone change
+ok 5 - Liuyao saved payload includes frozen context, and reopening survives a host zone change
+  ---
+  duration_ms: 53.3934
+  type: 'test'
+  ...
+# Subtest: an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+ok 6 - an old local Liuyao cache without its instant preserves the chart and waits for its original zone
+  ---
+  duration_ms: 10.7414
+  type: 'test'
+  ...
+# Subtest: unsupported saved engine or rule versions are rejected without overwriting a current chart
+ok 7 - unsupported saved engine or rule versions are rejected without overwriting a current chart
+  ---
+  duration_ms: 5.9478
+  type: 'test'
+  ...
+# Subtest: Bazi and Liuyao exports carry the frozen calculation convention into AI context
+ok 8 - Bazi and Liuyao exports carry the frozen calculation convention into AI context
+  ---
+  duration_ms: 15.9569
+  type: 'test'
+  ...
+# Subtest: historical minute-only history cannot guess a second offset across LiChun
+ok 9 - historical minute-only history cannot guess a second offset across LiChun
+  ---
+  duration_ms: 1.3847
+  type: 'test'
+  ...
+# Subtest: history list uses the saved chart clock and identifies unknown legacy zones
+ok 10 - history list uses the saved chart clock and identifies unknown legacy zones
+  ---
+  duration_ms: 13.4733
+  type: 'test'
+  ...
+# Subtest: recent explorations also confirms unknown legacy zones and displays the saved clock
+ok 11 - recent explorations also confirms unknown legacy zones and displays the saved clock
+  ---
+  duration_ms: 10.3505
+  type: 'test'
+  ...
+# Subtest: minute-only legacy cache preserves its original solar-term side after save and reopen
+ok 12 - minute-only legacy cache preserves its original solar-term side after save and reopen
+  ---
+  duration_ms: 10.062
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12127.4776

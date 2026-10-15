@@ -1,0 +1,77 @@
+- navigation "主导航":
+  - button "☯ 玄学 · AI PATTERNS & POSSIBILITIES":
+    - generic: ☯
+    - generic: 玄学 · AI
+    - generic: PATTERNS & POSSIBILITIES
+  - button "＋ 开始探索"
+  - generic: 探索工作台
+  - button "✧ AI 探索":
+    - generic: ✧
+    - generic: AI 探索
+  - button "☷ 八字命理":
+    - generic: ☷
+    - generic: 八字命理
+  - button "✳ 紫微斗数":
+    - generic: ✳
+    - generic: 紫微斗数
+  - button "☰ 六爻问事":
+    - generic: ☰
+    - generic: 六爻问事
+  - button "▦ 奇门遁甲":
+    - generic: ▦
+    - generic: 奇门遁甲
+  - button "◷ 历史记录":
+    - generic: ◷
+    - generic: 历史记录
+  - generic: ☷
+  - generic: 以古老智慧，观当下生活
+  - generic: 把命盘作为了解自己的另一个视角，让选择回到自己手中。
+  - button "☷ 公告"
+  - button "关于我们 ↗"
+- generic: AI 对话
+- generic: /
+- generic: 让每一次探索，更了解自己
+- button "选择渐变配色": 青蓝流光⌄
+- button "用户菜单":
+  - generic: A
+  - generic: 
+- heading "带着命盘，继续探索" [level=1]
+- paragraph: 结合原盘和你的问题，让思路一点点清晰。
+- group "已关联六爻卦象 · 手机六爻完整验收 · 2023年03月22日 12:00 · Asia/Singapore":
+  - generic: 已关联六爻卦象
+  - generic: 手机六爻完整验收
+  - generic: 2023年03月22日 12:00 · Asia/Singapore
+  - button "查看原盘 ↗"
+- generic: AI 对话
+- generic: 把盘面与生活经验，放在一起聊聊。
+- generic: 剩余次数： 20
+- button "恢复对话"
+- button "保存对话"
+- button "清空对话"
+- status:
+  - generic: 已恢复此命盘的对话；中断的回复不会自动重发。
+- generic: AI
+- generic: 你好，我是你的 AI 助手，可以随时发问。
+- generic: 04:55
+- generic: 已完成
+- generic: AI
+- generic: 已为您加载六爻排盘结果，您可以让 AI 为您解读卦象。
+- generic: 04:08
+- generic: 已完成
+- generic: 我
+- generic: 请只读取携带的六爻排盘，列出主题、本卦、变卦、动爻和时区，60字以内。
+- generic: 04:09
+- generic: AI
+- generic: 主题：手机六爻完整验收。本卦：水火既济，变卦：水风井。动爻：二爻、五爻。时区：Asia/Singapore。
+- generic: 04:09
+- generic: 已完成
+- generic: 我
+- generic: 请根据当前系统原盘中的“动爻”字段纠正上一条回答，只输出两个动爻的名称，不要推测。
+- generic: 04:25
+- generic: AI
+- generic: 初爻、二爻
+- generic: 04:25
+- generic: 已完成
+- textbox: 文件往返验收草稿：保留真实对话及未发送内容
+- button "发送"
+- document

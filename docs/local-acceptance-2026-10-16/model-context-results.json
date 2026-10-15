@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Ollama chat context configured to retain full Ziwei chart",
+    "status": "passed",
+    "durationMs": 192
+  },
+  {
+    "name": "Ollama agent context configured to retain full Ziwei chart",
+    "status": "passed",
+    "durationMs": 113
+  }
+]

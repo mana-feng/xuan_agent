@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Agent configuration GET returns its own scope",
+    "status": "passed",
+    "durationMs": 22
+  },
+  {
+    "name": "Save Agent model does not overwrite Chat configuration",
+    "status": "passed",
+    "durationMs": 107
+  },
+  {
+    "name": "Model histories are scoped and scoped activation works",
+    "status": "passed",
+    "durationMs": 54
+  },
+  {
+    "name": "Wrong-scope activation cannot change Chat active model",
+    "status": "passed",
+    "durationMs": 48
+  },
+  {
+    "name": "Unknown and conflicting configuration scopes return 400",
+    "status": "passed",
+    "durationMs": 17
+  },
+  {
+    "name": "Explicitly configured Agent reaches real Ollama and completes streaming",
+    "status": "passed",
+    "durationMs": 29323
+  }
+]

@@ -1,0 +1,14 @@
+✔ ordinary chat clears private messages and invalidates pending replies on logout and account switch (152.4741ms)
+✔ real chat controls save and restore conversation, draft and incomplete streaming after remount (458.7004ms)
+✔ logout and clear remove visible content and invalidate late response callbacks (245.6364ms)
+✔ clearing a conversation preserves its account quota while logout removes it (15.3913ms)
+✔ a failed partial reply remains incomplete immediately and after restore (230.1992ms)
+✔ late response callbacks are inert after the panel unmounts (15.0014ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1678.6694

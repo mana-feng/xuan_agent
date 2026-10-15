@@ -1,0 +1,30 @@
+[
+  {
+    "commit": "0bcc776a64f8b73cff5cc1df158f18291782282b",
+    "subject": "fix(llm): 正确统计 Ollama 原生 token 用量"
+  },
+  {
+    "commit": "41f8a33b73272553a0533bcda02c6dfb44eb20a7",
+    "subject": "fix(history): 保留冻结排盘元数据以恢复原对话"
+  },
+  {
+    "commit": "46a6ac3a16b3d6208fb16cc2ba01d4e255b55db8",
+    "subject": "fix(liuyao): 明确携盘对话中的动爻与爻位顺序"
+  },
+  {
+    "commit": "21166f8fb967f38785af58cb76a8007ebf303625",
+    "subject": "fix(admin): 隔离 Chat 与 Agent 配置并防止切换竞态"
+  },
+  {
+    "commit": "f73e9647fa548f728953981fd9d1749164e96642",
+    "subject": "fix(admin): 用户记录数汇总四类排盘"
+  },
+  {
+    "commit": "2282326d6dbe38b460ef45339ddbe6e6802f3bf4",
+    "subject": "fix(chat): 完善加密文件导入导出及会话额度显示"
+  },
+  {
+    "commit": "284ed7d2157cf02671c173d944ad916301e91fbf",
+    "subject": "build(admin): 支持关闭构建进度缓存写入"
+  }
+]

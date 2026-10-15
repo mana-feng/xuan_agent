@@ -1,0 +1,33 @@
+✔ ordinary chat clears private messages and invalidates pending replies on logout and account switch (154.7659ms)
+✔ real chat controls save and restore conversation, draft and incomplete streaming after remount (452.8646ms)
+✔ logout and clear remove visible content and invalidate late response callbacks (247.5027ms)
+✖ clearing a conversation preserves its account quota while logout removes it (15.9061ms)
+✔ a failed partial reply remains incomplete immediately and after restore (229.0455ms)
+✔ late response callbacks are inert after the panel unmounts (15.3075ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1734.9545
+
+✖ failing tests:
+
+test at frontend-docker\tests\chat-session-ui.test.cjs:102:1
+✖ clearing a conversation preserves its account quota while logout removes it (15.9061ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /20/. Input:
+  
+  '剩余次数： --'
+  
+      at TestContext.<anonymous> (F:\github\xuan_agent\frontend-docker\tests\chat-session-ui.test.cjs:110:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '剩余次数： --',
+    expected: /20/,
+    operator: 'match',
+    diff: 'simple'
+  }

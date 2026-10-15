@@ -1,0 +1,35 @@
+✔ download link is attached and its file URL stays valid while the browser starts saving (73.9066ms)
+✔ standard file chooser reads one encrypted archive and removes its DOM input (5.6924ms)
+✔ cancelled or oversized files leave no chooser behind and reject without reading content (6.0569ms)
+✔ a picker focus return without selection releases the cancelled picker (4.681ms)
+✔ file-read and input-click errors clean up without swallowing the error (3.671ms)
+✔ a refused download click releases its link and object URL immediately (3.5142ms)
+✔ hard reload restores the current conversation and draft without submitting a request (32.2542ms)
+✔ switching account during a pending save neither leaks memory nor writes stale messages (11.594ms)
+✔ saving an unsaved chart migrates its active conversation and retires the draft key (34.5651ms)
+✔ clear invalidates pending writes, cancels the active session and survives a reload (0.8897ms)
+✔ a storage failure stays visible until an explicit retry confirms the write (11.5927ms)
+✔ import never reports success when restored content could not be persisted (61.0875ms)
+✔ switching account during archive decryption cancels restoration without writing into the new account (24.3141ms)
+✔ corrupt data is reported and is not silently overwritten on opening (0.9742ms)
+✔ retry after crypto initialization becomes available saves the current draft (23.6752ms)
+✔ only the newest overlapping save can become the restored draft (28.1576ms)
+✔ switching charts before debounce completes retains the final draft on return (33.6695ms)
+✔ stream completion during chart-save migration is persisted before reporting saved (33.3264ms)
+✔ auth expiry during restore cannot overwrite saved content with the mount hint (21.4493ms)
+✔ a chart gaining its record ID during restore migrates the unread saved snapshot (45.8731ms)
+✔ encrypted snapshots round trip drafts and preserve interrupted responses without completing them (29.9931ms)
+✔ account, module, chart input and saved record identities isolate conversations (12.0778ms)
+✔ rejects plaintext, legacy, corrupt, mismatched and expired snapshots instead of restoring global history (32.9177ms)
+✔ no crypto or unavailable storage fails explicitly and never writes plaintext (0.6888ms)
+✔ invalidation before encryption finishes prevents a cleared or switched session from being written again (11.2761ms)
+✔ clear removes only the selected session and import requires its exact identity (57.8726ms)
+✔ an actual JSON file round trip preserves UTF-8 messages and rejects another account or tampered bytes (50.9346ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 762.2569

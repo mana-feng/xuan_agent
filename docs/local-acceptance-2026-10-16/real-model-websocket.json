@@ -1,0 +1,9 @@
+[
+  {
+    "event": "delta",
+    "text": "连接成功。"
+  },
+  {
+    "event": "done"
+  }
+]

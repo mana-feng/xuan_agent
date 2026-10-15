@@ -1,0 +1,17 @@
+[
+  {
+    "id": 8,
+    "user_id": 3,
+    "tokens_used": 27
+  },
+  {
+    "id": 7,
+    "user_id": 3,
+    "tokens_used": 85
+  },
+  {
+    "id": 6,
+    "user_id": 2,
+    "tokens_used": 33
+  }
+]

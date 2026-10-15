@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: OpenAI streaming requests ask for usage and preserve configured stream options
+ok 1 - OpenAI streaming requests ask for usage and preserve configured stream options
+  ---
+  duration_ms: 1.0466
+  type: 'test'
+  ...
+# Subtest: stream usage after finish_reason reaches the caller without becoming visible text
+ok 2 - stream usage after finish_reason reaches the caller without becoming visible text
+  ---
+  duration_ms: 1.6746
+  type: 'test'
+  ...
+# Subtest: usage reports are cumulative, not summed across chunks
+ok 3 - usage reports are cumulative, not summed across chunks
+  ---
+  duration_ms: 0.9749
+  type: 'test'
+  ...
+# Subtest: non-stream OpenAI usage is validated and never invents negative or non-numeric counts
+ok 4 - non-stream OpenAI usage is validated and never invents negative or non-numeric counts
+  ---
+  duration_ms: 0.1299
+  type: 'test'
+  ...
+# Subtest: Ollama native token counts include prompt and generated tokens without double-counting cache
+ok 5 - Ollama native token counts include prompt and generated tokens without double-counting cache
+  ---
+  duration_ms: 0.0955
+  type: 'test'
+  ...
+# Subtest: Ollama final NDJSON usage reaches HTTP and WebSocket callers once
+ok 6 - Ollama final NDJSON usage reaches HTTP and WebSocket callers once
+  ---
+  duration_ms: 0.4111
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.1314

@@ -1,0 +1,12 @@
+✔ late Chat config cannot overwrite an already loaded Agent form or loading state (86.0277ms)
+✔ late model-history failure cannot erase the newly selected scope history (13.2563ms)
+✔ saving is blocked until the current scope has finished loading (9.4799ms)
+✔ deletion confirmation preserves the originally selected model scope (8.672ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310.2334

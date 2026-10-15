@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Phone Bazi create/save/history/reopen/real chat",
+    "passed": true
+  },
+  {
+    "name": "Encrypted Bazi conversation restored after reload",
+    "passed": false,
+    "resolvedBy": "Phone Bazi encrypted conversation survives history reopen and full reload"
+  },
+  {
+    "name": "Phone Bazi encrypted conversation survives history reopen and full reload",
+    "passed": true,
+    "initialFailure": "timeZoneSource changed persisted chart identity",
+    "fixed": true
+  },
+  {
+    "name": "Phone Liuyao manual six lines and custom popup",
+    "passed": true,
+    "scrollAfterSelection": 1105
+  },
+  {
+    "name": "Phone datetime invalid inputs clamp to month12 day31 hour23 minute59",
+    "passed": true
+  },
+  {
+    "name": "Phone Liuyao save, history reopen, real model chat",
+    "passed": true,
+    "modelAnswerIssue": "Model incorrectly summarized moving lines as 2 and 5; deterministic chart shows 1 and 2; request context will be checked"
+  },
+  {
+    "name": "Tablet history type filter and question search",
+    "passed": true
+  },
+  {
+    "name": "Tablet Ziwei leap month late-Zi create/save/history/reopen/real AI",
+    "passed": true
+  },
+  {
+    "name": "Admin Chat and Agent display separate stored model configuration",
+    "passed": true
+  },
+  {
+    "name": "Qimen tablet input, phone result, save/history/reopen and real AI facts",
+    "passed": true,
+    "expected": "NY 01:30 later; Beijing14:30; Yin8; Tianrui9; Death4"
+  },
+  {
+    "name": "Phone history pagination reaches page2 and disables final next",
+    "passed": true
+  },
+  {
+    "name": "Phone disposable history delete updates pagination",
+    "passed": true
+  },
+  {
+    "name": "Admin dashboard, users, four-type records, quotas, SMTP and announcements load from real backend",
+    "passed": true
+  },
+  {
+    "name": "Ziwei real model facts corrected after sufficient 32768-token context",
+    "passed": true,
+    "initialFailure": "8192-token local configuration truncated a 40k-character export",
+    "expected": "平板紫微闰月验收 / 太阴 / 水二局 / Asia/Shanghai"
+  },
+  {
+    "name": "Tablet live announcement modal renders database title and multiline content",
+    "passed": true
+  },
+  {
+    "name": "Liuyao explicit moving-line context real Ollama correction",
+    "passed": true,
+    "expected": "初爻、二爻"
+  },
+  {
+    "name": "Admin record counts equal all four MySQL tables",
+    "passed": true
+  },
+  {
+    "name": "Chat archive export/download and file import browser interaction",
+    "passed": null,
+    "status": "initial-tool-limitation-resolved-with-user-assisted-save",
+    "reason": "Download event timed out; browser policy forbids downloads-management page. Crypto/export/import logic covered by regression tests; native file interaction not accepted.",
+    "resolvedBy": "archive-browser-checks.json; real exported file manually saved by user, then automated clear/import/reload"
+  },
+  {
+    "name": "Gradient theme dialog switches and restores blue-green theme",
+    "passed": true
+  }
+]

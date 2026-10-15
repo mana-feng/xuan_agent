@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Ollama real non-stream chat returns content and deducts quota once",
+    "status": "passed",
+    "durationMs": 26704
+  },
+  {
+    "name": "Ollama real agent streaming completes with DONE",
+    "status": "passed",
+    "durationMs": 4033
+  }
+]

@@ -1,0 +1,18 @@
+✔ get /llm-config: keeps Chat and Agent operations in their selected scope (4.1177ms)
+✔ get /llm-config: rejects unknown or conflicting scopes before any configuration access (1.4918ms)
+✔ put /llm-config: keeps Chat and Agent operations in their selected scope (1.3249ms)
+✔ put /llm-config: rejects unknown or conflicting scopes before any configuration access (0.7797ms)
+✔ get /llm-models: keeps Chat and Agent operations in their selected scope (1.1819ms)
+✔ get /llm-models: rejects unknown or conflicting scopes before any configuration access (0.8601ms)
+✔ post /llm-models/:id/activate: keeps Chat and Agent operations in their selected scope (0.9499ms)
+✔ post /llm-models/:id/activate: rejects unknown or conflicting scopes before any configuration access (1.2028ms)
+✔ delete /llm-models/:id: keeps Chat and Agent operations in their selected scope (0.9169ms)
+✔ delete /llm-models/:id: rejects unknown or conflicting scopes before any configuration access (1.2749ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 101.7098

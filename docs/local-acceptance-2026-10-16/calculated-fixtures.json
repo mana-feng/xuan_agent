@@ -1,0 +1,260 @@
+{
+  "bazi": {
+    "name": "验收八字子时",
+    "gender": "0",
+    "birthDatetime": 1706974200000,
+    "calendarType": "solar",
+    "rawPayload": {
+      "lite": true,
+      "user": {
+        "realname": "验收八字子时",
+        "gender": 0,
+        "timestamp": 1706974200000,
+        "recordId": null,
+        "timeZone": "Asia/Shanghai",
+        "timeZoneSource": "explicit",
+        "rules": {
+          "dayDivide": "zi",
+          "yearDivide": "lunar",
+          "leapMonth": "same-month"
+        },
+        "calculation": {
+          "version": 1,
+          "module": "bazi",
+          "engine": "lunar-javascript@1.7.7",
+          "ruleVersion": "bazi-civil-v1",
+          "timestamp": 1706974200000,
+          "timeZone": "Asia/Shanghai",
+          "civil": "2024-02-03 23:30:00",
+          "utcOffsetMinutes": 480,
+          "rules": {
+            "dayDivide": "zi",
+            "yearDivide": "lunar",
+            "leapMonth": "same-month"
+          },
+          "source": "new"
+        },
+        "ruleVersion": "bazi-civil-v1"
+      }
+    }
+  },
+  "ziwei": {
+    "name": "验收紫微闰月",
+    "gender": "1",
+    "birthDatetime": 1679499000000,
+    "calendarType": "solar",
+    "rawPayload": {
+      "lite": true,
+      "module": "ziwei",
+      "user": {
+        "realname": "验收紫微闰月",
+        "gender": 1,
+        "timestamp": 1679499000000,
+        "recordId": null,
+        "timeZone": "Asia/Shanghai",
+        "timeZoneSource": "explicit",
+        "ruleVersion": "ziwei-civil-v1"
+      }
+    }
+  },
+  "liuyao": {
+    "name": "验收六爻闰月",
+    "gender": null,
+    "birthDatetime": "2023-03-22T04:00:00.000Z",
+    "calendarType": "solar",
+    "rawPayload": {
+      "lite": true,
+      "calculation": {
+        "version": 1,
+        "module": "liuyao",
+        "engine": "lunar-javascript@1.7.7",
+        "ruleVersion": "liuyao-civil-v1",
+        "timestamp": 1679457600000,
+        "timeZone": "Asia/Shanghai",
+        "civil": "2023-03-22 12:00:00",
+        "utcOffsetMinutes": 480,
+        "rules": {
+          "dayDivide": "zi",
+          "yearDivide": "lunar",
+          "leapMonth": "same-month"
+        },
+        "source": "new"
+      },
+      "params": [
+        0,
+        3,
+        0,
+        0,
+        0,
+        1
+      ],
+      "options": {
+        "title": "验收六爻闰月",
+        "date": "2023-03-22T04:00:00.000Z"
+      },
+      "profile": {
+        "title": "验收六爻闰月",
+        "method": "时间起卦",
+        "gender": "未填写",
+        "dayGanZhi": "己卯",
+        "timeLabel": "2023-03-22 12:00",
+        "focus": "验收六爻闰月",
+        "note": "八字：癸卯 乙卯 己卯 庚午"
+      },
+      "ts": 1679457600000
+    }
+  },
+  "qimen": {
+    "name": "验收奇门纽约重复时刻",
+    "gender": null,
+    "birthDatetime": 1730615400000,
+    "calendarType": "solar",
+    "rawPayload": {
+      "module": "qimen",
+      "version": 1,
+      "input": {
+        "question": "验收奇门纽约重复时刻",
+        "timestamp": 1730615400000,
+        "timeZone": "America/New_York",
+        "ruleVersion": "qimen-chai-bu-v1",
+        "recordId": null
+      },
+      "snapshot": {
+        "basicInfo": {
+          "date": "2024-11-03 14:30:00 闰年 星期日 天蝎座",
+          "lunarDate": "二〇二四年十月初三",
+          "type": "四柱",
+          "method": "时家",
+          "purpose": "综合",
+          "location": "默认位置"
+        },
+        "siZhu": {
+          "year": "甲辰",
+          "month": "甲戌",
+          "day": "辛未",
+          "time": "乙未"
+        },
+        "juShu": {
+          "jieQiName": "霜降",
+          "type": "yin",
+          "number": "8",
+          "yuan": "中元",
+          "fullName": "阴遁8局 (中元)",
+          "formatCode": "yin-8"
+        },
+        "xunShou": "辛",
+        "dayXunShou": "戊",
+        "luoGongGan": "乙",
+        "sanQiLiuYi": {
+          "1": "戊",
+          "2": "己",
+          "3": "壬",
+          "4": "乙",
+          "5": "辛",
+          "6": "丙",
+          "7": "庚",
+          "8": "癸",
+          "9": "丁"
+        },
+        "tianPan": {
+          "1": "戊",
+          "2": "己",
+          "3": "壬",
+          "4": "乙",
+          "5": "辛",
+          "6": "丙",
+          "7": "庚",
+          "8": "癸",
+          "9": "丁"
+        },
+        "jiuXing": {
+          "1": "天任",
+          "2": "天柱",
+          "3": "天辅",
+          "4": "天英",
+          "5": "",
+          "6": "天蓬",
+          "7": "天心",
+          "8": "天冲",
+          "9": "禽芮"
+        },
+        "baMen": {
+          "1": "伤门",
+          "2": "开门",
+          "3": "景门",
+          "4": "死门",
+          "5": "",
+          "6": "生门",
+          "7": "休门",
+          "8": "杜门",
+          "9": "惊门"
+        },
+        "baShen": {
+          "1": "白虎",
+          "2": "九天",
+          "3": "太阴",
+          "4": "腾蛇",
+          "5": "",
+          "6": "玄武",
+          "7": "九地",
+          "8": "六合",
+          "9": "值符"
+        },
+        "diPan": {
+          "1": "丙",
+          "2": "丁",
+          "3": "癸",
+          "4": "壬",
+          "5": "辛",
+          "6": "庚",
+          "7": "己",
+          "8": "戊",
+          "9": "乙"
+        },
+        "anGan": {
+          "1": "庚",
+          "2": "己",
+          "3": "戊",
+          "4": "乙",
+          "5": "丙",
+          "6": "丁",
+          "7": "癸",
+          "8": "壬",
+          "9": "辛"
+        },
+        "zhiFuGong": "9",
+        "zhiFuYuanGong": "2",
+        "zhiFuXing": "天芮",
+        "zhiShiGong": "4",
+        "zhiShiMen": "死门",
+        "kongWangZhi": [
+          "辰",
+          "巳"
+        ],
+        "kongWangGong": [
+          "4",
+          "4"
+        ],
+        "maStar": {
+          "zhi": "巳",
+          "gong": "4"
+        },
+        "metadata": {
+          "id": "qimen-chai-bu-v1",
+          "engine": "qfdk/qimen",
+          "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+          "patch": "xuan-1",
+          "method": "时家转盘·符头拆补",
+          "clock": "北京时间 UTC+08:00",
+          "dayDivide": "23:00",
+          "solarTerms": "exact",
+          "center": "中五寄坤二，天禽随芮",
+          "inputZone": "America/New_York",
+          "inputCivil": "2024-11-03 01:30:00",
+          "calculationCivil": "2024-11-03 14:30:00",
+          "timestamp": 1730615400000
+        }
+      }
+    }
+  }
+}

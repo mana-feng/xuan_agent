@@ -1,0 +1,8 @@
+FAIL Admin a record count includes all four chart types in list and detail: Expected values to be strictly equal:
+
+2 !== 13
+
+FAIL Admin b record count includes all four chart types in list and detail: Expected values to be strictly equal:
+
+3 !== 11
+
