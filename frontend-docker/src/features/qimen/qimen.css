@@ -13,7 +13,7 @@
 .x-workbench .qm-optional {margin-left:8px;font-size:10px;}
 .x-workbench .qm-input {display:block;box-sizing:border-box;width:100%;min-width:0;height:46px;padding:0 13px;border:1px solid var(--x-line);border-radius:9px;background:var(--x-paper);color:var(--x-ink);font:13px var(--x-sans);}
 .x-workbench .qm-input input {font:13px var(--x-sans);}
-.x-workbench .qm-time-heading {margin-top:32px;margin-bottom:18px;}
+.x-workbench .qm-time-summary { margin-top: 28px; }
 .x-workbench .qm-clock {display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--x-gradient-soft);border:1px solid var(--x-line);border-radius:12px;padding:20px;flex-direction:row;}
 .x-workbench .qm-eyebrow {display:block;font-size:10px;letter-spacing:1.2px;color:var(--x-accent);line-height:1.8;}
 .x-workbench .qm-clock-value {display:block;font-size:23px;letter-spacing:.3px;line-height:1.7;font-variant-numeric:tabular-nums;}

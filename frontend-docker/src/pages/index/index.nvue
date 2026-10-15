@@ -57,12 +57,12 @@
 						</view>
 					</view>
 					<view class="form-section">
-						<view class="form-section-heading"
-							><text class="section-mark">时</text
-							><text class="form-section-title">出生时间</text></view
-						>
-						<view class="birth-field-grid">
-							<view class="birth-field full">
+						<TimeCard label="出生时间" :zone="'设备本地时间'" :date="birthDisplayDate" :clock="birthDisplayClock"
+							:status="model === 0 ? '公历日期 · 精确到分钟' : '农历日期 · 精确到分钟'"
+							:alternate-label="model === 0 ? '对应农历' : '对应公历'" :alternate="lunar_label || ''"
+							hint="请按所选历法填写出生日期，并核对对应日期。" @edit="SelectTime">
+							<template #before>
+								<view class="birth-field full">
 								<text class="field-label">历法</text>
 								<view class="birth-segmented" role="group" aria-label="出生日期历法">
 									<button
@@ -85,41 +85,12 @@
 									</button>
 								</view>
 							</view>
-							<view class="birth-field full">
-								<text class="field-label"
-									>出生日期与时间<text class="field-optional">{{
-										model === 0 ? '精确到分钟' : '农历日期、闰月与钟点'
-									}}</text></text
-								>
-								<button v-bind="h5Button(SelectTime)" class="birth-time-control" @tap="SelectTime">
-									<text class="birth-selected-time">{{
-										datetime_label || '请选择出生日期与时间'
-									}}</text>
-									<text class="birth-edit-label">修改时间 ›</text>
-								</button>
-								<text class="birth-time-hint">{{
-									model === 0
-										? '请按公历填写出生日期；如只记得农历，可切换历法后选择。'
-										: '请区分普通月与闰月，并核对对应公历。'
-								}}</text>
+							</template>
+						</TimeCard>
+						<view v-if="bazi_label" class="birth-summary">
+							<view class="birth-summary-row"><text class="birth-summary-label">四柱预览</text>
+								<view class="pillar-preview"><text v-for="(pillar, i) in bazi_label.split(' ')" :key="i" class="pillar-chip">{{ pillar }}</text></view>
 							</view>
-						</view>
-						<view v-if="lunar_label || datetime_label" class="birth-summary">
-							<view v-if="lunar_label" class="birth-summary-row"
-								><text class="birth-summary-label">{{ model === 0 ? '对应农历' : '对应公历' }}</text
-								><text class="birth-summary-value">{{ lunar_label }}</text></view
-							>
-							<view v-if="bazi_label" class="birth-summary-row"
-								><text class="birth-summary-label">四柱预览</text
-								><view class="pillar-preview"
-									><text
-										v-for="(pillar, i) in bazi_label.split(' ')"
-										:key="i"
-										class="pillar-chip"
-										>{{ pillar }}</text
-									></view
-								></view
-							>
 						</view>
 					</view>
 					<view class="birth-form-bottom">
@@ -159,6 +130,7 @@ import { onLoad, onShow } from '@dcloudio/uni-app';
 import { Solar } from 'lunar-javascript';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import TimeCard from '@/components/form/TimeCard.vue';
 import { parseCivil } from '@/utils/chartTime';
 import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
 
@@ -172,6 +144,8 @@ const model = ref(0);
 const timestamp = ref<number | null>(null);
 const datetime_label = ref('');
 const lunar_label = ref<string | null>(null);
+const birthDisplayDate = computed(() => datetime_label.value.split(' ')[0]?.replace(/[/\-]/g, ' / ') || '');
+const birthDisplayClock = computed(() => timestamp.value === null ? '' : utils.HideSecond(timestamp.value).split(' ')[1]?.slice(0, 5) || '');
 const bazi_label = ref('');
 
 const user_store = useUserStore();

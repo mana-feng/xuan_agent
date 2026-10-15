@@ -37,7 +37,7 @@ Module._load = function (request, parent, isMain) {
 };
 require.extensions['.ts'] = (module, filename) =>
 	module._compile(
-		ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
+		ts.transpileModule(fs.readFileSync(filename, 'utf8').replace(/import\.meta/g, '({ env: {} })'), {
 			compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true },
 		}).outputText,
 		filename
@@ -218,10 +218,62 @@ test('birth time settings expand by keyboard and preserve the selected zone and 
 	}
 });
 
+test('shared time card keeps supplied calendar data and exposes edit and optional restore actions by keyboard', () => {
+	let edits = 0, restores = 0;
+	const mounted = mount('components/form/TimeCard.vue', {
+		label: '出生时间', date: '二〇二三年闰二月十五', clock: '23:07', zone: '纽约 · America/New_York',
+		alternateLabel: '对应公历', alternate: '2023/04/05 23:07', onEdit: () => edits++, onNow: () => restores++,
+	});
+	try {
+		assert.equal(mounted.host.querySelector('.time-card-date').textContent, '二〇二三年闰二月十五');
+		assert.equal(mounted.host.querySelector('.time-card-clock').textContent, '23:07');
+		assert.match(mounted.host.querySelector('.time-card-zone').textContent, /America\/New_York/);
+		assert.match(mounted.host.querySelector('.time-card-alternate').textContent, /对应公历.*2023\/04\/05 23:07/);
+		assert.equal(mounted.host.querySelector('.time-card-now'), null);
+		press(mounted.host.querySelector('.time-card-edit'), 'Enter');
+		assert.equal(edits, 1); assert.equal(restores, 0);
+	} finally { mounted.dispose(); }
+	const casting = mount('components/liuyao/TimeInput.vue', {
+		modelValue: '2024-02-29 00:05', source: 'custom', onOpen: () => edits++, onUseNow: () => restores++,
+	});
+	try {
+		assert.equal(casting.host.querySelector('.time-card-date').textContent, '2024 / 02 / 29');
+		assert.equal(casting.host.querySelector('.time-card-clock').textContent, '00:05');
+		assert.match(casting.host.querySelector('.time-card-status').textContent, /已指定时间/);
+		press(casting.host.querySelector('.time-card-edit'), ' ');
+		press(casting.host.querySelector('.time-card-now'), 'Enter');
+		assert.equal(edits, 2); assert.equal(restores, 1);
+	} finally { casting.dispose(); }
+});
+
+test('both birth pages retain the exact clock when switching the shared display to lunar dates', async () => {
+	for (const page of ['index', 'ziwei']) {
+		const mounted = mount(`pages/${page}/index.nvue`);
+		try {
+			press(mounted.host.querySelector('.time-card-edit'), 'Enter');
+			await nextTick(); await nextTick();
+			for (const [label, value] of [['年份', '1988'], ['月份', '02'], ['日期', '29'], ['小时', '00'], ['分钟', '05']]) {
+				const field = mounted.host.querySelector(`[aria-label="${label}"]`);
+				field.value = value; field.dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+			}
+			press(mounted.host.querySelector('.datetime-confirm'), 'Enter');
+			await nextTick(); await nextTick();
+			assert.equal(mounted.host.querySelector('.time-card-date').textContent, '1988 / 02 / 29');
+			assert.equal(mounted.host.querySelector('.time-card-clock').textContent, '00:05');
+			const calendar = mounted.host.querySelectorAll('[aria-label="出生日期历法"] [role="button"]');
+			press(calendar[1], ' '); await nextTick(); await nextTick();
+			assert.match(mounted.host.querySelector('.time-card-date').textContent, /年.*月/);
+			assert.equal(mounted.host.querySelector('.time-card-clock').textContent, '00:05');
+			assert.match(mounted.host.querySelector('.time-card-alternate').textContent, /对应公历.*1988\/02\/29 00:05/);
+			assert.equal(mounted.host.querySelector('.time-card-now'), null);
+		} finally { mounted.dispose(); }
+	}
+});
+
 test('birth editor corrects the day boundary and restores focus to its trigger after Escape', async () => {
 	const mounted = mount('pages/ziwei/index.nvue');
 	try {
-		const trigger = mounted.host.querySelector('uni-button.birth-time-control');
+		const trigger = mounted.host.querySelector('uni-button.time-card-edit');
 		trigger.focus();
 		press(trigger, 'Enter');
 		await nextTick();

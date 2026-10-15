@@ -57,12 +57,12 @@
 						</view>
 					</view>
 					<view class="form-section">
-						<view class="form-section-heading"
-							><text class="section-mark">时</text
-							><text class="form-section-title">出生时间</text></view
-						>
-						<view class="birth-field-grid">
-							<view class="birth-field full">
+						<TimeCard label="出生时间" :zone="timeZoneLabel + ' · ' + timeZone" :date="birthDisplayDate" :clock="birthDisplayClock"
+							:status="model === 0 ? '公历日期 · 精确到分钟' : '农历日期 · 精确到分钟'"
+							:alternate-label="model === 0 ? '对应农历' : '对应公历'" :alternate="lunar_label || ''"
+							hint="按出生地当时的钟表时间填写。" @edit="SelectTime">
+							<template #before>
+								<view class="birth-field full">
 								<text class="field-label">历法</text>
 								<view class="birth-segmented" role="group" aria-label="出生日期历法">
 									<button
@@ -85,31 +85,8 @@
 									</button>
 								</view>
 							</view>
-							<view class="birth-field full">
-								<text class="field-label"
-									>出生日期与时间<text class="field-optional">{{
-										model === 0 ? '精确到分钟' : '农历日期、闰月与钟点'
-									}}</text></text
-								>
-								<button v-bind="h5Button(SelectTime)" class="birth-time-control" @tap="SelectTime">
-									<text class="birth-selected-time">{{
-										datetime_label || '请选择出生日期与时间'
-									}}</text>
-									<text class="birth-edit-label">修改 ›</text>
-								</button>
-								<text class="birth-time-hint">{{
-									model === 0
-										? '按出生地当时的钟表时间填写。'
-										: '请区分普通月与闰月，并核对对应公历。'
-								}}</text>
-							</view>
-						</view>
-						<view v-if="lunar_label" class="birth-summary">
-							<view class="birth-summary-row"
-								><text class="birth-summary-label">{{ model === 0 ? '对应农历' : '对应公历' }}</text
-								><text class="birth-summary-value">{{ lunar_label }}</text></view
-							>
-						</view>
+							</template>
+						</TimeCard>
 						<view class="time-settings">
 							<button
 								class="time-settings-toggle"
@@ -213,6 +190,7 @@ import { civilToTimestamp, civilString, deviceTimeZone, zonedParts } from '@/uti
 import type { Disambiguation } from '@/utils/chartTime';
 import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
 import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import TimeCard from '@/components/form/TimeCard.vue';
 import { useZiweiStore } from '@/store/ziwei';
 
 const realname = ref('');
@@ -271,6 +249,8 @@ const closeBirthEditor = () => {
 const timestamp = ref<number | null>(null);
 const datetime_label = ref('');
 const lunar_label = ref<string | null>(null);
+const birthDisplayDate = computed(() => datetime_label.value.split(' ')[0]?.replace(/[/\-]/g, ' / ') || '');
+const birthDisplayClock = computed(() => timestamp.value === null ? '' : civilString(zonedParts(timestamp.value, timeZone.value)).slice(11, 16));
 
 const user_store = useUserStore();
 const ziwei_store = useZiweiStore();

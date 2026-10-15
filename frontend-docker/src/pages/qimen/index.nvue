@@ -5,11 +5,9 @@
         <view class="qm-heading"><text class="qm-step">01</text><view><h2>这一局，想问什么</h2><p>记下具体问题，方便保存和继续对话。</p></view></view>
         <label class="qm-label" for="qimen-question-control">问题或记录名称 <text class="qm-optional">选填</text></label>
         <input id="qimen-question" v-model="question" class="qm-input" maxlength="100" placeholder="例如：新项目应该如何安排？" aria-label="问题或记录名称" />
-        <view class="qm-heading qm-time-heading"><text class="qm-step">02</text><view><h2>起局时间</h2><p>默认使用现在，也可以指定需要回看的时刻。</p></view></view>
-        <view class="qm-clock">
-          <view><text class="qm-eyebrow">{{ timeMode === 'now' ? '当前时间' : '指定时间' }}</text><text class="qm-clock-value">{{ displayClock }}</text><text class="qm-clock-zone">{{ timeZone }}</text></view>
-          <button class="qm-button" v-bind="h5Button(editTime)" @tap="editTime">修改时间</button>
-        </view>
+        <TimeCard class="qm-time-summary" label="起局时间" :zone="timeZone" :date="displayClock.split(' ')[0].replace(/-/g, ' / ')" :clock="displayClock.split(' ')[1] || ''"
+          :status="timeMode === 'now' ? '当前时间 · 自动更新' : '已指定时间'" :allow-now="true"
+          hint="默认使用现在，也可以指定需要回看的时刻。" @edit="editTime" @now="restoreNow" />
         <button class="qm-text-button" v-bind="h5Button(() => timeSettingsOpen = !timeSettingsOpen)" :aria-expanded="timeSettingsOpen" @tap="timeSettingsOpen = !timeSettingsOpen">时区与夏令时设置 {{ timeSettingsOpen ? '−' : '＋' }}</button>
         <view v-if="timeSettingsOpen" class="qm-time-editor">
           <label class="qm-label" for="qimen-zone-control">输入时间所在时区</label>
@@ -17,7 +15,6 @@
           <view class="qm-zone-options"><button v-for="zone in zones" :key="zone.value" class="qm-chip" :class="{ active: timeZone === zone.value }" v-bind="h5Button(() => chooseZone(zone.value))" @tap="chooseZone(zone.value)">{{ zone.label }}</button></view>
           <label class="qm-label" for="qimen-dst">夏令时重复时刻</label>
           <select id="qimen-dst" v-model="disambiguation" class="qm-input" aria-label="夏令时重复时刻"><option value="reject">遇到重复时刻时提示我</option><option value="earlier">取较早的一次</option><option value="later">取较晚的一次</option></select>
-          <button class="qm-text-button" v-bind="h5Button(restoreNow)" @tap="restoreNow">↺ 恢复现在</button>
         </view>
         <view v-if="formError" class="qm-error" role="alert">{{ formError }}</view>
         <button class="qm-button primary qm-submit" v-bind="h5Button(submit, submitting)" :disabled="submitting" @tap="submit">{{ submitting ? '正在排盘…' : recordId ? '重新排盘' : '开始起局' }} <text>↗</text></button>
@@ -36,6 +33,7 @@ import { onLoad } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import RecentExplorations from '@/components/history/RecentExplorations.vue';
 import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import TimeCard from '@/components/form/TimeCard.vue';
 import { useQimenStore } from '@/store/qimen';
 import { civilString, zonedParts, civilToTimestamp, type Disambiguation } from '@/utils/chartTime';
 import { h5Button } from '@/utils/keyboard';
