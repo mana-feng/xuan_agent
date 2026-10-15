@@ -15,6 +15,7 @@ interface UserStore {
 }
 
 interface BaziStore {
+	legacyNeedsTimeZone?: boolean;
 	input: ChartInput;
 	solar: {
 		year: number | null;
@@ -163,13 +164,14 @@ export function buildBaziExportPayload(
 	// Read the chart's calculation snapshot even if an older caller passes the shared user store.
 	const input = baziStore.input;
 	// 检查必要数据
-	if (input.timestamp === null) {
+	if (input.timestamp === null || baziStore.legacyNeedsTimeZone) {
 		return null;
 	}
 
 	// 构建基础信息
 	const payload: any = {
 		meta: {
+			calculation: input.calculation || null,
 			exportTime: new Date().toISOString(),
 			version: '1.0.0',
 		},

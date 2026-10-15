@@ -238,6 +238,7 @@
 				</button>
 			</template>
 		</PageScaffold>
+		<LegacyZoneDialog v-if="pendingLegacyChart" @close="pendingLegacyChart = null" @confirm="confirmLegacyZone" />
 	</tm-app>
 </template>
 
@@ -247,6 +248,15 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { openSavedChart, chartTypes, chartTypeLabels, type ChartType, type ChartItem } from '@/features/history/savedCharts';
+import LegacyZoneDialog from '@/components/form/LegacyZoneDialog.vue';
+import { formatCalendarHistoryTime } from '@/features/history/formatCalendarHistoryTime';
+const pendingLegacyChart = ref<ChartItem | null>(null);
+function confirmLegacyZone(zone: string) {
+	const item = pendingLegacyChart.value;
+	if (!item) return;
+	const result = openSavedChart(item, zone);
+	if (!result?.needsTimeZone) pendingLegacyChart.value = null;
+}
 import { formatQimenHistoryTime } from '@/features/history/formatQimenHistoryTime';
 import { useUserStore } from '@/store/user';
 import { request } from '@/services/api/index';
@@ -437,6 +447,8 @@ function formatBirth(item: ChartItem) {
 		if (isNaN(d.getTime())) {
 			return '';
 		}
+		const savedTime = formatCalendarHistoryTime(item);
+		if (savedTime !== null) return (item.type === 'liuyao' ? '起卦：' : '出生：') + savedTime;
 		const result = utils.HideSecond(d.getTime());
 		return result ? (item.type === 'liuyao' ? '起卦：' : '出生：') + result : '';
 	} catch (e) {
@@ -445,7 +457,7 @@ function formatBirth(item: ChartItem) {
 }
 
 function openChart(item: ChartItem) {
-	openSavedChart(item);
+	if (openSavedChart(item)?.needsTimeZone) pendingLegacyChart.value = item;
 }
 
 function removeChart(item: ChartItem) {

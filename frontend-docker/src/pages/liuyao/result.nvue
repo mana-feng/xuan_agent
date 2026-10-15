@@ -48,6 +48,8 @@
 			</view>
 
 			<template v-else>
+				<button v-if="liuyaoStore.legacyNeedsTimeZone" class="calendar-rule-summary" v-bind="h5Button(() => legacyDialogDismissed = false)" @tap="legacyDialogDismissed = false">旧缓存未记录时区，卦象原样保留。补充原时区后可保存记录。</button>
+				<text v-if="liuyaoStore.calculation" class="calendar-rule-summary">{{ calendarRuleLabel(liuyaoStore.calculation) }}</text>
 				<view class="section info-summary">
 					<header class="section__header">
 						<tm-icon name="tmicon-md-planet" :font-size="26" color="#1672b1"></tm-icon>
@@ -237,11 +239,15 @@
 				</view>
 			</template>
 		</PageScaffold>
+		<LegacyZoneDialog v-if="liuyaoStore.legacyNeedsTimeZone && !legacyDialogDismissed" needs-occurrence :error="legacyZoneError" @close="legacyDialogDismissed = true" @confirm="confirmLegacyLiuyaoZone" />
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
 import { h5Button } from '@/utils/keyboard';
+import { calendarRuleLabel, calendarTimestamp, legacyCalendar } from '@/utils/calendarContext';
+import type { Disambiguation } from '@/utils/chartTime';
+import LegacyZoneDialog from '@/components/form/LegacyZoneDialog.vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { computed, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
@@ -260,6 +266,17 @@ type ActionType = 'save' | 'copy' | 'ai';
 const liuyaoStore = useLiuyaoStore();
 const user_store = useUserStore();
 const saving = ref(false);
+const legacyDialogDismissed = ref(false), legacyZoneError = ref('');
+function confirmLegacyLiuyaoZone(zone: string, choice: Disambiguation = 'reject') {
+	try {
+		if (!liuyaoStore.profile || !liuyaoStore.createdAt) return;
+		const missingInstant = liuyaoStore.castingAt === null;
+		const timestamp = liuyaoStore.castingAt ?? calendarTimestamp(liuyaoStore.profile.timeLabel,zone,choice);
+		const calculation = legacyCalendar(timestamp,'liuyao',{},zone)!;
+		if (missingInstant) { calculation.replayMode = 'snapshot'; calculation.timePrecision = 'minute'; }
+		liuyaoStore.setResult({ compiled:liuyaoStore.compiled, display:liuyaoStore.display, profile:liuyaoStore.profile, createdAt:liuyaoStore.createdAt, recordId:liuyaoStore.recordId, castingAt:timestamp, calculation });
+	} catch (error:any) { legacyZoneError.value = error.message; }
+}
 
 const compiled = computed(() => liuyaoStore.compiled);
 const display = computed(() => liuyaoStore.display);
@@ -456,6 +473,7 @@ function copyLiuyaoInfo() {
 }
 
 async function saveLiuyao() {
+	if (liuyaoStore.legacyNeedsTimeZone) { legacyDialogDismissed.value = false; return; }
 	if (!compiled.value || !profile.value) {
 		uni.showToast({ title: '无数据可保存', icon: 'none' });
 		return;
@@ -522,6 +540,8 @@ async function saveLiuyao() {
 			// 倒回时由前端进行计算
 			rawPayload = {
 				lite: true,
+				calculation: liuyaoStore.calculation,
+				...(liuyaoStore.calculation?.replayMode === 'snapshot' ? {snapshot:{ compiled:c, display:liuyaoStore.display, profile:p, createdAt:liuyaoStore.createdAt }} : {}),
 				params: params,
 				options: {
 					gender: c.gender || p.gender,
@@ -610,6 +630,7 @@ onShow(() => {
 </script>
 
 <style scoped>
+.calendar-rule-summary { display:block; margin:0 0 16px; font-size:12px; line-height:1.8; color:var(--x-muted); }
 .page-liuyao-result {
 	color: var(--x-body);
 	font-family: var(--x-sans);

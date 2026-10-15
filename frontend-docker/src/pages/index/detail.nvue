@@ -86,6 +86,8 @@
 					</view>
 				</view>
 
+				<text v-if="bazi_store.input.calculation" class="calendar-rule-summary">{{ calendarRuleLabel(bazi_store.input.calculation) }}</text>
+				<button v-if="bazi_store.legacyNeedsTimeZone" class="calendar-rule-summary" v-bind="h5Button(() => legacyDialogDismissed = false)" @tap="legacyDialogDismissed = false">旧缓存未记录时区，请先补充原排盘时区。</button>
 				<view v-if="saveError" class="mt-12 error-message">
 					<tm-text :label="saveError" color="#f56565" :font-size="24"></tm-text>
 				</view>
@@ -215,11 +217,14 @@
 				</view>
 			</view>
 		</PageScaffold>
+		<LegacyZoneDialog v-if="bazi_store.legacyNeedsTimeZone && !legacyDialogDismissed" @close="legacyDialogDismissed = true" @confirm="confirmLegacyBaziZone" />
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
 import { h5Button } from '@/utils/keyboard';
+import { calendarRuleLabel, legacyCalendar } from '@/utils/calendarContext';
+import LegacyZoneDialog from '@/components/form/LegacyZoneDialog.vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
@@ -270,6 +275,13 @@ const baziRelationData = computed(() => {
 
 function restoreBaziContext() {
 	bazi_store.restoreInput();
+}
+const legacyDialogDismissed = ref(false);
+function confirmLegacyBaziZone(zone: string) {
+	const input = bazi_store.input;
+	if (input.timestamp === null) return;
+	const calculation = legacyCalendar(input.timestamp, 'bazi', {user:input}, zone);
+	if (calculation) bazi_store.pull({...input, timestamp:input.timestamp, calculation});
 }
 
 function ensureBaziComputed() {
@@ -359,6 +371,7 @@ function getGenderLabel() {
 }
 
 function saveToAccount() {
+	if (bazi_store.legacyNeedsTimeZone) { legacyDialogDismissed.value = false; return; }
 	if (!user_store.isLoggedIn) {
 		uni.showToast({
 			title: '请先登录账号后再保存',
@@ -390,6 +403,7 @@ function saveToAccount() {
 		rawPayload = {
 			lite: true,
 			user: {
+				...bazi_store.input,
 				realname: bazi_store.input.realname,
 				gender: bazi_store.input.gender,
 				timestamp: bazi_store.input.timestamp
@@ -400,6 +414,7 @@ function saveToAccount() {
 		// 如果序列化失败，使用最小数据集
 		rawPayload = {
 			user: {
+				...bazi_store.input,
 				realname: bazi_store.input.realname,
 				gender: bazi_store.input.gender,
 				timestamp: bazi_store.input.timestamp
@@ -613,6 +628,7 @@ function editBazi() {
 		: 0;
 	
 	const editData = {
+		...bazi_store.input,
 		realname: bazi_store.input.realname || '',
 		gender: formGender,
 		timestamp: bazi_store.input.timestamp,
@@ -671,6 +687,7 @@ const GetChineseZodiac = year => utils.GetChineseZodiac(year);
 </script>
 
 <style scoped>
+.calendar-rule-summary { display:block; margin-top:16px; padding-top:12px; border-top:1px solid var(--x-line); font-size:12px; line-height:1.8; color:var(--x-muted); }
 .page-bazi-detail {
 	font-family: var(--x-sans);
 	color: var(--x-body);

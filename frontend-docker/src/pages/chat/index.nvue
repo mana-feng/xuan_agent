@@ -79,6 +79,7 @@ const sessionIdentity = computed(() => {
 		if (!liuyaoStore.profile || liuyaoStore.compiled?.params?.length !== 6) return null;
 		return { ...base, recordId: liuyaoStore.recordId, chart: {
 			profile: liuyaoStore.profile, params: liuyaoStore.compiled.params,
+			calculation: liuyaoStore.calculation,
 			castingAt: liuyaoStore.castingAt ?? liuyaoStore.createdAt,
 		} };
 	}
@@ -259,7 +260,7 @@ function buildExportedContext() {
 			return payload ? {
 				prompt: `User Liuyao result:\n${payload}`,
 				summary: { type: '六爻卦象', title: liuyaoStore.profile?.title || '未填写问题',
-					time: payload.split('\n')[0].trim() || '时间未记录', zone: '时区未记录' },
+					time: payload.split('\n')[0].trim() || '时间未记录', zone: liuyaoStore.calculation?.timeZone || '原时区未记录' },
 			} : null;
 		}
 
@@ -280,7 +281,7 @@ function buildExportedContext() {
 		return payload ? {
 			prompt: `User Bazi profile (TOON):\n${encodeTOON(payload)}`,
 			summary: { type: '八字命盘', title: payload.basic.name || '未填写姓名',
-				time: payload.basic.solarString || '时间未记录', zone: '时区未记录' },
+				time: payload.basic.solarString || '时间未记录', zone: baziStore.input.calculation?.timeZone || '时区未记录' },
 		} : null;
 	} catch (err) {
 		console.error('build context prompt failed:', err);

@@ -47,6 +47,7 @@
 			</button>
 		</view>
 	</view>
+	<LegacyZoneDialog v-if="pendingLegacyChart" @close="pendingLegacyChart = null" @confirm="confirmLegacyZone" />
 </template>
 
 <script lang="ts" setup>
@@ -57,6 +58,8 @@ import { useUserStore } from '@/store/user';
 import { request } from '@/services/api/index';
 import { getAccessToken } from '@/utils/tokenStore';
 import { formatQimenHistoryTime } from '@/features/history/formatQimenHistoryTime';
+import { formatCalendarHistoryTime } from '@/features/history/formatCalendarHistoryTime';
+import LegacyZoneDialog from '@/components/form/LegacyZoneDialog.vue';
 import {
 	chartTypes,
 	chartTypeLabels,
@@ -69,6 +72,12 @@ const isLoggedIn = computed(() => userStore.isLoggedIn);
 const records = ref<ChartItem[]>([]);
 const loading = ref(false);
 const error = ref('');
+const pendingLegacyChart = ref<ChartItem | null>(null);
+function confirmLegacyZone(zone: string) {
+	const item = pendingLegacyChart.value;
+	if (!item) return;
+	if (!openSavedChart(item, zone)?.needsTimeZone) pendingLegacyChart.value = null;
+}
 let requestVersion = 0;
 
 async function refreshRecords() {
@@ -113,7 +122,7 @@ async function refreshRecords() {
 }
 
 function openRecord(record: ChartItem) {
-	openSavedChart(record);
+	if (openSavedChart(record)?.needsTimeZone) pendingLegacyChart.value = record;
 }
 function goHistory() {
 	uni.navigateTo({ url: '/pages/history/list' });
@@ -128,6 +137,8 @@ function dateLabel(value: string) {
 }
 function birthLabel(record: ChartItem) {
 	if (record.type === 'qimen') return formatQimenHistoryTime(record.birthDatetime) || '起局记录';
+	const savedTime = formatCalendarHistoryTime(record);
+	if (savedTime !== null) return savedTime;
 	const date = new Date(record.birthDatetime);
 	if (!Number.isFinite(date.getTime())) return record.type === 'liuyao' ? '起卦记录' : '命盘记录';
 	return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;

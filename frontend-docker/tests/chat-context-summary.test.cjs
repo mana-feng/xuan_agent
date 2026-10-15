@@ -46,7 +46,7 @@ test('Bazi summary identifies the actual exported chart even after the shared pr
   assert.match(page.contextCaption.value, /已关联八字/);
   assert.ok(page.contextCaption.value.includes(payload.basic.name));
   assert.ok(page.contextCaption.value.includes(payload.basic.solarString));
-  assert.match(page.contextCaption.value, /时区未记录/);
+  assert.match(page.contextCaption.value, /Asia\/Shanghai/);
   assert.doesNotMatch(page.contextCaption.value, /另一个人/);
   assert.ok(page.buildMessages('请分析')[0].content.includes(payload.basic.name));
 });
@@ -71,7 +71,7 @@ test('Liuyao summary retains the question and the exported casting clock without
   assert.match(page.contextCaption.value, /已关联六爻/);
   assert.match(page.contextCaption.value, /六爻原卦：新项目/);
   assert.ok(page.contextCaption.value.includes(payload.split('\n')[0]));
-  assert.match(page.contextCaption.value, /时区未记录/);
+  assert.match(page.contextCaption.value, /Asia\/Shanghai/);
   assert.equal(page.buildMessages('请分析')[0].content, `User Liuyao result:\n${payload}`);
 });
 

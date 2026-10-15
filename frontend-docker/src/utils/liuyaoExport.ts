@@ -2,6 +2,7 @@ import { GUAS, GUA5, XING5, SYMBOL } from '@/features/liuyao/najiaConst';
 import { getGuaName as getGuaciGuaName, getCanonicalNameByName } from '@/features/liuyao/guaci';
 import { getYaoSymbol } from '@/features/liuyao/uiHelpers';
 import { setShiYao } from '@/features/liuyao/najiaCore';
+import { calendarRuleLabel } from '@/utils/calendarContext';
 
 /**
  * 安全获取数组元素
@@ -193,6 +194,10 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 			}
 		}
 		lines.push(timeStr);
+		if (liuyaoStore.calculation) {
+			lines.push(` 排盘口径：${calendarRuleLabel(liuyaoStore.calculation)}`);
+			lines.push(` 规则版本：${liuyaoStore.calculation.ruleVersion}`);
+		} else lines.push(' 旧记录未保存原时区与规则版本；以下为保留的原盘，不按当前默认规则重排。');
 		lines.push(` 占问： ${p.title || '—'}`);
 		
 		const gz = c.lunar?.gz;

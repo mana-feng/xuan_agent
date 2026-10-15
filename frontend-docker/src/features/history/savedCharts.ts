@@ -3,6 +3,7 @@ import { useZiweiStore } from '@/store/ziwei';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { useQimenStore } from '@/store/qimen';
 import { executeLiuyaoChart } from '@/features/liuyao/executor';
+import { legacyCalendar } from '@/utils/calendarContext';
 
 export type ChartType = 'bazi' | 'ziwei' | 'liuyao' | 'qimen';
 export const chartTypes: ChartType[] = ['bazi', 'ziwei', 'liuyao', 'qimen'];
@@ -19,7 +20,7 @@ export interface ChartItem {
 	rawPayload?: any;
 }
 
-export function openSavedChart(item: ChartItem) {
+export function openSavedChart(item: ChartItem, originalTimeZone?: string): { needsTimeZone: true } | void {
 	const bazi_store = useBaziStore();
 	try {
 		if (item.type === 'qimen') {
@@ -66,7 +67,17 @@ export function openSavedChart(item: ChartItem) {
 			}
 			const date = new Date(payload.options?.date || item.birthDatetime || payload.ts);
 			if (!Number.isFinite(date.getTime())) throw new Error('该记录缺少有效的起卦时间');
+			const calculation = legacyCalendar(date.getTime(), 'liuyao', payload, originalTimeZone);
+			if (!calculation) return { needsTimeZone: true };
+			if (calculation.replayMode === 'snapshot') {
+				const snapshot = payload.snapshot;
+				if (!snapshot?.compiled || !snapshot.display || !snapshot.profile || JSON.stringify(snapshot.compiled.params) !== JSON.stringify(params) || snapshot.profile.timeLabel !== calculation.civil.slice(0,16)) throw new Error('该记录缺少一致的原盘快照，原记录未改动');
+				useLiuyaoStore().setResult({...snapshot,calculation,castingAt:date.getTime(),recordId:item.id});
+				uni.navigateTo({url:'/pages/liuyao/result'});
+				return;
+			}
 			executeLiuyaoChart({
+				calculation,
 				params,
 				date,
 				title: payload.options?.title || payload.profile?.title || item.title,
@@ -77,163 +88,20 @@ export function openSavedChart(item: ChartItem) {
 			uni.navigateTo({ url: '/pages/liuyao/result' });
 			return;
 		}
-		let useRawPayload = false;
-		if (item.rawPayload && item.rawPayload.user && item.rawPayload.bazi) {
-			const u = item.rawPayload.user;
-			const b = item.rawPayload.bazi;
-
-			if (
-				u.timestamp &&
-				u.gender !== undefined &&
-				u.gender !== null &&
-				b.solar &&
-				b.solar.year &&
-				b.sizhu &&
-				b.sizhu.year &&
-				b.yinli &&
-				b.xinzuo &&
-				b.table &&
-				Array.isArray(b.table) &&
-				b.table.length > 0
-			) {
-				// 统一标准：0=男，1=女（数字）
-				// rawPayload 中存储的是数字，直接使用
-				let rawPayloadGender: number;
-				if (u.gender === null || u.gender === undefined) {
-					rawPayloadGender = 0;
-				} else {
-					rawPayloadGender = typeof u.gender === 'string' ? parseInt(u.gender) : u.gender;
-				}
-
-				// 数据库存储为字符串：'0'=男，'1'=女，转换为前端标准：0=男，1=女
-				let dbGender: number;
-				if (item.gender === null || item.gender === undefined) {
-					dbGender = 0;
-				} else if (typeof item.gender === 'string') {
-					dbGender = item.gender === '0' ? 0 : item.gender === '1' ? 1 : 0;
-				} else {
-					dbGender = item.gender === 0 ? 0 : item.gender === 1 ? 1 : 0;
-				}
-
-				let dbTimestamp: number;
-				if (typeof item.birthDatetime === 'string') {
-					const date = new Date(item.birthDatetime);
-					dbTimestamp = date.getTime();
-				} else if (typeof item.birthDatetime === 'number') {
-					dbTimestamp = item.birthDatetime;
-				} else {
-					dbTimestamp = 0;
-				}
-
-				const timestampDiff = Math.abs((u.timestamp || 0) - dbTimestamp);
-				if (rawPayloadGender === dbGender && timestampDiff < 1000) {
-					useRawPayload = true;
-				}
-			}
-		}
-
-		if (useRawPayload) {
-			const u = item.rawPayload.user;
-			bazi_store.pull({
-				realname: u.realname || item.title || '佚名',
-				gender: u.gender,
-				timestamp: u.timestamp,
-				recordId: item.id, // 设置记录ID
-			});
-
-			setTimeout(() => {
-				uni.navigateTo({
-					url: '/pages/index/detail',
-				});
-			}, 100);
-			return;
-		}
-
-		if (!item.birthDatetime) {
-			uni.showToast({
-				title: '该记录缺少出生时间数据',
-				icon: 'none',
-				duration: 2000,
-			});
-			return;
-		}
-
-		let timestamp: number;
-		if (typeof item.birthDatetime === 'string') {
-			const date = new Date(item.birthDatetime);
-			timestamp = date.getTime();
-			if (isNaN(timestamp)) {
-				uni.showToast({
-					title: '出生时间格式错误，无法解析',
-					icon: 'none',
-					duration: 2000,
-				});
-				return;
-			}
-		} else if (typeof item.birthDatetime === 'number') {
-			timestamp = item.birthDatetime;
-			if (isNaN(timestamp) || timestamp <= 0) {
-				uni.showToast({
-					title: '出生时间无效',
-					icon: 'none',
-					duration: 2000,
-				});
-				return;
-			}
-		} else {
-			uni.showToast({
-				title: '出生时间格式错误',
-				icon: 'none',
-				duration: 2000,
-			});
-			return;
-		}
-
-		// 数据库存储为字符串：'0'=男，'1'=女，转换为前端标准：0=男，1=女
-		let gender: number;
-		if (item.gender === null || item.gender === undefined) {
-			gender = 0;
-		} else if (typeof item.gender === 'string') {
-			gender = item.gender === '0' ? 0 : item.gender === '1' ? 1 : 0;
-		} else {
-			gender = item.gender === 0 ? 0 : item.gender === 1 ? 1 : 0;
-		}
-
-		uni.showLoading({
-			title: '排盘中，请稍后！',
+		const payload = item.rawPayload || {};
+		const input = payload.user || {};
+		const timestamp = new Date(item.birthDatetime || input.timestamp).getTime();
+		if (!Number.isFinite(timestamp)) throw new Error('该记录缺少有效的出生时间');
+		const calculation = legacyCalendar(timestamp, 'bazi', payload, originalTimeZone);
+		if (!calculation) return { needsTimeZone: true };
+		bazi_store.pull({
+			realname: item.title || input.realname || '佚名',
+			gender: Number(item.gender ?? input.gender) === 1 ? 1 : 0,
+			timestamp,
+			recordId: item.id,
+			calculation,
 		});
-
-		try {
-			bazi_store.pull({
-				realname: item.title || '佚名',
-				timestamp: timestamp,
-				gender: gender,
-				recordId: item.id,
-			});
-		} catch (pullError: any) {
-			uni.hideLoading();
-			uni.showToast({
-				title: '排盘计算失败：' + (pullError?.message || '未知错误'),
-				icon: 'none',
-				duration: 2000,
-			});
-			return;
-		}
-
-		setTimeout(() => {
-			uni.hideLoading();
-			if (!bazi_store.solar || !bazi_store.solar.year) {
-				uni.showToast({
-					title: '排盘数据不完整，请重试',
-					icon: 'none',
-					duration: 2000,
-				});
-				return;
-			}
-			uni.navigateTo({
-				url: '/pages/index/detail',
-			});
-		}, 200);
+		uni.navigateTo({ url: '/pages/index/detail' });
 	} catch (e: any) {
 		uni.hideLoading();
 		uni.showToast({
