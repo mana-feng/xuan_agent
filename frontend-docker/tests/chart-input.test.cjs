@@ -9,7 +9,7 @@ const { useZiweiStore } = require('../src/store/ziwei.ts');
 const { buildBaziExportPayload } = require('../src/utils/baziExport.ts');
 const { buildZiweiExportPayload } = require('../src/utils/ziweiExport.ts');
 
-const first = { realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
+const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
 const second = { realname: '乙', gender: 1, timestamp: new Date(2022, 2, 3, 8, 0).getTime(), recordId: 22 };
 let platform;
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });
@@ -225,7 +225,7 @@ test('history replay rebuilds from record identity even when cached Bazi contain
     id: 63, title: '甲', gender: '0', birthDatetime: first.timestamp, createdAt: '',
     rawPayload: {
       user: first,
-      bazi: { solar: { year: 2026 }, sizhu: { year: '丙午' }, yinli: '有效', xinzuo: '天秤', table: [{}], input: second },
+      bazi: { solar: { year: 2026 }, yangli: '2026/10/10 12:30:00', sizhu: { year: '丙午' }, yinli: '有效', xinzuo: '天秤', table: [{}], input: second },
     },
   }));
   assert.equal(useBaziStore().input.realname, '甲');

@@ -127,7 +127,7 @@ test('empty input does not send or prompt for login', async () => {
 	assert.equal(dialogs.length, 0);
 });
 
-const baziProfile = { realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
+const baziProfile = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
 const ziweiProfile = { realname: '乙', gender: 1, timestamp: new Date(2022, 2, 3, 8, 0).getTime(), recordId: 22 };
 
 test('Agent sends the independent identities of both charts in its model context', async () => {

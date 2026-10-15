@@ -8,10 +8,11 @@
  */
 import { defineStore } from 'pinia';
 import { useYunStore } from '@/store/yun';
-import { Solar, Yun } from 'lunar-javascript';
+import { Yun } from 'lunar-javascript';
 import utils from '@/libs/utils/utils';
 import { chartCalculationKey, emptyChartInput, persistChartInput, readChartInput, snapshotChartInput } from '@/utils/chartInput';
 import type { ChartPullData } from '@/utils/chartInput';
+import { resolveCalendar, calendarValues, legacyCalendar } from '@/utils/calendarContext';
 import {
 	enhanceBaziAnalysis,
 	BaziEnhancedData,
@@ -83,6 +84,7 @@ export const useBaziStore = defineStore('bazi', {
 		return {
 			input: emptyChartInput(),
 			calculatedFor: '',
+			legacyNeedsTimeZone: false,
 			yun: null as Yun | null,
 			yinli: null as string | null,
 			yangli: null as string | null,
@@ -174,23 +176,36 @@ export const useBaziStore = defineStore('bazi', {
 		restoreInput() {
 			if (this.input.timestamp !== null) return;
 			const input = readChartInput('bazi_last_context');
-			if (input) this.input = input;
+			if (input) {
+				try {
+					const calculation = legacyCalendar(input.timestamp!, 'bazi', {user:input});
+					this.legacyNeedsTimeZone = !calculation;
+					this.input = calculation ? { ...input, calculation } : input;
+				} catch (error:any) {
+					uni.showToast({title:error.message || '旧缓存口径无效，原数据未改动',icon:'none'});
+				}
+			}
 		},
 		persistInput() {
+			if (this.legacyNeedsTimeZone) return;
 			persistChartInput('bazi_last_context', this.input);
 		},
 		ensureComputed() {
+			if (this.legacyNeedsTimeZone) return;
 			if (this.input.timestamp === null) return;
 			if (this.calculatedFor === chartCalculationKey(this.input) && this.solar.year) return;
-			this.pull({ ...this.input, timestamp: this.input.timestamp });
+			this.pull({ ...this.input, timestamp: this.input.timestamp, calculation: this.input.calculation?.timestamp === this.input.timestamp ? this.input.calculation : undefined });
 		},
 		pull(data: ChartPullData) {
 			const input = snapshotChartInput(data);
 			const { timestamp, gender } = input;
 
-			const solar = Solar.fromDate(new Date(timestamp));
-			const lunar = solar.getLunar();
-			const bazi = lunar.getEightChar();
+			const calculation = resolveCalendar(timestamp, 'bazi', input);
+			input.calculation = calculation;
+			input.timeZone = calculation.timeZone;
+			input.ruleVersion = calculation.ruleVersion;
+			input.rules = { ...calculation.rules };
+			const { solar, lunar, eightChar: bazi } = calendarValues(calculation);
 			// lunar-javascript 库标准：1=男，0=女
 			// 前端统一标准：0=男，1=女
 			// 需要反转：0(男) → 1，1(女) → 0
@@ -479,6 +494,7 @@ export const useBaziStore = defineStore('bazi', {
 
 			useYunStore().pull(yun.getDaYun());
 			this.input = input;
+			this.legacyNeedsTimeZone = false;
 			this.calculatedFor = chartCalculationKey(input);
 			this.persistInput();
 		},

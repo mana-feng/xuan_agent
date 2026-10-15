@@ -7,7 +7,7 @@ const { useZiweiStore } = require('../src/store/ziwei.ts');
 const { useLiuyaoStore } = require('../src/store/liuyao.ts');
 const { executeLiuyaoChart } = require('../src/features/liuyao/executor.ts');
 
-const baziInput = { realname: '八字缓存甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
+const baziInput = { timeZone: 'Asia/Shanghai', realname: '八字缓存甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
 const ziweiInput = { realname: '紫微缓存乙', gender: 1, timestamp: new Date(2022, 2, 3, 8).getTime(), recordId: 22 };
 let platform;
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });

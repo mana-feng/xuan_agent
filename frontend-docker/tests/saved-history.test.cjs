@@ -11,7 +11,7 @@ const { executeLiuyaoChart } = require('../src/features/liuyao/executor.ts');
 const chosenDate = new Date(2022, 2, 3, 8, 0);
 const chosenISO = chosenDate.toISOString();
 const params = [1, 0, 3, 0, 1, 4];
-const first = { realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
+const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(2026, 9, 10, 12, 30).getTime(), recordId: 11 };
 let platform;
 beforeEach(() => {
   platform = resetPlatform(); setActivePinia(createPinia());
@@ -31,7 +31,7 @@ function historyRows() {
   return {
     bazi: [{ id: 7, type: 'bazi', title: '甲', gender: '0', birthDatetime: new Date(first.timestamp).toISOString(), createdAt: '2026-10-10T01:00:00Z', rawPayload: { lite: true, user: first } }],
     ziwei: [{ id: 7, type: 'ziwei', title: '乙', gender: '1', birthDatetime: chosenISO, createdAt: '2026-10-10T02:00:00Z', rawPayload: { lite: true, module: 'ziwei', user: { realname: '乙', gender: 1, timestamp: chosenDate.getTime() } } }],
-    liuyao: [{ id: 7, type: 'liuyao', title: '测试起卦', gender: '0', birthDatetime: chosenISO, createdAt: '2026-10-10T03:00:00Z', rawPayload: { lite: true, params, options: { title: '测试起卦', gender: '男', date: chosenISO }, profile: { title: '测试起卦', method: '手工起卦', gender: '男', timeLabel: '2022-03-03 08:00' }, ts: chosenDate.getTime() } }],
+    liuyao: [{ id: 7, type: 'liuyao', title: '测试起卦', gender: '0', birthDatetime: chosenISO, createdAt: '2026-10-10T03:00:00Z', rawPayload: { lite: true, params, options: { title: '测试起卦', gender: '男', date: chosenISO, timeZone: 'Asia/Shanghai' }, profile: { title: '测试起卦', method: '手工起卦', gender: '男', timeLabel: '2022-03-03 08:00' }, ts: chosenDate.getTime() } }],
   };
 }
 

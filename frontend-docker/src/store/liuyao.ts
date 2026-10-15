@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { legacyCalendar, resolveCalendar, type CalendarContext } from '@/utils/calendarContext';
 
 export interface LiuyaoProfile {
 	title: string;
@@ -11,6 +12,7 @@ export interface LiuyaoProfile {
 }
 
 export interface LiuyaoResultPayload {
+	calculation?: CalendarContext;
 	compiled: any;
 	display: any;
 	profile: LiuyaoProfile;
@@ -20,6 +22,8 @@ export interface LiuyaoResultPayload {
 }
 
 interface State {
+	legacyNeedsTimeZone: boolean;
+	calculation: CalendarContext | null;
 	compiled: any | null;
 	display: any | null;
 	profile: LiuyaoProfile | null;
@@ -40,7 +44,7 @@ function readLastResult(): LiuyaoResultPayload | null {
 		const profile = (data as any).profile;
 		const createdAt = (data as any).createdAt;
 		if (!compiled || !display || !profile || !createdAt) return null;
-		return { compiled, display, profile, createdAt, castingAt: data.castingAt, recordId: data.recordId } as LiuyaoResultPayload;
+		return { compiled, display, profile, createdAt, castingAt: data.castingAt, recordId: data.recordId, calculation: data.calculation } as LiuyaoResultPayload;
 	} catch (e) {
 		return null;
 	}
@@ -64,6 +68,8 @@ function clearLastResult() {
 
 export const useLiuyaoStore = defineStore('liuyao', {
 	state: (): State => ({
+		legacyNeedsTimeZone: false,
+		calculation: null,
 		compiled: null,
 		display: null,
 		profile: null,
@@ -73,13 +79,16 @@ export const useLiuyaoStore = defineStore('liuyao', {
 	}),
 	actions: {
 		setResult(payload: LiuyaoResultPayload) {
+			const castingAt = payload.castingAt ?? payload.calculation?.timestamp;
+			const calculation = payload.calculation ? resolveCalendar(castingAt!, 'liuyao', {calculation:payload.calculation}) : castingAt !== undefined ? legacyCalendar(castingAt, 'liuyao', payload) : null;
+			this.calculation = calculation;
+			this.legacyNeedsTimeZone = !this.calculation;
 			this.compiled = payload.compiled;
 			this.display = payload.display;
 			this.profile = payload.profile;
 			this.createdAt = payload.createdAt;
-			// Older local caches only kept the chosen time in the displayed profile.
-			const profileTime = new Date(payload.profile.timeLabel.replace(/-/g, '/')).getTime();
-			this.castingAt = payload.castingAt ?? (Number.isFinite(profileTime) ? profileTime : payload.createdAt);
+			// A wall-clock string alone cannot recover the original instant without its zone.
+			this.castingAt = castingAt ?? null;
 			this.recordId = payload.recordId ?? null;
 			this.persistResult();
 		},
@@ -88,8 +97,10 @@ export const useLiuyaoStore = defineStore('liuyao', {
 			this.persistResult();
 		},
 		persistResult() {
+			if (this.legacyNeedsTimeZone) return;
 			if (!this.compiled || !this.display || !this.profile || this.createdAt === null) return;
 			writeLastResult({
+				calculation: this.calculation ?? undefined,
 				compiled: this.compiled,
 				display: this.display,
 				profile: this.profile,
@@ -102,9 +113,11 @@ export const useLiuyaoStore = defineStore('liuyao', {
 			if (this.compiled && this.display && this.profile && this.createdAt) return;
 			const cached = readLastResult();
 			if (!cached) return;
-			this.setResult(cached);
+			try { this.setResult(cached); } catch (error:any) { uni.showToast({title:error.message || '旧缓存口径无效，原数据未改动',icon:'none'}); }
 		},
 		clear() {
+			this.legacyNeedsTimeZone = false;
+			this.calculation = null;
 			this.compiled = null;
 			this.display = null;
 			this.profile = null;

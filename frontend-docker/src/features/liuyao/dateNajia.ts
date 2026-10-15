@@ -1,26 +1,16 @@
 // 使用 lunar-javascript 计算日干支与旬空（移植自项目后端实现）
-import { Solar } from 'lunar-javascript';
+import { resolveCalendar, calendarValues, type CalendarOptions } from '@/utils/calendarContext';
 
 /**
  * 计算日期对应的干支、旬空等信息
  */
-export function computeDaily(date: Date) {
+export function computeDaily(date: Date, options: CalendarOptions = {}) {
 	if (!(date instanceof Date)) {
 		throw new Error('computeDaily 需要传入有效的 Date 对象');
 	}
 
-	const solar = Solar.fromDate(date);
-	const lunar = solar.getLunar();
-	const bazi = lunar.getEightChar();
-
-	let xkong = '';
-	const lunarAny = lunar as unknown as { getDayXunKong?: () => string };
-	if (typeof lunarAny.getDayXunKong === 'function') {
-		xkong = lunarAny.getDayXunKong();
-	} else {
-		const dayGz = bazi.getDay();
-		xkong = calculateXunKong(dayGz);
-	}
+	const { eightChar: bazi } = calendarValues(resolveCalendar(date.getTime(), 'liuyao', options));
+	const xkong = calculateXunKong(bazi.getDay());
 
 	return {
 		xkong,
@@ -34,7 +24,8 @@ export function computeDaily(date: Date) {
 }
 
 /**
- * 备用：根据日柱计算旬? */
+ * 根据所选换日规则的日柱计算旬空。
+ */
 function calculateXunKong(dayGz: string) {
 	if (!dayGz || dayGz.length < 2) return '';
 

@@ -1,3 +1,4 @@
+import type { CalendarContext, CalendarRules } from './calendarContext';
 /** Each chart owns the exact birth profile used for its calculation. */
 export interface ChartInput {
 	realname: string | null;
@@ -7,6 +8,8 @@ export interface ChartInput {
 	timeZone?: string;
 	timeZoneSource?: 'explicit' | 'legacy-device';
 	ruleVersion?: string;
+	calculation?: CalendarContext;
+	rules?: CalendarRules;
 }
 
 export interface ChartPullData {
@@ -17,6 +20,8 @@ export interface ChartPullData {
 	timeZone?: string;
 	timeZoneSource?: 'explicit' | 'legacy-device';
 	ruleVersion?: string;
+	calculation?: CalendarContext;
+	rules?: CalendarRules;
 }
 
 export function emptyChartInput(): ChartInput {
@@ -35,11 +40,13 @@ export function snapshotChartInput(data: ChartPullData): ChartInput & { timestam
 		recordId: data.recordId ?? null,
 		...(data.timeZone ? { timeZone: data.timeZone, timeZoneSource: data.timeZoneSource || 'explicit' as const } : {}),
 		...(data.ruleVersion ? { ruleVersion: data.ruleVersion } : {}),
+		...(data.calculation ? { calculation: JSON.parse(JSON.stringify(data.calculation)) } : {}),
+		...(data.rules ? { rules: { ...data.rules } } : {}),
 	};
 }
 
 export function chartCalculationKey(input: ChartInput): string {
-	return input.timestamp === null ? '' : `${input.timestamp}:${input.gender}${input.timeZone ? `:${input.timeZone}:${input.ruleVersion || ''}` : ''}`;
+	return input.timestamp === null ? '' : `${input.timestamp}:${input.gender}${input.timeZone ? `:${input.timeZone}:${input.ruleVersion || ''}` : ''}:${JSON.stringify(input.calculation || input.rules || null)}`;
 }
 
 export function readChartInput(key: string): ChartInput | null {
