@@ -7,7 +7,7 @@ const resolve = Module._resolveFilename;
 const load = Module._load;
 let platform;
 Module._resolveFilename = function (request, parent, ...rest) {
-  return resolve.call(this, request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request, parent, ...rest);
+  return resolve.call(this, request === 'qimen-engine' ? path.join(sourceRoot, '../vendor/qfdk-qimen/lib/qimen.js') : request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request, parent, ...rest);
 };
 function compile(source, filename) {
   return ts.transpileModule(source.replace(/import\.meta/g, '({ env: {} })'), {
@@ -20,6 +20,7 @@ Module._load = function (request, parent, isMain) {
   if (request === '@dcloudio/uni-app') return {
     onLoad: callback => platform.hooks.load.push(callback),
     onShow: callback => platform.hooks.show.push(callback),
+    onHide() {},
   };
   if (request === 'vue') return { ...load.call(this, request, parent, isMain), onMounted() {}, onUnmounted() {} };
   return load.call(this, request, parent, isMain);

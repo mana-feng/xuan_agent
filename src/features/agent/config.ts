@@ -28,12 +28,21 @@ export const toolCards: ToolCard[] = [
 		badges: ['宫位结构', '人生主题', '长期画像'],
 		prompt: '我想看命盘结构和人生主题，请判断是否应该走紫微排盘，并直接带我打开页面。',
 	},
+	{
+		target: 'qimen',
+		title: '奇门起局',
+		subtitle: '时空方位与事件筹划',
+		summary: '结合起局时间与九宫格局，探索事件时机、行动方向和局势。',
+		icon: 'tmicon-applicationgroup',
+		badges: ['事件时机', '九宫格局', '行动方向'],
+		prompt: '我想用奇门遁甲分析事件时机和行动方向，请带我打开奇门起局页面，告诉我需要确认哪些信息。',
+	},
 ];
 
 export const quickPrompts: QuickPrompt[] = [
 	{
 		label: '帮我选盘',
-		prompt: '我现在还不确定该用八字、六爻还是紫微，请先帮我选最合适的排盘工具。',
+		prompt: '我现在还不确定该用八字、六爻、紫微还是奇门，请先帮我选最合适的排盘工具。',
 	},
 	{
 		label: '打开八字',
@@ -42,6 +51,10 @@ export const quickPrompts: QuickPrompt[] = [
 	{
 		label: '打开紫微',
 		prompt: '我想看命盘格局，请直接带我去紫微排盘，并说清楚为什么选它。',
+	},
+	{
+		label: '打开奇门',
+		prompt: '请带我打开奇门起局页面，我会在页面确认起局时间和问题。',
 	},
 	{
 		label: '看事业宫',
@@ -57,6 +70,7 @@ export const routeMap: Record<AgentTarget, string> = {
 	bazi: '/pages/index/index',
 	liuyao: '/pages/liuyao/index',
 	ziwei: '/pages/ziwei/index',
+	qimen: '/pages/qimen/index',
 	history: '/pages/history/list',
 };
 

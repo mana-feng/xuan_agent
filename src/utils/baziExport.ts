@@ -6,6 +6,7 @@
 import type { Store } from 'pinia';
 import { calculateShenShaForGanZhi } from '@/libs/utils/bazi-enhanced';
 import utils from '@/libs/utils/utils';
+import type { ChartInput } from '@/utils/chartInput';
 
 interface UserStore {
 	realname: string | null;
@@ -14,7 +15,8 @@ interface UserStore {
 }
 
 interface BaziStore {
-	input: UserStore;
+	legacyNeedsTimeZone?: boolean;
+	input: ChartInput;
 	solar: {
 		year: number | null;
 		month: number | null;
@@ -155,19 +157,21 @@ interface YunStore {
 }
 
 export function buildBaziExportPayload(
-	userStore: Store & UserStore,
+	_profile: UserStore,
 	baziStore: Store & BaziStore,
 	yunStore: Store & YunStore
 ): any | null {
-	const profile = baziStore.input;
+	// Read the chart's calculation snapshot even if an older caller passes the shared user store.
+	const input = baziStore.input;
 	// 检查必要数据
-	if (profile.timestamp === null) {
+	if (input.timestamp === null || baziStore.legacyNeedsTimeZone) {
 		return null;
 	}
 
 	// 构建基础信息
 	const payload: any = {
 		meta: {
+			calculation: input.calculation || null,
 			exportTime: new Date().toISOString(),
 			version: '1.0.0',
 		},
@@ -203,10 +207,10 @@ export function buildBaziExportPayload(
 
 需要你分析的八字信息如下（我将提供在下方）`,
 		basic: {
-			name: profile.realname || null,
-			gender: profile.gender === 0 ? '男' : profile.gender === 1 ? '女' : null,
-			birthTimestamp: profile.timestamp,
-			solar: new Date(profile.timestamp).toISOString(),
+			name: input.realname || null,
+			gender: input.gender === 0 ? '男' : input.gender === 1 ? '女' : null,
+			birthTimestamp: input.timestamp,
+			solar: new Date(input.timestamp).toISOString(),
 			solarString: baziStore.yangli || null,
 			lunar: baziStore.yinli || null,
 			constellation: baziStore.xinzuo || null,

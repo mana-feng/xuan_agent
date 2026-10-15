@@ -7,6 +7,7 @@
       "^yxn-(.*)": "@/components/yxn-$1/yxn-$1.nvue"
     }
   },
+  "_comment_pages": "pages 数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages",
   "pages": [
     {
       "path": "pages/agent/index",
@@ -21,10 +22,13 @@
       "path": "pages/index/detail"
     },
     {
-      "path": "pages/chat/index"
+      "path": "pages/history/list"
     },
     {
       "path": "pages/about/index"
+    },
+    {
+      "path": "pages/chat/index"
     },
     {
       "path": "pages/liuyao/index",
@@ -51,13 +55,22 @@
       }
     },
     {
+      "path": "pages/qimen/index",
+      "style": {
+        "navigationBarTitleText": "奇门起局"
+      }
+    },
+    {
+      "path": "pages/qimen/result",
+      "style": {
+        "navigationBarTitleText": "奇门排盘结果"
+      }
+    },
+    {
       "path": "pages/settings/index",
       "style": {
         "navigationBarTitleText": "AI 配置"
       }
-    },
-    {
-      "path": "pages/history/list"
     }
   ],
   "globalStyle": {
@@ -67,5 +80,15 @@
     "backgroundColor": "#FFFFFF",
     "navigationStyle": "custom",
     "enablePullDownRefresh": false
+  },
+  "condition": {
+    "current": 0,
+    "list": [
+      {
+        "name": "",
+        "path": "",
+        "query": ""
+      }
+    ]
   }
 }

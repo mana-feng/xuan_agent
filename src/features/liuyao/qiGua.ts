@@ -1,4 +1,4 @@
-import { Solar } from 'lunar-javascript';
+import { resolveCalendar, calendarValues, type CalendarOptions } from '@/utils/calendarContext';
 
 /**
  * 数字起卦
@@ -38,10 +38,13 @@ export function numberQiGua(num1: number, num2: number, num3: number | null = nu
 /**
  * 时间起卦 (修正为农历日期 + 干支时辰)
  */
-export function timeQiGua(date?: Date) {
+export function timeQiGua(date?: Date, options: CalendarOptions = {}) {
 	const d = date || new Date();
-	const solar = Solar.fromDate(d);
-	const lunar = solar.getLunar();
+	const context = resolveCalendar(d.getTime(), 'liuyao', options);
+	const { solar, lunar: birthLunar, eightChar } = calendarValues(context);
+	let lunar = birthLunar;
+	// A selected 23:00 boundary advances the whole lunar date used for casting.
+	if (context.rules.dayDivide === 'zi' && solar.getHour() === 23) lunar = solar.next(1).getLunar();
 	const mod = (value: number, base: number) => ((value % base) + base) % base;
 
 	const zhiMap: Record<string, number> = {
@@ -50,14 +53,14 @@ export function timeQiGua(date?: Date) {
 	};
 
 	const yearZhi = String(
-		typeof (lunar as any).getEightChar === 'function'
-			? (lunar as any).getEightChar().getYearZhi()
+			context.rules.yearDivide === 'lichun'
+			? eightChar.getYearZhi()
 			: (lunar as any).getYearZhi?.()
 	);
 	const yearNum = zhiMap[yearZhi] || 1;
 	const rawMonth = lunar.getMonth();
 	const isLeapMonth = typeof (lunar as any).isLeap === 'function' ? (lunar as any).isLeap() : rawMonth < 0;
-	const monthNum = isLeapMonth ? Math.abs(rawMonth) + 12 : Math.abs(rawMonth);
+	const monthNum = isLeapMonth && context.rules.leapMonth === 'add-twelve' ? Math.abs(rawMonth) + 12 : Math.abs(rawMonth);
 	const dayNum = lunar.getDay();
 
 	const hourZhi = lunar.getTimeZhi();

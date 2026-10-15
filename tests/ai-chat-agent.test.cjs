@@ -8,7 +8,7 @@ const { useZiweiStore } = require('../src/store/ziwei.ts');
 const { useAgentPage } = require('../src/features/agent/useAgentPage.ts');
 const { extractAgentAction, extractChartPayloadFromText } = require('../src/features/agent/runtime.ts');
 let platform; const originalFetch = global.fetch;
-const baziInput = { realname: '八字盘主甲', timestamp: new Date(1998, 7, 12, 9).getTime(), gender: 0, recordId: 11 };
+const baziInput = { timeZone: 'Asia/Shanghai', realname: '八字盘主甲', timestamp: new Date(1998, 7, 12, 9).getTime(), gender: 0, recordId: 11 };
 const ziweiInput = { realname: '紫微盘主乙', timestamp: new Date(1996, 2, 21, 18, 30).getTime(), gender: 1, recordId: 22 };
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });
 afterEach(() => { global.fetch = originalFetch; });

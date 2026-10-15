@@ -5,6 +5,7 @@ import progress from "vite-plugin-progress";
 
 export default defineConfig(() => {
 	return {
+		optimizeDeps: { include: ["qimen-engine"] },
 		server: {
 			port: 3050,
 			host: "0.0.0.0",
@@ -18,6 +19,7 @@ export default defineConfig(() => {
 		},
 		resolve: {
 			alias: {
+				"qimen-engine": path.resolve(__dirname, "vendor/qfdk-qimen/lib/qimen.js"),
 				"@": path.resolve(__dirname, "src"),
 			},
 		},
@@ -44,6 +46,7 @@ export default defineConfig(() => {
 			},
 		},
 		build: {
+			commonjsOptions: { include: [/node_modules/, /vendor[\\/]qfdk-qimen/] },
 			sourcemap: false,
 			cssCodeSplit: true,
 			minify: "terser",

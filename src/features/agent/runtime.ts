@@ -24,6 +24,8 @@ export function buildAgentSystemPrompt(contextItems: string[]) {
 <!--AGENT_ACTION:{"type":"focus_ziwei_palace","label":"查看事业宫","reason":"当前已有紫微盘，可继续聚焦宫位","payload":{"palace":"事业宫"}}-->
 - 只打开某个页面：
 <!--AGENT_ACTION:{"type":"navigate","target":"bazi","label":"打开八字排盘","reason":"还缺少出生时辰"}-->
+奇门起局使用同一导航动作，由用户在页面确认参数：
+<!--AGENT_ACTION:{"type":"navigate","target":"qimen","label":"打开奇门起局","reason":"请在页面确认起局时间和问题"}-->
 - 不执行动作：
 <!--AGENT_ACTION:{"type":"none"}-->
 2. 只有当你同时确定以下信息时，才能使用 run_bazi_chart 或 run_ziwei_chart：
@@ -33,7 +35,7 @@ export function buildAgentSystemPrompt(contextItems: string[]) {
 3. run_liuyao_chart 只适用于具体事件、短期判断、单题占问。payload.title 必填；如果用户没有明确给出时间，可以省略 date/time，系统会使用当前本地时间起卦。
 4. focus_ziwei_palace 只适用于当前上下文里已经存在紫微盘，并且宫位必须明确，例如命宫、夫妻宫、事业宫、财运宫、交友宫。
 5. 如果用户只给了农历、只给了年份、缺少时辰、性别不明确、时间含糊，禁止编造出生数据；这时必须改用 navigate 或 none。
-6. 八字适合命盘总览、长期运势、大运流年；紫微适合命盘结构、宫位主题、人生画像；六爻适合具体事件和短期占问。
+6. 八字适合命盘总览、长期运势、大运流年；紫微适合命盘结构、宫位主题、人生画像；六爻适合具体事件和短期占问；奇门适合事件时机、时空方位和行动筹划，只能通过 navigate 打开起局页面，不支持自动起局。navigate 的 target 仅可为 bazi、liuyao、ziwei、qimen、history。
 7. 回复正文请使用中文，结构固定为“推荐工具 / 原因 / 下一步”，控制在 160 字以内，直接说明你将执行什么，或还缺什么信息。
 8. 动作指令必须单独一行，不能放进代码块，不能输出多余 JSON。
 
@@ -273,6 +275,8 @@ export function defaultActionLabel(target: AgentTarget) {
 		return '打开六爻排盘';
 	case 'ziwei':
 		return '打开紫微排盘';
+	case 'qimen':
+		return '打开奇门起局';
 	case 'history':
 		return '打开历史记录';
 	default:
@@ -319,6 +323,14 @@ export function detectNamedTarget(text: string): AgentTarget | null {
 
 	if (normalized.includes('历史') || normalized.includes('记录') || normalized.includes('history')) {
 		return 'history';
+	}
+
+	const namedToolCount = [/奇门|qimen/, /紫微|ziwei/, /六爻|liuyao/, /八字|bazi/]
+		.filter((pattern) => pattern.test(normalized)).length;
+	if (namedToolCount > 1) return null;
+
+	if (normalized.includes('奇门') || normalized.includes('qimen')) {
+		return 'qimen';
 	}
 
 	if (
@@ -445,9 +457,20 @@ export function inferAction(
 ): AgentAction {
 	const combinedText = `${inputText}\n${replyText}`;
 	const palaceName = extractZiweiPalaceName(combinedText);
-	const target = detectNamedTarget(combinedText);
+	const target = detectNamedTarget(inputText) || detectNamedTarget(combinedText);
+	if (!target) return { type: 'none' };
+
 	const birthPayload = extractChartPayloadFromText(inputText);
 	const liuyaoPayload = extractLiuyaoPayloadFromText(inputText);
+
+	if (target === 'qimen') {
+		return {
+			type: 'navigate',
+			target: 'qimen',
+			label: defaultActionLabel('qimen'),
+			reason: '请先打开奇门起局页面，确认起局时间与问题后再排盘。',
+		};
+	}
 
 	if (birthPayload && target === 'bazi') {
 		return {
@@ -552,6 +575,7 @@ function getExplicitInputPageTarget(inputText: string): Exclude<AgentTarget, 'hi
 		['bazi', /八字|四柱|\bbazi\b/i],
 		['liuyao', /六爻|\bliuyao\b/i],
 		['ziwei', /紫微|紫薇|\bziwei\b/i],
+		['qimen', /奇门|\bqimen\b/i],
 	];
 	for (const clause of text.split(/[，,。；;\n]/)) {
 		const verb = /打开|进入|前往|带我(?:去|到)/.exec(clause);
@@ -660,7 +684,7 @@ export function extractAgentAction(
 
 	const requestedPage = getExplicitInputPageTarget(inputText);
 	if (requestedPage && parsedAction.type !== 'none') {
-		const name = { bazi: '八字', liuyao: '六爻', ziwei: '紫微' }[requestedPage];
+		const name = { bazi: '八字', liuyao: '六爻', ziwei: '紫微', qimen: '奇门' }[requestedPage];
 		const conflict = parsedAction.type !== 'navigate' || parsedAction.target !== requestedPage;
 		const label = `打开${name}排盘输入页`;
 		return {

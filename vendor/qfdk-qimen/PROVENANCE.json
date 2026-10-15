@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/qfdk/qimen",
+  "commit": "1d0d1c5b39755e67525a11e68bab9b73baae1937",
+  "retrievedOn": "2026-10-12",
+  "license": "MIT, as stated in the upstream LICENSE file retained verbatim here. Upstream package.json says ISC; its conflicting metadata was not copied.",
+  "scope": "Seven core lib JavaScript files. Upstream web application, localtime helper, and tests are not runtime dependencies.",
+  "patchVersion": "xuan-1",
+  "patches": [
+    "Accept an explicit lunar-javascript Solar calendar object; the adapter supplies fixed UTC+08:00 civil components instead of host-local Date.",
+    "Use getPrevJieQi(false) for the actual solar-term instant rather than treating the entire calendar day as the new term.",
+    "Use exact LiChun year/month and 23:00 day pillars; align day yuan and day xun with the same day boundary.",
+    "Count ZhiShi from the original xun-head palace, including center five; only lodge a resulting center palace into Kun two after counting."
+  ],
+  "rule": "时家转盘·符头拆补 / 23:00 换日 / 北京时间 UTC+08:00 / 中五寄坤二、天禽随芮",
+  "ruleNaming": "Upstream README calls its method 茅山 and a test comment calls it 置闰. This adapter names the actual fu-tou / term-table implementation, not those conflicting labels.",
+  "validation": "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/report.html",
+  "hashes": [
+    "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/upstream-sha256.json",
+    "https://github.com/mana-feng/xuan_agent/blob/16ccd70400c0d8dc1d893698a15b5e559f338a8e/docs/algorithm-audit/patched-sha256.json"
+  ],
+  "knownLimits": "No true solar time; no flying-plate, zhiyin leap insertion, or alternative school comparison. Upstream maturity and passing invariants alone are not independent correctness proof."
+}

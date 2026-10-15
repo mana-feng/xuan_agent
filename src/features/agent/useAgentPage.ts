@@ -180,9 +180,9 @@ export function useAgentPage() {
 
 	function initializePage() {
 		configured.value = hasAiConfig();
-		baziStore.restoreLastContext();
+		baziStore.restoreInput();
 		baziStore.ensureComputed();
-		ziweiStore.restoreLastContext();
+		ziweiStore.restoreInput();
 		ziweiStore.ensureComputed();
 		liuyaoStore.restoreLastResult();
 		ensureSeedMessage();

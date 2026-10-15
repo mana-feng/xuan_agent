@@ -1,6 +1,7 @@
 // Application-used API surface, verified against lunar-javascript 1.7.7.
 declare module 'lunar-javascript' {
 	export class Solar {
+		static fromYmdHms(year: number, month: number, day: number, hour: number, minute: number, second: number): Solar;
 		static fromDate(date: Date): Solar;
 		static fromYmd(year: number, month: number, day: number): Solar;
 		static fromJulianDay(julianDay: number): Solar;
@@ -24,12 +25,16 @@ declare module 'lunar-javascript' {
 	}
 
 	export class LunarMonth {
+		static fromYm(year: number, month: number): LunarMonth | null;
+		getDayCount(): number;
 		getMonth(): number;
 		getFirstJulianDay(): number;
 		isLeap(): boolean;
 	}
 
 	export class Lunar {
+		static fromYmd(year: number, month: number, day: number): Lunar;
+		getSolar(): Solar;
 		static fromDate(date: Date): Lunar;
 		getYear(): number;
 		getMonth(): number;

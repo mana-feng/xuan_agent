@@ -1,209 +1,272 @@
 <template>
 	<tm-app>
-		<view class="app-shell">
-			<yx-nav-header></yx-nav-header>
-			<view class="app-main">
-					<view class="page-shell">
-					<view class="page-card history-card theme-card-glass">
-						<view class="page-title-wrapper history-header">
-							<view class="form-header-icon">
-								<tm-icon name="tmicon-md-time" :font-size="40" color="#667eea"></tm-icon>
-							</view>
-							<view class="form-header-text">
-								<h1 class="page-title">历史排盘</h1>
-								<p class="page-subtitle">查看、筛选并管理已保存的排盘</p>
-							</view>
-							<view class="header-actions">
-								<yx-teal-button
-									size="small"
-									:round="12"
-									:padding="[18, 18]"
-									icon="tmicon-md-refresh"
-									label="刷新"
-									@tap="fetchCharts"
-								></yx-teal-button>
-							</view>
-						</view>
-
-						<view class="section filters-card">
-								<header class="section__header">
-									<tm-icon name="tmicon-md-search" :font-size="26" color="#667eea"></tm-icon>
-									<h2 class="section__title">筛选与排序</h2>
-								</header>
-								<view class="section__body filters-grid">
-									<view class="filter-block search-block">
-										<tm-input
-											v-model="searchKeyword"
-											prefix="tmicon-md-search"
-											placeholder="搜索姓名..."
-											clearable
-											:round="12"
-											:border="1"
-											@input="onSearchInput"
-										></tm-input>
-									</view>
-									<view class="filter-block">
-										<tm-text :font-size="22" color="#666666" label="性别：" class="mb-6"></tm-text>
-										<tm-radio-group v-model="genderFilter">
-											<tm-radio label="全部" :value="''"></tm-radio>
-											<tm-radio label="男" :value="'0'"></tm-radio>
-											<tm-radio label="女" :value="'1'"></tm-radio>
-										</tm-radio-group>
-									</view>
-									<view class="filter-block">
-										<tm-text :font-size="22" color="#666666" label="排序：" class="mb-6"></tm-text>
-										<tm-segtab
-											v-model="sortByIndex"
-											:list="[
-												{ text: '时间' },
-												{ text: '姓名' }
-											]"
-											:margin="[0, 0]"
-											:width="260"
-										></tm-segtab>
-									</view>
-									<view class="filter-actions">
-										<yx-teal-button
-											size="small"
-											:padding="[16, 14]"
-											:round="12"
-											:label="sortOrder === 'DESC' ? '↓ 降序' : '↑ 升序'"
-											@tap="toggleSortOrder"
-										></yx-teal-button>
-										<yx-teal-button
-											v-if="searchKeyword || genderFilter"
-											size="small"
-											:padding="[16, 14]"
-											:round="12"
-											label="清除筛选"
-											@tap="clearFilters"
-										></yx-teal-button>
-										<tm-text
-											v-if="totalCount > 0"
-											class="filters-count"
-											:font-size="22"
-											color="#999999"
-											:label="`共找到${totalCount} 条记录`"
-										></tm-text>
-									</view>
-								</view>
-							</view>
-
-							<view v-if="loading" class="py-20 text-center">
-								<tm-text label="加载中..." color="#999999"></tm-text>
-							</view>
-							<view v-else-if="charts.length === 0" class="py-20 text-center">
-								<tm-text 
-									:label="searchKeyword || genderFilter ? '未找到符合条件的记录' : '暂无保存记录，可在排盘结果页点击「保存」哦'" 
-									color="#999999"
-								></tm-text>
-							</view>
-							<view v-else class="records-list">
-								<tm-sheet
-									v-for="item in charts"
-									:key="(item.type || 'bazi') + ':' + item.id"
-									:round="16"
-									:shadow="2"
-									:margin="[0, 0]"
-									:padding="[24, 20]"
-									class="record-card"
-								>
-									<view class="record-card__header">
-										<view class="record-meta">
-											<tm-text
-												:bold="true"
-												:font-size="30"
-												color="#2d3748"
-												:label="item.title || '未命名'"
-												_class="text-overflow-1"
-											></tm-text>
-											<tm-text
-												class="mt-6"
-												:font-size="26"
-												color="#718096"
-												:label="formatBirth(item) || ''"
-												_class="text-overflow-1"
-											></tm-text>
-											<view class="record-meta__row">
-												<tm-text
-													:font-size="22"
-													color="#a0aec0"
-													:label="getTypeLabel(item.type)"
-												></tm-text>
-												<tm-text
-													:font-size="22"
-													color="#a0aec0"
-													:label="'保存时间：' + (item.createdAtLabel || '')"
-												></tm-text>
-												<tm-text
-													v-if="item.gender !== null && item.gender !== undefined"
-													class="ml-12"
-													:font-size="22"
-													color="#a0aec0"
-													:label="getGenderDisplayLabel(item.gender)"
-												></tm-text>
-											</view>
-										</view>
-										<view class="record-actions">
-											<yx-teal-button
-												size="mini"
-												:padding="[12, 16]"
-												:round="12"
-												label="查看"
-												@tap="openChart(item)"
-											></yx-teal-button>
-											<yx-teal-button
-												size="mini"
-												:padding="[12, 16]"
-												:round="12"
-												label="删除"
-												@tap="removeChart(item)"
-											></yx-teal-button>
-										</view>
-									</view>
-								</tm-sheet>
-							</view>
-							<view v-if="error" class="mt-10">
-								<tm-text :label="error" color="red"></tm-text>
-							</view>
+		<PageScaffold
+			class="page-history"
+			title="每一次探索，都有迹可循"
+			subtitle="回到曾经的问题，也许会有新的理解。查看并管理保存在本机中的命盘。"
+			card-class="history-card"
+		>
+			<template #header-extra>
+				<button
+					v-bind="h5Button(fetchCharts, loading)"
+					class="history-button"
+					:disabled="loading"
+					@tap="fetchCharts"
+				>
+					{{ loading ? '正在刷新…' : '刷新记录' }}
+				</button>
+			</template>
+			<view class="history-content">
+				<view class="history-toolbar">
+					<view class="search-box">
+						<text class="search-symbol" aria-hidden="true">⌕</text>
+						<input
+							v-model="searchKeyword"
+							class="history-search-field"
+							aria-label="搜索姓名或主题"
+							placeholder="搜索姓名或起卦主题"
+							@input="onSearchInput"
+						/>
+						<button
+							v-bind="
+								h5Button(() => {
+									searchKeyword = '';
+									onSearchInput();
+								})
+							"
+							v-if="searchKeyword"
+							class="search-clear"
+							aria-label="清除搜索"
+							@tap="
+								searchKeyword = '';
+								onSearchInput();
+							"
+						>
+							×
+						</button>
+					</view>
+					<view class="sort-controls">
+						<button
+							v-bind="h5Button(() => (sortByIndex = sortByIndex === 0 ? 1 : 0))"
+							class="history-button"
+							@tap="sortByIndex = sortByIndex === 0 ? 1 : 0"
+						>
+							{{ sortByIndex === 0 ? '按保存时间' : '按姓名主题' }}
+						</button>
+						<button
+							v-bind="h5Button(toggleSortOrder)"
+							class="history-button"
+							@tap="toggleSortOrder"
+						>
+							{{ sortOrder === 'DESC' ? '↓ 降序' : '↑ 升序' }}
+						</button>
 					</view>
 				</view>
+				<view class="filter-toolbar">
+					<view class="history-filters" role="group" aria-label="排盘类型">
+						<button
+							v-bind="h5Button(() => selectType('all'))"
+							class="filter"
+							:class="{ active: typeFilter === 'all' }"
+							:aria-pressed="typeFilter === 'all'"
+							@tap="selectType('all')"
+						>
+							全部
+						</button>
+						<button
+							v-bind="h5Button(() => selectType(type))"
+							v-for="type in chartTypes"
+							:key="type"
+							class="filter"
+							:class="{ active: typeFilter === type }"
+							:aria-pressed="typeFilter === type"
+							@tap="selectType(type)"
+						>
+							{{ chartTypeLabels[type] }}
+						</button>
+					</view>
+					<view v-if="typeFilter !== 'qimen'" class="gender-filters" role="group" aria-label="性别筛选">
+						<text class="gender-label">性别</text>
+						<button
+							v-bind="h5Button(() => (genderFilter = ''))"
+							class="filter small"
+							:class="{ active: genderFilter === '' }"
+							:aria-pressed="genderFilter === ''"
+							@tap="genderFilter = ''"
+						>
+							全部
+						</button>
+						<button
+							v-bind="h5Button(() => (genderFilter = '0'))"
+							class="filter small"
+							:class="{ active: genderFilter === '0' }"
+							:aria-pressed="genderFilter === '0'"
+							@tap="genderFilter = '0'"
+						>
+							男
+						</button>
+						<button
+							v-bind="h5Button(() => (genderFilter = '1'))"
+							class="filter small"
+							:class="{ active: genderFilter === '1' }"
+							:aria-pressed="genderFilter === '1'"
+							@tap="genderFilter = '1'"
+						>
+							女
+						</button>
+					</view>
+				</view>
+				<view class="history-panel" :aria-busy="loading">
+					<view v-if="loading" class="history-state compact" role="status">
+						<text class="state-symbol">◌</text>
+						<p>正在读取保存记录…</p>
+					</view>
+					<view v-else-if="error && !charts.length" class="history-state compact" role="alert">
+						<h2>暂时无法读取记录</h2>
+						<p>{{ error }}</p>
+						<button v-bind="h5Button(fetchCharts)" class="history-button" @tap="fetchCharts">
+							重新加载
+						</button>
+					</view>
+					<view v-else-if="!charts.length" class="history-state compact">
+						<text class="state-symbol">◇</text>
+						<h2>
+							{{
+								searchKeyword || genderFilter || typeFilter !== 'all'
+									? '没有找到相关记录'
+									: '你的探索，从这里开始'
+							}}
+						</h2>
+						<p>
+							{{
+								searchKeyword || genderFilter || typeFilter !== 'all'
+									? '试试其他关键词、性别或排盘类型。'
+									: '完成排盘后，点击「保存到本机」，就能在这里再次打开。'
+							}}
+						</p>
+						<button
+							v-bind="h5Button(clearFilters)"
+							v-if="searchKeyword || genderFilter || typeFilter !== 'all'"
+							class="history-button"
+							@tap="clearFilters"
+						>
+							清除筛选
+						</button>
+						<button
+							v-bind="h5Button(goToHome)"
+							v-else
+							class="history-button primary"
+							@tap="goToHome"
+						>
+							开始探索
+						</button>
+					</view>
+					<view v-else class="records-list">
+						<view v-for="item in visibleCharts" :key="item.type + ':' + item.id" class="record-row">
+							<button
+								v-bind="h5Button(() => openChart(item))"
+								class="record-open"
+								:aria-label="'查看' + (item.title || '未命名命盘')"
+								@tap="openChart(item)"
+							>
+								<text class="record-symbol" aria-hidden="true">
+									{{ item.type === 'qimen' ? '▦' : item.type === 'liuyao' ? '☷' : item.type === 'ziwei' ? '✦' : '八' }}
+								</text>
+								<view class="record-main">
+									<text class="record-name">{{ item.title || '未命名命盘' }}</text>
+									<text class="record-subtitle">
+										{{ formatBirth(item)
+										}}{{ item.gender != null ? ' · ' + getGenderDisplayLabel(item.gender) : '' }}
+									</text>
+								</view>
+								<text class="record-type">{{ chartTypeLabels[item.type || 'bazi'] }}</text>
+								<text class="record-date">
+									{{ item.createdAtLabel || formatDateTime(item.createdAt) }}
+								</text>
+								<text class="record-arrow" aria-hidden="true">›</text>
+							</button>
+							<button
+								v-bind="h5Button(() => removeChart(item))"
+								class="record-delete"
+								:aria-label="'删除' + (item.title || '未命名命盘')"
+								@tap="removeChart(item)"
+							>
+								删除
+							</button>
+						</view>
+					</view>
+				</view>
+				<view v-if="error && charts.length" class="history-error" role="alert">{{ error }}</view>
+				<view v-if="!loading && charts.length" class="history-bottom">
+					<text class="history-count" aria-live="polite">
+						共 {{ totalCount }} 条记录 · 第 {{ currentPage }} / {{ totalPages }} 页
+					</text>
+					<view class="pagination">
+						<button
+							v-bind="h5Button(() => changePage(currentPage - 1), currentPage <= 1)"
+							class="history-button"
+							:disabled="currentPage <= 1"
+							@tap="changePage(currentPage - 1)"
+						>
+							上一页
+						</button>
+						<button
+							v-bind="h5Button(() => changePage(currentPage + 1), currentPage >= totalPages)"
+							class="history-button"
+							:disabled="currentPage >= totalPages"
+							@tap="changePage(currentPage + 1)"
+						>
+							下一页
+						</button>
+					</view>
+				</view>
+				<button
+					v-bind="h5Button(clearFilters)"
+					v-if="charts.length && (searchKeyword || genderFilter || typeFilter !== 'all')"
+					class="clear-filters"
+					@tap="clearFilters"
+				>
+					清除筛选
+				</button>
 			</view>
-		</view>
+		</PageScaffold>
+		<LegacyZoneDialog v-if="pendingLegacyChart" @close="pendingLegacyChart = null" @confirm="confirmLegacyZone" />
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
-import { useUserStore } from '@/store/user';
-import { useBaziStore } from '@/store/bazi';
-import { useLiuyaoStore } from '@/store/liuyao';
-import { useZiweiStore } from '@/store/ziwei';
-import { readChartRecords, removeChartRecord, type ChartType } from '@/utils/localChartRecords';
 import { chartTimestamp } from '@/utils/chartContext';
-import { compileNajia, buildDisplayData } from '@/features/liuyao/najiaCore';
-import { Solar } from 'lunar-javascript';
+import { h5Button } from '@/utils/keyboard';
+import { ref, computed, onMounted, watch } from 'vue';
+import { onLoad, onShow } from '@dcloudio/uni-app';
+import PageScaffold from '@/components/layout/PageScaffold.vue';
+import { openSavedChart, chartTypes, chartTypeLabels, type ChartType, type ChartItem } from '@/features/history/savedCharts';
+import LegacyZoneDialog from '@/components/form/LegacyZoneDialog.vue';
+import { formatCalendarHistoryTime } from '@/features/history/formatCalendarHistoryTime';
+const pendingLegacyChart = ref<ChartItem | null>(null);
+function confirmLegacyZone(zone: string) {
+	const item = pendingLegacyChart.value;
+	if (!item) return;
+	const result = openSavedChart(item, zone);
+	if (!result?.needsTimeZone) pendingLegacyChart.value = null;
+}
+import { formatQimenHistoryTime } from '@/features/history/formatQimenHistoryTime';
+import { useUserStore } from '@/store/user';
+import { request } from '@/services/localRecords';
 import utils from '@/libs/utils/utils';
 
-interface ChartItem {
-	id: number;
-	title: string;
-	gender?: string | null;
-	birthDatetime: string | number;
-	createdAt: string;
-	createdAtLabel?: string;
-	type?: string;
-	rawPayload?: any;
-}
-
 const user_store = useUserStore();
-const bazi_store = useBaziStore();
 
 const charts = ref<ChartItem[]>([]);
 const loading = ref(false);
 const error = ref('');
 const totalCount = ref(0);
+const typeFilter = ref<ChartType | 'all'>('all');
+const currentPage = ref(1);
+const pageSize = 12;
+const totalPages = computed(() => Math.max(1, Math.ceil(charts.value.length / pageSize)));
+const visibleCharts = computed(() => charts.value.slice((currentPage.value - 1) * pageSize, currentPage.value * pageSize));
+let latestRequest = 0;
 
 const searchKeyword = ref('');
 const genderFilter = ref('');
@@ -213,30 +276,41 @@ const sortOrder = ref<'ASC' | 'DESC'>('DESC');
 
 let searchTimer: any = null;
 
+const isLoggedIn = computed(() => user_store.isLoggedIn);
+
 function getGenderDisplayLabel(gender: any): string {
+	// 数据库存储：'0'=男，'1'=女
+	// 前端显示：0=男，1=女
 	if (gender === '0' || gender === 0) {
 		return '男';
 	} else if (gender === '1' || gender === 1) {
 		return '女';
 	} else {
+		console.warn('[WARN] 未知的 gender 值:', gender);
 		return '未知';
 	}
 }
 
-function getTypeLabel(type?: string): string {
-	const map: Record<string, string> = { bazi: '八字', ziwei: '紫微', liuyao: '六爻' };
-	return map[type || 'bazi'] || '八字';
-}
-
 watch([genderFilter, sortByIndex, sortOrder], () => {
-	fetchCharts();
+	if (user_store.isLoggedIn) {
+		// 延迟一下，确保 token 已刷新
+		setTimeout(() => {
+			fetchCharts();
+		}, 100);
+	}
 });
 
 onMounted(() => {
-	fetchCharts();
+	user_store.restoreAuth();
+	// 延迟一下，确保 token 已恢复
+	setTimeout(() => {
+		if (user_store.isLoggedIn) {
+			fetchCharts();
+		}
+	}, 100);
 });
 
-onShow(fetchCharts);
+onShow(() => { void fetchCharts(); });
 
 function onSearchInput() {
 	if (searchTimer) {
@@ -251,60 +325,85 @@ function toggleSortOrder() {
 	sortOrder.value = sortOrder.value === 'DESC' ? 'ASC' : 'DESC';
 }
 
+function selectType(type: ChartType | 'all') {
+	typeFilter.value = type;
+	if (type === 'qimen') genderFilter.value = '';
+	return fetchCharts();
+}
+
+function changePage(page: number) {
+	currentPage.value = Math.max(1, Math.min(totalPages.value, page));
+}
+
 function clearFilters() {
 	searchKeyword.value = '';
 	genderFilter.value = '';
+	typeFilter.value = 'all';
 	sortByIndex.value = 0;
 	sortOrder.value = 'DESC';
 	fetchCharts();
 }
 
 async function fetchCharts() {
+	if (!user_store.isLoggedIn) {
+		return;
+	}
+
 	loading.value = true;
 	error.value = '';
+	currentPage.value = 1;
+	const requestId = ++latestRequest;
 
 	try {
-		const baziRecords = readChartRecords('bazi');
-		const ziweiRecords = readChartRecords('ziwei');
-		const liuyaoRecords = readChartRecords('liuyao');
-
-		baziRecords.forEach(r => { if (!r.type) r.type = 'bazi'; });
-		ziweiRecords.forEach(r => { r.type = 'ziwei'; });
-		liuyaoRecords.forEach(r => { r.type = 'liuyao'; });
-
-		let filtered = [...baziRecords, ...ziweiRecords, ...liuyaoRecords];
-
+		const params: Record<string, string> = {};
 		if (searchKeyword.value) {
-			const kw = searchKeyword.value.trim().toLowerCase();
-			filtered = filtered.filter(r => (r.title || '').toLowerCase().includes(kw));
+			params.keyword = searchKeyword.value;
 		}
-
 		if (genderFilter.value) {
-			filtered = filtered.filter(r => String(r.gender) === genderFilter.value);
+			params.gender = genderFilter.value;
+		}
+		if (sortBy.value) {
+			params.sortBy = sortBy.value as string;
+		}
+		if (sortOrder.value) {
+			params.sortOrder = sortOrder.value;
 		}
 
-		if (sortBy.value === 'name') {
-			filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-		} else {
-			filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-		}
+		const queryString = Object.keys(params)
+			.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+			.join('&');
 
-		if (sortOrder.value === 'DESC') {
-			filtered.reverse();
-		}
-
-		charts.value = filtered.map(it => ({
-			...it,
-			createdAtLabel: formatDateTime(it.createdAt || '')
+		const requestedTypes = typeFilter.value === 'all' ? chartTypes : [typeFilter.value];
+		const results = await Promise.all(requestedTypes.map(async type => {
+			const res = await request(`/records/charts?type=${type}` + (queryString ? '&' + queryString : ''), {
+				method: 'GET',
+			});
+			if (res.success === false) throw new Error(res.error || '获取失败，请稍后重试');
+			const data = res.data || res;
+			const list = Array.isArray(data) ? data : data.list || [];
+			return list.map((item: ChartItem) => ({
+				...item,
+				type,
+				createdAtLabel: formatDateTime(item.createdAt || '')
+			}));
 		}));
+		if (requestId !== latestRequest) return;
+		const direction = sortOrder.value === 'ASC' ? 1 : -1;
+		charts.value = results.flat().sort((a: ChartItem, b: ChartItem) => {
+			const comparison = sortBy.value === 'name'
+				? (a.title || '').localeCompare(b.title || '', 'zh-CN')
+				: (new Date(a.createdAt).getTime() || 0) - (new Date(b.createdAt).getTime() || 0);
+			return comparison * direction;
+		});
 		totalCount.value = charts.value.length;
 	} catch (e: any) {
+		if (requestId !== latestRequest) return;
 		console.error('获取历史记录失败:', e);
-		error.value = '读取本地记录失败';
+		error.value = e?.error || e?.message || '本地存储失败，请检查浏览器存储空间';
 		charts.value = [];
 		totalCount.value = 0;
 	} finally {
-		loading.value = false;
+		if (requestId === latestRequest) loading.value = false;
 	}
 }
 
@@ -325,14 +424,15 @@ function formatDateTime(iso: string) {
 }
 
 function formatBirth(item: ChartItem) {
-	if (!item) return '';
+	if (!item || !item.birthDatetime) return '';
+	if (item.type === 'qimen') return formatQimenHistoryTime(item.birthDatetime);
 	try {
-		const timestamp = chartTimestamp(item.birthDatetime);
-		if (timestamp === null) return '';
-		const d = new Date(timestamp);
+		const d = new Date(chartTimestamp(item.birthDatetime) ?? NaN);
 		if (isNaN(d.getTime())) {
 			return '';
 		}
+		const savedTime = formatCalendarHistoryTime(item);
+		if (savedTime !== null) return (item.type === 'liuyao' ? '起卦：' : '出生：') + savedTime;
 		const result = utils.HideSecond(d.getTime());
 		return result ? (item.type === 'liuyao' ? '起卦：' : '出生：') + result : '';
 	} catch (e) {
@@ -341,71 +441,7 @@ function formatBirth(item: ChartItem) {
 }
 
 function openChart(item: ChartItem) {
-	try {
-		if (item.type === 'ziwei') {
-			openZiweiChart(item);
-			return;
-		}
-		if (item.type === 'liuyao') {
-			openLiuyaoChart(item);
-			return;
-		}
-		openBaziChart(item);
-	} catch (e: any) {
-		uni.hideLoading();
-		uni.showToast({
-			title: '打开排盘记录失败：' + (e?.message || '未知错误'),
-			icon: 'none',
-			duration: 2000
-		});
-	}
-}
-
-function recordInput(item: ChartItem) {
-	const timestamp = chartTimestamp(item.birthDatetime);
-	if (timestamp === null) throw new Error('记录中的时间无效');
-	return { realname: item.title || '佚名', gender: Number(item.gender) === 1 ? 1 : 0, timestamp, recordId: item.id };
-}
-
-function openZiweiChart(item: ChartItem) {
-	const input = recordInput(item);
-	useZiweiStore().pull(input);
-	user_store.set(input);
-	const selection = item.rawPayload?.selection;
-	if (selection && ['origin', 'decadal', 'yearly', 'monthly', 'daily'].includes(selection.viewMode)) {
-		useZiweiStore().setTimelineSelection({ mode: selection.viewMode, date: selection.targetDate });
-	}
-	uni.navigateTo({ url: '/pages/ziwei/result' });
-}
-
-function openLiuyaoChart(item: ChartItem) {
-	const rp = item.rawPayload;
-	if (!rp) throw new Error('该记录缺少排盘数据');
-	const store = useLiuyaoStore();
-	if (rp.lite && Array.isArray(rp.params) && rp.params.length === 6) {
-		// Legacy saves used save time for options.date; profile retains the actual cast time.
-		const timestamp = chartTimestamp(rp.profile?.timeLabel) ?? chartTimestamp(rp.options?.date) ?? chartTimestamp(item.birthDatetime);
-		if (timestamp === null) throw new Error('起卦时间无效');
-		const date = new Date(timestamp);
-		const compiled = compileNajia(rp.params, { ...rp.options, date, solar: Solar.fromDate(date), guaci: true });
-		const display = buildDisplayData(compiled);
-		const profile = rp.profile || {
-			title: item.title, gender: Number(item.gender) === 1 ? '女' : '男', method: '历史记录',
-			dayGanZhi: compiled.dayGz, timeLabel: utils.HideSecond(timestamp), focus: item.title,
-		};
-		store.setResult({ compiled, display, profile, createdAt: rp.ts ?? Date.now(), recordId: item.id });
-	} else if (rp.profile && rp.compiled && rp.display) {
-		store.setResult({ compiled: rp.compiled, display: rp.display, profile: rp.profile, createdAt: rp.ts ?? Date.now(), recordId: item.id });
-	} else throw new Error('该记录数据格式无法恢复');
-	uni.navigateTo({ url: '/pages/liuyao/result' });
-}
-
-function openBaziChart(item: ChartItem) {
-	const input = recordInput(item);
-	// Recompute library objects and Yun data; serialized snapshots lose their methods.
-	bazi_store.pull(input);
-	user_store.set(input);
-	uni.navigateTo({ url: '/pages/index/detail' });
+	if (openSavedChart(item)?.needsTimeZone) pendingLegacyChart.value = item;
 }
 
 function removeChart(item: ChartItem) {
@@ -421,15 +457,28 @@ function removeChart(item: ChartItem) {
 }
 
 async function doRemove(item: ChartItem) {
+	if (!user_store.isLoggedIn) return;
+
 	try {
-		const type = (item.type || 'bazi') as ChartType;
-		removeChartRecord(type, item.id);
-		charts.value = charts.value.filter(c => c.id !== item.id || (c.type || 'bazi') !== type);
-		totalCount.value = charts.value.length;
-		uni.showToast({ title: '已删除', icon: 'none', duration: 1500 });
+		const res = await request(`/records/charts/${item.id}?type=${item.type || 'bazi'}`, {
+			method: 'DELETE',
+		});
+
+		if (res.success !== false) {
+			charts.value = charts.value.filter(c => c.id !== item.id || (c.type || 'bazi') !== (item.type || 'bazi'));
+			totalCount.value = charts.value.length;
+			changePage(currentPage.value);
+			uni.showToast({
+				title: '已删除',
+				icon: 'none',
+				duration: 1500
+			});
+		} else {
+			error.value = res.error || '删除失败，请稍后重试';
+		}
 	} catch (e: any) {
 		console.error('删除失败:', e);
-		error.value = '删除失败';
+		error.value = e?.error || '本地存储失败，请检查浏览器存储空间';
 	}
 }
 
@@ -438,319 +487,332 @@ function goToHome() {
 		url: '/pages/agent/index'
 	});
 }
+
+
 </script>
 
 <style scoped>
-.history-card {
+.history-content { display:flex; flex-direction:column; gap:20px; }
+.page-history {
+	color: var(--x-body);
+	font-family: var(--x-sans);
+}
+.history-button,
+.filter,
+.record-open,
+.record-delete,
+.search-clear,
+.clear-filters {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	line-height: 1.5;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+}
+button::after {
+	border: 0;
+}
+button:focus-visible {
+	outline: 2px solid var(--x-accent);
+	outline-offset: 3px;
+}
+.history-button {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	padding: 9px 17px;
+	border: 1px solid var(--x-line);
+	border-radius: 8px;
+	background: var(--x-paper);
+	color: var(--x-body);
+	font-size: 12px;
+	white-space: nowrap;
+}
+.history-button.primary {
+	color: white;
+	border-color: transparent;
+	background: var(--x-gradient);
+}
+.history-button:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+.history-toolbar,
+.filter-toolbar,
+.history-bottom {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
 }
-
-.history-card > view {
-	margin-bottom: 18px;
-}
-
-.history-card > view:last-child {
-	margin-bottom: 0;
-}
-
-.history-header {
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 12px;
-}
-
-.header-actions {
+.search-box {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	width: 100%;
-}
-
-.header-actions > view {
-	margin-right: 8px;
-	margin-bottom: 8px;
-}
-
-.header-actions > view:last-child {
-	margin-right: 0;
-}
-
-.filters-card {
-	background: #f9fafb;
-	border-radius: 16px;
-	border: 1px solid #edf2f7;
-}
-
-.filters-grid {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	gap: 12px;
-}
-
-.filters-grid > view {
-	width: 100%;
-	margin-right: 0;
-	margin-bottom: 0;
-}
-
-@media (min-width: 720px) {
-	.filters-grid {
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 0;
-	}
-
-	.filters-grid > view {
-		width: calc(50% - 6px);
-		margin-right: 12px;
-		margin-bottom: 12px;
-	}
-
-	.filters-grid > view:nth-child(2n) {
-		margin-right: 0;
-	}
-}
-
-:global(.layout-medium) .filters-grid,
-:global(.layout-wide) .filters-grid {
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0;
-}
-
-:global(.layout-medium) .filters-grid > view,
-:global(.layout-wide) .filters-grid > view {
-	width: calc(50% - 6px);
-	margin-right: 12px;
-	margin-bottom: 12px;
-}
-
-:global(.layout-medium) .filters-grid > view:nth-child(2n),
-:global(.layout-wide) .filters-grid > view:nth-child(2n) {
-	margin-right: 0;
-}
-
-.search-block {
-	width: 100%;
-	margin-right: 0;
-}
-
-.filter-block {
-	display: flex;
-	flex-direction: column;
-}
-
-.filter-block > view {
-	margin-bottom: 8px;
-}
-
-.filter-block > view:last-child {
-	margin-bottom: 0;
-}
-
-.filter-actions {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-}
-
-.filter-actions > view {
-	margin-right: 8px;
-	margin-bottom: 8px;
-}
-
-.filter-actions > view:last-child {
-	margin-right: 0;
-}
-
-.filters-count {
+	gap: 10px;
+	max-width: 580px;
 	flex: 1;
-	text-align: left;
+	padding: 0 16px;
+	min-height: 46px;
+	border: 1px solid var(--x-line);
+	border-radius: 9px;
+	background: var(--x-paper);
 }
-
-.records-list {
-	display: flex;
-	flex-direction: column;
+.search-box:focus-within {
+	border-color: var(--x-accent);
 }
-
-.records-list > view {
-	margin-bottom: 12px;
+.search-symbol {
+	color: var(--x-muted);
+	font-size: 24px;
 }
-
-.records-list > view:last-child {
-	margin-bottom: 0;
-}
-
-.record-card {
-	background: #ffffff;
-}
-
-.record-card__header {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	gap: 12px;
-}
-
-.record-card__header > view {
-	margin-right: 0;
-}
-
-.record-card__header > view:last-child {
-	margin-right: 0;
-}
-
-.record-meta {
+.history-search-field {
 	flex: 1;
+	min-width: 0;
+	font-size: 13px;
+	color: var(--x-ink);
 }
-
-.record-meta__row {
+.search-clear {
+	padding: 8px 4px;
+	font-size: 20px;
+	color: var(--x-muted);
+}
+.sort-controls,
+.pagination {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	margin-top: 8rpx;
-	flex-wrap: wrap;
-}
-
-.record-meta__row > view {
-	margin-right: 8rpx;
-	margin-bottom: 8rpx;
-}
-
-.record-meta__row > view:last-child {
-	margin-right: 0;
-}
-
-.record-actions {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	flex-wrap: wrap;
 	gap: 8px;
 }
-
-.record-actions > view {
-	margin-bottom: 0;
-	margin-right: 8px;
+.filter-toolbar {
+	flex-wrap: wrap;
+	margin: 3px 0 8px;
 }
-
-.record-actions > view:last-child {
-	margin-right: 0;
-}
-
-.empty-state {
+.history-filters,
+.gender-filters {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 80rpx 40rpx;
-	text-align: center;
-}
-
-.text-center {
-	text-align: center;
-}
-
-.announcement-list {
-	max-height: 60vh;
-	overflow-y: auto;
-}
-
-.announcement-modal .tm-text {
-	word-break: break-word;
-}
-
-.modal-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 12px;
-}
-
-@media (min-width: 900px) {
-	.history-header {
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.header-actions {
-		width: auto;
-		justify-content: flex-end;
-	}
-
-	.record-card__header {
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.record-card__header > view {
-		margin-right: 16px;
-	}
-
-	.record-actions {
-		flex-direction: column;
-		align-items: flex-end;
-		justify-content: center;
-		gap: 0;
-	}
-
-	.record-actions > view {
-		margin-right: 0;
-		margin-bottom: 8px;
-	}
-
-	.record-actions > view:last-child {
-		margin-bottom: 0;
-	}
-
-	.filters-count {
-		text-align: right;
-	}
-}
-
-:global(.layout-wide) .history-header {
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	gap: 4px;
 }
-
-:global(.layout-wide) .header-actions {
-	width: auto;
-	justify-content: flex-end;
+.gender-label {
+	margin-right: 5px;
+	color: var(--x-muted);
+	font-size: 11px;
 }
-
-:global(.layout-wide) .record-card__header {
+.filter {
+	padding: 8px 17px;
+	border-radius: 7px;
+	color: var(--x-muted);
+	font-size: 12px;
+}
+.filter.active {
+	color: var(--x-accent);
+	background: var(--x-tint);
+	font-weight: 600;
+}
+.filter.small {
+	padding: 6px 10px;
+	font-size: 11px;
+}
+.history-panel {
+	display: block;
+	padding: 0 24px;
+	background: var(--x-paper);
+	border: 1px solid var(--x-line);
+	border-radius: 14px;
+	min-width: 0;
+}
+.record-row {
+	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	align-items: center;
+	gap: 18px;
+	border-bottom: 1px solid var(--x-line);
 }
-
-:global(.layout-wide) .record-card__header > view {
-	margin-right: 16px;
+.records-list {
+	display: block;
 }
-
-:global(.layout-wide) .record-actions {
+.record-row:last-child {
+	border-bottom: 0;
+}
+.record-open {
+	display: grid;
+	grid-template-columns: 42px minmax(0, 1fr) 64px 120px 12px;
+	align-items: center;
+	flex: 1;
+	min-width: 0;
+	gap: 16px;
+	text-align: left;
+	padding: 22px 0;
+}
+.record-open:hover .record-name {
+	color: var(--x-accent);
+}
+.record-symbol {
+	display: grid;
+	place-items: center;
+	width: 38px;
+	height: 38px;
+	border: 1px solid var(--x-line);
+	border-radius: 10px;
+	color: var(--x-accent);
+	background: var(--x-gradient-soft);
+	font-size: 19px;
+}
+.record-main {
+	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
-	justify-content: center;
-	gap: 0;
+	gap: 5px;
+	min-width: 0;
 }
-
-:global(.layout-wide) .record-actions > view {
-	margin-right: 0;
-	margin-bottom: 8px;
+.record-name {
+	color: var(--x-ink);
+	font-size: 14px;
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-
-:global(.layout-wide) .record-actions > view:last-child {
-	margin-bottom: 0;
+.record-subtitle,
+.record-type,
+.record-date {
+	font-size: 11px;
+	color: var(--x-muted);
 }
-
-:global(.layout-wide) .filters-count {
+.record-subtitle {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.record-date {
 	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+.record-arrow {
+	color: var(--x-muted);
+	font-size: 20px;
+}
+.record-delete {
+	font-size: 11px;
+	color: var(--x-muted);
+	padding: 10px 2px;
+}
+.record-delete:hover {
+	color: #b54831;
+}
+.history-bottom {
+	padding: 4px 2px;
+}
+.history-count {
+	font-size: 11px;
+	color: var(--x-muted);
+}
+.clear-filters {
+	align-self: flex-start;
+	font-size: 12px;
+	color: var(--x-accent);
+}
+.history-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	min-height: 360px;
+	text-align: center;
+	padding: 32px 18px;
+	background: var(--x-gradient-soft);
+	border-radius: 14px;
+}
+.history-state.compact {
+	min-height: 260px;
+	background: transparent;
+}
+.state-symbol {
+	color: var(--x-accent);
+	font-size: 38px;
+}
+.history-state h2 {
+	margin: 0;
+	font-family: var(--x-serif);
+	font-size: 23px;
+	font-weight: 500;
+	color: var(--x-ink);
+}
+.history-state p {
+	margin: 0;
+	max-width: 500px;
+	font-size: 13px;
+	line-height: 1.8;
+	color: var(--x-muted);
+}
+.history-error {
+	display: block;
+	color: #a5432a;
+	font-size: 12px;
+	padding: 12px;
+	border-radius: 8px;
+	background: #fff5ee;
+}
+@media (max-width: 720px) {
+	.history-toolbar {
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	.search-box {
+		flex-basis: 100%;
+		max-width: none;
+	}
+	.history-toolbar .sort-controls {
+		margin-left: auto;
+	}
+	.history-panel {
+		padding: 0 15px;
+	}
+	.record-row {
+		gap: 10px;
+	}
+	.record-open {
+		grid-template-columns: 34px minmax(0, 1fr) 12px;
+		gap: 10px;
+		padding: 18px 0;
+	}
+	.record-symbol {
+		width: 32px;
+		height: 32px;
+	}
+	.record-type,
+	.record-date {
+		display: none;
+	}
+	.record-name {
+		font-size: 13px;
+	}
+	.record-subtitle {
+		font-size: 10px;
+	}
+	.filter {
+		padding: 8px 12px;
+	}
+	.history-button {
+		min-height: 36px;
+		padding: 8px 12px;
+		font-size: 11px;
+	}
+	.history-bottom {
+		flex-wrap: wrap;
+	}
+	.pagination {
+		margin-left: auto;
+	}
+	.history-state h2 {
+		font-size: 20px;
+	}
 }
 </style>

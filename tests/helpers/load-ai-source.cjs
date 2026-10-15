@@ -9,6 +9,7 @@ const originalResolve = Module._resolveFilename;
 const originalLoad = Module._load;
 let platform;
 Module._resolveFilename = function(request, parent, ...rest) {
+  if (request === 'qimen-engine') request = path.join(sourceRoot, '../vendor/qfdk-qimen/lib/qimen.js');
   if (request.startsWith('@/')) request = path.join(sourceRoot, request.slice(2));
   try { return originalResolve.call(this, request, parent, ...rest); }
   catch (error) {

@@ -1,4 +1,8 @@
 import type { Store } from 'pinia';
+import type { ChartInput } from '@/utils/chartInput';
+import { calculateZiweiHoroscope } from '@/utils/ziweiHoroscope';
+import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
+import { getZiweiBirthLunarYear, getZiweiDateForNominalAge, getZiweiLunarYearStart } from '@/utils/ziweiTimelineDates';
 
 type ViewMode = 'origin' | 'decadal' | 'yearly' | 'monthly' | 'daily';
 
@@ -9,7 +13,8 @@ interface UserStoreLike {
 }
 
 interface ZiweiStoreLike {
-	input: UserStoreLike;
+	calculation?: unknown;
+	input: ChartInput;
 	astrolabe: unknown | null;
 	viewMode: ViewMode;
 	targetDate: Date | string | number;
@@ -387,7 +392,7 @@ function resolveHoroscope(astrolabeObj: Record<string, unknown>, storeHoroscope:
 	const horoscopeFn = astrolabeObj.horoscope;
 	if (typeof horoscopeFn !== 'function') return null;
 	try {
-		return asObject((horoscopeFn as (date: Date) => unknown)(new Date(targetDate.getTime())));
+		return asObject(calculateZiweiHoroscope(astrolabeObj as unknown as IFunctionalAstrolabe, targetDate));
 	} catch (e) {
 		return null;
 	}
@@ -422,10 +427,12 @@ function buildFocusData(
 	let scopeSurrounded = null;
 	if (viewMode !== 'origin' && horoscopeObj && focusName) {
 		const surroundPalacesFn = horoscopeObj.surroundPalaces;
-		if (typeof surroundPalacesFn === 'function') {
+		const scopeName = asObject(horoscopeObj[viewMode])?.palaceNames;
+		const focusedScopeName = Array.isArray(scopeName) ? scopeName[focusPalaceIndex] : null;
+		if (typeof surroundPalacesFn === 'function' && typeof focusedScopeName === 'string') {
 			try {
 				scopeSurrounded = mapSurroundedPalaces(
-					(surroundPalacesFn as (name: string, scope: ViewMode) => unknown)(focusName, viewMode),
+					(surroundPalacesFn as (name: string, scope: ViewMode) => unknown)(focusedScopeName, viewMode),
 				);
 			} catch (e) {
 				scopeSurrounded = null;
@@ -524,7 +531,9 @@ function createHoroscopeGetter(
 	seedHoroscope: Record<string, unknown> | null,
 ) {
 	const cache = new Map<string, Record<string, unknown> | null>();
-	cache.set(toDateKey(seedDate), seedHoroscope);
+	// Daily anchors are midnight. A 23:00 seed belongs to the next calculation
+	// day and must not populate the previous day's midnight cache entry.
+	if (seedDate.getHours() === 0) cache.set(toDateKey(seedDate), seedHoroscope);
 
 	const horoscopeFn = astrolabeObj.horoscope;
 	return (date: Date): Record<string, unknown> | null => {
@@ -538,7 +547,7 @@ function createHoroscopeGetter(
 			return null;
 		}
 		try {
-			const horoscopeObj = asObject((horoscopeFn as (value: Date) => unknown)(new Date(normalized.getTime())));
+			const horoscopeObj = asObject(calculateZiweiHoroscope(astrolabeObj as unknown as IFunctionalAstrolabe, normalized));
 			cache.set(key, horoscopeObj);
 			return horoscopeObj;
 		} catch (e) {
@@ -550,39 +559,29 @@ function createHoroscopeGetter(
 
 function buildAllDecadalCharts(
 	decadalTimeline: DecadalTimelineItem[],
-	targetDate: Date,
-	currentNominalAge: number | null,
+	astrolabe: IFunctionalAstrolabe,
 	getHoroscopeAt: (date: Date) => Record<string, unknown> | null,
 ) {
-	const currentYear = targetDate.getFullYear();
-	return decadalTimeline.map((decadal, idx) => {
+	return decadalTimeline.map((decadal) => {
 		const rangeStart = typeof decadal.range[0] === 'number' ? decadal.range[0] : null;
-		let referenceYear: number;
-		if (rangeStart !== null && currentNominalAge !== null) {
-			referenceYear = currentYear + (rangeStart - currentNominalAge);
-		} else {
-			referenceYear = currentYear + (idx - Math.floor(decadalTimeline.length / 2)) * 10;
-		}
-
-		const referenceDate = buildDateInYear(referenceYear, targetDate);
-		const horoscopeObj = getHoroscopeAt(referenceDate);
+		const referenceDate = rangeStart === null ? null : getZiweiDateForNominalAge(astrolabe, rangeStart);
+		const horoscopeObj = referenceDate ? getHoroscopeAt(referenceDate) : null;
 
 		return {
 			...decadal,
-			referenceYear: referenceDate.getFullYear(),
+			referenceYear: referenceDate?.getFullYear() ?? null,
 			cs: mapCoreScopePackCompact(horoscopeObj),
 		};
 	});
 }
 
 function buildYearlyRangeCharts(
-	targetDate: Date,
+	currentYear: number,
 	beforeYears: number,
 	afterYears: number,
 	getHoroscopeAt: (date: Date) => Record<string, unknown> | null,
 	minStartYearByDecadal: number | null,
 ) {
-	const currentYear = targetDate.getFullYear();
 	const requestedStartYear = currentYear - Math.max(0, Math.floor(beforeYears));
 	const startYear =
 		typeof minStartYearByDecadal === 'number' && Number.isFinite(minStartYearByDecadal)
@@ -592,8 +591,8 @@ function buildYearlyRangeCharts(
 	const charts: Array<Record<string, unknown>> = [];
 
 	for (let year = startYear; year <= endYear; year += 1) {
-		const date = buildDateInYear(year, targetDate);
-		const horoscopeObj = getHoroscopeAt(date);
+		const date = getZiweiLunarYearStart(year);
+		const horoscopeObj = date ? getHoroscopeAt(date) : null;
 		const yearlyObj = asObject(horoscopeObj?.yearly);
 		const heavenlyStem = toSafeString(yearlyObj?.heavenlyStem);
 		const earthlyBranch = toSafeString(yearlyObj?.earthlyBranch);
@@ -619,10 +618,11 @@ function buildYearlyRangeCharts(
 }
 
 export function buildZiweiExportPayload(
-	userStore: Store & UserStoreLike,
+	_profile: UserStoreLike,
 	ziweiStore: Store & ZiweiStoreLike,
 ): Record<string, unknown> | null {
-	const profile = ziweiStore.input;
+	// The astrolabe and its identity must come from the same chart snapshot.
+	const input = ziweiStore.input;
 	const astrolabeObj = asObject(ziweiStore.astrolabe);
 	if (!astrolabeObj) return null;
 
@@ -633,8 +633,8 @@ export function buildZiweiExportPayload(
 	const palaces = palacesRaw.map((palace) => mapPalace(palace));
 
 	const birthDate =
-		typeof profile.timestamp === 'number' && Number.isFinite(profile.timestamp)
-			? new Date(profile.timestamp)
+		typeof input.timestamp === 'number' && Number.isFinite(input.timestamp)
+			? new Date(input.timestamp)
 			: null;
 	const birthSolarISO = birthDate && Number.isFinite(birthDate.getTime()) ? birthDate.toISOString() : null;
 
@@ -650,12 +650,14 @@ export function buildZiweiExportPayload(
 	const decadalTimeline = buildDecadalTimeline(palaces);
 	const currentNominalAge = toFiniteNumber(asObject(horoscopeObj?.age)?.nominalAge);
 	const getHoroscopeAt = createHoroscopeGetter(astrolabeObj, targetDate, horoscopeObj);
-	const allDecadalCharts = buildAllDecadalCharts(decadalTimeline, targetDate, currentNominalAge, getHoroscopeAt);
+	const allDecadalCharts = buildAllDecadalCharts(decadalTimeline, astrolabeObj as unknown as IFunctionalAstrolabe, getHoroscopeAt);
+	const birthLunarYear = getZiweiBirthLunarYear(astrolabeObj as unknown as IFunctionalAstrolabe);
+	const currentLunarYear = birthLunarYear !== null && currentNominalAge !== null ? birthLunarYear + currentNominalAge - 1 : targetDate.getFullYear();
 	const decadalStartYears = allDecadalCharts
 		.map((item) => toFiniteNumber(item.referenceYear))
 		.filter((item): item is number => typeof item === 'number');
 	const minStartYearByDecadal = decadalStartYears.length ? Math.min(...decadalStartYears) : null;
-	const yearlyRangeCharts = buildYearlyRangeCharts(targetDate, 20, 30, getHoroscopeAt, minStartYearByDecadal);
+	const yearlyRangeCharts = buildYearlyRangeCharts(currentLunarYear, 20, 30, getHoroscopeAt, minStartYearByDecadal);
 
 	return {
 		meta: {
@@ -665,11 +667,14 @@ export function buildZiweiExportPayload(
 		},
 		prompt: ZIWEI_EXPORT_PROMPT,
 		profile: {
-			name: (profile.realname || '').trim() || '佚名',
-			gender: normalizeGender(profile.gender),
-			birthTimestamp: profile.timestamp ?? null,
+			name: (input.realname || '').trim() || '佚名',
+			gender: normalizeGender(input.gender),
+			birthTimestamp: input.timestamp,
 			birthSolarISO,
+			timeZone: input.timeZone || null,
+			timeZoneSource: input.timeZoneSource || 'legacy-device',
 		},
+		calculation: ziweiStore.calculation || null,
 		basicChart: {
 			gender: toSafeString(astrolabeObj.gender),
 			solarDate: toSafeString(astrolabeObj.solarDate),
@@ -696,6 +701,8 @@ export function buildZiweiExportPayload(
 			selection: {
 				viewMode: ziweiStore.viewMode,
 				targetDateISO: targetDate.toISOString(),
+				calculationDate: toSafeString(horoscopeObj?.solarDate),
+				lateZiRollover: targetDate.getHours() === 23,
 				currentScopeLabel: buildCurrentScopeLabel(ziweiStore.viewMode, horoscopeObj),
 			},
 			timeline: {

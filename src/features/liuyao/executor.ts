@@ -1,11 +1,10 @@
-import { Solar } from 'lunar-javascript';
 import type { LiuyaoResultPayload } from '@/store/liuyao';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { buildDisplayData, compileNajia } from './najiaCore';
 import liuyaoService from './service';
-import { formatDateTime } from './uiHelpers';
+import { resolveCalendar, calendarValues, type CalendarOptions } from '@/utils/calendarContext';
 
-export type LiuyaoExecutionInput = {
+export type LiuyaoExecutionInput = CalendarOptions & {
 	title?: string;
 	gender?: string | number | null;
 	date: Date;
@@ -13,7 +12,7 @@ export type LiuyaoExecutionInput = {
 	methodLabel: string;
 };
 
-export type TimeLiuyaoExecutionInput = {
+export type TimeLiuyaoExecutionInput = CalendarOptions & {
 	title?: string;
 	gender?: string | number | null;
 	date?: Date;
@@ -42,9 +41,8 @@ function buildLiuyaoResultPayload(input: LiuyaoExecutionInput): LiuyaoResultPayl
 		throw new Error('六爻参数不足，无法生成盘面');
 	}
 
-	const solar = Solar.fromDate(date);
-	const lunar = solar.getLunar();
-	const eightChar = lunar.getEightChar();
+	const calculation = resolveCalendar(date.getTime(), 'liuyao', input);
+	const { solar, lunar, eightChar } = calendarValues(calculation);
 	const dayGz = eightChar.getDay();
 	const title = String(input.title || '').trim();
 	const compiled = compileNajia(params, {
@@ -55,6 +53,7 @@ function buildLiuyaoResultPayload(input: LiuyaoExecutionInput): LiuyaoResultPayl
 		guaci: true,
 		solar,
 		lunar,
+		calculation,
 	});
 	const display = buildDisplayData(compiled);
 
@@ -66,11 +65,13 @@ function buildLiuyaoResultPayload(input: LiuyaoExecutionInput): LiuyaoResultPayl
 			method: input.methodLabel,
 			gender: normalizeGenderLabel(input.gender),
 			dayGanZhi: dayGz,
-			timeLabel: formatDateTime(date),
+			timeLabel: calculation.civil.slice(0,16),
 			focus: title || '未填写',
 			note: `八字：${eightChar.getYear()} ${eightChar.getMonth()} ${eightChar.getDay()} ${eightChar.getTime()}`,
 		},
 		createdAt: Date.now(),
+		castingAt: date.getTime(),
+		calculation,
 	};
 }
 
@@ -85,10 +86,11 @@ export function executeTimeLiuyaoChart(input: TimeLiuyaoExecutionInput = {}) {
 		input.date instanceof Date && Number.isFinite(input.date.getTime()) ? new Date(input.date.getTime()) : new Date();
 
 	return executeLiuyaoChart({
+		...input,
 		title: input.title,
 		gender: input.gender ?? '',
 		date,
-		params: liuyaoService.generateTimeParams(date),
+		params: liuyaoService.generateTimeParams(date, input),
 		methodLabel: '时间起卦',
 	});
 }

@@ -1,26 +1,21 @@
 <template>
-	<SectionBlock
-		icon="tmicon-comment-dots"
-		title="快捷指令"
-		subtitle="这些自然语言会直接发送给 Agent，用来触发推荐与页面控制"
-	>
+	<view class="quick-section"><text class="quick-caption">试着问问</text>
 		<view class="quick-list">
 			<view
 				v-for="item in quickPrompts"
 				:key="item.label"
-				class="quick-chip"
+				class="quick-chip" :aria-label="item.prompt"
 				v-bind="h5Button(() => emit('quick-prompt', item.prompt))"
 				@tap="emit('quick-prompt', item.prompt)"
 			>
 				<text class="quick-chip__label">{{ item.label }}</text>
-				<text class="quick-chip__text">{{ item.prompt }}</text>
+				<text aria-hidden="true">↗</text>
 			</view>
 		</view>
-	</SectionBlock>
+	</view>
 </template>
 
 <script setup lang="ts">
-import SectionBlock from '@/components/layout/SectionBlock.vue';
 import type { QuickPrompt } from '@/features/agent/types';
 import { h5Button } from '@/utils/keyboard';
 
@@ -34,49 +29,10 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-.quick-list {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.quick-chip {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	padding: 14px 16px;
-	border-radius: 16px;
-	background: rgba(255, 255, 255, 0.92);
-	border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.quick-chip__label {
-	font-size: 13px;
-	font-weight: 700;
-	color: #0f172a;
-}
-
-.quick-chip__text {
-	font-size: 13px;
-	line-height: 1.6;
-	color: #475569;
-}
-
-/* #ifdef H5 */
-.quick-chip:focus-visible {
-	outline: 3px solid #0e7490;
-	outline-offset: 3px;
-}
-/* #endif */
-
-@media (min-width: 900px) {
-	.quick-list {
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.quick-chip {
-		width: calc(50% - 6px);
-	}
-}
+.quick-section { display:flex; flex-direction:row; align-items:center; gap:12px; padding:0 2px; flex-wrap:wrap; }
+.quick-caption { color:var(--x-muted); font-size:10px; }
+.quick-list { display:flex; flex-direction:row; gap:8px; flex-wrap:wrap; flex-shrink:1; min-width:0; max-width:100%; }
+.quick-chip { display:flex; flex-direction:row; align-items:center; gap:10px; padding:0 12px; min-height:31px; border:1px solid var(--x-line); border-radius:20px; font-size:10px; background:var(--x-paper); color:var(--x-body); }
+.quick-chip:hover { color:var(--x-accent); border-color:var(--x-accent); }
+@media(max-width:600px) { .quick-section { gap:8px; } .quick-list { gap:6px; } .quick-chip { min-height:35px; } }
 </style>

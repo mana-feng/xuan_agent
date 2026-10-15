@@ -1,39 +1,44 @@
 <template>
 	<view class="yao-selector-item">
-		<tm-text :font-size="22" color="#718096" :label="label" class="yao-label"></tm-text>
-		<picker mode="selector" :range="options" range-key="label" :value="selectedIndex" @change="onChange">
-			<view class="picker-trigger">
-				<view class="picker-content">
-					<text v-if="displaySymbol" class="yao-symbol">{{ displaySymbol }}</text>
-					<text v-if="displayName" class="yao-name">{{ displayName }}</text>
-				</view>
-				<tm-icon name="tmicon-angle-down" :font-size="20" color="#94a3b8"></tm-icon>
+		<text class="yao-label">{{ label }}</text>
+		<button
+			class="picker-trigger"
+			v-bind="h5Button(openPicker)"
+			:aria-label="'选择' + label + '，当前' + (displayName || '未选择')"
+			aria-haspopup="dialog"
+			:aria-expanded="choiceOpen"
+			@tap="openPicker"
+		>
+			<view class="picker-content">
+				<YaoGlyph v-if="displayName" :value="options[selectedIndex].value" />
+				<text class="yao-name">{{ displayName || '请选择爻象' }}</text>
 			</view>
-		</picker>
+			<text class="yao-chevron">⌄</text>
+		</button>
 	</view>
+	<YaoChoiceDialog v-if="choiceOpen" :label="label" :model-value="modelValue" :options="options" @select="onChoose" @close="choiceOpen = false" />
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { h5Button } from '@/utils/keyboard';
 import { getYaoName } from '@/features/liuyao/uiHelpers';
+import YaoGlyph from './YaoGlyph.vue';
+import YaoChoiceDialog from './YaoChoiceDialog.vue';
 
 const props = defineProps({
 	modelValue: { type: [String, Number], default: '' },
 	options: { type: Array as () => Array<any>, required: true },
-	label: { type: String, default: '' }
+	label: { type: String, default: '' },
 });
 
 const emit = defineEmits(['update:modelValue', 'change']);
+const choiceOpen = ref(false);
+function openPicker() { choiceOpen.value = true; }
 
 const selectedIndex = computed(() => {
-	const idx = props.options.findIndex(opt => String(opt.value) === String(props.modelValue));
+	const idx = props.options.findIndex((opt) => String(opt.value) === String(props.modelValue));
 	return idx >= 0 ? idx : 0;
-});
-
-const displaySymbol = computed(() => {
-	const opt = props.options[selectedIndex.value];
-	if (!opt) return '';
-	return opt.symbol || opt.label || '';
 });
 
 const displayName = computed(() => {
@@ -44,46 +49,61 @@ const displayName = computed(() => {
 	return opt.name || getYaoName(v);
 });
 
-function onChange(e: any) {
-	const idx = e.detail.value;
+function onChoose(value: string) {
+	const idx = props.options.findIndex(option => String(option.value) === value);
+	if (idx < 0) return;
 	const opt = props.options[idx];
+	choiceOpen.value = false;
 	emit('update:modelValue', String(opt.value));
-	emit('change', e);
+	emit('change', { detail: { value: idx } });
 }
 </script>
 
 <style scoped>
 .yao-selector-item {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
+	display: grid;
+	grid-template-columns: 45px minmax(0, 1fr);
+	gap: 15px;
+	align-items: center;
+}
+.yao-label {
+	font-size: 12px;
+	color: var(--x-muted, #667d82);
 }
 .picker-trigger {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	padding: 10px 14px;
+	min-height: 43px;
+	box-sizing: border-box;
+	background: var(--x-paper, #fff);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	width: 100%;
+	margin: 0;
+	gap: 10px;
+	line-height: 1.5;
+	text-align: left;
 }
+.picker-trigger::after { border: 0; }
 .picker-content {
 	display: flex;
-	align-items: center;
-	gap: 8px;
 	flex-direction: row;
+	align-items: center;
+	gap: 12px;
 	flex-wrap: nowrap;
+	flex: 1;
+	min-width: 0;
 }
-.yao-symbol {
-	color: #94a3b8;
-	font-weight: 700;
-	min-width: 72px;
-	text-align: center;
-	white-space: pre;
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-	letter-spacing: 1px;
-}
-
 .yao-name {
-	color: #334155;
-	font-size: 16px;
+	color: var(--x-body, #425d65);
+	font-size: 12px;
 	white-space: nowrap;
+	flex-shrink: 0;
+}
+.yao-chevron {
+	color: var(--x-muted, #667d82);
 }
 </style>
-

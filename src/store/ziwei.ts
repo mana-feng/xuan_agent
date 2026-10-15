@@ -4,17 +4,12 @@
  * 使用 iztro 库进行排盘计算
  */
 import { defineStore } from 'pinia';
-import { astro } from 'iztro';
-import { Solar } from 'lunar-javascript';
-import { normalizeChartInput, readChartContext, writeChartContext } from '@/utils/chartContext';
+import { calculateZiwei, ZIWEI_RULES } from '@/utils/ziweiCalculation';
+import { calculateZiweiHoroscope } from '@/utils/ziweiHoroscope';
+import { deviceTimeZone } from '@/utils/chartTime';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
-
-interface PullData {
-	timestamp: number;
-	gender: number; // 0: male, 1: female
-	realname?: string;
-	recordId?: number | null;
-}
+import { chartCalculationKey, emptyChartInput, persistChartInput, readChartInput, snapshotChartInput } from '@/utils/chartInput';
+import type { ChartPullData } from '@/utils/chartInput';
 
 type ViewMode = 'origin' | 'decadal' | 'yearly' | 'monthly' | 'daily';
 
@@ -54,8 +49,9 @@ export const useZiweiStore = defineStore('ziwei', {
 	state: () => {
 		return {
 			astrolabe: null as IFunctionalAstrolabe | null,
-			input: normalizeChartInput(),
-			computedKey: '',
+			calculation: null as ReturnType<typeof calculateZiwei>['metadata'] | null,
+			input: emptyChartInput(),
+			calculatedFor: '',
 			viewMode: 'origin' as ViewMode,
 			targetDate: new Date(), // For horoscope
 			focusPalaceIndex: null as number | null, // The index of the palace currently clicked/focused
@@ -71,11 +67,13 @@ export const useZiweiStore = defineStore('ziwei', {
 						? state.targetDate.getTime()
 						: new Date(state.targetDate as any).getTime();
 				if (!Number.isFinite(timestamp)) return null;
-				const cacheKey = toDateKey(timestamp);
+				// Timeline selects a civil calendar day, not a birth-zone instant.
+				// Keep its Date semantics aligned with Timeline and ziweiExport.
+				const cacheKey = `${toDateKey(timestamp)}:${toHourIndex(new Date(timestamp).getHours())}`;
 				if (!cacheKey) return null;
 				// Use a fresh Date instance to avoid accidental in-place Date mutation side effects.
 				return getCachedHoroscope(state.astrolabe as object, cacheKey, () =>
-					state.astrolabe!.horoscope(new Date(timestamp)),
+					calculateZiweiHoroscope(state.astrolabe!, new Date(timestamp)),
 				);
 			} catch (e) {
 				console.error('Failed to generate horoscope:', e);
@@ -83,42 +81,41 @@ export const useZiweiStore = defineStore('ziwei', {
 			}
 		},
 	},
-		actions: {
-			restoreLastContext() {
-				if (this.input.timestamp !== null) return;
-				const input = readChartContext('ziwei');
-				if (input) this.pull(input as PullData);
-			},
-			ensureComputed() {
-				if (this.input.timestamp === null) return;
-				if (!this.astrolabe || this.computedKey !== `${this.input.timestamp}:${this.input.gender}`) this.pull(this.input as PullData);
-			},
-			setRecordId(id: number) {
-				this.input.recordId = id;
-				writeChartContext('ziwei', this.input);
-			},
-			pull(data: PullData) {
-			const input = normalizeChartInput(data);
-			const { timestamp, gender } = input;
-			if (timestamp === null) throw new Error('出生时间无效');
-
-			const solar = Solar.fromDate(new Date(timestamp));
-			const dateStr = solar.toYmd();
-			const hourIndex = toHourIndex(solar.getHour());
-
-			const genderStr = gender === 0 ? '男' : '女';
+	actions: {
+		restoreInput() {
+			if (this.input.timestamp !== null) return;
+			const input = readChartInput('ziwei_last_context');
+			if (input) this.input = input;
+		},
+		persistInput() {
+			persistChartInput('ziwei_last_context', this.input);
+		},
+		ensureComputed() {
+			if (this.input.timestamp === null) return;
+			if (this.calculatedFor === chartCalculationKey(this.input) && this.astrolabe) return;
+			this.pull({ ...this.input, timestamp: this.input.timestamp });
+		},
+		pull(data: ChartPullData) {
+			const input = snapshotChartInput({ ...data,
+				timeZone: data.timeZone || deviceTimeZone(),
+				timeZoneSource: data.timeZoneSource || (data.timeZone ? 'explicit' : 'legacy-device'),
+				ruleVersion: ZIWEI_RULES.id,
+			});
 
 			try {
-				this.astrolabe = astro.bySolar(dateStr, hourIndex, genderStr, true, 'zh-CN');
-				this.input = input;
-				this.computedKey = `${timestamp}:${gender}`;
-				writeChartContext('ziwei', input);
+				const result = calculateZiwei(input);
+				this.astrolabe = result.chart;
+				this.calculation = result.metadata;
 				this.targetDate = new Date(); // Reset target date to now
 				this.viewMode = 'origin';
 				this.focusPalaceIndex = null;
+				this.input = input;
+				this.calculatedFor = chartCalculationKey(input);
+				this.persistInput();
 			} catch (e) {
 				console.error('Ziwei calculation failed:', e);
 				this.astrolabe = null;
+				this.calculation = null;
 				throw e;
 			}
 		},

@@ -1,201 +1,292 @@
 <template>
 	<tm-app>
-		<PageScaffold class="page-ziwei-input" title="紫微排盘" subtitle="请填写以下信息进行紫微排盘">
-			<SectionBlock icon="tmicon-md-person" title="基础信息">
-				<view class="card-stack">
-					<tm-input
-						v-model="realname"
-						placeholder="&#x8BF7;&#x8F93;&#x5165;&#x59D3;&#x540D;&#xFF08;&#x53EF;&#x9009;&#xFF09;"
-						prefix="tmicon-md-person"
-						:round="12"
-						:border="1"
-						:padding="[24, 20]"
-					></tm-input>
-
-					<view class="form-group-single">
-						<view class="form-label">
-							<tm-icon name="tmicon-md-people" :font-size="24" color="#718096" :margin="[0, 6, 0, 0]"></tm-icon>
-							<tm-text :font-size="26" color="#718096" label="&#x6027;&#x522B;"></tm-text>
+		<PageScaffold
+			class="page-ziwei-input"
+			title="紫微排盘"
+			subtitle="以出生时刻安星定宫，探索命宫、星曜与人生的不同面向。"
+			tag="ZIWEI · STAR CHART"
+		>
+			<view class="form-steps" aria-label="排盘流程">
+				<view class="form-step current"
+					><text class="step-number">1</text><text>填写信息</text></view
+				>
+				<view class="form-step"><text class="step-number">2</text><text>查看命盘</text></view>
+				<view class="form-step"><text class="step-number">3</text><text>深入解读</text></view>
+			</view>
+			<view class="birth-form-layout">
+				<view class="birth-form-panel">
+					<view class="form-section">
+						<view class="form-section-heading"
+							><text class="section-mark">人</text
+							><text class="form-section-title">基本信息</text></view
+						>
+						<view class="birth-field-grid">
+							<view class="birth-field">
+								<text class="field-label">称呼<text class="field-optional">选填</text></text>
+								<input
+									v-model="realname"
+									class="birth-name-input"
+									placeholder="怎么称呼你？"
+									:maxlength="30"
+									aria-label="称呼"
+								/>
+							</view>
+							<view class="birth-field">
+								<text class="field-label">性别</text>
+								<view class="birth-segmented" role="group" aria-label="性别">
+									<button
+										v-bind="h5Button(() => (gender = 0))"
+										class="birth-segment"
+										:class="{ selected: Number(gender) === 0 }"
+										:aria-pressed="Number(gender) === 0"
+										@tap="gender = 0"
+									>
+										男
+									</button>
+									<button
+										v-bind="h5Button(() => (gender = 1))"
+										class="birth-segment"
+										:class="{ selected: Number(gender) === 1 }"
+										:aria-pressed="Number(gender) === 1"
+										@tap="gender = 1"
+									>
+										女
+									</button>
+								</view>
+							</view>
 						</view>
-						<view class="form-control">
-							<tm-segtab
-								v-model="gender"
-								:list="[{ text: '\u7537' }, { text: '\u5973' }]"
-								:width="300"
-								:margin="[0, 0]"
-								:default-value="0"
-							></tm-segtab>
+					</view>
+					<view class="form-section">
+						<TimeCard label="出生时间" :zone="timeZoneLabel + ' · ' + timeZone" :date="birthDisplayDate" :clock="birthDisplayClock"
+							:status="model === 0 ? '公历日期 · 精确到分钟' : '农历日期 · 精确到分钟'"
+							:alternate-label="model === 0 ? '对应农历' : '对应公历'" :alternate="lunar_label || ''"
+							hint="按出生地当时的钟表时间填写。" @edit="SelectTime">
+							<template #before>
+								<view class="birth-field full">
+								<text class="field-label">历法</text>
+								<view class="birth-segmented" role="group" aria-label="出生日期历法">
+									<button
+										v-bind="h5Button(() => (model = 0))"
+										class="birth-segment"
+										:class="{ selected: model === 0 }"
+										:aria-pressed="model === 0"
+										@tap="model = 0"
+									>
+										阳历（公历）
+									</button>
+									<button
+										v-bind="h5Button(() => (model = 1))"
+										class="birth-segment"
+										:class="{ selected: model === 1 }"
+										:aria-pressed="model === 1"
+										@tap="model = 1"
+									>
+										阴历（农历）
+									</button>
+								</view>
+							</view>
+							</template>
+						</TimeCard>
+						<view class="time-settings">
+							<button
+								class="time-settings-toggle"
+								v-bind="h5Button(() => (timeSettingsOpen = !timeSettingsOpen))"
+								:aria-expanded="timeSettingsOpen"
+								aria-controls="birth-time-settings"
+								@tap="timeSettingsOpen = !timeSettingsOpen"
+							>
+								<view class="time-settings-label"
+									><text>时间设置</text
+									><text class="time-settings-summary"
+										>{{ timeZoneLabel
+										}}<text v-if="overlapChoice !== 'reject'">
+											· {{ overlapChoice === 'earlier' ? '较早的一次' : '较晚的一次' }}</text
+										></text
+									></view
+								>
+								<text class="time-settings-action">{{
+									timeSettingsOpen ? '收起 −' : '调整 ＋'
+								}}</text>
+							</button>
+							<view v-if="timeSettingsOpen" id="birth-time-settings" class="time-settings-body">
+								<view class="birth-field">
+									<text class="field-label">出生地时区</text>
+									<picker
+										ref="timeZonePicker"
+										:range="timeZoneOptions"
+										:value="timeZones.indexOf(timeZone)"
+										@change="changeTimeZone"
+									>
+										<view
+											class="time-zone-control"
+											v-bind="h5Button(openTimeZonePicker)"
+											:aria-label="'选择出生地时区，当前' + timeZoneLabel"
+											aria-haspopup="dialog"
+											><view class="time-zone-value"
+												><text>{{ timeZoneLabel }}</text
+												><text class="time-zone-id">{{ timeZone }}</text></view
+											><text>⌄</text></view
+										>
+									</picker>
+								</view>
+								<view class="birth-field">
+									<text class="field-label">夏令时重复时刻</text>
+									<view class="birth-segmented" role="group" aria-label="夏令时重复时间选择">
+										<button
+											v-for="(label, index) in ['遇到时提醒', '较早的一次', '较晚的一次']"
+											:key="label"
+											class="birth-segment"
+											:class="{ selected: overlapChoice === overlapChoices[index] }"
+											:aria-pressed="overlapChoice === overlapChoices[index]"
+											v-bind="h5Button(() => changeOverlapChoice(overlapChoices[index]))"
+											@tap="changeOverlapChoice(overlapChoices[index])"
+										>
+											{{ label }}
+										</button>
+									</view>
+								</view>
+								<text class="birth-time-hint"
+									>自动处理历史夏令时；钟表拨回造成时间重复时，请确认是哪一次。不校正真太阳时。</text
+								>
+							</view>
 						</view>
+					</view>
+					<view class="birth-form-bottom">
+						<text class="birth-time-hint">确认后生成命盘，继续查看星曜与解读。</text>
+						<button
+							v-bind="h5Button(Submit, !canSubmit)"
+							class="birth-submit"
+							:disabled="!canSubmit"
+							@tap="Submit"
+						>
+							开始排盘　→
+						</button>
 					</view>
 				</view>
-			</SectionBlock>
-
-			<SectionBlock icon="tmicon-time" title="出生时间" subtitle="支持阳历/阴历，精确到分钟">
-				<view class="card-stack">
-					<view class="form-group-single calendar-type-selector">
-						<view class="form-label">
-							<tm-icon name="tmicon-calendar-alt" :font-size="24" color="#718096" :margin="[0, 6, 0, 0]"></tm-icon>
-							<tm-text :font-size="26" color="#718096" label="&#x65E5;&#x5386;&#x7C7B;&#x578B;"></tm-text>
-						</view>
-						<view class="form-control segtab-wrapper">
-							<tm-segtab
-								v-model="model"
-								:default-value="0"
-								:list="[{ text: '\u9633\u5386' }, { text: '\u9634\u5386' }]"
-								:margin="[0, 0]"
-								:width="300"
-							></tm-segtab>
-						</view>
+				<view class="form-help">
+					<text class="help-title">填写小贴士</text>
+					<text class="help-copy">准确的出生时间，是排盘的起点。</text>
+					<view class="help-list">
+						<text class="help-item">核对历法：阳历或阴历，农历留意闰月。</text>
+						<text class="help-item">核对钟点：可查出生证明，或向家人确认。</text>
+						<text class="help-item">海外出生：在“时间设置”选择出生地时区。</text>
 					</view>
-
-					<tm-button
-						type="primary"
-						:block="true"
-						:round="12"
-						:padding="[24, 24]"
-						icon="tmicon-calendar-alt"
-						icon-pos="left"
-						class="birth-time-btn"
-						:label="datetime_label || (model === 0 ? '\u8BF7\u9009\u62E9\u9633\u5386\u51FA\u751F\u65E5\u671F\u548C\u65F6\u95F4\uff08\u7CBE\u786E\u5230\u5206\u949F\uff09' : '\u8BF7\u9009\u62E9\u9634\u5386\u51FA\u751F\u65E5\u671F\u548C\u65F6\u95F4\uff08\u7CBE\u786E\u5230\u5206\u949F\uff09')"
-						@tap="SelectTime"
-					></tm-button>
-
-					<view v-if="lunar_label || datetime_label" class="info-grid info-cards">
-						<view v-if="lunar_label" class="info-card">
-							<view class="info-card-header">
-								<tm-icon name="tmicon-integral" :font-size="32" color="#48bb78"></tm-icon>
-									<tm-text
-										:font-size="24"
-										color="#718096"
-										:label="model === 0 ? '\u5BF9\u5E94\u9634\u5386' : '\u5BF9\u5E94\u9633\u5386'"
-										:margin="[0, 0, 0, 12]"
-									></tm-text>
-							</view>
-							<tm-text :font-size="28" color="#2d3748" :bold="true" :label="lunar_label"></tm-text>
-						</view>
-						<view v-if="datetime_label" class="info-card">
-							<view class="info-card-header">
-								<tm-icon name="tmicon-calendar" :font-size="32" color="#667eea"></tm-icon>
-								<tm-text :font-size="24" color="#718096" label="&#x6392;&#x76D8;&#x65F6;&#x95F4;" :margin="[0, 0, 0, 12]"></tm-text>
-							</view>
-							<tm-text :font-size="28" color="#2d3748" :bold="true" :label="datetime_label"></tm-text>
-						</view>
-					</view>
+					<navigator class="help-link" url="/pages/agent/index">不确定怎么填？问问 AI　→</navigator>
 				</view>
-			</SectionBlock>
-
-			<template #footer>
-				<tm-button
-					:class="['primary-btn', { disabled: !canSubmit }]"
-					:label="'\u5F00\u59CB\u6392\u76D8'"
-					:type="canSubmit ? 'primary' : 'grey'"
-					:round="999"
-					:bold="true"
-					:shadow="canSubmit ? 10 : 0"
-					:disabled="!canSubmit"
-					icon="tmicon-calendar-alt"
-					block
-					@tap="Submit"
-				></tm-button>
-			</template>
+			</view>
 		</PageScaffold>
-
-		<tm-time-picker
-			v-model:show="solar_select_show"
-			:round="6"
-			:default-value="solar_default_value"
-			:start="solar_time_pick.start"
-			:end="solar_time_pick.end"
-			:format="solar_time_pick.format"
-			:show-detail="solar_time_pick.detail"
-			:show-suffix="time_suffix.solar"
-			@confirm="SolarConfirm"
-		></tm-time-picker>
-		<tm-time-picker
-			v-model:show="lunar_select_show"
-			:round="6"
-			:default-value="lunar_default_value"
-			:start="lunar_time_pick.start"
-			:end="lunar_time_pick.end"
-			:format="lunar_time_pick.format"
-			:show-detail="lunar_time_pick.detail"
-			:show-suffix="time_suffix.lunar"
-			:column-flex="lunar_time_column_flex"
-			@confirm="LunarConfirm"
-		></tm-time-picker>
+		<DateTimeDialog v-if="birthEditorOpen" :date="birthDateDraft" :clock="birthClockDraft" :leap="birthLeapDraft" :lunar="model === 1" :title="model === 0 ? '公历出生时间' : '农历出生时间'" :subtitle="timeZoneLabel + ' · 按出生地钟表时间填写'" hint="23:00—23:59 为晚子时，按次日排盘。" :external-error="birthEditorError" @edit="birthEditorError = ''" @confirm="confirmBirthTime" @close="closeBirthEditor" />
 	</tm-app>
 </template>
-
 <script lang="ts" setup>
+import { h5Button } from '@/utils/keyboard';
 import { ref, computed, watch, nextTick } from 'vue';
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { Solar } from 'lunar-javascript';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
-import SectionBlock from '@/components/layout/SectionBlock.vue';
+
 import { useUserStore } from '@/store/user';
-import utils from '@/libs/utils/utils';
+import { civilToTimestamp, civilString, deviceTimeZone, zonedParts } from '@/utils/chartTime';
+import type { Disambiguation } from '@/utils/chartTime';
+import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
+import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import TimeCard from '@/components/form/TimeCard.vue';
 import { useZiweiStore } from '@/store/ziwei';
 
 const realname = ref('');
 const gender = ref(0);
 const model = ref(0);
+const timeZone = ref('Asia/Shanghai');
+const timeZones = [
+	...new Set([
+		'Asia/Shanghai',
+		'Asia/Singapore',
+		'Asia/Taipei',
+		'Asia/Hong_Kong',
+		'Asia/Tokyo',
+		'America/New_York',
+		'America/Los_Angeles',
+		'Europe/London',
+		'Australia/Sydney',
+		'UTC',
+		deviceTimeZone(),
+	]),
+];
+const timeZoneNames: Record<string, string> = {
+	'Asia/Shanghai': '北京',
+	'Asia/Singapore': '新加坡',
+	'Asia/Taipei': '台北',
+	'Asia/Hong_Kong': '香港',
+	'Asia/Tokyo': '东京',
+	'America/New_York': '纽约',
+	'America/Los_Angeles': '洛杉矶',
+	'Europe/London': '伦敦',
+	'Australia/Sydney': '悉尼',
+	UTC: '协调世界时',
+};
+const timeZoneLabel = computed(() => timeZoneNames[timeZone.value] || timeZone.value);
+const timeZoneOptions = timeZones.map((zone) =>
+	timeZoneNames[zone] ? `${timeZoneNames[zone]} · ${zone}` : zone
+);
+const timeSettingsOpen = ref(false);
+const timeZonePicker = ref<any>(null);
+function openTimeZonePicker() {
+	// #ifdef H5
+	const target = timeZonePicker.value?.$el || timeZonePicker.value;
+	target?.click?.();
+	// #endif
+}
+const overlapChoices: Disambiguation[] = ['reject', 'earlier', 'later'];
+const overlapChoice = ref<Disambiguation>('reject');
+const birthEditorOpen = ref(false);
+const birthDateDraft = ref('');
+const birthClockDraft = ref('');
+const birthLeapDraft = ref(false);
+const birthEditorError = ref('');
+const closeBirthEditor = () => {
+	birthEditorOpen.value = false;
+};
 const timestamp = ref<number | null>(null);
 const datetime_label = ref('');
 const lunar_label = ref<string | null>(null);
+const birthDisplayDate = computed(() => datetime_label.value.split(' ')[0]?.replace(/[/\-]/g, ' / ') || '');
+const birthDisplayClock = computed(() => timestamp.value === null ? '' : civilString(zonedParts(timestamp.value, timeZone.value)).slice(11, 16));
 
 const user_store = useUserStore();
 const ziwei_store = useZiweiStore();
+const recordId = ref<number | null>(null);
 
 const canSubmit = computed(() => timestamp.value !== null);
 
-const solar_select_show = ref(false);
-const lunar_select_show = ref(false);
-
-const solar_default_value = ref('');
-const lunar_default_value = ref('');
-
-const solar_time_pick = {
-	start: '1900/01/01 00:00',
-	end: '2099/12/30 00:00',
-	format: 'YYYY/MM/DD HH:mm',
-	detail: {
-		year: true,
-		month: true,
-		day: true,
-		hour: true,
-		minute: true,
-		second: false,
-	},
-};
-
-const lunar_time_pick = {
-	start: '1900/01/01 00',
-	end: '2099/12/30 00',
-	format: 'YYYY/MM/DD HH',
-	detail: {
-		year: true,
-		month: true,
-		day: true,
-		hour: true,
-		minute: false,
-		second: false,
-	},
-};
-
-const lunar_time_column_flex = {
-	year: 1.15,
-	month: 0.75,
-	day: 0.75,
-	hour: 2.35,
-};
-
-const time_suffix = {
-	solar: { year: '\u5E74', month: '\u6708', day: '\u65E5', hour: '\u65F6', minute: '\u5206', second: '\u79D2' },
-	lunar: { year: '\u5E74', month: '\u6708', day: '\u65E5', hour: '\u65F6\u8FB0', minute: '\u5206', second: '\u79D2' },
-};
-
 watch(model, PullDatatimeLabel);
 watch(timestamp, PullDatatimeLabel);
+watch(timeZone, PullDatatimeLabel);
+
+function changeOverlapChoice(choice: Disambiguation) {
+	try {
+		const civil =
+			timestamp.value === null ? null : civilString(zonedParts(timestamp.value, timeZone.value));
+		const nextTimestamp = civil ? civilToTimestamp(civil, timeZone.value, choice) : null;
+		timestamp.value = nextTimestamp;
+		overlapChoice.value = choice;
+	} catch (error: any) {
+		uni.showToast({ title: error.message, icon: 'none', duration: 3500 });
+	}
+}
+
+function changeTimeZone(event: any) {
+	const next = timeZones[Number(event.detail.value)];
+	if (!next) return;
+	try {
+		const civil =
+			timestamp.value === null ? null : civilString(zonedParts(timestamp.value, timeZone.value));
+		const nextTimestamp = civil ? civilToTimestamp(civil, next, overlapChoice.value) : null;
+		timeZone.value = next;
+		timestamp.value = nextTimestamp;
+	} catch (error: any) {
+		uni.showToast({ title: error.message, icon: 'none', duration: 3500 });
+	}
+}
 
 function initCurrentTime() {
 	timestamp.value = new Date().getTime();
@@ -203,7 +294,6 @@ function initCurrentTime() {
 }
 
 let editDataProcessed = false;
-const recordId = ref<number | null>(null);
 
 onLoad((options: any) => {
 	user_store.restoreAuth();
@@ -212,18 +302,20 @@ onLoad((options: any) => {
 	if (editDataStr) {
 		try {
 			const editData = JSON.parse(editDataStr);
-			if (editData.isEdit && editData.timestamp !== null && editData.timestamp !== undefined) {
+			if (editData.isEdit && editData.timestamp) {
 				realname.value = editData.realname || '';
 				gender.value =
 					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
+				timeZone.value = editData.timeZone || deviceTimeZone();
 				recordId.value = editData.recordId ?? null;
 				editDataProcessed = true;
 				uni.removeStorageSync('edit_ziwei_data');
 				nextTick(() => {
 					PullDatatimeLabel();
 					uni.showToast({
-						title: '\u5DF2\u52A0\u8F7D\u5F85\u7F16\u8F91\u4FE1\u606F\uFF0C\u8BF7\u786E\u8BA4\u540E\u91CD\u65B0\u6392\u76D8',
+						title:
+							'\u5DF2\u52A0\u8F7D\u5F85\u7F16\u8F91\u4FE1\u606F\uFF0C\u8BF7\u786E\u8BA4\u540E\u91CD\u65B0\u6392\u76D8',
 						icon: 'success',
 						duration: 2000,
 					});
@@ -252,11 +344,12 @@ onShow(() => {
 	if (editDataStr) {
 		try {
 			const editData = JSON.parse(editDataStr);
-			if (editData.isEdit && editData.timestamp !== null && editData.timestamp !== undefined) {
+			if (editData.isEdit && editData.timestamp) {
 				realname.value = editData.realname || '';
 				gender.value =
 					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
 				timestamp.value = editData.timestamp;
+				timeZone.value = editData.timeZone || deviceTimeZone();
 				recordId.value = editData.recordId ?? null;
 				uni.removeStorageSync('edit_ziwei_data');
 				nextTick(() => {
@@ -269,79 +362,63 @@ onShow(() => {
 			uni.removeStorageSync('edit_ziwei_data');
 		}
 	}
-
 });
 
 function SelectTime() {
 	uni.hideKeyboard();
-	const timeToUse = timestamp.value || new Date().getTime();
-	const timeStr = utils.HideSecond(timeToUse);
-	solar_default_value.value = timeStr;
-	lunar_default_value.value = timeStr.replace(/:\d{2}$/, '');
-
-	setTimeout(() => {
-		if (model.value === 0) {
-			solar_select_show.value = true;
-		} else {
-			lunar_select_show.value = true;
-		}
-	}, 400);
+	const parts = zonedParts(timestamp.value ?? Date.now(), timeZone.value);
+	const lunar = Solar.fromYmd(parts.year, parts.month, parts.day).getLunar();
+	const pad = (n: number) => String(n).padStart(2, '0');
+	birthDateDraft.value =
+		model.value === 1
+			? `${lunar.getYear()}-${pad(Math.abs(lunar.getMonth()))}-${pad(lunar.getDay())}`
+			: civilString(parts).slice(0, 10);
+	birthClockDraft.value = `${pad(parts.hour)}:${pad(parts.minute)}`;
+	birthLeapDraft.value = lunar.getMonth() < 0;
+	birthEditorError.value = '';
+	birthEditorOpen.value = true;
 }
 
-function parsePickerTimeToTimestamp(time: string): number | null {
-	const raw = (time || '').trim();
-	if (!raw) return null;
-	const full = raw.match(/^(\d{4})\/(\d{2})\/(\d{2})\s+(\d{2}):(\d{2})$/);
-	if (full) {
-		const y = Number(full[1]);
-		const mo = Number(full[2]);
-		const d = Number(full[3]);
-		const h = Number(full[4]);
-		const mi = Number(full[5]);
-		const dt = new Date(y, mo - 1, d, h, mi, 0);
-		return Number.isFinite(dt.getTime()) ? dt.getTime() : null;
-	}
-	const hourOnly = raw.match(/^(\d{4})\/(\d{2})\/(\d{2})\s+(\d{2})$/);
-	if (hourOnly) {
-		const y = Number(hourOnly[1]);
-		const mo = Number(hourOnly[2]);
-		const d = Number(hourOnly[3]);
-		const h = Number(hourOnly[4]);
-		const dt = new Date(y, mo - 1, d, h, 0, 0);
-		return Number.isFinite(dt.getTime()) ? dt.getTime() : null;
-	}
-	const parsed = Date.parse(raw);
-	return Number.isFinite(parsed) ? parsed : null;
+function confirmBirthTime(value: { date: string; clock: string; leap: boolean }) {
+  birthDateDraft.value = value.date; birthClockDraft.value = value.clock; birthLeapDraft.value = value.leap;
+  applyBirthEditor();
 }
-
-const SolarConfirm = (time: string) => {
-	const ts = parsePickerTimeToTimestamp(time);
-	if (ts !== null) timestamp.value = ts;
-};
-const LunarConfirm = (time: string) => {
-	const ts = parsePickerTimeToTimestamp(time);
-	if (ts !== null) timestamp.value = ts;
-};
+function applyBirthEditor() {
+	try {
+		const civil =
+			model.value === 1
+				? lunarCivilToSolar(birthDateDraft.value, birthClockDraft.value, birthLeapDraft.value)
+				: `${birthDateDraft.value} ${birthClockDraft.value}`;
+		timestamp.value = civilToTimestamp(civil, timeZone.value, overlapChoice.value);
+		birthEditorOpen.value = false;
+	} catch (error: any) {
+		birthEditorError.value = error.message;
+	}
+}
 
 function PullDatatimeLabel() {
 	const time = timestamp.value;
 	if (time === null) return;
 	const index = model.value;
-	const solar = Solar.fromDate(new Date(time));
+	const parts = zonedParts(time, timeZone.value);
+	const solar = Solar.fromYmdHms(
+		parts.year,
+		parts.month,
+		parts.day,
+		parts.hour,
+		parts.minute,
+		parts.second
+	);
 	const lunar = solar.getLunar();
 
 	if (index === 0) {
-		const date = utils.HideSecond(time);
+		const date = civilString(parts).slice(0, 16).replace(/-/g, '/');
 		datetime_label.value = date;
-		solar_default_value.value = date;
-		lunar_default_value.value = date.replace(/:\d{2}$/, '');
 		lunar_label.value = `${lunar.toString()} ${lunar.getTimeZhi()}\u65F6`;
 	} else {
 		const lunarStr = `${lunar.toString()} ${lunar.getTimeZhi()}\u65F6`;
 		datetime_label.value = lunarStr;
-		const date = utils.HideSecond(time);
-		solar_default_value.value = date;
-		lunar_default_value.value = date.replace(/:\d{2}$/, '');
+		const date = civilString(parts).slice(0, 16).replace(/-/g, '/');
 		lunar_label.value = date;
 	}
 }
@@ -362,16 +439,15 @@ function Submit() {
 		realname: (realname.value || '').trim(),
 		timestamp: datetime,
 		gender: Number(gender.value),
-			recordId: recordId.value,
+		timeZone: timeZone.value,
+		recordId: recordId.value,
 	};
-    
+
 	uni.showLoading({
 		title: '\u6392\u76D8\u4E2D\uFF0C\u8BF7\u7A0D\u540E',
 	});
 
 	try {
-		user_store.set(params);
-
 		ziwei_store.pull(params);
 
 		setTimeout(() => {
@@ -402,355 +478,424 @@ function Submit() {
 		uni.hideLoading();
 		console.error('\u6392\u76D8\u5931\u8D25:', error);
 		uni.showToast({
-			title: '\u6392\u76D8\u8BA1\u7B97\u5931\u8D25\uFF1A' + (error?.message || '\u672A\u77E5\u9519\u8BEF'),
+			title:
+				'\u6392\u76D8\u8BA1\u7B97\u5931\u8D25\uFF1A' +
+				(error?.message || '\u672A\u77E5\u9519\u8BEF'),
 			icon: 'none',
 			duration: 2000,
 		});
 	}
 }
 </script>
-
 <style scoped>
-/* 妞ょ敻娼伴弽宄扮础瀹告彃婀?app-shell.css 娑擃厼鐣炬稊?*/
-/* 鏉╂瑩鍣烽崣顏呭潑閸旂娀銆夐棃銏㈠鐎规氨娈戦弽宄扮础 */
-
-.page-ziwei-input .app-main {
-	background: radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.08), transparent 40%),
-		radial-gradient(circle at 80% 10%, rgba(118, 75, 162, 0.08), transparent 38%),
-		#f6f8fc;
-}
-
-.page-ziwei-input .page-shell {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: var(--page-pad-y) var(--page-pad-x);
-	box-sizing: border-box;
-}
-
-.page-ziwei-input .page-card {
-	width: 100%;
-	max-width: var(--page-max);
-	background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-	border: 1px solid #e5e9f2;
-	border-radius: 16px;
-	box-shadow: 0 12px 32px rgba(31, 41, 55, 0.1);
-	padding: 18px 16px;
-	position: relative;
-	overflow: hidden;
-}
-
-.page-ziwei-input .page-card::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(circle at 12% 12%, rgba(102, 126, 234, 0.08), transparent 35%),
-		radial-gradient(circle at 88% 6%, rgba(118, 75, 162, 0.07), transparent 32%);
-	pointer-events: none;
-}
-
-.page-ziwei-input .page-title-wrapper {
-	display: flex;
-	align-items: flex-start;
-	gap: 12px;
-	margin-bottom: 12px;
-	position: relative;
-	z-index: 1;
-}
-
-.page-ziwei-input .page-title {
-	margin: 0;
-	font-size: 22px;
-	color: #1f2937;
-	letter-spacing: 0.2px;
-}
-
-.page-ziwei-input .page-subtitle {
-	margin: 4px 0 0;
-	font-size: 13px;
-	color: #6b7280;
-}
-
-.page-ziwei-input .section {
-	background: #ffffff;
-	border-radius: 14px;
-	border: 1px solid #e2e8f0;
-	padding: 14px 12px 12px;
-	margin-bottom: 14px;
-	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-	position: relative;
-	z-index: 1;
-}
-
-.page-ziwei-input .section__header {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 12px;
-	border-bottom: 1px dashed #e5e7eb;
-	padding-bottom: 12px;
-}
-
-.page-ziwei-input .section__title {
-	font-size: 18px;
-	color: #2d3748;
-}
-
-.page-ziwei-input .section__body {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-
-.page-ziwei-input .page-card__footer {
-	margin-top: 14px;
-	padding-top: 10px;
-	border-top: 1px solid #eef2f7;
-	display: flex;
-	justify-content: center;
-	position: relative;
-	z-index: 1;
-	padding-bottom: calc(var(--safe-bottom) + var(--bottom-nav-height));
-}
-
-.birth-time-btn {
-	width: 100%;
-	text-align: left;
-}
-
-@media (min-width: 900px) {
-	.page-ziwei-input .page-shell {
-		padding: var(--page-pad-y) var(--page-pad-x);
-	}
-	.page-ziwei-input .page-card {
-		max-width: var(--page-max);
-		padding: 28px 26px;
-		border-radius: 20px;
-		box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-	}
-	.page-ziwei-input .section {
-		padding: 20px 18px 18px;
-		margin-bottom: 18px;
-	}
-}
-
-.layout-wide .page-ziwei-input .page-shell {
-	padding: var(--page-pad-y) var(--page-pad-x);
-}
-
-.layout-wide .page-ziwei-input .page-card {
-	max-width: var(--page-max);
-	padding: 28px 26px;
-	border-radius: 20px;
-	box-shadow: 0 18px 60px rgba(31, 41, 55, 0.12);
-}
-
-.layout-wide .page-ziwei-input .section {
-	padding: 20px 18px 18px;
-	margin-bottom: 18px;
-}
-
-/* 閺堫亞娅ヨぐ鏇犲Ц閹焦鐗卞?*/
-.page-ziwei-input .auth-not-logged-in {
-	display: flex;
-	flex-direction: column;
-	gap: 20rpx;
-	width: 100%;
-}
-
-/* 閻ц缍?濞夈劌鍞界悰銊ュ礋閺嶅嘲绱?*/
-.page-ziwei-input .auth-form-container {
-	margin-top: 24rpx;
-	padding-top: 24rpx;
-	border-top: 1rpx solid #e2e8f0;
-	width: 100%;
-	box-sizing: border-box;
-	background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-	border-radius: 12rpx;
-	padding: 24rpx;
-}
-
-.page-ziwei-input .auth-tabs {
+.form-steps {
 	display: flex;
 	flex-direction: row;
-	border-bottom: 2rpx solid #e2e8f0;
-	margin-bottom: 24rpx;
-	width: 100%;
-}
-
-.page-ziwei-input .auth-tab {
-	flex: 1;
-	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
+	gap: 18px;
 	align-items: center;
-	padding: 20rpx 0;
-	border-bottom: 4rpx solid transparent;
-	transition: all 0.3s;
+	margin: 0 0 18px;
+	color: var(--x-muted, #667d82);
+	font-size: 12px;
+}
+.form-step {
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+	align-items: center;
+}
+.step-number {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 23px;
+	height: 23px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 50%;
+	font-size: 11px;
+}
+.form-step.current {
+	color: var(--x-accent, #1672b1);
+}
+.current .step-number {
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+	color: #fff;
+	border-color: transparent;
+}
+.birth-form-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 220px;
+	gap: 20px;
+	align-items: start;
+}
+.birth-form-panel {
 	min-width: 0;
+	background: var(--x-paper, #fff);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 14px;
+	padding: 24px;
+	box-shadow: 0 8px 32px #233e4905;
 }
-
-.page-ziwei-input .auth-tab.active {
-	border-bottom-color: #667eea;
+.form-section + .form-section {
+	border-top: 1px solid var(--x-line, #dbe9ed);
+	padding-top: 20px;
+	margin-top: 20px;
 }
-
-.page-ziwei-input .auth-form-fields {
-	margin-bottom: 20rpx;
+.form-section,
+.form-help {
+	display: block;
+}
+.form-section-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+.section-mark {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 27px;
+	height: 27px;
+	border-radius: 8px;
+	background: var(--x-tint, #e7f4fc);
+	color: var(--x-accent, #1672b1);
+	font-size: 15px;
+}
+.form-section-title {
+	font-family: var(--x-serif, 'Noto Serif SC', 'Songti SC', SimSun, serif);
+	font-size: 18px;
+	color: var(--x-ink, #233e49);
+	font-weight: 500;
+}
+.birth-field-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 16px;
+}
+.birth-field {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.birth-field.full {
+	grid-column: 1 / -1;
+}
+.field-label {
+	font-size: 13px;
+	color: var(--x-body, #425d65);
+}
+.field-optional {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	margin-left: 7px;
+}
+.birth-name-input {
 	width: 100%;
+	height: 45px;
+	padding: 0 13px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	background: var(--x-paper, #fff);
+	color: var(--x-ink, #233e49);
+	box-sizing: border-box;
+	font-size: 13px;
 }
-
-.page-ziwei-input .auth-form-hint {
+.birth-segmented {
+	display: flex;
+	flex-direction: row;
+	padding: 3px;
+	min-height: 45px;
+	background: var(--x-tint, #e7f4fc);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	box-sizing: border-box;
+	gap: 4px;
+}
+.birth-segment {
+	flex: 1;
+	margin: 0;
+	padding: 7px 8px;
+	line-height: 23px;
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	color: var(--x-muted, #667d82);
+	font-size: 12px;
+}
+.birth-segment.selected {
+	background: var(--x-paper, #fff);
+	color: var(--x-accent, #1672b1);
+	box-shadow: 0 1px 5px #233e4910;
+}
+button::after {
+	border: 0;
+}
+.birth-time-control {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0;
+	padding: 12px 14px;
+	gap: 12px;
+	box-sizing: border-box;
+	line-height: 1.7;
+	background: var(--x-paper, #fff);
+	color: var(--x-ink, #233e49);
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 10px;
+	text-align: left;
+}
+.birth-selected-time {
+	font-size: 16px;
+	font-variant-numeric: tabular-nums;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+.birth-edit-label {
+	color: var(--x-accent, #1672b1);
+	font-size: 12px;
+	white-space: nowrap;
+}
+.birth-time-hint {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	line-height: 1.85;
+}
+.birth-summary {
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: var(--x-tint, #e7f4fc);
+	margin-top: 10px;
+}
+.birth-summary-row {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20rpx;
-	width: 100%;
-	flex-wrap: wrap;
+	gap: 16px;
 }
-
-.page-ziwei-input .auth-form-hint > view {
-	margin-right: 8rpx;
-	margin-bottom: 8rpx;
+.birth-summary-label {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	flex-shrink: 0;
 }
-
-.page-ziwei-input .auth-form-hint > view:last-child {
-	margin-right: 0;
+.birth-summary-value {
+	font-size: 13px;
+	color: var(--x-body, #425d65);
+	text-align: right;
 }
-
-.page-ziwei-input .auth-error {
+.time-settings {
+	margin-top: 16px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+.time-settings-toggle {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 16rpx 20rpx;
-	background: rgba(245, 101, 101, 0.1);
-	border-radius: 12rpx;
-	border-left: 4rpx solid #f56565;
-	margin-bottom: 20rpx;
+	justify-content: space-between;
+	gap: 12px;
 	width: 100%;
-}
-
-.page-ziwei-input .auth-form-actions {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-}
-
-/* 鐞涖劌宕熼崡锛勫閺嶅嘲绱?- 娴ｈ法鏁ら崫宥呯安瀵繒琚?*/
-.page-ziwei-input .form-card {
-  /* 瀹告彃婀?responsive-card 娑擃厼鐣炬稊?*/
-}
-
-.page-ziwei-input .form-header-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-ziwei-input .form-header-text > view {
-	margin-bottom: 6px;
-}
-
-.page-ziwei-input .form-group-single {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-}
-
-.page-ziwei-input .form-group-single > view {
-	margin-bottom: 10px;
-}
-
-.page-ziwei-input .form-group-single > view:last-child {
-	margin-bottom: 0;
-}
-
-.page-ziwei-input .form-group-single.calendar-type-selector {
-	margin-bottom: 24rpx;
-}
-
-.page-ziwei-input .form-label {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.page-ziwei-input .form-control {
-	width: 100%;
-}
-
-.page-ziwei-input .segtab-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	overflow: hidden;
-}
-
-.page-ziwei-input .segtab-wrapper :deep(.tm-segtab) {
-	width: 100%;
-}
-
-.page-ziwei-input .info-cards {
-	display: flex;
-	flex-direction: column;
-	margin-top: 8rpx;
-	gap: 12rpx;
-}
-
-.page-ziwei-input .info-cards > view {
-	width: 100%;
-	margin-right: 0;
-	margin-bottom: 0;
-}
-
-@media (min-width: 720px) {
-	.page-ziwei-input .info-cards {
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 0;
-	}
-
-	.page-ziwei-input .info-cards > view {
-		width: calc(50% - 8rpx);
-		margin-right: 16rpx;
-		margin-bottom: 16rpx;
-	}
-
-	.page-ziwei-input .info-cards > view:nth-child(2n) {
-		margin-right: 0;
-	}
-}
-
-.layout-medium .page-ziwei-input .info-cards,
-.layout-wide .page-ziwei-input .info-cards {
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0;
-}
-
-.layout-medium .page-ziwei-input .info-cards > view,
-.layout-wide .page-ziwei-input .info-cards > view {
-	width: calc(50% - 8rpx);
-	margin-right: 16rpx;
-	margin-bottom: 16rpx;
-}
-
-.layout-medium .page-ziwei-input .info-cards > view:nth-child(2n),
-.layout-wide .page-ziwei-input .info-cards > view:nth-child(2n) {
-	margin-right: 0;
-}
-
-.page-ziwei-input .info-card {
+	margin: 0;
+	padding: 14px 0 0;
+	border: 0;
+	border-radius: 0;
 	background: transparent;
-	border-radius: 14rpx;
-	padding: 20rpx 24rpx;
-	border: 1rpx solid transparent;
-	box-shadow: none;
+	text-align: left;
+	font-size: 12px;
+	line-height: 1.7;
+	color: var(--x-body, #425d65);
 }
-
-.page-ziwei-input .info-card-header {
+.time-settings-label {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	flex-wrap: wrap;
+	column-gap: 12px;
+	min-width: 0;
+}
+.time-settings-summary {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	overflow-wrap: anywhere;
+}
+.time-settings-action {
+	color: var(--x-accent, #1672b1);
+	flex-shrink: 0;
+	font-size: 11px;
+}
+.time-settings-body {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-top: 14px;
+	padding: 16px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 10px;
+	background: var(--x-gradient-soft, linear-gradient(125deg, #e7f4fc, #fff, #e6f6ed));
+}
+.time-zone-control {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: 12rpx;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 12px;
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 8px;
+	background: var(--x-paper, #fff);
+	color: var(--x-body, #425d65);
+	font-size: 13px;
+	cursor: pointer;
+}
+.time-zone-value {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 4px 10px;
+	min-width: 0;
+}
+.time-zone-id {
+	font-size: 11px;
+	color: var(--x-muted, #667d82);
+	overflow-wrap: anywhere;
+}
+.birth-form-bottom {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px;
+	padding-top: 18px;
+	margin-top: 18px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+.birth-form-bottom .birth-time-hint {
+	max-width: 240px;
+}
+.birth-submit {
+	flex-shrink: 0;
+	min-width: 140px;
+	margin: 0;
+	border-radius: 9px;
+	padding: 12px 22px;
+	line-height: 23px;
+	font-size: 13px;
+	color: #fff;
+	background: var(--x-gradient, linear-gradient(120deg, #1672b1, #11785f));
+}
+.birth-submit[disabled] {
+	opacity: 0.45;
+	color: #fff;
+}
+.form-help {
+	border: 1px solid var(--x-line, #dbe9ed);
+	border-radius: 14px;
+	padding: 20px;
+	background: var(--x-gradient-soft, linear-gradient(125deg, #e7f4fc, #fff, #e6f6ed));
+}
+.help-title {
+	font-family: var(--x-serif, SimSun, serif);
+	font-size: 17px;
+	color: var(--x-ink, #233e49);
+	line-height: 1.7;
+}
+.help-copy {
+	display: block;
+	font-size: 12px;
+	line-height: 1.75;
+	color: var(--x-muted, #667d82);
+	margin-top: 6px;
+}
+.help-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 14px;
+	padding-top: 14px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+.help-item {
+	font-size: 11px;
+	line-height: 1.85;
+	color: var(--x-body, #425d65);
+}
+.help-link {
+	display: block;
+	font-size: 12px;
+	color: var(--x-accent, #1672b1);
+	margin-top: 14px;
+	padding-top: 12px;
+	border-top: 1px solid var(--x-line, #dbe9ed);
+}
+@media (max-width: 1080px) {
+	.birth-form-layout {
+		grid-template-columns: minmax(0, 1fr) 200px;
+		gap: 17px;
+	}
+	.birth-form-panel {
+		padding: 22px;
+	}
+	.form-help {
+		padding: 18px;
+	}
+}
+@media (max-width: 800px) {
+	.birth-form-layout {
+		grid-template-columns: 1fr;
+	}
+	.form-help {
+		margin-top: 0;
+	}
+	.help-list {
+		margin-top: 12px;
+	}
+}
+@media (max-width: 520px) {
+	.birth-form-panel {
+		padding: 18px 16px;
+		border-radius: 12px;
+	}
+	.birth-field-grid {
+		gap: 16px 12px;
+	}
+	.birth-form-bottom {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 14px;
+	}
+	.birth-form-bottom .birth-time-hint {
+		max-width: none;
+	}
+	.birth-submit {
+		width: 100%;
+	}
+	.birth-summary-row {
+		align-items: flex-start;
+	}
+	.birth-summary-value {
+		font-size: 12px;
+	}
+	.form-steps {
+		gap: 13px;
+		font-size: 11px;
+	}
+	.birth-selected-time {
+		font-size: 14px;
+	}
+	.time-settings-body {
+		padding: 12px;
+	}
+	.time-settings-body .birth-segment {
+		font-size: 11px;
+		padding: 7px 3px;
+	}
 }
 </style>

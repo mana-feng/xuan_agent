@@ -1,8 +1,8 @@
 import { getPersistentItem, setPersistentItem } from './persistentStorage';
 
-export type ChartType = 'bazi' | 'ziwei' | 'liuyao';
+export type ChartType = 'bazi' | 'ziwei' | 'liuyao' | 'qimen';
 export const chartRecordKeys: Record<ChartType, string> = {
-	bazi: 'local_chart_records', ziwei: 'local_ziwei_records', liuyao: 'local_liuyao_records',
+	bazi: 'local_chart_records', ziwei: 'local_ziwei_records', liuyao: 'local_liuyao_records', qimen: 'local_qimen_records',
 };
 
 export function readChartRecords(type: ChartType): any[] {

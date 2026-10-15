@@ -11,7 +11,7 @@ const { executeLiuyaoChart } = require('../src/features/liuyao/executor.ts');
 const { buildBaziExportPayload } = require('../src/utils/baziExport.ts');
 const { buildZiweiExportPayload } = require('../src/utils/ziweiExport.ts');
 const { getPersistentItem, setPersistentItem } = require('../src/utils/persistentStorage.ts');
-const first = { realname: '甲', gender: 0, timestamp: new Date(1990, 4, 20, 12, 30).getTime(), recordId: 11 };
+const first = { timeZone: 'Asia/Shanghai', realname: '甲', gender: 0, timestamp: new Date(1990, 4, 20, 12, 30).getTime(), recordId: 11 };
 const second = { realname: '乙', gender: 1, timestamp: new Date(1985, 2, 3, 8, 0).getTime(), recordId: 22 };
 let platform;
 beforeEach(() => { platform = resetPlatform(); setActivePinia(createPinia()); });
@@ -33,10 +33,10 @@ test('Ziwei export keeps chart name and gender after Bazi updates the shared use
   const result = buildZiweiExportPayload(useUserStore(), useZiweiStore());
   assert.equal(result.profile.name, '乙'); assert.equal(result.profile.gender, '女'); assert.equal(result.profile.birthTimestamp, second.timestamp);
 });
-test('Bazi save uses displayed chart, preserves its ID and original save time on update', () => {
+test('Bazi save uses displayed chart, preserves its ID and original save time on update', async () => {
   setPersistentItem('local_chart_records', [record('bazi', first)]);
   chart('bazi', first); const page = loadPage('pages/index/detail.nvue', ['saveToAccount']); chart('ziwei', second);
-  page.saveToAccount();
+  await page.saveToAccount();
   const records = getPersistentItem('local_chart_records');
   assert.equal(records.length, 1); assert.equal(records[0].id, 11); assert.equal(records[0].title, '甲');
   assert.equal(records[0].createdAt, '2026-01-01T00:00:00.000Z');
@@ -98,9 +98,9 @@ test('deleting one chart leaves a different type with the same legacy ID visible
   const page = loadPage('pages/history/list.nvue', ['fetchCharts', 'doRemove', 'charts']); await page.fetchCharts(); await page.doRemove(record('bazi', first));
   assert.equal(page.charts.value.length, 1); assert.equal(page.charts.value[0].type, 'ziwei'); assert.equal(getPersistentItem('local_ziwei_records').length, 1);
 });
-test('saving a new chart does not silently drop the oldest existing local record', () => {
+test('saving a new chart does not silently drop the oldest existing local record', async () => {
   setPersistentItem('local_chart_records', Array.from({ length: 200 }, (_, id) => record('bazi', first, id + 1)));
-  chart('bazi', { ...second, recordId: null }); loadPage('pages/index/detail.nvue', ['saveToAccount']).saveToAccount();
+  chart('bazi', { ...second, recordId: null }); await loadPage('pages/index/detail.nvue', ['saveToAccount']).saveToAccount();
   assert.equal(getPersistentItem('local_chart_records').length, 201);
 });
 test('history reading expired legacy user records preserves and displays them', async () => {
@@ -116,7 +116,7 @@ test('a malformed local history cannot be silently erased by reading or a new sa
   const page = loadPage('pages/history/list.nvue', ['fetchCharts', 'error']); await page.fetchCharts();
   assert.equal(platform.storage.get('local_chart_records'), 'broken storage payload');
   chart('bazi', { ...first, recordId: null });
-  loadPage('pages/index/detail.nvue', ['saveToAccount']).saveToAccount();
+  await loadPage('pages/index/detail.nvue', ['saveToAccount']).saveToAccount();
   assert.equal(platform.storage.get('local_chart_records'), 'broken storage payload');
   assert.ok(page.error.value);
 });
@@ -133,7 +133,7 @@ for (const type of ['bazi', 'ziwei']) test(`${type} restores epoch and pre-1970 
   loadPage(result, []);
   const store = type === 'bazi' ? useBaziStore() : useZiweiStore();
   assert.equal(store.input.timestamp, 0);
-  store.$patch({ input: { ...input, gender: 1, timestamp: new Date(1960, 1, 3, 4, 5).getTime() } });
+  store.pull({ ...input, gender: 1, timestamp: new Date(1960, 1, 3, 4, 5).getTime() });
   platform.hooks.show[0]();
   assert.equal(type === 'bazi' ? store.table[0].data.day : store.astrolabe.gender, type === 'bazi' ? '元女' : '女');
   assert.equal(type === 'bazi' ? store.solar.year : Number(store.astrolabe.solarDate.slice(0, 4)), 1960);
@@ -145,22 +145,22 @@ test('birth with an empty pre-luck period selects a valid initial year instead o
   assert.ok(yun.month_list.length > 0);
   await assert.doesNotReject(yun.resolveLiuMonth());
 });
-test('a rejected local save reports failure without assigning a record ID or changing stored records', () => {
+test('a rejected local save reports failure without assigning a record ID or changing stored records', async () => {
   chart('bazi', { ...first, recordId: null });
   const page = loadPage('pages/index/detail.nvue', ['saveToAccount', 'saveError']);
   const originalSet = uni.setStorageSync;
   uni.setStorageSync = (key, value) => { if (key === 'local_chart_records') throw new Error('quota exceeded'); return originalSet(key, value); };
-  page.saveToAccount();
+  await page.saveToAccount();
   assert.equal(useBaziStore().input.recordId, null);
   assert.equal(platform.storage.has('local_chart_records'), false);
   assert.match(page.saveError.value, /quota exceeded/);
   assert.equal(platform.toasts.at(-1).icon, 'none');
 });
-test('new charts saved in the same millisecond receive distinct IDs and never overwrite a previous chart', (t) => {
+test('new charts saved in the same millisecond receive distinct IDs and never overwrite a previous chart', async (t) => {
   t.mock.method(Date, 'now', () => 1234567890000);
   const page = loadPage('pages/index/detail.nvue', ['saveToAccount']);
-  chart('bazi', { ...first, recordId: null }); page.saveToAccount();
-  chart('bazi', { ...second, recordId: null }); page.saveToAccount();
+  chart('bazi', { ...first, recordId: null }); await page.saveToAccount();
+  chart('bazi', { ...second, recordId: null }); await page.saveToAccount();
   const records = getPersistentItem('local_chart_records');
   assert.equal(records.length, 2); assert.equal(new Set(records.map(item => item.id)).size, 2);
   assert.deepEqual(records.map(item => item.title), ['乙', '甲']);

@@ -181,7 +181,7 @@ export function compileNajia(params: number[], options: any = {}) {
 	const title = options.title || '';
 
 	const date = options.date || new Date();
-	const lunarInfo = computeDaily(date);
+	const lunarInfo = computeDaily(date, options);
 
 	// 卦码（自下而上）
 	const mark = toMark(params);

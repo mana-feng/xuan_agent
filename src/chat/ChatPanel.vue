@@ -1,5 +1,7 @@
 <template>
 	<view class="chat-page">
+    <view class="chat-header"><view class="header-left"><text class="chat-title">AI 对话</text><text class="chat-subtitle">把盘面与生活经验，放在一起聊聊。</text></view><button class="header-btn" v-bind="h5Button(clearSession, restoring || archiveBusy)" :disabled="restoring || archiveBusy" @tap="clearSession">清空对话</button></view>
+    <view class="session-notice" role="status" aria-live="polite"><text>{{ sessionNotice }}</text><button v-if="sessionFailed" class="header-btn" v-bind="h5Button(retrySession)" @tap="retrySession">重试保存</button></view>
 		<scroll-view
 			class="chat-body"
 			scroll-y
@@ -67,11 +69,11 @@
 				maxlength="-1"
 				placeholder="输入你想聊的问题…"
 				aria-label="聊天消息"
-				:disabled="sending || archiveBusy"
+				:disabled="sending || archiveBusy || restoring"
 				confirm-type="send"
 				@confirm="handleSend"
 			/>
-			<button class="chat-send" v-bind="h5Button(handleSend, sending || archiveBusy || !draft.trim())" :disabled="sending || archiveBusy || !draft.trim()" @tap="handleSend">
+			<button class="chat-send" v-bind="h5Button(handleSend, sending || archiveBusy || restoring || !draft.trim())" :disabled="sending || archiveBusy || restoring || !draft.trim()" @tap="handleSend">
 				{{ sending ? '发送中…' : '发送' }}
 			</button>
 		</view>
@@ -79,7 +81,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, reactive, ref } from 'vue';
+import { computed, nextTick, onMounted, onScopeDispose, reactive, ref } from 'vue';
+import { useChatSession } from './useChatSession';
+import type { SessionIdentity } from './sessionSnapshot';
 import { downloadTextFile } from '@/utils/downloadTextFile';
 import { h5Button } from '@/utils/keyboard';
 import {
@@ -103,10 +107,13 @@ type Message = {
 
 const props = defineProps<{
 	disableAutoRestore?: boolean;
+	sessionIdentity?: SessionIdentity | null;
+	sessionAccount?: string;
 }>();
 
 const emit = defineEmits<{
 	(e: 'send', text: string): void;
+	(e: 'session-reset'): void;
 }>();
 
 const messages = reactive<Message[]>([
@@ -122,6 +129,26 @@ const messages = reactive<Message[]>([
 const draft = ref('');
 const sending = ref(false);
 const scrollTop = ref(0);
+
+let sessionEpoch = 0;
+onScopeDispose(() => { ++sessionEpoch; });
+const session = useChatSession(() => props.sessionIdentity,
+	() => ({ messages: messages.filter(message => message.id !== 'm-1'), draft: draft.value }),
+	data => {
+		messages.splice(1, messages.length - 1, ...data.messages.map((message, index) => ({ ...message, id: `restored-${index}` })));
+		draft.value = data.draft;
+		sending.value = false;
+		nextTick(() => { scrollTop.value += 9999; });
+	},
+	() => {
+		if (!props.sessionIdentity && !props.sessionAccount && sessionEpoch === 0) return;
+		++sessionEpoch;
+		messages.splice(1); draft.value = ''; sending.value = false;
+		emit('session-reset');
+	}, () => props.sessionAccount);
+const { notice: sessionNotice, failed: sessionFailed, restoring } = session;
+const clearSession = () => { void session.clear(); };
+const retrySession = () => { void session.flush(); };
 
 const lastMessageId = computed(() => (messages.length ? messages[messages.length - 1].id : ''));
 
@@ -156,7 +183,7 @@ function pushMessage(role: Role, text: string, status?: string) {
 
 async function handleSend() {
 	const text = draft.value.trim();
-	if (!text || sending.value || archiveBusy.value) return;
+	if (!text || sending.value || archiveBusy.value || restoring.value) return;
 	sending.value = true;
 	pushMessage('user', text);
 	emit('send', text);
@@ -474,7 +501,7 @@ async function restoreArchive(preferNativePicker: boolean) {
 
 async function tryAutoRestoreOnOpen() {
 	const operation = archiveOperation;
-	const canRestore = () => operation === archiveOperation && !props.disableAutoRestore && !sending.value && !archiveBusy.value && messages.length === 1;
+	const canRestore = () => operation === archiveOperation && !props.sessionIdentity && !props.disableAutoRestore && !sending.value && !archiveBusy.value && messages.length === 1;
 	if (!canRestore()) return;
 	try {
 		try {
@@ -507,7 +534,7 @@ function getMessages() {
 }
 
 // 对外暴露一个方法，便于上层在拿到模型回复后调用
-defineExpose({
+const panelActions = {
 	createWaitingMessage,
 	appendAssistant(text: string, status?: string, thinking?: string) {
 		if (status === 'stream') {
@@ -556,6 +583,19 @@ defineExpose({
 	handleImportArchive,
 	handleDownloadArchive,
 	archiveBusy,
+};
+defineExpose({ ...panelActions, flushSession: session.flush,
+  captureSession() {
+    const epoch = sessionEpoch;
+    const current = () => epoch === sessionEpoch;
+    return {
+      isCurrent: current,
+      getMessages: () => current() ? getMessages() : [],
+      flushSession: () => current() ? session.flush() : Promise.resolve(false),
+      ...Object.fromEntries(Object.entries(panelActions).filter(([, value]) => typeof value === 'function').map(([key, value]) =>
+        [key, (...args: any[]) => { if (current()) return (value as (...values: any[]) => any)(...args); }])),
+    };
+  },
 });
 
 onMounted(() => {
@@ -920,4 +960,36 @@ onMounted(() => {
 		width: 68px;
 	}
 }
+
+.session-notice { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:8px 14px; font-size:11px; line-height:1.6; color:#43536a; background:#f1f5f9; flex-shrink:0; }
+.chat-page { display:flex; flex-direction:row; flex-direction:column; height:100%; min-height:0; color:var(--x-ink); background:var(--x-paper); }
+.chat-header { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:16px; padding:18px 23px; border-bottom:1px solid var(--x-line); flex-shrink:0; }
+.header-left { display:flex; flex-direction:row; flex-direction:column; gap:5px; }
+.chat-title { font-size:16px; font-weight:600; }
+.chat-subtitle { font-size:11px; color:var(--x-muted); }
+.header-right { display:flex; flex-direction:row; align-items:center; gap:13px; flex-wrap:wrap; justify-content:flex-end; }
+.quota-item { font-size:11px; color:var(--x-muted); white-space:nowrap; }
+.header-actions { display:flex; flex-direction:row; gap:6px; }
+.header-btn { display:flex; flex-direction:row; align-items:center; min-height:33px; padding:0 12px; border:1px solid var(--x-line); background:var(--x-paper); color:var(--x-body); border-radius:7px; font-size:11px; }
+.header-btn[disabled] { opacity:.5; }
+.chat-body { flex:1; min-height:0; height:0; padding:23px; background:linear-gradient(180deg,var(--x-bg),var(--x-paper)); }
+.chat-item { display:flex; flex-direction:row; align-items:flex-start; gap:11px; margin-bottom:22px; }
+.from-user { flex-direction:row-reverse; }
+.avatar { width:32px; height:32px; flex-shrink:0; border-radius:11px; background:var(--x-gradient-soft); color:var(--x-accent); display:flex; flex-direction:row; align-items:center; justify-content:center; font-size:11px; }
+.bubble { max-width:83%; padding:15px 18px; border:1px solid var(--x-line); border-radius:2px 14px 14px; background:var(--x-paper); }
+.from-user .bubble { background:var(--x-gradient); border:0; color:white; border-radius:14px 2px 14px 14px; }
+.bubble-text { font-size:13px; line-height:1.9; white-space:pre-wrap; overflow-wrap:anywhere; }
+.meta { display:flex; flex-direction:row; gap:10px; margin-top:9px; font-size:9px; opacity:.65; }
+.has-error .bubble { background:#fff6f3; color:#a54536; border-color:#efc6bf; }
+.waiting-container { display:flex; flex-direction:row; align-items:center; gap:5px; color:var(--x-muted); }
+.waiting-dots { animation:blink 1.5s infinite; }
+.chat-input-bar { display:flex; flex-direction:row; align-items:flex-end; gap:13px; padding:17px 22px; border-top:1px solid var(--x-line); background:var(--x-paper); flex-shrink:0; }
+.chat-input { flex:1; width:0; min-width:0; min-height:60px; max-height:160px; padding:11px 13px; border:1px solid var(--x-line); border-radius:10px; background:var(--x-bg); font-size:13px; color:var(--x-ink); }
+.chat-input :deep(textarea),.chat-input :deep(.uni-textarea-placeholder) { padding:0!important; font:inherit; }
+.chat-send { padding:0 22px; min-height:42px; border-radius:9px; background:var(--x-gradient); color:white; font-size:12px; display:flex; flex-direction:row; align-items:center; }
+.chat-send[disabled] { opacity:.5; }
+@keyframes blink { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+@media(max-width:600px) { .chat-header { padding:14px; align-items:flex-start; } .header-right { gap:6px; } .header-left { min-width:63px; } .chat-subtitle { display:none; } .chat-title { font-size:14px; } .chat-body { padding:16px 12px; } .chat-item { gap:7px; } .bubble { padding:12px; max-width:85%; } .chat-input-bar { padding:12px; gap:8px; } .chat-send { padding:0 14px; } .bubble-text { font-size:12px; } .header-btn { padding:0 8px; font-size:10px; } }
+
+.session-notice { display:flex; flex-flow:row wrap; gap:8px; align-items:center; padding:8px 18px; font-size:11px; color:var(--x-muted); }
 </style>

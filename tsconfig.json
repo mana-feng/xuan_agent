@@ -9,16 +9,41 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "types": ["@dcloudio/types", "vite/client", "node"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "types": [
+      "@dcloudio/types",
+      "vite/client",
+      "node"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "qimen-engine": [
+        "vendor/qfdk-qimen/lib/qimen"
+      ]
     }
   },
   "vueCompilerOptions": {
-    "extensions": [".vue", ".nvue"]
+    "extensions": [
+      ".vue",
+      ".nvue"
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.nvue"],
-  "exclude": ["node_modules", "dist", "src/libs/tmui/**"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.nvue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/libs/tmui/**"
+  ]
 }

@@ -3,61 +3,50 @@
 		<PageScaffold
 			class="page-ziwei-result"
 			card-class="detail-card ziwei-card"
-			title="紫微排盘结果"
-			subtitle="查看命盘、保存记录、导出与 AI 解读"
+			title="紫微命盘"
+			subtitle="十二宫之间，探索生活的不同面向。"
 		>
+			<template #header-extra>
+				<view v-if="astrolabe" class="result-actions">
+					<button v-bind="h5Button(editZiwei)" class="result-button" @tap="editZiwei">
+						修改信息
+					</button>
+					<button v-bind="h5Button(exportToon)" class="result-button" @tap="exportToon">
+						导出 TOON
+					</button>
+					<button
+						v-bind="h5Button(saveToAccount, saving)"
+						class="result-button primary"
+						:disabled="saving"
+						@tap="saveToAccount"
+					>
+						{{ saving ? '保存中…' : ziweiStore.input.recordId ? '更新本地记录' : '保存到本机' }}
+					</button>
+				</view>
+			</template>
 			<view v-if="astrolabe" class="result-container">
 				<view class="section info-summary">
 					<header class="section__header">
-						<tm-icon name="tmicon-md-person" :font-size="26" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-md-person" :font-size="26" color="#1672b1"></tm-icon>
 						<h2 class="section__title">&#x57FA;&#x7840;&#x4FE1;&#x606F;</h2>
 					</header>
 					<view class="section__body">
 						<view class="info-grid">
-							<view v-for="item in summaryTiles" :key="item.label" class="info-tile">
-								<tm-text :font-size="24" color="#718096" :label="item.label"></tm-text>
-								<tm-text :font-size="30" :bold="true" color="#2d3748" :label="item.value"></tm-text>
+							<view v-for="group in summaryGroups" :key="group[0].label" class="info-group">
+								<template v-for="item in group" :key="item.label">
+									<text class="summary-label">{{ item.label }}</text>
+									<text class="summary-value">{{ item.value }}</text>
+								</template>
 							</view>
 						</view>
 
-						<view class="actions-row">
-							<tm-button
-								type="primary"
-								:loading="saving"
-								:disabled="saving"
-								:round="12"
-								:padding="[24, 20]"
-								:bold="true"
-								label="保存"
-								icon="tmicon-md-save"
-								@tap="saveToAccount"
-							></tm-button>
-							<tm-button
-								type="primary"
-								:round="12"
-								:padding="[24, 20]"
-								label="&#x7F16;&#x8F91;&#x4FE1;&#x606F;"
-								icon="tmicon-md-create"
-								@tap="editZiwei"
-							></tm-button>
-							<tm-button
-								type="primary"
-								:round="12"
-								:padding="[24, 20]"
-								label="&#x5BFC;&#x51FA; TOON"
-								icon="tmicon-md-download"
-								@tap="exportToon"
-							></tm-button>
-							<tm-button
-								type="primary"
-								:round="12"
-								:padding="[24, 20]"
-								label="AI &#x89E3;&#x7B54;"
-								icon="tmicon-md-bulb"
-								@tap="goToChat"
-							></tm-button>
+						<view v-if="ziweiStore.calculation" class="calculation-note">
+							<view class="calculation-caption"><text>{{ ziweiStore.calculation.birthCivil.slice(11,16) }} · {{ ziweiStore.input.timeZone }}</text><button v-bind="h5Button(() => rulesOpen = !rulesOpen)" class="rules-toggle" :aria-expanded="rulesOpen" @tap="rulesOpen = !rulesOpen">排盘规则 {{ rulesOpen ? '−' : '+' }}</button></view>
+							<text v-if="rulesOpen">按出生地民用钟表时间排盘；23 点换日，闰月十五／十六分界，正月初一换年，不校正真太阳时。</text>
+							<text v-if="rulesOpen">亮度采用《紫微斗数全书》表，已修正旧版酉宫三项数据；四化采用戊右弼化科、庚太阴化科、壬左辅化科。</text>
+							<text v-if="ziweiStore.calculation.lateZiRollover">晚子时按 {{ ziweiStore.calculation.calculationDate }} 子时排盘；上方阴历为排盘历日。</text>
+							<text v-if="ziweiStore.input.timeZoneSource === 'legacy-device'">旧记录未保存出生时区，暂按当前设备时区解释，请通过“修改信息”确认。</text>
 						</view>
-
 						<view v-if="saveError" class="export-error">
 							<text class="export-error-text">{{ saveError }}</text>
 						</view>
@@ -67,205 +56,62 @@
 					</view>
 				</view>
 
-				<view class="section chart-section">
-					<header class="section__header">
-						<tm-icon name="tmicon-md-grid" :font-size="26" color="#667eea"></tm-icon>
-						<h2 class="section__title">&#x547D;&#x76D8;&#x603B;&#x89C8;</h2>
-					</header>
-					<view class="section__body">
-						<view class="chart-grid">
-							<view class="chart-row top-row">
-								<view
-									v-for="cell in sortedCells.top"
-									:key="cell.original.earthlyBranch"
-									class="chart-cell"
-									:class="getCellClass(cell)"
-									@click="handleCellClick(cell)"
-								>
-									<PalaceContent
-										:palace="cell.original"
-										:display-jiangqian12="cell.displayJiangqian12"
-										:display-suiqian12="cell.displaySuiqian12"
-										:dynamic-labels="cell.dynamicLabels"
-										:dynamic-stars="cell.dynamicStars"
-										:fly-mutagens="cell.flyMutagens"
-										:scope-mutagens="cell.scopeMutagens"
-										:is-highlighted="highlightedIndices.includes(cell.original.index)"
-										@expand="openPalaceDetail(cell)"
-									/>
-								</view>
-							</view>
 
-							<view class="chart-row middle-row">
-								<view class="chart-col side-col">
-									<view
-										v-for="cell in sortedCells.left"
-										:key="cell.original.earthlyBranch"
-										class="chart-cell"
-										:class="getCellClass(cell)"
-										@click="handleCellClick(cell)"
-									>
-										<PalaceContent
-											:palace="cell.original"
-											:display-jiangqian12="cell.displayJiangqian12"
-											:display-suiqian12="cell.displaySuiqian12"
-											:dynamic-labels="cell.dynamicLabels"
-											:dynamic-stars="cell.dynamicStars"
-											:fly-mutagens="cell.flyMutagens"
-											:scope-mutagens="cell.scopeMutagens"
-											:is-highlighted="highlightedIndices.includes(cell.original.index)"
-											@expand="openPalaceDetail(cell)"
-										/>
-									</view>
-								</view>
+        <view class="section chart-section">
+          <header class="overview-heading"><h2>命盘总览</h2><text>{{ currentScopeLabel || '本命十二宫' }} · 主星与四化</text></header>
+          <text v-if="ziweiStore.viewMode !== 'origin' && !currentHoroscope" class="calculation-note">选定时间超出可用运限范围，请从下方时间轴选择大限。当前显示本命盘。</text>
+          <view class="overview-layout">
+            <view class="overview-main">
+              <view class="palace-board" aria-label="紫微十二宫">
+                <view v-for="cell in boardCells" :key="cell.original.index" class="overview-cell" :class="{ 'is-selected': selectedCell?.original.index === cell.original.index, 'is-related': highlightedIndices.includes(cell.original.index) }" :style="palacePosition(cell.original.earthlyBranch)" @tap="handleCellClick(cell)">
+                  <PalaceContent :active-scope="ziweiStore.viewMode" :palace="cell.original" :display-jiangqian12="cell.displayJiangqian12" :display-suiqian12="cell.displaySuiqian12" :dynamic-labels="cell.dynamicLabels" :dynamic-stars="cell.dynamicStars" :fly-mutagens="cell.flyMutagens" :scope-mutagens="cell.scopeMutagens" :is-highlighted="highlightedIndices.includes(cell.original.index)" @expand="openCellZoom(cell)" />
+                </view>
+                <view class="overview-center">
+                  <text class="center-kicker">{{ currentScopeLabel || '本命 · 十二宫' }}</text>
+                  <text class="center-symbol" aria-hidden="true">✳</text>
+                  <text class="center-person">{{ ziweiStore.input.realname || '匿名命盘' }}</text>
+                  <text class="center-date">{{ ziweiStore.calculation?.birthCivil.slice(0,10) || astrolabe.solarDate }}</text>
+                  <text class="center-class">{{ astrolabe.fiveElementsClass }} · {{ ziweiStore.calculation?.lateZiRollover ? '晚子时' : astrolabe.time }}</text>
+                  <view class="center-focus"><text>当前宫位</text><text>{{ displayPalaceName(selectedCell?.original.name || '') }}</text></view>
+                  <text class="center-help">轻点宫位看关联<br />点击「详情」展开</text>
+                </view>
+              </view>
+              <view class="overview-legend"><text><i class="legend-dot selected-dot"></i> 当前宫位</text><text><i class="legend-dot related-dot"></i> 三方四正</text><text>禄 · 权 · 科 · 忌</text></view>
+              <button v-if="selectedCell" class="selected-detail-button" v-bind="h5Button(() => openCellZoom(selectedCell))" @tap="openCellZoom(selectedCell)">查看{{ displayPalaceName(selectedCell.original.name) }}完整信息 <text>↗</text></button>
+            </view>
+            <view v-if="selectedCell" class="overview-details" aria-label="宫位详情">
+              <text class="detail-eyebrow">宫位详情</text>
+              <PalaceContent :active-scope="ziweiStore.viewMode" expanded :palace="selectedCell.original" :display-jiangqian12="selectedCell.displayJiangqian12" :display-suiqian12="selectedCell.displaySuiqian12" :dynamic-labels="selectedCell.dynamicLabels" :dynamic-stars="selectedCell.dynamicStars" :fly-mutagens="selectedCell.flyMutagens" :scope-mutagens="selectedCell.scopeMutagens" />
+              <view v-if="focusSummary" class="overview-relations"><text>三方四正 · 本命四化</text><view><text v-for="item in focusSummary.surroundMutagens" :key="item.name" :class="{ active: item.active }">{{ item.name }}</text></view><text v-if="focusSummary.flyText">飞化：{{ focusSummary.flyText }}</text></view>
+            </view>
+          </view>
+          <!-- #ifdef H5 -->
+          <Teleport to="body">
+          <!-- #endif -->
+          <view v-if="zoomedCell" class="overview-dialog-mask" @tap="closeCellZoom">
+            <view ref="palaceDialogRoot" class="overview-dialog" role="dialog" aria-modal="true" aria-label="宫位完整信息" @tap.stop>
+              <view class="overview-dialog-header"><text>宫位完整信息</text><button v-bind="h5Button(closeCellZoom)" class="overview-close" aria-label="关闭宫位放大" @tap="closeCellZoom">×</button></view>
+              <PalaceContent :active-scope="ziweiStore.viewMode" expanded :palace="zoomedCell.original" :display-jiangqian12="zoomedCell.displayJiangqian12" :display-suiqian12="zoomedCell.displaySuiqian12" :dynamic-labels="zoomedCell.dynamicLabels" :dynamic-stars="zoomedCell.dynamicStars" :fly-mutagens="zoomedCell.flyMutagens" :scope-mutagens="zoomedCell.scopeMutagens" />
+              <view v-if="focusSummary" class="overview-relations"><text>三方四正 · 本命四化</text><view><text v-for="item in focusSummary.surroundMutagens" :key="item.name" :class="{ active: item.active }">{{ item.name }}</text></view><text v-if="focusSummary.flyText">飞化：{{ focusSummary.flyText }}</text></view>
+            </view>
+          </view>
+          <!-- #ifdef H5 -->
+          </Teleport>
+          <!-- #endif -->
+        </view>
 
-								<view class="center-info">
-									<view class="info-content">
-										<view class="info-header">
-											<text class="info-name">{{ ziweiStore.input.realname || '\u533F\u540D' }}</text>
-											<text class="info-gender">{{ Number(ziweiStore.input.gender) === 0 ? '\u7537' : '\u5973' }}</text>
-										</view>
-
-										<view class="info-row">
-											<text class="info-label">&#x9634;&#x5386;&#xFF1A;</text>
-											<text class="info-val">{{ astrolabe.lunarDate }}</text>
-										</view>
-										<view class="info-row">
-											<text class="info-label">&#x9633;&#x5386;&#xFF1A;</text>
-											<text class="info-val">{{ astrolabe.solarDate }}</text>
-										</view>
-
-										<view class="info-row">
-											<text class="info-label">&#x4E94;&#x884C;&#x5C40;&#xFF1A;</text>
-											<text class="info-val">{{ astrolabe.fiveElementsClass }}</text>
-											<text class="info-val info-val-spaced">{{ astrolabe.time }}</text>
-										</view>
-
-										<view class="info-row">
-											<text class="info-label">&#x547D;&#x4E3B;&#xFF1A;</text>
-											<text class="info-val">{{ astrolabe.soul }}</text>
-											<text class="info-label info-label-spaced">&#x8EAB;&#x4E3B;&#xFF1A;</text>
-											<text class="info-val">{{ astrolabe.body }}</text>
-										</view>
-
-										<view v-if="ziweiStore.viewMode !== 'origin'" class="scope-info">
-											<text class="scope-label">&#x5F53;&#x524D;&#x8FD0;&#x9650;&#xFF1A;</text>
-											<text class="scope-val">{{ currentScopeLabel }}</text>
-										</view>
-
-										<view v-if="focusSummary" class="focus-summary">
-											<text class="focus-title">{{ focusSummary.name }}&#x4E09;&#x65B9;&#x56DB;&#x6B63;</text>
-											<view class="focus-mutagen-row">
-												<text
-													v-for="item in focusSummary.surroundMutagens"
-													:key="'focus-mtg-' + item.name"
-													class="focus-mutagen"
-													:class="{ active: item.active }"
-												>
-													{{ item.name }}
-												</text>
-											</view>
-											<text v-if="focusSummary.flyText" class="focus-fly">{{ focusSummary.flyText }}</text>
-										</view>
-
-										<view class="legend-box">
-											<text class="legend-title">&#x56DB;&#x5316;&#x6807;&#x8BB0;</text>
-											<view class="legend-items">
-												<text class="legend-item lu">&#x7984;</text>
-												<text class="legend-item quan">&#x6743;</text>
-												<text class="legend-item ke">&#x79D1;</text>
-												<text class="legend-item ji">&#x5FCC;</text>
-											</view>
-										</view>
-									</view>
-								</view>
-
-								<view class="chart-col side-col">
-									<view
-										v-for="cell in sortedCells.right"
-										:key="cell.original.earthlyBranch"
-										class="chart-cell"
-										:class="getCellClass(cell)"
-										@click="handleCellClick(cell)"
-									>
-										<PalaceContent
-											:palace="cell.original"
-											:display-jiangqian12="cell.displayJiangqian12"
-											:display-suiqian12="cell.displaySuiqian12"
-											:dynamic-labels="cell.dynamicLabels"
-											:dynamic-stars="cell.dynamicStars"
-											:fly-mutagens="cell.flyMutagens"
-											:scope-mutagens="cell.scopeMutagens"
-											:is-highlighted="highlightedIndices.includes(cell.original.index)"
-											@expand="openPalaceDetail(cell)"
-										/>
-									</view>
-								</view>
-							</view>
-
-							<view class="chart-row bottom-row">
-								<view
-									v-for="cell in sortedCells.bottom"
-									:key="cell.original.earthlyBranch"
-									class="chart-cell"
-									:class="getCellClass(cell)"
-									@click="handleCellClick(cell)"
-								>
-									<PalaceContent
-										:palace="cell.original"
-										:display-jiangqian12="cell.displayJiangqian12"
-										:display-suiqian12="cell.displaySuiqian12"
-										:dynamic-labels="cell.dynamicLabels"
-										:dynamic-stars="cell.dynamicStars"
-										:fly-mutagens="cell.flyMutagens"
-										:scope-mutagens="cell.scopeMutagens"
-										:is-highlighted="highlightedIndices.includes(cell.original.index)"
-										@expand="openPalaceDetail(cell)"
-									/>
-								</view>
-							</view>
-						</view>
-
-						<!-- #ifdef H5 -->
-						<Teleport to="body">
-						<!-- #endif -->
-						<view v-if="zoomedCell" class="palace-zoom-mask" @tap="closeCellZoom" @keydown.esc.stop.prevent="closeCellZoom" @keydown.tab.stop.prevent="focusZoomClose">
-							<view class="palace-zoom-panel" role="dialog" aria-modal="true" aria-labelledby="palace-detail-title" @tap.stop>
-								<view class="palace-zoom-header">
-									<view class="palace-zoom-title-wrap">
-										<text id="palace-detail-title" class="palace-zoom-title">
-											{{ displayPalaceName(zoomedCell.original.name) }}
-										</text>
-										<text class="palace-zoom-subtitle">宫位详情</text>
-									</view>
-									<text ref="zoomCloseButton" v-bind="h5Button(closeCellZoom)" class="palace-zoom-close" aria-label="关闭宫位详情" @tap="closeCellZoom">×</text>
-								</view>
-								<view class="palace-zoom-body">
-									<view class="palace-zoom-content">
-										<PalaceContent
-											:palace="zoomedCell.original"
-											:expanded="true"
-											:display-jiangqian12="zoomedCell.displayJiangqian12"
-											:display-suiqian12="zoomedCell.displaySuiqian12"
-											:dynamic-labels="zoomedCell.dynamicLabels"
-											:dynamic-stars="zoomedCell.dynamicStars"
-											:fly-mutagens="zoomedCell.flyMutagens"
-											:scope-mutagens="zoomedCell.scopeMutagens"
-											:is-highlighted="highlightedIndices.includes(zoomedCell.original.index)"
-										/>
-									</view>
-								</view>
-							</view>
-						</view>
-						<!-- #ifdef H5 -->
-						</Teleport>
-						<!-- #endif -->
-					</view>
+				<view class="result-reading">
+					<text class="result-eyebrow">EXPLORE A LITTLE DEEPER</text>
+					<h2>看见结构，再聊细节。</h2>
+					<p>把盘面与自己的生活经验放在一起，从一个关心的问题开始。当前命盘会随对话一起带入。</p>
+					<button v-bind="h5Button(goToChat)" class="result-button primary" @tap="goToChat">
+						带着这张盘，问问 AI ↗
+					</button>
+					<text class="result-note">传统文化探索 · 供交流与参考</text>
 				</view>
-
 				<view class="section timeline-section">
 					<header class="section__header">
-						<tm-icon name="tmicon-md-time" :font-size="26" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-md-time" :font-size="26" color="#1672b1"></tm-icon>
 						<h2 class="section__title">&#x8FD0;&#x9650;&#x65F6;&#x95F4;&#x8F74;</h2>
 					</header>
 					<view class="section__body">
@@ -281,41 +127,52 @@
 
 			<view v-else class="section empty-state">
 				<tm-icon name="tmicon-md-time" :font-size="72" color="#cbd5e0"></tm-icon>
-				<tm-text :font-size="26" color="#718096" label="&#x6682;&#x65E0;&#x6392;&#x76D8;&#x6570;&#x636E;&#xFF0C;&#x8BF7;&#x5148;&#x8FD4;&#x56DE;&#x6392;&#x76D8;&#x4E3B;&#x9875;&#x751F;&#x6210;&#x547D;&#x76D8;&#x3002;"></tm-text>
-				<tm-button type="primary" :round="12" :padding="[22, 16]" label="&#x8FD4;&#x56DE;&#x6392;&#x76D8;" @tap="goStart"></tm-button>
+				<tm-text
+					:font-size="26"
+					color="#718096"
+					label="&#x6682;&#x65E0;&#x6392;&#x76D8;&#x6570;&#x636E;&#xFF0C;&#x8BF7;&#x5148;&#x8FD4;&#x56DE;&#x6392;&#x76D8;&#x4E3B;&#x9875;&#x751F;&#x6210;&#x547D;&#x76D8;&#x3002;"
+				></tm-text>
+				<tm-button
+					v-bind="h5Button(goStart)"
+					type="primary"
+					:round="12"
+					:padding="[22, 16]"
+					label="&#x8FD4;&#x56DE;&#x6392;&#x76D8;"
+					@tap="goStart"
+				></tm-button>
 			</view>
 		</PageScaffold>
 	</tm-app>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { useZiweiStore } from '@/store/ziwei';
 import { useUserStore } from '@/store/user';
-import { saveChartRecord } from '@/utils/localChartRecords';
-import { encodeTOON } from '@/utils/toon';
+import { request } from '@/services/localRecords';
 import { downloadTextFile } from '@/utils/downloadTextFile';
-import { buildZiweiExportPayload } from '@/utils/ziweiExport';
+import { encodeTOON } from '@/utils/toon';
 import { h5Button } from '@/utils/keyboard';
+import { useModalFocus } from '@/utils/useModalFocus';
+import { buildZiweiExportPayload } from '@/utils/ziweiExport';
 import PalaceContent from './components/PalaceContent.nvue';
 import Timeline from './components/Timeline.nvue';
 
 const ziweiStore = useZiweiStore();
 const userStore = useUserStore();
-function restoreZiwei() {
-	ziweiStore.restoreLastContext();
+ziweiStore.restoreInput();
+ziweiStore.ensureComputed();
+onShow(() => {
+	ziweiStore.restoreInput();
 	ziweiStore.ensureComputed();
-}
-restoreZiwei();
-onShow(restoreZiwei);
+});
 const saving = ref(false);
 const saveError = ref('');
 const exportError = ref('');
-const zoomedCell = ref<any | null>(null);
-const zoomCloseButton = ref<HTMLElement | { $el: HTMLElement } | null>(null);
-let zoomTrigger: HTMLElement | null = null;
+const rulesOpen = ref(false);
+const zoomedPalaceIndex = ref<number | null>(null);
 const lastClickTs = ref(0);
 const lastClickPalaceIndex = ref<number | null>(null);
 
@@ -343,7 +200,7 @@ const exportToon = () => {
 
 	let payload: Record<string, unknown> | null = null;
 	try {
-		payload = buildZiweiExportPayload(userStore, ziweiStore);
+		payload = buildZiweiExportPayload(ziweiStore.input, ziweiStore);
 	} catch (e: any) {
 		exportError.value = `\u751F\u6210\u5BFC\u51FA\u6570\u636E\u5931\u8D25\uFF1A${e?.message || e}`;
 		return;
@@ -368,7 +225,7 @@ const exportToon = () => {
 	try {
 		downloadTextFile(toonStr, filename);
 		uni.showToast({
-			title: '已发起 TOON 下载，请查看下载列表',
+			title: '已请求浏览器下载 TOON 文件',
 			icon: 'none',
 			duration: 2000,
 		});
@@ -408,6 +265,7 @@ const buildZiweiLitePayload = () => {
 		lite: true,
 		module: 'ziwei',
 		user: {
+			...ziweiStore.input,
 			realname: ziweiStore.input.realname || '',
 			gender: ziweiStore.input.gender,
 			timestamp: ziweiStore.input.timestamp,
@@ -435,38 +293,75 @@ const buildZiweiLitePayload = () => {
 const saveToAccount = async () => {
 	saveError.value = '';
 
-	if (!astrolabe.value || ziweiStore.input.timestamp === null) {
-		uni.showToast({ title: '排盘数据不完整', icon: 'none', duration: 2000 });
+	if (!userStore.isLoggedIn) {
+		uni.showToast({
+			 title: '\u8BF7\u5148\u767B\u5F55',
+			icon: 'none',
+			duration: 2000,
+		});
+		return;
+	}
+
+	if (!astrolabe.value || !ziweiStore.input.timestamp) {
+		uni.showToast({
+			 title: '\u6392\u76D8\u6570\u636E\u4E0D\u5B8C\u6574',
+			icon: 'none',
+			duration: 2000,
+		});
 		return;
 	}
 
 	if (saving.value) return;
 	saving.value = true;
+	const savingInput = ziweiStore.input;
+	const recordId = ziweiStore.input.recordId;
+	const isUpdate = !!recordId;
 
 	try {
 		const rawPayload = buildZiweiLitePayload();
-		const input = ziweiStore.input;
-		const entry = saveChartRecord('ziwei', {
-			id: input.recordId,
-			title: input.realname.trim() || '佚名',
-			gender: String(input.gender),
-			birthDatetime: input.timestamp,
-			createdAt: new Date().toISOString(),
-			rawPayload,
+		const res = await request(isUpdate ? `/records/ziwei/${recordId}` : '/records/ziwei', {
+			method: isUpdate ? 'PUT' : 'POST',
+			data: {
+				name: (ziweiStore.input.realname || '').trim() || '\u533F\u540D',
+				gender:
+					ziweiStore.input.gender !== undefined && ziweiStore.input.gender !== null
+						? String(ziweiStore.input.gender)
+						: null,
+				birthDatetime: Number(ziweiStore.input.timestamp),
+				calendarType: 'solar',
+				rawPayload,
+			},
 		});
-		ziweiStore.setRecordId(entry.id);
-		uni.showToast({ title: '已保存', icon: 'success', duration: 1500 });
+		const responseData = res?.data || res;
+		if (responseData?.id && ziweiStore.input === savingInput) {
+			ziweiStore.input.recordId = responseData.id;
+			ziweiStore.persistInput();
+		}
+
+		uni.showToast({
+			 title: isUpdate ? '\u8BB0\u5F55\u5DF2\u66F4\u65B0' : '已保存到本机',
+			icon: 'success',
+			duration: 1500,
+		});
 	} catch (e: any) {
-		const message = e?.message || '保存失败，请重试';
+		if (isUpdate && e?.code === 'NOT_FOUND' && ziweiStore.input === savingInput) {
+			ziweiStore.input.recordId = null;
+			ziweiStore.persistInput();
+		}
+		const message = e?.error || e?.message || '\u4FDD\u5B58\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5';
 		saveError.value = message;
-		uni.showToast({ title: message, icon: 'none', duration: 2000 });
+		uni.showToast({
+			title: message,
+			icon: 'none',
+			duration: 2000,
+		});
 	} finally {
 		saving.value = false;
 	}
 };
 
 function editZiwei() {
-	if (ziweiStore.input.timestamp === null) {
+	if (!ziweiStore.input.timestamp) {
 		uni.showToast({
 			 title: '\u7F3A\u5C11\u51FA\u751F\u65F6\u95F4',
 			icon: 'none',
@@ -476,6 +371,7 @@ function editZiwei() {
 	}
 
 	const editData = {
+		...ziweiStore.input,
 		realname: ziweiStore.input.realname || '',
 		gender:
 			ziweiStore.input.gender !== undefined && ziweiStore.input.gender !== null
@@ -550,13 +446,14 @@ const summaryTiles = computed(() => {
 	const tiles = [
 		{ label: '\u59D3\u540D', value: (ziweiStore.input.realname || '').trim() || '\u533F\u540D' },
 		{ label: '\u6027\u522B', value: Number(ziweiStore.input.gender) === 0 ? '\u7537' : '\u5973' },
-		{ label: '\u9633\u5386', value: astrolabe.value.solarDate || '-' },
+		{ label: '\u9633\u5386', value: ziweiStore.calculation?.birthCivil.slice(0, 10) || astrolabe.value.solarDate || '-' },
 		{ label: '\u9634\u5386', value: astrolabe.value.lunarDate || '-' },
 		{ label: '\u4E94\u884C\u5C40', value: astrolabe.value.fiveElementsClass || '-' },
 		{ label: '\u547D\u4E3B / \u8EAB\u4E3B', value: `${astrolabe.value.soul || '-'} / ${astrolabe.value.body || '-'}` },
 	];
 	return tiles;
 });
+const summaryGroups = computed(() => [summaryTiles.value.slice(0, 2), summaryTiles.value.slice(2, 4), summaryTiles.value.slice(4, 6)].filter(group => group.length));
 
 const handleTimelineSelectionUpdate = (payload: any) => {
 	const mode = payload?.mode;
@@ -613,15 +510,9 @@ const focusedSurroundedPalaces = computed(() => {
 	const focusPalace = astrolabe.value.palaces[focusIndex];
 	if (!focusPalace) return null;
 
-	if (ziweiStore.viewMode !== 'origin' && currentHoroscope.value?.surroundPalaces) {
-		try {
-			return currentHoroscope.value.surroundPalaces(focusPalace.name, ziweiStore.viewMode);
-		} catch (e) {
-			console.warn('Failed to load surrounded palaces in scope:', e);
-		}
-	}
-
 	try {
+		// Selection is a physical palace index. Its natal name can refer to a
+		// different physical palace when looked up in a horoscope scope.
 		return astrolabe.value.surroundedPalaces(focusPalace.index);
 	} catch (e) {
 		console.warn('Failed to load surrounded palaces:', e);
@@ -698,7 +589,6 @@ const sortedCells = computed(() => {
 	if (ziweiStore.viewMode !== 'origin' && currentHoroscope.value) {
 		const mode = ziweiStore.viewMode;
 		const horoscope = currentHoroscope.value;
-		const hasScopeMutagenCache = new Map<string, boolean>();
 
 		if (mode === 'yearly') {
 			const yearlyDecStar = (horoscope as any)?.yearly?.yearlyDecStar;
@@ -785,23 +675,8 @@ const sortedCells = computed(() => {
 					if (!starName) return;
                     const mutagenName = MUTAGEN_NAMES[idx];
                     if (!mutagenName) return;
-					const palaceName = cell.original?.name;
-					if (!palaceName) return;
-
-					if (typeof horoscope?.hasHoroscopeMutagen === 'function') {
-						const cacheKey = `${scope}|${palaceName}|${mutagenName}`;
-						let matched = hasScopeMutagenCache.get(cacheKey);
-						if (typeof matched !== 'boolean') {
-							try {
-								matched = Boolean(horoscope.hasHoroscopeMutagen(palaceName, scope as any, mutagenName));
-							} catch (e) {
-								matched = false;
-							}
-							hasScopeMutagenCache.set(cacheKey, matched);
-						}
-						if (!matched) return;
-					}
-
+					// Scope transformations attach to the actual natal star. Passing a
+					// natal palace name to the horoscope API would look up another cell.
 					if (!starSet?.has(starName)) return;
 
                     const mutagenLabel = prefix + mutagenName;
@@ -861,6 +736,14 @@ const sortedCells = computed(() => {
 	};
 });
 
+const boardCells = computed(() => [...sortedCells.value.top, ...sortedCells.value.left, ...sortedCells.value.right, ...sortedCells.value.bottom].filter(Boolean));
+const zoomedCell = computed(() => zoomedPalaceIndex.value === null ? null : boardCells.value.find(cell => cell.original.index === zoomedPalaceIndex.value) || null);
+const selectedCell = computed(() => boardCells.value.find(cell => cell.original.index === ziweiStore.focusPalaceIndex) || boardCells.value.find(cell => cell.original.name === '命宫') || boardCells.value[0]);
+const palacePosition = (branch: string) => {
+  const positions: Record<string, [number, number]> = {巳:[1,1],午:[1,2],未:[1,3],申:[1,4],辰:[2,1],卯:[3,1],酉:[2,4],戌:[3,4],寅:[4,1],丑:[4,2],子:[4,3],亥:[4,4]};
+  const [row,column] = positions[branch] || [1,1]; return {gridRow:row,gridColumn:column};
+};
+
 const getCellClass = (cell: any) => {
     const isFocus = ziweiStore.focusPalaceIndex === cell.original.index;
 	const isMing = cell.original.name === '\u547D\u5BAB';
@@ -873,39 +756,27 @@ const getCellClass = (cell: any) => {
 
 const DOUBLE_CLICK_WINDOW_MS = 280;
 
-const focusZoomClose = () => {
-	// #ifdef H5
-	const button = zoomCloseButton.value;
-	const element = button && ('$el' in button ? button.$el : button);
-	element?.focus();
-	// #endif
-};
-
 const closeCellZoom = () => {
-	zoomedCell.value = null;
-	// #ifdef H5
-	const trigger = zoomTrigger;
-	zoomTrigger = null;
-	nextTick(() => trigger?.focus());
-	// #endif
+	zoomedPalaceIndex.value = null;
 };
 
-const openPalaceDetail = (cell: any) => {
+const palaceDialogRoot = ref<any>(null);
+const palaceDialogOpen = computed(() => Boolean(zoomedCell.value));
+useModalFocus(palaceDialogOpen, palaceDialogRoot, closeCellZoom);
+
+const openCellZoom = (cell: any) => {
 	if (!cell?.original) return;
-	// #ifdef H5
-	zoomTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-	// #endif
-	zoomedCell.value = cell;
+	ziweiStore.focusPalaceIndex = cell.original.index;
+	zoomedPalaceIndex.value = cell.original.index;
 	lastClickPalaceIndex.value = null;
 	lastClickTs.value = 0;
-	nextTick(focusZoomClose);
 };
 
 const handleCellClick = (cell: any) => {
 	if (!cell?.original) return;
 
 	const palaceIndex = cell.original.index;
-	ziweiStore.setFocus(palaceIndex);
+	ziweiStore.focusPalaceIndex = palaceIndex;
 
 	const now = Date.now();
 	const isSamePalace = lastClickPalaceIndex.value === palaceIndex;
@@ -915,12 +786,15 @@ const handleCellClick = (cell: any) => {
 	lastClickTs.value = now;
 
 	if (isDoubleClick) {
-		openPalaceDetail(cell);
+		zoomedPalaceIndex.value = palaceIndex;
+		lastClickPalaceIndex.value = null;
+		lastClickTs.value = 0;
 	}
 };
 </script>
 
 <style scoped>
+.calculation-note { display: flex; flex-direction: column; gap: 5px; margin-top: 14px; font-size: 11px; line-height: 1.7; color: var(--x-muted, #667d82); overflow-wrap: anywhere; }
 :deep(*) {
 	box-sizing: border-box;
 }
@@ -939,6 +813,14 @@ const handleCellClick = (cell: any) => {
 	padding: 16px 14px;
 }
 
+/* #ifdef H5 */
+.page-ziwei-result :deep(.page-card.ziwei-card) {
+	/* A transformed card becomes the containing block for the fixed palace overlay. */
+	animation: none;
+	transform: none;
+}
+/* #endif */
+
 .page-ziwei-result .result-container {
 	display: flex;
 	flex-direction: column;
@@ -946,6 +828,7 @@ const handleCellClick = (cell: any) => {
 }
 
 .page-ziwei-result .section {
+	display: block;
 	background: #ffffff;
 	border-radius: 14px;
 	border: 1px solid #e2e8f0;
@@ -955,6 +838,7 @@ const handleCellClick = (cell: any) => {
 
 .page-ziwei-result .section__header {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	gap: 12px;
 	margin-bottom: 10px;
@@ -972,30 +856,6 @@ const handleCellClick = (cell: any) => {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-}
-
-.page-ziwei-result .info-grid {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 10px;
-}
-
-@media (min-width: 720px) {
-	.page-ziwei-result .info-grid {
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	}
-}
-
-.layout-medium .page-ziwei-result .info-grid,
-.layout-wide .page-ziwei-result .info-grid {
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.page-ziwei-result .info-tile {
-	padding: 10px 12px;
-	border: 1px solid #e5e7eb;
-	border-radius: 12px;
-	background: #f8fafc;
 }
 
 .page-ziwei-result .actions-row {
@@ -1052,6 +912,7 @@ const handleCellClick = (cell: any) => {
 }
 
 .page-ziwei-result .export-error {
+	display: block;
 	padding: 8px 10px;
 	border-radius: 8px;
 	background: rgba(194, 65, 12, 0.08);
@@ -1120,12 +981,17 @@ const handleCellClick = (cell: any) => {
 }
 
 .page-ziwei-result .chart-cell {
+	display: flex;
+	flex-direction: column;
 	width: 25%;
 	height: 100%;
 	border: 1px solid #d1d5db;
 	background: #fff;
 	overflow: hidden;
-	transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	transition:
+		background-color 180ms ease,
+		border-color 180ms ease,
+		box-shadow 180ms ease;
 }
 
 .page-ziwei-result .middle-row .chart-cell {
@@ -1320,24 +1186,21 @@ const handleCellClick = (cell: any) => {
 	color: var(--mutagen-ji);
 }
 
-.palace-zoom-mask {
+.page-ziwei-result .palace-zoom-mask {
 	position: fixed;
 	inset: 0;
-	box-sizing: border-box;
 	z-index: 1200;
 	background: rgba(15, 23, 42, 0.5);
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 	padding: 16px;
 }
 
-.palace-zoom-panel {
-	box-sizing: border-box;
-	width: min(100%, 760px);
+.page-ziwei-result .palace-zoom-panel {
+	width: min(92vw, 760px);
 	height: min(84vh, 680px);
-	max-height: calc(100vh - 32px);
-	max-height: calc(100dvh - 32px);
 	background: #ffffff;
 	border: 1px solid #cbd5e1;
 	border-radius: 14px;
@@ -1347,9 +1210,8 @@ const handleCellClick = (cell: any) => {
 	overflow: hidden;
 }
 
-.palace-zoom-header {
+.page-ziwei-result .palace-zoom-header {
 	display: flex;
-	flex-shrink: 0;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
@@ -1358,26 +1220,26 @@ const handleCellClick = (cell: any) => {
 	background: #f8fafc;
 }
 
-.palace-zoom-title-wrap {
+.page-ziwei-result .palace-zoom-title-wrap {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 }
 
-.palace-zoom-title {
+.page-ziwei-result .palace-zoom-title {
 	font-size: 16px;
 	font-weight: 700;
 	color: #1f2937;
 }
 
-.palace-zoom-subtitle {
+.page-ziwei-result .palace-zoom-subtitle {
 	font-size: 12px;
 	color: #64748b;
 }
 
-.palace-zoom-close {
+.page-ziwei-result .palace-zoom-close {
+	display: block;
 	width: 30px;
-	flex-shrink: 0;
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
@@ -1386,29 +1248,31 @@ const handleCellClick = (cell: any) => {
 	color: #475569;
 	background: #ffffff;
 	border: 1px solid #cbd5e1;
-	cursor: pointer;
 }
 
-.palace-zoom-close:focus-visible {
-	outline: 3px solid #667eea;
+/* #ifdef H5 */
+.page-ziwei-result .palace-zoom-close:focus-visible {
+	outline: 3px solid #0e7490;
 	outline-offset: 2px;
 }
+/* #endif */
 
-.palace-zoom-body {
+.page-ziwei-result .palace-zoom-body {
+	display: block;
 	flex: 1;
 	min-height: 0;
-	overflow-y: auto;
 	padding: 10px;
 	background: linear-gradient(180deg, #ffffff 0%, #fffaf4 100%);
 }
 
-.palace-zoom-content {
+.page-ziwei-result .palace-zoom-content {
 	width: 100%;
-	min-height: 100%;
+	height: 100%;
 	display: flex;
+	flex-direction: column;
 }
 
-.palace-zoom-content :deep(.palace-content) {
+.page-ziwei-result .palace-zoom-content :deep(.palace-content) {
 	flex: 1;
 	padding: 12px 14px;
 	gap: 8px;
@@ -1416,76 +1280,353 @@ const handleCellClick = (cell: any) => {
 	border-color: rgba(203, 213, 225, 0.7);
 }
 
-.palace-zoom-content :deep(.top-gods) {
+.page-ziwei-result .palace-zoom-content :deep(.top-gods) {
 	min-height: 24px;
 	gap: 10px;
 }
 
-.palace-zoom-content :deep(.god-text) {
+.page-ziwei-result .palace-zoom-content :deep(.god-text) {
 	font-size: 16px;
 	line-height: 1.2;
 }
 
-.palace-zoom-content :deep(.dynamic-label) {
+.page-ziwei-result .palace-zoom-content :deep(.dynamic-label) {
 	font-size: 14px;
 	padding: 2px 4px;
 }
 
-.palace-zoom-content :deep(.star-row) {
+.page-ziwei-result .palace-zoom-content :deep(.star-row) {
 	min-height: 24px;
 }
 
-.palace-zoom-content :deep(.star-name) {
+.page-ziwei-result .palace-zoom-content :deep(.star-name) {
 	font-size: 18px;
 	line-height: 1.2;
 }
 
-.palace-zoom-content :deep(.star-bright),
-.palace-zoom-content :deep(.star-mutagen-inline),
-.palace-zoom-content :deep(.scope-mutagen-tag) {
+.page-ziwei-result .palace-zoom-content :deep(.star-bright),
+.page-ziwei-result .palace-zoom-content :deep(.star-mutagen-inline),
+.page-ziwei-result .palace-zoom-content :deep(.scope-mutagen-tag) {
 	font-size: 14px;
 }
 
-.palace-zoom-content :deep(.center-col) {
+.page-ziwei-result .palace-zoom-content :deep(.center-col) {
 	width: 132px;
 	gap: 4px;
 }
 
-.palace-zoom-content :deep(.dynamic-star-tag) {
+.page-ziwei-result .palace-zoom-content :deep(.dynamic-star-tag) {
 	font-size: 12px;
 	padding: 2px 6px;
 }
 
-.palace-zoom-content :deep(.palace-name) {
+.page-ziwei-result .palace-zoom-content :deep(.palace-name) {
 	font-size: 28px;
 	line-height: 1.2;
 }
 
-.palace-zoom-content :deep(.palace-life),
-.palace-zoom-content :deep(.body-palace),
-.palace-zoom-content :deep(.palace-decade),
-.palace-zoom-content :deep(.palace-ages) {
+.page-ziwei-result .palace-zoom-content :deep(.palace-life),
+.page-ziwei-result .palace-zoom-content :deep(.body-palace),
+.page-ziwei-result .palace-zoom-content :deep(.palace-decade),
+.page-ziwei-result .palace-zoom-content :deep(.palace-ages) {
 	font-size: 14px;
 }
 
-.palace-zoom-content :deep(.stem),
-.palace-zoom-content :deep(.branch),
-.palace-zoom-content :deep(.fly-text) {
+.page-ziwei-result .palace-zoom-content :deep(.stem),
+.page-ziwei-result .palace-zoom-content :deep(.branch),
+.page-ziwei-result .palace-zoom-content :deep(.fly-text) {
 	font-size: 18px;
 }
 
 @media (max-width: 719px) {
-	.palace-zoom-panel {
-		width: 100%;
+	.page-ziwei-result .palace-zoom-panel {
+		width: 96vw;
 		height: 82vh;
 	}
 
-	.palace-zoom-content :deep(.star-name) {
+	.page-ziwei-result .palace-zoom-content :deep(.star-name) {
 		font-size: 14px;
 	}
 
-	.palace-zoom-content :deep(.palace-name) {
+	.page-ziwei-result .palace-zoom-content :deep(.palace-name) {
 		font-size: 22px;
 	}
 }
+
+.page-ziwei-result {
+	color: var(--x-body);
+	font-family: var(--x-sans);
+}
+.page-ziwei-result .result-container {
+	gap: 22px;
+}
+.page-ziwei-result .section {
+	padding: 24px;
+	border-color: var(--x-line);
+	border-radius: 14px;
+	box-shadow: none;
+	background: var(--x-paper);
+}
+.page-ziwei-result .section__header {
+	padding-bottom: 0;
+	margin-bottom: 18px;
+	border: 0;
+}
+.page-ziwei-result .section__title {
+	font-family: var(--x-serif);
+	font-size: 22px;
+	font-weight: 500;
+	color: var(--x-ink);
+}
+.page-ziwei-result .info-summary {
+	background: var(--x-gradient-soft);
+	padding: 20px 24px;
+}
+.page-ziwei-result .info-summary .section__header {
+	display: none;
+}
+.page-ziwei-result .info-grid {
+	display: grid;
+	grid-template-columns: 1fr 1.2fr 1fr;
+	gap: 20px;
+}
+.page-ziwei-result .info-group {
+	min-width: 0;
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	align-content: start;
+	align-items: baseline;
+	gap: 10px 12px;
+}
+.page-ziwei-result .info-group + .info-group {
+	padding-left: 20px;
+	border-left: 1px solid var(--x-line);
+}
+.page-ziwei-result .summary-label {
+	font-size: 12px;
+	line-height: 22px;
+	font-weight: 400;
+	color: var(--x-muted);
+	white-space: nowrap;
+}
+.page-ziwei-result .summary-value {
+	min-width: 0;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 500;
+	color: var(--x-ink);
+	font-variant-numeric: tabular-nums;
+	overflow-wrap: anywhere;
+}
+.page-ziwei-result .chart-grid {
+	border-color: var(--x-line);
+	border-radius: 10px;
+	box-shadow: none;
+}
+.page-ziwei-result .chart-cell {
+	border-color: var(--x-line);
+}
+.page-ziwei-result .cell-focused {
+	border-color: var(--x-accent);
+}
+.page-ziwei-result .center-info {
+	background: var(--x-gradient-soft);
+	border-color: var(--x-line);
+}
+.page-ziwei-result .info-name {
+	font-family: var(--x-serif);
+	color: var(--x-ink);
+}
+.page-ziwei-result .scope-info {
+	background: var(--x-tint);
+}
+.page-ziwei-result .palace-zoom-header {
+	background: var(--x-gradient-soft);
+}
+.page-ziwei-result .palace-zoom-body {
+	background: var(--x-paper);
+}
+
+.result-actions {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.result-button {
+	margin: 0;
+	min-height: 40px;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 9px 17px;
+	font-family: var(--x-sans);
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--x-body);
+	border: 1px solid var(--x-line);
+	border-radius: 8px;
+	background: var(--x-paper);
+	cursor: pointer;
+}
+.result-button::after {
+	border: 0;
+}
+.result-button.primary {
+	background: var(--x-gradient);
+	border-color: transparent;
+	color: #fff;
+}
+.result-button:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+.result-button:focus-visible {
+	outline: 2px solid var(--x-accent);
+	outline-offset: 3px;
+}
+.result-reading {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 28px;
+	border: 1px solid var(--x-line);
+	border-radius: 14px;
+	background: var(--x-gradient-soft);
+}
+.result-eyebrow {
+	color: var(--x-muted);
+	font-size: 10px;
+	letter-spacing: 0.12em;
+}
+.result-reading h2 {
+	margin: 0;
+	font-family: var(--x-serif);
+	font-weight: 500;
+	font-size: 25px;
+	line-height: 1.6;
+	color: var(--x-ink);
+}
+.result-reading p {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.9;
+	color: var(--x-muted);
+}
+.result-reading .result-button {
+	width: 100%;
+	box-sizing: border-box;
+}
+.result-note {
+	color: var(--x-muted);
+	font-size: 11px;
+	line-height: 1.8;
+}
+@media (max-width: 600px) {
+	.result-actions {
+		width: 100%;
+	}
+	.result-actions .result-button {
+		flex: 1;
+		padding: 9px 11px;
+		font-size: 11px;
+		white-space: nowrap;
+	}
+	.result-reading {
+		padding: 22px;
+	}
+	.result-reading h2 {
+		font-size: 23px;
+	}
+}
+
+.page-ziwei-result .result-reading {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 10px 32px;
+}
+.page-ziwei-result .result-reading h2,
+.page-ziwei-result .result-reading p {
+	grid-column: 1;
+}
+.page-ziwei-result .result-reading .result-button {
+	grid-column: 2;
+	grid-row: 2;
+}
+.page-ziwei-result .result-reading .result-note {
+	grid-column: 2;
+	grid-row: 3;
+	text-align: center;
+}
+@media (max-width: 720px) {
+	.page-ziwei-result .section {
+		padding: 18px 12px;
+	}
+	.page-ziwei-result .info-grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 12px;
+	}
+	.page-ziwei-result .info-summary {
+		padding: 16px 18px;
+	}
+	.page-ziwei-result .info-group {
+		grid-template-columns: 76px minmax(0, 1fr);
+		gap: 6px 12px;
+	}
+	.page-ziwei-result .info-group + .info-group {
+		padding: 12px 0 0;
+		border-left: 0;
+		border-top: 1px solid var(--x-line);
+	}
+	.page-ziwei-result .result-reading {
+		display: flex;
+		flex-direction: column;
+	}
+	.page-ziwei-result .section__title {
+		font-size: 20px;
+	}
+}
+
+/* Responsive overview: fixed palace order, readable summaries, full detail on demand. */
+.overview-heading { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:18px; }
+.overview-heading h2 { font-family:var(--x-serif,serif); font-size:21px; font-weight:500; margin:0; color:var(--x-ink); }
+.overview-heading > text { font-size:11px; color:var(--x-muted); }
+.overview-layout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:24px; align-items:start; }
+.overview-main { min-width:0; }
+.palace-board { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(4,minmax(158px,auto)); gap:5px; padding:5px; background:var(--x-tint,#eef5f7); border:1px solid var(--x-line); border-radius:12px; }
+.overview-cell { min-width:0; background:var(--x-paper,#fff); border:1px solid var(--x-line); border-radius:7px; cursor:pointer; }
+.overview-cell.is-related { background:#f4faf8; border-color:#b4d5cb; }
+.overview-cell.is-selected { border-color:var(--x-accent,#167c8d); box-shadow:inset 0 0 0 1px var(--x-accent,#167c8d); background:var(--x-tint,#eef7f8); }
+.overview-center { grid-row:2 / 4; grid-column:2 / 4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; padding:18px 10px; min-width:0; text-align:center; color:var(--x-ink); }
+.center-kicker { color:var(--x-muted); font-size:10px; letter-spacing:.1em; }
+.center-symbol { color:var(--x-accent); font-size:34px; line-height:1.4; }
+.center-person { font-family:var(--x-serif,serif); font-size:19px; line-height:1.5; overflow-wrap:anywhere; max-width:100%; }
+.center-date,.center-class { font-size:12px; line-height:1.7; color:var(--x-body); font-variant-numeric:tabular-nums; }
+.center-focus { display:flex; flex-direction:row; gap:10px; font-size:11px; padding-top:12px; margin-top:3px; border-top:1px solid var(--x-line); }
+.center-focus > text:first-child { color:var(--x-muted); }
+.center-help { color:var(--x-muted); font-size:10px; line-height:1.8; }
+.overview-legend { display:flex; flex-direction:row; flex-wrap:wrap; gap:16px; font-size:10px; color:var(--x-muted); padding:15px 2px 0; }
+.overview-legend > text { display:flex; align-items:center; gap:6px; }
+.legend-dot { display:inline-block; width:6px; height:6px; border-radius:50%; }
+.selected-dot { background:var(--x-accent); }.related-dot { background:#b4d5cb; }
+.overview-details { border:1px solid var(--x-line); border-radius:12px; padding:22px 18px; background:var(--x-paper); min-width:0; }
+.detail-eyebrow { display:block; color:var(--x-muted); font-size:10px; margin-bottom:16px; letter-spacing:.12em; }
+.overview-relations { display:flex; flex-direction:column; gap:10px; padding-top:16px; margin-top:18px; border-top:1px solid var(--x-line); font-size:11px; line-height:1.8; color:var(--x-muted); }
+.overview-relations > view { display:flex; flex-direction:row; gap:12px; }.overview-relations .active { color:var(--x-accent); font-weight:600; }
+.selected-detail-button { display:none; }
+.overview-dialog-mask { position:fixed; inset:0; z-index:1100; background:#18333f66; display:flex; align-items:center; justify-content:center; padding:20px; }
+.overview-dialog { width:480px; max-width:100%; max-height:85vh; overflow-y:auto; min-width:0; border-radius:16px; padding:22px; background:var(--x-paper,#fff); box-shadow:0 20px 60px #18333f33; }
+.overview-dialog-header { display:flex; flex-direction:row; align-items:center; justify-content:space-between; margin-bottom:20px; color:var(--x-muted); font-size:11px; }
+.overview-close { margin:0; padding:0; width:34px; height:34px; line-height:32px; font-size:24px; color:var(--x-body); background:var(--x-tint); border-radius:50%; }.overview-close::after{border:0;}
+.overview-close:focus-visible,.selected-detail-button:focus-visible { outline:2px solid var(--x-accent); outline-offset:3px; }
+.page-ziwei-result .info-summary { padding:18px 22px; }
+.page-ziwei-result .calculation-note { font-size:11px; margin-top:12px; gap:3px; }
+.calculation-caption { display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 12px; }
+.rules-toggle { display:inline-flex; margin:0; padding:4px 0; min-height:28px; background:transparent; font-size:11px; line-height:1.7; color:var(--x-accent); }.rules-toggle::after { border:0; }
+@media(max-width:1180px) { .overview-layout { grid-template-columns:minmax(0,1fr); gap:18px; }.overview-details { display:none; }.selected-detail-button { display:flex; flex-direction:row; align-items:center; justify-content:space-between; margin:14px 0 0; padding:11px 14px; width:100%; font-size:12px; line-height:1.7; border:1px solid var(--x-line); border-radius:8px; background:var(--x-tint); color:var(--x-accent); }.selected-detail-button::after{border:0;} }
+@media(max-width:600px) { .page-ziwei-result .chart-section { padding:16px 8px; }.overview-heading { padding:0 4px; margin-bottom:12px; }.overview-heading h2{font-size:19px;}.overview-heading>text{font-size:9px;}.palace-board { gap:3px; padding:3px; grid-template-rows:repeat(4,minmax(144px,auto)); border-radius:9px; }.overview-center { gap:8px; padding:12px 6px; }.center-symbol{font-size:27px;}.center-person{font-size:16px;}.center-date,.center-class{font-size:10px;}.center-help{font-size:9px;}.center-focus { font-size:10px; gap:6px; }.overview-legend { gap:10px; font-size:9px; padding-left:4px; }.overview-dialog-mask{padding:14px;}.overview-dialog{padding:20px 18px;}.page-ziwei-result .summary-value{font-size:13px;}.page-ziwei-result .info-group { gap:4px 8px; grid-template-columns:68px minmax(0,1fr); }.page-ziwei-result .info-group+.info-group {padding-top:8px;}.page-ziwei-result .info-grid{gap:8px;} }
+@media(max-width:720px) { .page-ziwei-result .info-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:10px; }.page-ziwei-result .info-group { grid-template-columns:max-content minmax(0,1fr); gap:4px 8px; }.page-ziwei-result .info-group:nth-child(1){order:0;}.page-ziwei-result .info-group:nth-child(3){order:1;border:0;padding:0;}.page-ziwei-result .info-group:nth-child(2){order:2;grid-column:1 / -1;padding:8px 0 0;}.page-ziwei-result .summary-label{font-size:10px;}.page-ziwei-result .summary-value{font-size:12px;}.page-ziwei-result .info-summary {padding:16px;}.page-ziwei-result .calculation-note {margin-top:8px;}.calculation-caption{font-size:10px;} }
+
 </style>

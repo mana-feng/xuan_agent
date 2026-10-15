@@ -1,4 +1,4 @@
-export type AgentTarget = 'bazi' | 'liuyao' | 'ziwei' | 'history';
+export type AgentTarget = 'bazi' | 'liuyao' | 'ziwei' | 'qimen' | 'history';
 export type ChatRole = 'system' | 'user' | 'assistant';
 export type MessageRole = 'assistant' | 'user';
 export type MessageStatus = 'ready' | 'waiting' | 'stream' | 'error';

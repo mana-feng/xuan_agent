@@ -2,17 +2,11 @@
 	<tm-app>
 		<PageScaffold
 			class="page-agent"
-			title="玄学AI - 排盘 Agent"
-			subtitle="用自然语言帮你选盘、切盘和组织下一步操作"
 		>
-			<AgentToolPanel
-				:tool-cards="toolCards"
-				@open-target="openTarget"
-				@quick-prompt="handleQuickPrompt"
-			/>
-
-			<AgentQuickPrompts :quick-prompts="quickPrompts" @quick-prompt="handleQuickPrompt" />
-
+			<view class="explore-hero">
+				<view class="hero-copy"><text class="hero-eyebrow">传统智慧 · 当代视角</text><h1 class="hero-title">观象，知己。<br /><span>从你的一个问题开始。</span></h1><text class="hero-desc">把心中的疑问交给 AI，一起寻找适合你的探索方式。</text></view>
+				<view class="hero-art" aria-hidden="true"><view class="art-orbit orbit-outer"/><view class="art-orbit orbit-inner"/><text class="art-center">☯</text><text v-for="(symbol,index) in ['☰','☱','☲','☳','☴','☵','☶','☷']" :key="symbol" class="art-trigram" :style="{ transform: `rotate(${index * 45}deg) translateY(-83px) rotate(-${index * 45}deg)` }">{{ symbol }}</text><text class="art-caption">观 天 地 · 察 万 象</text></view>
+			</view>
 			<AgentConsolePanel
 				v-model="draft"
 				:subtitle="conversationSubtitle"
@@ -25,6 +19,10 @@
 				@send="handleSend"
 				@apply-pending="applyPendingAction"
 			/>
+			<AgentQuickPrompts :quick-prompts="quickPrompts" @quick-prompt="handleQuickPrompt" />
+			<AgentToolPanel :tool-cards="toolCards" @open-target="openTarget" @quick-prompt="handleQuickPrompt" />
+			<RecentExplorations />
+			<text class="explore-footnote">传统文化提供思考的视角，每一次选择，都由你自己决定。</text>
 		</PageScaffold>
 	</tm-app>
 </template>
@@ -36,6 +34,7 @@ import AgentConsolePanel from '@/components/agent/AgentConsolePanel.vue';
 import AgentQuickPrompts from '@/components/agent/AgentQuickPrompts.vue';
 import AgentToolPanel from '@/components/agent/AgentToolPanel.vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
+import RecentExplorations from '@/components/history/RecentExplorations.vue';
 import { useAgentPage } from '@/features/agent/useAgentPage';
 
 const {
@@ -68,10 +67,20 @@ onShow(() => {
 </script>
 
 <style scoped>
-.page-agent .page-card {
-	background:
-		radial-gradient(circle at 8% 12%, rgba(79, 70, 229, 0.12), transparent 32%),
-		radial-gradient(circle at 92% 0%, rgba(14, 165, 233, 0.1), transparent 28%),
-		linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-}
+.explore-hero { position:relative; overflow:hidden; display:flex; flex-direction:row; justify-content:space-between; align-items:center; min-height:226px; padding:5px 18px 12px 2px; }
+.hero-copy { display:block; min-width:0; flex-shrink:1; }
+.hero-eyebrow { color:var(--x-accent); font-size:10px; letter-spacing:3px; }
+.hero-title { font:500 clamp(29px,3vw,42px)/1.55 var(--x-serif); letter-spacing:2px; margin:14px 0 12px; color:var(--x-ink); }
+.hero-title span { color:var(--x-accent); background:var(--x-gradient); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero-desc { color:var(--x-muted); font-size:12px; line-height:1.9; }
+.hero-art { width:242px; height:226px; position:relative; display:flex; flex-direction:row; align-items:center; justify-content:center; flex-shrink:0; color:var(--x-accent-end); opacity:.7; background:radial-gradient(ellipse,var(--x-tint-end),transparent 69%); }
+.art-orbit { position:absolute; border:1px solid var(--x-accent-end); border-radius:50%; opacity:.16; }
+.orbit-outer { width:210px; height:210px; }
+.orbit-inner { width:141px; height:141px; border-style:dashed; }
+.art-center { font-size:60px; opacity:.6; }
+.art-trigram { position:absolute; font-size:25px; opacity:.6; }
+.art-caption { position:absolute; bottom:-8px; font-size:8px; letter-spacing:4px; }
+.explore-footnote { color:var(--x-muted); font-size:10px; text-align:center; padding-top:6px; }
+@media(max-width:1100px) { .hero-art { width:180px; transform:scale(.8); margin-right:-20px; } .hero-title { font-size:32px; } }
+@media(max-width:600px) { .explore-hero { min-height:215px; padding:0; } .hero-copy { position:relative; z-index:1; } .hero-title { font-size:clamp(25px,7.4vw,29px); } .hero-art { position:absolute; right:-38px; top:0; opacity:.19; transform:scale(.72); pointer-events:none; } .hero-desc { max-width:280px; display:block; font-size:11px; } }
 </style>

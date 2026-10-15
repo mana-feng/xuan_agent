@@ -73,8 +73,7 @@ export const useYunStore = defineStore('yun', {
 	actions: {
 		async pull(original: any[]) {
 			this.original = original;
-			// A chart that starts luck in its first year may have no pre-luck years.
-			this.current_index = Math.max(0, original.findIndex(item => item.getLiuNian().length > 0));
+			this.current_index = 0;
 			this.year_index = 0;
 			this.month_index = 0;
 			this.day_index = 0;
@@ -116,6 +115,12 @@ export const useYunStore = defineStore('yun', {
 			this.month_list = [];
 			this.day_list = [];
 			this.time_list = [];
+			// 起运不足一年时，童限可能没有任何流年，定位到首个实际存在的区间。
+			if (!original[this.current_index]?.getLiuNian().length) {
+				const first = original.findIndex(item => item.getLiuNian().length > 0);
+				if (first < 0) return;
+				this.current_index = first;
+			}
 			this.resolveLiuYear();
 		},
 		// 流年
@@ -132,8 +137,7 @@ export const useYunStore = defineStore('yun', {
 			}
 
 			const dayun = original[current_index];
-			if (!dayun) return;
-			const year = dayun.getLiuNian();
+			const year = dayun?.getLiuNian() || [];
 			const year_list = [];
 
 			for (let i = 0; i < year.length; i++) {
@@ -177,12 +181,10 @@ export const useYunStore = defineStore('yun', {
 			const dayun = original[current_index];
 			const year = dayun?.getLiuNian() || [];
 			if (!year[year_index]) {
-				this.month_list = [];
-				this.day_list = [];
-				this.time_list = [];
-				this._lastMonthCacheKey = '';
+				this.month_list = []; this.day_list = []; this.time_list = [];
 				return;
 			}
+
 			const month = year[year_index].getLiuYue();
 
 			const month_list = [];
@@ -386,17 +388,18 @@ export const useYunStore = defineStore('yun', {
 			const day_list = this.day_list;
 			const day_index = this.day_index;
 
-			if (day_list.length == 0) return;
+			if (!day_list[day_index]) return;
 			const { date: _date } = day_list[day_index];
-
-			const date = _date + ' 00:00:00';
-			const start_time =
-				new Date(date.replace(/-/g, '/').replace(/T/g, ' ')).getTime() - 60 * 60 * 1000;
+			const [year, month, day] = _date.split(/[/-]/).map(Number);
+			const previous = Solar.fromYmd(year, month, day).next(-1);
 
 			const time_list = [];
 			for (let i = 0; i < 12; i++) {
-				const _date = new Date(start_time + i * 2 * 60 * 60 * 1000);
-				const lunar = Lunar.fromDate(new Date(_date));
+				// 十二时辰按钟面时间生成，不能用设备时区上的真实小时跨越 DST。
+				const solar = i === 0
+					? Solar.fromYmdHms(previous.getYear(), previous.getMonth(), previous.getDay(), 23, 0, 0)
+					: Solar.fromYmdHms(year, month, day, i * 2 - 1, 0, 0);
+				const lunar = solar.getLunar();
 				const ganzhi = lunar.getTimeInGanZhi();
 				const params = {
 					gan: lunar.getTimeGan(),
@@ -424,11 +427,11 @@ export const useYunStore = defineStore('yun', {
 
 			// 1. 定位大运：找�?start_year <= 当前年份的最大索�?
 			if (!skipAutoLocate && this.dayun_list && this.dayun_list.length > 0) {
-				let dayunIndex = 0;
+				let dayunIndex = this.current_index;
 				for (let i = 0; i < this.dayun_list.length; i++) {
 					const item = this.dayun_list[i] as any;
 					if (item.start_year && parseInt(item.start_year) <= currentYear) {
-						dayunIndex = i;
+						if (this.original[i]?.getLiuNian().length) dayunIndex = i;
 					} else {
 						break;
 					}

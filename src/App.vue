@@ -4,19 +4,20 @@ import { onPageNotFound } from '@dcloudio/uni-app';
 import { bootstrapApp, waitBootstrap } from '@/utils/bootstrap';
 
 onPageNotFound(() => {
-	uni.redirectTo({
-		url: '/pages/index/index',
-	});
+    uni.redirectTo({
+        url: '/pages/index/index',
+    });
 });
 
+
 onMounted(async () => {
-	if (typeof window === 'undefined') return;
-	const bootstrapPromise = waitBootstrap();
-	if (bootstrapPromise) {
-		await bootstrapPromise;
-	} else {
-		await bootstrapApp();
-	}
+    if (typeof window === 'undefined') return;
+    const bootstrapPromise = waitBootstrap();
+    if (bootstrapPromise) {
+        await bootstrapPromise;
+    } else {
+        await bootstrapApp();
+    }
 });
 </script>
 
@@ -34,11 +35,12 @@ onMounted(async () => {
 @import './styles/app-shell.css';
 /* 引入页面基础图案样式 */
 @import './styles/page-patterns.css';
+@import './styles/workbench.css';
 
 /* #ifdef APP-PLUS */
 @font-face {
-	font-family: PingFangSC-Medium;
-	src: url('@/assets/fonts/pingfang-font.ttf');
+    font-family: PingFangSC-Medium;
+    src: url('@/assets/fonts/pingfang-font.ttf');
 }
 /* #endif */
 
@@ -50,8 +52,8 @@ uni-view,
 uni-text,
 uni-label,
 uni-input {
-	/* #ifdef APP-PLUS */
-	font-family: 'PingFangSC-Medium';
-	/* #endif */
+    /* #ifdef APP-PLUS */
+    font-family: 'PingFangSC-Medium';
+    /* #endif */
 }
 </style>

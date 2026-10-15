@@ -16,7 +16,7 @@ const sourceRoot = path.resolve(__dirname, '../src');
 const originalResolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...args) {
 	if (request === 'vue') request = '@dcloudio/uni-h5-vue';
-	return originalResolve.call(this, request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request, ...args);
+	return originalResolve.call(this, request === 'qimen-engine' ? path.join(sourceRoot, '../vendor/qfdk-qimen/lib/qimen.js') : request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request, ...args);
 };
 const { createApp, nextTick, reactive } = require('vue');
 const { createPinia } = require('pinia');
@@ -45,7 +45,7 @@ const normalizeNativeEvent = new Function('normalizeTarget', 'extend', 'isPlainO
 );
 require.extensions['.ts'] = (module, filename) => {
 	module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
-		compilerOptions: { module: ts.ModuleKind.CommonJS },
+		compilerOptions: { module: ts.ModuleKind.CommonJS, esModuleInterop: true },
 	}).outputText, filename);
 };
 require.extensions['.vue'] = (module, filename) => {
@@ -334,7 +334,8 @@ test('user menu backdrop closes the visible menu', async () => {
 test('home icon is named, focusable, and keyboard opens the frontend Agent home', () => {
 	const routes = [];
 	global.getCurrentPages = () => [{ route: 'pages/about/index' }];
-	global.uni = { getSystemInfoSync: () => ({ windowWidth: 390 }), reLaunch: ({ url }) => routes.push(url) };
+	global.uni = { getSystemInfoSync: () => ({ windowWidth: 390 }),
+		$on() {}, $off() {}, reLaunch: ({ url }) => routes.push(url) };
 	const mounted = mount('components/yx-nav-header/yx-nav-header.vue');
 	try {
 		const home = mounted.host.querySelector('.app-header__logo');
@@ -380,6 +381,7 @@ function mountZiweiResult() {
 	global.getCurrentPages = () => [{ route: 'pages/ziwei/result' }];
 	global.uni = {
 		getSystemInfoSync: () => ({ windowWidth: 390 }),
+		$on() {}, $off() {},
 		getStorageSync: (key) => storage.get(key),
 		setStorageSync: (key, value) => storage.set(key, value),
 	};
@@ -397,17 +399,18 @@ test('palace detail escapes the transformed card and Escape returns focus to its
 		trigger.focus();
 		press(trigger, 'Enter');
 		await nextTick();
-		const mask = document.querySelector('.palace-zoom-mask');
+		const mask = document.querySelector('.overview-dialog-mask');
 		assert.ok(mask);
 		assert.equal(mask.closest('.page-card'), null, 'fixed dialog cannot live inside the animated card');
 		assert.equal(mask.parentElement, document.body, 'the H5 dialog must use the viewport overlay layer');
-		const close = mask.querySelector('[aria-label="关闭宫位详情"]');
+		const close = mask.querySelector('[aria-label="关闭宫位放大"]');
 		assert.ok(close);
+		await nextTick();
 		assert.equal(document.activeElement, close);
 		assert.equal(mask.querySelector('[role="dialog"]').getAttribute('aria-modal'), 'true');
 		assert.equal(keydown(close, 'Escape').defaultPrevented, true);
 		await nextTick();
-		assert.equal(document.querySelector('.palace-zoom-mask'), null);
+		assert.equal(document.querySelector('.overview-dialog-mask'), null);
 		assert.equal(document.activeElement, trigger);
 	} finally { mounted.dispose(); }
 });
@@ -420,16 +423,34 @@ test('palace detail close action supports Space and its backdrop remains clickab
 			trigger.focus();
 			press(trigger, ' ');
 			await nextTick();
-			const mask = document.querySelector('.palace-zoom-mask');
+			const mask = document.querySelector('.overview-dialog-mask');
 			assert.ok(mask);
 			if (action === 'keyboard') {
-				const close = mask.querySelector('.palace-zoom-close');
+				const close = mask.querySelector('.overview-close');
 				assert.equal(close.getAttribute('role'), 'button');
 				press(close, ' ');
 			} else dispatchUserEvent(mask, new dom.window.Event('tap', { bubbles: true }));
 			await nextTick();
-			assert.equal(document.querySelector('.palace-zoom-mask'), null);
+			assert.equal(document.querySelector('.overview-dialog-mask'), null);
 			assert.equal(document.activeElement, trigger);
 		}
 	} finally { mounted.dispose(); }
+});
+
+test('standalone history visibly renders saved local records without an account gate', async t => {
+  const storage = new Map();
+  global.getCurrentPages = () => [{ route: 'pages/history/list' }];
+  global.uni = { getStorageSync: key => storage.get(key), setStorageSync: (key, value) => storage.set(key, value),
+    removeStorageSync: key => storage.delete(key), $on() {}, $off() {}, showToast() {} };
+  require('../src/utils/localChartRecords.ts').saveChartRecord('qimen', { title: '历史列表可见性测试', id: 99,
+    birthDatetime: '2026-10-16T08:00:00.000Z', createdAt: '2026-10-16T08:00:00.000Z' });
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const mounted = mount('pages/history/list.nvue');
+  try {
+    t.mock.timers.tick(100);
+    for (let i = 0; i < 12; i++) await Promise.resolve();
+    await nextTick();
+    assert.ok(mounted.host.querySelector('.record-open'), 'saved records must be in the visible document, outside an inert template');
+    assert.equal(mounted.host.querySelector('.record-name').textContent, '历史列表可见性测试');
+  } finally { mounted.dispose(); }
 });
