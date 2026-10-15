@@ -741,9 +741,11 @@ router.get('/users', adminMiddleware, async (req, res) => {
 			u.username, 
 			u.role, 
 			u.created_at,
-			COUNT(b.id) as recordCount
+			((SELECT COUNT(*) FROM bazi_records WHERE user_id = u.id)
+			 + (SELECT COUNT(*) FROM liuyao_records WHERE user_id = u.id)
+			 + (SELECT COUNT(*) FROM ziwei_records WHERE user_id = u.id)
+			 + (SELECT COUNT(*) FROM qimen_records WHERE user_id = u.id)) as recordCount
 		FROM users u
-		LEFT JOIN bazi_records b ON u.id = b.user_id
 	`;
 	let countQuery = 'SELECT COUNT(*) as count FROM users';
 	const params = [];
@@ -1019,8 +1021,11 @@ router.get('/users/:id', adminMiddleware, async (req, res) => {
 
 		try {
 			const countRow = await db.get(
-				'SELECT COUNT(*) as count FROM bazi_records WHERE user_id = ?',
-				[id]
+				`SELECT (SELECT COUNT(*) FROM bazi_records WHERE user_id = ?)
+				 + (SELECT COUNT(*) FROM liuyao_records WHERE user_id = ?)
+				 + (SELECT COUNT(*) FROM ziwei_records WHERE user_id = ?)
+				 + (SELECT COUNT(*) FROM qimen_records WHERE user_id = ?) as count`,
+				[id, id, id, id]
 			);
 			res.json({
 				...row,
