@@ -91,6 +91,60 @@ test('announcement dialog keeps keyboard focus inside and restores the opener an
 	opener.remove();
 });
 
+test('closing a modal restores the scrolled viewport and existing inline styles without a smooth scroll', async () => {
+	const opener = document.createElement('button'); document.body.append(opener); opener.focus();
+	const originalBody = document.body.style.cssText, originalRoot = document.documentElement.style.cssText;
+	const originalX = window.scrollX, originalY = window.scrollY, originalScrollTo = window.scrollTo;
+	const scrollCalls = [];
+	window.scrollX = 12; window.scrollY = 814;
+	window.scrollTo = (x, y) => { scrollCalls.push({ x, y, behavior: document.documentElement.style.scrollBehavior }); window.scrollX = x; window.scrollY = y; };
+	document.body.style.cssText = 'position:relative;top:7px;left:3px;right:2px;width:90%;padding-right:5px;overflow:auto';
+	document.documentElement.style.cssText = 'overflow:auto;scroll-behavior:smooth';
+	const expectedBody = document.body.style.cssText, expectedRoot = document.documentElement.style.cssText;
+	const mounted = mount('components/layout/AnnouncementDialog.vue', { announcements: [], loading: false, error: '' });
+	try {
+		await nextTick(); await nextTick();
+		// Browsers reset window scrolling when the page is locked; the visible
+		// background must stay offset and be restored when the last modal closes.
+		window.scrollX = 0; window.scrollY = 0;
+		assert.equal(document.body.style.top, '-814px');
+		mounted.dispose();
+		assert.equal(window.scrollX, 12); assert.equal(window.scrollY, 814);
+		assert.deepEqual(scrollCalls, [{ x: 12, y: 814, behavior: 'auto' }]);
+		assert.equal(document.body.style.cssText, expectedBody);
+		assert.equal(document.documentElement.style.cssText, expectedRoot);
+		assert.equal(document.activeElement, opener);
+	} finally {
+		if (mounted.host.isConnected) mounted.dispose();
+		opener.remove(); window.scrollTo = originalScrollTo; window.scrollX = originalX; window.scrollY = originalY;
+		document.body.style.cssText = originalBody; document.documentElement.style.cssText = originalRoot;
+	}
+});
+
+test('nested modals keep the original scroll position locked until the outer modal closes', async () => {
+	const originalY = window.scrollY, originalScrollTo = window.scrollTo;
+	const scrollCalls = [];
+	window.scrollY = 620;
+	window.scrollTo = (x, y) => { scrollCalls.push(y); window.scrollY = y; };
+	const outer = mount('components/layout/AnnouncementDialog.vue', { announcements: [] });
+	let inner;
+	try {
+		await nextTick(); await nextTick(); window.scrollY = 0;
+		inner = mount('components/layout/AnnouncementDialog.vue', { announcements: [] });
+		await nextTick(); await nextTick();
+		inner.dispose();
+		assert.equal(document.body.style.overflow, 'hidden');
+		assert.deepEqual(scrollCalls, []);
+		outer.dispose();
+		assert.equal(window.scrollY, 620);
+		assert.deepEqual(scrollCalls, [620]);
+	} finally {
+		if (inner?.host.isConnected) inner.dispose();
+		if (outer.host.isConnected) outer.dispose();
+		window.scrollTo = originalScrollTo; window.scrollY = originalY;
+	}
+});
+
 test('announcement failure offers retry without a contradictory empty message and cached content remains readable', () => {
 	let retries = 0;
 	const mounted = mount('components/layout/AnnouncementDialog.vue', { announcements: [], loading: false, error: '模拟请求失败', onRetry: () => retries++ });

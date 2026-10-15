@@ -1,9 +1,55 @@
 import { nextTick, onUnmounted, watch, type Ref } from 'vue';
 
-// Shared by the navigation drawer and announcement dialog, including their handoff.
+// Shared by workbench dialogs and the navigation drawer, including their handoff.
 const activeModals: symbol[] = [];
-let bodyOverflow = '';
-let documentOverflow = '';
+let bodyStyles: Array<{ property: string; value: string; priority: string }> = [];
+let documentStyles: Array<{ property: string; value: string; priority: string }> = [];
+let pageScroll = { x: 0, y: 0 };
+
+function lockPageScroll() {
+	const body = document.body, root = document.documentElement;
+	pageScroll = { x: window.scrollX, y: window.scrollY };
+	bodyStyles = ['overflow', 'position', 'top', 'left', 'right', 'width', 'padding-right'].map(property => ({
+		property, value: body.style.getPropertyValue(property), priority: body.style.getPropertyPriority(property),
+	}));
+	documentStyles = ['overflow', '--x-modal-scrollbar-gap'].map(property => ({
+		property, value: root.style.getPropertyValue(property), priority: root.style.getPropertyPriority(property),
+	}));
+	const scrollbarWidth = Math.max(0, window.innerWidth - root.clientWidth);
+	const paddingRight = parseFloat(window.getComputedStyle(body).paddingRight) || 0;
+	root.style.setProperty('--x-modal-scrollbar-gap', `${scrollbarWidth}px`);
+	// Lock the visible page in place. Hiding overflow on both H5 roots alone
+	// can reset window.scrollY, even when focus uses preventScroll.
+	body.style.position = 'fixed';
+	body.style.top = `${-pageScroll.y}px`;
+	body.style.left = `${-pageScroll.x}px`;
+	body.style.right = '0';
+	body.style.width = '100%';
+	if (scrollbarWidth) body.style.paddingRight = `${paddingRight + scrollbarWidth}px`;
+	body.style.overflow = 'hidden';
+	root.style.overflow = 'hidden';
+}
+
+function restorePageScroll(previous: HTMLElement | null) {
+	const body = document.body, root = document.documentElement;
+	for (const { property, value, priority } of bodyStyles) {
+		if (value) body.style.setProperty(property, value, priority);
+		else body.style.removeProperty(property);
+	}
+	for (const { property, value, priority } of documentStyles) {
+		if (value) root.style.setProperty(property, value, priority);
+		else root.style.removeProperty(property);
+	}
+	const behavior = { value: root.style.getPropertyValue('scroll-behavior'), priority: root.style.getPropertyPriority('scroll-behavior') };
+	root.style.setProperty('scroll-behavior', 'auto', 'important');
+	try {
+		if (previous?.isConnected) previous.focus({ preventScroll: true });
+		if (window.scrollX !== pageScroll.x || window.scrollY !== pageScroll.y) window.scrollTo(pageScroll.x, pageScroll.y);
+	} finally {
+		if (behavior.value) root.style.setProperty('scroll-behavior', behavior.value, behavior.priority);
+		else root.style.removeProperty('scroll-behavior');
+	}
+}
 
 export function useModalFocus(open: Ref<boolean>, root: Ref<any>, dismiss: () => void) {
 	let release: (() => void) | undefined;
@@ -21,10 +67,7 @@ export function useModalFocus(open: Ref<boolean>, root: Ref<any>, dismiss: () =>
 		const previous = document.activeElement as HTMLElement | null;
 		const token = Symbol('modal');
 		if (!activeModals.length) {
-			bodyOverflow = document.body.style.overflow;
-			documentOverflow = document.documentElement.style.overflow;
-			document.body.style.overflow = 'hidden';
-			document.documentElement.style.overflow = 'hidden';
+			lockPageScroll();
 		}
 		activeModals.push(token);
 		const controls = () => Array.from(element.querySelectorAll<HTMLElement>('[tabindex="0"],button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled])'))
@@ -59,9 +102,7 @@ export function useModalFocus(open: Ref<boolean>, root: Ref<any>, dismiss: () =>
 			const index = activeModals.indexOf(token);
 			if (index >= 0) activeModals.splice(index, 1);
 			if (!activeModals.length) {
-				document.body.style.overflow = bodyOverflow;
-				document.documentElement.style.overflow = documentOverflow;
-				if (previous?.isConnected) previous.focus({ preventScroll: true });
+				restorePageScroll(previous);
 			}
 		};
 		// #endif

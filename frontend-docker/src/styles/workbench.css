@@ -44,7 +44,7 @@
 .x-workbench .x-note-title { display:block; font-size:12px; color:var(--x-body); margin-bottom:6px; }
 .x-workbench .x-side-footer { display:flex; flex-direction:row; justify-content:space-between; padding:15px 9px 0; border-top:1px solid var(--x-line); color:var(--x-muted); font-size:11px; }
 .x-workbench .x-side-footer>uni-view { display:flex; flex-direction:row; align-items:center; cursor:pointer; }
-.x-workbench .x-topbar { position:fixed; top:0; right:0; left:224px; height:79px; z-index:1000; background:var(--x-paper); border-bottom:1px solid var(--x-line); padding:0 36px; display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:15px; }
+.x-workbench .x-topbar { position:fixed; top:0; right:var(--x-modal-scrollbar-gap,0px); left:224px; height:79px; z-index:1000; background:var(--x-paper); border-bottom:1px solid var(--x-line); padding:0 36px; display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:15px; }
 .x-workbench .x-topbar-left,.x-workbench .x-topbar-right { display:flex; flex-direction:row; align-items:center; gap:15px; min-width:0; }
 .x-workbench .x-breadcrumb { font-size:13px; white-space:nowrap; }
 .x-workbench .x-topbar-divider { color:var(--x-line); }
