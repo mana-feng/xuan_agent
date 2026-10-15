@@ -73,6 +73,7 @@
 import { computed, nextTick, onScopeDispose, reactive, ref } from 'vue';
 import { h5Button } from '@/utils/keyboard';
 import { useChatSession } from './useChatSession';
+import { downloadChatArchive, pickChatArchive } from './archiveFile';
 import type { SessionIdentity } from './sessionSnapshot';
 
 type Role = 'user' | 'assistant';
@@ -125,6 +126,7 @@ const sending = ref(false);
 const scrollTop = ref(0);
 
 let sessionEpoch = 0;
+let quotaAccount = props.sessionAccount ?? props.sessionIdentity?.account ?? '';
 onScopeDispose(() => { ++sessionEpoch; });
 const session = useChatSession(() => props.sessionIdentity,
 	() => ({ messages: messages.filter(message => message.id !== 'm-1'), draft: draft.value }),
@@ -136,7 +138,9 @@ const session = useChatSession(() => props.sessionIdentity,
 	},
 	() => {
 		++sessionEpoch;
-		localQuotaInfo.value = null;
+		const account = props.sessionAccount ?? props.sessionIdentity?.account ?? '';
+		if (account !== quotaAccount) localQuotaInfo.value = null;
+		quotaAccount = account;
 		messages.splice(1); draft.value = ''; sending.value = false;
 		emit('session-reset');
 	}, () => props.sessionAccount);
@@ -235,45 +239,6 @@ function updateQuotaInfo(info: QuotaInfo) {
 
 const archiveBusy = ref(false);
 
-function downloadTextFile(text: string, filename: string) {
-	if (typeof window === 'undefined') return;
-	const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
-	const url = URL.createObjectURL(blob);
-	const a = document.createElement('a');
-	a.href = url;
-	a.download = filename;
-	a.click();
-	setTimeout(() => URL.revokeObjectURL(url), 0);
-}
-
-async function readTextFromFileHandle(handle: any): Promise<string> {
-	const file = await handle.getFile();
-	return file.text();
-}
-
-async function pickFileTextByInput(): Promise<string> {
-	if (typeof window === 'undefined') {
-		throw new Error('not supported');
-	}
-	return new Promise<string>((resolve, reject) => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.accept = '.json,application/json';
-		input.oncancel = () => reject(new DOMException('已取消选择', 'AbortError'));
-		input.onchange = async () => {
-			try {
-				const file = input.files?.[0];
-				if (!file) return reject(new Error('no file'));
-				const text = await file.text();
-				resolve(text);
-			} catch (e) {
-				reject(e);
-			}
-		};
-		input.click();
-	});
-}
-
 async function handleSaveArchive() {
 	if (archiveBusy.value || restoring.value) return;
 	archiveBusy.value = true;
@@ -281,7 +246,7 @@ async function handleSaveArchive() {
 		const encryptedText = await session.exportArchive();
 		const filename = `ai-chat-${new Date().toISOString().slice(0, 10)}.json`;
 		// Explicit downloads avoid reusing another account's globally cached file handle.
-		downloadTextFile(encryptedText, filename);
+		downloadChatArchive(encryptedText, filename);
 		uni.showToast({ title: '已导出加密对话', icon: 'success' });
 	} catch (error: any) {
 		uni.showToast({ title: error?.message || '导出失败', icon: 'none' });
@@ -292,12 +257,7 @@ async function handleRestoreArchive() {
 	if (archiveBusy.value || sending.value || restoring.value) return;
 	archiveBusy.value = true;
 	try {
-		const win = typeof window !== 'undefined' ? (window as any) : null;
-		let text: string;
-		if (win?.showOpenFilePicker) {
-			const [handle] = await win.showOpenFilePicker({ multiple: false, types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
-			text = await readTextFromFileHandle(handle);
-		} else text = await pickFileTextByInput();
+		const text = await pickChatArchive();
 		await session.importArchive(text);
 		uni.showToast({ title: '已恢复', icon: 'success' });
 	} catch (error: any) {

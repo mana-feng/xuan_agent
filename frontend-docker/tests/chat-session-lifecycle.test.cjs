@@ -74,6 +74,39 @@ test('a storage failure stays visible until an explicit retry confirms the write
   } finally { f.dispose(); }
 });
 
+test('import never reports success when restored content could not be persisted', async () => {
+  const f = fixture();
+  try {
+    await f.session.ready(); f.data.draft = '归档内草稿';
+    const archive = await f.session.exportArchive();
+    await f.session.clear();
+    const write = uni.setStorageSync;
+    uni.setStorageSync = () => { throw new Error('storage full'); };
+    await assert.rejects(f.session.importArchive(archive), /未保存/);
+    assert.equal(f.data.draft, '归档内草稿');
+    assert.equal(f.session.failed.value, true);
+    uni.setStorageSync = write; await f.session.flush();
+    assert.equal((await readSnapshot(await createScope(alice))).draft, '归档内草稿');
+  } finally { f.dispose(); }
+});
+
+test('switching account during archive decryption cancels restoration without writing into the new account', async () => {
+  const f = fixture();
+  try {
+    await f.session.ready(); f.data.draft = '仅属于 alice 的归档';
+    const archive = await f.session.exportArchive();
+    await f.session.clear();
+    const importing = f.session.importArchive(archive);
+    // Activation finishes first, then WebCrypto decrypts asynchronously.
+    await Promise.resolve();
+    f.identity.value = { ...alice, account: 'bob@example.test' };
+    await assert.rejects(importing, { name: 'AbortError' });
+    await f.session.ready();
+    assert.equal(f.data.draft, ''); assert.equal(f.data.messages.length, 0);
+    assert.equal(await readSnapshot(await createScope(f.identity.value)), null);
+  } finally { f.dispose(); }
+});
+
 test('corrupt data is reported and is not silently overwritten on opening', async () => {
   const f = fixture();
   try {

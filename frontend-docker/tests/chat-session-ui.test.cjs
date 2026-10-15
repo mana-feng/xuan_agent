@@ -99,6 +99,20 @@ test('logout and clear remove visible content and invalidate late response callb
   } finally { f.dispose(); }
 });
 
+test('clearing a conversation preserves its account quota while logout removes it', async () => {
+  platform(); const f = mount();
+  try {
+    await waitFor(() => /对话将加密保存/.test(f.host.textContent));
+    f.panel.updateQuotaInfo({ remainingCount: 20 }); await vue.nextTick();
+    assert.match(f.host.querySelector('.quota-item').textContent, /20/);
+    [...f.host.querySelectorAll('button')].find(button => button.textContent === '清空对话').click();
+    await waitFor(() => /当前对话已清空/.test(f.host.textContent));
+    assert.match(f.host.querySelector('.quota-item').textContent, /20/);
+    f.props.sessionAccount = ''; f.props.sessionIdentity = null;
+    await vue.nextTick(); assert.match(f.host.querySelector('.quota-item').textContent, /--/);
+  } finally { f.dispose(); }
+});
+
 test('a failed partial reply remains incomplete immediately and after restore', async () => {
   platform(); let f = mount();
   try {

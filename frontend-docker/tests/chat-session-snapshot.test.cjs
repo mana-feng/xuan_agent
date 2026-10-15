@@ -81,3 +81,23 @@ test('clear removes only the selected session and import requires its exact iden
   assert.equal(await snapshots.readSnapshot(first), null);
   assert.ok(platform.storage.has(second.key));
 });
+
+test('an actual JSON file round trip preserves UTF-8 messages and rejects another account or tampered bytes', async () => {
+  const fs = require('node:fs/promises'), path = require('node:path'), os = require('node:os');
+  setup();
+  const scope = await snapshots.createScope(identity());
+  const folder = await fs.mkdtemp(path.join(os.tmpdir(), 'xuan-chat-file-'));
+  const file = path.join(folder, 'chat.json');
+  try {
+    const plain = data(); plain.messages[1].status = 'ready';
+    const encrypted = await snapshots.encodeSnapshot(scope, plain);
+    await fs.writeFile(file, encrypted, 'utf8');
+    const fromDisk = await fs.readFile(file, 'utf8');
+    assert.equal(JSON.parse(fromDisk).alg, 'AES-GCM');
+    assert.ok(!fromDisk.includes('测试问题')); assert.ok(!fromDisk.includes('下一问'));
+    assert.deepEqual(await snapshots.decodeSnapshot(scope, fromDisk), plain);
+    await assert.rejects(snapshots.decodeSnapshot(await snapshots.createScope(identity({ account: 'bob@example.test' })), fromDisk));
+    const changed = JSON.parse(fromDisk); changed.ct = (changed.ct[0] === 'A' ? 'B' : 'A') + changed.ct.slice(1);
+    await assert.rejects(snapshots.decodeSnapshot(scope, JSON.stringify(changed)));
+  } finally { await fs.unlink(file).catch(() => {}); await fs.rmdir(folder); }
+});

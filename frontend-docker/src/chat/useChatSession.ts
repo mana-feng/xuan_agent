@@ -177,10 +177,13 @@ export function useChatSession(
 		if (!scope) throw new Error('请先登录并关联命盘');
 		const epoch = generation;
 		const restored = await decodeSnapshot(scope, text);
-		if (epoch !== generation || disposed) return;
+		if (epoch !== generation || disposed) throw new DOMException('当前对话已切换，已取消恢复', 'AbortError');
 		if (!restored) throw new Error('记录已超过 30 天保留期');
 		mutate(() => { reset(); apply(restored); });
-		await flush();
+		if (!await flush()) {
+			if (epoch !== generation || disposed) throw new DOMException('当前对话已切换，已取消恢复', 'AbortError');
+			throw new Error(notice.value || '对话未保存，请重试保存');
+		}
 	}
 	const beforeUnload = (event: BeforeUnloadEvent) => {
 		if (!dirty.value && !failed.value) return;
