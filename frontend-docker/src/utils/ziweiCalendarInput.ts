@@ -6,7 +6,9 @@ export function lunarCivilToSolar(date: string, clock: string, leap: boolean): s
 	const match = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/.exec(date.trim());
 	if (!match) throw new Error('农历日期格式应为 YYYY-MM-DD');
 	const [, year, month, day] = match;
-	if (+year < 1900 || +year > 2099 || +month < 1 || +month > 12 || +day < 1 || +day > 30) throw new Error('农历日期无效');
+	// Early January 1900 belongs to lunar year 1899; parseCivil below still
+	// enforces the supported 1900–2099 interval on the converted solar date.
+	if (+year < 1899 || +year > 2099 || +month < 1 || +month > 12 || +day < 1 || +day > 30) throw new Error('农历日期无效');
 	try {
 		const lunar = Lunar.fromYmd(+year, leap ? -Number(month) : Number(month), +day);
 		const result = `${lunar.getSolar().toYmd()} ${clock.trim()}`;

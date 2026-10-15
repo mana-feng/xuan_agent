@@ -256,18 +256,7 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<tm-time-picker
-			v-model:show="timePickerShow"
-			:round="10"
-			:default-value="timePickerDefault"
-			:model-value="timePickerDefault"
-			:start="timePick.start"
-			:end="timePick.end"
-			:format="timePick.format"
-			:show-detail="timePick.detail"
-			:show-suffix="timeSuffix"
-			@confirm="onTimeConfirm"
-		/>
+		<DateTimeDialog v-if="timePickerShow" :date="timePickerDefault.split(' ')[0].replace(/\//g, '-')" :clock="timePickerDefault.split(' ')[1]?.slice(0,5) || '00:00'" title="起卦时间" subtitle="设备本地时间 · 精确到分钟" :allow-now="true" @now="useNowTime(); timePickerShow = false" @confirm="value => onTimeConfirm(value.date + ' ' + value.clock)" @close="timePickerShow = false" />
 	</tm-app>
 </template>
 <script lang="ts" setup>
@@ -275,6 +264,7 @@ import { h5Button } from '@/utils/keyboard';
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
+import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
 import MethodCard from '@/components/liuyao/MethodCard.vue';
 import ParamPreview from '@/components/liuyao/ParamPreview.vue';
 import YaoSelector from '@/components/liuyao/YaoSelector.vue';
@@ -294,8 +284,6 @@ const {
 	getYaoLabel,
 	timePickerShow,
 	timePickerDefault,
-	timePick,
-	timeSuffix,
 	openTimePicker,
 	onTimeConfirm,
 	useNowTime,

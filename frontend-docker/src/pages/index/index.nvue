@@ -88,7 +88,7 @@
 							<view class="birth-field full">
 								<text class="field-label"
 									>出生日期与时间<text class="field-optional">{{
-										model === 0 ? '精确到分钟' : '按农历日期与时辰选择'
+										model === 0 ? '精确到分钟' : '农历日期、闰月与钟点'
 									}}</text></text
 								>
 								<button v-bind="h5Button(SelectTime)" class="birth-time-control" @tap="SelectTime">
@@ -100,7 +100,7 @@
 								<text class="birth-time-hint">{{
 									model === 0
 										? '请按公历填写出生日期；如只记得农历，可切换历法后选择。'
-										: '农历选择器保留时辰与历法换算，请核对下方对应公历。'
+										: '请区分普通月与闰月，并核对对应公历。'
 								}}</text>
 							</view>
 						</view>
@@ -149,31 +149,7 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<tm-time-picker
-			v-model:show="solar_select_show"
-			:round="6"
-			:default-value="solar_default_value"
-			:model-value="solar_default_value"
-			:start="solar_time_pick.start"
-			:end="solar_time_pick.end"
-			:format="solar_time_pick.format"
-			:show-detail="solar_time_pick.detail"
-			:show-suffix="time_suffix.solar"
-			@confirm="SolarConfirm"
-		></tm-time-picker>
-		<tm-time-picker
-			v-model:show="lunar_select_show"
-			:round="6"
-			:default-value="lunar_default_value"
-			:model-value="lunar_default_value"
-			:start="lunar_time_pick.start"
-			:end="lunar_time_pick.end"
-			:format="lunar_time_pick.format"
-			:show-detail="lunar_time_pick.detail"
-			:show-suffix="time_suffix.lunar"
-			:column-flex="lunar_time_column_flex"
-			@confirm="LunarConfirm"
-		></tm-time-picker>
+		<DateTimeDialog v-if="birthEditorOpen" :date="birthDateDraft" :clock="birthClockDraft" :lunar="model === 1" :leap="birthLeapDraft" :title="model === 0 ? '公历出生时间' : '农历出生时间'" :external-error="birthEditorError" @edit="birthEditorError = ''" @confirm="confirmBirthTime" @close="birthEditorOpen = false" />
 	</tm-app>
 </template>
 <script lang="ts" setup>
@@ -182,6 +158,9 @@ import { ref, computed, watch, nextTick } from 'vue';
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { Solar } from 'lunar-javascript';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
+import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import { parseCivil } from '@/utils/chartTime';
+import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
 
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
@@ -201,51 +180,9 @@ const recordId = ref<number | null>(null);
 
 const canSubmit = computed(() => timestamp.value !== null);
 
-const solar_select_show = ref(false);
-const lunar_select_show = ref(false);
-
-const solar_default_value = ref('');
-const lunar_default_value = ref('');
-
-const solar_time_pick = {
-	start: '1900/01/01 00:00',
-	end: '2099/12/30 00:00',
-	format: 'YYYY/MM/DD HH:mm',
-	detail: {
-		year: true,
-		month: true,
-		day: true,
-		hour: true,
-		minute: true,
-		second: false,
-	},
-};
-
-const lunar_time_pick = {
-	start: '1900/01/01 00',
-	end: '2099/12/30 00',
-	format: 'YYYY/MM/DD HH',
-	detail: {
-		year: true,
-		month: true,
-		day: true,
-		hour: true,
-		minute: false,
-		second: false,
-	},
-};
-
-const lunar_time_column_flex = {
-	year: 1.15,
-	month: 0.75,
-	day: 0.75,
-	hour: 2.35,
-};
-
-const time_suffix = {
-	solar: { year: '年', month: '月', day: '日', hour: '时', minute: '分', second: '秒' },
-	lunar: { year: '年', month: '月', day: '日', hour: '时辰', minute: '分', second: '秒' },
-};
+const birthEditorOpen = ref(false);
+const birthDateDraft = ref(''), birthClockDraft = ref('');
+const birthLeapDraft = ref(false), birthEditorError = ref('');
 
 watch(model, PullDatatimeLabel);
 watch(timestamp, PullDatatimeLabel);
@@ -330,55 +267,23 @@ onShow(() => {
 });
 
 function SelectTime() {
-	uni.hideKeyboard();
-	const timeToUse = timestamp.value || new Date().getTime();
-	const timeStr = utils.HideSecond(timeToUse);
-	solar_default_value.value = timeStr;
-	lunar_default_value.value = timeStr.replace(/:\d{2}$/, '');
-
-	setTimeout(() => {
-		if (model.value === 0) {
-			solar_select_show.value = true;
-		} else {
-			lunar_select_show.value = true;
-		}
-	}, 400);
+  uni.hideKeyboard();
+  const date = new Date(timestamp.value ?? Date.now());
+  const lunar = Solar.fromDate(date).getLunar();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  birthDateDraft.value = model.value === 1 ? `${lunar.getYear()}-${pad(Math.abs(lunar.getMonth()))}-${pad(lunar.getDay())}` : `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+  birthClockDraft.value = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  birthLeapDraft.value = lunar.getMonth() < 0; birthEditorError.value = ''; birthEditorOpen.value = true;
 }
-
-function parsePickerTimeToTimestamp(time: string): number | null {
-	const raw = (time || '').trim();
-	if (!raw) return null;
-	const full = raw.match(/^(\d{4})\/(\d{2})\/(\d{2})\s+(\d{2}):(\d{2})$/);
-	if (full) {
-		const y = Number(full[1]);
-		const mo = Number(full[2]);
-		const d = Number(full[3]);
-		const h = Number(full[4]);
-		const mi = Number(full[5]);
-		const dt = new Date(y, mo - 1, d, h, mi, 0);
-		return Number.isFinite(dt.getTime()) ? dt.getTime() : null;
-	}
-	const hourOnly = raw.match(/^(\d{4})\/(\d{2})\/(\d{2})\s+(\d{2})$/);
-	if (hourOnly) {
-		const y = Number(hourOnly[1]);
-		const mo = Number(hourOnly[2]);
-		const d = Number(hourOnly[3]);
-		const h = Number(hourOnly[4]);
-		const dt = new Date(y, mo - 1, d, h, 0, 0);
-		return Number.isFinite(dt.getTime()) ? dt.getTime() : null;
-	}
-	const parsed = Date.parse(raw);
-	return Number.isFinite(parsed) ? parsed : null;
+function confirmBirthTime(value: { date: string; clock: string; leap: boolean }) {
+  try {
+    const civil = model.value === 1 ? lunarCivilToSolar(value.date, value.clock, value.leap) : `${value.date} ${value.clock}`;
+    const p = parseCivil(civil);
+    const date = new Date(p.year, p.month - 1, p.day, p.hour, p.minute, 0);
+    if (date.getHours() !== p.hour || date.getDate() !== p.day) throw new Error('设备时区的此时刻不存在，请核对夏令时');
+    timestamp.value = date.getTime(); birthEditorOpen.value = false;
+  } catch (error: any) { birthEditorError.value = error.message; }
 }
-
-const SolarConfirm = (time: string) => {
-	const ts = parsePickerTimeToTimestamp(time);
-	if (ts !== null) timestamp.value = ts;
-};
-const LunarConfirm = (time: string) => {
-	const ts = parsePickerTimeToTimestamp(time);
-	if (ts !== null) timestamp.value = ts;
-};
 
 function PullDatatimeLabel() {
 	const time = timestamp.value;
@@ -394,15 +299,11 @@ function PullDatatimeLabel() {
 	if (index === 0) {
 		const date = utils.HideSecond(time);
 		datetime_label.value = date;
-		solar_default_value.value = date;
-		lunar_default_value.value = date.replace(/:\d{2}$/, '');
 		lunar_label.value = `${lunar.toString()} ${lunar.getTimeZhi()}时`;
 	} else {
 		const lunarStr = `${lunar.toString()} ${lunar.getTimeZhi()}时`;
 		datetime_label.value = lunarStr;
 		const date = utils.HideSecond(time);
-		solar_default_value.value = date;
-		lunar_default_value.value = date.replace(/:\d{2}$/, '');
 		lunar_label.value = date;
 	}
 }

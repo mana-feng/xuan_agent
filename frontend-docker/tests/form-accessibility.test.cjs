@@ -218,7 +218,7 @@ test('birth time settings expand by keyboard and preserve the selected zone and 
 	}
 });
 
-test('birth editor keeps invalid input visible and restores focus to its trigger after Escape', async () => {
+test('birth editor corrects the day boundary and restores focus to its trigger after Escape', async () => {
 	const mounted = mount('pages/ziwei/index.nvue');
 	try {
 		const trigger = mounted.host.querySelector('uni-button.birth-time-control');
@@ -228,15 +228,16 @@ test('birth editor keeps invalid input visible and restores focus to its trigger
 		await nextTick();
 		const dialog = mounted.host.querySelector('[role="dialog"]');
 		assert.ok(dialog);
-		const date = dialog.querySelector('[aria-label="出生日期 年月日"]');
+		const date = dialog.querySelector('[aria-label="年份"]');
 		assert.equal(document.activeElement, date);
-		date.value = '2024-02-30';
-		date.dispatchEvent(new dom.window.Event('input', { bubbles: true }));
-		press(dialog.querySelector('.birth-submit'), 'Enter');
+		for (const [label, value] of [['年份', '2024'], ['月份', '02'], ['日期', '30']]) {
+			const input = dialog.querySelector(`[aria-label="${label}"]`);
+			input.value = value; input.dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+		}
 		await nextTick();
 		assert.ok(mounted.host.querySelector('[role="dialog"]'));
-		assert.match(dialog.querySelector('[role="alert"]').textContent, /日期|时间/);
-		assert.equal(date.value, '2024-02-30');
+		assert.equal(dialog.querySelector('[role="alert"]'), null);
+		assert.equal(dialog.querySelector('[aria-label="日期"]').value, '29');
 		key(date, 'keydown', 'Escape');
 		await nextTick();
 		assert.equal(mounted.host.querySelector('[role="dialog"]'), null);
@@ -244,4 +245,101 @@ test('birth editor keeps invalid input visible and restores focus to its trigger
 	} finally {
 		mounted.dispose();
 	}
+});
+
+test('date and clock fields accept distant birth years directly and adjust a leap day when the year changes', async () => {
+	const confirmed = [];
+	const mounted = mount('components/form/DateTimeDialog.vue', { date: '2024-02-29', clock: '23:59', title: '出生时间', onConfirm: value => confirmed.push(value) });
+	try {
+		const fill = (label, value) => { const input = mounted.host.querySelector(`[aria-label="${label}"]`); input.value = value; input.dispatchEvent(new dom.window.Event('input', { bubbles: true })); };
+		fill('年份', '1988'); fill('月份', '2'); fill('日期', '29'); fill('小时', '0'); fill('分钟', '5');
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter'); await nextTick();
+		assert.deepEqual(confirmed, [{ date: '1988-02-29', clock: '00:05', leap: false }]);
+		fill('年份', '1989'); await nextTick();
+		assert.equal(mounted.host.querySelector('[aria-label="日期"]').value, '28');
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter');
+		assert.equal(confirmed.length, 2); assert.equal(confirmed[1].date, '1989-02-28');
+	} finally { mounted.dispose(); }
+});
+
+test('lunar date fields preserve an explicit leap month without treating it as a Gregorian date', async () => {
+	const confirmed = [];
+	const mounted = mount('components/form/DateTimeDialog.vue', { date: '2023-02-15', clock: '23:00', lunar: true, leap: true, onConfirm: value => confirmed.push(value) });
+	try {
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter'); await nextTick();
+		assert.deepEqual(confirmed, [{ date: '2023-02-15', clock: '23:00', leap: true }]);
+		const input = mounted.host.querySelector('[aria-label="月份"]'); input.value = '3'; input.dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter'); await nextTick();
+		assert.equal(confirmed.length, 1); assert.match(mounted.host.querySelector('[role="alert"]').textContent, /闰月|农历/);
+	} finally { mounted.dispose(); }
+});
+
+test('lunar editor preserves supported solar boundary dates and clamps to their matching lunar boundaries', async () => {
+	for (const [date, clock] of [['1899-12-01', '00:05'], ['2099-11-20', '23:59']]) {
+		const confirmed = [];
+		const mounted = mount('components/form/DateTimeDialog.vue', { date, clock, lunar: true, onConfirm: value => confirmed.push(value) });
+		try {
+			press(mounted.host.querySelector('.datetime-confirm'), 'Enter'); await nextTick();
+			assert.deepEqual(confirmed, [{ date, clock, leap: false }], 'opening and confirming must preserve the original date');
+			for (const [label, value] of [['年份', date.startsWith('1899') ? '0' : '9999'], ['月份', date.startsWith('1899') ? '0' : '99'], ['日期', date.startsWith('1899') ? '0' : '99']]) {
+				const field = mounted.host.querySelector(`[aria-label="${label}"]`);
+				field.value = value; field.dispatchEvent(new dom.window.Event('input', { bubbles: true })); field.dispatchEvent(new dom.window.Event('blur'));
+			}
+			press(mounted.host.querySelector('.datetime-confirm'), 'Enter'); await nextTick();
+			assert.deepEqual(confirmed[1], { date, clock, leap: false }, 'clamp using supported solar dates expressed in the chosen calendar');
+		} finally { mounted.dispose(); }
+	}
+});
+
+test('out-of-range fields clamp to the nearest boundary without range hints', async () => {
+	const confirmed = [];
+	const mounted = mount('components/form/DateTimeDialog.vue', { date: '2024-02-29', clock: '23:59', onConfirm: value => confirmed.push(value) });
+	try {
+		const fill = (label, value) => { const input = mounted.host.querySelector(`[aria-label="${label}"]`); input.value = value; input.dispatchEvent(new dom.window.Event('input', { bubbles: true })); };
+		for (const [label, value] of [['年份', '9999'], ['月份', '13'], ['日期', '80'], ['小时', '99'], ['分钟', '99']]) fill(label, value);
+		await nextTick();
+		for (const [label, expected] of [['年份', '2099'], ['月份', '12'], ['日期', '31'], ['小时', '23'], ['分钟', '59']]) assert.equal(mounted.host.querySelector(`[aria-label="${label}"]`).value, expected, label);
+		assert.equal(mounted.host.querySelector('.datetime-range'), null);
+		assert.equal(mounted.host.querySelector('[role="alert"]'), null);
+		assert.equal(mounted.host.querySelector('.datetime-confirm').getAttribute('aria-disabled'), 'false');
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter');
+		assert.deepEqual(confirmed[0], { date: '2099-12-31', clock: '23:59', leap: false });
+		for (const label of ['年份', '月份', '日期', '小时', '分钟']) {
+			fill(label, '0'); mounted.host.querySelector(`[aria-label="${label}"]`).dispatchEvent(new dom.window.Event('blur'));
+		}
+		await nextTick();
+		assert.equal(mounted.host.querySelector('[role="alert"]'), null);
+		assert.equal(mounted.host.querySelector('.datetime-confirm').getAttribute('aria-disabled'), 'false');
+		press(mounted.host.querySelector('.datetime-confirm'), 'Enter');
+		assert.deepEqual(confirmed[1], { date: '1900-01-01', clock: '00:00', leap: false });
+	} finally { mounted.dispose(); }
+});
+
+test('day correction follows Gregorian leap years and selected lunar month', async () => {
+	for (const [date, lunar, leap, expected] of [
+		['1900-02-29', false, false, '28'], ['2000-02-29', false, false, '29'],
+		['2024-04-31', false, false, '30'], ['2023-02-30', true, true, '29'],
+	]) {
+		const mounted = mount('components/form/DateTimeDialog.vue', { date, clock: '12:00', lunar, leap });
+		try {
+			await nextTick();
+			assert.equal(mounted.host.querySelector('[aria-label="日期"]').getAttribute('aria-invalid'), 'false', date);
+			assert.equal(mounted.host.querySelector('[aria-label="日期"]').value, expected);
+		} finally { mounted.dispose(); }
+	}
+});
+
+test('partial year entry remains editable until blur and repeating the same boundary updates the displayed input', async () => {
+	const mounted = mount('components/form/DateTimeDialog.vue', { date: '2024-12-31', clock: '23:59' });
+	try {
+		const input = mounted.host.querySelector('[aria-label="年份"]');
+		for (const year of ['1', '19', '198']) {
+			input.value = year; input.dispatchEvent(new dom.window.Event('input', { bubbles: true })); await nextTick();
+			assert.equal(input.value, year);
+		}
+		input.dispatchEvent(new dom.window.Event('blur')); await nextTick(); assert.equal(input.value, '1900');
+		const month = mounted.host.querySelector('[aria-label="月份"]');
+		month.value = '99'; month.dispatchEvent(new dom.window.Event('input', { bubbles: true })); await nextTick();
+		assert.equal(month.value, '12');
+	} finally { mounted.dispose(); }
 });

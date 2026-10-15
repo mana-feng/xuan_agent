@@ -198,90 +198,7 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<view v-if="birthEditorOpen" class="birth-editor-mask">
-			<view
-				id="ziwei-birth-editor"
-				ref="birthEditorRoot"
-				class="birth-editor"
-				role="dialog"
-				aria-modal="true"
-				aria-labelledby="birth-editor-title"
-			>
-				<view class="birth-editor-heading"
-					><text id="birth-editor-title" class="form-section-title"
-						>{{ model === 0 ? '公历' : '农历' }}出生时间</text
-					><text class="birth-time-hint">{{ timeZoneLabel }} · 按出生地钟表时间填写</text></view
-				>
-				<view class="birth-editor-fields">
-					<view class="birth-field"
-						><text class="field-label">日期 · 年-月-日</text
-						><input
-							v-model="birthDateDraft"
-							class="birth-name-input"
-							aria-label="出生日期 年月日"
-							:aria-invalid="!!birthEditorError"
-							aria-describedby="birth-editor-hint birth-editor-error"
-							placeholder="例如 2023-02-15"
-							:maxlength="10"
-					/></view>
-					<view class="birth-field"
-						><text class="field-label">时间 · 24 小时制</text
-						><input
-							v-model="birthClockDraft"
-							class="birth-name-input"
-							aria-label="出生钟表时间"
-							:aria-invalid="!!birthEditorError"
-							aria-describedby="birth-editor-hint birth-editor-error"
-							placeholder="例如 23:00"
-							:maxlength="5"
-					/></view>
-				</view>
-				<view v-if="model === 1" class="birth-field"
-					><text class="field-label">农历月份类型</text
-					><view class="birth-segmented" role="group" aria-label="农历月份类型">
-						<button
-							class="birth-segment"
-							:class="{ selected: !birthLeapDraft }"
-							:aria-pressed="!birthLeapDraft"
-							v-bind="h5Button(() => (birthLeapDraft = false))"
-							@tap="birthLeapDraft = false"
-						>
-							普通月
-						</button>
-						<button
-							class="birth-segment"
-							:class="{ selected: birthLeapDraft }"
-							:aria-pressed="birthLeapDraft"
-							v-bind="h5Button(() => (birthLeapDraft = true))"
-							@tap="birthLeapDraft = true"
-						>
-							闰月
-						</button>
-					</view></view
-				>
-				<text id="birth-editor-hint" class="birth-time-hint"
-					>23:00—23:59 为晚子时，按次日排盘。</text
-				>
-				<text
-					v-if="birthEditorError"
-					id="birth-editor-error"
-					class="birth-editor-error"
-					role="alert"
-					>{{ birthEditorError }}</text
-				>
-				<view class="birth-editor-actions"
-					><button
-						class="birth-segment"
-						v-bind="h5Button(closeBirthEditor)"
-						@tap="closeBirthEditor"
-					>
-						取消</button
-					><button class="birth-submit" v-bind="h5Button(applyBirthEditor)" @tap="applyBirthEditor">
-						确认时间
-					</button></view
-				>
-			</view>
-		</view>
+		<DateTimeDialog v-if="birthEditorOpen" :date="birthDateDraft" :clock="birthClockDraft" :leap="birthLeapDraft" :lunar="model === 1" :title="model === 0 ? '公历出生时间' : '农历出生时间'" :subtitle="timeZoneLabel + ' · 按出生地钟表时间填写'" hint="23:00—23:59 为晚子时，按次日排盘。" :external-error="birthEditorError" @edit="birthEditorError = ''" @confirm="confirmBirthTime" @close="closeBirthEditor" />
 	</tm-app>
 </template>
 <script lang="ts" setup>
@@ -295,7 +212,7 @@ import { useUserStore } from '@/store/user';
 import { civilToTimestamp, civilString, deviceTimeZone, zonedParts } from '@/utils/chartTime';
 import type { Disambiguation } from '@/utils/chartTime';
 import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
-import { useModalFocus } from '@/utils/useModalFocus';
+import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
 import { useZiweiStore } from '@/store/ziwei';
 
 const realname = ref('');
@@ -351,8 +268,6 @@ const birthEditorError = ref('');
 const closeBirthEditor = () => {
 	birthEditorOpen.value = false;
 };
-const birthEditorRoot = ref<any>(null);
-useModalFocus(birthEditorOpen, birthEditorRoot, closeBirthEditor);
 const timestamp = ref<number | null>(null);
 const datetime_label = ref('');
 const lunar_label = ref<string | null>(null);
@@ -484,6 +399,10 @@ function SelectTime() {
 	birthEditorOpen.value = true;
 }
 
+function confirmBirthTime(value: { date: string; clock: string; leap: boolean }) {
+  birthDateDraft.value = value.date; birthClockDraft.value = value.clock; birthLeapDraft.value = value.leap;
+  applyBirthEditor();
+}
 function applyBirthEditor() {
 	try {
 		const civil =
@@ -589,74 +508,6 @@ function Submit() {
 }
 </script>
 <style scoped>
-.birth-editor-mask {
-	position: fixed;
-	inset: 0;
-	z-index: 1100;
-	background: #18333f66;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 18px;
-	box-sizing: border-box;
-}
-.birth-editor {
-	display: flex;
-	flex-direction: column;
-	gap: 18px;
-	background: var(--x-paper, #fff);
-	border: 1px solid var(--x-line, #dbe9ed);
-	border-radius: 16px;
-	padding: 24px;
-	width: 440px;
-	max-width: 100%;
-	max-height: 85vh;
-	box-sizing: border-box;
-	overflow-y: auto;
-	box-shadow: 0 16px 50px #18333f22;
-}
-.birth-editor-heading {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-}
-.birth-editor-fields {
-	display: grid;
-	grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-	gap: 12px;
-}
-.birth-editor-actions {
-	display: flex;
-	flex-direction: row;
-	gap: 12px;
-	padding-top: 16px;
-	border-top: 1px solid var(--x-line, #dbe9ed);
-}
-.birth-editor-actions .birth-submit,
-.birth-editor-actions .birth-segment {
-	width: auto;
-	min-width: 0;
-	flex: 1 1 0;
-	margin: 0;
-}
-.birth-editor-actions .birth-segment {
-	background: var(--x-tint, #e7f4fc);
-	color: var(--x-body, #425d65);
-	border-radius: 9px;
-}
-.birth-editor > * {
-	min-width: 0;
-	flex-shrink: 0;
-}
-.birth-editor-error {
-	font-size: 12px;
-	color: #a13232;
-	line-height: 1.7;
-	padding: 10px 12px;
-	border: 1px solid #efd9d7;
-	border-radius: 8px;
-	background: #fff7f5;
-}
 .form-steps {
 	display: flex;
 	flex-direction: row;
@@ -1065,15 +916,6 @@ button::after {
 	.time-settings-body .birth-segment {
 		font-size: 11px;
 		padding: 7px 3px;
-	}
-	.birth-editor {
-		padding: 20px;
-	}
-	.birth-editor .field-label {
-		font-size: 12px;
-	}
-	.birth-editor .birth-name-input {
-		padding: 0 10px;
 	}
 }
 </style>
