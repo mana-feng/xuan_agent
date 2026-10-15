@@ -1,5 +1,5 @@
 <template>
-	<TimeCard :label="label" :date="dateText || placeholder" :clock="clockText"
+	<TimeCard :label="label" :zone="timeZone" :date="dateText || placeholder" :clock="clockText"
 		:status="modelValue ? (source === 'now' ? '已取当前时间' : '已指定时间') : '请选择时间'"
 		:hint="hint" :allow-now="true" @edit="emit('open')" @now="emit('useNow')" />
 </template>
@@ -7,6 +7,7 @@
 import { computed } from 'vue';
 import TimeCard from '@/components/form/TimeCard.vue';
 const props = defineProps({
+	timeZone: { type: String, default: 'Asia/Shanghai' },
 	modelValue: { type: String, default: '' },
 	label: { type: String, default: '起卦时间' },
 	placeholder: { type: String, default: '请选择起卦日期与时间' },

@@ -57,7 +57,7 @@
 						</view>
 					</view>
 					<view class="form-section">
-						<TimeCard label="出生时间" :zone="'设备本地时间'" :date="birthDisplayDate" :clock="birthDisplayClock"
+						<TimeCard label="出生时间" :zone="timeZone" :date="birthDisplayDate" :clock="birthDisplayClock"
 							:status="model === 0 ? '公历日期 · 精确到分钟' : '农历日期 · 精确到分钟'"
 							:alternate-label="model === 0 ? '对应农历' : '对应公历'" :alternate="lunar_label || ''"
 							hint="请按所选历法填写出生日期，并核对对应日期。" @edit="SelectTime">
@@ -87,6 +87,7 @@
 							</view>
 							</template>
 						</TimeCard>
+						<CalendarSettings :time-zone="timeZone" v-model:rules="rules" v-model:overlap-choice="overlapChoice" @update:time-zone="changeTimeZone" />
 						<view v-if="bazi_label" class="birth-summary">
 							<view class="birth-summary-row"><text class="birth-summary-label">四柱预览</text>
 								<view class="pillar-preview"><text v-for="(pillar, i) in bazi_label.split(' ')" :key="i" class="pillar-chip">{{ pillar }}</text></view>
@@ -120,32 +121,36 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<DateTimeDialog v-if="birthEditorOpen" :date="birthDateDraft" :clock="birthClockDraft" :lunar="model === 1" :leap="birthLeapDraft" :title="model === 0 ? '公历出生时间' : '农历出生时间'" :external-error="birthEditorError" @edit="birthEditorError = ''" @confirm="confirmBirthTime" @close="birthEditorOpen = false" />
+		<DateTimeDialog v-if="birthEditorOpen" :date="birthDateDraft" :clock="birthClockDraft" :lunar="model === 1" :leap="birthLeapDraft" :title="model === 0 ? '公历出生时间' : '农历出生时间'" :subtitle="timeZone + ' · 按该时区钟表时间填写'" :external-error="birthEditorError" @edit="birthEditorError = ''" @confirm="confirmBirthTime" @close="birthEditorOpen = false" />
 	</tm-app>
 </template>
 <script lang="ts" setup>
 import { h5Button } from '@/utils/keyboard';
 import { ref, computed, watch, nextTick } from 'vue';
 import { onLoad, onShow } from '@dcloudio/uni-app';
-import { Solar } from 'lunar-javascript';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
 import TimeCard from '@/components/form/TimeCard.vue';
-import { parseCivil } from '@/utils/chartTime';
+import { deviceTimeZone, type Disambiguation } from '@/utils/chartTime';
+import { calendarCivil, calendarTimestamp, calendarValues, resolveCalendar, DEFAULT_CALENDAR_RULES, type CalendarContext } from '@/utils/calendarContext';
+import CalendarSettings from '@/components/form/CalendarSettings.vue';
 import { lunarCivilToSolar } from '@/utils/ziweiCalendarInput';
 
 import { useUserStore } from '@/store/user';
 import { useBaziStore } from '@/store/bazi';
-import utils from '@/libs/utils/utils';
 
 const realname = ref('');
 const gender = ref(0);
 const model = ref(0);
 const timestamp = ref<number | null>(null);
+const timeZone = ref(deviceTimeZone());
+const rules = ref({ ...DEFAULT_CALENDAR_RULES });
+const overlapChoice = ref<Disambiguation>('reject');
+const editCalculation = ref<CalendarContext | undefined>();
 const datetime_label = ref('');
 const lunar_label = ref<string | null>(null);
 const birthDisplayDate = computed(() => datetime_label.value.split(' ')[0]?.replace(/[/\-]/g, ' / ') || '');
-const birthDisplayClock = computed(() => timestamp.value === null ? '' : utils.HideSecond(timestamp.value).split(' ')[1]?.slice(0, 5) || '');
+const birthDisplayClock = computed(() => timestamp.value === null ? '' : calendarCivil(timestamp.value,timeZone.value).slice(11,16) || '');
 const bazi_label = ref('');
 
 const user_store = useUserStore();
@@ -160,6 +165,8 @@ const birthLeapDraft = ref(false), birthEditorError = ref('');
 
 watch(model, PullDatatimeLabel);
 watch(timestamp, PullDatatimeLabel);
+watch(rules, PullDatatimeLabel, { deep: true });
+watch(overlapChoice, () => changeTimeZone(timeZone.value));
 
 function initCurrentTime() {
 	timestamp.value = new Date().getTime();
@@ -181,6 +188,9 @@ onLoad((options: any) => {
 				realname.value = editData.realname === '佚名' ? '' : editData.realname || '';
 				gender.value =
 					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
+				timeZone.value = editData.calculation?.timeZone || editData.timeZone || deviceTimeZone();
+				rules.value = { ...DEFAULT_CALENDAR_RULES, ...editData.calculation?.rules, ...editData.rules };
+				editCalculation.value = editData.calculation;
 				timestamp.value = editData.timestamp;
 
 				recordId.value = editData.recordId ?? null;
@@ -225,6 +235,9 @@ onShow(() => {
 				realname.value = editData.realname === '佚名' ? '' : editData.realname || '';
 				gender.value =
 					editData.gender !== undefined && editData.gender !== null ? editData.gender : 0;
+				timeZone.value = editData.calculation?.timeZone || editData.timeZone || deviceTimeZone();
+				rules.value = { ...DEFAULT_CALENDAR_RULES, ...editData.calculation?.rules, ...editData.rules };
+				editCalculation.value = editData.calculation;
 				timestamp.value = editData.timestamp;
 				recordId.value = editData.recordId ?? null;
 				uni.removeStorageSync('edit_bazi_data');
@@ -240,46 +253,37 @@ onShow(() => {
 	}
 });
 
+function changeTimeZone(zone: string) {
+  try {
+    const civil = calendarCivil(timestamp.value ?? Date.now(), timeZone.value);
+    const next = calendarTimestamp(civil,zone,overlapChoice.value);
+    timeZone.value = zone; timestamp.value = next; PullDatatimeLabel();
+  } catch (error: any) { uni.showToast({ title:error.message, icon:'none' }); }
+}
 function SelectTime() {
   uni.hideKeyboard();
-  const date = new Date(timestamp.value ?? Date.now());
-  const lunar = Solar.fromDate(date).getLunar();
-  const pad = (n: number) => String(n).padStart(2, '0');
-  birthDateDraft.value = model.value === 1 ? `${lunar.getYear()}-${pad(Math.abs(lunar.getMonth()))}-${pad(lunar.getDay())}` : `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
-  birthClockDraft.value = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  const context = resolveCalendar(timestamp.value ?? Date.now(),'bazi',{timeZone:timeZone.value,rules:rules.value});
+  const { lunar } = calendarValues(context);
+  const pad = (n:number) => String(n).padStart(2,'0');
+  birthDateDraft.value = model.value === 1 ? `${lunar.getYear()}-${pad(Math.abs(lunar.getMonth()))}-${pad(lunar.getDay())}` : context.civil.slice(0,10);
+  birthClockDraft.value = context.civil.slice(11,16);
   birthLeapDraft.value = lunar.getMonth() < 0; birthEditorError.value = ''; birthEditorOpen.value = true;
 }
 function confirmBirthTime(value: { date: string; clock: string; leap: boolean }) {
   try {
-    const civil = model.value === 1 ? lunarCivilToSolar(value.date, value.clock, value.leap) : `${value.date} ${value.clock}`;
-    const p = parseCivil(civil);
-    const date = new Date(p.year, p.month - 1, p.day, p.hour, p.minute, 0);
-    if (date.getHours() !== p.hour || date.getDate() !== p.day) throw new Error('设备时区的此时刻不存在，请核对夏令时');
-    timestamp.value = date.getTime(); birthEditorOpen.value = false;
-  } catch (error: any) { birthEditorError.value = error.message; }
+    const civil = model.value === 1 ? lunarCivilToSolar(value.date,value.clock,value.leap) : `${value.date} ${value.clock}`;
+    timestamp.value = calendarTimestamp(civil,timeZone.value,overlapChoice.value); birthEditorOpen.value = false;
+  } catch (error:any) { birthEditorError.value = error.message; }
 }
-
 function PullDatatimeLabel() {
-	const time = timestamp.value;
-	if (time === null) return;
-	const index = model.value;
-	const solar = Solar.fromDate(new Date(time));
-	const lunar = solar.getLunar();
-
-	const bazi = lunar.getEightChar();
-	const baziList = [bazi.getYear(), bazi.getMonth(), bazi.getDay(), bazi.getTime()];
-	bazi_label.value = baziList.join(' ');
-
-	if (index === 0) {
-		const date = utils.HideSecond(time);
-		datetime_label.value = date;
-		lunar_label.value = `${lunar.toString()} ${lunar.getTimeZhi()}时`;
-	} else {
-		const lunarStr = `${lunar.toString()} ${lunar.getTimeZhi()}时`;
-		datetime_label.value = lunarStr;
-		const date = utils.HideSecond(time);
-		lunar_label.value = date;
-	}
+  if (timestamp.value === null) return;
+  const context = resolveCalendar(timestamp.value,'bazi',{timeZone:timeZone.value,rules:rules.value});
+  const { lunar, eightChar:bazi } = calendarValues(context);
+  bazi_label.value = [bazi.getYear(),bazi.getMonth(),bazi.getDay(),bazi.getTime()].join(' ');
+  const civil = context.civil.slice(0,16).replace(/-/g,'/');
+  const lunarStr = `${lunar.toString()} ${lunar.getTimeZhi()}时`;
+  datetime_label.value = model.value === 0 ? civil : lunarStr;
+  lunar_label.value = model.value === 0 ? lunarStr : civil;
 }
 
 function Sumbit() {
@@ -299,6 +303,9 @@ function Sumbit() {
 		timestamp: datetime,
 		gender: Number(gender.value),
 		recordId: recordId.value,
+		timeZone: timeZone.value,
+		rules: rules.value,
+		calculation: editCalculation.value?.timestamp === datetime && editCalculation.value?.timeZone === timeZone.value && JSON.stringify(editCalculation.value.rules) === JSON.stringify(rules.value) ? editCalculation.value : undefined,
 	};
 	uni.showLoading({
 		title: '排盘中，请稍后！',

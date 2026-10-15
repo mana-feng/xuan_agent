@@ -4,7 +4,9 @@ import { GUA64 } from '@/features/liuyao/najiaConst';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { executeLiuyaoChart } from './executor';
 import liuyaoService from './service';
-import { getYaoName, getYaoSymbol, formatDateTime } from './uiHelpers';
+import { getYaoName, getYaoSymbol } from './uiHelpers';
+import { calendarCivil, calendarTimestamp, DEFAULT_CALENDAR_RULES } from '@/utils/calendarContext';
+import { deviceTimeZone, type Disambiguation } from '@/utils/chartTime';
 
 type MethodKey =
 	| 'computer'
@@ -20,6 +22,9 @@ type MethodKey =
 	| 'shake';
 
 export function useLiuyaoForm() {
+	const timeZone = ref(deviceTimeZone()), rules = ref({ ...DEFAULT_CALENDAR_RULES });
+	const overlapChoice = ref<Disambiguation>('reject');
+	const timePickerError = ref('');
 	const methodTabs = [
 		{ text: '电脑自动', key: 'computer' as MethodKey },
 		{ text: '在线起卦', key: 'online' as MethodKey },
@@ -36,7 +41,7 @@ export function useLiuyaoForm() {
 	const createEmptyForm = () => ({
 		title: '',
 		gender: '' as string | number,
-		timeLabel: formatDateTime(new Date()),
+		timeLabel: calendarCivil(Date.now(),timeZone.value).slice(0,16),
 		num1: '',
 		num2: '',
 		num3: '',
@@ -171,31 +176,14 @@ export function useLiuyaoForm() {
 	});
 
 	function parseDate(value: unknown): Date | null {
-		if (value instanceof Date || typeof value === 'number') {
-			const date = new Date(value instanceof Date ? value.getTime() : value);
-			return Number.isFinite(date.getTime()) &&
-				date.getFullYear() >= 1900 &&
-				date.getFullYear() <= 2099
-				? date
-				: null;
-		}
-		const match = String(value || '')
-			.trim()
-			.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})[ T](\d{1,2}):(\d{2})(?::\d{2})?$/);
-		if (!match) return null;
-		const [year, month, day, hour, minute] = match.slice(1).map(Number);
-		// Match the existing picker and chart engines: these are local wall-clock values.
-		const date = new Date(year, month - 1, day, hour, minute, 0);
-		return year >= 1900 &&
-			year <= 2099 &&
-			date.getFullYear() === year &&
-			date.getMonth() === month - 1 &&
-			date.getDate() === day &&
-			date.getHours() === hour &&
-			date.getMinutes() === minute
-			? date
-			: null;
+		try {
+			const timestamp = value instanceof Date ? value.getTime() : typeof value === 'number' ? value : calendarTimestamp(String(value || '').trim().replace(/\//g,'-'),timeZone.value,overlapChoice.value);
+			const civil = calendarCivil(timestamp,timeZone.value);
+			const year = Number(civil.slice(0,4));
+			return year >= 1900 && year <= 2099 ? new Date(timestamp) : null;
+		} catch (error:any) { timePickerError.value = error.message; return null; }
 	}
+	watch([timeZone, rules], () => { form.value.timeParams = []; }, {deep:true,flush:'sync'});
 
 	watch(
 		() => form.value.timeLabel,
@@ -207,24 +195,26 @@ export function useLiuyaoForm() {
 
 	function useNowTime() {
 		const now = new Date();
-		form.value.timeLabel = formatDateTime(now);
+		form.value.timeLabel = calendarCivil(now.getTime(),timeZone.value).slice(0,16);
 		timePickerDefault.value = form.value.timeLabel.replace(/-/g, '/');
 		timeSource.value = 'now';
 	}
 
 	function openTimePicker() {
 		timePickerDefault.value = form.value.timeLabel.replace(/-/g, '/');
+		timePickerError.value = '';
 		timePickerShow.value = true;
 	}
 
 	function onTimeConfirm(val: any) {
-		timePickerShow.value = false;
+		timePickerError.value = '';
 		const date = parseDate(val?.detail?.value ?? val);
 		if (!date) {
 			uni.showToast({ title: '请选择有效的起卦日期和时间', icon: 'none' });
 			return;
 		}
-		form.value.timeLabel = formatDateTime(date);
+		timePickerShow.value = false;
+		form.value.timeLabel = calendarCivil(date.getTime(),timeZone.value).slice(0,16);
 		timePickerDefault.value = form.value.timeLabel.replace(/-/g, '/');
 		timeSource.value = 'manual';
 	}
@@ -235,7 +225,7 @@ export function useLiuyaoForm() {
 			uni.showToast({ title: '请选择有效的起卦日期和时间', icon: 'none' });
 			return;
 		}
-		const params = liuyaoService.generateTimeParams(dateObj);
+		const params = liuyaoService.generateTimeParams(dateObj,{timeZone:timeZone.value,rules:rules.value});
 		form.value.timeParams = params;
 		uni.showToast({ title: '已生成时间起卦参数', icon: 'none' });
 	}
@@ -551,7 +541,7 @@ export function useLiuyaoForm() {
 					form.value.num3 ? Math.abs(parseInt(form.value.num3, 10)) : null
 				);
 			} else if (methodKey === 'time') {
-				params = liuyaoService.generateTimeParams(dateObj);
+				params = liuyaoService.generateTimeParams(dateObj,{timeZone:timeZone.value,rules:rules.value});
 			} else if (methodKey === 'computer' || methodKey === 'online') {
 				params = form.value.autoParams.length
 					? form.value.autoParams.map((v) => parseInt(String(v || 0), 10) || 0)
@@ -598,6 +588,8 @@ export function useLiuyaoForm() {
 				date: dateObj,
 				params,
 				methodLabel: currentMethod.value.text,
+				timeZone: timeZone.value,
+				rules: rules.value,
 			});
 
 			uni.showToast({ title: '排盘完成', icon: 'none', duration: 1400 });
@@ -687,6 +679,7 @@ export function useLiuyaoForm() {
 	const canStart = computed(() => !validateStart());
 
 	return {
+		timeZone, rules, overlapChoice, timePickerError,
 		form,
 		timeSource,
 		methodTabs,

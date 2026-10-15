@@ -20,6 +20,7 @@
 			<view class="casting-layout">
 				<view class="casting-form-panel">
 					<LiuyaoBasicInfo
+						:time-zone="timeZone"
 						:title="form.title"
 						:time-label="form.timeLabel"
 						:time-source="timeSource"
@@ -29,6 +30,7 @@
 						@open-time-picker="openTimePicker"
 						@use-now-time="useNowTime"
 					/>
+					<CalendarSettings v-model:time-zone="timeZone" v-model:rules="rules" v-model:overlap-choice="overlapChoice" casting />
 					<view class="method-section">
 						<view class="method-heading"
 							><text class="method-title">起卦方式</text
@@ -256,7 +258,7 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<DateTimeDialog v-if="timePickerShow" :date="timePickerDefault.split(' ')[0].replace(/\//g, '-')" :clock="timePickerDefault.split(' ')[1]?.slice(0,5) || '00:00'" title="起卦时间" subtitle="设备本地时间 · 精确到分钟" :allow-now="true" @now="useNowTime(); timePickerShow = false" @confirm="value => onTimeConfirm(value.date + ' ' + value.clock)" @close="timePickerShow = false" />
+		<DateTimeDialog v-if="timePickerShow" :date="timePickerDefault.split(' ')[0].replace(/\//g, '-')" :clock="timePickerDefault.split(' ')[1]?.slice(0,5) || '00:00'" title="起卦时间" :subtitle="timeZone + ' · 精确到分钟'" :external-error="timePickerError" :allow-now="true" @now="useNowTime(); timePickerShow = false" @confirm="value => onTimeConfirm(value.date + ' ' + value.clock)" @close="timePickerShow = false" />
 	</tm-app>
 </template>
 <script lang="ts" setup>
@@ -265,6 +267,7 @@ import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import DateTimeDialog from '@/components/form/DateTimeDialog.vue';
+import CalendarSettings from '@/components/form/CalendarSettings.vue';
 import MethodCard from '@/components/liuyao/MethodCard.vue';
 import ParamPreview from '@/components/liuyao/ParamPreview.vue';
 import YaoSelector from '@/components/liuyao/YaoSelector.vue';
@@ -272,6 +275,7 @@ import LiuyaoBasicInfo from '@/components/liuyao/LiuyaoBasicInfo.vue';
 import { useLiuyaoForm } from '@/features/liuyao/useLiuyaoForm';
 
 const {
+	timeZone, rules, overlapChoice, timePickerError,
 	form,
 	timeSource,
 	methodTabs,

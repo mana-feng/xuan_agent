@@ -42,6 +42,7 @@
 		</view>
 		<view class="casting-time-section">
 			<TimeInput
+				:time-zone="timeZone"
 				:model-value="timeLabel"
 				:source="timeSource"
 				@open="$emit('openTimePicker')"
@@ -55,6 +56,7 @@ import { h5Button } from '@/utils/keyboard';
 import { computed } from 'vue';
 import TimeInput from '@/components/liuyao/TimeInput.vue';
 const props = defineProps({
+	timeZone: { type: String, default: 'Asia/Shanghai' },
 	title: { type: String, default: '' },
 	timeLabel: { type: String, default: '' },
 	timeSource: { type: String, default: 'now' },
