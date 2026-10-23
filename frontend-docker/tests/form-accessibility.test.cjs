@@ -23,7 +23,7 @@ Module._resolveFilename = function (request, ...args) {
 	);
 };
 Module._load = function (request, parent, isMain) {
-	if (request === '@dcloudio/uni-app') return { onLoad() {}, onShow() {} };
+	if (request === '@dcloudio/uni-app') return { onLoad() {}, onShow() {}, onHide() {} };
 	if (request.endsWith('PageScaffold.vue'))
 		return {
 			default: {

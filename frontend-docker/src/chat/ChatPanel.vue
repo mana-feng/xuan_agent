@@ -342,6 +342,8 @@ defineExpose({
 .waiting-dots { animation:blink 1.5s infinite; }
 .chat-input-bar { display:flex; flex-direction:row; align-items:flex-end; gap:13px; padding:17px 22px; border-top:1px solid var(--x-line); background:var(--x-paper); flex-shrink:0; }
 .chat-input { flex:1; width:0; min-width:0; min-height:60px; max-height:160px; padding:11px 13px; border:1px solid var(--x-line); border-radius:10px; background:var(--x-bg); font-size:13px; color:var(--x-ink); }
+.chat-input :deep(.uni-textarea-wrapper) { max-height:136px; }
+.chat-input :deep(.uni-textarea-textarea) { overflow-y:auto!important; }
 .chat-input :deep(textarea),.chat-input :deep(.uni-textarea-placeholder) { padding:0!important; font:inherit; }
 .chat-send { padding:0 22px; min-height:42px; border-radius:9px; background:var(--x-gradient); color:white; font-size:12px; display:flex; flex-direction:row; align-items:center; }
 .chat-send[disabled] { opacity:.5; }

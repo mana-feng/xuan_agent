@@ -91,7 +91,7 @@
 				<view v-if="saveError" class="mt-12 error-message">
 					<tm-text :label="saveError" color="#f56565" :font-size="24"></tm-text>
 				</view>
-				<view v-if="exportError" class="mt-12 error-message">
+				<view v-if="exportError" class="mt-12 error-message" role="alert">
 					<tm-text :label="exportError" color="#f56565" :font-size="24"></tm-text>
 				</view>
 			</view>
@@ -545,12 +545,9 @@ function buildExportPayload() {
 
 function exportToon() {
 	exportError.value = '';
-	if (!bazi_store.input.timestamp) {
-		uni.showToast({
-			title: '缺少出生时间，无法导出',
-			icon: 'none',
-			duration: 2000
-		});
+	const timestamp = bazi_store.input.timestamp;
+	if (typeof timestamp !== 'number' || !Number.isFinite(timestamp) || !Number.isFinite(new Date(timestamp).getTime())) {
+		exportError.value = '出生时间无效，请先确认出生时间';
 		return;
 	}
 
@@ -559,6 +556,10 @@ function exportToon() {
 		payload = buildExportPayload();
 	} catch (e: any) {
 		exportError.value = '生成导出数据失败：' + (e?.message || e);
+		return;
+	}
+	if (!payload) {
+		exportError.value = bazi_store.legacyNeedsTimeZone ? '请先确认出生时区后再导出' : '导出数据为空，请先完成排盘';
 		return;
 	}
 
@@ -570,41 +571,33 @@ function exportToon() {
 		return;
 	}
 
-	const filename = `bazi-${(utils.HideSecond(bazi_store.input.timestamp) || '').replace(/[^0-9]/g, '') || 'export'}.toon`;
+	const date = new Date(timestamp), pad = (value: number) => String(value).padStart(2, '0');
+	const filename = `bazi-${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}${pad(date.getHours())}${pad(date.getMinutes())}.toon`;
 
 	// #ifdef H5
+	let url: string | null = null;
 	try {
 		const blob = new Blob([toonStr], { type: 'text/plain;charset=utf-8' });
-		const url = URL.createObjectURL(blob);
+		url = URL.createObjectURL(blob);
 		const link = document.createElement('a');
 		link.href = url;
 		link.download = filename;
 		link.click();
-		URL.revokeObjectURL(url);
 		uni.showToast({
-			title: '已下载 TOON 文件',
+			title: '已请求浏览器下载 TOON 文件',
 			icon: 'none',
 			duration: 2000
 		});
-		return;
-	} catch (e) {
-		// fallback to clipboard
+	} catch (error: any) {
+		exportError.value = `导出失败：${error?.message || '浏览器下载不可用，请重试'}`;
+	} finally {
+		if (url) setTimeout(() => URL.revokeObjectURL(url!), 0);
 	}
+	return;
 	// #endif
-
-	uni.setClipboardData({
-		data: toonStr,
-		success() {
-			uni.showToast({
-				title: 'TOON 已复制，可粘贴保存',
-				icon: 'none',
-				duration: 2000
-			});
-		},
-		fail(err) {
-			exportError.value = '导出失败：' + (err?.errMsg || '剪贴板不可用');
-		}
-	});
+	// #ifndef H5
+	exportError.value = '当前平台不支持下载 TOON 文件';
+	// #endif
 }
 
 function goToChat() {

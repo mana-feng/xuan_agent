@@ -19,7 +19,7 @@
 		</view>
 
 		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown" @keydown.esc.stop.prevent="closeDropdown">
-			<view class="dropdown-menu" @tap.stop>
+			<view ref="dropdownMenu" class="dropdown-menu" role="dialog" aria-modal="true" aria-label="用户菜单选项" tabindex="-1" @tap.stop>
 				<view v-if="isLoggedIn" class="user-info-section">
 					<view class="avatar-large">
 						<text class="avatar-text-large">{{ userInitial }}</text>
@@ -71,14 +71,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, nextTick, onDeactivated } from 'vue';
+import { onHide } from '@dcloudio/uni-app';
 import { useUserStore } from '@/store/user';
 import { h5Button } from '@/utils/keyboard';
+import { useModalFocus } from '@/utils/useModalFocus';
 import pagesConfig from '@/pages.json';
 
 const userStore = useUserStore();
 const showDropdown = ref(false);
 const avatarTrigger = ref<HTMLElement | { $el: HTMLElement } | null>(null);
+const dropdownMenu = ref();
+useModalFocus(showDropdown, dropdownMenu, closeDropdown);
+onHide(closeDropdown);
+onDeactivated(closeDropdown);
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const username = computed(() => userStore.username);
@@ -99,7 +105,7 @@ function closeDropdown() {
 	nextTick(() => {
 		const trigger = avatarTrigger.value;
 		const element = trigger && ('$el' in trigger ? trigger.$el : trigger);
-		element?.focus();
+		element?.focus({ preventScroll: true });
 	});
 	// #endif
 }
@@ -242,7 +248,7 @@ function handleLogout() {
 
 .dropdown-menu {
 	position: absolute;
-	top: 66px;
+	top: var(--x-user-menu-top, 66px);
 	right: 12px;
 	width: 240px;
 	background: #ffffff;

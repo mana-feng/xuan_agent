@@ -12,13 +12,13 @@ const { createApp, h, nextTick } = require('vue');
 const { createPinia, setActivePinia } = require('pinia');
 const sourceRoot = path.resolve(__dirname, '../src');
 const resolve = Module._resolveFilename, load = Module._load;
-let hide;
+let hide = [];
 Module._resolveFilename = function (request, ...args) {
   const target = request === 'qimen-engine' ? path.join(sourceRoot, '../vendor/qfdk-qimen/lib/qimen.js') : request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request;
   return resolve.call(this, target, ...args);
 };
 Module._load = function (request, ...args) {
-  if (request === '@dcloudio/uni-app') return { onShow() {}, onHide(callback) { hide = callback; } };
+  if (request === '@dcloudio/uni-app') return { onShow() {}, onHide(callback) { hide.push(callback); } };
   if (request === '@/services/api/index') return { request() { throw new Error('No network expected'); } };
   if (request.endsWith('PageScaffold.vue')) return { __esModule: true, default: { setup(_, { slots }) { return () => h('main', slots.default?.()); } } };
   return load.call(this, request, ...args);
@@ -38,7 +38,7 @@ async function mount(width) {
   const media = { matches: width <= 600, addEventListener(_, callback) { listener = callback; }, removeEventListener() { listener = undefined; } };
   window.matchMedia = () => media;
   global.uni = { getStorageSync() {}, setStorageSync() {}, removeStorageSync() {}, navigateTo() {}, showToast() {} };
-  hide = undefined;
+  hide = [];
   const pinia = createPinia();
   setActivePinia(pinia);
   require('../src/store/qimen.ts').useQimenStore().pull({ question: '详情测试', timestamp: Date.parse('2025-12-31T16:00:00Z'), timeZone: 'Asia/Shanghai' });
@@ -47,7 +47,7 @@ async function mount(width) {
   const app = createApp(require('../src/pages/qimen/result.nvue').default);
   app.use(pinia).mount(host);
   await flush();
-  return { host, resize(value) { media.matches = value <= 600; listener?.(media); }, hide() { hide?.(); }, dispose() { app.unmount(); host.remove(); assert.equal(listener, undefined); } };
+  return { host, resize(value) { media.matches = value <= 600; listener?.(media); }, hide() { hide.forEach(callback => callback()); }, dispose() { app.unmount(); host.remove(); assert.equal(listener, undefined); } };
 }
 async function flush() { await nextTick(); await nextTick(); }
 function press(element, key, shiftKey = false) {

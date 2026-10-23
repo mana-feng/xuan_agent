@@ -8,15 +8,17 @@ const { parse, compileScript } = require('@vue/compiler-sfc');
 const ts = require('typescript');
 
 const dom = new JSDOM('<!doctype html><html><body></body></html>');
+global.__UNI_FEATURE_WXS__ = false;
 for (const name of ['window', 'document', 'Element', 'HTMLElement', 'SVGElement']) {
 	global[name] = dom.window[name];
 }
-const { createApp, nextTick } = require('vue');
 const sourceRoot = path.resolve(__dirname, '../src');
 const originalResolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...args) {
+	if (request === 'vue') request = '@dcloudio/uni-h5-vue';
 	return originalResolve.call(this, request.startsWith('@/') ? path.join(sourceRoot, request.slice(2)) : request, ...args);
 };
+const { createApp, nextTick } = require('vue');
 require.extensions['.ts'] = (module, filename) => {
 	module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
 		compilerOptions: { module: ts.ModuleKind.CommonJS },

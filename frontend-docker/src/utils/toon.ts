@@ -1,108 +1,91 @@
-
 /**
- * TOON (Token-Oriented Object Notation) Encoder
- * 
- * A simplified implementation of TOON for optimizing LLM context usage.
- * Focuses on tabular representation of uniform object arrays.
+ * Encode chart JSON as TOON (comma delimiter, two-space indentation).
+ * Tables contain primitive cells only; nested values keep their own structure.
+ * Strings are consistently quoted so type-like text cannot change type on decode.
  */
+type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
 
-function isUniformArray(arr: any[]): boolean {
-  if (!Array.isArray(arr) || arr.length === 0) return false;
-  if (typeof arr[0] !== 'object' || arr[0] === null) return false;
-  
-  const keys = Object.keys(arr[0]).sort().join(',');
-  for (let i = 1; i < arr.length; i++) {
-    if (typeof arr[i] !== 'object' || arr[i] === null) return false;
-    if (Object.keys(arr[i]).sort().join(',') !== keys) return false;
-  }
-  return true;
+function quote(value: string): string {
+  const escapes: Record<string, string> = { '"': '\\"', '\\': '\\\\', '\n': '\\n', '\r': '\\r', '\t': '\\t' };
+  return `"${value.replace(/["\\\u0000-\u001f]/g, ch => escapes[ch] ?? `\\u${ch.charCodeAt(0).toString(16).padStart(4, '0')}`)}"`;
 }
 
-function escapeToonValue(val: any): string {
-  if (val === null || val === undefined) return '';
-  
-  if (Array.isArray(val) || (typeof val === 'object' && val !== null)) {
-    return JSON.stringify(val);
+function keyToken(key: string): string {
+  return /^[A-Za-z_][A-Za-z0-9_.]*$/.test(key) ? key : quote(key);
+}
+
+function isPrimitive(value: JsonValue): boolean {
+  return value === null || typeof value !== 'object';
+}
+
+function primitive(value: JsonValue): string {
+  return typeof value === 'string' ? quote(value) : JSON.stringify(value);
+}
+
+function tableKeys(values: JsonValue[]): string[] | null {
+  const first = values[0];
+  if (!first || typeof first !== 'object' || Array.isArray(first)) return null;
+  const keys = Object.keys(first).sort();
+  if (!keys.length) return null;
+  const matches = values.every(value => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+    const ownKeys = Object.keys(value);
+    return ownKeys.length === keys.length && keys.every(key => Object.prototype.hasOwnProperty.call(value, key) && isPrimitive(value[key]));
+  });
+  return matches ? keys : null;
+}
+
+function objectLines(value: { [key: string]: JsonValue }, depth: number): string[] {
+  const spaces = '  '.repeat(depth);
+  return Object.entries(value).flatMap(([key, field]) => {
+    const token = keyToken(key);
+    if (Array.isArray(field)) return arrayLines(field, token, depth);
+    if (field !== null && typeof field === 'object') {
+      return [`${spaces}${token}:`, ...objectLines(field, depth + 1)];
+    }
+    return [`${spaces}${token}: ${primitive(field)}`];
+  });
+}
+
+function arrayLines(values: JsonValue[], key: string, depth: number, listItem = false): string[] {
+  const spaces = '  '.repeat(depth);
+  if (!values.length) return [`${spaces}${key ? `${key}: []` : listItem ? '[0]:' : '[]'}`];
+  const header = `${spaces}${key}[${values.length}]`;
+  if (values.every(isPrimitive)) return [`${header}: ${values.map(primitive).join(',')}`];
+
+  // A keyless table is only valid at the document root, not after a list hyphen.
+  const keys = listItem ? null : tableKeys(values);
+  if (keys) {
+    return [
+      `${header}{${keys.map(keyToken).join(',')}}:`,
+      ...values.map(value => `${spaces}  ${keys.map(key => primitive((value as Record<string, JsonValue>)[key])).join(',')}`),
+    ];
   }
-  
-  const str = String(val);
-  // If the value contains commas, newlines, or is empty, quote it
-  if (str.includes(',') || str.includes('\n') || str.trim() === '') {
-    return JSON.stringify(val);
+
+  const lines = [`${header}:`];
+  const itemSpaces = `${spaces}  `;
+  for (const value of values) {
+    if (isPrimitive(value)) {
+      lines.push(`${itemSpaces}- ${primitive(value)}`);
+    } else if (Array.isArray(value)) {
+      const [first, ...rest] = arrayLines(value, '', depth + 1, true);
+      lines.push(`${itemSpaces}- ${first.slice(itemSpaces.length)}`, ...rest);
+    } else {
+      const fields = objectLines(value as Record<string, JsonValue>, depth + 2);
+      if (!fields.length) lines.push(`${itemSpaces}-`);
+      else lines.push(`${itemSpaces}- ${fields[0].slice(itemSpaces.length + 2)}`, ...fields.slice(1));
+    }
   }
-  return str;
+  return lines;
 }
 
 export function encodeTOON(data: any, indent = 0): string {
-  const spaces = '  '.repeat(indent);
-  
-  if (data === null) return 'null';
-  if (data === undefined) return '';
-  
-  // Handle root array
-  if (Array.isArray(data) && indent === 0) {
-      return JSON.stringify(data, null, 2);
-  }
-  
-  if (typeof data === 'object' && data !== null) {
-    const lines: string[] = [];
-    
-    for (const key in data) {
-      if (!Object.prototype.hasOwnProperty.call(data, key)) continue;
-      
-      const value = data[key];
-      
-      // Case 1: Uniform Array of Objects -> Tabular Format
-      if (Array.isArray(value) && isUniformArray(value) && value.length > 0) {
-        // Use sorted keys for consistency
-        const keys = Object.keys(value[0]).sort();
-        // Format: key[length]{col1,col2...}:
-        const header = `${key}[${value.length}]{${keys.join(',')}}:`;
-        lines.push(`${spaces}${header}`);
-        
-        for (const item of value) {
-          const row = keys.map(k => escapeToonValue(item[k])).join(',');
-          lines.push(`${spaces}  ${row}`);
-        }
-      } 
-      // Case 2: Other Arrays
-      else if (Array.isArray(value)) {
-        if (value.length === 0) {
-           lines.push(`${spaces}${key}: []`);
-        } else {
-           // Check if it's an array of primitives
-           if (value.every(v => typeof v !== 'object' || v === null)) {
-             lines.push(`${spaces}${key}: ${JSON.stringify(value)}`);
-           } else {
-             lines.push(`${spaces}${key}:`);
-             // Simple fallback for non-uniform object arrays
-             for (const item of value) {
-                if (typeof item === 'object' && item !== null) {
-                    lines.push(`${spaces}  -`);
-                    lines.push(encodeTOON(item, indent + 2));
-                } else {
-                    lines.push(`${spaces}  - ${JSON.stringify(item)}`);
-                }
-             }
-           }
-        }
-      } 
-      // Case 3: Nested Object
-      else if (typeof value === 'object' && value !== null) {
-        if (Object.keys(value).length === 0) {
-           lines.push(`${spaces}${key}: {}`);
-        } else {
-           lines.push(`${spaces}${key}:`);
-           lines.push(encodeTOON(value, indent + 1));
-        }
-      } 
-      // Case 4: Primitive Value
-      else {
-        lines.push(`${spaces}${key}: ${JSON.stringify(value)}`);
-      }
-    }
-    return lines.join('\n');
-  }
-  
-  return JSON.stringify(data);
+  // Match the existing JSON payload contract: omit undefined object fields,
+  // normalize array holes/non-finite numbers to null, and serialize Date values.
+  const json = JSON.stringify(data);
+  if (json === undefined) return '';
+  const value: JsonValue = JSON.parse(json);
+  if (Array.isArray(value)) return arrayLines(value, '', indent).join('\n');
+  if (value !== null && typeof value === 'object') return objectLines(value, indent).join('\n');
+  return primitive(value);
 }

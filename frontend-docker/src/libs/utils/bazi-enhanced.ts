@@ -2190,6 +2190,7 @@ function checkZhiLiuHe(zhi1: string, zhi2: string): string | null {
  * 检查地支半合（同属三合局任意两支）
  */
 function checkZhiBanHe(zhi1: string, zhi2: string): string | null {
+	if (zhi1 === zhi2) return null;
 	for (const group of ZHI_SAN_HE_GROUPS) {
 		if (group.members.includes(zhi1) && group.members.includes(zhi2)) {
 			return `${zhi1}${zhi2}半合${group.wuxing}`;

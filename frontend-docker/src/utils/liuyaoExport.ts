@@ -198,7 +198,9 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 			lines.push(` 排盘口径：${calendarRuleLabel(liuyaoStore.calculation)}`);
 			lines.push(` 规则版本：${liuyaoStore.calculation.ruleVersion}`);
 		} else lines.push(' 旧记录未保存原时区与规则版本；以下为保留的原盘，不按当前默认规则重排。');
-		lines.push(` 占问： ${p.title || '—'}`);
+		lines.push(` 占问： ${JSON.stringify(p.title || '—')}`);
+		lines.push(` 性别：${p.gender || '未填写'}`);
+		lines.push(` 起卦方式：${JSON.stringify(p.method || '未记录')}`);
 		
 		const gz = c.lunar?.gz;
 		const xkong = c.lunar?.xkong || '—';
@@ -219,6 +221,8 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 		const movingPositions = positionNames.filter((_, index) => ['3', '4'].includes(String(safeAt(c.params, index))));
 		lines.push(` 动爻：${movingPositions.length ? movingPositions.join('、') : '无（静卦）'}`);
 		lines.push(' 以下六爻自上而下：上爻、五爻、四爻、三爻、二爻、初爻（初爻为第一爻）');
+		lines.push(' 爻序：自上而下（上爻→初爻）；o=老阳动爻，x=老阴动爻');
+		lines.push(` 爻位 | 六神 | 伏神 | 本卦六亲干支 | 本卦爻象 | 动爻 | 本卦世应${c.bian ? ' | 变卦六亲干支 | 变卦爻象 | 变卦世应' : ''}`);
 		
 		yaoRows.forEach((row, index) => {
 			const paramIndex = 5 - index;
@@ -266,10 +270,10 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 				else if (row.bianSymbol && row.bianSymbol.includes('━━━')) bSym = '— ';
 				
 				const bRole = row.bianRole || '　';
-				bianStr = ` ${bRel} ${bSym} ${bRole}`;
+				bianStr = ` | ${bRel.trim() || '—'} | ${bSym.trim() || '—'} | ${bRole.trim() || '—'}`;
 			}
 			
-			lines.push(` ${god} ${hidden} ${relation} ${symbol} ${marker} ${role}${bianStr}`);
+			lines.push(` ${row.order} | ${god} | ${hidden.trim() || '—'} | ${relation.trim() || '—'} | ${symbol.trim()} | ${marker.trim() || '—'} | ${role.trim() || '—'}${bianStr}`);
 		});
 		
 		return lines.join('\n');

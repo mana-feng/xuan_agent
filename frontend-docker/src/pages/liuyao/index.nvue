@@ -258,7 +258,7 @@
 				</view>
 			</view>
 		</PageScaffold>
-		<DateTimeDialog v-if="timePickerShow" :date="timePickerDefault.split(' ')[0].replace(/\//g, '-')" :clock="timePickerDefault.split(' ')[1]?.slice(0,5) || '00:00'" title="起卦时间" :subtitle="timeZone + ' · 精确到分钟'" :external-error="timePickerError" :allow-now="true" @now="useNowTime(); timePickerShow = false" @confirm="value => onTimeConfirm(value.date + ' ' + value.clock)" @close="timePickerShow = false" />
+		<DateTimeDialog v-if="timePickerShow" :date="timePickerDefault.split(' ')[0].replace(/\//g, '-')" :clock="timePickerDefault.split(' ')[1]?.slice(0,5) || '00:00'" title="起卦时间" :subtitle="timeZone + ' · 精确到分钟'" :external-error="timePickerError" :allow-now="true" @edit="timePickerError = ''" @now="useNowTime(); timePickerShow = false" @confirm="value => onTimeConfirm(value.date + ' ' + value.clock)" @close="timePickerShow = false" />
 	</tm-app>
 </template>
 <script lang="ts" setup>

@@ -270,9 +270,9 @@ export function buildBaziExportPayload(
 			time: baziStore.fuxing.time || null,
 		},
 		solar: {
-			year: baziStore.solar.year || null,
-			month: baziStore.solar.month || null,
-			day: baziStore.solar.day || null,
+			year: baziStore.solar.year ?? null,
+			month: baziStore.solar.month ?? null,
+			day: baziStore.solar.day ?? null,
 			time: baziStore.solar.time || null,
 		},
 	};
@@ -280,12 +280,12 @@ export function buildBaziExportPayload(
 	// 添加阴历详细信息
 	if (baziStore.lunar) {
 		payload.lunar = {
-			year: baziStore.lunar.year || null,
-			month: baziStore.lunar.month || null,
-			day: baziStore.lunar.day || null,
+			year: baziStore.lunar.year ?? null,
+			month: baziStore.lunar.month ?? null,
+			day: baziStore.lunar.day ?? null,
 			time: baziStore.lunar.time || null,
-			hour: baziStore.lunar.hour || null,
-			minute: baziStore.lunar.minute || null,
+			hour: baziStore.lunar.hour ?? null,
+			minute: baziStore.lunar.minute ?? null,
 			yearChinese: baziStore.lunar._year || null,
 			monthChinese: baziStore.lunar._month || null,
 			dayChinese: baziStore.lunar._day || null,
@@ -296,10 +296,10 @@ export function buildBaziExportPayload(
 	// 添加起运信息
 	if (baziStore.start_yun) {
 		payload.start_yun = {
-			year: baziStore.start_yun.year || null,
-			month: baziStore.start_yun.month || null,
-			day: baziStore.start_yun.day || null,
-			hour: baziStore.start_yun.hour || null,
+			year: baziStore.start_yun.year ?? null,
+			month: baziStore.start_yun.month ?? null,
+			day: baziStore.start_yun.day ?? null,
+			hour: baziStore.start_yun.hour ?? null,
 			solar: baziStore.start_yun.solar || null,
 		};
 	}
@@ -354,8 +354,8 @@ export function buildBaziExportPayload(
 			
 			return {
 				index,
-				startYear: item.start_year || null,
-				startAge: item.start_age || null,
+				startYear: item.start_year ?? null,
+				startAge: item.start_age ?? null,
 				ganzhi: ganzhi,
 				shishen: item.shishen || null,
 				shensha: shensha.length > 0 ? shensha : null,

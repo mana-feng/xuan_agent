@@ -1,5 +1,6 @@
 <template>
-  <view ref="sidebar" class="x-sidebar" :class="{ 'is-open': menuOpen }" :role="compact && menuOpen ? 'dialog' : 'navigation'" :aria-modal="compact && menuOpen ? 'true' : undefined" aria-label="主导航" tabindex="-1">
+  <Transition name="x-drawer" @before-enter="beginDrawer" @after-leave="finishDrawer">
+  <view v-show="!compact || menuOpen" ref="sidebar" class="x-sidebar" :class="{ 'is-open': menuOpen }" :role="compact && menuVisible ? 'dialog' : 'navigation'" :aria-modal="compact && menuVisible ? 'true' : undefined" aria-label="主导航" tabindex="-1">
     <button class="x-drawer-close" aria-label="收起侧边栏" v-bind="h5Button(closeMenu)" @tap="closeMenu">×</button>
     <view class="x-brand" v-bind="h5Button(() => go('/pages/agent/index'))" @tap="go('/pages/agent/index')">
       <text class="x-brand-mark">☯</text><view><text class="x-brand-name">玄学 · AI</text><text class="x-brand-en">PATTERNS & POSSIBILITIES</text></view>
@@ -14,7 +15,10 @@
     <view class="x-side-note"><text class="x-note-orbit">☷</text><text class="x-note-title">以古老智慧，观当下生活</text><text>把命盘作为了解自己的另一个视角，让选择回到自己手中。</text></view>
     <view class="x-side-footer"><view v-bind="h5Button(announcements)" @tap="announcements">☷ 公告</view><view v-bind="h5Button(() => go('/pages/about/index'))" @tap="go('/pages/about/index')">关于我们 ↗</view></view>
   </view>
-  <view v-if="menuOpen" class="x-menu-scrim" aria-hidden="true" @tap="closeMenu" />
+  </Transition>
+  <Transition name="x-scrim">
+    <view v-show="compact && menuOpen" class="x-menu-scrim" aria-hidden="true" @tap="closeMenu" />
+  </Transition>
   <view class="x-topbar">
     <view class="x-topbar-left"><button class="x-menu-toggle" v-bind="h5Button(() => menuOpen = !menuOpen)" aria-label="展开导航" :aria-expanded="menuOpen" @tap="menuOpen = !menuOpen">☰</button><text class="x-breadcrumb">{{ activeLabel }}</text><text class="x-topbar-divider">/</text><text class="x-topbar-caption">让每一次探索，更了解自己</text></view>
     <view class="x-topbar-right"><button class="x-palette" v-bind="h5Button(openPalette)" aria-label="选择渐变配色" aria-haspopup="dialog" :aria-expanded="paletteOpen" @tap="openPalette"><text class="x-palette-dot" />{{ paletteName }}⌄</button><UserAvatarDropdown /></view>
@@ -23,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
+import { computed, onDeactivated, onMounted, onUnmounted, ref } from 'vue';
+import { onHide, onShow } from '@dcloudio/uni-app';
 import UserAvatarDropdown from '@/components/UserAvatarDropdown.vue';
 import PaletteDialog from './PaletteDialog.vue';
 import { h5Button } from '@/utils/keyboard';
@@ -33,10 +37,21 @@ import { useWorkbenchTheme } from '@/features/workbench/theme';
 const { palette, paletteName, changePalette } = useWorkbenchTheme();
 const paletteOpen = ref(false);
 const menuOpen = ref(false);
-const compact = ref(false);
+const menuVisible = ref(false);
+const compact = ref(typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1024px)').matches);
 const sidebar = ref();
 const closeMenu = () => { menuOpen.value = false; };
-useModalFocus(computed(() => compact.value && menuOpen.value), sidebar, closeMenu);
+const beginDrawer = () => { if (menuOpen.value) menuVisible.value = true; };
+const finishDrawer = () => { if (!menuOpen.value) menuVisible.value = false; };
+function resetDrawer() {
+  menuOpen.value = false;
+  menuVisible.value = false;
+}
+function resetOverlays() {
+  resetDrawer();
+  paletteOpen.value = false;
+}
+useModalFocus(computed(() => compact.value && menuVisible.value), sidebar, closeMenu);
 let stopWatchingSize: (() => void) | undefined;
 const active = ref('agent');
 const navigation = [
@@ -59,9 +74,9 @@ function go(path: string) {
   if ('/' + pages[pages.length - 1]?.route === path) return;
   uni.reLaunch({ url: path });
 }
-function announcements() { menuOpen.value = false; uni.$emit('openAnnouncements'); }
+function announcements() { resetDrawer(); uni.$emit('openAnnouncements'); }
 function openPalette() {
-  closeMenu();
+  resetDrawer();
   paletteOpen.value = true;
 }
 function selectPalette(index: number) {
@@ -71,13 +86,16 @@ function selectPalette(index: number) {
 onMounted(() => {
   updateActive();
   // #ifdef H5
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
   const media = window.matchMedia('(max-width: 1024px)');
-  const syncSize = () => { compact.value = media.matches; if (!media.matches) closeMenu(); };
+  const syncSize = () => { compact.value = media.matches; if (!media.matches) resetDrawer(); };
   syncSize();
   media.addEventListener('change', syncSize);
   stopWatchingSize = () => media.removeEventListener('change', syncSize);
   // #endif
 });
 onUnmounted(() => stopWatchingSize?.());
+onHide(resetOverlays);
+onDeactivated(resetOverlays);
 onShow(updateActive);
 </script>
