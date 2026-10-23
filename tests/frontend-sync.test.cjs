@@ -58,6 +58,34 @@ test('opening a saved Bazi preserves the exact chart session identity and origin
   assert.equal(store.input.calculation.rules.dayDivide, 'zi');
 });
 
+test('a frozen Bazi without time zone source keeps its local chat identity after reload', () => {
+  const { createPinia, setActivePinia } = require('pinia');
+  const { useBaziStore } = require('../src/store/bazi.ts');
+  const { readChartInput, snapshotChartInput } = require('../src/utils/chartInput.ts');
+  const { identityToken } = require('../src/chat/sessionSnapshot.ts');
+  setActivePinia(createPinia());
+  const store = useBaziStore();
+  store.pull({ realname: '冻结旧盘', gender: 0, timestamp: 0, timeZone: 'Asia/Shanghai' });
+  const frozen = JSON.parse(JSON.stringify(store.input));
+  delete frozen.timeZoneSource;
+  assert.equal(frozen.calculation.timestamp, 0);
+  const { recordId, ...chart } = frozen;
+  const priorIdentity = identityToken({ account: 'local-device', chartType: 'bazi', recordId, chart });
+
+  assert.equal(Object.hasOwn(snapshotChartInput(frozen), 'timeZoneSource'), false);
+  platform.storage.set('bazi_last_context', JSON.stringify(frozen));
+  const reloaded = readChartInput('bazi_last_context');
+  assert.equal(Object.hasOwn(reloaded, 'timeZoneSource'), false);
+  store.pull(reloaded);
+  const page = loadPage('pages/chat/index.nvue', ['sessionIdentity']);
+  platform.hooks.load.at(-1)({ from: 'bazi' });
+  assert.equal(identityToken(page.sessionIdentity.value), priorIdentity);
+
+  assert.equal(snapshotChartInput({ timestamp: 0, gender: 0, timeZone: 'Asia/Shanghai' }).timeZoneSource, 'explicit');
+  assert.equal(snapshotChartInput({ ...frozen, timeZoneSource: 'legacy-device' }).timeZoneSource, 'legacy-device');
+  assert.equal(Object.hasOwn(snapshotChartInput({ ...frozen, timeZone: undefined }), 'timeZoneSource'), false);
+});
+
 for (const type of ['bazi', 'ziwei', 'liuyao', 'qimen']) {
   test(`${type} optional empty name/question survives save and reopen without changing its chat identity`, async () => {
     const { createPinia, setActivePinia } = require('pinia');
