@@ -867,6 +867,13 @@ onMounted(() => {
 
 .chat-input :deep(.uni-textarea-wrapper) {
 	min-height: 22px;
+	/* Match the composer's 160px cap after its padding and border. */
+	max-height: 136px;
+}
+
+.chat-input :deep(.uni-textarea-textarea) {
+	/* uni auto-height writes overflow-y:hidden inline, hiding long drafts. */
+	overflow-y: auto !important;
 }
 
 .chat-input :deep(.uni-textarea-placeholder) {

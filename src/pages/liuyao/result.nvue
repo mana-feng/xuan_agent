@@ -462,15 +462,25 @@ function copyLiuyaoInfo() {
 		uni.showToast({ title: '暂无数据', icon: 'none' });
 		return;
 	}
-	const text = buildLiuyaoExportPayload(liuyaoStore);
-	if (!text) {
-		uni.showToast({ title: '复制失败', icon: 'none' });
-		return;
-	}
-	uni.setClipboardData({
-		data: text,
-		success: () => uni.showToast({ title: '排盘信息已复制', icon: 'none' })
+	const reportFailure = (error: any) => uni.showToast({
+		title: '复制失败：' + (error?.errMsg || error?.message || '剪贴板不可用，请重试'),
+		icon: 'none',
+		duration: 2500,
 	});
+	try {
+		const text = buildLiuyaoExportPayload(liuyaoStore);
+		if (!text) {
+			reportFailure(new Error('暂无完整排盘数据'));
+			return;
+		}
+		uni.setClipboardData({
+			data: text,
+			success: () => uni.showToast({ title: '排盘信息已复制', icon: 'none' }),
+			fail: reportFailure,
+		});
+	} catch (error) {
+		reportFailure(error);
+	}
 }
 
 async function saveLiuyao() {

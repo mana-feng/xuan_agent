@@ -19,7 +19,7 @@
 		</view>
 
 		<view v-if="showDropdown" class="dropdown-panel" @tap.stop="closeDropdown" @keydown.esc.stop.prevent="closeDropdown">
-				<view class="dropdown-menu" @tap.stop>
+				<view ref="dropdownMenu" class="dropdown-menu" role="dialog" aria-modal="true" aria-label="用户菜单选项" tabindex="-1" @tap.stop>
 					<view class="user-info-section">
 						<view class="avatar-large">
 							<text class="avatar-text-large">{{ userInitial }}</text>
@@ -51,11 +51,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, nextTick, onDeactivated } from 'vue';
+import { onHide } from '@dcloudio/uni-app';
 import { h5Button } from '@/utils/keyboard';
+import { useModalFocus } from '@/utils/useModalFocus';
 
 const showDropdown = ref(false);
 const avatarTrigger = ref<HTMLElement | { $el: HTMLElement } | null>(null);
+const dropdownMenu = ref();
+useModalFocus(showDropdown, dropdownMenu, closeDropdown);
+onHide(closeDropdown);
+onDeactivated(closeDropdown);
 
 const isLoggedIn = computed(() => true);
 const username = computed(() => 'user');
@@ -67,11 +73,12 @@ function toggleDropdown() {
 
 function closeDropdown() {
 	showDropdown.value = false;
+	// Also cover a close occurring before the focus helper's next-tick setup.
 	// #ifdef H5
 	nextTick(() => {
 		const trigger = avatarTrigger.value;
 		const element = trigger && ('$el' in trigger ? trigger.$el : trigger);
-		element?.focus();
+		element?.focus({ preventScroll: true });
 	});
 	// #endif
 }
@@ -165,7 +172,7 @@ function handleAbout() {
 
 .dropdown-menu {
 	position: absolute;
-	top: 48px;
+	top: var(--x-user-menu-top, 48px);
 	right: 12px;
 	width: 240px;
 	background: #ffffff;

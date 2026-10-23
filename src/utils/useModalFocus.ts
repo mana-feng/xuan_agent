@@ -1,4 +1,5 @@
-import { nextTick, onUnmounted, watch, type Ref } from 'vue';
+import { nextTick, onActivated, onDeactivated, onUnmounted, ref, watch, type Ref } from 'vue';
+import { onHide, onShow } from '@dcloudio/uni-app';
 
 // Shared by workbench dialogs and the navigation drawer, including their handoff.
 const activeModals: symbol[] = [];
@@ -54,14 +55,26 @@ function restorePageScroll(previous: HTMLElement | null) {
 export function useModalFocus(open: Ref<boolean>, root: Ref<any>, dismiss: () => void) {
 	let release: (() => void) | undefined;
 	let revision = 0;
-	const stop = watch(open, async (visible) => {
+	const pageActive = ref(true);
+	const suspend = () => {
+		pageActive.value = false;
+		revision++;
+		release?.();
+		release = undefined;
+	};
+	const resume = () => { pageActive.value = true; };
+	onHide(suspend);
+	onShow(resume);
+	onDeactivated(suspend);
+	onActivated(resume);
+	const stop = watch([open, pageActive], async ([visible, active]) => {
 		const current = ++revision;
 		release?.();
 		release = undefined;
 		// #ifdef H5
-		if (!visible || typeof document === 'undefined') return;
+		if (!visible || !active || typeof document === 'undefined') return;
 		await nextTick();
-		if (current !== revision || !open.value) return;
+		if (current !== revision || !open.value || !pageActive.value) return;
 		const element: HTMLElement | undefined = root.value?.$el || root.value;
 		if (!element) return;
 		const previous = document.activeElement as HTMLElement | null;

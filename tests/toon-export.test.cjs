@@ -71,24 +71,23 @@ for (const type of ['bazi', 'ziwei']) {
     assert.doesNotMatch(platform.toasts[0].title, /已下载|下载成功|下载完成/);
   });
 
-  test(`${type} failed download releases its Blob URL and copies the same chart`, t => {
+  test(`${type} failed download releases its Blob URL and reports failure without copying`, t => {
     const { page, urls, copies, downloads } = prepare(t, type, { clickError: true });
     page.exportToon();
     platform.flushTimers();
     assert.equal(resolveObjectURL(urls[0]), undefined, 'failed handoff must not leak the export Blob');
     assert.equal(downloads.length, 0);
-    assert.equal(copies.length, 1);
-    assert.match(copies[0], /name: "导出甲"/);
-    assert.doesNotMatch(copies[0], /其他乙/);
-    assert.match(platform.toasts[0].title, /已复制/);
-    assert.equal(page.exportError.value, '');
+    assert.equal(copies.length, 0);
+    assert.equal(platform.toasts.length, 0);
+    assert.match(page.exportError.value, /导出失败.*download blocked/);
   });
 
-  test(`${type} failed download and clipboard report an error without a success toast`, t => {
-    const { page, urls } = prepare(t, type, { clickError: true, clipboardError: true });
+  test(`${type} failed download does not call an unavailable clipboard`, t => {
+    const { page, urls, copies } = prepare(t, type, { clickError: true, clipboardError: true });
     page.exportToon();
     platform.flushTimers();
-    assert.match(page.exportError.value, /clipboard denied/);
+    assert.match(page.exportError.value, /导出失败.*download blocked/);
+    assert.equal(copies.length, 0);
     assert.equal(platform.toasts.length, 0);
     assert.equal(resolveObjectURL(urls[0]), undefined);
   });

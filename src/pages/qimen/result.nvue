@@ -1,8 +1,9 @@
 <template>
   <PageScaffold title="奇门 · 九宫总览" subtitle="由此刻出发，读懂盘中的关系。" tag="QIMEN CHART">
     <template v-if="chart">
-      <view class="qm-actions"><button class="qm-button" v-bind="h5Button(editChart)" @tap="editChart">修改起局</button><button class="qm-button" v-bind="h5Button(saveToAccount, saving)" :disabled="saving" @tap="saveToAccount">{{ saving ? '保存中…' : store.input.recordId ? '更新本地记录' : '保存到本机' }}</button><button class="qm-button primary" v-bind="h5Button(goToChat)" @tap="goToChat">携盘问 AI ↗</button></view>
+      <view class="qm-actions"><button class="qm-button" v-bind="h5Button(editChart)" @tap="editChart">修改起局</button><button class="qm-button" v-bind="h5Button(exportToon)" @tap="exportToon">导出 TOON</button><button class="qm-button" v-bind="h5Button(saveToAccount, saving)" :disabled="saving" @tap="saveToAccount">{{ saving ? '保存中…' : store.input.recordId ? '更新本地记录' : '保存到本机' }}</button><button class="qm-button primary" v-bind="h5Button(goToChat)" @tap="goToChat">携盘问 AI ↗</button></view>
       <view v-if="saveError" class="qm-error" role="alert">{{ saveError }}</view>
+      <view v-if="exportError" class="qm-error" role="alert">{{ exportError }}</view>
       <view class="qm-card qm-summary"><view class="qm-summary-top"><view><text class="qm-eyebrow">{{ chart.juShu.jieQiName }} · {{ chart.juShu.yuan }}</text><h2>{{ store.input.question || '未命名起局' }}</h2></view><text class="qm-ju">{{ chart.juShu.type === 'yang' ? '阳遁' : '阴遁' }} {{ chart.juShu.number }} 局</text></view><view class="qm-summary-bottom"><view><text class="qm-label">北京时间 · UTC+08:00</text><text>{{ chart.metadata.calculationCivil }}</text></view><view><text class="qm-label">四柱</text><text class="qm-pillars">{{ chart.siZhu.year }}&emsp;{{ chart.siZhu.month }}&emsp;{{ chart.siZhu.day }}&emsp;{{ chart.siZhu.time }}</text></view><view><text class="qm-label">值符 / 值使</text><text>{{ chart.zhiFuXing }} {{ chart.zhiFuGong }}宫 / {{ chart.zhiShiMen }} {{ chart.zhiShiGong }}宫</text></view></view><text v-if="store.input.timeZone !== 'Asia/Shanghai'" class="qm-input-clock">输入时刻：{{ chart.metadata.inputCivil }} · {{ store.input.timeZone }}</text></view>
       <view class="qm-card qm-overview"><view class="qm-board-heading"><view><h2>九宫盘</h2><p>南上北下 · 点选宫位查看完整信息</p></view><view class="qm-switch"><button v-for="mode in modes" :key="mode.value" :class="{ active: viewMode === mode.value }" :aria-pressed="viewMode === mode.value" v-bind="h5Button(() => viewMode = mode.value)" @tap="viewMode = mode.value">{{ mode.label }}</button></view></view>
         <view class="qm-board-layout"><view><view class="qm-board" :class="{ 'qm-list': viewMode === 'list' }">
@@ -33,13 +34,15 @@ import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { useQimenStore } from '@/store/qimen';
 import { useUserStore } from '@/store/user';
 import { buildQimenExportPayload } from '@/utils/qimenExport';
+import { encodeTOON } from '@/utils/toon';
+import { downloadTextFile } from '@/utils/downloadTextFile';
 import { request } from '@/services/localRecords';
 import { h5Button } from '@/utils/keyboard';
 import { useModalFocus } from '@/utils/useModalFocus';
 const store = useQimenStore(), userStore = useUserStore();
 store.restoreInput(); store.ensureComputed();
 onShow(() => { store.restoreInput(); store.ensureComputed(); });
-const chart = computed(() => store.chart), saving = ref(false), saveError = ref(''), rulesOpen = ref(false);
+const chart = computed(() => store.chart), saving = ref(false), saveError = ref(''), exportError = ref(''), rulesOpen = ref(false);
 const viewMode = ref('board'), selected = ref(2);
 const compact = ref(false), detailsOpen = ref(false), detailRoot = ref<any>(null);
 const palaceRoots = new Map<number, HTMLElement>();
@@ -92,6 +95,33 @@ const detailItems = computed(() => {
 function goStart() { uni.navigateTo({ url: '/pages/qimen/index' }); }
 function editChart() { uni.navigateTo({ url: '/pages/qimen/index?edit=1' }); }
 function goToChat() { if (store.chart) { store.persistInput(); uni.navigateTo({ url: '/pages/chat/index?from=qimen' }); } }
+function exportToon() {
+  exportError.value = '';
+  let text: string, filename: string;
+  try {
+    const timestamp = store.input.timestamp;
+    if (typeof timestamp !== 'number' || !Number.isFinite(timestamp) || !Number.isFinite(new Date(timestamp).getTime())) {
+      throw new Error('起局时间无效，请重新起局');
+    }
+    text = encodeTOON(buildQimenExportPayload(store));
+    filename = `qimen-${new Date(timestamp).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}.toon`;
+  } catch (error: any) {
+    exportError.value = `导出失败：${error?.message || '请先完成奇门起局'}`;
+    return;
+  }
+  // #ifdef H5
+  try {
+    downloadTextFile(text, filename);
+    uni.showToast({ title: '已请求浏览器下载 TOON 文件', icon: 'none' });
+  } catch (error: any) {
+    exportError.value = `导出失败：${error?.message || '浏览器下载不可用，请重试'}`;
+  }
+  return;
+  // #endif
+  // #ifndef H5
+  exportError.value = '当前平台不支持下载 TOON 文件';
+  // #endif
+}
 async function saveToAccount() {
   if (saving.value) return;
   saveError.value = '';

@@ -28,7 +28,7 @@
 						placeholder="请输入 API Key"
 						placeholder-class="input-placeholder"
 					/>
-					<text class="toggle-btn" @tap="showKey = !showKey">{{ showKey ? '隐藏' : '显示' }}</text>
+					<text class="toggle-btn" v-bind="h5Button(toggleKeyVisibility)" :aria-pressed="showKey" aria-label="显示 API Key" @tap="toggleKeyVisibility">{{ showKey ? '隐藏' : '显示' }}</text>
 				</view>
 
 				<view class="form-group">
@@ -42,8 +42,8 @@
 				</view>
 
 				<view class="actions">
-					<button class="btn btn-save" @tap="saveConfig">保存配置</button>
-					<button class="btn btn-clear" @tap="clearConfig">清除配置</button>
+					<button class="btn btn-save" v-bind="h5Button(saveConfig)" @tap="saveConfig">保存配置</button>
+					<button class="btn btn-clear" v-bind="h5Button(clearConfig)" @tap="clearConfig">清除配置</button>
 				</view>
 
 				<view v-if="statusMsg" :class="['status', statusType]">
@@ -57,6 +57,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
+import { h5Button } from '@/utils/keyboard';
 import { getAiConfig, saveAiConfig, clearAiConfig, normalizeAiConfig, requiresAiKey, type AiConfig } from '@/config/aiConfig';
 
 interface ProviderInfo {
@@ -89,6 +90,7 @@ const config = ref<AiConfig>({
 });
 
 const showKey = ref(false);
+function toggleKeyVisibility() { showKey.value = !showKey.value; }
 const statusMsg = ref('');
 const statusType = ref('');
 

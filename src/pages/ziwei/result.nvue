@@ -50,7 +50,7 @@
 						<view v-if="saveError" class="export-error">
 							<text class="export-error-text">{{ saveError }}</text>
 						</view>
-						<view v-if="exportError" class="export-error">
+						<view v-if="exportError" class="export-error" role="alert">
 							<text class="export-error-text">{{ exportError }}</text>
 						</view>
 					</view>
@@ -146,8 +146,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
+import { computed, ref, onDeactivated } from 'vue';
+import { onShow, onHide } from '@dcloudio/uni-app';
 import PageScaffold from '@/components/layout/PageScaffold.vue';
 import { useZiweiStore } from '@/store/ziwei';
 import { useUserStore } from '@/store/user';
@@ -197,6 +197,11 @@ const exportToon = () => {
 		});
 		return;
 	}
+	const timestamp = ziweiStore.input.timestamp;
+	if (typeof timestamp !== 'number' || !Number.isFinite(timestamp) || !Number.isFinite(new Date(timestamp).getTime())) {
+		exportError.value = '出生时间无效，请先确认出生时间';
+		return;
+	}
 
 	let payload: Record<string, unknown> | null = null;
 	try {
@@ -224,30 +229,15 @@ const exportToon = () => {
 	// #ifdef H5
 	try {
 		downloadTextFile(toonStr, filename);
-		uni.showToast({
-			title: '已请求浏览器下载 TOON 文件',
-			icon: 'none',
-			duration: 2000,
-		});
-		return;
-	} catch (e) {
-		// fallback to clipboard
+		uni.showToast({ title: '已请求浏览器下载 TOON 文件', icon: 'none', duration: 2000 });
+	} catch (error: any) {
+		exportError.value = `导出失败：${error?.message || '浏览器下载不可用，请重试'}`;
 	}
+	return;
 	// #endif
-
-	uni.setClipboardData({
-		data: toonStr,
-		success() {
-			uni.showToast({
-				title: 'TOON \u5DF2\u590D\u5236\uFF0C\u8BF7\u7C98\u8D34\u4FDD\u5B58',
-				icon: 'none',
-				duration: 2000,
-			});
-		},
-		fail(err) {
-			exportError.value = `\u5BFC\u51FA\u5931\u8D25\uFF1A${err?.errMsg || '\u526A\u8D34\u677F\u4E0D\u53EF\u7528'}`;
-		},
-	});
+	// #ifndef H5
+	exportError.value = '当前平台不支持下载 TOON 文件';
+	// #endif
 };
 
 const buildZiweiLitePayload = () => {
@@ -759,6 +749,8 @@ const DOUBLE_CLICK_WINDOW_MS = 280;
 const closeCellZoom = () => {
 	zoomedPalaceIndex.value = null;
 };
+onHide(closeCellZoom);
+onDeactivated(closeCellZoom);
 
 const palaceDialogRoot = ref<any>(null);
 const palaceDialogOpen = computed(() => Boolean(zoomedCell.value));

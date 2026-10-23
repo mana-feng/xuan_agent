@@ -12,9 +12,6 @@ export default defineConfig(() => {
 			strictPort: false,
 			hmr: {
 				overlay: false,
-				protocol: "ws",
-				host: "localhost",
-				port: 3050,
 			},
 		},
 		resolve: {
