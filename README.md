@@ -374,5 +374,6 @@ OpenAI核心工程师翁佳毅（Jiayi Weng）认为，人类没有自由意志�
 
 - [toon-format/toon](https://github.com/toon-format/toon) - Token-Oriented Object Notation
 - [axbug/8Char-Uni-App](https://github.com/axbug/8Char-Uni-App) - 基于 Uni-APP 的八字排盘工具
-- [OpenAI Codex](https://github.com/openai/codex) - AI 编程助手
+- [OpenAI Codex](https://github.com/openai/codex) - 感谢在代码实现、调试与验证中的帮助。
+- **tibo** - 特别感谢近期多次提供额度重置支持，帮助本项目持续开发和迭代。
 - [Qwen](https://github.com/QwenLM/Qwen) - 通义千问大语言模型
