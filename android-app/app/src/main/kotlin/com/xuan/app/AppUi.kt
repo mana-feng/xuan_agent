@@ -73,7 +73,7 @@ private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","
      Spacer(Modifier.weight(1f))
      Text("传统智慧，现代视角。\n让每一次探索，都多一种可能。",fontSize=11.sp,color=p.muted,lineHeight=20.sp)
      HorizontalDivider(Modifier.padding(vertical=12.dp),color=p.border)
-     TextButton(onClick={navigate("about")}){Text("公告 / 关于我们",fontSize=12.sp)}
+     TextButton(onClick={navigate("about")}){Text("关于我们 ↗",fontSize=12.sp)}
     }
    }}) {
     Scaffold(containerColor=p.background,snackbarHost={SnackbarHost(snackbar)},topBar={Surface(color=Color.White,shadowElevation=0.dp){Column {
@@ -130,4 +130,3 @@ private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","
   }
  }
 }
-@Composable private fun WebAboutPage(){Column(verticalArrangement=Arrangement.spacedBy(16.dp)){WebHeading("关于玄学 · AI","传统智慧 · 当代视角");WebCard("让探索更自在"){Text("八字、六爻、紫微与奇门，为理解自己和当下的问题提供不同视角。\n\n排盘与记录保存在本机。你可以配置自己的 AI API，在主动提问时携带当前盘面继续探索。",lineHeight=24.sp);Text("Android 0.2.1",fontSize=11.sp,color=LocalWebPalette.current.muted)}}}

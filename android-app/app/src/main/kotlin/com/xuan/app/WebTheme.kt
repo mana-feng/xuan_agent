@@ -19,8 +19,7 @@ import androidx.compose.ui.unit.sp
 data class WebPalette(val id:String,val name:String,val primary:Color,val secondary:Color,val accent:Color,val background:Color,val ink:Color,val muted:Color,val border:Color,val tint:Color)
 val WebPalettes=listOf(
  WebPalette("aurora","青蓝流光",Color(0xFF1672B1),Color(0xFF147F91),Color(0xFF11785F),Color(0xFFF3FAFB),Color(0xFF233E49),Color(0xFF647E89),Color(0xFFDCE8EC),Color(0xFFE7F4FC)),
- WebPalette("sunset","琥珀暖阳",Color(0xFFB35424),Color(0xFFA96918),Color(0xFF927117),Color(0xFFFCF9F2),Color(0xFF4A3C2D),Color(0xFF867866),Color(0xFFEADFD0),Color(0xFFFAEDDD)),
- WebPalette("lake","湖光青翠",Color(0xFF176D9E),Color(0xFF197B8E),Color(0xFF0F776F),Color(0xFFF2F9F9),Color(0xFF233E49),Color(0xFF647E89),Color(0xFFDCE8EC),Color(0xFFE4F3F0)))
+ WebPalette("sunset","琥珀暖阳",Color(0xFFB35424),Color(0xFFA96918),Color(0xFF927117),Color(0xFFFCF9F2),Color(0xFF4A3C2D),Color(0xFF867866),Color(0xFFEADFD0),Color(0xFFFAEDDD)))
 val LocalWebPalette=staticCompositionLocalOf { WebPalettes.first() }
 @Composable fun WebCard(title:String="",content:@Composable ColumnScope.()->Unit) {
  val p=LocalWebPalette.current

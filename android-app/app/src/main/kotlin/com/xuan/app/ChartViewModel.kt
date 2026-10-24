@@ -32,7 +32,11 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
     private val preferences=storageContext.getSharedPreferences("workbench-ui",0)
     private data class ModuleDraft(val form:ChartInput,val options:FormOptions,val result:SavedChart?,val saved:Boolean)
     private val drafts=mutableMapOf<String,ModuleDraft>()
-    init { mutable.update { it.copy(palette=preferences.getString("palette","aurora")?:"aurora") };viewModelScope.launch {
+    init {
+        val savedPalette=preferences.getString("palette","aurora")
+        val restoredPalette=savedPalette?.takeIf { id -> WebPalettes.any { it.id==id } }?:WebPalettes.first().id
+        if(savedPalette!=restoredPalette) preferences.edit().putString("palette",restoredPalette).apply()
+        mutable.update { it.copy(palette=restoredPalette) };viewModelScope.launch {
         try { reload() } catch(e:Exception){fail(e)}
         try { val config=withContext(Dispatchers.IO){secrets.load()};mutable.update { it.copy(config=config,configDraft=if(configEdited) it.configDraft else config) } }
         catch(e:Exception){ mutable.update { it.copy(error="AI 密钥无法读取，请重新配置；本机排盘与记录仍可使用") } }
