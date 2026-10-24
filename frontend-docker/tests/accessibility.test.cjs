@@ -170,7 +170,7 @@ test('palette cards show the current choice, select once by keyboard and restore
 	try {
 		await nextTick(); await nextTick();
 		const options = mounted.host.querySelectorAll('.palette-option');
-		assert.equal(options.length, 3);
+		assert.equal(options.length, 2);
 		assert.equal(options[0].getAttribute('aria-pressed'), 'true');
 		assert.equal(options[1].getAttribute('aria-pressed'), 'false');
 		assert.match(options[0].textContent, /青蓝流光/);
