@@ -13,7 +13,7 @@ import com.xuan.core.ChartInput
 import java.io.StringReader
 
 /** A validated suggestion. execute means eligible to calculate after the user clicks its button. */
-data class AgentSuggestion(val label: String, val target: String, val input: ChartInput?, val execute: Boolean)
+data class AgentSuggestion(val label: String, val target: String, val input: ChartInput?, val execute: Boolean, val palace: String? = null)
 
 /** Call only for assistant messages. This parser neither performs actions nor fills missing facts. */
 object AgentActions {
@@ -56,7 +56,12 @@ object AgentActions {
         val customLabel = optionalString(root, "label")?.trim()?.takeIf { it.isNotEmpty() }
         require(customLabel == null || (customLabel.length <= 64 && customLabel.none { it.isISOControl() }))
         optionalString(root, "reason")
-        if (type == "none" || type == "focus_ziwei_palace") return null
+        if (type == "none") return null
+        if (type == "focus_ziwei_palace") {
+            val payload = root.get("payload")?.takeIf { it.isJsonObject }?.asJsonObject ?: return null
+            val palace = normalizeZiweiPalace(requiredString(payload,"palace")) ?: return null
+            return AgentSuggestion(customLabel ?: "查看${if(palace=="命宫") palace else palace+"宫"}","ziwei",null,false,palace)
+        }
         if (type == "navigate") {
             val target = requiredString(root, "target")
             if (target !in targets) return null
@@ -92,7 +97,8 @@ object AgentActions {
             "ziwei" -> "直接排紫微"
             else -> "按时间起一卦"
         }
-        return AgentSuggestion(label, target, input, true)
+        val focus = if (target == "ziwei") optionalString(payload,"focusPalace")?.let { normalizeZiweiPalace(it) ?: return null } else null
+        return AgentSuggestion(label, target, input, true, focus)
     }
 
     fun visibleText(text: String): String = hiddenMarker.replace(text, "").trim()
@@ -105,13 +111,32 @@ object AgentActions {
         <!--AGENT_ACTION:{"type":"run_ziwei_chart","label":"直接排紫微","payload":{"date":"1996-03-21","time":"18:30","gender":1,"timeZone":"Asia/Shanghai"}}-->
         <!--AGENT_ACTION:{"type":"run_liuyao_chart","label":"按时间起一卦","payload":{"title":"具体占问","date":"2024-02-10","time":"09:30","timeZone":"Asia/Shanghai"}}-->
         <!--AGENT_ACTION:{"type":"navigate","target":"qimen","label":"打开奇门起局"}-->
+        <!--AGENT_ACTION:{"type":"focus_ziwei_palace","label":"查看事业宫","payload":{"palace":"事业宫"}}-->
         <!--AGENT_ACTION:{"type":"none"}-->
         八字和紫微必须由用户明确提供公历 YYYY-MM-DD、24小时制 HH:mm 和数字性别0男/1女，禁止推测、转换含糊日期或编造缺少的数据。
         六爻适用于具体事件，title必填。没有明确起卦日期或时刻时只输出 navigate 到 liuyao，让用户在页面确认；禁止用系统当前时间补齐。
         时区可选，payload.timeZone默认Asia/Shanghai；有明确时区时原样填写。夏令时重复时间需用户选择明确UTC偏移时区。
         navigate的target仅可为bazi、liuyao、ziwei、qimen、history。奇门仅通过navigate打开页面确认，禁止run_qimen_chart。
-        当前原生版不支持focus_ziwei_palace；需要查看宫位时打开ziwei页面。禁止输出任何代码执行、网址跳转或未列出的动作。
+        focus_ziwei_palace只适用于当前上下文里已存在紫微盘，宫位必须明确；例如命宫、夫妻宫、事业宫、财运宫、交友宫。没有紫微盘时先确认出生信息，不得编造。run_ziwei_chart可带payload.focusPalace以聚焦所问宫位。禁止输出任何代码执行、网址跳转或未列出的动作。
     """.trimIndent()
+
+    /** Canonical names deliberately match the native natal palace metadata. */
+    fun normalizeZiweiPalace(value: String): String? {
+        val name = value.trim()
+        return palaceAliases.entries.firstOrNull { (canonical,aliases) -> name == canonical || name in aliases }?.key
+    }
+    private val palaceAliases = linkedMapOf(
+        "命宫" to listOf("命"), "兄弟" to listOf("兄弟宫"),
+        "夫妻" to listOf("夫妻宫","婚姻宫","感情宫","伴侣宫"),
+        "子女" to listOf("子女宫","子息宫","孩子宫"),
+        "财帛" to listOf("财帛宫","财运宫"),
+        "疾厄" to listOf("疾厄宫","健康宫","疾病宫"),
+        "迁移" to listOf("迁移宫","出行宫","远行宫"),
+        "仆役" to listOf("仆役宫","交友宫","朋友宫","人脉宫","交友"),
+        "官禄" to listOf("官禄宫","事业宫","工作宫","职业宫"),
+        "田宅" to listOf("田宅宫","房产宫","家宅宫","居所宫"),
+        "福德" to listOf("福德宫","福气宫","精神宫"),
+        "父母" to listOf("父母宫","长辈宫"))
 
     private fun navigationLabel(target: String): String = when (target) {
         "bazi" -> "打开八字排盘"

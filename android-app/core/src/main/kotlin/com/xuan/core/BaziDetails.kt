@@ -47,7 +47,8 @@ object BaziDetails {
         )
     }
 
-    internal fun shensha(pillars:Pillars,gender:Int):List<List<String>> {
+    internal fun shensha(pillars:Pillars,gender:Int,extra:String?=null):List<List<String>> {
+        extra?.let { GanZhi.index(it) }
         require(gender in 0..1) { "性别参数无效" }
         val values=validated(pillars)
         val yearGan=values[0][0]; val yearZhi=values[0][1]; val monthZhi=values[1][1]
@@ -68,7 +69,8 @@ object BaziDetails {
         )
         val tiande="巳庚丁申壬辛亥甲癸寅丙乙"[monthBranch]
         fun net(source:Char,target:Char) = when (source) { '辰' -> target=='巳';'巳' -> target=='辰';'戌' -> target=='亥';'亥' -> target=='戌';else -> false }
-        return values.mapIndexed { index,gz ->
+        return (extra?.let { listOf(it) } ?: values).mapIndexed { targetIndex,gz ->
+            val index=if(extra==null) targetIndex else -1
             val gan=gz[0]; val zhi=gz[1]; val branch=GanZhi.ZHI.indexOf(zhi)
             val result=linkedSetOf<String>()
             fun hit(name:String,target:Char=zhi) { result.add("$name($target)") }
@@ -154,20 +156,22 @@ object BaziDetails {
         return result.mapValues { it.value.toList() }
     }
 
-    internal fun diagram(pillars:Pillars):Pair<List<RelationEdge>,List<RelationEdge>> {
-        val values=validated(pillars); val ganEdges=mutableListOf<RelationEdge>(); val zhiEdges=mutableListOf<RelationEdge>();val seen=mutableSetOf<String>()
+    internal fun diagram(pillars:Pillars):Pair<List<RelationEdge>,List<RelationEdge>> = diagram(validated(pillars))
+
+    internal fun diagram(values:List<String>,showKe:Boolean=true):Pair<List<RelationEdge>,List<RelationEdge>> {
+        values.forEach { GanZhi.index(it) }; val ganEdges=mutableListOf<RelationEdge>(); val zhiEdges=mutableListOf<RelationEdge>();val seen=mutableSetOf<String>()
         fun add(list:MutableList<RelationEdge>,from:Int,to:Int,type:String,label:String) {
             val edge=RelationEdge(from,to,type,label)
             if(seen.add(edge.signature())) list.add(edge)
         }
         fun ke(a:Int,b:Int)= (a+2)%5==b || (b+2)%5==a
-        for (i in 0..3) for (j in i+1..3) {
+        for (i in values.indices) for (j in i+1 until values.size) {
             val a=values[i][0];val b=values[j][0]
             ganCombination(a,b)?.let { add(ganEdges,i,j,"ganHe",it.substring(2)) }
             if (hasPair(ganChong,a,b)) add(ganEdges,i,j,"ganChong","冲")
-            if (ke(GanZhi.GAN.indexOf(a)/2,GanZhi.GAN.indexOf(b)/2)) add(ganEdges,i,j,"ganKe","克")
+            if (showKe && ke(GanZhi.GAN.indexOf(a)/2,GanZhi.GAN.indexOf(b)/2)) add(ganEdges,i,j,"ganKe","克")
         }
-        for (i in 0..1) for (j in i+1..2) for (k in j+1..3) {
+        for (i in 0 until values.size-2) for (j in i+1 until values.size-1) for (k in j+1 until values.size) {
             listOf("sanHe" to combination(sanHe,listOf(values[i][1],values[j][1],values[k][1]),"合"),
                 "sanHui" to combination(sanHui,listOf(values[i][1],values[j][1],values[k][1]),"会")).forEach { (type,label) ->
                 if (label!=null) { add(zhiEdges,i,j,type,label.substring(3));add(zhiEdges,i,k,type,label.substring(3));add(zhiEdges,j,k,type,label.substring(3)) }
@@ -175,7 +179,7 @@ object BaziDetails {
         }
         val zhiElement=listOf(4,2,0,0,2,1,1,2,3,3,2,4)
         val halfHe=linkedMapOf("申子辰" to "水","亥卯未" to "木","寅午戌" to "火","巳酉丑" to "金")
-        for (i in 0..3) for (j in i+1..3) {
+        for (i in values.indices) for (j in i+1 until values.size) {
             val a=values[i][1];val b=values[j][1]
             if (hasPair(zhiHe,a,b)) add(zhiEdges,i,j,"zhiHe","合")
             halfHe.entries.firstOrNull { containsPair(it.key,a,b) }?.let { add(zhiEdges,i,j,"banHe","半合${it.value}") }
@@ -184,7 +188,7 @@ object BaziDetails {
             if (isXing(a,b)) add(zhiEdges,i,j,"xing","刑")
             if (hasPair(hai,a,b)) add(zhiEdges,i,j,"hai","害")
             if (hasPair(po,a,b)) add(zhiEdges,i,j,"po","破")
-            if (ke(zhiElement[GanZhi.ZHI.indexOf(a)],zhiElement[GanZhi.ZHI.indexOf(b)])) add(zhiEdges,i,j,"zhiKe","克")
+            if (showKe && ke(zhiElement[GanZhi.ZHI.indexOf(a)],zhiElement[GanZhi.ZHI.indexOf(b)])) add(zhiEdges,i,j,"zhiKe","克")
         }
         return ganEdges to zhiEdges
     }

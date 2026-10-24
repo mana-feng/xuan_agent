@@ -76,9 +76,26 @@ class AgentActionsTest {
             """{"type":"navigate","target":"https://example.com"}""",
             """{"type":"run_qimen_chart","payload":{}}""",
             """{"type":"eval","code":"alert(1)"}""",
-            """{"type":"focus_ziwei_palace","payload":{"palace":"事业宫"}}""",
+
             """{"type":"none"}"""
         )) assertNull(json,AgentActions.parse(marker(json)))
+    }
+
+    @Test fun palaceFocusUsesValidatedCanonicalNameWithoutInventingAChart() {
+        val focus=AgentActions.parse(marker("""{"type":"focus_ziwei_palace","payload":{"palace":"事业宫"}}"""))!!
+        assertEquals("ziwei",focus.target)
+        assertEquals("官禄",focus.palace)
+        assertNull(focus.input)
+        assertFalse(focus.execute)
+        for ((alias,canonical) in listOf("命宫" to "命宫","婚姻宫" to "夫妻","交友宫" to "仆役","财运宫" to "财帛","房产宫" to "田宅","精神宫" to "福德","健康宫" to "疾厄")) {
+            assertEquals(canonical,AgentActions.parse(marker("""{"type":"focus_ziwei_palace","payload":{"palace":"$alias"}}"""))!!.palace)
+        }
+        for(payload in listOf("{}","""{"palace":false}""","""{"palace":""}""","""{"palace":"任意页面"}""")) {
+            assertNull(AgentActions.parse(marker("""{"type":"focus_ziwei_palace","payload":$payload}""")))
+        }
+        val run=AgentActions.parse(run("run_ziwei_chart",""""date":"1996-03-21","time":"18:30","gender":1,"focusPalace":"事业宫""""))!!
+        assertTrue(run.execute);assertEquals("官禄",run.palace)
+        assertFalse(AgentActions.systemPrompt().contains("不支持focus_ziwei_palace"))
     }
 
     @Test fun malformedDuplicateAndOversizedCommandsAreRejected() {

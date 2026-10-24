@@ -1,5 +1,6 @@
 package com.xuan.app
 
+import androidx.activity.compose.setContent
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import java.util.concurrent.CountDownLatch
@@ -56,6 +57,8 @@ class OfflineSmokeRunner : Instrumentation() {
         )
         if (launchActivity) {
             cases += "nativeActivityLaunches" to ::nativeActivityLaunches
+            cases += "webWorkbenchNavigationAndDateDialog" to ::webWorkbenchNavigationAndDateDialog
+            cases += "recordRecalculationUpdatesIdentityAndModuleDrafts" to ::recordRecalculationUpdatesIdentityAndModuleDrafts
             cases += "activityRecreationRetainsAllUnsavedDrafts" to ::activityRecreationRetainsAllUnsavedDrafts
         }
         val results = Bundle()
@@ -83,7 +86,7 @@ class OfflineSmokeRunner : Instrumentation() {
         } finally {
             // Never delete AndroidKeyStore aliases: instrumentation runs in the target process.
             // Only random-prefixed test database/settings are cleaned up; user storage names are never used.
-            runCatching { resetTestStorage(); targetContext.deleteSharedPreferences(storagePrefix + settingsName) }.onFailure { if (failure == null) failure = it }
+            runCatching { resetTestStorage(); targetContext.deleteSharedPreferences(storagePrefix + settingsName);targetContext.deleteSharedPreferences(storagePrefix+"workbench-ui") }.onFailure { if (failure == null) failure = it }
         }
         results.putInt("tests", attempted)
         results.putInt("planned", cases.size)
@@ -265,9 +268,9 @@ class OfflineSmokeRunner : Instrumentation() {
         lateinit var previousModel: ChartViewModel
         runOnMainSync {
             previousModel = ViewModelProvider(original)[ChartViewModel::class.java]
+            previousModel.chooseType("liuyao")
             previousModel.editForm(raw)
             previousModel.editOptions(options)
-            previousModel.chooseType("liuyao")
             previousModel.editChatDraft(draft)
             previousModel.editConfig(configDraft)
         }
@@ -303,6 +306,159 @@ class OfflineSmokeRunner : Instrumentation() {
             }
         }
     }
+
+    private fun awaitCondition(message:String,condition:()->Boolean) {
+        val deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(15)
+        while(System.nanoTime()<deadline) { if(condition()) return;Thread.sleep(50) }
+        check(condition()) { message }
+    }
+    private fun isolatedModel(activity:MainActivity):ChartViewModel {
+        lateinit var model:ChartViewModel
+        runOnMainSync {
+            val factory=object:androidx.lifecycle.ViewModelProvider.Factory {
+                override fun <T:androidx.lifecycle.ViewModel> create(modelClass:Class<T>):T {
+                    @Suppress("UNCHECKED_CAST")
+                    return ChartViewModel(activity.application,storageContext) as T
+                }
+            }
+            model=ViewModelProvider(activity,factory).get("isolated-ui-smoke",ChartViewModel::class.java)
+            activity.setContent { XuanApp(model) }
+        }
+        waitForIdleSync()
+        return model
+    }
+    private fun node(label:String):android.view.accessibility.AccessibilityNodeInfo? {
+        fun find(root:android.view.accessibility.AccessibilityNodeInfo?):android.view.accessibility.AccessibilityNodeInfo? {
+            root?:return null
+            if(root.text?.toString()==label || root.contentDescription?.toString()==label) return root
+            for(i in 0 until root.childCount) { find(root.getChild(i))?.let { return it } }
+            return null
+        }
+        // Android's service cache can retain stale virtual Compose nodes across scrolls.
+        if(android.os.Build.VERSION.SDK_INT>=33) uiAutomation.clearCache()
+        val root=uiAutomation.rootInActiveWindow
+        root?.refresh()
+        return find(root)
+    }
+    private fun clickLabel(label:String) {
+        awaitCondition("UI element missing: $label"){node(label)!=null}
+        var target=node(label)!!
+        while(!target.isClickable && target.parent!=null) target=target.parent
+        check(target.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK)) { "Could not click $label" }
+        waitForIdleSync()
+    }
+    private fun capture(name:String) {
+        uiAutomation.waitForIdle(400,5000)
+        val dir=File(targetContext.getExternalFilesDir(null),"web-parity-captures").apply {mkdirs()}
+        val bitmap=uiAutomation.takeScreenshot()?:error("Screenshot unavailable")
+        File(dir,"$name.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle()
+    }
+    private fun scrollUntil(label:String,backward:Boolean=false) {
+        uiAutomation.waitForIdle(150,3000)
+        val screen=android.graphics.Rect();uiAutomation.rootInActiveWindow.getBoundsInScreen(screen)
+        repeat(2) { pass -> repeat(16) {
+            if(node(label)?.isVisibleToUser==true) return
+            val reverse=if(pass==0) backward else !backward
+            val x=screen.width()*.85f
+            val from=screen.height()*(if(reverse) .45f else .70f)
+            val to=screen.height()*(if(reverse) .70f else .45f)
+            val down=android.os.SystemClock.uptimeMillis()
+            fun event(action:Int,y:Float) {val e=android.view.MotionEvent.obtain(down,android.os.SystemClock.uptimeMillis(),action,x,y,0);try{check(uiAutomation.injectInputEvent(e,true))}finally{e.recycle()}}
+            event(android.view.MotionEvent.ACTION_DOWN,from)
+            for(step in 1..12) {Thread.sleep(30);event(android.view.MotionEvent.ACTION_MOVE,from+(to-from)*step/12)}
+            Thread.sleep(160) // Hold the end position to suppress fling and keep overlapping views.
+            event(android.view.MotionEvent.ACTION_UP,to)
+            waitForIdleSync();uiAutomation.waitForIdle(150,3000)
+        } }
+        if(node(label)?.isVisibleToUser!=true) {capture("failed-scroll");error("Could not swipe to $label")}
+    }
+    private fun webWorkbenchNavigationAndDateDialog() {
+        val intent=Intent(Intent.ACTION_MAIN).setClassName(targetContext.packageName,"com.xuan.app.MainActivity").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val activity=startActivitySync(intent) as MainActivity
+        val model=isolatedModel(activity)
+        try {
+            awaitCondition("Web AI home missing"){node("观象，知己。")!=null}
+            capture("01-agent-home")
+            clickLabel("展开导航");capture("02-navigation");clickLabel("八字命理")
+            awaitCondition("Bazi page heading missing"){node("八字排盘")!=null}
+            capture("03-bazi-input")
+            clickLabel("修改时间")
+            awaitCondition("Native date dialog missing"){node("公历出生时间")!=null && node("确认时间  →")!=null}
+            capture("04-date-dialog");clickLabel("取消")
+            check(!model.state.value.showResult) { "Dismissing date picker incorrectly opened a chart" }
+            clickLabel("展开导航");clickLabel("六爻问事")
+            awaitCondition("Liuyao route missing"){model.state.value.chartType=="liuyao"}
+            check(model.state.value.options.casting=="电脑自动" && model.state.value.options.preview.isEmpty()) { "New Liuyao route pre-generated an unrequested chart" }
+            runOnMainSync { model.editOptions(model.state.value.options.copy(casting="手工指定",manual=List(6){-1})) }
+            scrollUntil("上爻　请选择");clickLabel("上爻　请选择")
+            awaitCondition("Manual line choice dialog missing"){node("选择上爻")!=null}
+            clickLabel("━━━━ ○ 老阳")
+            check(model.state.value.options.manual[5]==3 && model.state.value.options.manual.take(5).all {it==-1}) { "Manual selection auto-filled other lines" }
+            runOnMainSync { model.editOptions(model.state.value.options.copy(casting="在线起卦",preview=emptyList())) }
+            repeat(5){runOnMainSync{model.generateCasting()}}
+            check(model.state.value.options.preview.size==5) { "Five shakes did not leave one unfinished line" }
+            runOnMainSync { model.editForm(model.state.value.form.copy(title="isolated ui question"));model.calculate() }
+            awaitCondition("Incomplete casting validation did not finish"){!model.state.value.busy}
+            check(model.state.value.result==null && model.state.value.error.isNotBlank()) { "Incomplete shake silently made a chart" }
+            runOnMainSync {model.generateCasting();model.calculate()}
+            awaitCondition("Complete casting did not produce chart"){model.state.value.result!=null && !model.state.value.busy}
+            awaitCondition("Liuyao result UI missing"){node("六爻卦象")!=null};capture("05-liuyao-result")
+            runOnMainSync {model.navigate("qimen");model.editOptions(model.state.value.options.copy(useNow=false));model.editForm(ChartInput("2024-02-10 13:15",title="isolated qimen"));model.calculate()}
+            awaitCondition("Qimen native result missing"){model.state.value.result?.result?.type=="qimen" && !model.state.value.busy}
+            scrollUntil("巽4宫，查看详情");capture("06-qimen-board");clickLabel("巽4宫，查看详情")
+            awaitCondition("Qimen palace dialog missing"){node("关闭 ×")!=null};capture("07-qimen-palace");clickLabel("关闭 ×")
+            scrollUntil("列表",true);clickLabel("列表");capture("08-qimen-list")
+            runOnMainSync {model.navigate("ziwei");model.editForm(ChartInput("1990-06-15 09:30",gender=1,title="isolated ziwei"));model.calculate()}
+            awaitCondition("Ziwei result missing"){!model.state.value.busy && model.state.value.result?.result?.type=="ziwei"}
+            scrollUntil("命盘总览");capture("09-ziwei-board")
+            runOnMainSync {model.applySuggestion(AgentSuggestion("查看事业宫","ziwei",null,false,"官禄"))}
+            awaitCondition("Agent palace focus did not open Ziwei result"){model.state.value.showResult && model.state.value.ziweiFocus=="官禄"}
+            runOnMainSync {model.navigate("bazi");model.editForm(ChartInput("1990-06-15 09:30",gender=1,title="isolated bazi"));model.calculate()}
+            awaitCondition("Bazi result missing"){!model.state.value.busy && model.state.value.result?.result?.type=="bazi"}
+            scrollUntil("四柱总览");capture("10-bazi-matrix")
+            scrollUntil("大运流年");capture("11-bazi-timeline")
+            runOnMainSync {model.applySuggestion(AgentSuggestion("按时间起卦","liuyao",ChartInput("2024-02-10 13:15",title="isolated agent time question"),true))}
+            awaitCondition("Agent time casting failed"){!model.state.value.busy && model.state.value.result?.input?.title=="isolated agent time question"}
+            check(model.state.value.result?.result?.type=="liuyao" && model.state.value.options.casting=="时间起卦") { "Agent action did not use the requested time casting method" }
+            check(model.state.value.contextItems.any {it.startsWith("八字 ")} && model.state.value.contextItems.any {it.startsWith("六爻")}) { "Agent lost active chart summaries" }
+            runOnMainSync {model.navigate("history")};awaitCondition("History page missing"){node("每一次探索，都有迹可循")!=null};capture("12-history")
+            runOnMainSync {model.navigate("settings")};awaitCondition("Settings page missing"){node("AI API 设置")!=null};capture("13-ai-settings")
+            runOnMainSync {model.setPalette("sunset")}
+            check(storageContext.getSharedPreferences("workbench-ui",0).getString("palette","")=="sunset") { "Palette was not persisted in isolated preferences" }
+        } finally { runOnMainSync {activity.finish()} }
+    }
+    private fun recordRecalculationUpdatesIdentityAndModuleDrafts() {
+        val activity=startActivitySync(Intent(Intent.ACTION_MAIN).setClassName(targetContext.packageName,"com.xuan.app.MainActivity").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) as MainActivity
+        val model=isolatedModel(activity)
+        try {
+            val original=ChartInput("1990-06-15 09:30",gender=1,title="isolated record")
+            runOnMainSync {model.navigate("bazi");model.editForm(original);model.calculate()}
+            awaitCondition("Initial chart not ready"){model.state.value.result!=null && !model.state.value.busy}
+            val id=model.state.value.result!!.id
+            runOnMainSync {model.saveResult()}
+            awaitCondition("Chart not stored"){model.state.value.records.size==1}
+            runOnMainSync {model.openRecord(model.state.value.records.single());model.editResult();model.editForm(original.copy(title="updated title"));model.calculate()}
+            awaitCondition("Recalculated chart not ready"){!model.state.value.busy && model.state.value.result?.input?.title=="updated title"}
+            check(model.state.value.result!!.id==id) { "Editing a saved chart created a new identity" }
+            runOnMainSync {model.saveResult()}
+            awaitCondition("Edited record was not updated"){model.state.value.records.singleOrNull()?.input?.title=="updated title"}
+            LocalStore(storageContext).use { check(it.charts().size==1 && it.charts().single().id==id) { "Editing duplicated the stored record" } }
+            val draft=model.state.value.form
+            runOnMainSync {model.navigate("bazi");model.editForm(original.copy(title="new person"));model.calculate()}
+            awaitCondition("New record not calculated"){!model.state.value.busy && model.state.value.result?.input?.title=="new person"}
+            check(model.state.value.result!!.id!=id) { "Starting another chart reused the previous person's saved identity" }
+            runOnMainSync {model.saveResult()}
+            awaitCondition("New record did not preserve original"){model.state.value.records.size==2}
+            runOnMainSync {model.editForm(draft);model.navigate("liuyao");model.editForm(model.state.value.form.copy(title="other module draft"));model.navigate("bazi")}
+            check(model.state.value.form==draft) { "Module navigation lost the Bazi draft" }
+            runOnMainSync {model.navigate("liuyao")}
+            check(model.state.value.form.title=="other module draft") { "Returning to Liuyao lost its independent draft" }
+            runOnMainSync {model.navigate("bazi");model.editForm(original);model.calculate();model.navigate("qimen");model.editOptions(model.state.value.options.copy(useNow=false));model.editForm(original.copy(title="new qimen draft"))}
+            awaitCondition("Background calculation did not finish"){!model.state.value.busy}
+            check(model.state.value.page=="qimen" && model.state.value.chartType=="qimen" && model.state.value.form.title=="new qimen draft" && model.state.value.result?.result?.type!="bazi") { "Stale calculation replaced current module" }
+        } finally {runOnMainSync {activity.finish()}}
+    }
+
     private fun nativeActivityLaunches() {
         val intent = Intent(Intent.ACTION_MAIN).setClassName(targetContext.packageName, "com.xuan.app.MainActivity").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val activity = startActivitySync(intent)

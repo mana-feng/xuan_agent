@@ -2,7 +2,7 @@ plugins { id("com.android.application"); kotlin("android") }
 android {
     namespace = "com.xuan.app"
     compileSdk = 34
-    defaultConfig { applicationId = "com.manafeng.xuan"; minSdk = 26; targetSdk = 34; versionCode = 1; versionName = "0.1.0"; testInstrumentationRunner = "com.xuan.app.OfflineSmokeRunner" }
+    defaultConfig { applicationId = "com.manafeng.xuan"; minSdk = 26; targetSdk = 34; versionCode = 2; versionName = "0.2.0"; testInstrumentationRunner = "com.xuan.app.OfflineSmokeRunner" }
     buildFeatures { compose = true; buildConfig = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.8" }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }

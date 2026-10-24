@@ -34,4 +34,18 @@ class AiProtocolTest {
     @Test fun rejectsInvalidUrlAndBlankModelBeforeNetwork() {
         listOf(AiConfig(baseUrl="file:///tmp",model="x"),AiConfig(baseUrl="http://example.org/v1/chat/completions",model="x"),AiConfig(baseUrl="https://example.org"),AiConfig(baseUrl="https://user:pass@example.org",model="x")).forEach { c -> assertThrows(IllegalArgumentException::class.java){protocol.request(c,messages)} }
     }
+    @Test fun streamingRequestsUseProviderSpecificFlagsAndNativeGeminiSseUrl() {
+        for(provider in listOf("openai","anthropic")) {
+            val request=protocol.request(AiConfig(provider,"https://example.org/endpoint","synthetic-key","model"),messages,stream=true)
+            val buffer=Buffer();request.body!!.writeTo(buffer)
+            assertTrue(JsonParser.parseString(buffer.readUtf8()).asJsonObject["stream"].asBoolean)
+        }
+        val gemini=protocol.request(AiConfig("gemini","https://example.org/v1beta/models/old:generateContent?alt=json","synthetic-key","model"),messages,stream=true)
+        assertEquals("/v1beta/models/old:streamGenerateContent",gemini.url.encodedPath)
+        assertEquals("sse",gemini.url.queryParameter("alt"))
+        assertEquals("synthetic-key",gemini.header("x-goog-api-key"))
+        val nonStreaming=protocol.request(AiConfig("gemini","https://example.org/v1beta/models/model:streamGenerateContent?alt=sse","","model"),messages)
+        assertEquals("/v1beta/models/model:generateContent",nonStreaming.url.encodedPath)
+        assertNull(nonStreaming.url.queryParameter("alt"))
+    }
 }

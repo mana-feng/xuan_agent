@@ -1,0 +1,76 @@
+{
+  "version": "0.2.0",
+  "branch": "android",
+  "apk_sha256": "756950761877DB1A9DC735BE4C740E92E064070C2A66FEC1515D106B7616A49A",
+  "apk_bytes": 9303522,
+  "jvm": {
+    "core": {
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "physical_device": {
+    "model": "2304FPN6DC",
+    "android": "16",
+    "install": "adb install -r Success",
+    "launch": "Status: ok",
+    "installed_version": "0.2.0",
+    "data_cleared": false
+  },
+  "real_model_api": "NOT_EXECUTED",
+  "lint": [
+    {
+      "id": "ObsoleteLintCustomCheck",
+      "severity": "Warning"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning"
+    },
+    {
+      "id": "DataExtractionRules",
+      "severity": "Warning"
+    },
+    {
+      "id": "Recycle",
+      "severity": "Warning"
+    },
+    {
+      "id": "Recycle",
+      "severity": "Warning"
+    }
+  ],
+  "generated_at_utc": "2026-10-24T18:26:54.765484+00:00",
+  "emulator": {
+    "api": 37,
+    "device": "Pixel_9_Pro",
+    "offline_checks": 10,
+    "failures": 0,
+    "log_sha256": "f5c210b1a315e8ce511a09dc8dc21161af8358dee35a73f63eb69780e89164fe",
+    "apk_sha256": "756950761877DB1A9DC735BE4C740E92E064070C2A66FEC1515D106B7616A49A"
+  }
+}

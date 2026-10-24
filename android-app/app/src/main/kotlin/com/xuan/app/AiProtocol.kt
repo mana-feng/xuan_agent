@@ -8,7 +8,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class AiProtocol {
     private val gson=Gson()
-    fun request(config:AiConfig,messages:List<ChatMessage>):Request {
+    fun request(config:AiConfig,messages:List<ChatMessage>,stream:Boolean=false):Request {
         require(config.protocol in listOf("openai","anthropic","gemini")) { "请选择受支持的接口协议" }
         var url=config.baseUrl.trim().toHttpUrlOrNull() ?: throw IllegalArgumentException("请填写完整的 HTTP 或 HTTPS API 地址")
         require(url.isHttps) { "API 地址必须使用 HTTPS" }
@@ -22,20 +22,22 @@ class AiProtocol {
             "anthropic" -> {
                 if(config.apiKey.isNotBlank()) builder.header("x-api-key",config.apiKey)
                 builder.header("anthropic-version","2023-06-01")
-                mutableMapOf<String,Any>("model" to config.model,"max_tokens" to 4096,"messages" to ordinary.map { mapOf("role" to it.role,"content" to it.content) }).also { if(system.isNotBlank()) it["system"]=system }
+                mutableMapOf<String,Any>("model" to config.model,"max_tokens" to 4096,"stream" to stream,"messages" to ordinary.map { mapOf("role" to it.role,"content" to it.content) }).also { if(system.isNotBlank()) it["system"]=system }
             }
             "gemini" -> {
                 if(config.apiKey.isNotBlank()) builder.header("x-goog-api-key",config.apiKey)
                 val path=url.encodedPath.trimEnd('/')
                 val model=config.model.removePrefix("models/")
                 require(Regex("[a-zA-Z0-9._-]+").matches(model)) { "Gemini 模型名称无效" }
-                url=if(Regex(":(streamGenerateContent|generateContent)$").containsMatchIn(path)) url.newBuilder().encodedPath(path.replace(Regex(":(streamGenerateContent|generateContent)$"),":generateContent")).removeAllQueryParameters("alt").build()
-                    else url.newBuilder().addPathSegment("models").addPathSegment("$model:generateContent").build()
+                val endpoint=if(stream) "streamGenerateContent" else "generateContent"
+                val resolved=if(Regex(":(streamGenerateContent|generateContent)$").containsMatchIn(path)) url.newBuilder().encodedPath(path.replace(Regex(":(streamGenerateContent|generateContent)$"),":$endpoint"))
+                    else url.newBuilder().addPathSegment("models").addPathSegment("$model:$endpoint")
+                resolved.removeAllQueryParameters("alt");if(stream) resolved.addQueryParameter("alt","sse");url=resolved.build()
                 mutableMapOf<String,Any>("contents" to ordinary.map { mapOf("role" to if(it.role=="assistant") "model" else "user","parts" to listOf(mapOf("text" to it.content))) }).also { if(system.isNotBlank()) it["systemInstruction"]=mapOf("parts" to listOf(mapOf("text" to system))) }
             }
             else -> {
                 if(config.apiKey.isNotBlank()) builder.header("Authorization","Bearer ${config.apiKey}")
-                mapOf("model" to config.model,"messages" to messages.map { mapOf("role" to it.role,"content" to it.content) },"stream" to false)
+                mapOf("model" to config.model,"messages" to messages.map { mapOf("role" to it.role,"content" to it.content) },"stream" to stream)
             }
         }
         return builder.url(url).post(gson.toJson(body).toRequestBody("application/json; charset=utf-8".toMediaType())).build()

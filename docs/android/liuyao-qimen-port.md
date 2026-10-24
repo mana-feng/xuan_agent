@@ -1,3 +1,5 @@
+> 0.2.0 更新：当前界面与交互修正见 [web-parity.md](web-parity.md)。下文保留 0.1.0 初次实现记录，其中未移植项、非流式显示、未支持宫位聚焦等结论已经被本次修正取代。
+
 # 六爻、奇门 Kotlin 移植记录
 
 实现位置：android-app/core/src/main/kotlin/com/xuan/core/LiuyaoEngine.kt、QimenEngine.kt。Android 运行时仅使用 Kotlin、java.time 与离线历法表；没有 JavaScript 引擎、Node 或 Java 排盘库。tools/export-najia-qimen.cjs 只在开发阶段运行。
