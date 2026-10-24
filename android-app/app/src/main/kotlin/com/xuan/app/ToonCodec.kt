@@ -4,7 +4,15 @@ import com.google.gson.*
 /** TOON serializer mirrors src/utils/toon.ts; export is a full immutable chart snapshot. */
 object ToonCodec {
  private val gson=GsonBuilder().disableHtmlEscaping().create()
- fun encode(record:SavedChart)=encodeElement(gson.toJsonTree(record))
+ fun snapshot(record:SavedChart,extra:JsonObject?=null):JsonObject {
+  val frozen=gson.toJsonTree(record).asJsonObject
+  extra?.entrySet()?.forEach { (key,value)->
+   require(key !in setOf("id","createdAt","input","result")) { "导出附加数据不能覆盖原始命盘" }
+   frozen.add(key,value.deepCopy())
+  }
+  return frozen
+ }
+ fun encode(record:SavedChart,extra:JsonObject?=null)=encodeElement(snapshot(record,extra))
  fun encodeElement(element:JsonElement):String=when {element.isJsonObject->objectLines(element.asJsonObject,0).joinToString("\n");element.isJsonArray->arrayLines(element.asJsonArray,"",0).joinToString("\n");else->primitive(element)}
  private fun key(s:String)=if(Regex("[A-Za-z_][A-Za-z0-9_.]*").matches(s)) s else gson.toJson(s)
  private fun primitive(e:JsonElement)=gson.toJson(e)

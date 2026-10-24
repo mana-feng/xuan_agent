@@ -25,6 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 
 private val navigation=listOf("agent" to "AI 探索","bazi" to "八字命理","ziwei" to "紫微斗数","liuyao" to "六爻问事","qimen" to "奇门遁甲","history" to "历史记录")
 private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","liuyao" to "☰","qimen" to "▦","history" to "◷")
@@ -36,10 +38,23 @@ private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","
  val clipboard=LocalClipboardManager.current
  var themeMenu by remember {mutableStateOf(false)};var userMenu by remember{mutableStateOf(false)}
  var exportChartId by rememberSaveable{mutableStateOf<String?>(null)};var exportChatId by rememberSaveable{mutableStateOf<String?>(null)}
- var toonRecord by remember {mutableStateOf<SavedChart?>(null)}
+ // Freeze the record and selected Ziwei view before opening the external picker.
+ // JSON strings are saveable across Activity recreation while that picker is open.
+ var toonRecordJson by rememberSaveable {mutableStateOf<String?>(null)}
+ var toonPayloadJson by rememberSaveable {mutableStateOf<String?>(null)}
+ var ziweiView by remember {mutableStateOf<ZiweiViewState?>(null)}
  val exporter=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")){uri->uri?.let{model.exportBackup(it,exportChartId,exportChatId)}}
  val importer=rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()){uri->uri?.let(model::importBackup)}
- val toonExporter=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")){uri->uri?.let {dest->toonRecord?.let {model.exportToon(dest,it)}}}
+ val toonExporter=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")){uri->
+  try {
+   if(uri!=null) toonRecordJson?.let { json->
+    val record=Gson().fromJson(json,SavedChart::class.java)
+    val payload=toonPayloadJson?.let {JsonParser.parseString(it).asJsonObject}
+    model.exportToon(uri,record,payload)
+   }
+  } catch(e:Exception) {model.reportError(e.message?:"导出失败，请重试")}
+  finally {toonRecordJson=null;toonPayloadJson=null}
+ }
  fun navigate(page:String){model.navigate(page);scope.launch{drawer.close()}}
  fun ask(){model.newChat(true);model.navigate("agent")}
  LaunchedEffect(state.notice){if(state.notice.isNotEmpty()){snackbar.showSnackbar(state.notice);model.clearNotice()}}
@@ -87,10 +102,23 @@ private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","
           WebHeading(when(record.result.type){"bazi"->"八字命盘";"ziwei"->"紫微命盘";"liuyao"->"六爻卦象";else->"奇门 · 九宫总览"},when(record.result.type){"bazi"->"从四柱结构出发，理解五行、十神与大运节律。";"ziwei"->"在十二宫与星曜之间，寻找人生的不同面向。";"liuyao"->"一次占问，一份当下的记录。";else->"把问题安放在此刻，从九宫之间找到思路。"})
           FlowRow(horizontalArrangement=Arrangement.spacedBy(7.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
            OutlinedButton(onClick=model::editResult,contentPadding=PaddingValues(10.dp)){Text(if(record.result.type=="liuyao") "返回起卦" else if(record.result.type=="qimen")"修改起局" else "修改信息",fontSize=11.sp)}
-           OutlinedButton(onClick={if(record.result.type=="liuyao") {clipboard.setText(AnnotatedString(record.result.asText()))} else {toonRecord=record;toonExporter.launch("玄学AI-${record.result.type}-${record.id.take(8)}.toon")}},contentPadding=PaddingValues(10.dp)){Text(if(record.result.type=="liuyao")"复制排盘" else "导出 TOON",fontSize=11.sp)}
+           OutlinedButton(onClick={
+            try {
+             if(record.result.type=="liuyao") clipboard.setText(AnnotatedString(LiuyaoExport.text(record)))
+             else {
+             val payload=if(record.result.type=="ziwei") {
+              val view=ziweiView?.takeIf {it.recordId==record.id}?:error("命盘视图尚未就绪，请稍后重试")
+              ZiweiExport.payload(record,view)
+             } else null
+             toonRecordJson=Gson().toJson(record);toonPayloadJson=payload?.toString()
+             toonExporter.launch("玄学AI-${record.result.type}-${record.id.take(8)}.toon")
+             }
+            } catch(e:Exception) {model.reportError(e.message?:"导出失败，请重试")}
+           },contentPadding=PaddingValues(10.dp)){Text(if(record.result.type=="liuyao")"复制排盘" else "导出 TOON",fontSize=11.sp)}
            Button(onClick=model::saveResult,enabled=!state.busy,contentPadding=PaddingValues(10.dp),shape=RoundedCornerShape(8.dp)){Text(if(state.records.any{it.id==record.id})"更新本地记录" else "保存到本机",fontSize=11.sp)}
+           if(record.result.type=="qimen") Button(onClick=::ask,contentPadding=PaddingValues(10.dp),shape=RoundedCornerShape(8.dp)){Text("携盘问 AI ↗",fontSize=11.sp)}
           }
-          when(record.result.type){"bazi"->WebBaziResult(record,::ask);"ziwei"->WebZiweiResult(record,::ask,state.ziweiFocus);"qimen"->WebQimenResult(record,::ask);"liuyao"->WebLiuyaoResult(record,::ask)}
+          when(record.result.type){"bazi"->WebBaziResult(record,::ask);"ziwei"->WebZiweiResult(record,::ask,state.ziweiFocus,onViewChange={ziweiView=it});"qimen"->WebQimenResult(record,::ask);"liuyao"->WebLiuyaoResult(record,::ask)}
          }
         } else WebChartForm(state,model,::navigate)
        }
@@ -102,4 +130,4 @@ private val navSymbols=mapOf("agent" to "✧","bazi" to "☷","ziwei" to "✳","
   }
  }
 }
-@Composable private fun WebAboutPage(){Column(verticalArrangement=Arrangement.spacedBy(16.dp)){WebHeading("关于玄学 · AI","传统智慧 · 当代视角");WebCard("让探索更自在"){Text("八字、六爻、紫微与奇门，为理解自己和当下的问题提供不同视角。\n\n排盘与记录保存在本机。你可以配置自己的 AI API，在主动提问时携带当前盘面继续探索。",lineHeight=24.sp);Text("Android 0.2.0",fontSize=11.sp,color=LocalWebPalette.current.muted)}}}
+@Composable private fun WebAboutPage(){Column(verticalArrangement=Arrangement.spacedBy(16.dp)){WebHeading("关于玄学 · AI","传统智慧 · 当代视角");WebCard("让探索更自在"){Text("八字、六爻、紫微与奇门，为理解自己和当下的问题提供不同视角。\n\n排盘与记录保存在本机。你可以配置自己的 AI API，在主动提问时携带当前盘面继续探索。",lineHeight=24.sp);Text("Android 0.2.1",fontSize=11.sp,color=LocalWebPalette.current.muted)}}}

@@ -53,6 +53,14 @@ class BaziTransit(val input:ChartInput, private val calendar:CalendarEngine=Cale
         val size=when(level) { Level.CYCLE->cycles.size;Level.YEAR->years(selection).size;Level.MONTH->months(selection).size;Level.DAY->days(selection).size;Level.TIME->times(selection).size }
         require(index in 0 until size) { "时间选择超出范围" }
         require(level!=Level.CYCLE || cycles[index].endYear>=cycles[index].startYear) { "童限不足一年，无独立流年" }
+        val selected=when(level) { Level.CYCLE->selection.cycle;Level.YEAR->selection.year;Level.MONTH->selection.month;Level.DAY->selection.day;Level.TIME->selection.time }
+        if(index==selected && level!=Level.TIME) return when(level) {
+            Level.CYCLE->Selection(-1,-1,-1,-1,-1)
+            Level.YEAR->selection.copy(year=-1,month=-1,day=-1,time=-1)
+            Level.MONTH->selection.copy(month=-1,day=-1,time=-1)
+            Level.DAY->selection.copy(day=-1,time=-1)
+            Level.TIME->selection
+        }
         return when(level) {
             Level.CYCLE->Selection(cycle=index)
             Level.YEAR->selection.copy(year=index,month=0,day=0,time=0)

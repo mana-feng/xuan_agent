@@ -45,7 +45,7 @@ private val BaziSelectionSaver=listSaver<BaziTransit.Selection,Int>(
     val transit=remember(record.input) { BaziTransit(record.input) }
     fun today()=LocalDate.now(ZoneId.of(record.input.timeZone))
     var selection by rememberSaveable(record.id,record.input,stateSaver=BaziSelectionSaver) { mutableStateOf(transit.locate(today())) }
-    val years=transit.years(selection);val months=transit.months(selection);val days=transit.days(selection);val times=transit.times(selection)
+    val years=transit.years(selection);val months=transit.months(selection);val days=transit.days(selection)
     val currentCycle=transit.cycles.getOrNull(selection.cycle)
     val currentYear=years.getOrNull(selection.year);val currentMonth=months.getOrNull(selection.month);val currentDay=days.getOrNull(selection.day)
     val extra=buildList {
@@ -97,19 +97,15 @@ private val BaziSelectionSaver=listSaver<BaziTransit.Selection,Int>(
             }
         }
         WebCard("大运流年") {
-            Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
-                Text("点选岁运，联动上方表格与关系图",color=p.muted,fontSize=11.sp,modifier=Modifier.weight(1f))
-                TextButton(onClick={selection=transit.locate(today())}) { Text("定位今天",fontSize=12.sp) }
-            }
+            Text("点选岁运，联动上方表格与关系图；再次点选可取消",color=p.muted,fontSize=11.sp)
             BaziTimelineRow("大运",transit.cycles.map { listOf(it.startYear.toString(),it.ganzhi,"${it.startAge}岁",if(it.ganzhi=="童限") "流年" else BaziEngine().tenGod(data.pillars.day[0],it.ganzhi[0])) },selection.cycle,
                 enabled={ transit.cycles[it].endYear>=transit.cycles[it].startYear }) { selection=transit.select(selection,BaziTransit.Level.CYCLE,it) }
             BaziTimelineRow("流年",years.map { listOf("${it.year}",it.ganzhi,"${it.age}岁",BaziEngine().tenGod(data.pillars.day[0],it.ganzhi[0])) },selection.year) { selection=transit.select(selection,BaziTransit.Level.YEAR,it) }
             BaziTimelineRow("流月",months.map { listOf(it.jie,"${it.start.monthValue}/${it.start.dayOfMonth}",it.ganzhi,BaziEngine().tenGod(data.pillars.day[0],it.ganzhi[0])) },selection.month) { selection=transit.select(selection,BaziTransit.Level.MONTH,it) }
             currentMonth?.let { Text("${it.jie}：${it.start.format(DateTimeFormatter.ofPattern("yyyy/M/d HH:mm"))} — ${it.end.format(DateTimeFormatter.ofPattern("yyyy/M/d HH:mm"))}",color=p.muted,fontSize=11.sp,lineHeight=18.sp) }
-            if(months.isEmpty()) Text("当前年份超出本机完整节令数据范围（1900—2101 流年），流月、流日、流时暂不可用。",color=p.muted,fontSize=12.sp,lineHeight=20.sp)
+            if(currentYear!=null && months.isEmpty()) Text("当前年份超出本机完整节令数据范围（1900—2101 流年），流月、流日暂不可用。",color=p.muted,fontSize=12.sp,lineHeight=20.sp)
             BaziTimelineRow("流日",days.map { listOf("${it.date.monthValue}/${it.date.dayOfMonth}",it.lunar,it.ganzhi,BaziEngine().tenGod(data.pillars.day[0],it.ganzhi[0])) },selection.day) { selection=transit.select(selection,BaziTransit.Level.DAY,it) }
-            BaziTimelineRow("流时",times.map { listOf("${it.start.hour}:00",it.ganzhi,"${it.ganzhi[1]}时",BaziEngine().tenGod(data.pillars.day[0],it.ganzhi[0])) },selection.time) { selection=transit.select(selection,BaziTransit.Level.TIME,it) }
-            val moving=listOfNotNull(currentCycle?.takeIf { it.ganzhi!="童限" }?.let { "大运" to it.ganzhi },currentYear?.let { "流年" to it.ganzhi },currentMonth?.let { "流月" to it.ganzhi },currentDay?.let { "流日" to it.ganzhi },times.getOrNull(selection.time)?.let { "流时" to it.ganzhi })
+            val moving=listOfNotNull(currentCycle?.takeIf { it.ganzhi!="童限" }?.let { "大运" to it.ganzhi },currentYear?.let { "流年" to it.ganzhi },currentMonth?.let { "流月" to it.ganzhi },currentDay?.let { "流日" to it.ganzhi })
             moving.forEach { (label,gz) -> Text("$label $gz · 神煞：${data.stars(gz).joinToString("、").ifBlank { "—" }}",color=p.muted,fontSize=11.sp,lineHeight=19.sp) }
         }
     }
@@ -135,25 +131,29 @@ private val BaziSelectionSaver=listSaver<BaziTransit.Selection,Int>(
 @Composable private fun BaziPillarMatrix(columns:List<BaziWebData.Column>) {
     val p=LocalWebPalette.current
     val names=columns.first().fields.keys.toList()
-    val widths=columns.map { col -> maxOf(80,(col.fields.getValue("神煞").lines().maxOfOrNull { it.length } ?: 0)*11+12).dp }
-    val heights=names.map { name -> when(name) {
-        "神煞"->(columns.maxOf { it.fields.getValue(name).lines().size }*18+20).dp
-        "藏干","副星"->76.dp
-        else->42.dp
-    } }
-    Row(Modifier.fillMaxWidth()) {
-        Column(Modifier.width(44.dp)) {
-            BaziMatrixCell("\\",44.dp,42.dp,p.tint)
-            names.forEachIndexed { i,name -> BaziMatrixCell(name,44.dp,heights[i],if(i%2==0) Color(0xFFF0F1F3) else Color(0xFFE5E7EB)) }
-        }
-        Column(Modifier.horizontalScroll(rememberScrollState())) {
-            Row { columns.forEachIndexed { j,col -> BaziMatrixCell(col.title,widths[j],42.dp,p.tint) } }
-            names.forEachIndexed { i,name ->
-                Row { columns.forEachIndexed { j,col ->
-                    val value=col.fields.getValue(name)
-                    BaziMatrixCell(value,widths[j],heights[i],if(i%2==0) Color(0xFFF0F1F3) else Color(0xFFE5E7EB),if(name=="天干" || name=="地支") baziElementColor(col.ganzhi[if(name=="天干") 0 else 1]) else p.ink,
-                        "$name ${col.title} $value")
-                } }
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val fixedWidth=44.dp
+        val natalWidth=(maxWidth-fixedWidth)/4
+        val widths=columns.mapIndexed { index,col -> if(index<4) natalWidth else maxOf(80,(col.fields.getValue("神煞").lines().maxOfOrNull { it.length } ?: 0)*11+12).dp }
+        val heights=names.map { name -> when(name) {
+            "神煞"->(columns.mapIndexed { index,col -> col.fields.getValue(name).lines().sumOf { line -> kotlin.math.ceil(line.length*11.0/(widths[index].value-6).coerceAtLeast(1f)).toInt().coerceAtLeast(1) } }.max()*18+20).dp
+            "藏干","副星"->76.dp
+            else->42.dp
+        } }
+        Row(Modifier.fillMaxWidth()) {
+            Column(Modifier.width(fixedWidth)) {
+                BaziMatrixCell("\\",fixedWidth,42.dp,p.tint)
+                names.forEachIndexed { i,name -> BaziMatrixCell(name,fixedWidth,heights[i],if(i%2==0) Color(0xFFF0F1F3) else Color(0xFFE5E7EB)) }
+            }
+            Column(Modifier.horizontalScroll(rememberScrollState())) {
+                Row { columns.forEachIndexed { j,col -> BaziMatrixCell(col.title,widths[j],42.dp,p.tint) } }
+                names.forEachIndexed { i,name ->
+                    Row { columns.forEachIndexed { j,col ->
+                        val value=col.fields.getValue(name)
+                        BaziMatrixCell(value,widths[j],heights[i],if(i%2==0) Color(0xFFF0F1F3) else Color(0xFFE5E7EB),if(name=="天干" || name=="地支") baziElementColor(col.ganzhi[if(name=="天干") 0 else 1]) else p.ink,
+                            "$name ${col.title} $value")
+                    } }
+                }
             }
         }
     }
@@ -190,16 +190,23 @@ private val BaziSelectionSaver=listSaver<BaziTransit.Selection,Int>(
     var selected by remember(values) { mutableStateOf<Pair<Boolean,BaziDetails.RelationEdge>?>(null) }
     var node by remember(values) { mutableStateOf<Pair<Boolean,Int>?>(null) }
     val width=76.dp*values.size
+    fun active(edge:BaziDetails.RelationEdge,gan:Boolean)=selected==(gan to edge) || node?.let { it.first==gan && (it.second==edge.from || it.second==edge.to) }==true
+    fun toggleRelation(edge:BaziDetails.RelationEdge,gan:Boolean) { node=null;selected=if(selected==(gan to edge)) null else gan to edge }
     Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Column(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-            diagram.first.sortedWith(compareBy({ minOf(it.from,it.to) },{ maxOf(it.from,it.to) })).forEach { edge -> BaziRelationLine(edge,true,values,labels,width,node?.let { it.first && (it.second==edge.from || it.second==edge.to) }==true) { selected=true to edge } }
+            diagram.first.sortedWith(compareBy({ minOf(it.from,it.to) },{ maxOf(it.from,it.to) })).forEach { edge -> BaziRelationLine(edge,true,values,labels,width,active(edge,true)) { toggleRelation(edge,true) } }
+            Row(Modifier.width(width).padding(top=12.dp)) {
+                Text("原局 · 四柱",Modifier.width(76.dp*4).background(p.tint).padding(horizontal=10.dp,vertical=7.dp),fontSize=11.sp,color=p.muted)
+                if(values.size>4) Text("岁运 · 当前",Modifier.width(76.dp*(values.size-4)).background(p.accent.copy(alpha=.08f)).padding(horizontal=10.dp,vertical=7.dp),fontSize=11.sp,color=p.muted)
+            }
             Row(Modifier.width(width).padding(vertical=9.dp)) {
                 values.forEachIndexed { i,gz ->
                     Column(Modifier.width(76.dp).padding(horizontal=4.dp).background(if(i==2) p.tint else p.background,RoundedCornerShape(8.dp)).padding(vertical=9.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(7.dp)) {
                         Text(labels[i],color=p.muted,fontSize=11.sp)
                         listOf(true,false).forEach { gan ->
                             val value=gz[if(gan) 0 else 1]
-                            Surface(Modifier.size(36.dp).selectable(node==(gan to i),role=Role.Button,onClick={node=if(node==(gan to i)) null else gan to i}).semantics { contentDescription="定位${labels[i]}${if(gan) "天干" else "地支"}$value" },color=if(node==(gan to i)) p.tint else Color.White,shape=RoundedCornerShape(8.dp),border=BorderStroke(1.dp,p.border)) {
+                            val target=node==(gan to i) || selected?.let { it.first==gan && (it.second.from==i || it.second.to==i) }==true
+                            Surface(Modifier.size(36.dp).selectable(node==(gan to i),role=Role.Button,onClick={selected=null;node=if(node==(gan to i)) null else gan to i}).semantics { contentDescription="定位${labels[i]}${if(gan) "天干" else "地支"}$value" },color=if(target) p.tint else Color.White,shape=RoundedCornerShape(8.dp),border=BorderStroke(if(target) 2.dp else 1.dp,if(target) p.primary else p.border)) {
                                 Box(contentAlignment=Alignment.Center) { Text(value.toString(),color=baziElementColor(value),fontSize=20.sp,fontWeight=FontWeight.SemiBold) }
                             }
                         }
@@ -207,14 +214,15 @@ private val BaziSelectionSaver=listSaver<BaziTransit.Selection,Int>(
                     }
                 }
             }
-            diagram.second.sortedWith(compareBy({ minOf(it.from,it.to) },{ maxOf(it.from,it.to) })).forEach { edge -> BaziRelationLine(edge,false,values,labels,width,node?.let { !it.first && (it.second==edge.from || it.second==edge.to) }==true) { selected=false to edge } }
+            diagram.second.sortedWith(compareBy({ minOf(it.from,it.to) },{ maxOf(it.from,it.to) })).forEach { edge -> BaziRelationLine(edge,false,values,labels,width,active(edge,false)) { toggleRelation(edge,false) } }
         }
         Text(if(diagram.first.isEmpty() && diagram.second.isEmpty()) "暂无可显示的干支关系" else "点关系，查看基础含义 · 左右滑动查看完整柱位 ↔",color=p.muted,fontSize=11.sp,lineHeight=18.sp)
     }
     selected?.let { (gan,edge) ->
         val index=if(gan) 0 else 1
+        val kind=if(gan) "天干" else "地支"
         AlertDialog(onDismissRequest={selected=null},title={Text("${edge.label} · 关系说明")},text={Column(verticalArrangement=Arrangement.spacedBy(14.dp)) {
-            Text("${labels[edge.from]} ${if(gan) "天干" else "地支"} ${values[edge.from][index]} ↔ ${labels[edge.to]} ${values[edge.to][index]}")
+            Text("${labels[edge.from]} $kind ${values[edge.from][index]} ↔ ${labels[edge.to]} $kind ${values[edge.to][index]}")
             Text(baziRelationMeaning(edge,values[edge.from][index]==values[edge.to][index]))
         }},confirmButton={TextButton(onClick={selected=null}) { Text("关闭") }})
     }

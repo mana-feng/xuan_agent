@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -24,8 +25,11 @@ import com.xuan.core.*
 
 private data class WebQimenCell(val number:Int,val name:String,val direction:String,val element:String)
 private val webQimenCells=listOf(WebQimenCell(4,"巽","东南","木"),WebQimenCell(9,"离","南","火"),WebQimenCell(2,"坤","西南","土"),WebQimenCell(3,"震","东","木"),WebQimenCell(5,"中","中宫","土"),WebQimenCell(7,"兑","西","金"),WebQimenCell(8,"艮","东北","土"),WebQimenCell(1,"坎","北","水"),WebQimenCell(6,"乾","西北","金"))
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable fun WebQimenResult(record:SavedChart,onAsk:()->Unit) {
     val p=LocalWebPalette.current
+    val originalZone=record.result.metadata["原始时区"]?:record.input.timeZone
+    val originalCivil=record.result.metadata["原始输入"]?:record.input.civil
     val chart=remember(record.input) { runCatching { QimenEngine().chart(record.input) }.getOrNull() }
     var list by rememberSaveable(record.id) { mutableStateOf(false) }
     var selected by rememberSaveable(record.id) { mutableStateOf(2) }
@@ -45,7 +49,7 @@ private val webQimenCells=listOf(WebQimenCell(4,"巽","东南","木"),WebQimenCe
             QimenSummaryLine("北京时间 · UTC+08:00",chart.beijing.toString().replace('T',' '))
             QimenSummaryLine("四柱",chart.pillars.list().joinToString("　"))
             QimenSummaryLine("值符 / 值使","${chart.zhiFuStar} ${chart.zhiFuPalace}宫 / ${chart.zhiShiDoor} ${chart.zhiShiPalace}宫")
-            if(record.input.timeZone!="Asia/Shanghai") Text("输入时刻：${record.input.civil} · ${record.input.timeZone}",fontSize=11.sp,color=p.muted)
+            if(originalZone!="Asia/Shanghai") Text("输入时刻：$originalCivil · $originalZone",fontSize=11.sp,color=p.muted)
         }
         Surface(color=Color.White,shape=RoundedCornerShape(14.dp),border=BorderStroke(1.dp,p.border)) {
             Column(Modifier.fillMaxWidth().padding(12.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
@@ -54,11 +58,16 @@ private val webQimenCells=listOf(WebQimenCell(4,"巽","东南","木"),WebQimenCe
                     Row(horizontalArrangement=Arrangement.spacedBy(4.dp)) { WebPill("九宫",!list) { list=false };WebPill("列表",list) { list=true } }
                 }
                 if(list) {
-                    webQimenCells.forEach { cell -> QimenCell(chart,cell,cell.number==selected,true,Modifier.fillMaxWidth()) { selected=cell.number;details=true } }
+                    webQimenCells.chunked(2).forEach { row ->
+                        Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(5.dp)) {
+                            row.forEach { cell -> QimenCell(chart,cell,cell.number==selected,true,Modifier.weight(1f).heightIn(min=150.dp)) { selected=cell.number;details=true } }
+                            if(row.size==1) Spacer(Modifier.weight(1f))
+                        }
+                    }
                 } else {
                     Column(verticalArrangement=Arrangement.spacedBy(5.dp)) {
                         webQimenCells.chunked(3).forEach { row -> Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(5.dp)) {
-                            row.forEach { cell -> QimenCell(chart,cell,cell.number==selected,false,Modifier.weight(1f).height(157.dp)) { selected=cell.number;details=true } }
+                            row.forEach { cell -> QimenCell(chart,cell,cell.number==selected,false,Modifier.weight(1f).heightIn(min=157.dp)) { selected=cell.number;details=true } }
                         } }
                     }
                 }
@@ -77,31 +86,46 @@ private val webQimenCells=listOf(WebQimenCell(4,"巽","东南","木"),WebQimenCe
             if(rules) {
                 Text("时家转盘 · 符头拆补，统一北京时间 UTC+08:00 起局，23:00 换日，按精确交节时刻切换节气。",fontSize=12.sp,color=p.muted,lineHeight=21.sp)
                 Text("中五寄坤二，天禽随芮。暗干采用时干加值使真实落宫，三奇六仪按宫数阳顺阴逆；值使入中五从五宫起算，门显示寄坤二。",fontSize=12.sp,color=p.muted,lineHeight=21.sp)
-                Text("输入时刻：${record.input.civil}（${record.input.timeZone}）。\n规则版本 qimen-civil-v1 · qfdk/qimen / xuan-1",fontSize=11.sp,color=p.muted,lineHeight=21.sp)
+                Text("输入时刻：$originalCivil（$originalZone）。\n规则版本 qimen-civil-v1 · qfdk/qimen / xuan-1",fontSize=11.sp,color=p.muted,lineHeight=21.sp)
             }
         }
     }
     if(details) {
         val cell=webQimenCells.first { it.number==selected }
-        AlertDialog(onDismissRequest={details=false},title={Column(verticalArrangement=Arrangement.spacedBy(5.dp)) {
-            Text("当前选中",fontSize=10.sp,color=p.muted)
-            Text("${cell.name}$selected 宫",fontFamily=FontFamily.Serif,fontSize=24.sp,color=p.ink)
-            Text("${cell.direction} · ${cell.element}",fontSize=12.sp,color=p.muted)
-        }},text={Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(13.dp)) {
-            listOf("九星" to chart.stars[selected],"八门" to chart.doors[selected],"八神" to chart.spirits[selected],"天盘干" to if(selected==5) "—" else chart.heaven[selected],"地盘干" to chart.earth[selected],"暗干" to chart.hidden[selected]).forEach { (key,value) ->
-                Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) { Text(key,fontSize=12.sp,color=p.muted);Text(value.orEmpty().ifBlank { "—" },color=p.ink,fontSize=16.sp) }
+        val maxHeight=(LocalConfiguration.current.screenHeightDp*.85f).dp
+        ModalBottomSheet(onDismissRequest={details=false},sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),dragHandle=null,
+            containerColor=Color.White,shape=RoundedCornerShape(topStart=20.dp,topEnd=20.dp)) {
+            Column(Modifier.fillMaxWidth().heightIn(max=maxHeight).verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+                Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(5.dp)) {
+                        Text("当前选中",fontSize=10.sp,color=p.muted)
+                        Text("${cell.name}$selected 宫",fontFamily=FontFamily.Serif,fontSize=24.sp,color=p.ink)
+                        Text("${cell.direction} · ${cell.element}",fontSize=12.sp,color=p.muted)
+                    }
+                    OutlinedButton(onClick={details=false}) { Text("关闭 ×") }
+                }
+                val fields=listOf("九星" to chart.stars[selected],"八门" to chart.doors[selected],"八神" to chart.spirits[selected],"天盘干" to if(selected==5) "—" else chart.heaven[selected],"地盘干" to chart.earth[selected],"暗干" to chart.hidden[selected])
+                fields.chunked(3).forEach { row ->
+                    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+                        row.forEach { (key,value) -> Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(7.dp)) {
+                            Text(key,fontSize=12.sp,color=p.muted);Text(value.orEmpty().ifBlank { "—" },color=p.ink,fontSize=18.sp)
+                        } }
+                    }
+                }
+                HorizontalDivider(color=p.border)
+                if(selected==5) Text("中宫不单独排门、神。天禽随天芮转动，中五寄干随芮同宫。",fontSize=13.sp,color=p.muted,lineHeight=23.sp)
+                else if(selected==2) Text("中宫地盘寄于坤二，天禽与中五天盘寄干随天芮转动。",fontSize=13.sp,color=p.muted,lineHeight=23.sp)
+                val marks=qimenMarks(chart,selected)
+                if(marks.isNotEmpty()) Text(marks.joinToString(" · "),fontSize=12.sp,color=p.primary)
+                Text("旬空 ${chart.emptyBranches.joinToString("")} · 驿马 ${chart.horseBranch}",fontSize=11.sp,color=p.muted)
+                Spacer(Modifier.height(8.dp))
             }
-            HorizontalDivider(color=p.border)
-            if(selected==5) Text("中宫不单独排门、神。天禽随天芮转动，中五寄干随芮同宫。",fontSize=12.sp,color=p.muted,lineHeight=21.sp)
-            else if(selected==2) Text("中宫地盘寄于坤二，天禽与中五天盘寄干随天芮转动。",fontSize=12.sp,color=p.muted,lineHeight=21.sp)
-            val marks=qimenMarks(chart,selected)
-            if(marks.isNotEmpty()) Text(marks.joinToString(" · "),fontSize=12.sp,color=p.primary)
-            Text("旬空 ${chart.emptyBranches.joinToString("")} · 驿马 ${chart.horseBranch}",fontSize=11.sp,color=p.muted)
-        }},confirmButton={TextButton(onClick={details=false}) { Text("关闭 ×") }})
+        }
     }
 }
 @Composable private fun QimenSummaryLine(label:String,value:String) {
     val p=LocalWebPalette.current
+
     Column(verticalArrangement=Arrangement.spacedBy(5.dp)) { Text(label,fontSize=11.sp,color=p.muted);Text(value,fontSize=14.sp,color=p.ink,lineHeight=22.sp) }
 }
 private fun qimenMarks(chart:QimenChart,n:Int)=if(n==5) emptyList() else listOfNotNull(if(chart.zhiFuPalace==n) "符" else null,if(chart.zhiShiPalace==n) "使" else null,if(n in chart.emptyPalaces) "空" else null,if(chart.horsePalace==n) "马" else null)
@@ -119,7 +143,7 @@ private fun qimenMarks(chart:QimenChart,n:Int)=if(n==5) emptyList() else listOfN
                 Text("天禽随芮",fontSize=10.sp,color=p.muted,modifier=Modifier.align(Alignment.CenterHorizontally))
             } else {
                 Text(chart.spirits[n].orEmpty(),fontSize=12.sp,color=p.secondary)
-                Row(Modifier.fillMaxWidth(),horizontalArrangement=if(list) Arrangement.spacedBy(20.dp) else Arrangement.SpaceBetween) {
+                Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {
                     Text(chart.stars[n].orEmpty(),fontSize=15.sp,color=p.ink,fontFamily=FontFamily.Serif)
                     Text(chart.doors[n].orEmpty(),fontSize=15.sp,color=p.primary,fontWeight=FontWeight.SemiBold,fontFamily=FontFamily.Serif)
                 }

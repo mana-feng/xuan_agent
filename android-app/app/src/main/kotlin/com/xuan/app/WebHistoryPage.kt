@@ -29,7 +29,8 @@ import java.time.format.DateTimeFormatter
     var pendingChat by remember { mutableStateOf<Conversation?>(null) }
     val queryTrimmed=query.trim()
     val charts=state.records.filter { record ->
-        (type=="all" || type==record.result.type) && (gender==null || record.result.type!="qimen" && record.input.gender==gender) &&
+        (type=="all" || type==record.result.type) && (gender==null || record.result.type!="qimen" && record.input.gender==gender &&
+            (record.result.type!="liuyao" || record.result.metadata["性别填写"]!="false")) &&
             "${record.result.title} ${record.input.title} ${record.input.civil} ${chartTypeName(record.result.type)}".contains(queryTrimmed,true)
     }.let { records ->
         val ordered=if(sortName) records.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.result.title }) else records.sortedBy { it.createdAt }

@@ -31,8 +31,7 @@ private val formSubtitles=mapOf("bazi" to "从出生时刻出发，了解你的�
  val p=LocalWebPalette.current;val type=state.chartType;val input=state.form;val o=state.options
  var dateOpen by rememberSaveable(type) { mutableStateOf(false) }
  LaunchedEffect(type,o.useNow) { if(type=="qimen" && o.useNow) while(true) {
-  val now=LocalDateTime.now(runCatching { ZoneId.of(model.state.value.form.timeZone) }.getOrDefault(ZoneId.of("Asia/Shanghai"))).format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"))
-  if(model.state.value.form.civil!=now) model.editForm(model.state.value.form.copy(civil=now))
+  model.tickCurrentTime()
   kotlinx.coroutines.delay(1000)
  } }
  fun changeCalendar(lunar:Boolean) {
@@ -57,8 +56,13 @@ private val formSubtitles=mapOf("bazi" to "从出生时刻出发，了解你的�
   }
   WebCard {
    WebSectionTitle(if(type=="qimen") "01  这一局，想问什么" else "${if(type in listOf("bazi","ziwei")) "人" else "问"}  基本信息")
-   WebField(input.title,{model.editForm(input.copy(title=it.take(if(type in listOf("bazi","ziwei"))30 else 100)))},when(type){"bazi","ziwei"->"称呼  选填";"liuyao"->"占卜事项";else->"问题或记录名称  选填"},when(type){"bazi","ziwei"->"怎么称呼你？";"liuyao"->"例如：这次工作机会适合我吗？";else->"例如：新项目应该如何安排？"})
-   if(type!="qimen") { Text("性别",fontSize=13.sp,color=p.ink);WebSegments(listOf("男","女"),input.gender){model.editForm(input.copy(gender=it))} }
+   WebField(input.title,{model.editForm(input.copy(title=it.take(when(type){"bazi","ziwei"->30;"liuyao"->200;else->100})))},when(type){"bazi","ziwei"->"称呼  选填";"liuyao"->"想问的事";else->"问题或记录名称  选填"},when(type){"bazi","ziwei"->"怎么称呼你？";"liuyao"->"例如：这次合作的推进情况如何？";else->"例如：新项目应该如何安排？"},singleLine=type!="liuyao")
+   if(type=="liuyao") {
+    Text("性别  选填",fontSize=13.sp,color=p.ink)
+    WebSegments(listOf("未填写","男","女"),if(o.genderSet)input.gender+1 else 0){ choice->
+     model.editOptions(o.copy(genderSet=choice!=0));model.editForm(input.copy(gender=if(choice==2)1 else 0))
+    }
+   } else if(type!="qimen") { Text("性别",fontSize=13.sp,color=p.ink);WebSegments(listOf("男","女"),input.gender){model.editForm(input.copy(gender=it))} }
    HorizontalDivider(Modifier.padding(vertical=3.dp),color=p.border)
    Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
     Text(if(type in listOf("bazi","ziwei")) "出生时间" else if(type=="qimen") "起局时间" else "起卦时间",fontSize=17.sp,fontFamily=FontFamily.Serif,color=p.ink,modifier=Modifier.weight(1f))
@@ -71,15 +75,12 @@ private val formSubtitles=mapOf("bazi" to "从出生时刻出发，了解你的�
      Column(verticalArrangement=Arrangement.spacedBy(4.dp)) {
       Text(if(o.useNow) "当前时间 · 自动更新" else if(o.lunarInput) "农历日期 · 精确到分钟" else "公历日期 · 精确到分钟",fontSize=10.sp,color=p.muted)
       Text(input.civil.substringBefore(' ').replace("-"," / ")+(if(o.lunarInput && o.leap) " 闰月" else ""),fontSize=15.sp,color=p.ink)
-      Text(input.civil.substringAfter(' ',"00:00").take(5),fontSize=28.sp,color=p.primary)
+      Text(input.civil.substringAfter(' ',"00:00").take(if(type=="qimen")8 else 5),fontSize=28.sp,color=p.primary)
      }
     }
     HorizontalDivider(color=p.border)
     OutlinedButton(onClick={dateOpen=true},modifier=Modifier.fillMaxWidth(),shape=RoundedCornerShape(7.dp),colors=ButtonDefaults.outlinedButtonColors(containerColor=Color.White)) { Text("修改时间",fontSize=12.sp) }
-    if(type in listOf("liuyao","qimen")) TextButton(onClick={
-     val now=LocalDateTime.now(runCatching { ZoneId.of(input.timeZone) }.getOrDefault(ZoneId.of("Asia/Shanghai"))).format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"))
-     model.editOptions(o.copy(lunarInput=false,leap=false,useNow=type=="qimen",preview=emptyList()));model.editForm(input.copy(civil=now))
-    }) { Text("恢复现在",fontSize=11.sp) }
+    if(type in listOf("liuyao","qimen")) TextButton(onClick=model::restoreNow) { Text("恢复现在",fontSize=11.sp) }
     val alternate=remember(input.civil,o.lunarInput,o.leap) { runCatching {
      val solar=ChartDraft.resolve(input,o.copy(overlapChoice="earlier")).civil
      if(o.lunarInput) "对应公历  ${solar.substringBefore(' ')}" else CalendarEngine().lunar(LocalDate.parse(solar.substringBefore(' '))).let { "对应农历  ${it.year}年${if(it.isLeap)"闰" else ""}${it.month}月${it.day}日" }
@@ -97,7 +98,7 @@ private val formSubtitles=mapOf("bazi" to "从出生时刻出发，了解你的�
    if(type=="ziwei") Text("23:00—23:59 为晚子时，按次日排盘；闰月十五日后按下月安星。",fontSize=11.sp,color=p.muted,lineHeight=19.sp)
    if(type=="liuyao") WebCastingForm(state,model)
    Text(if(type=="qimen") "按所选时区确认时刻后，统一换算为北京时间起局。" else "确认信息后生成${if(type=="liuyao") "卦象" else "命盘"}，再结合 AI 对话逐步解读。",fontSize=11.sp,color=p.muted,lineHeight=20.sp)
-   WebPrimaryButton(if(state.busy) "正在排盘…" else if(type=="qimen") "开始起局  ↗" else if(type=="liuyao") "开始排盘  →" else "开始排盘  →",{model.calculate()},!state.busy)
+   WebPrimaryButton(if(state.busy) "正在排盘…" else if(type=="qimen") "开始起局  ↗" else if(type=="liuyao") "开始排盘  →" else "开始排盘  →",{model.calculate()},!state.busy && ChartDraft.canSubmit(type,input,o))
    if(type=="liuyao") TextButton(onClick=model::resetForm){Text("重置信息",fontSize=11.sp)}
   }
   WebCard {
@@ -158,9 +159,9 @@ private val formSubtitles=mapOf("bazi" to "从出生时刻出发，了解你的�
    "在线起卦"->{Text("心念专注，从初爻开始，每次摇出一爻。",fontSize=12.sp,color=p.muted);LinearProgressIndicator(progress={o.preview.size/6f},modifier=Modifier.fillMaxWidth());Text("${o.preview.size} / 6 爻",fontSize=12.sp,color=p.primary)}
    "手工指定","手动"->{Text("自下而上记录，点击每爻选择阴阳动静。",fontSize=12.sp,color=p.muted);for(i in 5 downTo 0) OutlinedButton(onClick={choice=i},modifier=Modifier.fillMaxWidth(),shape=RoundedCornerShape(7.dp)){Text("${yaoLabel(i)}　${yaoGlyph(o.manual.getOrElse(i){-1})}",fontSize=14.sp)}}
    "时间起卦","时间"->Text("按所选时间和排盘口径生成卦象。",fontSize=12.sp,color=p.muted)
-   "单数起卦"->WebField(o.numbers,{model.editOptions(o.copy(numbers=it.filter(Char::isDigit).take(20),preview=emptyList()))},"一组数字","请输入数字")
-   "双数起卦"->{val n=o.numbers.split('|');WebField(n.getOrElse(0){""},{model.editOptions(o.copy(numbers=it.filter(Char::isDigit).take(20)+"|"+n.getOrElse(1){""},preview=emptyList()))},"第一组数字");WebField(n.getOrElse(1){""},{model.editOptions(o.copy(numbers=n.getOrElse(0){""}+"|"+it.filter(Char::isDigit).take(20),preview=emptyList()))},"第二组数字")}
-   "汉字起卦"->WebField(o.chars,{model.editOptions(o.copy(chars=it.take(40),preview=emptyList()))},"输入汉字","至少 2 个汉字，按笔画数起卦")
+   "单数起卦"->WebField(o.numbers,{model.editOptions(o.copy(numbers=it.filter(Char::isDigit).take(12),preview=emptyList()))},"一组数字","请输入数字")
+   "双数起卦"->{val n=o.numbers.split('|');WebField(n.getOrElse(0){""},{model.editOptions(o.copy(numbers=it.filter(Char::isDigit).take(12)+"|"+n.getOrElse(1){""},preview=emptyList()))},"第一组数字");WebField(n.getOrElse(1){""},{model.editOptions(o.copy(numbers=n.getOrElse(0){""}+"|"+it.filter(Char::isDigit).take(12),preview=emptyList()))},"第二组数字")}
+   "汉字起卦"->WebField(o.chars,{model.editOptions(o.copy(chars=it.take(10),preview=emptyList()))},"输入汉字","至少 2 个汉字，按笔画数起卦")
    "卦名起卦"->{OutlinedButton(onClick={guaPicker=1},modifier=Modifier.fillMaxWidth()){Text("本卦：${LiuyaoCasting.guaNames[o.mainGua]?:"请选择"}")};OutlinedButton(onClick={guaPicker=2},modifier=Modifier.fillMaxWidth()){Text("变卦：${LiuyaoCasting.guaNames[o.changedGua]?:"无变卦"}")}}
    "数字"->WebField(o.numbers,{model.editOptions(o.copy(numbers=it,preview=emptyList()))},"上卦、下卦、动爻（可选）")
   }
@@ -190,10 +191,14 @@ fun yaoGlyph(n:Int)=when(n){0->"━　━  少阴";1->"━━━━  少阳";3->
   if(options.lunarInput) Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(leap,{leap=it;error=""});Text("闰月",fontSize=13.sp)}
   Text("时间  24 小时制",fontSize=12.sp,color=p.ink)
   Row(horizontalArrangement=Arrangement.spacedBy(10.dp),verticalAlignment=Alignment.CenterVertically) {DateNumber(hour,{hour=it;error=""},"小时",Modifier.weight(1f));Text(":");DateNumber(minute,{minute=it;error=""},"分钟",Modifier.weight(1f))}
+  val draftCivil=runCatching {civil()}.getOrNull()
+  val liveError=if(draftCivil==null) "请填写完整的年、月、日、时、分" else ChartDraft.dateEditorError(input.copy(civil=draftCivil),options.copy(leap=leap))
+  val canConfirm=liveError.isEmpty()
   val hint=runCatching {val solar=ChartDraft.resolve(input.copy(civil=civil()),options.copy(leap=leap,overlapChoice="earlier")).civil;val ld=CalendarEngine().lunar(LocalDate.parse(solar.substringBefore(' ')));if(options.lunarInput)"对应公历 $solar" else "农历 ${ld.year}年${if(ld.isLeap)"闰" else ""}${ld.month}月${ld.day}日"}.getOrNull()
   Text(hint?:"请填写 1900—2099 年内有效的日期时间",fontSize=11.sp,color=p.muted,lineHeight=19.sp)
-  if(error.isNotEmpty()) Text(error,color=MaterialTheme.colorScheme.error,fontSize=12.sp)
-  Row(horizontalArrangement=Arrangement.spacedBy(10.dp),verticalAlignment=Alignment.CenterVertically) {OutlinedButton(onClick=onDismiss){Text("取消")};Box(Modifier.weight(1f)){WebPrimaryButton("确认时间  →",{try{val c=civil();ChartDraft.resolve(input.copy(civil=c),options.copy(leap=leap));onConfirm(c,leap)}catch(e:Exception){error=e.message?:"日期时间无效"}})}}
+  val visibleError=error.ifEmpty {if(year.length==4 && listOf(month,day,hour,minute).all {it.isNotBlank()}) liveError else ""}
+  if(visibleError.isNotEmpty()) Text(visibleError,color=MaterialTheme.colorScheme.error,fontSize=12.sp)
+  Row(horizontalArrangement=Arrangement.spacedBy(10.dp),verticalAlignment=Alignment.CenterVertically) {OutlinedButton(onClick=onDismiss){Text("取消")};Box(Modifier.weight(1f)){WebPrimaryButton("确认时间  →",{try{val c=civil();ChartDraft.resolve(input.copy(civil=c),options.copy(leap=leap));onConfirm(c,leap)}catch(e:Exception){error=e.message?:"日期时间无效"}},canConfirm)}}
  }}
 }
 @Composable private fun DateNumber(value:String,edit:(String)->Unit,label:String,modifier:Modifier) {Column(modifier,verticalArrangement=Arrangement.spacedBy(6.dp)){OutlinedTextField(value,{edit(it.filter(Char::isDigit).take(if(label=="年份")4 else 2))},singleLine=true,label={Text(label,fontSize=11.sp)},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),textStyle=LocalTextStyle.current.copy(fontSize=16.sp),shape=RoundedCornerShape(8.dp))}}

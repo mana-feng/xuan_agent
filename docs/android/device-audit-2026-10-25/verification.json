@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-25",
+  "branch": "android",
+  "baseline_commit": "904292c",
+  "acceptance": "same design style; independent native physical-device workflows, not exact web parity",
+  "apk": {
+    "versionName": "0.2.1",
+    "versionCode": 3,
+    "package": "com.manafeng.xuan",
+    "bytes": 9804634,
+    "sha256": "26a65695bb7f71440c3a8501e212b7fb515eb4d8f433b10609038792e87a4c9e",
+    "installed_with_data_preserved": true
+  },
+  "device": {
+    "model": "2304FPN6DC",
+    "android": "16",
+    "size": "1440x3200",
+    "density": 560,
+    "fontScale": 1.0
+  },
+  "verification": {
+    "jvm": {
+      "core": {
+        "tests": 42,
+        "failures": 0,
+        "errors": 0
+      },
+      "app": {
+        "tests": 53,
+        "failures": 0,
+        "errors": 0
+      }
+    },
+    "android_emulator": {
+      "tests": 10,
+      "failures": 0,
+      "scope": "isolated storage/UI regression, before final history-filter-only change"
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 9
+    },
+    "physical_main_flows": {
+      "bazi": "passed: screen input, calculate, save, history reopen, edit and update",
+      "ziwei": "passed: screen input, calculate, save, history reopen, edit and update",
+      "liuyao": "passed: screen input, calculate, save, history reopen, edit and update",
+      "qimen": "passed: screen input, calculate, save, history reopen, edit and update"
+    },
+    "final_install_and_reopen_all_four": "passed",
+    "synthetic_record_count_after_updates_and_restart": 4,
+    "liuyao_unspecified_gender_male_filter": {
+      "before": "incorrectly 1 result",
+      "after": "correctly no matching records"
+    },
+    "ai_handoff": "passed without sending",
+    "real_ai_requests_sent": 0,
+    "localhost_reverse_remaining": false
+  },
+  "coverage_limits": [
+    "Only partial Bazi mobile-web comparison; no claim of four paired web/native audits.",
+    "Physical Liuyao complete workflow uses manual casting; eight submission gates and additional casting algorithms are tested by JVM regressions.",
+    "UI export picker/write was not part of this physical run; export payload/snapshot tests passed."
+  ],
+  "evidence": [
+    {
+      "file": "phone021-bazi-matrix.png",
+      "bytes": 231072,
+      "sha256": "b69d4b6c9b2ab9609041274dff246e31a41a063319560f83bdc6e497c0e57890"
+    },
+    {
+      "file": "phone021-bazi-matrix.xml",
+      "bytes": 44923,
+      "sha256": "2bcfd518c924d2d70d2e57e464c40d1b630c40cd1a1751e283cda2f9fa977862"
+    },
+    {
+      "file": "phone021-final-four-records.png",
+      "bytes": 257181,
+      "sha256": "0eb9a562a06c1aa0cad8aec7dc542cd6ba84d5e11948213837667ee51fd08ddb"
+    },
+    {
+      "file": "phone021-final-four-records.xml",
+      "bytes": 32640,
+      "sha256": "1a33730c77cf5a4934ae7994ee3224b45c9c1784c2f36c2df652da5cb166425c"
+    },
+    {
+      "file": "phone021-final-qimen-board.png",
+      "bytes": 273156,
+      "sha256": "bf71d8411dea8bc1234dad5738e1863f16babbda96ce0e3e1ff9694be2f64256"
+    },
+    {
+      "file": "phone021-final-qimen-board.xml",
+      "bytes": 43760,
+      "sha256": "340fa59992b4621679c5541a4c4d09465c75b154ed76db19527d2c30c695a8db"
+    },
+    {
+      "file": "phone021-liuyao-five-lines-blocked.png",
+      "bytes": 297079,
+      "sha256": "236c4ec4ad3804abb05c1dcbde1051d1eda5680180bbd9fedb48c94d91fb7cf0"
+    },
+    {
+      "file": "phone021-liuyao-five-lines-blocked.xml",
+      "bytes": 23059,
+      "sha256": "424906e1c2ad799dacb9dd826348b037a40584e481b366fc6d254ac19eea532d"
+    },
+    {
+      "file": "phone021-liuyao-raw-lines.png",
+      "bytes": 348802,
+      "sha256": "f392b3b0cb17bc228227f2ed5b9b7bb77d4188ca46a178e336c0b4bef2a2399e"
+    },
+    {
+      "file": "phone021-liuyao-raw-lines.xml",
+      "bytes": 21985,
+      "sha256": "7cfdc2e815350dfd2591ecadb83284d3deb8500cc1161a6d8a810c3c97272886"
+    },
+    {
+      "file": "phone021-liuyao-unspecified-gender-filter-after.png",
+      "bytes": 257582,
+      "sha256": "0867a416adfa11b32805c0882b99f625e3e651a54d44a3c7bd226ba02f665f8a"
+    },
+    {
+      "file": "phone021-liuyao-unspecified-gender-filter-after.xml",
+      "bytes": 25738,
+      "sha256": "952a2ced2ecab5e3ef1b459615a6273d8676f7eb9d279c1d101a0d85a0478c6d"
+    },
+    {
+      "file": "phone021-liuyao-unspecified-gender-filter-before.png",
+      "bytes": 255917,
+      "sha256": "8738c727a57e1582b23debebc0dc9e7ec0e20de79a26d6c63bd52b7147f85254"
+    },
+    {
+      "file": "phone021-liuyao-unspecified-gender-filter-before.xml",
+      "bytes": 29996,
+      "sha256": "ef20973080251701ade4bcffda22b5f10e69f06a3678cfc9ed0c3b04a2bf82d4"
+    },
+    {
+      "file": "phone021-qimen-list.png",
+      "bytes": 252818,
+      "sha256": "55a768ef798a54c0ec7d86707afa4e9cdbf303194949bf63b207b4eb611316ba"
+    },
+    {
+      "file": "phone021-qimen-list.xml",
+      "bytes": 30792,
+      "sha256": "50f260d865c4206bc6deda95c04e112becba7abeafa6f6806e8f4d73cae6f908"
+    },
+    {
+      "file": "phone021-qimen-palace-details.png",
+      "bytes": 222863,
+      "sha256": "f8e20305108249c87d5bb3bd5f3e833e08d5685b87dfd5477825e24731d61723"
+    },
+    {
+      "file": "phone021-qimen-palace-details.xml",
+      "bytes": 9339,
+      "sha256": "8de2e5ecfbe635faee6917fefeebd574bbe17a490d6a3fce3da2c5cff8c6bf46"
+    },
+    {
+      "file": "phone021-ziwei-board.png",
+      "bytes": 327464,
+      "sha256": "5152cb94e81116fb7a5fc34b47d7aeee853b937bed73e1c4f836adc26e790e79"
+    },
+    {
+      "file": "phone021-ziwei-board.xml",
+      "bytes": 61934,
+      "sha256": "87de5ebf33bdbfed7304a9a492a07770481fe82a5f51af424e1ea661d0428ce8"
+    }
+  ]
+}

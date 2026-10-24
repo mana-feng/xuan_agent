@@ -22,7 +22,7 @@ New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
 $classes = Join-Path $OutputDirectory ([Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $classes | Out-Null
 $main = @(Get-ChildItem (Join-Path $androidRoot 'core/src/main/kotlin') -Recurse -Filter '*.kt' | ForEach-Object FullName)
-$main += @('AppModels.kt','BackupCodec.kt','AiProtocol.kt','AiStream.kt','WebAiProviders.kt','ChartDraft.kt','ToonCodec.kt','ChatDelivery.kt','AgentActions.kt') | ForEach-Object { Join-Path $androidRoot ('app/src/main/kotlin/com/xuan/app/' + $_) }
+$main += @('AppModels.kt','BackupCodec.kt','AiProtocol.kt','AiStream.kt','WebAiProviders.kt','ChartDraft.kt','ToonCodec.kt','ChatDelivery.kt','AgentActions.kt','LiuyaoExport.kt','ZiweiExport.kt','ZiweiViewState.kt') | ForEach-Object { Join-Path $androidRoot ('app/src/main/kotlin/com/xuan/app/' + $_) }
 $testRoot = Join-Path $androidRoot 'app/src/test/kotlin'
 $tests = @(Get-ChildItem $testRoot -Recurse -Filter '*Test.kt')
 if ($TestClasses.Count -eq 0) { $TestClasses = @($tests | ForEach-Object { 'com.xuan.app.' + $_.BaseName }) }

@@ -77,4 +77,42 @@ class BaziTransitTest {
         assertTrue(engine.months(2102).isEmpty())
         assertEquals(12,engine.months(2101).size)
     }
+    @Test fun tappingSelectedCycleClearsAllTransitColumnsAndLists() {
+        val state=BaziTransit.Selection(cycle=3,year=2,month=5,day=8,time=2)
+        val cleared=engine.select(state,BaziTransit.Level.CYCLE,3)
+        assertEquals(BaziTransit.Selection(-1,-1,-1,-1,-1),cleared)
+        assertTrue(engine.years(cleared).isEmpty())
+        assertTrue(engine.months(cleared).isEmpty())
+        assertTrue(engine.days(cleared).isEmpty())
+        assertTrue(engine.times(cleared).isEmpty())
+        val selected=engine.select(cleared,BaziTransit.Level.CYCLE,3)
+        assertEquals(BaziTransit.Selection(cycle=3),selected)
+        assertEquals(10,engine.years(selected).size)
+        assertFalse(engine.days(selected).isEmpty())
+    }
+    @Test fun tappingSelectedYearKeepsCycleAndClearsYearAndDescendants() {
+        val state=BaziTransit.Selection(cycle=3,year=2,month=5,day=8,time=2)
+        val cleared=engine.select(state,BaziTransit.Level.YEAR,2)
+        assertEquals(BaziTransit.Selection(3,-1,-1,-1,-1),cleared)
+        assertEquals(10,engine.years(cleared).size)
+        assertTrue(engine.months(cleared).isEmpty())
+        assertTrue(engine.days(cleared).isEmpty())
+        assertEquals(BaziTransit.Selection(3,2,0,0,0),engine.select(cleared,BaziTransit.Level.YEAR,2))
+    }
+    @Test fun tappingSelectedMonthKeepsParentsAndClearsMonthAndDay() {
+        val state=BaziTransit.Selection(cycle=3,year=2,month=5,day=8,time=2)
+        val cleared=engine.select(state,BaziTransit.Level.MONTH,5)
+        assertEquals(BaziTransit.Selection(3,2,-1,-1,-1),cleared)
+        assertEquals(12,engine.months(cleared).size)
+        assertTrue(engine.days(cleared).isEmpty())
+        assertEquals(BaziTransit.Selection(3,2,5,0,0),engine.select(cleared,BaziTransit.Level.MONTH,5))
+    }
+    @Test fun tappingSelectedDayKeepsParentsAndRemovesDayColumn() {
+        val state=BaziTransit.Selection(cycle=3,year=2,month=5,day=8,time=2)
+        val cleared=engine.select(state,BaziTransit.Level.DAY,8)
+        assertEquals(BaziTransit.Selection(3,2,5,-1,-1),cleared)
+        assertFalse(engine.days(cleared).isEmpty())
+        assertTrue(engine.times(cleared).isEmpty())
+        assertEquals(BaziTransit.Selection(3,2,5,8,0),engine.select(cleared,BaziTransit.Level.DAY,8))
+    }
 }

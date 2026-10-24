@@ -68,7 +68,17 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
         mutable.update {it.copy(contextItems=labels)}
     }
     fun viewResult(){ mutable.update { it.copy(page=it.chartType,showResult=it.result!=null) } }
-    fun editResult(){ mutable.update { it.copy(showResult=false,editingId=it.result?.id) } }
+    fun editResult(){ calculationEpoch++;mutable.update { it.copy(showResult=false,editingId=it.result?.id,options=it.options.copy(useNow=false)) } }
+    /** Clock refreshes are display updates, not edits that invalidate an in-flight calculation. */
+    fun tickCurrentTime() {
+        val current=state.value
+        if(current.chartType!="qimen" || !current.options.useNow || current.busy || current.showResult) return
+        runCatching { ChartDraft.currentTime(current.form,true) }.onSuccess { form->mutable.update { if(it.chartType=="qimen" && it.options.useNow && !it.busy && !it.showResult) it.copy(form=form) else it } }
+    }
+    fun restoreNow() {
+        val current=state.value
+        try { val next=ChartDraft.restoredNow(current.chartType,current.form,current.options);editOptions(next.second);editForm(next.first);clearError() } catch(e:Exception) { fail(e) }
+    }
     fun setPalette(id:String) { if(id !in WebPalettes.map { it.id }) return;preferences.edit().putString("palette",id).apply();mutable.update { it.copy(palette=id) } }
     private fun freshInput()=ChartInput(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")))
     private fun freshOptions(type:String)=FormOptions(casting=if(type=="liuyao") "电脑自动" else "时间",manual=List(6){-1},useNow=type=="qimen")
@@ -98,7 +108,11 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
     private fun fail(e:Exception) { mutable.update { it.copy(error=e.message?:"操作失败，请重试") } }
     fun calculate() {
         if(state.value.busy) return
-        val snapshot=state.value;val epoch=calculationEpoch;mutable.update { it.copy(busy=true,error="") }
+        val current=state.value
+        val snapshot=try { current.copy(form=ChartDraft.calculationTime(current.chartType,current.form,current.options)) } catch(e:Exception) { fail(e);return }
+        val validationError=ChartDraft.validationError(snapshot.chartType,snapshot.form,snapshot.options)
+        if(validationError.isNotEmpty()) { reportError(validationError);return }
+        val epoch=calculationEpoch;mutable.update { it.copy(form=snapshot.form,busy=true,error="") }
         viewModelScope.launch {
             try {
                 val record=withContext(Dispatchers.Default) {
@@ -195,10 +209,13 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
         val conversations=if(chartId!=null) emptyList() else (store.conversations().filter { it.id!=snapshot.chat?.id }+listOfNotNull(snapshot.chat?.takeIf { it.messages.isNotEmpty() })).filter { chatId==null || it.id==chatId }
         val text=BackupCodec().encode(Archive(charts=charts,conversations=conversations));getApplication<Application>().contentResolver.openOutputStream(uri,"wt")!!.bufferedWriter().use { it.write(text) }
     };mutable.update { it.copy(notice="备份已导出，包含排盘和对话，不含 API Key") } } catch(e:Exception){fail(e)} } }
-    fun exportToon(uri:Uri,record:SavedChart) { viewModelScope.launch { try {
-        withContext(Dispatchers.IO){getApplication<Application>().contentResolver.openOutputStream(uri,"wt")!!.bufferedWriter().use { it.write(ToonCodec.encode(record)) }}
-        mutable.update { it.copy(notice="TOON 已导出") }
-    }catch(e:Exception){fail(e)} } }
+    fun exportToon(uri:Uri,record:SavedChart,payload:com.google.gson.JsonObject?=null) {
+        val frozen=ToonCodec.snapshot(record,payload)
+        viewModelScope.launch { try {
+            withContext(Dispatchers.IO){getApplication<Application>().contentResolver.openOutputStream(uri,"wt")!!.bufferedWriter().use { it.write(ToonCodec.encodeElement(frozen)) }}
+            mutable.update { it.copy(notice="TOON 已导出") }
+        }catch(e:Exception){fail(e)} }
+    }
     fun importBackup(uri:Uri) { viewModelScope.launch { try {
         val count=withContext(Dispatchers.IO) {
             val bytes=getApplication<Application>().contentResolver.openInputStream(uri)!!.use { stream ->
