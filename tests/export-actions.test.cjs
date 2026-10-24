@@ -191,13 +191,19 @@ test('Liuyao save button reports storage failure and remains retryable without a
 
 
 const { resolveObjectURL } = require('node:buffer');
+// Filenames retain the documented device-local convention; payloads retain the birth zone.
+const exportFixtureInstant = Date.parse('1992-08-17T09:30:00+08:00');
+const exportFixtureLocalMinute = new Intl.DateTimeFormat('sv-SE', {
+  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+}).format(exportFixtureInstant).replace(/\D/g, '');
 for (const type of ['bazi', 'ziwei']) {
+ for (const timeZone of ['Asia/Singapore', 'America/New_York']) {
   for (const mode of ['download', 'failure']) {
-    test(`${type} mounted export button ${mode} preserves UTF-8 content and reports the actual outcome`, async t => {
+    test(`${type} mounted export button ${mode} in ${timeZone} preserves UTF-8 content and reports the actual outcome`, async t => {
       const boundary = platform(`pages/${type === 'bazi' ? 'index/detail' : 'ziwei/result'}`);
       const mounted = mount(type === 'bazi' ? 'pages/index/detail.nvue' : 'pages/ziwei/result.nvue', undefined, () => {
         const store = type === 'bazi' ? require('../src/store/bazi.ts').useBaziStore() : require('../src/store/ziwei.ts').useZiweiStore();
-        store.pull({realname:'导出验收, "样例"\\路径',gender:0,timestamp:Date.parse('1992-08-17T09:30:00+08:00'),timeZone:'Asia/Singapore'});
+        store.pull({realname:'导出验收, "样例"\\路径',gender:0,timestamp:exportFixtureInstant,timeZone});
       });
       let blob, filename, copies = 0;
       const urls = [];
@@ -208,11 +214,11 @@ for (const type of ['bazi', 'ziwei']) {
       uni.setClipboardData = ({ success }) => { copies++; success(); };
       try {
         await tap(mounted.host, '导出 TOON');
-        assert.equal(filename, `${type}-199208170930.toon`);
+        assert.equal(filename, `${type}-${exportFixtureLocalMinute}.toon`);
         assert.equal(blob.type, 'text/plain;charset=utf-8');
         const bytes = new Uint8Array(await blob.arrayBuffer());
         const text = new TextDecoder('utf-8', {fatal:true}).decode(bytes);
-        assert.ok(text.includes('导出验收')); assert.ok(text.includes('Asia/Singapore'));
+        assert.ok(text.includes('导出验收')); assert.ok(text.includes(timeZone));
         assert.ok(text.includes('714015000000'));
         assert.equal(copies, 0, 'TOON export must never copy');
         if (mode === 'download') {
@@ -226,6 +232,7 @@ for (const type of ['bazi', 'ziwei']) {
       } finally { mounted.dispose(); urls.forEach(url => URL.revokeObjectURL(url)); }
     });
   }
+}
 }
 
 
