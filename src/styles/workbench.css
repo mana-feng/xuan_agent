@@ -7,7 +7,6 @@
   --app-bg:var(--x-bg); --surface:var(--x-paper); --surface-soft:var(--x-paper); --text-primary:var(--x-ink); --text-secondary:var(--x-body); --border-subtle:var(--x-line);
 }
 .x-workbench[data-palette='sunset'] { --x-bg:#fcf9f2;--x-ink:#493927;--x-body:#67533d;--x-muted:#83745e;--x-line:#ece3d4;--x-accent:#b35424;--x-accent-mid:#a96918;--x-accent-end:#927117;--x-tint:#fff0df;--x-tint-end:#faf4d8; }
-.x-workbench[data-palette='lake'] { --x-bg:#f2f9f9;--x-ink:#25434a;--x-body:#456167;--x-muted:#667f83;--x-line:#dbe9e9;--x-accent:#176d9e;--x-accent-mid:#197b8e;--x-accent-end:#0f776f;--x-tint:#e6f2fa;--x-tint-end:#e3f5f0; }
 .x-workbench { --x-sidebar-width:224px; min-height:100dvh; background:var(--x-bg); color:var(--x-ink); font-family:var(--x-sans); font-size:14px; }
 .x-workbench button { margin:0; font-family:inherit; line-height:1.4; }
 .x-workbench button::after { border:0; }
