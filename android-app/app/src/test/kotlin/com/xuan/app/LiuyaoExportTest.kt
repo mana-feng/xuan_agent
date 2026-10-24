@@ -37,4 +37,3 @@ class LiuyaoExportTest {
   assertTrue(text.contains("较晚的一次"));assertTrue(text.contains("00:00 换日"))
  }
 }
-
