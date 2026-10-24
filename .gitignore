@@ -14,3 +14,12 @@ coverage/
 Thumbs.db
 .vscode/
 .idea/
+
+# Android native
+**/build/
+.gradle/
+**/.gradle/
+**/local.properties
+*.apk
+*.aab
+.superpowers/

@@ -1,0 +1,14 @@
+{
+  "source": "6tail/lunar-javascript",
+  "version": "1.7.7",
+  "license": "MIT",
+  "sha256": "d02454c86e01f311fea41af6fe7a3be599d72b43160c9dce03ba86995f0ad172",
+  "months": 2513,
+  "terms": 4879,
+  "fixtureRows": 840,
+  "inputRange": [
+    1900,
+    2099
+  ],
+  "runtime": "Kotlin only; no chart snapshots or JS engine"
+}
