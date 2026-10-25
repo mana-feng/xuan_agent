@@ -1,14 +1,19 @@
 <template>
 	<tm-app>
-		<view class="page-wrapper theme-page-bg">
+		<view class="page-wrapper theme-page-bg admin-workbench admin-page-analytics-stats">
 			<yx-nav-header></yx-nav-header>
 
 			<view class="page-content theme-container" :style="pageContentStyle">
 				<!-- 页面标题 -->
 				<view class="page-header">
-					<tm-text :font-size="40" :bold="true" color="#2d3748" label="访问统计"></tm-text>
+					<view class="page-heading">
+						<text class="page-eyebrow">行为洞察</text>
+						<h1 class="page-title">访问统计</h1>
+						<text class="page-description">累计指标与近 30 天趋势；日期按北京时间统计，页面显示时每 30 秒自动更新。</text>
+					</view>
+
 					<tm-button
-						class="btn-gradient"
+						class="btn-gradient admin-action-secondary"
 						size="small"
 						color="teal"
 						linear="right"
@@ -19,13 +24,34 @@
 					></tm-button>
 				</view>
 
+				<view class="analytics-feedback">
+					<view class="analytics-refresh-row">
+						<view class="page-btn analytics-refresh" aria-label="刷新访问统计" v-bind="h5Button(refreshStats)" @click="refreshStats">
+							<text>手动刷新</text>
+						</view>
+						<text class="analytics-updated">{{ lastUpdated ? '最后更新：' + formatTime(lastUpdated) + '（北京时间）' : '尚未成功更新' }}</text>
+					</view>
+					<text v-if="loading" role="status" aria-live="polite">{{ lastUpdated ? '正在刷新统计…' : '正在加载统计…' }}</text>
+					<text v-if="error" role="alert">{{ error }}</text>
+				</view>
+
 				<!-- 核心指标卡片 - 使用响应式 Grid 布局 -->
-				<tm-sheet :round="16" :shadow="4" :padding="[28, 24]" class="stats-card responsive-padding-md" :follow-dark="true">
+				<tm-sheet
+					:round="16"
+					:shadow="4"
+					:padding="[28, 24]"
+					class="stats-card responsive-padding-md"
+					:follow-dark="true"
+				>
 					<view class="metrics-grid">
 						<view class="metric-item">
 							<tm-text :font-size="20" color="#718096" label="今日 PV"></tm-text>
-							<tm-text :font-size="48" :bold="true" color="#667eea" :label="formatNum(stats.todayPageviews)"></tm-text>
-							<tm-text :font-size="16" :color="stats.todayPageviews >= stats.yesterdayPageviews ? '#48bb78' : '#fc8181'" :label="diffLabel(stats.todayPageviews, stats.yesterdayPageviews)"></tm-text>
+							<tm-text :font-size="48" :bold="true" color="#599cde" :label="formatNum(stats.todayPageviews)"></tm-text>
+							<tm-text
+								:font-size="16"
+								:color="stats.todayPageviews >= stats.yesterdayPageviews ? '#48bb78' : '#fc8181'"
+								:label="diffLabel(stats.todayPageviews, stats.yesterdayPageviews)"
+							></tm-text>
 						</view>
 						<view class="metric-divider"></view>
 						<view class="metric-item">
@@ -34,43 +60,66 @@
 						</view>
 						<view class="metric-divider"></view>
 						<view class="metric-item">
-							<tm-text :font-size="20" color="#718096" label="独立访客"></tm-text>
-							<tm-text :font-size="48" :bold="true" color="#48bb78" :label="formatNum(stats.uniqueVisitors)"></tm-text>
+							<tm-text :font-size="20" color="#718096" label="累计独立访客"></tm-text>
+							<tm-text :font-size="48" :bold="true" color="#32b4a9" :label="formatNum(stats.uniqueVisitors)"></tm-text>
 						</view>
 						<view class="metric-divider"></view>
 						<view class="metric-item">
-							<tm-text :font-size="20" color="#718096" label="会话数"></tm-text>
+							<tm-text :font-size="20" color="#718096" label="累计会话数"></tm-text>
 							<tm-text :font-size="48" :bold="true" color="#ed8936" :label="formatNum(stats.totalSessions)"></tm-text>
 						</view>
 					</view>
 				</tm-sheet>
 
 				<!-- 次要指标 - 响应式布局 -->
-				<tm-sheet :round="16" :shadow="4" :padding="[24, 20]" class="stats-card responsive-padding-md" :follow-dark="true">
+				<tm-sheet
+					:round="16"
+					:shadow="4"
+					:padding="[24, 20]"
+					class="stats-card responsive-padding-md"
+					:follow-dark="true"
+				>
 					<view class="sub-metrics">
 						<view class="sub-metric">
 							<tm-text :font-size="18" color="#718096" label="7 天"></tm-text>
-							<tm-text :font-size="32" :bold="true" color="#667eea" :label="formatNum(stats.weeklyPageviews)"></tm-text>
+							<tm-text :font-size="32" :bold="true" color="#599cde" :label="formatNum(stats.weeklyPageviews)"></tm-text>
 						</view>
 						<view class="sub-metric">
 							<tm-text :font-size="18" color="#718096" label="30 天"></tm-text>
-							<tm-text :font-size="32" :bold="true" color="#9f7aea" :label="formatNum(stats.monthlyPageviews)"></tm-text>
+							<tm-text
+								:font-size="32"
+								:bold="true"
+								color="#49b6be"
+								:label="formatNum(stats.monthlyPageviews)"
+							></tm-text>
 						</view>
 						<view class="sub-metric">
 							<tm-text :font-size="18" color="#718096" label="跳出率"></tm-text>
-							<tm-text :font-size="32" :bold="true" :color="stats.bounceRate > 60 ? '#fc8181' : stats.bounceRate > 40 ? '#ed8936' : '#48bb78'" :label="stats.bounceRate.toFixed(1) + '%'"></tm-text>
+							<tm-text
+								:font-size="32"
+								:bold="true"
+								:color="stats.bounceRate > 60 ? '#fc8181' : stats.bounceRate > 40 ? '#ed8936' : '#48bb78'"
+								:label="stats.bounceRate.toFixed(1) + '%'"
+							></tm-text>
 						</view>
 						<view class="sub-metric">
-							<tm-text :font-size="18" color="#718096" label="新访客 / 回访客"></tm-text>
-							<tm-text :font-size="26" :bold="true" color="#38b2ac" :label="formatNum(stats.newVisitorCount) + ' / ' + formatNum(stats.returningVisitorCount)"></tm-text>
+							<tm-text :font-size="18" color="#718096" label="近 30 天新访客 / 回访客"></tm-text>
+							<tm-text
+								:font-size="26"
+								:bold="true"
+								color="#38b2ac"
+								:label="formatNum(stats.newVisitorCount) + ' / ' + formatNum(stats.returningVisitorCount)"
+							></tm-text>
 						</view>
 					</view>
 				</tm-sheet>
 
+				<text class="analytics-definition">{{ visitorDefinition }} 跳出率为近30天开启会话中的单页会话占比。</text>
+
 				<!-- 每日趋势 -->
 				<tm-sheet :round="16" :shadow="4" :padding="[24, 20]" class="stats-card" :follow-dark="true">
 					<view class="card-header">
-						<tm-icon name="tmicon-md-trending-up" :font-size="28" color="#667eea"></tm-icon>
+						<tm-icon name="tmicon-md-trending-up" :font-size="28" color="#599cde"></tm-icon>
 						<tm-text :font-size="28" :bold="true" color="#2d3748" label="每日趋势 (近 30 天)"></tm-text>
 					</view>
 					<scroll-view scroll-x class="trend-scroll">
@@ -94,16 +143,28 @@
 						</view>
 					</scroll-view>
 					<view class="legend-row">
-						<view class="legend-item"><view class="dot pv-dot"></view><tm-text :font-size="18" color="#718096" label="PV"></tm-text></view>
-						<view class="legend-item"><view class="dot uv-dot"></view><tm-text :font-size="18" color="#718096" label="UV"></tm-text></view>
+						<view class="legend-item">
+							<view class="dot pv-dot"></view>
+							<tm-text :font-size="18" color="#718096" label="PV"></tm-text>
+						</view>
+						<view class="legend-item">
+							<view class="dot uv-dot"></view>
+							<tm-text :font-size="18" color="#718096" label="UV"></tm-text>
+						</view>
 					</view>
 				</tm-sheet>
 
 				<!-- 24 小时分布 - 优化布局和对齐 -->
-				<tm-sheet :round="16" :shadow="4" :padding="[24, 20]" class="stats-card responsive-padding-md" :follow-dark="true">
+				<tm-sheet
+					:round="16"
+					:shadow="4"
+					:padding="[24, 20]"
+					class="stats-card responsive-padding-md"
+					:follow-dark="true"
+				>
 					<view class="card-header">
 						<tm-icon name="tmicon-md-time" :font-size="28" color="#ed8936"></tm-icon>
-						<tm-text :font-size="28" :bold="true" color="#2d3748" label="24 小时分布"></tm-text>
+						<tm-text :font-size="28" :bold="true" color="#2d3748" label="近 30 天各时段分布（北京时间）"></tm-text>
 					</view>
 					<scroll-view :scroll-x="true" class="hourly-scroll" :show-scrollbar="true">
 						<view class="hourly-chart">
@@ -135,40 +196,69 @@
 						<view class="records-title-wrap">
 							<tm-icon name="tmicon-md-eye-outline" :font-size="28" color="#e53e3e"></tm-icon>
 							<tm-text :font-size="42" :bold="true" color="#2d3748" label="访问记录总览"></tm-text>
-							<tm-text :font-size="26" color="#718096" :label="'共 ' + formatNum(stats.recentVisitors.length) + ' 条记录，每页 20 条'"></tm-text>
+							<tm-text
+								:font-size="26"
+								color="#718096"
+								:label="recentRecordSummary"
+							></tm-text>
 						</view>
 						<tm-text :font-size="24" color="#a0aec0" :label="'按访问时间倒序显示'"></tm-text>
 					</view>
 					<view class="rt-list">
-						<view v-for="(item, index) in paginatedVisitors" :key="index" class="rt-item">
+						<view v-for="(item, index) in stats.recentVisitors" :key="index" class="rt-item">
 							<view class="rt-left">
 								<view class="rt-device-icon">
-									<text v-if="item.deviceType && item.deviceType.toLowerCase() === 'mobile'" class="device-emoji">📱</text>
-									<text v-else-if="item.deviceType && item.deviceType.toLowerCase() === 'tablet'" class="device-emoji">📟</text>
+									<text v-if="item.deviceType && item.deviceType.toLowerCase() === 'mobile'" class="device-emoji">
+										📱
+									</text>
+									<text v-else-if="item.deviceType && item.deviceType.toLowerCase() === 'tablet'" class="device-emoji">
+										📟
+									</text>
 									<text v-else class="device-emoji">💻</text>
 								</view>
 								<view class="rt-dot" :style="{ background: rtDotColor(item.referrerType) }"></view>
 								<view class="rt-detail">
 									<view class="rt-title-row">
-										<tm-text :font-size="34" :bold="true" color="#2d3748" :label="item.title || item.pathname" :lines="1"></tm-text>
+										<tm-text
+											:font-size="34"
+											:bold="true"
+											color="#2d3748"
+											:label="item.title || item.pathname"
+											:lines="1"
+										></tm-text>
 										<tm-text :font-size="24" color="#94a3b8" :label="formatTime(item.time)"></tm-text>
 									</view>
 									<tm-text :font-size="24" color="#4a5568" :label="item.pathname"></tm-text>
 									<view class="rt-device-details rt-device-details-inline">
+										<view class="rt-device-info-row rt-device-info-chip">
+											<tm-text :font-size="24" color="#94a3b8" :label="sourceTypeLabel(item.referrerType)"></tm-text>
+										</view>
 										<view class="rt-device-info-row rt-device-info-chip" v-if="item.isLoggedIn && item.username">
-											<tm-text :font-size="24" color="#48bb78" :label="'👤 ' + item.username"></tm-text>
+											<tm-text :font-size="24" color="#32b4a9" :label="'👤 ' + item.username"></tm-text>
 										</view>
 										<view class="rt-device-info-row rt-device-info-chip" v-else>
 											<tm-text :font-size="24" color="#a0aec0" :label="'👤 游客'"></tm-text>
 										</view>
 										<view class="rt-device-info-row rt-device-info-chip">
-											<tm-text :font-size="24" color="#94a3b8" :label="'📱 ' + (item.screenWidth || '?') + '×' + (item.screenHeight || '?') + (item.pixelRatio ? ' (' + item.pixelRatio + 'x)' : '')"></tm-text>
+											<tm-text
+												:font-size="24"
+												color="#94a3b8"
+												:label="'📱 ' + (item.screenWidth || '?') + '×' + (item.screenHeight || '?') + (item.pixelRatio ? ' (' + item.pixelRatio + 'x)' : '')"
+											></tm-text>
 										</view>
 										<view class="rt-device-info-row rt-device-info-chip">
-											<tm-text :font-size="24" color="#94a3b8" :label="'🌐 ' + (item.browser || '未知') + (item.browserVersion ? ' ' + item.browserVersion : '')"></tm-text>
+											<tm-text
+												:font-size="24"
+												color="#94a3b8"
+												:label="'🌐 ' + (item.browser || '未知') + (item.browserVersion ? ' ' + item.browserVersion : '')"
+											></tm-text>
 										</view>
 										<view class="rt-device-info-row rt-device-info-chip">
-											<tm-text :font-size="24" color="#94a3b8" :label="'💻 ' + (item.os || '未知') + (item.osVersion ? ' ' + item.osVersion : '')"></tm-text>
+											<tm-text
+												:font-size="24"
+												color="#94a3b8"
+												:label="'💻 ' + (item.os || '未知') + (item.osVersion ? ' ' + item.osVersion : '')"
+											></tm-text>
 										</view>
 										<view class="rt-device-info-row rt-device-info-chip">
 											<tm-text :font-size="24" color="#94a3b8" :label="'📍 ' + (item.ip || '未知')"></tm-text>
@@ -177,28 +267,20 @@
 								</view>
 							</view>
 						</view>
-						<view v-if="stats.recentVisitors.length === 0" class="empty-tip">
+						<view v-if="lastUpdated && !loading && stats.recentVisitors.length === 0" class="empty-tip">
 							<tm-text :font-size="30" color="#999" label="暂无访问记录"></tm-text>
 						</view>
 					</view>
 					<!-- 分页控制 -->
-				<view v-if="stats.recentVisitors.length > 20" class="pagination">
-					<view 
-						class="page-btn" 
-						:class="{ 'page-btn-disabled': currentPage === 1 }"
-						@click="prevPage"
-					>
-						<tm-icon name="tmicon-angle-left" :font-size="32" color="#4a5568" :follow-theme="false"></tm-icon>
+					<view v-if="totalPages > 1" class="pagination">
+						<view class="page-btn" aria-label="上一页访问记录" v-bind="h5Button(prevPage, loading || currentPage <= 1)" :class="{ 'page-btn-disabled': loading || currentPage <= 1 }" @click="prevPage">
+							<tm-icon name="tmicon-angle-left" :font-size="32" color="#4a5568" :follow-theme="false"></tm-icon>
+						</view>
+						<tm-text :font-size="28" color="#4a5568" :label="currentPage + ' / ' + totalPages"></tm-text>
+						<view class="page-btn" aria-label="下一页访问记录" v-bind="h5Button(nextPage, loading || currentPage >= totalPages)" :class="{ 'page-btn-disabled': loading || currentPage >= totalPages }" @click="nextPage">
+							<tm-icon name="tmicon-angle-right" :font-size="32" color="#4a5568" :follow-theme="false"></tm-icon>
+						</view>
 					</view>
-					<tm-text :font-size="28" color="#4a5568" :label="currentPage + ' / ' + totalPages"></tm-text>
-					<view 
-						class="page-btn" 
-						:class="{ 'page-btn-disabled': currentPage === totalPages }"
-						@click="nextPage"
-					>
-						<tm-icon name="tmicon-angle-right" :font-size="32" color="#4a5568" :follow-theme="false"></tm-icon>
-					</view>
-				</view>
 				</tm-sheet>
 			</view>
 		</view>
@@ -207,10 +289,10 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
-import { useUserStore } from '@/store/user';
+import { onShow, onHide } from '@dcloudio/uni-app';
+import { h5Button } from '@/utils/keyboard';
 import { getAdminAnalyticsStats, AnalyticsStats } from '@/services/api/admin';
 
-const userStore = useUserStore();
 const defaultStats: AnalyticsStats = {
 	todayPageviews: 0,
 	yesterdayPageviews: 0,
@@ -225,6 +307,8 @@ const defaultStats: AnalyticsStats = {
 	topPages: [],
 	topReferrers: [],
 	connectionStats: [],
+	geoCountries: [],
+	ispStats: [],
 	referrerTypeStats: [],
 	searchEngineStats: [],
 	searchKeywords: [],
@@ -244,15 +328,26 @@ const defaultStats: AnalyticsStats = {
 	returningVisitorCount: 0,
 	bounceRate: 0,
 	entryPages: [],
+	exitPages: [],
 	performanceStats: { avgLoadTime: 0, minLoadTime: 0, maxLoadTime: 0, avgFCP: 0, avgDCL: 0 },
 	languageStats: [],
 	timezoneStats: [],
 	utmCampaigns: [],
 	recentVisitors: [],
+	recentTotal: undefined,
+	recentPage: undefined,
+	recentPageSize: undefined,
+	recentPageCount: undefined,
+	statisticsTimeZone: undefined,
+	generatedAt: undefined,
+	visitorPeriod: undefined,
+	visitorDefinitions: undefined,
 };
 
 const stats = reactive<AnalyticsStats>({ ...defaultStats });
-const loading = false;
+const loading = ref(false);
+const error = ref('');
+const lastUpdated = ref('');
 
 const pageContentStyle = computed(() => {
 	try {
@@ -270,30 +365,21 @@ const pageContentStyle = computed(() => {
 	}
 });
 
-// 实时访客分页
+// 访问记录由服务端分页，页码只在请求成功后切换。
 const ITEMS_PER_PAGE = 20;
 const currentPage = ref(1);
-
-const totalPages = computed(() => {
-	return Math.ceil(stats.recentVisitors.length / ITEMS_PER_PAGE) || 1;
-});
-
-const paginatedVisitors = computed(() => {
-	const start = (currentPage.value - 1) * ITEMS_PER_PAGE;
-	const end = start + ITEMS_PER_PAGE;
-	return stats.recentVisitors.slice(start, end);
-});
-
+const totalPages = computed(() => stats.recentPageCount ?? (stats.recentTotal !== undefined ? Math.max(1, Math.ceil(stats.recentTotal / (stats.recentPageSize || ITEMS_PER_PAGE))) : 1));
+const recentRecordSummary = computed(() => stats.recentTotal !== undefined
+	? '共 ' + stats.recentTotal + ' 条记录，每页 ' + (stats.recentPageSize || ITEMS_PER_PAGE) + ' 条'
+	: '本次返回 ' + stats.recentVisitors.length + ' 条记录（总量暂不可用）');
+const visitorDefinition = computed(() => stats.visitorDefinitions
+	? stats.visitorDefinitions.new + '；' + stats.visitorDefinitions.returning
+	: '近30天首次访问的去重访客 / 近30天再次开启会话的去重访客，两类可重叠。');
 const prevPage = () => {
-	if (currentPage.value > 1) {
-		currentPage.value--;
-	}
+	if (!loading.value && currentPage.value > 1) void loadStats(currentPage.value - 1);
 };
-
 const nextPage = () => {
-	if (currentPage.value < totalPages.value) {
-		currentPage.value++;
-	}
+	if (!loading.value && currentPage.value < totalPages.value) void loadStats(currentPage.value + 1);
 };
 
 const maxPv = computed(() => {
@@ -302,10 +388,7 @@ const maxPv = computed(() => {
 	return Math.max(...recent30.map((d) => Math.max(d.pv, d.uv)), 100);
 });
 
-const recentTrend = computed(() => {
-	const data = stats.dailyTrend.slice(-30);
-	return data.reverse();
-});
+const recentTrend = computed(() => stats.dailyTrend.slice(-30));
 
 const yTicks = computed(() => {
 	const max = maxPv.value;
@@ -342,7 +425,7 @@ const formatNum = (num: number) => {
 };
 
 const diffLabel = (curr: number, prev: number) => {
-	if (prev === 0) return '新数据';
+	if (prev === 0) return curr === 0 ? '与昨日持平' : '较昨日新增 ' + formatNum(curr);
 	const diff = curr - prev;
 	const pct = Math.round((Math.abs(diff) / prev) * 100);
 	return diff >= 0 ? `↑${pct}%` : `↓${pct}%`;
@@ -351,18 +434,17 @@ const diffLabel = (curr: number, prev: number) => {
 const CHART_HEIGHT = 200; // 柱状图可用高度（像素）- 与 Y 轴高度匹配
 
 const barHeight = (val: number, max: number) => {
-	const pct = max > 0 ? (val / max) : 0;
+	if (val <= 0 || max <= 0) return '0px';
+	const pct = val / max;
 	// 预留底部 margin(8px) 和标签空间 (24px)
 	const availableHeight = CHART_HEIGHT - 8 - 24;
 	return Math.max(pct * availableHeight, 4) + 'px';
 };
 
+// YYYY-MM-DD 已是统计时区的自然日，不能再按浏览器时区解析。
 const formatDate = (dateStr: string) => {
-	if (!dateStr) return '';
-	const date = new Date(dateStr);
-	const month = date.getMonth() + 1;
-	const day = date.getDate();
-	return `${month}/${day}`;
+	const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr);
+	return parts ? `${Number(parts[2])}/${Number(parts[3])}` : '';
 };
 
 const sourceColor = (type: string) => {
@@ -371,6 +453,10 @@ const sourceColor = (type: string) => {
 		search: '#48bb78',
 		social: '#ed64a6',
 		referral: '#ed8936',
+		external: '#ed8936',
+		internal: '#32b4a9',
+		email: '#49b6be',
+		unknown: '#cbd5e0',
 	};
 	return map[type] || '#cbd5e0';
 };
@@ -381,20 +467,25 @@ const sourceTypeLabel = (type: string) => {
 		search: '搜索引擎',
 		social: '社交媒体',
 		referral: '外部链接',
+		external: '外部链接',
+		internal: '站内链接',
+		email: '邮件链接',
+		unknown: '未知来源',
 	};
-	return map[type] || type;
+	return map[type] || type || '未知来源';
 };
 
 const rtDotColor = (type: string) => sourceColor(type);
 
 const formatTime = (ts: string | number) => {
-	const d = new Date(ts);
-	const year = d.getFullYear();
-	const month = (d.getMonth() + 1).toString().padStart(2, '0');
-	const day = d.getDate().toString().padStart(2, '0');
-	const h = d.getHours().toString().padStart(2, '0');
-	const m = d.getMinutes().toString().padStart(2, '0');
-	return `${year}-${month}-${day} ${h}:${m}`;
+	const date = new Date(ts);
+	if (!Number.isFinite(date.getTime())) return '时间未知';
+	const parts = new Intl.DateTimeFormat('en-CA', {
+		timeZone: stats.statisticsTimeZone || 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
+		hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+	}).formatToParts(date);
+	const part = (name: string) => parts.find(item => item.type === name)?.value || '';
+	return `${part('year')}-${part('month')}-${part('day')} ${part('hour')}:${part('minute')}`;
 };
 
 const getConnLabel = (type: string) => {
@@ -421,748 +512,557 @@ const goBack = () => {
 	uni.navigateBack();
 };
 
-// 定时刷新
-let refreshTimer: any = null;
-
-const loadStats = async () => {
+// 只有当前可见页面的最新请求可以更新数据或反馈。
+let refreshTimer: ReturnType<typeof setInterval> | null = null;
+let visible = false;
+let disposed = false;
+let requestVersion = 0;
+const loadStats = async (page = currentPage.value, replace = false) => {
+	if (!visible || disposed || (loading.value && !replace)) return;
+	const version = ++requestVersion;
+	loading.value = true;
+	error.value = '';
 	try {
-		const res = await getAdminAnalyticsStats();
-		if (res && res.success && res.data) {
-			Object.assign(stats, res.data);
-		}
-	} catch (e) {
-		console.error('加载统计数据失败:', e);
+		const res = await getAdminAnalyticsStats(page, ITEMS_PER_PAGE);
+		if (version !== requestVersion || !visible || disposed) return;
+		if (!res?.success || !res.data) throw new Error('统计响应不可用');
+		Object.assign(stats, defaultStats, res.data);
+		currentPage.value = res.data.recentPage ?? page;
+		lastUpdated.value = res.data.generatedAt || new Date().toISOString();
+	} catch {
+		if (version !== requestVersion || !visible || disposed) return;
+		error.value = lastUpdated.value ? '刷新失败，已保留上次成功的数据，请手动刷新重试。' : '统计加载失败，请手动刷新重试。';
+	} finally {
+		if (version === requestVersion && visible && !disposed) loading.value = false;
 	}
 };
-
-onMounted(() => {
-	loadStats();
-	refreshTimer = setInterval(() => {
-		loadStats();
-	}, 30000);
-});
-
-onUnmounted(() => {
-	if (refreshTimer) {
-		clearInterval(refreshTimer);
-		refreshTimer = null;
-	}
-});
+const refreshStats = () => { void loadStats(currentPage.value, true); };
+const startRefresh = () => {
+	if (visible || disposed) return;
+	visible = true;
+	void loadStats();
+	refreshTimer = setInterval(() => { void loadStats(); }, 30000);
+};
+const stopRefresh = () => {
+	visible = false;
+	requestVersion++;
+	loading.value = false;
+	if (refreshTimer !== null) clearInterval(refreshTimer);
+	refreshTimer = null;
+};
+onMounted(startRefresh);
+onShow(startRefresh);
+onHide(stopRefresh);
+onUnmounted(() => { disposed = true; stopRefresh(); });
 </script>
 
 <style scoped>
-.page-wrapper {
-	min-height: 100vh;
-	background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+.analytics-feedback {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 18px;
+	color: var(--admin-muted, #788c9d);
+	font-size: 12px;
+	line-height: 1.8;
 }
-
-.page-content {
-	padding: 24px 16px 32px;
-	max-width: 1200px;
-	margin: 0 auto;
+.analytics-refresh-row {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
 }
-
+.analytics-refresh {
+	width: auto !important;
+	padding: 0 14px;
+	color: var(--admin-body, #50677b);
+}
+.analytics-feedback [role="alert"] { color: var(--admin-danger, #c45b63); }
+.analytics-definition {
+	display: block;
+	margin: -6px 0 20px;
+	color: var(--admin-muted, #788c9d);
+	font-size: 12px;
+	line-height: 1.8;
+}
 .page-header {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: row;
 	align-items: center;
-	padding: 16px 0 24px;
+	justify-content: space-between;
+	gap: 20px;
+	margin-bottom: 24px;
 }
-
+.page-heading {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+.page-eyebrow {
+	color: var(--admin-accent, #169e9a);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 3px;
+}
+.page-title {
+	margin: 0;
+	color: var(--admin-ink, #20374a);
+	font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.page-description {
+	color: var(--admin-muted, #788c9d);
+	font-size: 13px;
+	line-height: 1.8;
+}
 .stats-card {
-	margin-bottom: 20px;
-	background: rgba(255, 255, 255, 0.95);
-	backdrop-filter: blur(10px);
+	box-sizing: border-box;
+	min-width: 0;
+	margin: 0 0 20px !important;
+	padding: 24px !important;
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 16px !important;
+	box-shadow: 0 5px 20px rgba(33, 69, 92, 0.035) !important;
 }
-
-/* 核心指标网格 - 响应式优化 */
-.metrics-grid {
+.metrics-grid,
+.sub-metrics {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: clamp(8px, 1.5vw, 16px);
-	position: relative;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 20px;
 }
-
-@media screen and (max-width: 767px) {
-	.metrics-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
+.metric-item,
+.sub-metric {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 8px 18px;
+	min-width: 0;
+	border-right: 1px solid var(--admin-line, #e5edf2);
 }
-
-.metric-item {
-	text-align: center;
-	padding: 8px 0;
-	position: relative;
+.metric-item:last-child,
+.sub-metric:last-child {
+	border-right: 0;
 }
-
-.metric-item:not(:last-child)::after {
-	content: '';
-	position: absolute;
-	right: -8px;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 1px;
-	height: 60px;
-	background: #e2e8f0;
+.metric-item > :first-child :deep(text),
+.sub-metric > :first-child :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 12px !important;
+	line-height: 1.6 !important;
 }
-
-@media screen and (max-width: 767px) {
-	.metric-item {
-		padding: 4px 0;
-	}
-	
-	.metric-item text[label*="今日 PV"],
-	.metric-item text[label*="总浏览量"],
-	.metric-item text[label*="独立访客"],
-	.metric-item text[label*="会话数"] {
-		font-size: 16px !important;
-	}
-	
-	.metric-item text[bold="true"] {
-		font-size: 36px !important;
-	}
-	
-	.metric-item:not(:last-child)::after {
-		display: none;
-	}
+.metric-item > :nth-child(2) :deep(text) {
+	font-size: 34px !important;
+	line-height: 1.25 !important;
+	font-weight: 600 !important;
+	font-variant-numeric: tabular-nums;
 }
-
+.sub-metric > :nth-child(2) :deep(text) {
+	font-size: 23px !important;
+	line-height: 1.4 !important;
+	font-variant-numeric: tabular-nums;
+}
 .metric-divider {
 	display: none;
 }
-
-/* 次要指标 - 响应式优化 */
-.sub-metrics {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: clamp(12px, 2vw, 20px);
-}
-
-@media screen and (min-width: 768px) {
-	.sub-metrics {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-.sub-metric {
-	text-align: center;
-}
-
-/* 卡片标题 */
 .card-header {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	align-items: center;
-	margin-bottom: 16px;
 	gap: 10px;
+	margin-bottom: 22px;
 }
-
-/* 趋势图表 - 响应式优化 */
-.trend-scroll {
-	width: 100%;
-	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	/* 自定义滚动条样式 */
-	scrollbar-width: thin;
-	scrollbar-color: #cbd5e0 transparent;
+.card-header > :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 17px !important;
+	line-height: 1.6 !important;
 }
-
-/* Webkit 浏览器滚动条样式 */
-.trend-scroll::-webkit-scrollbar {
-	height: 6px;
-}
-
-.trend-scroll::-webkit-scrollbar-track {
-	background: transparent;
-	border-radius: 3px;
-}
-
-.trend-scroll::-webkit-scrollbar-thumb {
-	background: #cbd5e0;
-	border-radius: 3px;
-}
-
-.trend-scroll::-webkit-scrollbar-thumb:hover {
-	background: #a0aec0;
-}
-
-.trend-chart {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	height: 220px;
-	padding: 16px 12px;
-	gap: 12px;
-	min-width: 600px;
-}
-
-/* Y 轴刻度 - 响应式优化 */
-.y-axis {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-end;
-	height: 180px;
-	min-width: 40px;
-	padding-right: 8px;
-	flex-shrink: 0;
-}
-
-@media screen and (max-width: 767px) {
-	.y-axis {
-		min-width: 32px;
-	}
-	
-	.y-tick text {
-		font-size: 12px;
-	}
-}
-
-.y-tick {
-	height: 20px;
-	display: flex;
-	align-items: center;
-}
-
-.trend-bars {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	flex: 1;
-	gap: 6px;
-}
-
-.trend-bar-wrap {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-end;
-	height: 180px;
-	min-width: 40px;
-	flex-shrink: 0;
-}
-
-@media screen and (max-width: 767px) {
-	.trend-bar-wrap {
-		min-width: 28px;
-	}
-	
-	.trend-bar {
-		width: 10px;
-	}
-}
-
-.trend-bar-col {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	gap: 2px;
-}
-
-.trend-bar {
-	width: 14px;
-	border-radius: 3px;
-	min-height: 4px;
-	transition: all 0.2s ease;
-}
-
-@media screen and (max-width: 767px) {
-	.trend-bar {
-		width: 10px;
-	}
-}
-
-.pv-bar {
-	background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-}
-
-.uv-bar {
-	background: linear-gradient(180deg, #48bb78 0%, #38a169 100%);
-}
-
-.legend-row {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 24px;
-	margin-top: 12px;
-}
-
-.legend-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 6px;
-}
-
-.dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-}
-
-.pv-dot {
-	background: #667eea;
-}
-
-.uv-dot {
-	background: #48bb78;
-}
-
-/* 小时分布 - 响应式优化 */
+.trend-scroll,
 .hourly-scroll {
+	display: block;
 	width: 100%;
+	min-width: 0;
 	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	/* 自定义滚动条样式 */
 	scrollbar-width: thin;
-	scrollbar-color: #cbd5e0 transparent;
+	scrollbar-color: #c7dfe6 transparent;
 }
-
-/* Webkit 浏览器滚动条样式 */
-.hourly-scroll::-webkit-scrollbar {
-	height: 6px;
-}
-
-.hourly-scroll::-webkit-scrollbar-track {
-	background: transparent;
-	border-radius: 3px;
-}
-
-.hourly-scroll::-webkit-scrollbar-thumb {
-	background: #cbd5e0;
-	border-radius: 3px;
-}
-
-.hourly-scroll::-webkit-scrollbar-thumb:hover {
-	background: #a0aec0;
-}
-
+.trend-chart,
 .hourly-chart {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
-	height: 260px; /* 优化高度 */
-	padding: 20px 16px;
-	gap: 16px;
-	min-width: 800px; /* 保证 24 个柱子的最小宽度 */
+	gap: 12px;
+	box-sizing: border-box;
+	min-width: 800px;
+	height: 248px;
+	padding: 18px 8px;
 }
-
-@media screen and (max-width: 767px) {
-	.hourly-chart {
-		height: 220px;
-		padding: 16px 12px;
-		min-width: 600px; /* 移动端最小宽度 */
-	}
+.trend-chart {
+	width: max-content;
+	min-width: 100%;
 }
-
-/* Y 轴刻度 - 响应式优化 */
 .y-axis {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-end;
-	height: 200px; /* 与柱状图区域匹配 */
-	min-width: 44px;
-	padding-right: 12px;
 	flex-shrink: 0;
+	width: 44px;
+	height: 200px;
+	padding-right: 8px;
 }
-
-@media screen and (max-width: 767px) {
-	.y-axis {
-		height: 160px;
-		min-width: 36px;
-		padding-right: 8px;
-	}
-	
-	.y-tick text {
-		font-size: 14px;
-	}
-}
-
 .y-tick {
 	height: 24px;
 	display: flex;
 	align-items: center;
 }
-
-@media screen and (max-width: 767px) {
-	.y-tick {
-		height: 20px;
-	}
+.y-tick :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 11px !important;
 }
-
+.trend-bars,
 .hourly-bars {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
 	flex: 1;
-	gap: 3px;
-	height: 200px; /* 与 Y 轴高度匹配 */
+	gap: 8px;
+	height: 200px;
 }
-
-@media screen and (max-width: 767px) {
-	.hourly-bars {
-		height: 160px;
-		gap: 2px;
-	}
-}
-
+.trend-bar-wrap,
 .hour-bar-wrap {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-	flex: 1;
-	min-width: 28px;
-	height: 200px; /* 固定高度确保对齐 */
-}
-
-@media screen and (max-width: 767px) {
-	.hour-bar-wrap {
-		min-width: 18px;
-		height: 160px;
-	}
-}
-
-.hour-bar {
-	width: 12px;
-	background: linear-gradient(180deg, #ed8936 0%, #dd6b20 100%);
-	border-radius: 6px;
-	min-height: 6px;
-	margin-bottom: 8px;
-	position: relative;
-	transition: all 0.2s ease;
-	cursor: pointer;
-}
-
-@media screen and (max-width: 767px) {
-	.hour-bar {
-		width: 8px;
-		min-height: 4px;
-		margin-bottom: 6px;
-	}
-}
-
-.hour-bar:hover {
-	background: linear-gradient(180deg, #f6ad55 0%, #ed8936 100%);
-	transform: scaleY(1.05);
-}
-
-/* 小时标签样式 */
-.hour-bar-wrap text {
-	font-size: 18px;
-	color: #a0aec0;
-	height: 24px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-shrink: 0;
+	min-width: 34px;
+	height: 200px;
 }
-
-@media screen and (max-width: 767px) {
-	.hour-bar-wrap text {
-		font-size: 16px;
-		height: 20px;
-	}
+.trend-bar-wrap > :deep(text),
+.hour-bar-wrap > :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 11px !important;
+	line-height: 24px !important;
 }
-
-/* 悬停提示 - 移动端优化 */
+.trend-bar-col {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 3px;
+}
+.trend-bar {
+	width: 12px;
+	min-height: 0;
+	border-radius: 5px 5px 2px 2px;
+}
+.pv-bar {
+	background: linear-gradient(180deg, #76bced, #599cde);
+}
+.uv-bar {
+	background: linear-gradient(180deg, #79d4cc, #32b4a9);
+}
+.legend-row,
+.legend-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+}
+.legend-row {
+	justify-content: center;
+	gap: 24px;
+	margin-top: 14px;
+}
+.dot {
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+}
+.pv-dot {
+	background: #599cde;
+}
+.uv-dot {
+	background: #32b4a9;
+}
+.hourly-bars {
+	gap: 4px;
+}
+.hour-bar-wrap {
+	flex: 1;
+	min-width: 24px;
+}
+.hour-bar {
+	position: relative;
+	width: 12px;
+	min-height: 0;
+	margin-bottom: 8px;
+	border-radius: 5px 5px 2px 2px;
+	background: linear-gradient(180deg, #89ccde, #49b6be);
+}
 .hour-tooltip {
 	position: absolute;
-	top: -36px;
+	top: -32px;
 	left: 50%;
 	transform: translateX(-50%);
-	background: rgba(45, 55, 72, 0.95);
 	padding: 4px 8px;
-	border-radius: 4px;
-	white-space: nowrap;
+	border-radius: 6px;
+	background: var(--admin-ink, #20374a);
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.2s;
-	z-index: 10;
 	pointer-events: none;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	white-space: nowrap;
+	z-index: 2;
 }
-
-@media screen and (max-width: 767px) {
-	.hour-tooltip {
-		display: none;
-	}
-}
-
 .hour-bar:hover .hour-tooltip {
 	opacity: 1;
 	visibility: visible;
-	transform: translateX(-50%) translateY(-2px);
 }
-
-/* 访问记录 - 响应式优化 */
-.records-card {
-	overflow: hidden;
-}
-
 .records-header {
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: flex-end;
 	gap: 16px;
-	padding-bottom: 16px;
-	border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+	padding-bottom: 18px;
+	border-bottom: 1px solid var(--admin-line, #e5edf2);
 }
-
-@media screen and (max-width: 767px) {
-	.records-header {
-		flex-direction: column;
-		gap: 12px;
-	}
-}
-
 .records-title-wrap {
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
-	flex: 1;
+	gap: 7px;
 }
-
+.records-title-wrap > :nth-child(2) :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 18px !important;
+	line-height: 1.5 !important;
+}
+.records-title-wrap > :nth-child(3) :deep(text),
+.records-header > :last-child :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 12px !important;
+	line-height: 1.7 !important;
+}
 .rt-list {
 	display: flex;
 	flex-direction: column;
-	gap: 14px;
-	margin: 20px 0;
+	gap: 12px;
+	margin: 18px 0;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-list {
-		gap: 10px;
-		margin: 12px 0;
-	}
-}
-
 .rt-item {
 	display: flex;
 	flex-direction: row;
-	align-items: stretch;
-	padding: 20px 24px;
-	background: rgba(248, 250, 252, 0.95);
-	border: 1px solid rgba(226, 232, 240, 0.9);
-	border-radius: 18px;
-	transition: all 0.2s ease;
+	padding: 18px;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 14px;
+	background: var(--admin-soft, #f5fafb);
 }
-
-@media screen and (max-width: 767px) {
-	.rt-item {
-		padding: 16px 16px;
-		flex-direction: column;
-		gap: 12px;
-	}
-}
-
-.rt-item:hover {
-	background: rgba(241, 245, 249, 0.95);
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-}
-
 .rt-left {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
-	gap: 16px;
+	gap: 12px;
 	flex: 1;
 	min-width: 0;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-left {
-		width: 100%;
-		gap: 12px;
-	}
-}
-
 .rt-device-icon {
-	width: 56px;
-	height: 56px;
-	border-radius: 14px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #ffffff;
 	flex-shrink: 0;
-	box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	background: var(--admin-paper, #fff);
+	border: 1px solid var(--admin-line, #e5edf2);
 }
-
-@media screen and (max-width: 767px) {
-	.rt-device-icon {
-		width: 48px;
-		height: 48px;
-	}
-	
-	.device-emoji {
-		font-size: 26px;
-	}
-}
-
 .device-emoji {
-	font-size: 30px;
+	font-size: 23px;
 	line-height: 1;
 }
-
 .rt-dot {
-	width: 14px;
-	height: 14px;
-	border-radius: 50%;
-	margin-top: 10px;
+	width: 7px;
+	height: 7px;
 	flex-shrink: 0;
+	margin-top: 9px;
+	border-radius: 50%;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-dot {
-		margin-top: 6px;
-	}
-}
-
 .rt-detail {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
 	flex: 1;
+	gap: 9px;
 	min-width: 0;
+	overflow-wrap: anywhere;
 }
-
 .rt-title-row {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	gap: 16px;
+	align-items: baseline;
 	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 8px 16px;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-title-row {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 8px;
-	}
+.rt-title-row > :first-child {
+	min-width: 0;
 }
-
+.rt-title-row > :first-child :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 15px !important;
+	line-height: 1.6 !important;
+}
+.rt-title-row > :last-child :deep(text),
+.rt-detail > :nth-child(2) :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 12px !important;
+	line-height: 1.7 !important;
+}
 .rt-device-details {
 	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	padding-top: 4px;
-}
-
-@media screen and (max-width: 767px) {
-	.rt-device-details {
-		gap: 6px;
-		padding-top: 2px;
-	}
-}
-
-.rt-device-details-inline {
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-items: center;
-	gap: 12px;
+	gap: 7px;
+	padding-top: 2px;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-device-details-inline {
-		gap: 8px;
-	}
-}
-
 .rt-device-info-row {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
-	flex-wrap: wrap;
-	gap: 10px;
-	line-height: 1.5;
+	min-width: 0;
+	max-width: 100%;
 }
-
-@media screen and (max-width: 767px) {
-	.rt-device-info-row {
-		gap: 6px;
-	}
-}
-
 .rt-device-info-chip {
-	padding: 8px 14px;
-	background: rgba(255, 255, 255, 0.92);
-	border: 1px solid rgba(203, 213, 225, 0.8);
-	border-radius: 999px;
-	transition: all 0.2s ease;
+	padding: 5px 9px;
+	border-radius: 8px;
+	background: var(--admin-paper, #fff);
+	border: 1px solid var(--admin-line, #e5edf2);
 }
-
-@media screen and (max-width: 767px) {
-	.rt-device-info-chip {
-		padding: 6px 12px;
-		font-size: 12px;
-	}
+.rt-device-info-chip :deep(text) {
+	color: var(--admin-body, #50677b) !important;
+	font-size: 11px !important;
+	line-height: 1.6 !important;
+	overflow-wrap: anywhere;
 }
-
-.rt-device-info-chip:hover {
-	background: rgba(255, 255, 255, 1);
-	border-color: rgba(102, 126, 234, 0.3);
-}
-
-/* 分页控制 - 响应式优化 */
 .pagination {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	gap: 12px;
-	padding-top: 14px;
-	border-top: 1px solid rgba(226, 232, 240, 0.7);
-	min-height: 44px;
+	gap: 16px;
+	padding-top: 18px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
 }
-
 .page-btn {
-	width: 44px;
-	height: 44px;
-	border-radius: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba(248, 250, 252, 0.95);
-	border: 1px solid rgba(226, 232, 240, 0.9);
+	width: 36px;
+	height: 36px;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 10px;
+	background: var(--admin-soft, #f5fafb);
 	cursor: pointer;
-	transition: all 0.2s ease;
 }
-
 .page-btn:hover {
-	background: rgba(102, 126, 234, 0.1);
-	border-color: rgba(102, 126, 234, 0.3);
+	border-color: #a7d7dc;
 }
-
 .page-btn-disabled {
 	opacity: 0.4;
 	pointer-events: none;
 }
-
-@media screen and (max-width: 767px) {
-	.pagination {
-		gap: 8px;
-		padding-top: 12px;
-	}
-	
-	.page-btn {
-		width: 36px;
-		height: 36px;
-	}
-}
-
 .empty-tip {
+	padding: 48px 16px;
 	text-align: center;
-	padding: 28px 0;
+	border: 1px dashed var(--admin-line, #e5edf2);
+	border-radius: 14px;
+	background: var(--admin-soft, #f5fafb);
 }
-
-@media screen and (max-width: 767px) {
-	.empty-tip {
-		padding: 20px 0;
+.empty-tip :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 14px !important;
+}
+.admin-action-secondary {
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2) !important;
+	box-shadow: none !important;
+	flex-shrink: 0;
+}
+.admin-action-secondary :deep(.button) {
+	background: var(--admin-paper, #fff) !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button text) {
+	color: var(--admin-body, #50677b) !important;
+}
+@media (max-width: 1100px) {
+	.metrics-grid,
+	.sub-metrics {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 20px 10px;
+	}
+	.metric-item:nth-child(3),
+	.sub-metric:nth-child(2) {
+		border-right: 0;
+	}
+}
+@media (max-width: 640px) {
+	.page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 14px;
+		margin-bottom: 18px;
+	}
+	.page-title {
+		margin: 0;
+		font-size: 26px;
+	}
+	.stats-card {
+		padding: 16px !important;
+		margin-bottom: 14px !important;
+	}
+	.metric-item,
+	.sub-metric {
+		padding: 4px 8px;
+	}
+	.metric-item > :nth-child(2) :deep(text) {
+		font-size: 28px !important;
+	}
+	.sub-metric > :nth-child(2) :deep(text) {
+		font-size: 20px !important;
+	}
+	.records-header {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.rt-item {
+		padding: 14px 12px;
+	}
+	.rt-left {
+		gap: 8px;
+	}
+	.rt-device-icon {
+		width: 32px;
+		height: 32px;
+		border-radius: 9px;
+	}
+	.device-emoji {
+		font-size: 19px;
+	}
+	.rt-dot {
+		width: 5px;
+		height: 5px;
+	}
+	.rt-title-row {
+		flex-direction: column;
+		gap: 3px;
+	}
+	.rt-device-info-chip {
+		padding: 4px 7px;
+	}
+	.hour-tooltip {
+		display: none;
 	}
 }
 </style>

@@ -437,7 +437,7 @@ export interface AnalyticsStats {
 	utmCampaigns: Array<{ source: string; medium: string; campaign: string; count: number }>;
 	languageStats: Array<{ language: string; count: number }>;
 	timezoneStats: Array<{ timezone: string; count: number }>;
-	realtimeVisitors: Array<{
+	recentVisitors: Array<{
 		url: string; pathname: string; title: string;
 		ip: string;
 		screenWidth: number; screenHeight: number; pixelRatio: number;
@@ -450,10 +450,18 @@ export interface AnalyticsStats {
 		isLoggedIn: boolean;
 		username: string | null;
 	}>;
+	recentTotal?: number;
+	recentPage?: number;
+	recentPageSize?: number;
+	recentPageCount?: number;
+	statisticsTimeZone?: string;
+	generatedAt?: string;
+	visitorPeriod?: 'last30Days';
+	visitorDefinitions?: { new: string; returning: string };
 }
 
-export function getAdminAnalyticsStats() {
-	return request<{ success: boolean; data: AnalyticsStats }>('/api/admin/stats/analytics', {
+export function getAdminAnalyticsStats(page = 1, pageSize = 20) {
+	return request<{ success: boolean; data: AnalyticsStats }>(`/api/admin/stats/analytics?page=${page}&pageSize=${pageSize}`, {
 		method: 'GET',
 		needAuth: true,
 	});

@@ -1,0 +1,11 @@
+{
+  "events": [
+    "popstate",
+    "hashchange"
+  ],
+  "pvForSingleBack": 2,
+  "lastUrls": [
+    "https://xuan.example/#/one",
+    "https://xuan.example/#/one"
+  ]
+}

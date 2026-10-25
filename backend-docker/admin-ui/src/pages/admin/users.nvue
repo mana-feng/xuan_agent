@@ -1,196 +1,155 @@
 <template>
 	<tm-app>
-		<view class="page-wrapper theme-page-bg">
+		<view class="page-wrapper theme-page-bg admin-workbench admin-page-users">
 			<yx-nav-header></yx-nav-header>
-			
+
 			<view class="page-content theme-container" :style="pageContentStyle">
+				<view class="page-heading">
+					<text class="page-eyebrow">账户与权限</text>
+					<h1 class="page-title">用户管理</h1>
+					<text class="page-description">查找用户、维护账户资料与管理员权限。</text>
+				</view>
 				<view class="theme-card theme-card-glass">
-				<!-- 顶部操作栏 -->
-				<view class="top-bar">
-					<view class="search-bar">
-						<tm-input
-							v-model="searchKeyword"
-							placeholder="搜索邮箱或用户名"
-							prefix="search"
-							clearable
-							@input="handleSearch"
-						></tm-input>
-					</view>
-					<view class="top-bar-buttons">
-						<yx-teal-button
-							size="small"
-							label="返回主页"
-							icon="tmicon-md-home"
-							@tap="goToHome"
-							:margin="[0, 12, 0, 0]"
-						></yx-teal-button>
-						<yx-teal-button
-							size="small"
-							label="创建用户"
-							@tap="handleCreateUser"
-							:margin="[0, 0, 0, 0]"
-						></yx-teal-button>
-					</view>
-				</view>
-				
-				<!-- 用户列表 -->
-				<view class="responsive-list-container" style="margin-bottom: 40rpx;">
-					<tm-sheet
-						v-for="user in userList"
-						:key="user.id"
-						:round="4"
-						:shadow="2"
-						:padding="[20, 20]"
-						:margin="[0, 0, 0, 0]"
-						class="responsive-list-item"
-					>
-						<view class="user-header">
-							<view class="user-info">
-								<tm-text
-									:font-size="28"
-									:bold="true"
-									:label="user.username || user.email"
-								></tm-text>
-								<tm-tag
-									:margin="[8, 0, 0, 0]"
-									:label="user.role === 'admin' ? '管理员' : '普通用户'"
-									:color="user.role === 'admin' ? 'red' : 'blue'"
+					<!-- 顶部操作栏 -->
+					<view class="filter-panel">
+						<view class="top-bar">
+							<view class="search-bar">
+								<text class="field-label">邮箱 / 用户名</text>
+								<yx-admin-input
+:height="88"
+									v-model="searchKeyword"
+									placeholder="搜索邮箱或用户名"
+									prefix="search"
+									clearable
+									@input="handleSearch"
+								></yx-admin-input>
+							</view>
+							<view class="top-bar-buttons">
+								<yx-teal-button
+									class="admin-action-secondary"
 									size="small"
-								></tm-tag>
-							</view>
-							<view class="user-actions">
-								<yx-teal-button
-									size="mini"
-									label="编辑"
-									:margin="[0, 10, 0, 0]"
-									@tap="() => handleEditUser(user)"
+									label="返回主页"
+									icon="tmicon-md-home"
+									@tap="goToHome"
+									:margin="[0, 12, 0, 0]"
 								></yx-teal-button>
 								<yx-teal-button
-									v-if="user.role !== 'admin'"
-									size="mini"
-									label="设为管理员"
-									:margin="[0, 10, 0, 0]"
-									@tap="() => handleChangeRole(user.id, 'admin')"
-								></yx-teal-button>
-								<yx-teal-button
-									v-if="user.role === 'admin'"
-									size="mini"
-									label="取消管理员"
-									:margin="[0, 10, 0, 0]"
-									@tap="() => handleChangeRole(user.id, 'user')"
-								></yx-teal-button>
-								<yx-teal-button
-									size="mini"
-									label="删除"
-									@tap="() => handleDeleteUser(user.id)"
+									size="small"
+									label="创建用户"
+									@tap="handleCreateUser"
+									:margin="[0, 0, 0, 0]"
 								></yx-teal-button>
 							</view>
 						</view>
-						
-						<view class="user-details">
-							<tm-text
-								:font-size="22"
-								color="#666"
-								:label="'邮箱：' + user.email"
-							></tm-text>
-							<tm-text
-								class="mt-8"
-								:font-size="22"
-								color="#666"
-								:label="'注册时间：' + formatDate(user.created_at)"
-							></tm-text>
-							<tm-text
-								class="mt-8"
-								:font-size="22"
-								color="#666"
-								:label="'记录数：' + (user.recordCount || 0)"
-							></tm-text>
+
+						<!-- 用户列表 -->
+					</view>
+					<view class="users-list-heading">
+						<view class="users-list-title"><text>用户列表</text><text class="users-total">{{ total }} 位用户</text></view>
+						<text class="users-list-caption">管理账户资料与访问权限</text>
+					</view>
+					<view class="users-panel">
+						<view class="users-columns" aria-hidden="true">
+							<text>账号资料</text><text>角色</text><text>排盘记录</text><text>注册时间</text><text class="users-column-actions">操作</text>
 						</view>
-					</tm-sheet>
-					
-					<tm-text
-						v-if="userList.length === 0 && !loading"
-						class="empty-text"
-						:font-size="24"
-						color="#999"
-						label="暂无用户数据"
-					></tm-text>
-				</view>
-				
-				<!-- 分页 -->
-				<view class="pagination" v-if="totalPages > 1">
-					<yx-teal-button
-						size="small"
-						:disabled="currentPage === 1"
-						label="上一页"
-						@tap="handlePrevPage"
-					></yx-teal-button>
-					<tm-text
-						:margin="[0, 20]"
-						:label="`${currentPage} / ${totalPages}`"
-					></tm-text>
-					<yx-teal-button
-						size="small"
-						:disabled="currentPage === totalPages"
-						label="下一页"
-						@tap="handleNextPage"
-					></yx-teal-button>
-				</view>
+						<view class="users-rows" role="list" aria-label="用户列表">
+							<view v-for="user in userList" :key="user.id" class="users-row" role="listitem">
+								<view class="users-account">
+									<view class="users-avatar" aria-hidden="true">{{ (user.username || user.email || 'U').slice(0, 1).toUpperCase() }}</view>
+									<view class="users-account-copy">
+										<text class="users-name">{{ user.username || '未设置用户名' }}</text>
+										<text class="users-email">{{ user.email }}</text>
+									</view>
+								</view>
+								<view class="users-role-cell"><text class="users-role" :class="{ 'users-role-admin': user.role === 'admin' }">{{ user.role === 'admin' ? '管理员' : '普通用户' }}</text></view>
+								<view class="users-records"><text class="users-mobile-label">排盘记录</text><text class="users-count">{{ user.recordCount || 0 }}<text class="users-count-unit"> 条</text></text></view>
+								<view class="users-date"><text class="users-mobile-label">注册时间</text><text>{{ formatDate(user.created_at) || '—' }}</text></view>
+								<view class="users-actions">
+									<view class="users-action users-action-edit" :aria-label="'编辑用户 ' + (user.username || user.email)" v-bind="h5Button(() => handleEditUser(user))" @click="handleEditUser(user)">编辑</view>
+									<view class="users-action" :aria-label="(user.role === 'admin' ? '取消管理员权限：' : '设为管理员：') + (user.username || user.email)" v-bind="h5Button(() => handleChangeRole(user.id, user.role === 'admin' ? 'user' : 'admin'))" @click="handleChangeRole(user.id, user.role === 'admin' ? 'user' : 'admin')">{{ user.role === 'admin' ? '取消管理员' : '设为管理员' }}</view>
+									<view class="users-action users-action-delete" :aria-label="'删除用户 ' + (user.username || user.email)" v-bind="h5Button(() => handleDeleteUser(user.id))" @click="handleDeleteUser(user.id)">删除</view>
+								</view>
+							</view>
+						</view>
+						<view v-if="userList.length === 0 && !loading" class="users-empty"><text class="users-empty-title">暂无匹配用户</text><text>试试其他邮箱或用户名。</text></view>
+					</view>
+
+					<!-- 分页 -->
+					<view class="pagination" v-if="totalPages > 1">
+						<yx-teal-button
+							class="admin-action-secondary"
+							size="small"
+							:disabled="currentPage === 1"
+							label="上一页"
+							@tap="handlePrevPage"
+						></yx-teal-button>
+						<tm-text :margin="[0, 20]" :label="`${currentPage} / ${totalPages}`"></tm-text>
+						<yx-teal-button
+							class="admin-action-secondary"
+							size="small"
+							:disabled="currentPage === totalPages"
+							label="下一页"
+							@tap="handleNextPage"
+						></yx-teal-button>
+					</view>
 				</view>
 			</view>
-			
+
 			<!-- 创建/编辑用户弹窗 -->
-			<tm-drawer
-				v-model:show="showUserDialog"
-				:title="editingUser ? '编辑用户' : '创建用户'"
-				:height="600"
-			>
+			<yx-admin-dialog v-model:show="showUserDialog" :title="editingUser ? '编辑用户' : '创建用户'" eyebrow="账户管理" description="请核对填写的信息后保存。">
 				<view class="user-form">
-					<tm-input
+					<yx-admin-input
+:height="88"
 						v-model="userForm.email"
 						label="邮箱"
 						placeholder="请输入邮箱"
 						:margin="[0, 0, 20, 0]"
 						required
-					></tm-input>
-					
-					<tm-input
+					></yx-admin-input>
+
+					<yx-admin-input
+:height="88"
 						v-model="userForm.username"
 						label="用户名（可选）"
 						placeholder="请输入用户名"
 						:margin="[0, 0, 20, 0]"
-					></tm-input>
-					
-					<tm-input
+					></yx-admin-input>
+
+					<yx-admin-input
+:height="88"
 						v-model="userForm.password"
 						label="密码"
 						:placeholder="editingUser ? '留空则不修改密码' : '请输入密码'"
 						type="password"
 						:margin="[0, 0, 20, 0]"
 						:required="!editingUser"
-					></tm-input>
-					
+					></yx-admin-input>
+
 					<view class="form-item">
-						<tm-text
-							:font-size="24"
-							:margin="[0, 0, 10, 0]"
-							label="角色"
-						></tm-text>
-						<tm-radio-group v-model="userForm.role" model="button">
-							<tm-radio label="普通用户" value="user"></tm-radio>
-							<tm-radio label="管理员" value="admin"></tm-radio>
+						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="角色"></tm-text>
+						<tm-radio-group class="admin-choice-group" v-model="userForm.role" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(userForm.role) === 'user' }" label="普通用户" value="user"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(userForm.role) === 'admin' }" label="管理员" value="admin"></tm-radio>
 						</tm-radio-group>
 					</view>
-					
+
 					<view v-if="userFormError" class="error-text">
-						<tm-text
-							:label="userFormError"
-							color="#ff4d4f"
-						></tm-text>
+						<tm-text :label="userFormError" color="#ff4d4f"></tm-text>
 					</view>
-					
-					<view class="form-actions">
-						<yx-teal-button
+
+
+				</view>
+
+<template #footer>
+<yx-teal-button
+							class="admin-action-secondary"
+							block
+							size="small"
+							label="取消"
+							@tap="handleCancelUser"
+							:margin="[20, 0, 0, 0]"
+						></yx-teal-button>
+<yx-teal-button
 							block
 							size="small"
 							:loading="userFormLoading"
@@ -198,22 +157,15 @@
 							@tap="handleSubmitUser"
 							:margin="[20, 0, 0, 0]"
 						></yx-teal-button>
-						<yx-teal-button
-							block
-							size="small"
-							label="取消"
-							@tap="handleCancelUser"
-							:margin="[20, 0, 0, 0]"
-						></yx-teal-button>
-					</view>
-				</view>
-			</tm-drawer>
+</template>
+</yx-admin-dialog>
 		</view>
 	</tm-app>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
+import { h5Button } from '@/utils/keyboard';
 import { useUserStore } from '@/store/user';
 import { getUserList, updateUserRole, deleteUser, createUser, updateUser, type UserInfo } from '@/services/api/admin';
 
@@ -479,90 +431,339 @@ async function handleSubmitUser() {
 </script>
 
 <style scoped>
-.page-wrapper {
-	padding-bottom: 40rpx;
-}
-
-.page-content {
-	/* theme-container + pageContentStyle 控制内边距 */
-}
-
-.theme-card {
-	padding: 24px 20px 28px;
-}
-
-.top-bar {
+.page-heading {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-bottom: 20rpx;
-	flex-wrap: wrap;
-	gap: 12rpx;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 24px;
 }
-
-.search-bar {
-	flex: 1;
-	min-width: 200rpx;
+.page-eyebrow {
+	color: var(--admin-accent, #169e9a);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 3px;
 }
-
+.page-title {
+	margin: 0;
+	color: var(--admin-ink, #20374a);
+	font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.page-description {
+	color: var(--admin-muted, #788c9d);
+	font-size: 13px;
+	line-height: 1.8;
+}
+.filter-panel {
+	padding: 18px;
+	margin-bottom: 24px;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 14px;
+	background: var(--admin-soft, #f5fafb);
+}
+.top-bar,
 .top-bar-buttons {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	flex-wrap: wrap;
-	gap: 12rpx;
+	align-items: flex-end;
+	gap: 10px;
 }
-
-.user-form {
-	padding: 20rpx;
+.search-bar {
+	flex: 1;
+	min-width: 220px;
 }
-
-.form-item {
-	margin-bottom: 20rpx;
+.field-label {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--admin-body, #50677b);
+	font-size: 12px;
+	font-weight: 600;
 }
-
-.error-text {
-	margin-top: 20rpx;
+.list-heading {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
 }
-
-.form-actions {
-	margin-top: 40rpx;
+.list-title {
+	color: var(--admin-ink, #20374a);
+	font-size: 16px;
+	font-weight: 600;
 }
-
-.user-header {
+.list-caption {
+	color: var(--admin-muted, #788c9d);
+	font-size: 12px;
+}
+.responsive-list-container {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 20px !important;
+}
+.responsive-list-item {
+	width: 100% !important;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: 20px !important;
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 16px !important;
+	box-shadow: 0 3px 12px rgba(36, 73, 94, 0.025) !important;
+}
+.user-header,
+.record-header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: 16rpx;
+	gap: 20px;
 }
-
-.user-info {
+.user-info,
+.record-info {
 	flex: 1;
+	min-width: 0;
+	overflow-wrap: anywhere;
 }
-
-.user-actions {
+.user-actions,
+.record-actions {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 8px;
 }
-
-.user-details {
-	margin-top: 16rpx;
-	padding-top: 16rpx;
-	border-top: 1px solid #eee;
+.user-details,
+.record-details {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px 24px;
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
 }
-
+.user-details .mt-8,
+.record-details .mt-8 {
+	margin-top: 0 !important;
+}
+.user-details :deep(text),
+.record-details :deep(text),
+.record-info .mt-8 :deep(text) {
+	color: var(--admin-body, #50677b) !important;
+	font-size: 13px !important;
+	line-height: 1.7 !important;
+}
+.user-info > :first-child :deep(text),
+.record-info > :first-child :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+}
+.admin-action-secondary {
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2) !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button) {
+	background: var(--admin-paper, #fff) !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button text) {
+	color: var(--admin-body, #50677b) !important;
+}
+.admin-action-danger {
+	background: #fff5f3 !important;
+	border: 1px solid #f5dcd6 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button) {
+	background: #fff5f3 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button text) {
+	color: #bd655a !important;
+}
 .empty-text {
+	width: 100%;
+	box-sizing: border-box;
+	justify-content: center;
+	padding: 64px 16px;
+	border: 1px dashed var(--admin-line, #e5edf2);
+	border-radius: 16px;
+	background: var(--admin-soft, #f5fafb);
 	text-align: center;
-	padding: 60rpx 0;
 }
-
+.empty-text :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 14px !important;
+	line-height: 1.8 !important;
+}
 .pagination {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	padding: 20rpx 0;
+	gap: 10px;
+	padding-top: 20px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
 }
-</style>
+.user-form,
+.record-form,
+.record-detail {
+	padding: 22px;
+}
+.form-item {
+	margin-bottom: 20px;
+}
+.error-text {
+	padding: 12px;
+	margin-top: 16px;
+	border-radius: 10px;
+	background: #fff5f3;
+}
+.form-actions {
+	margin-top: 24px;
+}
+.detail-item {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 18px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
+}
+.raw-payload {
+	margin-top: 8px;
+	padding: 16px;
+	max-height: 300px;
+	overflow: auto;
+	border-radius: 12px;
+	background: var(--admin-soft, #f5fafb);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+	.user-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.user-actions {
+		justify-content: flex-start;
+	}
+}
+@media (max-width: 640px) {
+	.page-heading {
+		margin-bottom: 18px;
+	}
+	.page-title {
+		margin: 0;
+		font-size: 26px;
+	}
+	.filter-panel {
+		padding: 14px;
+	}
+	.top-bar {
+		align-items: stretch;
+	}
+	.search-bar {
+		flex-basis: 100%;
+		min-width: 0;
+	}
+	.top-bar-buttons {
+		width: 100%;
+		gap: 8px;
+	}
+	.responsive-list-item {
+		padding: 16px !important;
+	}
+	.record-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.record-actions {
+		justify-content: flex-start;
+	}
+	.user-details,
+	.record-details {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 8px;
+	}
+	.list-heading {
+		gap: 6px;
+		flex-direction: column;
+	}
+	.user-form,
+	.record-form,
+	.record-detail {
+		padding: 16px;
+	}
+}
 
+/* Compact account directory; mobile cards share the same data and actions. */
+.users-list-heading, .users-list-title { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+.users-list-heading { justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; }
+.users-list-title { color: var(--admin-ink, #20374a); font-size: 16px; font-weight: 600; }
+.users-total { padding: 4px 10px; border-radius: 20px; background: var(--admin-soft, #f1f8f8); color: var(--admin-muted, #788c9d); font-size: 11px; font-weight: 500; }
+.users-list-caption { color: var(--admin-muted, #788c9d); font-size: 12px; }
+.users-panel { overflow: hidden; border: 1px solid var(--admin-line, #e5edf2); border-radius: 16px; background: var(--admin-paper, #fff); }
+.users-columns, .users-row { display: grid; grid-template-columns: minmax(190px, 1fr) 96px 80px 112px 242px; align-items: center; gap: 18px; padding: 0 22px; }
+.users-columns { min-height: 46px; background: var(--admin-soft, #f5fafb); color: var(--admin-muted, #788c9d); font-size: 11px; font-weight: 600; letter-spacing: .4px; }
+.users-column-actions { text-align: right; }
+.users-row { min-height: 92px; padding-top: 16px; padding-bottom: 16px; box-sizing: border-box; transition: background .15s; }
+.users-row + .users-row { border-top: 1px solid var(--admin-line, #e5edf2); }
+.users-row:hover { background: var(--admin-soft, #f5fafb); }
+.users-account { display: flex; flex-direction: row; align-items: center; gap: 12px; min-width: 0; }
+.users-avatar { display: flex; align-items: center; justify-content: center; flex: 0 0 38px; width: 38px; height: 38px; border: 1px solid var(--admin-line, #e5edf2); border-radius: 12px; background: var(--admin-soft, #f1f8f8); color: var(--admin-accent, #169e9a); font-size: 16px; font-weight: 600; }
+.users-account-copy { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.users-name { color: var(--admin-ink, #20374a); font-size: 14px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.users-email { color: var(--admin-muted, #788c9d); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.users-role-cell { display: flex; flex-direction: row; }
+.users-role { display: inline-flex; align-items: center; width: fit-content; padding: 5px 10px; border: 1px solid var(--admin-line, #e5edf2); border-radius: 20px; background: var(--admin-soft, #f5fafb); color: var(--admin-body, #50677b); font-size: 11px; line-height: 1.4; white-space: nowrap; }
+.users-role-admin { background: var(--admin-active, #e7f5f1); border-color: transparent; color: var(--admin-accent, #169e9a); font-weight: 600; }
+.users-records, .users-date { color: var(--admin-body, #50677b); font-size: 12px; }
+.users-count { color: var(--admin-ink, #20374a); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.users-count-unit { color: var(--admin-muted, #788c9d); font-size: 11px; font-weight: 400; }
+.users-mobile-label { display: none; }
+.users-actions { display: flex; flex-direction: row; justify-content: flex-end; align-items: center; gap: 6px; }
+.users-action { display: flex; flex-direction: row; align-items: center; justify-content: center; min-height: 36px; padding: 0 11px; box-sizing: border-box; border: 1px solid var(--admin-line, #e5edf2); border-radius: 9px; background: var(--admin-paper, #fff); color: var(--admin-body, #50677b); font-size: 12px; line-height: 1.4; white-space: nowrap; cursor: pointer; }
+.users-action-edit { background: var(--admin-soft, #f1f8f8); color: var(--admin-accent, #169e9a); }
+.users-action:hover { border-color: var(--admin-accent, #169e9a); color: var(--admin-accent, #169e9a); }
+.users-action:focus-visible { outline: 2px solid var(--admin-accent, #169e9a); outline-offset: 3px; }
+.users-action-delete { border-color: transparent; background: transparent; color: #b65e60; }
+.users-action-delete:hover { border-color: #f1d9db; background: #fff3f3; color: #b64c51; }
+.users-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 48px 20px; color: var(--admin-muted, #788c9d); font-size: 12px; }
+.users-empty-title { color: var(--admin-body, #50677b); font-size: 14px; font-weight: 600; }
+@media (max-width: 1199px) {
+ .users-columns { display: none; }
+ .users-panel { border: 0; border-radius: 0; background: transparent; overflow: visible; }
+ .users-rows { display: flex; flex-direction: column; gap: 12px; }
+ .users-row { grid-template-columns: minmax(0, 1fr) auto; gap: 18px 14px; padding: 18px; border: 1px solid var(--admin-line, #e5edf2); border-radius: 14px; background: var(--admin-paper, #fff); }
+ .users-row + .users-row { border-top: 1px solid var(--admin-line, #e5edf2); }
+ .users-role-cell { justify-content: flex-end; align-self: start; }
+ .users-records, .users-date { display: flex; flex-direction: column; gap: 6px; }
+ .users-mobile-label { display: block; color: var(--admin-muted, #788c9d); font-size: 11px; font-weight: 400; }
+ .users-actions { grid-column: 1 / -1; justify-content: flex-start; padding-top: 14px; border-top: 1px solid var(--admin-line, #e5edf2); }
+ .users-action { min-height: 40px; }
+ .users-action-delete { margin-left: auto; }
+}
+@media (max-width: 640px) {
+ .users-list-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+ .users-row { padding: 16px; gap: 16px 10px; }
+ .users-account { gap: 9px; }
+ .users-avatar { flex-basis: 32px; width: 32px; height: 32px; border-radius: 10px; font-size: 14px; }
+ .users-name { font-size: 13px; }
+ .users-email { font-size: 11px; }
+ .users-role { padding: 4px 8px; font-size: 10px; }
+ .users-action { min-height: 42px; padding: 0 10px; }
+}
+
+</style>

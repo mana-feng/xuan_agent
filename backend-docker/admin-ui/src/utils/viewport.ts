@@ -3,15 +3,12 @@ import { ref } from 'vue';
 type LayoutMode = 'layout-compact' | 'layout-medium' | 'layout-wide';
 
 // 统一断点标准 (与 responsive-layout.css 保持一致)
-const BREAKPOINT_XS = 640;
 const BREAKPOINT_SM = 768;
-const BREAKPOINT_MD = 1024;
 const BREAKPOINT_LG = 1280;
 
 const MODES: LayoutMode[] = ['layout-compact', 'layout-medium', 'layout-wide'];
 
-const SCALE_MIN = 0.6;
-const SCALE_MAX = 1;
+// TMUI already converts rpx for each viewport; a second scale makes controls unreadable.
 
 const uiScale = ref(1);
 
@@ -20,15 +17,6 @@ const getMode = (width: number): LayoutMode => {
 	if (width >= BREAKPOINT_LG) return 'layout-wide';
 	if (width >= BREAKPOINT_SM) return 'layout-medium';
 	return 'layout-compact';
-};
-
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-
-const getScale = (width: number) => {
-	if (!width) return SCALE_MAX;
-	// 768px 以上不缩放，以下按比例缩放
-	if (width >= BREAKPOINT_SM) return SCALE_MAX;
-	return clamp(width / BREAKPOINT_SM, SCALE_MIN, SCALE_MAX);
 };
 
 const applyMode = (mode: LayoutMode) => {
@@ -45,8 +33,8 @@ const applyMode = (mode: LayoutMode) => {
 	body.classList.add(mode);
 };
 
-const applyScale = (width: number) => {
-	uiScale.value = getScale(width);
+const applyScale = () => {
+	uiScale.value = 1;
 	if (typeof document !== 'undefined') {
 		document.documentElement?.style.setProperty('--ui-scale', uiScale.value.toString());
 	}
@@ -61,7 +49,7 @@ export const setupViewportWatcher = () => {
 	const update = () => {
 		const width = window.innerWidth || 0;
 		applyMode(getMode(width));
-		applyScale(width);
+		applyScale();
 	};
 
 	const schedule = () => {

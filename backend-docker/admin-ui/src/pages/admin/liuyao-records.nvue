@@ -1,206 +1,210 @@
 <template>
 	<tm-app>
-		<view class="page-wrapper theme-page-bg">
+		<view class="page-wrapper theme-page-bg admin-workbench admin-page-liuyao-records">
 			<yx-nav-header></yx-nav-header>
-			
+
 			<view class="page-content theme-container" :style="pageContentStyle">
-				<view class="theme-card theme-card-glass">
-				<!-- 顶部操作栏 -->
-				<view class="top-bar">
-					<view class="search-bar">
-						<tm-input
-							v-model="searchKeyword"
-							placeholder="搜索姓名、邮箱或用户名"
-							prefix="search"
-							clearable
-							@input="handleSearch"
-						></tm-input>
-					</view>
-					<view class="top-bar-buttons">
-						<yx-teal-button
-							size="small"
-							label="返回主页"
-							icon="tmicon-md-home"
-							@tap="goToHome"
-							:margin="[0, 12, 0, 0]"
-						></yx-teal-button>
-						<yx-teal-button
-							size="small"
-							label="创建记录"
-							@tap="handleCreateRecord"
-							:margin="[0, 0, 0, 0]"
-						></yx-teal-button>
-					</view>
+				<view class="page-heading">
+					<text class="page-eyebrow">六爻档案</text>
+					<h1 class="page-title">六爻记录</h1>
+					<text class="page-description">查询六爻排盘资料，查看详情并维护记录。</text>
 				</view>
-				
-				<!-- 记录列表 -->
-				<view class="responsive-list-container" style="margin-bottom: 40rpx;">
-					<tm-sheet
-						v-for="record in recordList"
-						:key="record.id"
-						:round="4"
-						:shadow="2"
-						:padding="[20, 20]"
-						:margin="[0, 0, 0, 0]"
-						class="responsive-list-item"
-					>
-						<view class="record-header">
-							<view class="record-info">
+				<view class="theme-card theme-card-glass">
+					<!-- 顶部操作栏 -->
+					<view class="filter-panel">
+						<view class="top-bar">
+							<view class="search-bar">
+								<text class="field-label">姓名 / 邮箱 / 用户名</text>
+								<yx-admin-input
+:height="88"
+									v-model="searchKeyword"
+									placeholder="搜索姓名、邮箱或用户名"
+									prefix="search"
+									clearable
+									@input="handleSearch"
+								></yx-admin-input>
+							</view>
+							<view class="top-bar-buttons">
+								<yx-teal-button
+									class="admin-action-secondary"
+									size="small"
+									label="返回主页"
+									icon="tmicon-md-home"
+									@tap="goToHome"
+									:margin="[0, 12, 0, 0]"
+								></yx-teal-button>
+								<yx-teal-button
+									size="small"
+									label="创建记录"
+									@tap="handleCreateRecord"
+									:margin="[0, 0, 0, 0]"
+								></yx-teal-button>
+							</view>
+						</view>
+
+						<!-- 记录列表 -->
+					</view>
+					<view class="list-heading">
+						<text class="list-title">记录列表</text>
+						<text class="list-caption">六爻资料 · 所属用户 · 起卦时间</text>
+					</view>
+					<view class="responsive-list-container" style="margin-bottom: 40rpx">
+						<tm-sheet
+							v-for="record in recordList"
+							:key="record.id"
+							:round="4"
+							:shadow="2"
+							:padding="[20, 20]"
+							:margin="[0, 0, 0, 0]"
+							class="responsive-list-item"
+						>
+							<view class="record-header">
+								<view class="record-info">
+									<tm-text :font-size="28" :bold="true" :label="record.name || '未命名排盘'"></tm-text>
+									<tm-text
+										class="mt-8"
+										:font-size="22"
+										color="#666"
+										:label="'用户：' + (record.userUsername || record.userEmail)"
+									></tm-text>
+								</view>
+								<view class="record-actions">
+									<yx-teal-button
+										size="mini"
+										label="详情"
+										:margin="[0, 10, 0, 0]"
+										@tap="() => handleViewDetail(record.id)"
+									></yx-teal-button>
+									<yx-teal-button
+										class="admin-action-secondary"
+										size="mini"
+										label="编辑"
+										:margin="[0, 10, 0, 0]"
+										@tap="() => handleEditRecord(record)"
+									></yx-teal-button>
+									<yx-teal-button
+										class="admin-action-danger"
+										size="mini"
+										label="删除"
+										@tap="() => handleDeleteRecord(record.id)"
+									></yx-teal-button>
+								</view>
+							</view>
+
+							<view class="record-details">
 								<tm-text
-									:font-size="28"
-									:bold="true"
-									:label="record.name || '未命名排盘'"
+									:font-size="22"
+									color="#666"
+									:label="'性别：' + (record.gender === '0' || record.gender === 0 ? '男' : record.gender === '1' || record.gender === 1 ? '女' : '未知')"
 								></tm-text>
 								<tm-text
 									class="mt-8"
 									:font-size="22"
 									color="#666"
-									:label="'用户：' + (record.userUsername || record.userEmail)"
+									:label="'出生时间：' + record.birthDatetime"
+								></tm-text>
+								<tm-text
+									class="mt-8"
+									:font-size="22"
+									color="#666"
+									:label="'历法：' + (record.calendarType === 'solar' ? '阳历' : '阴历')"
+								></tm-text>
+								<tm-text
+									class="mt-8"
+									:font-size="22"
+									color="#666"
+									:label="'创建时间：' + formatDate(record.createdAt)"
 								></tm-text>
 							</view>
-							<view class="record-actions">
-								<yx-teal-button
-									size="mini"
-									label="详情"
-									:margin="[0, 10, 0, 0]"
-									@tap="() => handleViewDetail(record.id)"
-								></yx-teal-button>
-								<yx-teal-button
-									size="mini"
-									label="编辑"
-									:margin="[0, 10, 0, 0]"
-									@tap="() => handleEditRecord(record)"
-								></yx-teal-button>
-								<yx-teal-button
-									size="mini"
-									label="删除"
-									@tap="() => handleDeleteRecord(record.id)"
-								></yx-teal-button>
-							</view>
-						</view>
-						
-						<view class="record-details">
-							<tm-text
-								:font-size="22"
-								color="#666"
-								:label="'性别：' + (record.gender === '0' || record.gender === 0 ? '男' : record.gender === '1' || record.gender === 1 ? '女' : '未知')"
-							></tm-text>
-							<tm-text
-								class="mt-8"
-								:font-size="22"
-								color="#666"
-								:label="'出生时间：' + record.birthDatetime"
-							></tm-text>
-							<tm-text
-								class="mt-8"
-								:font-size="22"
-								color="#666"
-								:label="'历法：' + (record.calendarType === 'solar' ? '阳历' : '阴历')"
-							></tm-text>
-							<tm-text
-								class="mt-8"
-								:font-size="22"
-								color="#666"
-								:label="'创建时间：' + formatDate(record.createdAt)"
-							></tm-text>
-						</view>
-					</tm-sheet>
-					
-					<tm-text
-						v-if="recordList.length === 0 && !loading"
-						class="empty-text"
-						:font-size="24"
-						color="#999"
-						label="暂无六爻记录数据"
-					></tm-text>
-				</view>
-				
-				<!-- 分页 -->
-				<view class="pagination" v-if="totalPages > 1">
-					<yx-teal-button
-						size="small"
-						:disabled="currentPage === 1"
-						label="上一页"
-						@tap="handlePrevPage"
-					></yx-teal-button>
-					<tm-text
-						:margin="[0, 20]"
-						:label="`${currentPage} / ${totalPages}`"
-					></tm-text>
-					<yx-teal-button
-						size="small"
-						:disabled="currentPage === totalPages"
-						label="下一页"
-						@tap="handleNextPage"
-					></yx-teal-button>
-				</view>
+						</tm-sheet>
+
+						<tm-text
+							v-if="recordList.length === 0 && !loading"
+							class="empty-text"
+							:font-size="24"
+							color="#999"
+							label="暂无六爻记录数据"
+						></tm-text>
+					</view>
+
+					<!-- 分页 -->
+					<view class="pagination" v-if="totalPages > 1">
+						<yx-teal-button
+							class="admin-action-secondary"
+							size="small"
+							:disabled="currentPage === 1"
+							label="上一页"
+							@tap="handlePrevPage"
+						></yx-teal-button>
+						<tm-text :margin="[0, 20]" :label="`${currentPage} / ${totalPages}`"></tm-text>
+						<yx-teal-button
+							class="admin-action-secondary"
+							size="small"
+							:disabled="currentPage === totalPages"
+							label="下一页"
+							@tap="handleNextPage"
+						></yx-teal-button>
+					</view>
 				</view>
 			</view>
-			
+
 			<!-- 创建/编辑记录弹窗 -->
-			<tm-drawer
-				v-model:show="showRecordDialog"
-				:title="editingRecord ? '编辑六爻记录' : '创建六爻记录'"
-				:height="700"
-			>
+			<yx-admin-dialog v-model:show="showRecordDialog" :title="editingRecord ? '编辑六爻记录' : '创建六爻记录'" eyebrow="排盘档案" description="请核对填写的信息后保存。" wide>
 				<view class="record-form">
-					<tm-input
+					<yx-admin-input
+:height="88"
 						v-model.number="recordForm.userId"
 						label="用户ID"
 						placeholder="请输入用户ID"
 						type="number"
 						:margin="[0, 0, 20, 0]"
 						required
-					></tm-input>
-					
-					<tm-input
+					></yx-admin-input>
+
+					<yx-admin-input
+:height="88"
 						v-model="recordForm.name"
 						label="姓名（可选）"
 						placeholder="请输入姓名"
 						:margin="[0, 0, 20, 0]"
-					></tm-input>
-					
+					></yx-admin-input>
+
 					<view class="form-item">
-						<tm-text
-							:font-size="24"
-							:margin="[0, 0, 10, 0]"
-							label="性别"
-						></tm-text>
-						<tm-radio-group v-model="recordForm.gender" model="button">
-							<tm-radio label="男" value="0"></tm-radio>
-							<tm-radio label="女" value="1"></tm-radio>
+						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="性别"></tm-text>
+						<tm-radio-group class="admin-choice-group" v-model="recordForm.gender" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.gender) === '0' }" label="男" value="0"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.gender) === '1' }" label="女" value="1"></tm-radio>
 						</tm-radio-group>
 					</view>
-					
-					<tm-input
+
+					<yx-admin-input
+:height="88"
 						v-model="recordForm.birthDatetime"
 						label="起卦时间"
 						placeholder="格式：YYYY-MM-DD HH:mm:ss"
 						:margin="[0, 0, 20, 0]"
 						required
-					></tm-input>
-					
+					></yx-admin-input>
+
 					<view class="form-item">
-						<tm-text
-							:font-size="24"
-							:margin="[0, 0, 10, 0]"
-							label="历法类型"
-						></tm-text>
-						<tm-radio-group v-model="recordForm.calendarType" model="button">
-							<tm-radio label="阳历" value="solar"></tm-radio>
-							<tm-radio label="阴历" value="lunar"></tm-radio>
+						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="历法类型"></tm-text>
+						<tm-radio-group class="admin-choice-group" v-model="recordForm.calendarType" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.calendarType) === 'solar' }" label="阳历" value="solar"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.calendarType) === 'lunar' }" label="阴历" value="lunar"></tm-radio>
 						</tm-radio-group>
 					</view>
-					
+
 					<view v-if="recordFormError" class="error-text">
-						<tm-text
-							:label="recordFormError"
-							color="#ff4d4f"
-						></tm-text>
+						<tm-text :label="recordFormError" color="#ff4d4f"></tm-text>
 					</view>
-					
-					<view class="form-actions">
-						<tm-button
+
+
+				</view>
+
+<template #footer>
+<tm-button class="admin-control admin-secondary" block type="default" label="取消" @tap="handleCancelRecord" :margin="[20, 0, 0, 0]"></tm-button>
+<tm-button
+class="admin-control"
 							block
 							type="primary"
 							:loading="recordFormLoading"
@@ -208,23 +212,11 @@
 							@tap="handleSubmitRecord"
 							:margin="[20, 0, 0, 0]"
 						></tm-button>
-						<tm-button
-							block
-							type="default"
-							label="取消"
-							@tap="handleCancelRecord"
-							:margin="[20, 0, 0, 0]"
-						></tm-button>
-					</view>
-				</view>
-			</tm-drawer>
-			
+</template>
+</yx-admin-dialog>
+
 			<!-- 记录详情弹窗 -->
-			<tm-drawer
-				v-model:show="showDetailDialog"
-				title="六爻记录详情"
-				:height="700"
-			>
+			<yx-admin-dialog v-model:show="showDetailDialog" title="六爻记录详情" eyebrow="排盘档案" description="查看记录资料与原始排盘数据。" wide>
 				<view class="record-detail" v-if="recordDetail">
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="ID"></tm-text>
@@ -236,7 +228,9 @@
 					</view>
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="性别"></tm-text>
-						<tm-text :label="recordDetail.gender === '0' || recordDetail.gender === 0 ? '男' : recordDetail.gender === '1' || recordDetail.gender === 1 ? '女' : '未知'"></tm-text>
+						<tm-text
+							:label="recordDetail.gender === '0' || recordDetail.gender === 0 ? '男' : recordDetail.gender === '1' || recordDetail.gender === 1 ? '女' : '未知'"
+						></tm-text>
 					</view>
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="起卦时间"></tm-text>
@@ -248,7 +242,9 @@
 					</view>
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="用户"></tm-text>
-						<tm-text :label="(recordDetail.userUsername || recordDetail.userEmail) + ' (ID: ' + recordDetail.userId + ')'"></tm-text>
+						<tm-text
+							:label="(recordDetail.userUsername || recordDetail.userEmail) + ' (ID: ' + recordDetail.userId + ')'"
+						></tm-text>
 					</view>
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="创建时间"></tm-text>
@@ -257,14 +253,11 @@
 					<view class="detail-item" v-if="recordDetail.rawPayload">
 						<tm-text :font-size="24" color="#666" label="原始数据"></tm-text>
 						<view class="raw-payload">
-							<tm-text 
-								:label="JSON.stringify(recordDetail.rawPayload, null, 2)"
-								:font-size="20"
-							></tm-text>
+							<tm-text :label="JSON.stringify(recordDetail.rawPayload, null, 2)" :font-size="20"></tm-text>
 						</view>
 					</view>
 				</view>
-			</tm-drawer>
+			</yx-admin-dialog>
 		</view>
 	</tm-app>
 </template>
@@ -540,110 +533,280 @@ async function handleViewDetail(recordId: number) {
 </script>
 
 <style scoped>
-.page-wrapper {
-	min-height: 100vh;
-	background-color: #f5f5f5;
-}
-
-.page-content {
-	padding: 20rpx;
-	/* padding-top 通过 :style 动态设置，与 navbar 高度联动 */
-}
-
-.top-bar {
+.page-heading {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-bottom: 20rpx;
-	flex-wrap: wrap;
-	gap: 12rpx;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 24px;
 }
-
-.search-bar {
-	flex: 1;
-	min-width: 200rpx;
+.page-eyebrow {
+	color: var(--admin-accent, #169e9a);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 3px;
 }
-
+.page-title {
+	margin: 0;
+	color: var(--admin-ink, #20374a);
+	font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.page-description {
+	color: var(--admin-muted, #788c9d);
+	font-size: 13px;
+	line-height: 1.8;
+}
+.filter-panel {
+	padding: 18px;
+	margin-bottom: 24px;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 14px;
+	background: var(--admin-soft, #f5fafb);
+}
+.top-bar,
 .top-bar-buttons {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	flex-wrap: wrap;
-	gap: 12rpx;
+	align-items: flex-end;
+	gap: 10px;
 }
-
-.record-actions {
+.search-bar {
+	flex: 1;
+	min-width: 220px;
+}
+.field-label {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--admin-body, #50677b);
+	font-size: 12px;
+	font-weight: 600;
+}
+.list-heading {
 	display: flex;
-	flex-direction: row;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
 }
-
-.record-form {
-	padding: 20rpx;
+.list-title {
+	color: var(--admin-ink, #20374a);
+	font-size: 16px;
+	font-weight: 600;
 }
-
-@media (min-width: 900px) {
-	/* .form-grid is replaced by responsive-form-grid-md-2 in global css */
+.list-caption {
+	color: var(--admin-muted, #788c9d);
+	font-size: 12px;
 }
-
-.form-item {
-	margin-bottom: 20rpx;
+.responsive-list-container {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 20px !important;
 }
-
-.error-text {
-	margin-top: 20rpx;
+.responsive-list-item {
+	width: 100% !important;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: 20px !important;
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 16px !important;
+	box-shadow: 0 3px 12px rgba(36, 73, 94, 0.025) !important;
 }
-
-.form-actions {
-	margin-top: 40rpx;
-}
-
-.record-detail {
-	padding: 20rpx;
-}
-
-.detail-item {
-	margin-bottom: 30rpx;
-	padding-bottom: 20rpx;
-	border-bottom: 1px solid #eee;
-}
-
-.raw-payload {
-	margin-top: 10rpx;
-	padding: 20rpx;
-	background-color: #f5f5f5;
-	border-radius: 8rpx;
-	max-height: 400rpx;
-	overflow-y: auto;
-}
-
+.user-header,
 .record-header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: 16rpx;
+	gap: 20px;
 }
-
+.user-info,
 .record-info {
 	flex: 1;
+	min-width: 0;
+	overflow-wrap: anywhere;
 }
-
+.user-actions,
+.record-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.user-details,
 .record-details {
-	margin-top: 16rpx;
-	padding-top: 16rpx;
-	border-top: 1px solid #eee;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px 24px;
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
 }
-
+.user-details .mt-8,
+.record-details .mt-8 {
+	margin-top: 0 !important;
+}
+.user-details :deep(text),
+.record-details :deep(text),
+.record-info .mt-8 :deep(text) {
+	color: var(--admin-body, #50677b) !important;
+	font-size: 13px !important;
+	line-height: 1.7 !important;
+}
+.user-info > :first-child :deep(text),
+.record-info > :first-child :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+}
+.admin-action-secondary {
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2) !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button) {
+	background: var(--admin-paper, #fff) !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button text) {
+	color: var(--admin-body, #50677b) !important;
+}
+.admin-action-danger {
+	background: #fff5f3 !important;
+	border: 1px solid #f5dcd6 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button) {
+	background: #fff5f3 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button text) {
+	color: #bd655a !important;
+}
 .empty-text {
+	width: 100%;
+	box-sizing: border-box;
+	justify-content: center;
+	padding: 64px 16px;
+	border: 1px dashed var(--admin-line, #e5edf2);
+	border-radius: 16px;
+	background: var(--admin-soft, #f5fafb);
 	text-align: center;
-	padding: 60rpx 0;
 }
-
+.empty-text :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 14px !important;
+	line-height: 1.8 !important;
+}
 .pagination {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	padding: 20rpx 0;
+	gap: 10px;
+	padding-top: 20px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+}
+.user-form,
+.record-form,
+.record-detail {
+	padding: 22px;
+}
+.form-item {
+	margin-bottom: 20px;
+}
+.error-text {
+	padding: 12px;
+	margin-top: 16px;
+	border-radius: 10px;
+	background: #fff5f3;
+}
+.form-actions {
+	margin-top: 24px;
+}
+.detail-item {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 18px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
+}
+.raw-payload {
+	margin-top: 8px;
+	padding: 16px;
+	max-height: 300px;
+	overflow: auto;
+	border-radius: 12px;
+	background: var(--admin-soft, #f5fafb);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+	.user-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.user-actions {
+		justify-content: flex-start;
+	}
+}
+@media (max-width: 640px) {
+	.page-heading {
+		margin-bottom: 18px;
+	}
+	.page-title {
+		margin: 0;
+		font-size: 26px;
+	}
+	.filter-panel {
+		padding: 14px;
+	}
+	.top-bar {
+		align-items: stretch;
+	}
+	.search-bar {
+		flex-basis: 100%;
+		min-width: 0;
+	}
+	.top-bar-buttons {
+		width: 100%;
+		gap: 8px;
+	}
+	.responsive-list-item {
+		padding: 16px !important;
+	}
+	.record-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.record-actions {
+		justify-content: flex-start;
+	}
+	.user-details,
+	.record-details {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 8px;
+	}
+	.list-heading {
+		gap: 6px;
+		flex-direction: column;
+	}
+	.user-form,
+	.record-form,
+	.record-detail {
+		padding: 16px;
+	}
 }
 </style>

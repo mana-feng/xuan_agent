@@ -1,0 +1,745 @@
+{
+  "capturedAt": "2026-10-15T22:14:02.053Z",
+  "database": {
+    "counts": {
+      "pv": 88,
+      "uv": 3,
+      "sessions": 5,
+      "idempotent_events": 8
+    },
+    "recent": [
+      {
+        "id": 88,
+        "event_id": "7f129f42-d7a7-41b3-9665-cf0b661bcf0f",
+        "pathname": "/pages/index/index",
+        "created_at": "2026-10-15 22:13:56"
+      },
+      {
+        "id": 87,
+        "event_id": "b93cc0aa-024a-4857-90b6-ee103ceb557c",
+        "pathname": "/pages/agent/index",
+        "created_at": "2026-10-15 22:13:47"
+      },
+      {
+        "id": 86,
+        "event_id": "917b00c4-1b96-477b-82ab-36bc2022d4f0",
+        "pathname": "/pages/index/index",
+        "created_at": "2026-10-15 22:13:43"
+      },
+      {
+        "id": 85,
+        "event_id": "c374eccd-84b0-4b62-b118-d501236179a4",
+        "pathname": "/",
+        "created_at": "2026-10-15 22:13:30"
+      },
+      {
+        "id": 84,
+        "event_id": "abb541b4-3ed0-462a-b014-90d5b131c507",
+        "pathname": "/pages/bazi/index",
+        "created_at": "2026-10-15 22:13:20"
+      },
+      {
+        "id": 83,
+        "event_id": "841452d9-6afc-435f-a3db-439391fd10b4",
+        "pathname": "/",
+        "created_at": "2026-10-15 22:13:16"
+      },
+      {
+        "id": 82,
+        "event_id": "14c370ed-a263-45ce-8e1d-273ca94ca630",
+        "pathname": "/pages/index/index",
+        "created_at": "2026-10-15 22:12:54"
+      },
+      {
+        "id": 81,
+        "event_id": "296f848b-4132-4d40-a861-1b3924952269",
+        "pathname": "/",
+        "created_at": "2026-10-15 22:12:50"
+      },
+      {
+        "id": 80,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:41"
+      },
+      {
+        "id": 79,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:41"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "idx_page_stats_event_id",
+        "column": "event_id",
+        "unique": true
+      }
+    ]
+  },
+  "api": {
+    "status": 200,
+    "todayPageviews": 88,
+    "yesterdayPageviews": 0,
+    "totalPageviews": 88,
+    "uniqueVisitors": 3,
+    "totalSessions": 5,
+    "weeklyPageviews": 88,
+    "monthlyPageviews": 88,
+    "newVisitorCount": 3,
+    "returningVisitorCount": 1,
+    "bounceRate": 40,
+    "statisticsTimeZone": "Asia/Shanghai",
+    "generatedAt": "2026-10-15T22:14:02.042Z",
+    "visitorPeriod": "last30Days",
+    "visitorDefinitions": {
+      "new": "近30天首次访问的去重访客",
+      "returning": "近30天再次开启会话的去重访客，可与新访客重叠"
+    },
+    "bounceDefinition": "近30天开启且仅浏览一个页面的会话占比",
+    "topBrowsers": [
+      {
+        "browser": "Chrome",
+        "version": "",
+        "count": 79
+      },
+      {
+        "browser": "Chrome",
+        "version": "155.0.0.0",
+        "count": 8
+      }
+    ],
+    "topOs": [
+      {
+        "os": "Windows",
+        "version": "10",
+        "count": 87
+      }
+    ],
+    "topPages": [
+      {
+        "pathname": "/pages/chat/index",
+        "title": "玄学AI Chat & Agent",
+        "count": 28
+      },
+      {
+        "pathname": "/pages/history/list",
+        "title": "玄学AI Chat & Agent",
+        "count": 15
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "title": "六爻排盘结果",
+        "count": 8
+      },
+      {
+        "pathname": "/pages/ziwei/result",
+        "title": "紫微排盘结果",
+        "count": 8
+      },
+      {
+        "pathname": "/",
+        "title": "玄学AI Chat & Agent",
+        "count": 7
+      },
+      {
+        "pathname": "/pages/index/detail",
+        "title": "玄学AI Chat & Agent",
+        "count": 6
+      },
+      {
+        "pathname": "/pages/index/index",
+        "title": "玄学AI Chat & Agent",
+        "count": 4
+      },
+      {
+        "pathname": "/pages/qimen/result",
+        "title": "奇门排盘结果",
+        "count": 4
+      },
+      {
+        "pathname": "/pages/auth/auth",
+        "title": "玄学AI Chat & Agent",
+        "count": 2
+      },
+      {
+        "pathname": "/acceptance",
+        "title": "本地完整验收",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/agent/index",
+        "title": "玄学AI Chat & Agent",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/bazi/index",
+        "title": "排盘 Agent",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/liuyao/index",
+        "title": "六爻排盘",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/qimen/index",
+        "title": "奇门起局",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/ziwei/index",
+        "title": "紫微排盘",
+        "count": 1
+      }
+    ],
+    "topReferrers": [],
+    "connectionStats": [
+      {
+        "type": "4g",
+        "count": 53
+      },
+      {
+        "type": "3g",
+        "count": 34
+      }
+    ],
+    "referrerTypeStats": [
+      {
+        "type": "direct",
+        "count": 87
+      }
+    ],
+    "searchEngineStats": [],
+    "searchKeywords": [],
+    "screenResolutions": [
+      {
+        "resolution": "2560x1440",
+        "count": 87
+      },
+      {
+        "resolution": "390x844",
+        "count": 1
+      }
+    ],
+    "utmCampaigns": [],
+    "languageStats": [
+      {
+        "language": "zh-CN",
+        "count": 87
+      }
+    ],
+    "timezoneStats": [
+      {
+        "timezone": "Asia/Singapore",
+        "count": 87
+      }
+    ],
+    "deviceStats": {
+      "mobile": 50,
+      "tablet": 14,
+      "desktop": 24
+    },
+    "dailyTrend": [
+      {
+        "date": "2026-09-17",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-18",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-19",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-20",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-21",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-22",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-23",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-24",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-25",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-26",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-27",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-28",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-29",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-30",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-01",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-02",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-03",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-04",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-05",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-06",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-07",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-08",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-09",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-10",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-11",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-12",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-13",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-14",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-15",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-16",
+        "pv": 88,
+        "uv": 3
+      }
+    ],
+    "hourlyData": [
+      {
+        "hour": 0,
+        "count": 0
+      },
+      {
+        "hour": 1,
+        "count": 0
+      },
+      {
+        "hour": 2,
+        "count": 0
+      },
+      {
+        "hour": 3,
+        "count": 16
+      },
+      {
+        "hour": 4,
+        "count": 64
+      },
+      {
+        "hour": 5,
+        "count": 0
+      },
+      {
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "hour": 7,
+        "count": 0
+      },
+      {
+        "hour": 8,
+        "count": 0
+      },
+      {
+        "hour": 9,
+        "count": 0
+      },
+      {
+        "hour": 10,
+        "count": 0
+      },
+      {
+        "hour": 11,
+        "count": 0
+      },
+      {
+        "hour": 12,
+        "count": 0
+      },
+      {
+        "hour": 13,
+        "count": 0
+      },
+      {
+        "hour": 14,
+        "count": 0
+      },
+      {
+        "hour": 15,
+        "count": 0
+      },
+      {
+        "hour": 16,
+        "count": 0
+      },
+      {
+        "hour": 17,
+        "count": 0
+      },
+      {
+        "hour": 18,
+        "count": 0
+      },
+      {
+        "hour": 19,
+        "count": 0
+      },
+      {
+        "hour": 20,
+        "count": 0
+      },
+      {
+        "hour": 21,
+        "count": 0
+      },
+      {
+        "hour": 22,
+        "count": 0
+      },
+      {
+        "hour": 23,
+        "count": 0
+      }
+    ],
+    "dowData": [
+      {
+        "day": "周日",
+        "dayIndex": 0,
+        "count": 0
+      },
+      {
+        "day": "周一",
+        "dayIndex": 1,
+        "count": 0
+      },
+      {
+        "day": "周二",
+        "dayIndex": 2,
+        "count": 0
+      },
+      {
+        "day": "周三",
+        "dayIndex": 3,
+        "count": 0
+      },
+      {
+        "day": "周四",
+        "dayIndex": 4,
+        "count": 0
+      },
+      {
+        "day": "周五",
+        "dayIndex": 5,
+        "count": 88
+      },
+      {
+        "day": "周六",
+        "dayIndex": 6,
+        "count": 0
+      }
+    ],
+    "entryPages": [
+      {
+        "pathname": "/",
+        "count": 4
+      },
+      {
+        "pathname": "/acceptance",
+        "count": 1
+      }
+    ],
+    "exitPages": [
+      {
+        "pathname": "/pages/chat/index",
+        "entryCount": 0,
+        "exitCount": 2
+      },
+      {
+        "pathname": "/acceptance",
+        "entryCount": 1,
+        "exitCount": 1
+      },
+      {
+        "pathname": "/pages/index/index",
+        "entryCount": 0,
+        "exitCount": 1
+      },
+      {
+        "pathname": "/",
+        "entryCount": 4,
+        "exitCount": 1
+      }
+    ],
+    "performanceStats": {
+      "avgLoadTime": 242,
+      "minLoadTime": 72,
+      "maxLoadTime": 487,
+      "avgFCP": 433,
+      "avgDCL": 142
+    },
+    "geoCountries": [],
+    "ispStats": [],
+    "recentTotal": 88,
+    "recentPageSize": 20,
+    "recentPageCount": 5,
+    "recentPage": 1,
+    "recentVisitors": [
+      {
+        "pathname": "/pages/index/index",
+        "time": "2026-10-15T22:13:56.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/agent/index",
+        "time": "2026-10-15T22:13:47.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/index/index",
+        "time": "2026-10-15T22:13:43.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T22:13:30.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/bazi/index",
+        "time": "2026-10-15T22:13:20.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T22:13:16.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/index/index",
+        "time": "2026-10-15T22:12:54.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T22:12:50.000Z",
+        "browser": "Chrome",
+        "browserVersion": "155.0.0.0",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:41.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:41.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:14.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:14.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:42:02.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:42:02.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:36:46.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:36:45.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:36:32.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:36:32.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/history/list",
+        "time": "2026-10-15T20:36:19.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T20:36:15.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      }
+    ]
+  },
+  "lastPage": {
+    "status": 200,
+    "total": 88,
+    "page": 5,
+    "pageCount": 5,
+    "rows": 8
+  }
+}

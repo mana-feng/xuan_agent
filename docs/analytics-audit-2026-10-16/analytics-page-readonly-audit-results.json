@@ -1,0 +1,22 @@
+{
+  "trendDates": [
+    "2026-10-16",
+    "2026-10-15",
+    "2026-10-14"
+  ],
+  "zeroCountBarHeight": "4px",
+  "beforeRefresh": {
+    "page": 3,
+    "totalPages": 3,
+    "visible": 1
+  },
+  "afterRefresh": {
+    "page": 3,
+    "totalPages": 1,
+    "visible": 0
+  },
+  "responseOrder": {
+    "newer": 20,
+    "olderOverwritesTo": 10
+  }
+}

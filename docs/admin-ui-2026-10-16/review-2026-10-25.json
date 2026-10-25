@@ -1,0 +1,93 @@
+{
+  "reviewedOn": "2026-10-25",
+  "branch": "main",
+  "baseline": "5726465b80bcde477678864a13e07d780b7b61a5",
+  "scope": [
+    "Responsive admin navigation, login, dashboard, management forms, shared inputs and dialogs",
+    "Transactional and idempotent analytics ingestion, session lifecycle, business-day summaries and server pagination",
+    "Existing acceptance reports, test fixtures and screenshots"
+  ],
+  "freshVerification": {
+    "backendTests": {
+      "command": "node --test tests/*.test.cjs",
+      "directory": "backend-docker",
+      "tests": 135,
+      "passed": 135,
+      "failed": 0
+    },
+    "frontendTests": {
+      "command": "node --test tests/*.test.cjs",
+      "directory": "frontend-docker",
+      "tests": 487,
+      "passed": 485,
+      "skipped": 2,
+      "failed": 0
+    },
+    "adminFocusedTests": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    "typecheck": {
+      "admin": "PASS",
+      "frontend": "PASS"
+    },
+    "h5Build": {
+      "admin": "PASS",
+      "frontend": "PASS"
+    },
+    "lintChangedSources": {
+      "files": 27,
+      "errors": 0,
+      "warnings": 0
+    },
+    "historicalEvidenceReview": "Local report references checked; linked logs included; credential-pattern scan found no matches in logs"
+  },
+  "historicalMySql": {
+    "report": "../analytics-audit-2026-10-16/analytics-real-mysql-results.json",
+    "checks": 11,
+    "allFiveSourceHashesMatchCurrentFiles": false,
+    "rerunThisReview": false,
+    "reason": "The old isolated MySQL service is not running",
+    "unchangedSources": [
+      "backend-docker/services/analytics-summary.js",
+      "backend-docker/services/analytics-time.js",
+      "frontend-docker/src/composables/usePageAnalytics.ts"
+    ],
+    "changedAfterHistoricalRun": [
+      "backend-docker/routes/stats.js",
+      "frontend-docker/src/utils/analytics.ts"
+    ],
+    "note": "The new final-engagement settlement has fresh automated client/route coverage, but has not been revalidated against real MySQL."
+  },
+  "currentAnalyticsSourceHashes": {
+    "backend-docker/routes/stats.js": "3d79d5502dcc066241609ce0d9b75abd02da3070ab0ad6cfa59fe5c29dcba92d",
+    "backend-docker/services/analytics-summary.js": "df8ca66a30bf8b5d5a3dd2c41e7ca0b1b411ba4e485ac41db43160336557c106",
+    "backend-docker/services/analytics-time.js": "fa72bbcfc7b3dd1c893f411a6ae04b3f47e449314bb9607ecbb52db7b5e1f954",
+    "frontend-docker/src/utils/analytics.ts": "1df47801336a1b3e0f4b7a1a5c03936fdfa1069365965d90f0fa26c3d6826d28",
+    "frontend-docker/src/composables/usePageAnalytics.ts": "c4c0118e9d7c97015461dff461174ea52ae22e746a9d466f065a9f87466072a6"
+  },
+  "limitations": [
+    "This review did not perform a new browser or physical-device test",
+    "This review did not rerun the historical real-MySQL integration checks",
+    "Pushing main does not redeploy the backend or the frontend-only Pages site"
+  ],
+  "reviewFixes": [
+    {
+      "issue": "Old uncommitted admin theme reintroduced the previously removed palette",
+      "resolution": "Retain aurora and sunset, persist fallback for removed preference",
+      "regression": "Two tests failed before the fix and pass after it"
+    },
+    {
+      "issue": "Idle client final engagement was discarded after the server session expired",
+      "resolution": "Mark terminal reports and settle only the owned original session with a duration bounded by its inactivity deadline; do not renew activity or update replacements",
+      "regression": "Client/route integration covers close after 31 minutes and next pageview arriving before final engagement; backend tests also cover clamps, retries and missing/foreign identity"
+    }
+  ],
+  "independentCodeReview": {
+    "status": "PASS",
+    "blockingFindingsRemaining": 0,
+    "rerunRelevantBackendTests": 30,
+    "rerunClientTests": 29
+  }
+}

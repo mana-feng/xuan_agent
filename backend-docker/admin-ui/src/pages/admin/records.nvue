@@ -1,53 +1,67 @@
 <template>
 	<tm-app>
-		<view class="page-wrapper theme-page-bg">
+		<view class="page-wrapper theme-page-bg admin-workbench admin-page-records">
 			<yx-nav-header></yx-nav-header>
 
 			<view class="page-content theme-container" :style="pageContentStyle">
+				<view class="page-heading">
+					<text class="page-eyebrow">排盘档案</text>
+					<h1 class="page-title">排盘记录</h1>
+					<text class="page-description">集中查看八字、六爻、紫微与奇门记录，按类型和用户快速定位。</text>
+				</view>
 				<view class="theme-card theme-card-glass">
-					<view class="top-bar">
-						<view class="search-bar">
-							<tm-input
-								v-model="searchKeyword"
-								placeholder="搜索姓名/邮箱/用户名"
-								prefix="search"
-								clearable
-							></tm-input>
+					<view class="filter-panel">
+						<view class="top-bar">
+							<view class="search-bar">
+								<text class="field-label">姓名 / 邮箱 / 用户名</text>
+								<yx-admin-input
+:height="88"
+									v-model="searchKeyword"
+									placeholder="搜索姓名/邮箱/用户名"
+									prefix="search"
+									clearable
+								></yx-admin-input>
+							</view>
+							<view class="filter-user">
+								<text class="field-label">所属用户</text>
+								<yx-admin-input :height="88" v-model="userIdKeyword" placeholder="用户ID" type="number" clearable></yx-admin-input>
+							</view>
 						</view>
-						<view class="filter-user">
-							<tm-input
-								v-model="userIdKeyword"
-								placeholder="用户ID"
-								type="number"
-								clearable
-							></tm-input>
+
+						<view class="type-filter">
+							<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="排盘类型"></tm-text>
+							<tm-radio-group class="admin-choice-group" v-model="chartTypeFilter" model="button">
+								<tm-radio class="admin-choice" :class="{ 'is-selected': String(chartTypeFilter) === 'all' }" label="全部" value="all"></tm-radio>
+								<tm-radio class="admin-choice" :class="{ 'is-selected': String(chartTypeFilter) === 'bazi' }" label="八字" value="bazi"></tm-radio>
+								<tm-radio class="admin-choice" :class="{ 'is-selected': String(chartTypeFilter) === 'liuyao' }" label="六爻" value="liuyao"></tm-radio>
+								<tm-radio class="admin-choice" :class="{ 'is-selected': String(chartTypeFilter) === 'ziwei' }" label="紫微" value="ziwei"></tm-radio>
+								<tm-radio class="admin-choice" :class="{ 'is-selected': String(chartTypeFilter) === 'qimen' }" label="奇门" value="qimen"></tm-radio>
+							</tm-radio-group>
+						</view>
+
+						<view class="top-bar-buttons">
+							<yx-teal-button size="small" label="筛选" @tap="handleApplyFilters"></yx-teal-button>
+							<yx-teal-button
+								class="admin-action-secondary"
+								size="small"
+								label="重置"
+								@tap="handleResetFilters"
+							></yx-teal-button>
+							<yx-teal-button size="small" label="创建记录" @tap="handleCreateRecord"></yx-teal-button>
+							<yx-teal-button
+								class="admin-action-secondary"
+								size="small"
+								label="返回主页"
+								icon="tmicon-md-home"
+								@tap="goToHome"
+							></yx-teal-button>
 						</view>
 					</view>
-
-					<view class="type-filter">
-						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="排盘类型"></tm-text>
-						<tm-radio-group v-model="chartTypeFilter" model="button">
-							<tm-radio label="全部" value="all"></tm-radio>
-							<tm-radio label="八字" value="bazi"></tm-radio>
-							<tm-radio label="六爻" value="liuyao"></tm-radio>
-							<tm-radio label="紫微" value="ziwei"></tm-radio>
-							<tm-radio label="奇门" value="qimen"></tm-radio>
-						</tm-radio-group>
+					<view class="list-heading">
+						<text class="list-title">记录列表</text>
+						<text class="list-caption">排盘资料 · 所属用户 · 创建时间</text>
 					</view>
-
-					<view class="top-bar-buttons">
-						<yx-teal-button size="small" label="筛选" @tap="handleApplyFilters"></yx-teal-button>
-						<yx-teal-button size="small" label="重置" @tap="handleResetFilters"></yx-teal-button>
-						<yx-teal-button size="small" label="创建记录" @tap="handleCreateRecord"></yx-teal-button>
-						<yx-teal-button
-							size="small"
-							label="返回主页"
-							icon="tmicon-md-home"
-							@tap="goToHome"
-						></yx-teal-button>
-					</view>
-
-					<view class="responsive-list-container" style="margin-bottom: 40rpx;">
+					<view class="responsive-list-container" style="margin-bottom: 40rpx">
 						<tm-sheet
 							v-for="record in recordList"
 							:key="`${record.chartType}-${record.id}`"
@@ -59,11 +73,7 @@
 						>
 							<view class="record-header">
 								<view class="record-info">
-									<tm-text
-										:font-size="28"
-										:bold="true"
-										:label="record.name || '未命名排盘'"
-									></tm-text>
+									<tm-text :font-size="28" :bold="true" :label="record.name || '未命名排盘'"></tm-text>
 									<tm-text
 										class="mt-8"
 										:font-size="22"
@@ -85,12 +95,14 @@
 										@tap="() => handleViewDetail(record)"
 									></yx-teal-button>
 									<yx-teal-button
+										class="admin-action-secondary"
 										size="mini"
 										label="编辑"
 										:margin="[0, 10, 0, 0]"
 										@tap="() => handleEditRecord(record)"
 									></yx-teal-button>
 									<yx-teal-button
+										class="admin-action-danger"
 										size="mini"
 										label="删除"
 										@tap="() => handleDeleteRecord(record)"
@@ -99,11 +111,7 @@
 							</view>
 
 							<view class="record-details">
-								<tm-text
-									:font-size="22"
-									color="#666"
-									:label="'性别：' + getGenderLabel(record.gender)"
-								></tm-text>
+								<tm-text :font-size="22" color="#666" :label="'性别：' + getGenderLabel(record.gender)"></tm-text>
 								<tm-text
 									class="mt-8"
 									:font-size="22"
@@ -136,6 +144,7 @@
 
 					<view class="pagination" v-if="totalPages > 1">
 						<yx-teal-button
+							class="admin-action-secondary"
 							size="small"
 							:disabled="currentPage === 1"
 							label="上一页"
@@ -143,6 +152,7 @@
 						></yx-teal-button>
 						<tm-text :margin="[0, 20]" :label="`${currentPage} / ${totalPages}`"></tm-text>
 						<yx-teal-button
+							class="admin-action-secondary"
 							size="small"
 							:disabled="currentPage === totalPages"
 							label="下一页"
@@ -152,65 +162,71 @@
 				</view>
 			</view>
 
-			<tm-drawer
-				v-model:show="showRecordDialog"
-				:title="editingRecord ? '编辑记录' : '创建记录'"
-				:height="760"
-			>
+			<yx-admin-dialog v-model:show="showRecordDialog" :title="editingRecord ? '编辑记录' : '创建记录'" eyebrow="排盘档案" description="请核对填写的信息后保存。" wide>
 				<view class="record-form">
 					<view class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="排盘类型"></tm-text>
 						<tm-text v-if="editingRecord" :label="getChartTypeLabel(editingRecord.chartType)"></tm-text>
-						<tm-radio-group v-else v-model="recordForm.type" model="button">
-							<tm-radio label="八字" value="bazi"></tm-radio>
-							<tm-radio label="六爻" value="liuyao"></tm-radio>
-							<tm-radio label="紫微" value="ziwei"></tm-radio>
-							<tm-radio label="奇门" value="qimen"></tm-radio>
+						<tm-radio-group class="admin-choice-group" v-else v-model="recordForm.type" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.type) === 'bazi' }" label="八字" value="bazi"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.type) === 'liuyao' }" label="六爻" value="liuyao"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.type) === 'ziwei' }" label="紫微" value="ziwei"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.type) === 'qimen' }" label="奇门" value="qimen"></tm-radio>
 						</tm-radio-group>
 					</view>
 
-					<tm-input
+					<yx-admin-input
+:height="88"
 						v-model.number="recordForm.userId"
 						label="用户ID"
 						placeholder="请输入用户ID"
 						type="number"
 						:margin="[0, 0, 20, 0]"
 						required
-					></tm-input>
+					></yx-admin-input>
 
-					<tm-input
+					<yx-admin-input
+:height="88"
 						v-model="recordForm.name"
 						:label="isQimenRecord ? '记录标题（可选）' : '姓名（可选）'"
 						:placeholder="isQimenRecord ? '请输入记录标题' : '请输入姓名'"
 						:margin="[0, 0, 20, 0]"
-					></tm-input>
+					></yx-admin-input>
 
 					<view v-if="!isQimenRecord" class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="性别"></tm-text>
-						<tm-radio-group v-model="recordForm.gender" model="button">
-							<tm-radio label="男" value="0"></tm-radio>
-							<tm-radio label="女" value="1"></tm-radio>
+						<tm-radio-group class="admin-choice-group" v-model="recordForm.gender" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.gender) === '0' }" label="男" value="0"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.gender) === '1' }" label="女" value="1"></tm-radio>
 						</tm-radio-group>
 					</view>
 
 					<view v-if="isQimenRecord" class="form-item">
-						<tm-text :label="editingRecord ? '起局时间：' + formatDate(editingRecord.birthDatetime) : '请在前台奇门页面完成起局并保存'" :margin="[0, 0, 10, 0]"></tm-text>
-						<tm-text label="管理端仅可修改奇门记录标题与所属用户；起局时间、规则与盘面保留原值。需要调整起局参数时，请在前台重新起局。" :font-size="22" color="#666"></tm-text>
+						<tm-text
+							:label="editingRecord ? '起局时间：' + formatDate(editingRecord.birthDatetime) : '请在前台奇门页面完成起局并保存'"
+							:margin="[0, 0, 10, 0]"
+						></tm-text>
+						<tm-text
+							label="管理端仅可修改奇门记录标题与所属用户；起局时间、规则与盘面保留原值。需要调整起局参数时，请在前台重新起局。"
+							:font-size="22"
+							color="#666"
+						></tm-text>
 					</view>
-					<tm-input
+					<yx-admin-input
+:height="88"
 						v-else
 						v-model="recordForm.birthDatetime"
 						label="时间"
 						placeholder="格式：YYYY-MM-DD HH:mm:ss"
 						:margin="[0, 0, 20, 0]"
 						required
-					></tm-input>
+					></yx-admin-input>
 
 					<view v-if="!isQimenRecord" class="form-item">
 						<tm-text :font-size="24" :margin="[0, 0, 10, 0]" label="历法类型"></tm-text>
-						<tm-radio-group v-model="recordForm.calendarType" model="button">
-							<tm-radio label="阳历" value="solar"></tm-radio>
-							<tm-radio label="阴历" value="lunar"></tm-radio>
+						<tm-radio-group class="admin-choice-group" v-model="recordForm.calendarType" model="button">
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.calendarType) === 'solar' }" label="阳历" value="solar"></tm-radio>
+							<tm-radio class="admin-choice" :class="{ 'is-selected': String(recordForm.calendarType) === 'lunar' }" label="阴历" value="lunar"></tm-radio>
 						</tm-radio-group>
 					</view>
 
@@ -218,8 +234,13 @@
 						<tm-text :label="recordFormError" color="#ff4d4f"></tm-text>
 					</view>
 
-					<view class="form-actions">
-						<tm-button
+
+				</view>
+
+<template #footer>
+<tm-button class="admin-control admin-secondary" block type="default" label="取消" @tap="handleCancelRecord" :margin="[20, 0, 0, 0]"></tm-button>
+<tm-button
+class="admin-control"
 							block
 							type="primary"
 							:loading="recordFormLoading"
@@ -228,18 +249,10 @@
 							@tap="handleSubmitRecord"
 							:margin="[20, 0, 0, 0]"
 						></tm-button>
-						<tm-button
-							block
-							type="default"
-							label="取消"
-							@tap="handleCancelRecord"
-							:margin="[20, 0, 0, 0]"
-						></tm-button>
-					</view>
-				</view>
-			</tm-drawer>
+</template>
+</yx-admin-dialog>
 
-			<tm-drawer v-model:show="showDetailDialog" title="记录详情" :height="760">
+			<yx-admin-dialog v-model:show="showDetailDialog" title="记录详情" eyebrow="排盘档案" description="查看记录资料与原始排盘数据。" wide>
 				<view class="record-detail" v-if="recordDetail">
 					<view class="detail-item">
 						<tm-text :font-size="24" color="#666" label="ID"></tm-text>
@@ -282,7 +295,7 @@
 						</view>
 					</view>
 				</view>
-			</tm-drawer>
+			</yx-admin-dialog>
 		</view>
 	</tm-app>
 </template>
@@ -577,115 +590,302 @@ function goToHome() {
 </script>
 
 <style scoped>
-.page-wrapper {
-	min-height: 100vh;
-	background-color: #f5f5f5;
-}
-
-.page-content {
-	padding: 20rpx;
-}
-
-.top-bar {
+.page-heading {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 12rpx;
-	margin-bottom: 16rpx;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 24px;
 }
-
-.search-bar {
-	flex: 1;
-	min-width: 240rpx;
+.page-eyebrow {
+	color: var(--admin-accent, #169e9a);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 3px;
 }
-
-.filter-user {
-	width: 220rpx;
-	min-width: 220rpx;
+.page-title {
+	margin: 0;
+	color: var(--admin-ink, #20374a);
+	font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
 }
-
-.type-filter {
-	margin-bottom: 16rpx;
+.page-description {
+	color: var(--admin-muted, #788c9d);
+	font-size: 13px;
+	line-height: 1.8;
 }
-
+.filter-panel {
+	padding: 18px;
+	margin-bottom: 24px;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 14px;
+	background: var(--admin-soft, #f5fafb);
+}
+.top-bar,
 .top-bar-buttons {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	flex-wrap: wrap;
-	gap: 12rpx;
-	margin-bottom: 20rpx;
+	align-items: flex-end;
+	gap: 10px;
 }
-
-.record-actions {
+.search-bar {
+	flex: 1;
+	min-width: 220px;
+}
+.field-label {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--admin-body, #50677b);
+	font-size: 12px;
+	font-weight: 600;
+}
+.list-heading {
 	display: flex;
-	flex-direction: row;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
 }
-
-.record-form {
-	padding: 20rpx;
+.list-title {
+	color: var(--admin-ink, #20374a);
+	font-size: 16px;
+	font-weight: 600;
 }
-
-.form-item {
-	margin-bottom: 20rpx;
+.list-caption {
+	color: var(--admin-muted, #788c9d);
+	font-size: 12px;
 }
-
-.error-text {
-	margin-top: 20rpx;
+.responsive-list-container {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 20px !important;
 }
-
-.form-actions {
-	margin-top: 40rpx;
+.responsive-list-item {
+	width: 100% !important;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: 20px !important;
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2);
+	border-radius: 16px !important;
+	box-shadow: 0 3px 12px rgba(36, 73, 94, 0.025) !important;
 }
-
-.record-detail {
-	padding: 20rpx;
-}
-
-.detail-item {
-	margin-bottom: 30rpx;
-	padding-bottom: 20rpx;
-	border-bottom: 1px solid #eee;
-}
-
-.raw-payload {
-	margin-top: 10rpx;
-	padding: 20rpx;
-	background-color: #f5f5f5;
-	border-radius: 8rpx;
-	max-height: 400rpx;
-	overflow-y: auto;
-}
-
+.user-header,
 .record-header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: 16rpx;
+	gap: 20px;
 }
-
+.user-info,
 .record-info {
 	flex: 1;
+	min-width: 0;
+	overflow-wrap: anywhere;
 }
-
+.user-actions,
+.record-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.user-details,
 .record-details {
-	margin-top: 16rpx;
-	padding-top: 16rpx;
-	border-top: 1px solid #eee;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px 24px;
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
 }
-
+.user-details .mt-8,
+.record-details .mt-8 {
+	margin-top: 0 !important;
+}
+.user-details :deep(text),
+.record-details :deep(text),
+.record-info .mt-8 :deep(text) {
+	color: var(--admin-body, #50677b) !important;
+	font-size: 13px !important;
+	line-height: 1.7 !important;
+}
+.user-info > :first-child :deep(text),
+.record-info > :first-child :deep(text) {
+	color: var(--admin-ink, #20374a) !important;
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+}
+.admin-action-secondary {
+	background: var(--admin-paper, #fff) !important;
+	border: 1px solid var(--admin-line, #e5edf2) !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button) {
+	background: var(--admin-paper, #fff) !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-secondary :deep(.button text) {
+	color: var(--admin-body, #50677b) !important;
+}
+.admin-action-danger {
+	background: #fff5f3 !important;
+	border: 1px solid #f5dcd6 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button) {
+	background: #fff5f3 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.admin-action-danger :deep(.button text) {
+	color: #bd655a !important;
+}
 .empty-text {
+	width: 100%;
+	box-sizing: border-box;
+	justify-content: center;
+	padding: 64px 16px;
+	border: 1px dashed var(--admin-line, #e5edf2);
+	border-radius: 16px;
+	background: var(--admin-soft, #f5fafb);
 	text-align: center;
-	padding: 60rpx 0;
 }
-
+.empty-text :deep(text) {
+	color: var(--admin-muted, #788c9d) !important;
+	font-size: 14px !important;
+	line-height: 1.8 !important;
+}
 .pagination {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	padding: 20rpx 0;
+	gap: 10px;
+	padding-top: 20px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+}
+.user-form,
+.record-form,
+.record-detail {
+	padding: 22px;
+}
+.form-item {
+	margin-bottom: 20px;
+}
+.error-text {
+	padding: 12px;
+	margin-top: 16px;
+	border-radius: 10px;
+	background: #fff5f3;
+}
+.form-actions {
+	margin-top: 24px;
+}
+.detail-item {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 18px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid var(--admin-line, #e5edf2);
+	overflow-wrap: anywhere;
+}
+.raw-payload {
+	margin-top: 8px;
+	padding: 16px;
+	max-height: 300px;
+	overflow: auto;
+	border-radius: 12px;
+	background: var(--admin-soft, #f5fafb);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+	.user-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.user-actions {
+		justify-content: flex-start;
+	}
+}
+@media (max-width: 640px) {
+	.page-heading {
+		margin-bottom: 18px;
+	}
+	.page-title {
+		margin: 0;
+		font-size: 26px;
+	}
+	.filter-panel {
+		padding: 14px;
+	}
+	.top-bar {
+		align-items: stretch;
+	}
+	.search-bar {
+		flex-basis: 100%;
+		min-width: 0;
+	}
+	.top-bar-buttons {
+		width: 100%;
+		gap: 8px;
+	}
+	.responsive-list-item {
+		padding: 16px !important;
+	}
+	.record-header {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.record-actions {
+		justify-content: flex-start;
+	}
+	.user-details,
+	.record-details {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 8px;
+	}
+	.list-heading {
+		gap: 6px;
+		flex-direction: column;
+	}
+	.user-form,
+	.record-form,
+	.record-detail {
+		padding: 16px;
+	}
+}
+
+.filter-user {
+	width: 180px;
+	min-width: 140px;
+}
+.type-filter {
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--admin-line, #e5edf2);
+}
+.type-filter :deep(.tm-radio-group) {
+	flex-wrap: wrap;
+}
+.top-bar-buttons {
+	margin-top: 18px;
+}
+@media (max-width: 640px) {
+	.filter-user {
+		width: 100%;
+		min-width: 0;
+	}
 }
 </style>

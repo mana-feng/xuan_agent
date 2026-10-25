@@ -1,266 +1,64 @@
 <template>
 	<tm-app>
-		<view class="page-wrapper theme-page-bg">
+		<view class="page-wrapper theme-page-bg admin-workbench admin-page-dashboard">
 			<yx-nav-header></yx-nav-header>
-
 			<view class="page-content theme-container" :style="pageContentStyle">
 				<view class="theme-card theme-card-glass">
-					<view class="header">
-						<tm-text :font-size="42" :bold="true" color="#2d3748" label="管理后台"></tm-text>
-						<view class="header-buttons">
-							<tm-button
-								class="btn-gradient"
-								size="small"
-								color="teal"
-								linear="right"
-								label="返回首页"
-								:margin="[0, 12, 0, 0]"
-								:round="12"
-								:padding="[20, 24]"
-								@tap="goToHome"
-							></tm-button>
-							<tm-button
-								class="btn-gradient"
-								size="small"
-								color="teal"
-								linear="right"
-								label="退出登录"
-								:round="12"
-								:padding="[20, 24]"
-								@tap="handleLogout"
-							></tm-button>
+					<view class="dashboard-heading">
+						<view class="dashboard-heading-copy"><text class="dashboard-eyebrow">WORKSPACE OVERVIEW</text><h1 class="dashboard-title">管理总览</h1><text class="dashboard-subtitle">查看平台数据，快速进入日常管理与服务配置。</text></view>
+						<view class="dashboard-heading-actions"><button class="dashboard-action" v-bind="h5Button(goToHome)" @tap="goToHome"><tm-icon name="tmicon-redo" :font-size="27" color="#52736c"></tm-icon><text>刷新总览</text></button><button class="dashboard-action dashboard-action-quiet" v-bind="h5Button(handleLogout)" @tap="handleLogout">退出登录</button></view>
+					</view>
+					<view v-if="stats" class="dashboard-stats">
+						<view class="dashboard-stat"><view class="stat-topline"><text class="stat-label">总用户数</text><view class="stat-icon stat-icon-users"><tm-icon name="tmicon-user-group" :font-size="32" color="#568aa2"></tm-icon></view></view><tm-text class="stat-value" :font-size="56" :bold="true" color="#264b54" :label="formatStat(stats?.totalUsers)"></tm-text><text class="stat-caption">平台累计用户</text></view>
+						<view class="dashboard-stat"><view class="stat-topline"><text class="stat-label">总记录数</text><view class="stat-icon stat-icon-records"><tm-icon name="tmicon-file" :font-size="32" color="#668f76"></tm-icon></view></view><tm-text class="stat-value" :font-size="56" :bold="true" color="#264b54" :label="formatStat(stats?.totalRecords)"></tm-text><text class="stat-caption">累计排盘记录</text></view>
+						<view class="dashboard-stat"><view class="stat-topline"><text class="stat-label">今日新增用户</text><view class="stat-icon stat-icon-today"><tm-icon name="tmicon-account-plus" :font-size="32" color="#b19661"></tm-icon></view></view><tm-text class="stat-value" :font-size="56" :bold="true" color="#264b54" :label="formatStat(stats?.todayUsers)"></tm-text><text class="stat-caption">今日用户增长</text></view>
+						<view class="dashboard-stat"><view class="stat-topline"><text class="stat-label">今日新增记录</text><view class="stat-icon stat-icon-growth"><tm-icon name="tmicon-chart-line" :font-size="32" color="#648d92"></tm-icon></view></view><tm-text class="stat-value" :font-size="56" :bold="true" color="#264b54" :label="formatStat(stats?.todayRecords)"></tm-text><text class="stat-caption">今日排盘记录</text></view>
+					</view>
+					<view class="dashboard-menu-section">
+						<view class="dashboard-section-heading"><view><text class="dashboard-section-title">日常管理</text><text class="dashboard-section-description">处理用户、记录与平台公告</text></view><text class="dashboard-section-count">03 个入口</text></view>
+						<view class="dashboard-menu-grid">
+							<button class="dashboard-menu-card menu-card-featured" v-bind="h5Button(goToUsers)" @tap="goToUsers">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-user-group" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">用户管理</text><text class="menu-description">查看与管理用户账号、角色及状态</text>
+							</button>
+							<button class="dashboard-menu-card " v-bind="h5Button(goToRecords)" @tap="goToRecords">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-file" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">排盘记录</text><text class="menu-description">统一查看与筛选八字、六爻、紫微、奇门记录</text>
+							</button>
+							<button class="dashboard-menu-card " v-bind="h5Button(goToAnnouncements)" @tap="goToAnnouncements">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-bell" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">公告管理</text><text class="menu-description">编辑公告内容，设置展示与到期时间</text>
+							</button>
 						</view>
 					</view>
-
-					<view class="responsive-list-container" style="margin-bottom: 40rpx;" v-if="stats">
-						<tm-sheet
-							:round="16"
-							:shadow="4"
-							:padding="[32, 28]"
-							class="stat-card stat-card-primary responsive-grid-item-stat"
-						>
-							<tm-text :font-size="26" color="#718096" label="总用户数"></tm-text>
-							<tm-text
-								class="mt-12"
-								:font-size="48"
-								:bold="true"
-								color="#667eea"
-								:label="formatStat(stats?.totalUsers)"
-							></tm-text>
-						</tm-sheet>
-
-						<tm-sheet
-							:round="16"
-							:shadow="4"
-							:padding="[32, 28]"
-							class="stat-card stat-card-success responsive-grid-item-stat"
-						>
-							<tm-text :font-size="26" color="#718096" label="总记录数"></tm-text>
-							<tm-text
-								class="mt-12"
-								:font-size="48"
-								:bold="true"
-								color="#48bb78"
-								:label="formatStat(stats?.totalRecords)"
-							></tm-text>
-						</tm-sheet>
-
-						<tm-sheet
-							:round="16"
-							:shadow="4"
-							:padding="[32, 28]"
-							class="stat-card stat-card-warning responsive-grid-item-stat"
-						>
-							<tm-text :font-size="26" color="#718096" label="今日新增用户"></tm-text>
-							<tm-text
-								class="mt-12"
-								:font-size="48"
-								:bold="true"
-								color="#ed8936"
-								:label="formatStat(stats?.todayUsers)"
-							></tm-text>
-						</tm-sheet>
-
-						<tm-sheet
-							:round="16"
-							:shadow="4"
-							:padding="[32, 28]"
-							class="stat-card stat-card-info stat-item"
-						>
-							<tm-text :font-size="26" color="#718096" label="今日新增记录"></tm-text>
-							<tm-text
-								class="mt-12"
-								:font-size="48"
-								:bold="true"
-								color="#4299e1"
-								:label="formatStat(stats?.todayRecords)"
-							></tm-text>
-						</tm-sheet>
+					<view class="dashboard-menu-section">
+						<view class="dashboard-section-heading"><view><text class="dashboard-section-title">AI 服务与额度</text><text class="dashboard-section-description">维护模型接入与用户使用额度</text></view><text class="dashboard-section-count">03 个入口</text></view>
+						<view class="dashboard-menu-grid">
+							<button class="dashboard-menu-card " v-bind="h5Button(goToLLMConfig)" @tap="goToLLMConfig">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-comment-dots" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">大模型管理</text><text class="menu-description">配置 AI 对话服务与模型 API 信息</text>
+							</button>
+							<button class="dashboard-menu-card " v-bind="h5Button(goToLLMQuota)" @tap="goToLLMQuota">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-chart-pie-alt" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">AI 额度管理</text><text class="menu-description">查看与调整每位用户的 AI 解答额度</text>
+							</button>
+							<button class="dashboard-menu-card " v-bind="h5Button(goToQuotaConfig)" @tap="goToQuotaConfig">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-sync-alt" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">额度自动重置</text><text class="menu-description">设置用户额度的每日自动重置规则</text>
+							</button>
+						</view>
 					</view>
-
-					<view class="menu-section theme-section">
-						<tm-text :font-size="28" :bold="true" label="功能菜单" :margin="[0, 0, 20, 0]"></tm-text>
-
-						<view class="responsive-list-container">
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card responsive-grid-item-dense"
-								@tap="goToUsers"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="用户管理"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="查看和管理所有用户账号"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card responsive-grid-item-dense"
-								@tap="goToRecords"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="统一排盘记录管理"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="统一查看与筛选八字、六爻、紫微排盘记录"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card"
-								@tap="goToAnnouncements"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="公告管理"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="配置前端公告（标题/内容/到期）"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card"
-								@tap="goToEmailConfig"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="邮箱服务配置"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="后台设置验证码邮件服务（仅管理员）"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card"
-								@tap="goToAnalyticsSnippet"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="访问统计"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="查看网站访问统计数据"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card"
-								@tap="goToLLMConfig"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="大模型管理"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="配置聊天能力对接的 API 信息"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card responsive-grid-item-dense"
-								@tap="goToLLMQuota"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="AI额度管理"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="管理每个用户的 AI 解答额度"
-								></tm-text>
-							</tm-sheet>
-
-							<tm-sheet
-								:round="4"
-								:shadow="2"
-								:padding="[20, 20]"
-								:margin="[0, 0, 0, 0]"
-								class="menu-item-card"
-								@tap="goToQuotaConfig"
-							>
-								<view class="menu-item">
-									<tm-text :font-size="28" :bold="true" label="额度自动重置"></tm-text>
-									<tm-icon name="chevron-right" :font-size="24"></tm-icon>
-								</view>
-								<tm-text
-									class="mt-8"
-									:font-size="22"
-									color="#999"
-									label="设置每日自动重置用户额度的规则"
-								></tm-text>
-							</tm-sheet>
+					<view class="dashboard-menu-section">
+						<view class="dashboard-section-heading"><view><text class="dashboard-section-title">站点与服务配置</text><text class="dashboard-section-description">管理邮件服务与网站访问统计</text></view><text class="dashboard-section-count">02 个入口</text></view>
+						<view class="dashboard-menu-grid dashboard-menu-grid-system">
+							<button class="dashboard-menu-card " v-bind="h5Button(goToEmailConfig)" @tap="goToEmailConfig">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-mail" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">邮箱服务配置</text><text class="menu-description">设置验证码邮件的发送服务</text>
+							</button>
+							<button class="dashboard-menu-card " v-bind="h5Button(goToAnalyticsSnippet)" @tap="goToAnalyticsSnippet">
+								<view class="menu-card-top"><view class="menu-icon"><tm-icon name="tmicon-chart-bar" :font-size="34" color="#397f7b"></tm-icon></view><tm-icon class="menu-arrow" name="tmicon-angle-right" :font-size="30" color="#8ba49d"></tm-icon></view>
+								<text class="menu-title">访问统计</text><text class="menu-description">查看网站访问统计数据</text>
+							</button>
 						</view>
 					</view>
 				</view>
@@ -271,6 +69,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { h5Button } from '@/utils/keyboard';
 import { onShow } from '@dcloudio/uni-app';
 import { useUserStore } from '@/store/user';
 import { getAdminStats, type AdminStats } from '@/services/api/admin';
@@ -356,48 +155,54 @@ function handleLogout() {
 </script>
 
 <style scoped>
-.page-wrapper {
-	padding-bottom: 40rpx;
+.dashboard-heading { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.dashboard-heading-copy { display: flex; flex-direction: column; min-width: 0; }
+.dashboard-eyebrow { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.8px; color: var(--admin-accent, #177b7b); }
+.dashboard-title { display: block; margin: 9px 0 0; color: var(--admin-ink, #203c39); font: 30px/1.5 'Noto Serif SC', 'Songti SC', 'STSong', serif; letter-spacing: 1px; }
+.dashboard-subtitle { display: block; margin-top: 8px; color: var(--admin-muted, #7d8e8c); font-size: 13px; line-height: 1.8; }
+.dashboard-heading-actions { display: flex; flex-direction: row; flex-shrink: 0; align-items: center; gap: 10px; }
+.dashboard-action { margin: 0; padding: 0 16px; min-height: 40px; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; color: var(--admin-body, #425a58); background: var(--admin-paper, #fff); border: 1px solid var(--admin-line, #dfe9e6); border-radius: 10px; font-size: 12px; line-height: 1.6; cursor: pointer; }
+.dashboard-action::after, .dashboard-menu-card::after { border: 0; }
+.dashboard-action-quiet { color: var(--admin-muted, #7d8e8c); background: transparent; border-color: transparent; }
+.dashboard-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 36px; }
+.dashboard-stat { display: flex; flex-direction: column; min-width: 0; padding: 20px 22px; border: 1px solid var(--admin-line, #dfe9e6); border-radius: 16px; background: var(--admin-paper, #fff); }
+.stat-topline { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; }
+.stat-label { color: var(--admin-body, #425a58); font-size: 12px; line-height: 1.6; }
+.stat-icon { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-shrink: 0; width: 32px; height: 32px; border-radius: 10px; }
+.stat-icon-users { background: #edf4f8; }.stat-icon-records { background: #edf5ef; }.stat-icon-today { background: #f9f5eb; }.stat-icon-growth { background: #edf5f5; }
+.stat-value { display: block; margin-top: 15px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.stat-caption { display: block; margin-top: 9px; color: var(--admin-muted, #7d8e8c); font-size: 11px; line-height: 1.6; }
+.dashboard-menu-section + .dashboard-menu-section { margin-top: 30px; }
+.dashboard-section-heading { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+.dashboard-section-heading > view { display: flex; flex-direction: column; }
+.dashboard-section-title { display: block; color: var(--admin-ink, #203c39); font-size: 17px; font-weight: 600; line-height: 1.6; }
+.dashboard-section-description { display: block; margin-top: 4px; color: var(--admin-muted, #7d8e8c); font-size: 11px; line-height: 1.7; }
+.dashboard-section-count { color: #92a29b; font-size: 10px; white-space: nowrap; }
+.dashboard-menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.dashboard-menu-card { display: flex; flex-direction: column; align-items: stretch; margin: 0; min-width: 0; width: 100%; padding: 22px 24px; text-align: left; line-height: 1.6; border: 1px solid var(--admin-line, #dfe9e6); border-radius: 16px; background: var(--admin-paper, #fff); cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.menu-card-featured { background: linear-gradient(130deg, #f0f7f7, #f4f8f1); border-color: #c9ded6; }
+.menu-card-top { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.menu-icon { width: 36px; height: 36px; display: flex; flex-direction: row; align-items: center; justify-content: center; border-radius: 11px; background: var(--admin-soft, #edf5f3); }
+.menu-title { display: block; color: var(--admin-ink, #203c39); font-size: 14px; font-weight: 600; }
+.menu-description { display: block; margin-top: 7px; color: var(--admin-muted, #7d8e8c); font-size: 11px; line-height: 1.8; }
+@media (hover: hover) { .dashboard-menu-card:hover { border-color: #93bbb0; box-shadow: 0 8px 22px rgba(36, 89, 75, .06); transform: translateY(-2px); }.dashboard-action:hover { background: var(--admin-soft, #edf5f3); } }
+.dashboard-menu-card:focus-visible, .dashboard-action:focus-visible { outline: 2px solid var(--admin-accent, #177b7b); outline-offset: 3px; }
+@media (max-width: 1220px) { .dashboard-stat { padding: 18px; }.dashboard-menu-card { padding: 20px; } }
+@media (max-width: 760px) {
+	.dashboard-heading { align-items: flex-start; gap: 18px; flex-direction: column; margin-bottom: 22px; }
+	.dashboard-title { font-size: 27px; }
+	.dashboard-heading-actions { align-self: stretch; }
+	.dashboard-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+	.dashboard-menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+	.dashboard-menu-section + .dashboard-menu-section { margin-top: 26px; }
 }
-
-.theme-card {
-	padding: 32rpx 28rpx;
-}
-
-.header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 30rpx;
-}
-
-.header-buttons {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 12rpx;
-}
-
-.stat-card {
-	background: #ffffff;
-}
-
-.menu-section {
-	margin-top: 20rpx;
-}
-
-.menu-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.menu-item > view {
-	margin-right: 24rpx;
-}
-
-.menu-item > view:last-child {
-	margin-right: 0;
+@media (max-width: 480px) {
+	.dashboard-subtitle { font-size: 12px; }
+	.dashboard-stat { padding: 16px; }
+	.stat-label { font-size: 11px; }.stat-icon { width: 28px; height: 28px; }
+	.dashboard-menu-grid { grid-template-columns: minmax(0, 1fr); }
+	.dashboard-menu-card { padding: 18px 20px; }
+	.menu-card-top { margin-bottom: 12px; }
+	.dashboard-section-count { display: none; }
 }
 </style>

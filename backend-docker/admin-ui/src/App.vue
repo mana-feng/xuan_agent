@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { useAdminTheme } from '@/features/admin/theme';
+useAdminTheme();
 import { onPageNotFound } from '@dcloudio/uni-app';
 import { bootstrapApp, waitBootstrap } from '@/utils/bootstrap';
 
@@ -34,6 +36,7 @@ onMounted(async () => {
 @import './styles/app-shell.css';
 /* å…±äº«é¡µé¢æ¨¡å¼ */
 @import './styles/page-patterns.css';
+@import './styles/admin-workbench.css';
 
 /* #ifdef H5 */
 html,

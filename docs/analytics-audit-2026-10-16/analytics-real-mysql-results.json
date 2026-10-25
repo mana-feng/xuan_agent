@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-10-15T22:15:43.565Z",
+  "engine": "real MySQL / InnoDB",
+  "processTimeZone": "Asia/Singapore",
+  "analyticsTimeZone": "Asia/Shanghai",
+  "sourceSchema": "xuan_acceptance_20261016",
+  "testSchema": "xuan_analytics_test_8aea5ff107f0483a",
+  "sourceHashes": {
+    "backend-docker/routes/stats.js": "61c6ed5810475f7a2c01721e0bbd54eb1250b1fb7644035794848acc302b24ba",
+    "backend-docker/services/analytics-summary.js": "df8ca66a30bf8b5d5a3dd2c41e7ca0b1b411ba4e485ac41db43160336557c106",
+    "backend-docker/services/analytics-time.js": "fa72bbcfc7b3dd1c893f411a6ae04b3f47e449314bb9607ecbb52db7b5e1f954",
+    "frontend-docker/src/utils/analytics.ts": "7f782325d6615cae3673e3dcb3ea1c3360f55fce444cd3b77d99e7a146b91d07",
+    "frontend-docker/src/composables/usePageAnalytics.ts": "c4c0118e9d7c97015461dff461174ea52ae22e746a9d466f065a9f87466072a6"
+  },
+  "checks": [
+    {
+      "name": "concurrent first pageviews retain exact visitor/session counters",
+      "status": "PASS",
+      "evidence": {
+        "concurrentRequests": 12,
+        "pv": 12,
+        "visitors": 1,
+        "sessions": 1,
+        "pageviewCounter": 12
+      }
+    },
+    {
+      "name": "concurrent identical event id is counted once",
+      "status": "PASS",
+      "evidence": {
+        "requests": 8,
+        "pv": 1,
+        "duplicateResponses": 7
+      }
+    },
+    {
+      "name": "cross visitor event id conflict rolls back second identity",
+      "status": "PASS",
+      "evidence": {
+        "statuses": [
+          200,
+          409
+        ],
+        "pv": 1,
+        "visitors": 1
+      }
+    },
+    {
+      "name": "IP and browser changes retain permanent identity",
+      "status": "PASS",
+      "evidence": {
+        "pv": 2,
+        "visitors": 1,
+        "stableVisitorId": true
+      }
+    },
+    {
+      "name": "expired old client session rotates exactly once",
+      "status": "PASS",
+      "evidence": {
+        "pv": 3,
+        "sessions": 2,
+        "sessionPageIndexes": [
+          1,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "engagement updates duration without adding PV or counters",
+      "status": "PASS",
+      "evidence": {
+        "pv": 1,
+        "durationSeconds": 25,
+        "sessionPageviews": 1
+      }
+    },
+    {
+      "name": "independent same visitor tabs retain their own durations",
+      "status": "PASS",
+      "evidence": {
+        "sessions": 2,
+        "pv": 2,
+        "durations": [
+          12,
+          25
+        ]
+      }
+    },
+    {
+      "name": "replacement alias persists after handler reload and never targets another tab",
+      "status": "PASS",
+      "evidence": {
+        "sessions": 3,
+        "sameAliasAfterReload": true,
+        "oldDurationIgnored": true,
+        "originalDuration": 100,
+        "replacementDuration": 0
+      }
+    },
+    {
+      "name": "actual client activity heartbeats preserve forty minutes in native MySQL",
+      "status": "PASS",
+      "evidence": {
+        "clientPageviews": 1,
+        "clientEngagements": 2,
+        "pv": 1,
+        "sessions": 1,
+        "durationSeconds": 2400
+      }
+    },
+    {
+      "name": "database trigger failure rolls back entire pageview",
+      "status": "PASS",
+      "evidence": {
+        "injectedFailureStatus": 500,
+        "rollbackPreservedAllThreeTables": true,
+        "successfulRetryPV": 2
+      }
+    },
+    {
+      "name": "native summary CTEs pagination Shanghai dates and nonUTC serialization",
+      "status": "PASS",
+      "evidence": {
+        "totalPageviews": 43,
+        "uniqueVisitors": 2,
+        "totalSessions": 3,
+        "todayPageviews": 41,
+        "yesterdayPageviews": 1,
+        "weeklyPageviews": 42,
+        "monthlyPageviews": 42,
+        "newVisitorCount": 1,
+        "returningVisitorCount": 1,
+        "bounceRate": 50,
+        "recentTotal": 43,
+        "recentPage": 3,
+        "recentPageCount": 3,
+        "dailyTrendDays": 30,
+        "topPageCount": 2,
+        "referrerCount": 1,
+        "keywordCount": 1,
+        "latestTime": "2026-10-15T16:10:40.000Z"
+      }
+    }
+  ],
+  "limitations": [
+    "Express transport registration and clock are substituted; business handler and SQL execute unchanged.",
+    "Tests create, mutate, and remove only the randomly generated test schema."
+  ],
+  "originalBefore": {
+    "analytics_visitors": {
+      "rows": 3,
+      "sha256": "d26272aaf6619fdd320cb50c421f5999cfbb29c85bcc0a12647ea14b864a1175"
+    },
+    "analytics_sessions": {
+      "rows": 5,
+      "sha256": "aeda14bbda7aa7d37d56499bcb81a873f581ca95cc5e711fc47acb633b1fc5c0"
+    },
+    "page_stats": {
+      "rows": 88,
+      "sha256": "29d74d2441f6606a41746f9e100590cb83660431a50cd5a670f8e3f716d5c895"
+    }
+  },
+  "mysqlVersion": "8.0.46",
+  "originalAfter": {
+    "analytics_visitors": {
+      "rows": 3,
+      "sha256": "d26272aaf6619fdd320cb50c421f5999cfbb29c85bcc0a12647ea14b864a1175"
+    },
+    "analytics_sessions": {
+      "rows": 5,
+      "sha256": "aeda14bbda7aa7d37d56499bcb81a873f581ca95cc5e711fc47acb633b1fc5c0"
+    },
+    "page_stats": {
+      "rows": 88,
+      "sha256": "29d74d2441f6606a41746f9e100590cb83660431a50cd5a670f8e3f716d5c895"
+    }
+  },
+  "originalUnchanged": true,
+  "testSchemaRemoved": true,
+  "sourcesUnchangedDuringRun": true,
+  "passed": 11,
+  "failed": 0
+}

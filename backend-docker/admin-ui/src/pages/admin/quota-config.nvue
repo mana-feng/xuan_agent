@@ -1,80 +1,106 @@
 <template>
-	<tm-app>
-		<view class="page-wrapper theme-page-bg">
-			<yx-nav-header></yx-nav-header>
-			<view class="page-content theme-container">
-				<view class="theme-card theme-card-glass">
-					<view class="header">
-						<tm-text :font-size="36" :bold="true" color="#2d3748" label="额度自动重置配置"></tm-text>
-						<tm-text :font-size="24" color="#6b7280" label="设置每日自动重置用户额度的规则"></tm-text>
-					</view>
+  <tm-app>
+    <view class="page-wrapper theme-page-bg admin-workbench admin-page-quota-config">
+      <yx-nav-header></yx-nav-header>
+      <view class="page-content theme-container">
+        <view class="theme-card theme-card-glass">
+          <view class="admin-page-heading">
+            <view class="admin-heading-copy">
+              <text class="admin-eyebrow">QUOTA POLICY</text>
+              <h1>额度自动重置配置</h1>
+              <text class="admin-subtitle section-description">设置每日自动重置用户额度的规则。</text>
+            </view>
+          </view>
 
-					<tm-sheet :round="12" :shadow="2" :padding="[32, 32]" class="form-card">
-						
-						<!-- 开启开关 -->
-						<view class="form-group flex flex-row flex-row-center-between">
-							<view>
-								<tm-text :font-size="28" :bold="true" color="#2d3748" label="开启每日重置"></tm-text>
-								<tm-text :font-size="22" color="#718096" label="开启后，将在指定时间自动执行额度重置"></tm-text>
-							</view>
-							<switch :checked="form.enabled" @change="onEnabledChange" color="#48bb78" />
-						</view>
+          <tm-sheet :round="12" :shadow="2" :padding="[32, 32]" class="form-card">
+            <!-- 开启开关 -->
+            <view class="form-group reset-switch-row">
+              <view>
+                <tm-text :font-size="28" :bold="true" color="#2d3748" label="开启每日重置"></tm-text>
+                <tm-text
+                  :font-size="22"
+                  color="#718096"
+                  label="开启后，将在指定时间自动执行额度重置"
+                ></tm-text>
+              </view>
+              <switch :checked="form.enabled" @change="onEnabledChange" color="#48bb78" />
+            </view>
 
-						<view class="divider"></view>
+            <view class="divider"></view>
 
-						<!-- 时间设置 -->
-						<view class="form-group">
-							<tm-text :font-size="26" color="#4b5563" label="重置时间 (24小时制)"></tm-text>
-							<picker mode="time" :value="form.time" start="00:00" end="23:59" @change="onTimeChange">
-								<view class="picker-trigger">
-									<tm-text :font-size="28" color="#2d3748" :label="form.time || '00:00'"></tm-text>
-									<tm-icon name="tmicon-clock" :font-size="28" color="#a0aec0"></tm-icon>
-								</view>
-							</picker>
-							<tm-text :font-size="22" color="#a0aec0" class="mt-8" label="例如：00:00 表示每天凌晨零点"></tm-text>
-						</view>
+            <view class="reset-fields">
+              <!-- 时间设置 -->
+              <view class="form-group">
+                <tm-text :font-size="26" color="#4b5563" label="重置时间 (24小时制)"></tm-text>
+                <picker mode="time" :value="form.time" start="00:00" end="23:59" @change="onTimeChange">
+                  <view class="picker-trigger">
+                    <tm-text :font-size="28" color="#2d3748" :label="form.time || '00:00'"></tm-text>
+                    <tm-icon name="tmicon-clock" :font-size="28" color="#a0aec0"></tm-icon>
+                  </view>
+                </picker>
+                <tm-text
+                  :font-size="22"
+                  color="#a0aec0"
+                  class="mt-8"
+                  label="例如：00:00 表示每天凌晨零点"
+                ></tm-text>
+              </view>
 
-						<!-- 时区设置 -->
-						<view class="form-group mt-24">
-							<tm-text :font-size="26" color="#4b5563" label="时区"></tm-text>
-							<tm-input 
-								v-model="form.timezone" 
-								placeholder="例如：Asia/Shanghai" 
-								:border="1" 
-								:round="8"
-							></tm-input>
-							<tm-text :font-size="22" color="#a0aec0" class="mt-8" label="服务器所在时区，通常为 Asia/Shanghai"></tm-text>
-						</view>
+              <!-- 时区设置 -->
+              <view class="form-group mt-24">
+                <tm-text :font-size="26" color="#4b5563" label="时区"></tm-text>
+                <yx-admin-input
+:height="88"
+                  v-model="form.timezone"
+                  placeholder="例如：Asia/Shanghai"
+                  :border="1"
+                  :round="8"
+                ></yx-admin-input>
+                <tm-text
+                  :font-size="22"
+                  color="#a0aec0"
+                  class="mt-8"
+                  label="服务器所在时区，通常为 Asia/Shanghai"
+                ></tm-text>
+              </view>
 
-						<!-- 目标次数 -->
-						<view class="form-group mt-24">
-							<tm-text :font-size="26" color="#4b5563" label="重置目标次数"></tm-text>
-							<tm-input 
-								v-model="form.target" 
-								type="number" 
-								placeholder="2" 
-								:border="1" 
-								:round="8"
-							></tm-input>
-							<tm-text :font-size="22" color="#a0aec0" class="mt-8" label="当用户剩余次数小于等于此数值时，将被重置为此数值"></tm-text>
-						</view>
-
-						<view class="flex flex-row flex-center mt-48">
-							<tm-button 
-								:label="saving ? '保存中...' : '保存配置'" 
-								:disabled="saving"
-								@tap="submitForm" 
-								block
-								class="w-full"
-								color="primary"
-							></tm-button>
-						</view>
-
-					</tm-sheet>
-				</view>
-			</view>
-		</view>
-	</tm-app>
+              <!-- 目标次数 -->
+              <view class="form-group mt-24">
+                <tm-text :font-size="26" color="#4b5563" label="重置目标次数"></tm-text>
+                <yx-admin-input
+:height="88"
+                  v-model="form.target"
+                  type="number"
+                  placeholder="2"
+                  :border="1"
+                  :round="8"
+                ></yx-admin-input>
+                <tm-text
+                  :font-size="22"
+                  color="#a0aec0"
+                  class="mt-8"
+                  label="当用户剩余次数小于等于此数值时，将被重置为此数值"
+                ></tm-text>
+              </view>
+            </view>
+            <view class="admin-inline-note"
+              >重置会按指定时间与时区执行；剩余次数高于目标值的用户不受影响。</view
+            >
+            <view class="actions reset-actions">
+              <tm-button
+                :label="saving ? '保存中...' : '保存配置'"
+                :disabled="saving"
+                @tap="submitForm"
+                block
+                class="w-full btn-gradient"
+                color="primary"
+              ></tm-button>
+            </view>
+          </tm-sheet>
+        </view>
+      </view>
+    </view>
+  </tm-app>
 </template>
 
 <script setup lang="ts">
@@ -146,57 +172,224 @@ async function submitForm() {
 </script>
 
 <style scoped>
-.page-wrapper {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+.admin-page-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
 }
-
-.page-content {
-	flex: 1;
-	padding: 30rpx;
+.admin-heading-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
 }
-
-.header {
-	margin-bottom: 30rpx;
+.admin-eyebrow {
+  color: var(--admin-accent, #168c85);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
 }
-
-.form-card {
-	background-color: #fff;
+.admin-page-heading h1 {
+  margin: 0;
+  color: var(--admin-ink, #183548);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
 }
-
+.admin-subtitle {
+  max-width: 720px;
+  line-height: 1.7;
+}
+.header-actions,
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.form-card,
+.config-card,
+.list-card,
+.quota-card {
+  border: 1px solid var(--admin-line, #e1eaf0);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(30, 64, 85, 0.03);
+  background: var(--admin-paper, #fff);
+}
+.config-section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0 18px;
+}
+.section-title {
+  color: var(--admin-ink, #183548);
+  font-size: 17px;
+  font-weight: 700;
+}
+.section-description {
+  color: var(--admin-muted, #7c8f9e);
+  font-size: 12px;
+  line-height: 1.7;
+}
 .form-group {
-	margin-bottom: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
 }
-
-.divider {
-	height: 1px;
-	background-color: #e2e8f0;
-	margin: 24rpx 0;
+.admin-secondary {
+  background: var(--admin-paper, #fff) !important;
+  border: 1px solid var(--admin-line, #e1eaf0) !important;
+  box-shadow: none !important;
 }
-
+.admin-danger {
+  background: #fff3f3 !important;
+  border: 1px solid #f3dada !important;
+  box-shadow: none !important;
+}
+.admin-secondary :deep(.button) {
+  background: var(--admin-paper, #fff) !important;
+  color: var(--admin-body, #51677a) !important;
+  border: 1px solid var(--admin-line, #e1eaf0) !important;
+  box-shadow: none !important;
+}
+.admin-danger :deep(.button) {
+  background: #fff3f3 !important;
+  color: #c75656 !important;
+  border: 1px solid #f3dada !important;
+  box-shadow: none !important;
+}
+.admin-secondary :deep(.button text),
+.admin-secondary :deep(.button span),
+.admin-secondary :deep(.button .tm-text) {
+  color: var(--admin-body, #51677a) !important;
+}
+.admin-danger :deep(.button text),
+.admin-danger :deep(.button span),
+.admin-danger :deep(.button .tm-text) {
+  color: #c75656 !important;
+}
+.responsive-form-grid-md-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 24px;
+}
 .picker-trigger {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	padding: 24rpx;
-	background-color: #f7fafc;
-	border-radius: 8rpx;
-	margin-top: 12rpx;
-	border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--admin-line, #e1eaf0);
+  border-radius: 10px;
+  background: #f8fbfc;
+}
+.actions,
+.form-actions,
+.dialog-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  margin-top: 22px;
+  border-top: 1px solid var(--admin-line, #e1eaf0);
+}
+@media (max-width: 640px) {
+  .admin-page-heading {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .admin-page-heading h1 {
+    font-size: 24px;
+  }
+  .responsive-form-grid-md-2 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .header-actions,
+  .header-buttons {
+    align-self: flex-start;
+  }
 }
 
+.reset-switch-row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px;
+  margin: 0;
+  border: 1px solid #d9eceb;
+  border-radius: 12px;
+  background: var(--admin-soft, #edf8f7);
+}
+.reset-switch-row > view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.reset-switch-row switch {
+  flex-shrink: 0;
+}
+.divider {
+  height: 1px;
+  background: var(--admin-line, #e1eaf0);
+  margin: 28px 0;
+}
+.reset-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.picker-trigger {
+  min-height: 46px;
+}
+.admin-inline-note {
+  padding: 16px 18px;
+  margin-top: 26px;
+  border-radius: 10px;
+  border: 1px dashed var(--admin-line, #e1eaf0);
+  color: var(--admin-muted, #7c8f9e);
+  font-size: 12px;
+  line-height: 1.8;
+  background: #f8fbfc;
+}
+.reset-actions .w-full {
+  width: 200px;
+}
 .mt-8 {
-	margin-top: 8rpx;
+  margin-top: 4px;
 }
 .mt-24 {
-	margin-top: 24rpx;
+  margin-top: 0;
 }
-.mt-48 {
-	margin-top: 48rpx;
+@media (max-width: 960px) {
+  .reset-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
-.w-full {
-	width: 100%;
+@media (max-width: 640px) {
+  .reset-switch-row {
+    padding: 16px;
+    gap: 16px;
+  }
+  .reset-actions .w-full {
+    width: 100%;
+  }
 }
 </style>

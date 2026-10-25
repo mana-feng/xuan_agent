@@ -6,103 +6,12 @@ const IP_ENCRYPTION_SECRET = String(process.env.ANALYTICS_IP_ENCRYPTION_KEY || p
 
 const SESSION_TIMEOUT_MINUTES = 30;
 
-function resolveGeoFromIP(ip) {
-	if (!ip || ip === '' || ip === '::1' || ip === '127.0.0.1') return { country: '', region: '', city: '', isp: '' };
-	const result = { country: 'Unknown', region: '', city: '', isp: '' };
-	try {
-		if (ip.includes(':')) { result.country = 'Unknown'; result.isp = 'IPv6'; return result; }
-		const parts = ip.split('.');
-		if (parts.length !== 4) return result;
-		const num = (parseInt(parts[0]) << 24) | (parseInt(parts[1]) << 16) | (parseInt(parts[2]) << 8) | parseInt(parts[3]);
-		const cnRanges = [
-			{ s: 16777216, e: 17091711, name: 'China Telecom' },
-			{ s: 17176688, e: 17213183, name: 'China Unicom' },
-			{ s: 17367040, e: 17825791, name: 'China Mobile' },
-			{ s: 18119392, e: 18350079, name: 'China Telecom' },
-			{ s: 18454937, e: 18874367, name: 'China Unicom' },
-			{ s: 19036160, e: 19217279, name: 'China Mobile' },
-			{ s: 19581696, e: 19922943, name: 'China Telecom' },
-			{ s: 20017408, e: 20132659, name: 'China Unicom' },
-			{ s: 20237568, e: 20971519, name: 'China Mobile' },
-			{ s: 20971520, e: 2130706431, name: 'China' },
-		];
-		for (const range of cnRanges) {
-			if (num >= range.s && num <= range.e) {
-				result.isp = range.name;
-				result.country = 'China';
-				break;
-			}
-		}
-		if (!result.isp && num >= 281470681743360 && num <= 281474976710655) {
-			result.isp = 'Localhost';
-			result.country = '';
-		} else if (!result.isp) {
-			const usRanges = [
-				{ s: 50331648, e: 805306367, name: 'US ISP' },
-				{ s: 1342177280, e: 1610612735, name: 'US ISP' },
-				{ s: 1698693120, e: 1879048191, name: 'US ISP' },
-				{ s: 2130706432, e: 2147483647, name: 'US ISP' },
-				{ s: 2155872256, e: 2181038079, name: 'US ISP' },
-				{ s: 2202009600, e: 2222993407, name: 'US ISP' },
-			];
-			for (const range of usRanges) {
-				if (num >= range.s && num <= range.e) {
-					result.isp = range.name;
-					result.country = 'United States';
-					break;
-				}
-			}
-		}
-		if (!result.isp) {
-			result.isp = 'Other';
-		}
-		if (result.country === 'China') {
-			const regionMap = {
-				'China Telecom': ['Beijing', 'Shanghai', 'Guangdong'],
-				'China Unicom': ['Beijing', 'Shanghai', 'Guangdong'],
-				'China Mobile': ['Beijing', 'Shanghai', 'Guangdong'],
-			};
-			const regions = regionMap[result.isp] || [];
-			result.region = regions[Math.floor(num % regions.length)] || '';
-			result.city = regions[Math.floor((num * 7) % regions.length)] || '';
-		}
-	} catch (e) {
-		// ignore parsing errors
-	}
-	return result;
+function resolveGeoFromIP() {
+	// No GeoIP database or lookup provider is configured. Preserve unknowns
+	// instead of inferring locations or providers from numeric IP ranges.
+	return { country: '', region: '', city: '', isp: '' };
 }
-
-async function checkIsNewVisitor(db, visitorId, pvid) {
-	if (!visitorId && !pvid) return true;
-	try {
-		const row = visitorId
-			? await db.get('SELECT visitor_id FROM analytics_visitors WHERE visitor_id = ? LIMIT 1', [visitorId])
-			: null;
-		if (row) return false;
-		if (!pvid) return true;
-		const legacyRow = await db.get(`SELECT COUNT(*) as cnt FROM page_stats WHERE pvid = ?`, [pvid]);
-		return !legacyRow || legacyRow.cnt === 0;
-	} catch (e) {
-		return true;
-	}
-}
-
-function normalizeTimestamp(value) {
-	const date = value ? new Date(value) : new Date();
-	if (Number.isNaN(date.getTime())) {
-		return new Date();
-	}
-	return date;
-}
-
-function formatDateTime(date) {
-	return date.toISOString().slice(0, 19).replace('T', ' ');
-}
-
-function buildVisitorId(pvid, userAgent, ip) {
-	const raw = `${pvid || ''}|${userAgent || ''}|${ip || ''}`;
-	return crypto.createHash('sha1').update(raw).digest('hex').slice(0, 40);
-}
+const { getAnalyticsParts } = require('../services/analytics-time');
 
 function hashIp(ip) {
 	return crypto.createHash('sha256').update(String(ip || '')).digest('hex');
@@ -155,529 +64,242 @@ function buildIpStorage(ip) {
 	};
 }
 
-async function getSessionPageCount(db, sessionId) {
-	if (!sessionId) return 0;
+function formatDateTime(date) {
+	return date.toISOString().slice(0, 19).replace('T', ' ');
+}
+
+function normalizeRoute(url) {
+	const parsed = new URL(url);
+	const hashRoute = parsed.hash.replace(/^#!?/, '');
+	const route = hashRoute.startsWith('/') ? new URL(hashRoute, parsed.origin) : parsed;
+	return { pathname: route.pathname || '/', queryString: route.search || '' };
+}
+
+function positiveDuration(value) {
+	const n = Number(value);
+	return Number.isFinite(n) ? Math.min(2147483647, Math.max(0, Math.floor(n))) : 0;
+}
+
+async function insertRow(tx, table, valueMap, suffix = '') {
+	const columns = Object.keys(valueMap);
+	return tx.run(`INSERT INTO ${table} (${columns.join(', ')}) VALUES (${columns.map(() => '?').join(', ')})${suffix}`, Object.values(valueMap));
+}
+
+async function updateRow(tx, table, key, id, valueMap) {
+	const columns = Object.keys(valueMap);
+	return tx.run(`UPDATE ${table} SET ${columns.map(col => `${col} = ?`).join(', ')} WHERE ${key} = ?`, [...Object.values(valueMap), id]);
+}
+
+async function runTransaction(db, callback) {
+	const connection = await db.pool.getConnection();
 	try {
-		const row = await db.get('SELECT COUNT(*) AS cnt FROM page_stats WHERE session_id = ?', [sessionId]);
-		return Number(row?.cnt || 0);
-	} catch (e) {
-		return 0;
+		await connection.beginTransaction();
+		const tx = {
+			get: async (sql, args = []) => (await connection.execute(sql, args))[0][0] || null,
+			run: async (sql, args = []) => {
+				const [result] = await connection.execute(sql, args);
+				return { lastID: result.insertId, changes: result.affectedRows };
+			},
+		};
+		const result = await callback(tx);
+		await connection.commit();
+		return result;
+	} catch (error) {
+		await connection.rollback();
+		throw error;
+	} finally {
+		connection.release();
 	}
 }
 
-async function upsertVisitor(db, payload) {
-	const existing = await db.get(
-		'SELECT visitor_id, visit_count, session_count, pageview_count, first_seen_at FROM analytics_visitors WHERE visitor_id = ? LIMIT 1',
-		[payload.visitorId]
-	);
-	if (!existing) {
-		await db.run(
-			`INSERT INTO analytics_visitors (
-				visitor_id, pvid, first_seen_at, last_seen_at, first_page_url, last_page_url,
-				entry_pathname, last_pathname, referrer, referrer_type, search_engine, search_keyword,
-				utm_source, utm_medium, utm_campaign, utm_term, utm_content, ip, ip_hash, ip_encrypted, country, region,
-				city, isp, language, timezone, user_agent, device_type, browser, browser_version,
-				os, os_version, visit_count, session_count, pageview_count, created_at, updated_at
-			) VALUES (
-				?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-			)`,
-			[
-				payload.visitorId,
-				payload.pvid,
-				payload.occurredAt,
-				payload.occurredAt,
-				payload.url,
-				payload.url,
-				payload.pathname,
-				payload.pathname,
-				payload.referrer,
-				payload.referrerType,
-				payload.searchEngine,
-				payload.searchKeyword,
-				payload.utmSource,
-				payload.utmMedium,
-				payload.utmCampaign,
-				payload.utmTerm,
-				payload.utmContent,
-				payload.ip,
-				payload.ipHash,
-				payload.ipEncrypted,
-				payload.country,
-				payload.region,
-				payload.city,
-				payload.isp,
-				payload.language,
-				payload.timezone,
-				payload.userAgent,
-				payload.deviceType,
-				payload.browser,
-				payload.browserVersion,
-				payload.os,
-				payload.osVersion,
-				1,
-				payload.isNewSession ? 1 : 0,
-				1,
-				payload.occurredAt,
-				payload.occurredAt,
-			]
-		);
-		return { isNewVisitor: true, visitSequence: 1 };
+async function withTransaction(db, callback) {
+	// InnoDB can select a deadlock victim when independent first requests
+	// contend on unique visitor/session ids. Retry the entire rolled-back unit.
+	for (let attempt = 0; attempt < 3; attempt++) {
+		try { return await runTransaction(db, callback); }
+		catch (error) {
+			if (attempt === 2 || !['ER_LOCK_DEADLOCK', 'ER_LOCK_WAIT_TIMEOUT', 'ER_DUP_ENTRY'].includes(error.code)) throw error;
+		}
 	}
-
-	const visitSequence = Number(existing.pageview_count || 0) + 1;
-	await db.run(
-		`UPDATE analytics_visitors SET
-			pvid = ?,
-			last_seen_at = ?,
-			last_page_url = ?,
-			last_pathname = ?,
-			referrer = ?,
-			referrer_type = ?,
-			search_engine = ?,
-			search_keyword = ?,
-			utm_source = ?,
-			utm_medium = ?,
-			utm_campaign = ?,
-			utm_term = ?,
-			utm_content = ?,
-			ip = ?,
-			ip_hash = ?,
-			ip_encrypted = ?,
-			country = ?,
-			region = ?,
-			city = ?,
-			isp = ?,
-			language = ?,
-			timezone = ?,
-			user_agent = ?,
-			device_type = ?,
-			browser = ?,
-			browser_version = ?,
-			os = ?,
-			os_version = ?,
-			visit_count = visit_count + 1,
-			session_count = session_count + ?,
-			pageview_count = pageview_count + 1,
-			updated_at = NOW()
-		WHERE visitor_id = ?`,
-		[
-			payload.pvid,
-			payload.occurredAt,
-			payload.url,
-			payload.pathname,
-			payload.referrer,
-			payload.referrerType,
-			payload.searchEngine,
-			payload.searchKeyword,
-			payload.utmSource,
-			payload.utmMedium,
-			payload.utmCampaign,
-			payload.utmTerm,
-			payload.utmContent,
-			payload.ip,
-			payload.ipHash,
-			payload.ipEncrypted,
-			payload.country,
-			payload.region,
-			payload.city,
-			payload.isp,
-			payload.language,
-			payload.timezone,
-			payload.userAgent,
-			payload.deviceType,
-			payload.browser,
-			payload.browserVersion,
-			payload.os,
-			payload.osVersion,
-			payload.isNewSession ? 1 : 0,
-			payload.visitorId,
-		]
-	);
-	return { isNewVisitor: false, visitSequence };
 }
 
-async function upsertSession(db, payload) {
-	const existing = await db.get(
-		'SELECT session_id, started_at, pageview_count, entry_page_id, last_pageview_id FROM analytics_sessions WHERE session_id = ? LIMIT 1',
-		[payload.sessionId]
-	);
-	if (!existing) {
-		await db.run(
-			`INSERT INTO analytics_sessions (
-				session_id, visitor_id, pvid, started_at, last_activity_at, ended_at,
-				landing_page_url, landing_pathname, exit_page_url, exit_pathname, referrer,
-				referrer_type, search_engine, search_keyword, utm_source, utm_medium,
-				utm_campaign, utm_term, utm_content, ip, ip_hash, ip_encrypted, country, region, city, isp,
-				language, timezone, device_type, browser, browser_version, os, os_version,
-				entry_page_id, last_pageview_id, pageview_count, duration_seconds, is_bounce, created_at, updated_at
-			) VALUES (
-				?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-			)`,
-			[
-				payload.sessionId,
-				payload.visitorId,
-				payload.pvid,
-				payload.occurredAt,
-				payload.occurredAt,
-				payload.occurredAt,
-				payload.url,
-				payload.pathname,
-				payload.url,
-				payload.pathname,
-				payload.referrer,
-				payload.referrerType,
-				payload.searchEngine,
-				payload.searchKeyword,
-				payload.utmSource,
-				payload.utmMedium,
-				payload.utmCampaign,
-				payload.utmTerm,
-				payload.utmContent,
-				payload.ip,
-				payload.ipHash,
-				payload.ipEncrypted,
-				payload.country,
-				payload.region,
-				payload.city,
-				payload.isp,
-				payload.language,
-				payload.timezone,
-				payload.deviceType,
-				payload.browser,
-				payload.browserVersion,
-				payload.os,
-				payload.osVersion,
-				null,
-				null,
-				1,
-				payload.sessionDuration,
-				1,
-				payload.occurredAt,
-				payload.occurredAt,
-			]
-		);
-		return { isNewSession: true, sessionPageIndex: 1 };
-	}
+const SESSION_SELECT = `SELECT session_id, visitor_id, pvid, pageview_count, duration_seconds,
+	DATE_FORMAT(started_at, '%Y-%m-%d %H:%i:%s') AS started_at,
+	DATE_FORMAT(last_activity_at, '%Y-%m-%d %H:%i:%s') AS last_activity_at
+	FROM analytics_sessions`;
 
-	const sessionPageIndex = Number(existing.pageview_count || 0) + 1;
-	await db.run(
-		`UPDATE analytics_sessions SET
-			visitor_id = ?,
-			pvid = ?,
-			last_activity_at = ?,
-			ended_at = ?,
-			exit_page_url = ?,
-			exit_pathname = ?,
-			referrer = ?,
-			referrer_type = ?,
-			search_engine = ?,
-			search_keyword = ?,
-			utm_source = ?,
-			utm_medium = ?,
-			utm_campaign = ?,
-			utm_term = ?,
-			utm_content = ?,
-			ip = ?,
-			ip_hash = ?,
-			ip_encrypted = ?,
-			country = ?,
-			region = ?,
-			city = ?,
-			isp = ?,
-			language = ?,
-			timezone = ?,
-			device_type = ?,
-			browser = ?,
-			browser_version = ?,
-			os = ?,
-			os_version = ?,
-			pageview_count = pageview_count + 1,
-			duration_seconds = ?,
-			is_bounce = ?,
-			updated_at = NOW()
-		WHERE session_id = ?`,
-		[
-			payload.visitorId,
-			payload.pvid,
-			payload.occurredAt,
-			payload.occurredAt,
-			payload.url,
-			payload.pathname,
-			payload.referrer,
-			payload.referrerType,
-			payload.searchEngine,
-			payload.searchKeyword,
-			payload.utmSource,
-			payload.utmMedium,
-			payload.utmCampaign,
-			payload.utmTerm,
-			payload.utmContent,
-			payload.ip,
-			payload.ipHash,
-			payload.ipEncrypted,
-			payload.country,
-			payload.region,
-			payload.city,
-			payload.isp,
-			payload.language,
-			payload.timezone,
-			payload.deviceType,
-			payload.browser,
-			payload.browserVersion,
-			payload.os,
-			payload.osVersion,
-			payload.sessionDuration,
-			sessionPageIndex > 1 ? 0 : 1,
-			payload.sessionId,
-		]
-	);
-	return { isNewSession: false, sessionPageIndex };
+function isSessionActive(session, now) {
+	if (!session?.last_activity_at) return false;
+	const last = Date.parse(`${session.last_activity_at.replace(' ', 'T')}Z`);
+	return Number.isFinite(last) && now.getTime() - last < SESSION_TIMEOUT_MINUTES * 60000;
 }
 
-async function attachSessionPageview(db, sessionId, pageviewId, isNewSession) {
-	if (!sessionId || !pageviewId) return;
-	if (isNewSession) {
-		await db.run(
-			'UPDATE analytics_sessions SET entry_page_id = ?, last_pageview_id = ?, updated_at = NOW() WHERE session_id = ?',
-			[pageviewId, pageviewId, sessionId]
-		);
-		return;
+function replacementPrefix(visitorId, requestedId) {
+	return `r${crypto.createHash('sha256').update(`${visitorId}|${requestedId}`).digest('hex').slice(0, 24)}r`;
+}
+
+async function findActiveReplacement(tx, visitorId, requestedId, now) {
+	const latest = await tx.get(`${SESSION_SELECT} WHERE visitor_id = ? AND session_id LIKE ? ORDER BY last_activity_at DESC LIMIT 1 FOR UPDATE`, [visitorId, `${replacementPrefix(visitorId, requestedId)}%`]);
+	return isSessionActive(latest, now) ? latest : null;
+}
+
+async function resolveSession(tx, visitorId, requestedId, now) {
+	const requested = requestedId ? await tx.get(`${SESSION_SELECT} WHERE session_id = ? LIMIT 1 FOR UPDATE`, [requestedId]) : null;
+	if (requested?.visitor_id === visitorId && isSessionActive(requested, now)) return { session: requested, sessionId: requested.session_id };
+	if (requested?.visitor_id === visitorId) {
+		// Only this expired tab's replacements can be reused by older clients.
+		// The prefix keeps that association across processes without a new table.
+		const replacement = await findActiveReplacement(tx, visitorId, requestedId, now);
+		if (replacement) return { session: replacement, sessionId: replacement.session_id };
+		return { session: null, sessionId: replacementPrefix(visitorId, requestedId) + crypto.randomBytes(12).toString('hex') };
 	}
-	await db.run(
-		'UPDATE analytics_sessions SET last_pageview_id = ?, updated_at = NOW() WHERE session_id = ?',
-		[pageviewId, sessionId]
-	);
+	// A new client id belongs to its own tab, even when this visitor has another
+	// active session. Never merge independent tabs or reassign foreign ids.
+	return { session: null, sessionId: requestedId && !requested ? requestedId : crypto.randomBytes(24).toString('hex') };
+}
+
+async function recordEngagement(db, body, now, pvid) {
+	return withTransaction(db, async tx => {
+		// Same visitor-first locking order as PV avoids lost duration updates.
+		const visitor = await tx.get('SELECT visitor_id FROM analytics_visitors WHERE pvid = ? LIMIT 1 FOR UPDATE', [pvid]);
+		if (!visitor || !body.sessionId) return { success: true, skipped: true };
+		const requestedId = String(body.sessionId);
+		const requested = await tx.get(`${SESSION_SELECT} WHERE session_id = ? AND visitor_id = ? LIMIT 1 FOR UPDATE`, [requestedId, visitor.visitor_id]);
+		if (!requested) return { success: true, skipped: true };
+		if (!isSessionActive(requested, now) && body.sessionEnded === true) {
+			// A final report may arrive after inactivity expiry or after the next
+			// pageview. Settle only its original session; never renew it or an alias.
+			const started = Date.parse(`${requested.started_at.replace(' ', 'T')}Z`);
+			const last = Date.parse(`${requested.last_activity_at.replace(' ', 'T')}Z`);
+			if (!Number.isFinite(started) || !Number.isFinite(last)) return { success: true, skipped: true };
+			const ended = Math.min(now.getTime(), last + SESSION_TIMEOUT_MINUTES * 60000);
+			const maximumDuration = Math.max(0, Math.floor((ended - started) / 1000));
+			await updateRow(tx, 'analytics_sessions', 'session_id', requested.session_id, {
+				duration_seconds: Math.max(Number(requested.duration_seconds || 0), Math.min(maximumDuration, positiveDuration(body.sessionDuration))),
+				ended_at: formatDateTime(new Date(ended)), updated_at: formatDateTime(now),
+			});
+			return { success: true, settled: true, visitorId: visitor.visitor_id, sessionId: requested.session_id };
+		}
+		const session = isSessionActive(requested, now) ? requested : await findActiveReplacement(tx, visitor.visitor_id, requestedId, now);
+		if (!session) return { success: true, skipped: true };
+		const activity = [session.last_activity_at || '', formatDateTime(now)].sort().at(-1);
+		await updateRow(tx, 'analytics_sessions', 'session_id', session.session_id, {
+			last_activity_at: activity, ended_at: activity,
+			duration_seconds: Math.max(Number(session.duration_seconds || 0), session.session_id === requestedId ? positiveDuration(body.sessionDuration) : 0), updated_at: formatDateTime(now),
+		});
+		return { success: true, visitorId: visitor.visitor_id, sessionId: session.session_id };
+	});
+}
+
+async function recordPageview(db, body, ip, now, eventDate, pvid, eventId) {
+	const { pathname, queryString } = normalizeRoute(body.url);
+	const occurredAt = formatDateTime(eventDate);
+	const receivedAt = formatDateTime(now);
+	const parts = getAnalyticsParts(eventDate);
+	const ipStorage = buildIpStorage(ip);
+	const geo = resolveGeoFromIP(ip);
+	const candidateVisitorId = crypto.createHash('sha1').update(pvid).digest('hex');
+	const common = {
+		pvid, referrer: body.referrer || '', referrer_type: body.referrerType || '',
+		search_engine: body.searchEngine || '', search_keyword: body.searchKeyword || '',
+		utm_source: body.utmSource || '', utm_medium: body.utmMedium || '', utm_campaign: body.utmCampaign || '',
+		utm_term: body.utmTerm || '', utm_content: body.utmContent || '', ip: ipStorage.ip, ip_hash: ipStorage.ipHash, ip_encrypted: ipStorage.ipEncrypted,
+		country: geo.country, region: geo.region, city: geo.city, isp: geo.isp,
+		language: body.language || '', timezone: body.timezone || '', device_type: body.deviceType || 'desktop',
+		browser: body.browser || '', browser_version: body.browserVersion || '', os: body.os || '', os_version: body.osVersion || '',
+	};
+	return withTransaction(db, async tx => {
+		// The pvid unique index selects the existing legacy identity; the UPSERT
+		// also acquires its row lock before any counter or session is read.
+		await insertRow(tx, 'analytics_visitors', {
+			visitor_id: candidateVisitorId, ...common, first_seen_at: occurredAt, last_seen_at: receivedAt,
+			first_page_url: body.url, last_page_url: body.url, entry_pathname: pathname, last_pathname: pathname,
+			user_agent: body.userAgent || '', visit_count: 0, session_count: 0, pageview_count: 0, created_at: receivedAt, updated_at: receivedAt,
+		}, ' ON DUPLICATE KEY UPDATE visitor_id = visitor_id');
+		const visitor = await tx.get('SELECT visitor_id, pvid, visit_count, session_count, pageview_count, DATE_FORMAT(last_seen_at, \'%Y-%m-%d %H:%i:%s\') AS last_seen_at FROM analytics_visitors WHERE pvid = ? LIMIT 1 FOR UPDATE', [pvid]);
+		if (!visitor) throw new Error('Analytics visitor identity unavailable');
+		if (eventId) {
+			const duplicate = await tx.get('SELECT visitor_id, pvid, session_id FROM page_stats WHERE event_id = ? LIMIT 1', [eventId]);
+			if (duplicate) {
+				if (duplicate.pvid !== pvid) { const error = new Error('Event id belongs to another visitor'); error.status = 409; throw error; }
+				return { success: true, duplicate: true, visitorId: duplicate.visitor_id, sessionId: duplicate.session_id };
+			}
+		}
+		const visitorId = visitor.visitor_id;
+		const { session, sessionId } = await resolveSession(tx, visitorId, body.sessionId ? String(body.sessionId) : '', now);
+		const isNewSession = !session;
+		const storedPageCount = Number(visitor.pageview_count || 0);
+		const history = storedPageCount === 0 ? await tx.get('SELECT COUNT(*) AS cnt FROM page_stats WHERE pvid = ?', [pvid]) : null;
+		const basePageCount = Math.max(storedPageCount, Number(history?.cnt || 0));
+		const visitSequence = basePageCount + 1;
+		const sessionPageIndex = Number(session?.pageview_count || 0) + 1;
+		const isNewVisitor = basePageCount === 0;
+		const startedAt = session?.started_at || receivedAt;
+		const activity = [session?.last_activity_at || '', receivedAt].sort().at(-1);
+		const duration = Math.max(Number(session?.duration_seconds || 0), sessionId !== body.sessionId ? 0 : positiveDuration(body.sessionDuration));
+		await updateRow(tx, 'analytics_visitors', 'visitor_id', visitorId, {
+			...common, last_seen_at: [visitor.last_seen_at || '', receivedAt].sort().at(-1), last_page_url: body.url, last_pathname: pathname,
+			user_agent: body.userAgent || '', visit_count: Math.max(Number(visitor.visit_count || 0), basePageCount) + 1,
+			session_count: Number(visitor.session_count || 0) + (isNewSession ? 1 : 0), pageview_count: visitSequence, updated_at: receivedAt,
+		});
+		const sessionValues = {
+			...common, last_activity_at: activity, ended_at: activity, exit_page_url: body.url, exit_pathname: pathname,
+			pageview_count: sessionPageIndex, duration_seconds: duration, is_bounce: sessionPageIndex === 1 ? 1 : 0, updated_at: receivedAt,
+		};
+		if (isNewSession) {
+			await insertRow(tx, 'analytics_sessions', {session_id: sessionId, visitor_id: visitorId, started_at: startedAt,
+				landing_page_url: body.url, landing_pathname: pathname, ...sessionValues, created_at: receivedAt});
+		} else await updateRow(tx, 'analytics_sessions', 'session_id', sessionId, sessionValues);
+		const inserted = await insertRow(tx, 'page_stats', {
+			visitor_id: visitorId, ...common, event_id: eventId, session_id: sessionId, url: body.url, pathname, query_string: queryString,
+			title: body.title || '', user_agent: body.userAgent || '', screen_width: body.screenWidth || 0, screen_height: body.screenHeight || 0,
+			viewport_width: body.viewportWidth || 0, viewport_height: body.viewportHeight || 0, is_mobile: body.deviceType === 'mobile' ? 1 : 0,
+			charset: body.charset || 'UTF-8', color_depth: body.colorDepth || 24, pixel_ratio: body.pixelRatio || 1, touch_support: body.touchSupport ? 1 : 0,
+			connection_type: body.connectionType || '', downlink_speed: body.downlinkSpeed || 0,
+			load_time: body.loadTime || 0, dom_content_loaded_time: body.domContentLoadedTime || 0, fcp_time: body.fcpTime || 0,
+			is_entry_page: isNewSession ? 1 : 0, is_new_visitor: isNewVisitor ? 1 : 0, session_duration: duration,
+			visit_hour: parts.hour, day_of_week: parts.dayOfWeek, visit_date: parts.date, visit_sequence: visitSequence, session_page_index: sessionPageIndex,
+			session_started_at: startedAt, last_activity_at: activity, is_logged_in: body.isLoggedIn ? 1 : 0, username: body.username || null, created_at: occurredAt,
+		});
+		await updateRow(tx, 'analytics_sessions', 'session_id', sessionId,
+			isNewSession ? {entry_page_id: inserted.lastID, last_pageview_id: inserted.lastID} : {last_pageview_id: inserted.lastID});
+		return { success: true, visitorId, sessionId };
+	});
 }
 
 router.post('/pageview', async (req, res) => {
 	let db;
-	try {
-		db = require('../db').getDatabase();
-	} catch (e) {
-		console.log('[Stats] DB init failed, skipping:', e.message);
-		return res.json({ success: true, skipped: true });
+	try { db = require('../db').getDatabase(); }
+	catch (error) { return res.status(503).json({ success: false, error: '统计服务暂不可用' }); }
+	const body = req.body || {};
+	const eventType = body.eventType || 'pageview';
+	const now = new Date();
+	const eventDate = new Date(body.timestamp);
+	const ip = req.ip || req.connection?.remoteAddress || '';
+	const pvid = String(body.pvid || crypto.createHash('sha1').update(`${body.userAgent || ''}|${ip}`).digest('hex'));
+	const eventId = body.eventId == null || body.eventId === '' ? null : String(body.eventId);
+	if (!['pageview', 'engagement'].includes(eventType) || !body.timestamp || Number.isNaN(eventDate.getTime()) || pvid.length > 64 || (body.sessionId && String(body.sessionId).length > 64) || (eventId && eventId.length > 128) || (eventType === 'pageview' && !body.url)) {
+		return res.status(400).json({ success: false, error: '统计参数无效' });
 	}
-
+	if (eventType === 'pageview') {
+		try { normalizeRoute(body.url); } catch (error) { return res.status(400).json({success:false,error:'统计URL无效'}); }
+	}
 	try {
-		const body = req.body || {};
-		console.log('[Stats] Received pageview:', {
-			url: body.url,
-			title: body.title,
-			timestamp: body.timestamp,
-			isLoggedIn: body.isLoggedIn,
-			username: body.username,
-		});
-		const {
-			url,
-			referrer,
-			title,
-			userAgent,
-			screenWidth,
-			screenHeight,
-			viewportWidth,
-			viewportHeight,
-			deviceType,
-			browser,
-			browserVersion,
-			os,
-			osVersion,
-			language,
-			charset,
-			colorDepth,
-			pixelRatio,
-			touchSupport,
-			connectionType,
-			downlinkSpeed,
-			timezone,
-			loadTime,
-			domContentLoadedTime,
-			fcpTime,
-			isEntryPage,
-			utmSource,
-			utmMedium,
-			utmCampaign,
-			utmTerm,
-			utmContent,
-			referrerType,
-			searchEngine,
-			searchKeyword,
-			sessionId,
-			pvid,
-			sessionDuration,
-			timestamp,
-			isLoggedIn,
-			username,
-		} = body;
-
-		if (!url || !timestamp) {
-			return res.status(400).json({ success: false, error: '缺少必要参数' });
+		const result = eventType === 'engagement'
+			? await recordEngagement(db, body, now, pvid)
+			: await recordPageview(db, body, ip, now, eventDate > now ? now : eventDate, pvid, eventId);
+		return res.json(result);
+	} catch (error) {
+		// Unique event ids also arbitrate retries from separate transactions.
+		if (eventId && error.code === 'ER_DUP_ENTRY') {
+			try {
+				const duplicate = await db.get('SELECT visitor_id, pvid, session_id FROM page_stats WHERE event_id = ? LIMIT 1', [eventId]);
+				if (duplicate?.pvid === pvid) return res.json({success:true,duplicate:true,visitorId:duplicate.visitor_id,sessionId:duplicate.session_id});
+				if (duplicate) return res.status(409).json({success:false,error:'统计事件ID冲突'});
+			} catch (readError) { /* Return the original write failure. */ }
 		}
-
-		const parsedUrl = new URL(url);
-		const pathname = parsedUrl.pathname || '/';
-		const queryString = parsedUrl.search || '';
-		const ip = req.ip || req.connection?.remoteAddress || '';
-		const ipStorage = buildIpStorage(ip);
-		const userAgentStr = userAgent || '';
-		const isMobile = deviceType === 'mobile';
-		const date = normalizeTimestamp(timestamp);
-		const dateTime = formatDateTime(date);
-		const hour = date.getHours();
-		const dayOfWeek = date.getDay();
-		const dateStr = date.toISOString().split('T')[0];
-		const visitorId = buildVisitorId(pvid, userAgentStr, ip);
-
-		const geo = resolveGeoFromIP(ip);
-		const existingSession = sessionId
-			? await db.get(
-				'SELECT session_id FROM analytics_sessions WHERE session_id = ? AND last_activity_at >= DATE_SUB(?, INTERVAL ? MINUTE) LIMIT 1',
-				[sessionId, dateTime, SESSION_TIMEOUT_MINUTES]
-			)
-			: null;
-		const isNewSession = !existingSession;
-		const isNewVisitor = await checkIsNewVisitor(db, visitorId, pvid);
-
-		const visitorPayload = {
-			visitorId,
-			pvid: pvid || '',
-			sessionId: sessionId || '',
-			occurredAt: dateTime,
-			url,
-			pathname,
-			referrer: referrer || '',
-			referrerType: referrerType || '',
-			searchEngine: searchEngine || '',
-			searchKeyword: searchKeyword || '',
-			utmSource: utmSource || '',
-			utmMedium: utmMedium || '',
-			utmCampaign: utmCampaign || '',
-			utmTerm: utmTerm || '',
-			utmContent: utmContent || '',
-			ip: ipStorage.ip,
-			ipHash: ipStorage.ipHash,
-			ipEncrypted: ipStorage.ipEncrypted,
-			country: geo.country,
-			region: geo.region,
-			city: geo.city,
-			isp: geo.isp,
-			language: language || '',
-			timezone: timezone || '',
-			userAgent: userAgentStr,
-			deviceType: deviceType || 'desktop',
-			browser: browser || '',
-			browserVersion: browserVersion || '',
-			os: os || '',
-			osVersion: osVersion || '',
-			sessionDuration: sessionDuration || 0,
-			isNewSession,
-		};
-
-		const visitorState = await upsertVisitor(db, visitorPayload);
-		const sessionState = await upsertSession(db, visitorPayload);
-
-		const valueMap = {
-			visitor_id: visitorId,
-			pvid: pvid || '',
-			session_id: sessionId || '',
-			url,
-			pathname,
-			query_string: queryString,
-			referrer: referrer || '',
-			title: title || '',
-			user_agent: userAgentStr,
-			screen_width: screenWidth || 0,
-			screen_height: screenHeight || 0,
-			viewport_width: viewportWidth || 0,
-			viewport_height: viewportHeight || 0,
-			device_type: deviceType || 'desktop',
-			is_mobile: isMobile ? 1 : 0,
-			browser: browser || '',
-			browser_version: browserVersion || '',
-			os: os || '',
-			os_version: osVersion || '',
-			language: language || '',
-			charset: charset || 'UTF-8',
-			color_depth: colorDepth || 24,
-			pixel_ratio: pixelRatio || 1,
-			touch_support: touchSupport ? 1 : 0,
-			connection_type: connectionType || '',
-			downlink_speed: downlinkSpeed || 0,
-			ip: ipStorage.ip,
-			ip_hash: ipStorage.ipHash,
-			ip_encrypted: ipStorage.ipEncrypted,
-			timezone: timezone || '',
-			load_time: loadTime || 0,
-			dom_content_loaded_time: domContentLoadedTime || 0,
-			fcp_time: fcpTime || 0,
-			is_entry_page: isEntryPage ? 1 : 0,
-			utm_source: utmSource || '',
-			utm_medium: utmMedium || '',
-			utm_campaign: utmCampaign || '',
-			utm_term: utmTerm || '',
-			utm_content: utmContent || '',
-			referrer_type: referrerType || '',
-			search_engine: searchEngine || '',
-			search_keyword: searchKeyword || '',
-			country: geo.country,
-			region: geo.region,
-			city: geo.city,
-			isp: geo.isp,
-			is_new_visitor: isNewVisitor ? 1 : 0,
-			session_duration: sessionDuration || 0,
-			visit_hour: hour,
-			day_of_week: dayOfWeek,
-			visit_date: dateStr,
-			visit_sequence: visitorState.visitSequence,
-			session_page_index: sessionState.sessionPageIndex,
-			session_started_at: dateTime,
-			last_activity_at: dateTime,
-			is_logged_in: isLoggedIn ? 1 : 0,
-			username: username || null,
-		};
-
-		let tableColumns;
-		try {
-			const colRows = await db.all(
-				"SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'page_stats'"
-			);
-			tableColumns = new Set((colRows || []).map((r) => r.COLUMN_NAME));
-		} catch (e) {
-			tableColumns = new Set(Object.keys(valueMap));
-		}
-
-		tableColumns.delete('id');
-		tableColumns.delete('created_at');
-
-		const insertCols = [];
-		const insertVals = [];
-		const placeholders = [];
-		for (const [col, val] of Object.entries(valueMap)) {
-			if (tableColumns.has(col)) {
-				insertCols.push(col);
-				insertVals.push(val);
-				placeholders.push('?');
-			}
-		}
-
-		insertCols.push('created_at');
-		placeholders.push('NOW()');
-
-		if (insertCols.length < 2) {
-			return res.json({ success: true, skipped: true });
-		}
-
-		const insertResult = await db.run(
-			`INSERT INTO page_stats (${insertCols.join(', ')}) VALUES (${placeholders.join(', ')})`,
-			insertVals
-		);
-		console.log('[Stats] Pageview saved successfully, insertId:', insertResult?.lastID);
-		await attachSessionPageview(db, sessionId || '', insertResult?.lastID, sessionState.isNewSession);
-
-		res.json({ success: true, visitorId, sessionId: sessionId || '' });
-	} catch (err) {
-		console.error('Pageview stats error:', err.message);
-		console.error('Stack:', err.stack);
-		res.status(500).json({ success: false, error: '统计记录失败' });
+		console.error('Pageview stats error:', error.message);
+		return res.status(error.status || 500).json({ success: false, error: '统计记录失败' });
 	}
 });
 

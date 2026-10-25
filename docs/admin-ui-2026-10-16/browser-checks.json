@@ -1,0 +1,156 @@
+{
+  "desktop": [
+    {
+      "route": "users",
+      "breadcrumb": "用户管理",
+      "heading": "用户管理",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "records",
+      "breadcrumb": "排盘记录",
+      "heading": "排盘记录",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "liuyao-records",
+      "breadcrumb": "六爻记录",
+      "heading": "六爻记录",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "llm-config",
+      "breadcrumb": "模型配置",
+      "heading": "大模型管理",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "llm-quota",
+      "breadcrumb": "用户额度",
+      "heading": "AI 额度管理",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "quota-config",
+      "breadcrumb": "额度规则",
+      "heading": "额度自动重置配置",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "email-config",
+      "breadcrumb": "邮件服务",
+      "heading": "邮箱服务配置",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "announcements",
+      "breadcrumb": "公告管理",
+      "heading": "公告管理",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "analytics-stats",
+      "breadcrumb": "访问统计",
+      "heading": "访问统计",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    },
+    {
+      "route": "dashboard",
+      "breadcrumb": "管理总览",
+      "heading": "管理总览",
+      "height": 890,
+      "overflow": false,
+      "width": 1421
+    }
+  ],
+  "mobile": [
+    {
+      "route": "users",
+      "breadcrumb": "用户管理",
+      "heading": "用户管理",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "records",
+      "breadcrumb": "排盘记录",
+      "heading": "排盘记录",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "liuyao-records",
+      "breadcrumb": "六爻记录",
+      "heading": "六爻记录",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "llm-config",
+      "breadcrumb": "模型配置",
+      "heading": "大模型管理",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "llm-quota",
+      "breadcrumb": "用户额度",
+      "heading": "AI 额度管理",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "quota-config",
+      "breadcrumb": "额度规则",
+      "heading": "额度自动重置配置",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "email-config",
+      "breadcrumb": "邮件服务",
+      "heading": "邮箱服务配置",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "announcements",
+      "breadcrumb": "公告管理",
+      "heading": "公告管理",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "analytics-stats",
+      "breadcrumb": "访问统计",
+      "heading": "访问统计",
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "route": "dashboard",
+      "breadcrumb": "管理总览",
+      "heading": "管理总览",
+      "overflow": false,
+      "width": 390
+    }
+  ]
+}

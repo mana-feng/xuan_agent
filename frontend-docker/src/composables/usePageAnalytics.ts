@@ -1,67 +1,61 @@
-import { watch, onUnmounted } from 'vue';
-import { useAppConfigStore } from '@/store/appConfig';
-import { trackPageView } from '@/utils/analytics';
+import { onUnmounted } from 'vue';
+import { trackPageView, startEngagementTracking } from '@/utils/analytics';
 
-let is收集已初始化 = false;
+let owners = 0;
+let cleanup: (() => void) | null = null;
 
-function 初始化统计(): void {
-	if (is收集已初始化) return;
-	is收集已初始化 = true;
+function normalizedRoute(): string {
+	const url = new URL(window.location.href);
+	url.searchParams.sort();
+	const hash = url.hash.slice(1);
+	const separator = hash.indexOf('?');
+	if (separator >= 0) {
+		const params = new URLSearchParams(hash.slice(separator + 1));
+		params.sort();
+		url.hash = hash.slice(0, separator) + (params.size ? '?' + params.toString() : '');
+	}
+	return url.pathname + url.search + url.hash;
+}
 
-	if (typeof window === 'undefined') return;
-
-	trackPageView();
-
-	window.addEventListener('popstate', handlePopState);
-	window.addEventListener('hashchange', handleHashChange);
-
-	const originalPushState = history.pushState;
-	const originalReplaceState = history.replaceState;
-
-	history.pushState = function (...args) {
-		(originalPushState as any).apply(this, args);
-		setTimeout(() => trackPageView(), 0);
+function start(): () => void {
+	let previousRoute: string | null = null;
+	let active = true;
+	const routeChanged = (newSession = false) => {
+		if (!active || document.visibilityState === 'hidden') return;
+		const route = normalizedRoute();
+		if (!newSession && previousRoute === route) return;
+		previousRoute = route;
+		trackPageView();
 	};
-
-	history.replaceState = function (...args) {
-		(originalReplaceState as any).apply(this, args);
-		setTimeout(() => trackPageView(), 0);
+	const onRoute = () => routeChanged();
+	const stopEngagement = startEngagementTracking(routeChanged);
+	const originalPush = history.pushState;
+	const originalReplace = history.replaceState;
+	const push: History['pushState'] = function (this: History, ...args) { originalPush.apply(this, args); routeChanged(); };
+	const replace: History['replaceState'] = function (this: History, ...args) { originalReplace.apply(this, args); routeChanged(); };
+	history.pushState = push;
+	history.replaceState = replace;
+	window.addEventListener('popstate', onRoute);
+	window.addEventListener('hashchange', onRoute);
+	routeChanged();
+	return () => {
+		active = false;
+		window.removeEventListener('popstate', onRoute);
+		window.removeEventListener('hashchange', onRoute);
+		// Do not overwrite a history wrapper installed by another consumer after us.
+		if (history.pushState === push) history.pushState = originalPush;
+		if (history.replaceState === replace) history.replaceState = originalReplace;
+		stopEngagement();
 	};
-}
-
-function handlePopState(): void {
-	setTimeout(() => trackPageView(), 0);
-}
-
-function handleHashChange(): void {
-	setTimeout(() => trackPageView(), 0);
-}
-
-function 清理统计(): void {
-	if (typeof window === 'undefined') return;
-	window.removeEventListener('popstate', handlePopState);
-	window.removeEventListener('hashchange', handleHashChange);
-	is收集已初始化 = false;
 }
 
 export function usePageAnalytics(): void {
-	const appConfigStore = useAppConfigStore();
-
-	if (appConfigStore.loaded) {
-		初始化统计();
-	} else {
-		const unwatch = watch(
-			() => appConfigStore.loaded,
-			(loaded) => {
-				if (loaded) {
-					初始化统计();
-					unwatch();
-				}
-			}
-		);
-	}
-
+	if (typeof window === 'undefined' || typeof document === 'undefined') return;
+	if (owners++ === 0) cleanup = start();
+	let released = false;
 	onUnmounted(() => {
-		清理统计();
+		if (released) return;
+		released = true;
+		if (--owners === 0) { cleanup?.(); cleanup = null; }
 	});
 }

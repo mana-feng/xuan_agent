@@ -1,0 +1,725 @@
+{
+  "capturedAt": "2026-10-15T22:12:47.020Z",
+  "database": {
+    "counts": {
+      "pv": 80,
+      "uv": 3,
+      "sessions": 4,
+      "idempotent_events": 0
+    },
+    "recent": [
+      {
+        "id": 80,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:41"
+      },
+      {
+        "id": 79,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:41"
+      },
+      {
+        "id": 78,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:14"
+      },
+      {
+        "id": 77,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:55:14"
+      },
+      {
+        "id": 76,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:42:02"
+      },
+      {
+        "id": 75,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:42:02"
+      },
+      {
+        "id": 74,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:36:46"
+      },
+      {
+        "id": 73,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:36:45"
+      },
+      {
+        "id": 72,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:36:32"
+      },
+      {
+        "id": 71,
+        "event_id": null,
+        "pathname": "/",
+        "created_at": "2026-10-15 20:36:32"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "idx_page_stats_event_id",
+        "column": "event_id",
+        "unique": true
+      }
+    ]
+  },
+  "api": {
+    "status": 200,
+    "todayPageviews": 80,
+    "yesterdayPageviews": 0,
+    "totalPageviews": 80,
+    "uniqueVisitors": 3,
+    "totalSessions": 4,
+    "weeklyPageviews": 80,
+    "monthlyPageviews": 80,
+    "newVisitorCount": 3,
+    "returningVisitorCount": 1,
+    "bounceRate": 50,
+    "statisticsTimeZone": "Asia/Shanghai",
+    "generatedAt": "2026-10-15T22:12:47.003Z",
+    "visitorPeriod": "last30Days",
+    "visitorDefinitions": {
+      "new": "近30天首次访问的去重访客",
+      "returning": "近30天再次开启会话的去重访客，可与新访客重叠"
+    },
+    "bounceDefinition": "近30天开启且仅浏览一个页面的会话占比",
+    "topBrowsers": [
+      {
+        "browser": "Chrome",
+        "version": "",
+        "count": 79
+      }
+    ],
+    "topOs": [
+      {
+        "os": "Windows",
+        "version": "10",
+        "count": 79
+      }
+    ],
+    "topPages": [
+      {
+        "pathname": "/pages/chat/index",
+        "title": "玄学AI Chat & Agent",
+        "count": 28
+      },
+      {
+        "pathname": "/pages/history/list",
+        "title": "玄学AI Chat & Agent",
+        "count": 15
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "title": "六爻排盘结果",
+        "count": 8
+      },
+      {
+        "pathname": "/pages/ziwei/result",
+        "title": "紫微排盘结果",
+        "count": 8
+      },
+      {
+        "pathname": "/pages/index/detail",
+        "title": "玄学AI Chat & Agent",
+        "count": 6
+      },
+      {
+        "pathname": "/",
+        "title": "排盘 Agent",
+        "count": 4
+      },
+      {
+        "pathname": "/pages/qimen/result",
+        "title": "奇门排盘结果",
+        "count": 4
+      },
+      {
+        "pathname": "/pages/auth/auth",
+        "title": "玄学AI Chat & Agent",
+        "count": 2
+      },
+      {
+        "pathname": "/acceptance",
+        "title": "本地完整验收",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/index/index",
+        "title": "玄学AI Chat & Agent",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/liuyao/index",
+        "title": "六爻排盘",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/qimen/index",
+        "title": "奇门起局",
+        "count": 1
+      },
+      {
+        "pathname": "/pages/ziwei/index",
+        "title": "紫微排盘",
+        "count": 1
+      }
+    ],
+    "topReferrers": [],
+    "connectionStats": [
+      {
+        "type": "4g",
+        "count": 45
+      },
+      {
+        "type": "3g",
+        "count": 34
+      }
+    ],
+    "referrerTypeStats": [
+      {
+        "type": "direct",
+        "count": 79
+      }
+    ],
+    "searchEngineStats": [],
+    "searchKeywords": [],
+    "screenResolutions": [
+      {
+        "resolution": "2560x1440",
+        "count": 79
+      },
+      {
+        "resolution": "390x844",
+        "count": 1
+      }
+    ],
+    "utmCampaigns": [],
+    "languageStats": [
+      {
+        "language": "zh-CN",
+        "count": 79
+      }
+    ],
+    "timezoneStats": [
+      {
+        "timezone": "Asia/Singapore",
+        "count": 79
+      }
+    ],
+    "deviceStats": {
+      "mobile": 50,
+      "tablet": 14,
+      "desktop": 16
+    },
+    "dailyTrend": [
+      {
+        "date": "2026-09-17",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-18",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-19",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-20",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-21",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-22",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-23",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-24",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-25",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-26",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-27",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-28",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-29",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-09-30",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-01",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-02",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-03",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-04",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-05",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-06",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-07",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-08",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-09",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-10",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-11",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-12",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-13",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-14",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-15",
+        "pv": 0,
+        "uv": 0
+      },
+      {
+        "date": "2026-10-16",
+        "pv": 80,
+        "uv": 3
+      }
+    ],
+    "hourlyData": [
+      {
+        "hour": 0,
+        "count": 0
+      },
+      {
+        "hour": 1,
+        "count": 0
+      },
+      {
+        "hour": 2,
+        "count": 0
+      },
+      {
+        "hour": 3,
+        "count": 16
+      },
+      {
+        "hour": 4,
+        "count": 64
+      },
+      {
+        "hour": 5,
+        "count": 0
+      },
+      {
+        "hour": 6,
+        "count": 0
+      },
+      {
+        "hour": 7,
+        "count": 0
+      },
+      {
+        "hour": 8,
+        "count": 0
+      },
+      {
+        "hour": 9,
+        "count": 0
+      },
+      {
+        "hour": 10,
+        "count": 0
+      },
+      {
+        "hour": 11,
+        "count": 0
+      },
+      {
+        "hour": 12,
+        "count": 0
+      },
+      {
+        "hour": 13,
+        "count": 0
+      },
+      {
+        "hour": 14,
+        "count": 0
+      },
+      {
+        "hour": 15,
+        "count": 0
+      },
+      {
+        "hour": 16,
+        "count": 0
+      },
+      {
+        "hour": 17,
+        "count": 0
+      },
+      {
+        "hour": 18,
+        "count": 0
+      },
+      {
+        "hour": 19,
+        "count": 0
+      },
+      {
+        "hour": 20,
+        "count": 0
+      },
+      {
+        "hour": 21,
+        "count": 0
+      },
+      {
+        "hour": 22,
+        "count": 0
+      },
+      {
+        "hour": 23,
+        "count": 0
+      }
+    ],
+    "dowData": [
+      {
+        "day": "周日",
+        "dayIndex": 0,
+        "count": 0
+      },
+      {
+        "day": "周一",
+        "dayIndex": 1,
+        "count": 0
+      },
+      {
+        "day": "周二",
+        "dayIndex": 2,
+        "count": 0
+      },
+      {
+        "day": "周三",
+        "dayIndex": 3,
+        "count": 0
+      },
+      {
+        "day": "周四",
+        "dayIndex": 4,
+        "count": 0
+      },
+      {
+        "day": "周五",
+        "dayIndex": 5,
+        "count": 80
+      },
+      {
+        "day": "周六",
+        "dayIndex": 6,
+        "count": 0
+      }
+    ],
+    "entryPages": [
+      {
+        "pathname": "/",
+        "count": 3
+      },
+      {
+        "pathname": "/acceptance",
+        "count": 1
+      }
+    ],
+    "exitPages": [
+      {
+        "pathname": "/pages/chat/index",
+        "entryCount": 0,
+        "exitCount": 2
+      },
+      {
+        "pathname": "/acceptance",
+        "entryCount": 1,
+        "exitCount": 1
+      },
+      {
+        "pathname": "/",
+        "entryCount": 3,
+        "exitCount": 1
+      }
+    ],
+    "performanceStats": {
+      "avgLoadTime": 255,
+      "minLoadTime": 157,
+      "maxLoadTime": 487,
+      "avgFCP": 448,
+      "avgDCL": 150
+    },
+    "geoCountries": [],
+    "ispStats": [],
+    "recentTotal": 80,
+    "recentPageSize": 20,
+    "recentPageCount": 4,
+    "recentPage": 1,
+    "recentVisitors": [
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:41.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:41.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:14.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:55:14.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:42:02.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:42:02.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:36:46.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:36:45.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:36:32.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:36:32.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/history/list",
+        "time": "2026-10-15T20:36:19.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T20:36:15.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/",
+        "time": "2026-10-15T20:35:27.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:24:51.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:24:51.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:24:46.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/liuyao/result",
+        "time": "2026-10-15T20:24:46.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/history/list",
+        "time": "2026-10-15T20:24:33.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/history/list",
+        "time": "2026-10-15T20:24:33.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      },
+      {
+        "pathname": "/pages/chat/index",
+        "time": "2026-10-15T20:21:05.000Z",
+        "browser": "Chrome",
+        "browserVersion": "",
+        "os": "Windows",
+        "osVersion": "10"
+      }
+    ]
+  },
+  "lastPage": {
+    "status": 200,
+    "total": 80,
+    "page": 4,
+    "pageCount": 4,
+    "rows": 20
+  }
+}

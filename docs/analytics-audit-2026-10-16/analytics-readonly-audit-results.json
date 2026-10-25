@@ -1,0 +1,48 @@
+{
+  "singleHashBack": {
+    "initial": 1,
+    "afterOneBack": 3,
+    "extra": 2
+  },
+  "remountHistoryPatch": {
+    "pvForSinglePush": 2
+  },
+  "multipleOwners": {
+    "hashListenersAfterOneOwnerUnmount": 0
+  },
+  "failedBootstrap": {
+    "pageviews": 0,
+    "listeners": 0
+  },
+  "edge": {
+    "browser": "Edge",
+    "browserVersion": "",
+    "os": "Windows",
+    "osVersion": "10",
+    "utmSource": null
+  },
+  "ios": {
+    "browser": "Safari",
+    "browserVersion": "",
+    "os": "macOS",
+    "osVersion": ""
+  },
+  "refresh": {
+    "before": {
+      "id": "lflsneviby0iiyj",
+      "duration": 30,
+      "entry": false
+    },
+    "after": {
+      "id": "lflsneviby0iiyj",
+      "duration": 0,
+      "entry": true
+    }
+  },
+  "clonedTabSession": {
+    "sameId": true
+  },
+  "failedBeacon": {
+    "attempts": 1
+  }
+}

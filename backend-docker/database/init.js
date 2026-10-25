@@ -169,6 +169,7 @@ async function ensurePageStatsSchema(db) {
 	const existing = new Set((rows || []).map((r) => String(r.name)));
 
 	const newColumns = [
+		{ name: 'event_id', sql: "VARCHAR(128) DEFAULT NULL COMMENT '幂等页面事件ID'" },
 		{ name: 'visitor_id', sql: "VARCHAR(64) NOT NULL DEFAULT '' COMMENT '访客主键ID'" },
 		{ name: 'ip_hash', sql: "CHAR(64) NOT NULL DEFAULT '' COMMENT 'IP哈希值'" },
 		{ name: 'ip_encrypted', sql: "TEXT COMMENT 'IP加密密文'" },
@@ -225,6 +226,18 @@ async function ensurePageStatsSchema(db) {
 		}
 	}
 
+	// Nullable unique ids preserve every legacy page while deduplicating retries.
+	const eventIndex = await db.get(
+		"SELECT COUNT(*) as cnt FROM information_schema.statistics WHERE table_schema = DATABASE() AND table_name = 'page_stats' AND index_name = ?",
+		['idx_page_stats_event_id']
+	);
+	if (!eventIndex || Number(eventIndex.cnt) === 0) {
+		try {
+			await db.run('CREATE UNIQUE INDEX idx_page_stats_event_id ON page_stats (event_id)');
+		} catch (error) {
+			if (error.code !== 'ER_DUP_KEYNAME') throw error;
+		}
+	}
 	const newIndexes = [
 		{ name: 'idx_browser', col: 'browser' },
 		{ name: 'idx_os', col: 'os' },
@@ -531,6 +544,7 @@ async function initTables() {
 			visitor_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '访客主键 ID',
 			pvid VARCHAR(64) NOT NULL DEFAULT '' COMMENT '永久访客 ID',
 			session_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '会话 ID',
+			event_id VARCHAR(128) DEFAULT NULL COMMENT '幂等页面事件ID',
 			url TEXT NOT NULL COMMENT '完整 URL',
 			pathname VARCHAR(512) NOT NULL DEFAULT '/' COMMENT '路径名',
 			query_string VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '查询字符串',
