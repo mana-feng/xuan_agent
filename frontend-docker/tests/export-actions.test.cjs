@@ -127,9 +127,12 @@ test('Liuyao copy button sends displayed Chinese text with moving lines to the c
   uni.setClipboardData = ({ data, success }) => { copied = data; success(); };
   try {
     await tap(page.host, '复制排盘');
-    assert.equal(JSON.parse(copied.split('\n').find(line => line.trim().startsWith('占问：')).trim().slice(3).trim()), '导出验收：合作, "样例"\\路径');
+    assert.ok(copied.includes('占问（原文）：\n> 导出验收：合作, "样例"\\路径'));
+    assert.equal(copied.split('\n').filter(line => /^本卦：/.test(line)).length, 1);
     assert.match(copied, /水火既济/); assert.match(copied, /泽山咸/);
-    assert.match(copied, /Asia\/Singapore/); assert.match(copied, /[x×]/); assert.match(copied, /[o○]/);
+    assert.match(copied, /Asia\/Singapore/);
+    assert.match(copied, /老阴动爻（阴变阳）/); assert.match(copied, /老阳动爻（阳变阴）/);
+    assert.doesNotMatch(copied, /\||—/);
     assert.equal(page.toasts.length, 1); assert.match(page.toasts[0].title, /已复制/);
   } finally { page.dispose(); }
 });

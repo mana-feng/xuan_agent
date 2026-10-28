@@ -96,14 +96,25 @@ test('unsupported saved engine or rule versions are rejected without overwriting
   assert.match(platform.toasts.at(-1).title,/规则版本/);
 });
 
-test('Bazi and Liuyao exports carry the frozen calculation convention into AI context', () => {
+test('Bazi and Liuyao exports carry the frozen calculation convention into AI context', async () => {
   const { useYunStore } = require('../src/store/yun.ts');
   const { buildBaziExportPayload } = require('../src/utils/baziExport.ts');
   const { buildLiuyaoExportPayload } = require('../src/utils/liuyaoExport.ts');
   const store = useBaziStore(); store.pull({timestamp,gender:0,timeZone:'America/New_York'});
   assert.equal(buildBaziExportPayload({},store,useYunStore()).meta.calculation.timeZone,'America/New_York');
   executeLiuyaoChart({date:new Date(timestamp),timeZone:'America/New_York',params,methodLabel:'手工指定'});
-  assert.match(buildLiuyaoExportPayload(useLiuyaoStore()),/America\/New_York.*00:00/);
+  require('../src/store/user.ts').useUserStore()._hasAccessToken = true;
+  platform.storage.set('access_token', 'synthetic-test-token');
+  await loadPage('pages/liuyao/result.nvue', ['saveLiuyao']).saveLiuyao();
+  const rawPayload = JSON.parse(JSON.stringify(platform.requests[0].data.rawPayload));
+  openSavedChart({ id: 79, type: 'liuyao', title: '保存口径的导出', birthDatetime: new Date(timestamp).toISOString(), rawPayload });
+  const liuyao = useLiuyaoStore(), text = buildLiuyaoExportPayload(liuyao);
+  assert.equal(liuyao.recordId, 79);
+  assert.deepEqual(JSON.parse(JSON.stringify(liuyao.calculation)), rawPayload.calculation);
+  assert.match(text, /^时区：America\/New_York$/m);
+  assert.doesNotMatch(text, /排盘口径：|规则版本：|换日：/);
+  assert.equal(liuyao.calculation.rules.dayDivide, 'midnight');
+  assert.equal(liuyao.calculation.ruleVersion, 'liuyao-civil-v1');
 });
 
 test('historical minute-only history cannot guess a second offset across LiChun', () => {
