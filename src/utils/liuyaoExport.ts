@@ -2,7 +2,6 @@ import { GUAS, GUA5, XING5, SYMBOL } from '@/features/liuyao/najiaConst';
 import { getGuaName as getGuaciGuaName, getCanonicalNameByName } from '@/features/liuyao/guaci';
 import { getYaoSymbol } from '@/features/liuyao/uiHelpers';
 import { setShiYao } from '@/features/liuyao/najiaCore';
-import { calendarRuleLabel } from '@/utils/calendarContext';
 
 /**
  * 安全获取数组元素
@@ -177,15 +176,18 @@ function getYaoRows(c: any, d: any) {
 }
 
 /**
- * 构建六爻排盘的完整文本描述（复用“复制排盘”的逻辑）
+ * Copy and AI context share a plain-text report. Every line of user text is
+ * quoted so labels in a question cannot become chart metadata.
  */
 export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 	try {
 		const { compiled: c, display: d, profile: p } = liuyaoStore;
 		if (!c || !d || !p) return null;
 
-		const lines: string[] = [];
-		
+		const readable = (value: any, fallback = '未填写'): string => {
+			const text = value == null ? '' : String(value).trim();
+			return text && text !== '—' ? text : fallback;
+		};
 		let timeStr = p.timeLabel || '';
 		if (timeStr.includes('-')) {
 			const parts = timeStr.split(/[- :]/);
@@ -193,86 +195,50 @@ export function buildLiuyaoExportPayload(liuyaoStore: any): string | null {
 				timeStr = `${parts[0]}年${parts[1]}月${parts[2]}日 ${parts[3]}:${parts[4]}`;
 			}
 		}
-		lines.push(timeStr);
-		if (liuyaoStore.calculation) {
-			lines.push(` 排盘口径：${calendarRuleLabel(liuyaoStore.calculation)}`);
-			lines.push(` 规则版本：${liuyaoStore.calculation.ruleVersion}`);
-		} else lines.push(' 旧记录未保存原时区与规则版本；以下为保留的原盘，不按当前默认规则重排。');
-		// Quote free text so embedded newlines/labels remain part of the question.
-		lines.push(` 占问： ${JSON.stringify(p.title || '—')}`);
-		lines.push(` 性别：${p.gender || '未填写'}`);
-		lines.push(` 起卦方式：${JSON.stringify(p.method || '未记录')}`);
-		
-		const gz = c.lunar?.gz;
-		const xkong = c.lunar?.xkong || '—';
-		lines.push(` ${gz?.year}年 ${gz?.month}月 ${gz?.day}日 ${gz?.hour}时 (旬空：${xkong})`);
-		
-		const guaOverview = getGuaOverview(c, d);
-		
-		const mainType = guaOverview.main.type !== '—' ? `(${guaOverview.main.type})` : '';
-		lines.push(` 本卦：${guaOverview.main.name}/${guaOverview.main.palace}${mainType}`);
-		
-		if (c.bian) {
-			const bianType = guaOverview.changed.type !== '—' ? `(${guaOverview.changed.type})` : '';
-			lines.push(` 变卦：${guaOverview.changed.name}/${guaOverview.changed.palace}${bianType}`);
+		const lines: string[] = [timeStr, '', '【起卦信息】', '占问（原文）：'];
+		String(p.title || '未填写').split(/\r\n|\r|\n/).forEach(line => lines.push(`> ${line}`));
+		lines.push('', `性别：${readable(p.gender)}`, `起卦方式：${readable(p.method, '未记录')}`);
+		const calculation = liuyaoStore.calculation;
+		lines.push(`时区：${readable(calculation?.timeZone)}`);
+		if (calculation?.rules?.dayDivide === 'zi') lines.push('换日：23:00');
+		if (!calculation) {
+			lines.push('旧记录未保存原时区与规则版本；以下为保留的原盘，不按当前默认规则重排。');
+		} else if (calculation.replayMode === 'snapshot') {
+			lines.push('原时间仅精确到分钟，显示保存的原盘快照。');
 		}
-		
-		const yaoRows = getYaoRows(c, d);
-		lines.push(' 爻序：自上而下（上爻→初爻）；o=老阳动爻，x=老阴动爻');
-		lines.push(` 爻位 | 六神 | 伏神 | 本卦六亲干支 | 本卦爻象 | 动爻 | 本卦世应${c.bian ? ' | 变卦六亲干支 | 变卦爻象 | 变卦世应' : ''}`);
-		
-		yaoRows.forEach((row, index) => {
-			const paramIndex = 5 - index;
-			const param = safeAt(c.params, paramIndex);
-			
-			let symbol = '— '; 
-			let marker = ' ';
-			
-			if (String(param) === '0') { 
-				symbol = '--';
-				marker = ' ';
-			} else if (String(param) === '1') { 
-				symbol = '— ';
-				marker = ' ';
-			} else if (String(param) === '3') { 
-				symbol = '— ';
-				marker = 'o';
-			} else if (String(param) === '4') { 
-				symbol = '--';
-				marker = 'x';
-			}
-			
-			const god = row.liushen || '　';
-			
-			let hidden = row.hidden || '　　';
-			if (hidden === '—') hidden = '　　';
-			if (!hidden.trim()) hidden = '　　';
-			
-			// Ensure relation is not '—'
-			let relation = row.relation || '　　';
-			if (relation === '—') relation = '　　';
-			
-			const role = row.mainRole || '　';
-			
-			let bianStr = '';
+		const gz = c.lunar?.gz;
+		lines.push(`干支：${readable(gz?.year)}年 ${readable(gz?.month)}月 ${readable(gz?.day)}日 ${readable(gz?.hour)}时`);
+		lines.push(`旬空：${readable(c.lunar?.xkong, '未记录')}`);
+
+		const guaOverview = getGuaOverview(c, d);
+		const guaLine = (label: string, gua: any) => {
+			const type = readable(gua.type, '');
+			return `${label}：${readable(gua.name)}；卦宫：${readable(gua.palace)}${type ? `；卦性：${type}` : ''}`;
+		};
+		lines.push('', '【卦象】', guaLine('本卦', guaOverview.main));
+		lines.push(c.bian ? guaLine('变卦', guaOverview.changed) : '变卦：无（六爻皆静）');
+		const positionNames = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
+		const movingPositions = positionNames.filter((_, index) => ['3', '4'].includes(String(safeAt(c.params, index))));
+		lines.push(`动爻：${movingPositions.length ? movingPositions.join('、') : '无（静卦）'}`);
+		lines.push('以下六爻自上而下：上爻、五爻、四爻、三爻、二爻、初爻（初爻为第一爻）', '', '【六爻明细（自上而下）】');
+
+		const states: Record<string, [string, string]> = {
+			'0': ['阴爻', '静爻'],
+			'1': ['阳爻', '静爻'],
+			'3': ['阳爻', '老阳动爻（阳变阴）'],
+			'4': ['阴爻', '老阴动爻（阴变阳）'],
+		};
+		getYaoRows(c, d).forEach((row, index) => {
+			const state = states[String(safeAt(c.params, 5 - index))] || ['未填写', '未填写'];
+			lines.push('', `${row.order}（六神：${readable(row.liushen)}）`);
+			lines.push(`  本卦：${readable(row.relation)}；阴阳：${state[0]}；动静：${state[1]}；世应：${readable(row.mainRole, '无')}`);
 			if (c.bian) {
-				// Re-fetch binary relation directly to avoid '—' from formatDisplay in yaoRows
-				const bQin = safeAt(c.bian.qin6, paramIndex)?.trim() || '';
-				const bDz = safeAt(c.bian.qinx, paramIndex)?.trim() || '';
-				const bRel = bQin || bDz ? `${bQin}${bDz}` : '　　';
-				
-				let bSym = '　 ';
-				// Check binary symbol from row data (which is derived from bian mark)
-				if (row.bianSymbol && row.bianSymbol.includes('━ ━')) bSym = '--';
-				else if (row.bianSymbol && row.bianSymbol.includes('━━━')) bSym = '— ';
-				
-				const bRole = row.bianRole || '　';
-				bianStr = ` | ${bRel.trim() || '—'} | ${bSym.trim() || '—'} | ${bRole.trim() || '—'}`;
+				const relation = `${safeAt(c.bian.qin6, 5 - index) || ''}${safeAt(c.bian.qinx, 5 - index) || ''}`;
+				const polarity = row.bianSymbol === '━ ━' ? '阴爻' : row.bianSymbol === '━━━' ? '阳爻' : '未填写';
+				lines.push(`  变卦：${readable(relation)}；阴阳：${polarity}；世应：${readable(row.bianRole, '无')}`);
 			}
-			
-			lines.push(` ${row.order} | ${god} | ${hidden.trim() || '—'} | ${relation.trim() || '—'} | ${symbol.trim()} | ${marker.trim() || '—'} | ${role.trim() || '—'}${bianStr}`);
+			lines.push(`  伏神：${readable(row.hidden, '无')}`);
 		});
-		
 		return lines.join('\n');
 	} catch (e) {
 		console.error('Failed to build Liuyao export payload', e);
