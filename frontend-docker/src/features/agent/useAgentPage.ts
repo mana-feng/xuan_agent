@@ -353,12 +353,12 @@ export function useAgentPage() {
 		if (call.name === 'run_bazi_chart' || call.name === 'run_ziwei_chart' || call.name === 'run_liuyao_chart') {
 			await executeAgentAction({ type: call.name, label: call.name, payload: call.args } as ExecutableAction, false);
 			const target = call.name === 'run_bazi_chart' ? 'bazi' : call.name === 'run_ziwei_chart' ? 'ziwei' : 'liuyao';
-			pendingAction.value = { type: 'navigate', target, label: '查看刚生成的排盘', reason: '排盘已生成，可以打开结果页面查看。' };
+			pendingAction.value = { type: 'navigate', target, url: target === 'bazi' ? '/pages/index/detail' : target === 'ziwei' ? '/pages/ziwei/result' : '/pages/liuyao/result', label: '查看刚生成的排盘', reason: '排盘已生成，可以打开结果页面查看。' };
 			return { ok: true, name: call.name, data: chartContext(target) };
 		}
 		if (call.name === 'focus_ziwei_palace') {
 			await executeAgentAction({ type: call.name, label: '聚焦宫位', payload: call.args }, false);
-			pendingAction.value = { type: 'navigate', target: 'ziwei', label: '查看紫微宫位', reason: '宫位已选中，可以查看详细盘面。' };
+			pendingAction.value = { type: 'navigate', target: 'ziwei', url: '/pages/ziwei/result', label: '查看紫微宫位', reason: '宫位已选中，可以查看详细盘面。' };
 			return { ok: true, name: call.name, data: chartContext('ziwei') };
 		}
 		return { ok: false, name: call.name, error: '未注册的工具' };
@@ -429,7 +429,10 @@ export function useAgentPage() {
 
 	function applyPendingAction() {
 		if (!pendingAction.value) return;
-		openTarget(pendingAction.value.target);
+		const action = pendingAction.value;
+		pendingAction.value = null;
+		if (action.url) { void navigateToPage(action.url); return; }
+		openTarget(action.target);
 	}
 
 	return {
