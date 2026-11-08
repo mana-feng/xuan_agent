@@ -1,5 +1,6 @@
 import { routeMap } from './config';
-import { normalizeAgentGender, normalizeZiweiPalaceName, parseAgentTimestamp } from './runtime';
+import { normalizeAgentGender, normalizeZiweiPalaceName } from './runtime';
+import { parseCivil } from '@/utils/chartTime';
 import type { AgentTarget, BirthChartPayload, LiuyaoPayload } from './types';
 
 export type ToolName =
@@ -54,8 +55,9 @@ function asObject(value: unknown): Record<string, unknown> | null {
 function text(value: unknown): string { return typeof value === 'string' ? value.trim() : ''; }
 function validatedCivil(value: Record<string, unknown>) {
   const date = text(value.date), time = text(value.time);
-  if (!date || !time || !parseAgentTimestamp(date, time)) throw new Error('日期或时间无效');
+  if (!date || !time) throw new Error('日期或时间无效');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) throw new Error('日期时间必须使用 YYYY-MM-DD / HH:mm');
+  try { parseCivil(date + ' ' + time + ':00'); } catch { throw new Error('日期或时间无效'); }
   const timeZone = text(value.timeZone);
   if (timeZone) {
     try { new Intl.DateTimeFormat('en', { timeZone }); }
