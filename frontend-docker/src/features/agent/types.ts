@@ -13,6 +13,7 @@ export type BirthChartPayload = {
 	gender: 0 | 1 | '0' | '1' | 'male' | 'female' | 'man' | 'woman' | '男' | '女';
 	date: string;
 	time: string;
+	timeZone?: string;
 	focusPalace?: string;
 };
 
@@ -20,6 +21,7 @@ export type LiuyaoPayload = {
 	title: string;
 	date?: string;
 	time?: string;
+	timeZone?: string;
 };
 
 export type ZiweiFocusPayload = {
