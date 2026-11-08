@@ -45,5 +45,7 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: backend-docker/package-lock.json
+      - name: Install frontend test dependencies used by backend fixtures
+        run: npm ci --prefix ../frontend-docker
       - run: npm ci
       - run: node --test tests/*.test.cjs
