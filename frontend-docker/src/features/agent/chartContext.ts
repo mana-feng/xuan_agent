@@ -1,4 +1,5 @@
 import type { ToolCall } from './toolProtocol';
+import { buildLiuyaoExportPayload } from '@/utils/liuyaoExport';
 
 type ChartStores = {
   bazi: any;
@@ -59,6 +60,7 @@ function getLiuyao(store: any) {
     },
     question: store.profile.title,
     method: store.profile.method,
+    readableDetails: buildLiuyaoExportPayload(store),
     chart: {
       dayGanZhi: store.profile.dayGanZhi,
       params: chart.params,
@@ -101,7 +103,7 @@ function getQimen(store: any) {
     question: store.input.question,
     metadata: chart.metadata,
     chart: Object.fromEntries(
-      ['ju', 'dun', 'solarTerm', 'palaces', 'ninePalaces', 'pan', 'earth', 'heaven', 'chiefStar', 'chiefDoor']
+      ['basicInfo', 'siZhu', 'juShu', 'xunShou', 'diPan', 'tianPan', 'jiuXing', 'baMen', 'baShen', 'anGan', 'zhiFuGong', 'zhiFuXing', 'zhiShiGong', 'zhiShiMen', 'kongWangGong', 'maStar']
         .filter(key => chart[key] !== undefined).map(key => [key, chart[key]])
     ),
   };
