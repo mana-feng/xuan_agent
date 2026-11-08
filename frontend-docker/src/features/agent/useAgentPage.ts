@@ -244,9 +244,9 @@ export function useAgentPage() {
 			let date = new Date();
 
 			if (hasCustomDate || hasCustomTime) {
-								const zone = action.payload.timeZone || deviceTimeZone();
+				const zone = action.payload.timeZone || deviceTimeZone();
 				const timestamp = civilToTimestamp(`${action.payload.date} ${action.payload.time}:00`, zone, 'reject');
-				if (!timestamp) {
+				if (!Number.isFinite(timestamp)) {
 					throw new Error('起卦时间格式无效，无法直接排六爻');
 				}
 				date = new Date(timestamp);
@@ -351,7 +351,7 @@ export function useAgentPage() {
 			return { ok: true, name: call.name, data: { navigationOffered: call.args.target } };
 		}
 		if (call.name === 'run_bazi_chart' || call.name === 'run_ziwei_chart' || call.name === 'run_liuyao_chart') {
-			await executeAgentAction({ type: call.name, label: call.name, payload: call.args }, false);
+			await executeAgentAction({ type: call.name, label: call.name, payload: call.args } as ExecutableAction, false);
 			const target = call.name === 'run_bazi_chart' ? 'bazi' : call.name === 'run_ziwei_chart' ? 'ziwei' : 'liuyao';
 			pendingAction.value = { type: 'navigate', target, label: '查看刚生成的排盘', reason: '排盘已生成，可以打开结果页面查看。' };
 			return { ok: true, name: call.name, data: chartContext(target) };
@@ -377,9 +377,11 @@ export function useAgentPage() {
 
 		try {
 			const initialMessages = buildMessages();
+			const sessionToken = getAccessToken();
 			const result = await runToolLoop({
 				messages: initialMessages,
 				askModel: async (messages) => {
+					if (!sessionToken || getAccessToken() !== sessionToken || !userStore.isLoggedIn) throw new Error('登录会话已改变，已停止继续调用');
 					const res = await request('/api/llm/agent', {
 						method: 'POST', needAuth: true, timeout: LLM_REQUEST_TIMEOUT_MS,
 						data: { stream: false, messages },
@@ -389,7 +391,10 @@ export function useAgentPage() {
 					if (!String(reply).trim()) throw new Error('模型未返回可显示内容');
 					return String(reply);
 				},
-				execute: executeTool,
+				execute: async (call) => {
+					if (getAccessToken() !== sessionToken || !userStore.isLoggedIn) throw new Error('登录会话已改变，工具执行已取消');
+					return executeTool(call);
+				},
 				onProgress: (label) => replaceMessage(waitingId, label, 'waiting'),
 			});
 			replaceMessage(waitingId, result.text, result.finish === 'completed' ? 'ready' : 'error');
