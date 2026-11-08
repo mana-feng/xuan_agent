@@ -29,12 +29,12 @@ jobs:
       - run: npm ci
       - name: Install admin UI dependencies used by cross-app tests
         run: npm ci --prefix ../backend-docker/admin-ui
+      - name: Typecheck
+        run: npm run typecheck
       - name: Agent tool loop regression
         run: node --test tests/agent-tool-loop.test.cjs tests/agent-auth.test.cjs tests/agent-qimen-entry.test.cjs
       - name: All frontend unit tests
         run: npm test
-      - name: Typecheck
-        run: npm run typecheck
       - name: Build H5
         run: npm run build:h5
 
