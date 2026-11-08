@@ -29,6 +29,11 @@ jobs:
       - run: npm ci
       - name: Install admin UI dependencies used by cross-app tests
         run: npm ci --prefix ../backend-docker/admin-ui
+      - name: Share Vue runtime with cross-app DOM tests
+        run: |
+          rm -rf ../backend-docker/admin-ui/node_modules/vue ../backend-docker/admin-ui/node_modules/@vue
+          ln -s ../../../frontend-docker/node_modules/vue ../backend-docker/admin-ui/node_modules/vue
+          ln -s ../../../frontend-docker/node_modules/@vue ../backend-docker/admin-ui/node_modules/@vue
       - name: Typecheck
         run: npm run typecheck
       - name: Agent tool loop regression
