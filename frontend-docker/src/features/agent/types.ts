@@ -40,6 +40,7 @@ export type UiMessage = {
 export type NavigateAction = {
 	type: 'navigate';
 	target: AgentTarget;
+	url?: string;
 	label: string;
 	reason?: string;
 };
