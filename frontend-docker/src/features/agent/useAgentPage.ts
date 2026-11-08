@@ -6,23 +6,25 @@ import { executeTimeLiuyaoChart } from '@/features/liuyao/executor';
 import { useLiuyaoStore } from '@/store/liuyao';
 import { useUserStore } from '@/store/user';
 import { useZiweiStore } from '@/store/ziwei';
+import { useQimenStore } from '@/store/qimen';
+import { civilToTimestamp, deviceTimeZone } from '@/utils/chartTime';
+import { getStructuredChartContext } from './chartContext';
+import { buildToolProtocolPrompt, type ToolCall } from './toolProtocol';
+import { runToolLoop, type ToolResult } from './toolLoop';
 import { getAccessToken } from '@/utils/tokenStore';
 import utils from '@/libs/utils/utils';
 import type { ChartInput } from '@/utils/chartInput';
 import { quickPrompts, routeMap, toolCards } from './config';
 import {
 	buildAgentSystemPrompt,
-	extractAgentAction,
 	extractTextFromPayload,
 	formatZiweiPalaceLabel,
 	getFallbackTargetForAction,
-	isExecutableAction,
 	normalizeAgentGender,
 	normalizeAgentName,
 	normalizeError,
 	normalizeLiuyaoTitle,
 	normalizeZiweiPalaceName,
-	parseAgentTimestamp,
 } from './runtime';
 import type { ChatMessage, ExecutableAction, NavigateAction, UiMessage } from './types';
 
@@ -31,6 +33,7 @@ export function useAgentPage() {
 	const baziStore = useBaziStore();
 	const liuyaoStore = useLiuyaoStore();
 	const ziweiStore = useZiweiStore();
+	const qimenStore = useQimenStore();
 
 	const draft = ref('');
 	const sending = ref(false);
@@ -53,6 +56,9 @@ export function useAgentPage() {
 
 		if (ziweiStore.astrolabe) {
 			items.push(`紫微 ${chartIdentity(ziweiStore.input)}`);
+		}
+		if (qimenStore.chart && qimenStore.input.timestamp !== null) {
+			items.push(`奇门「${qimenStore.input.question || '未命名'}」`);
 		}
 
 		return items;
@@ -152,7 +158,7 @@ export function useAgentPage() {
 		const payload: ChatMessage[] = [
 			{
 				role: 'system',
-				content: buildAgentSystemPrompt(contextItems.value),
+				content: buildAgentSystemPrompt(contextItems.value) + '\n\n' + buildToolProtocolPrompt(),
 			},
 		];
 
@@ -175,6 +181,8 @@ export function useAgentPage() {
 		ziweiStore.restoreInput();
 		ziweiStore.ensureComputed();
 		liuyaoStore.restoreLastResult();
+		qimenStore.restoreInput();
+		qimenStore.ensureComputed();
 		ensureSeedMessage();
 	}
 
@@ -219,14 +227,14 @@ export function useAgentPage() {
 		});
 	}
 
-	async function executeAgentAction(action: ExecutableAction) {
+	async function executeAgentAction(action: ExecutableAction, navigate = true) {
 		if (action.type === 'focus_ziwei_palace') {
 			if (!ziweiStore.astrolabe) {
 				throw new Error('当前还没有紫微盘，无法直接聚焦宫位');
 			}
 
 			applyZiweiFocusByName(action.payload.palace);
-			await navigateToPage('/pages/ziwei/result');
+			if (navigate) await navigateToPage('/pages/ziwei/result');
 			return;
 		}
 
@@ -236,8 +244,9 @@ export function useAgentPage() {
 			let date = new Date();
 
 			if (hasCustomDate || hasCustomTime) {
-				const timestamp = parseAgentTimestamp(action.payload.date, action.payload.time);
-				if (!timestamp) {
+				const zone = action.payload.timeZone || deviceTimeZone();
+				const timestamp = civilToTimestamp(`${action.payload.date} ${action.payload.time}:00`, zone, 'reject');
+				if (!Number.isFinite(timestamp)) {
 					throw new Error('起卦时间格式无效，无法直接排六爻');
 				}
 				date = new Date(timestamp);
@@ -251,8 +260,9 @@ export function useAgentPage() {
 				executeTimeLiuyaoChart({
 					title: normalizeLiuyaoTitle(action.payload.title) || '当前问题',
 					date,
+					timeZone: action.payload.timeZone || deviceTimeZone(),
 				});
-				await navigateToPage('/pages/liuyao/result');
+				if (navigate) await navigateToPage('/pages/liuyao/result');
 			} finally {
 				uni.hideLoading();
 			}
@@ -265,10 +275,8 @@ export function useAgentPage() {
 			throw new Error('性别参数无效，无法直接排盘');
 		}
 
-		const timestamp = parseAgentTimestamp(action.payload.date, action.payload.time);
-		if (!timestamp) {
-			throw new Error('出生日期或时辰格式无效，无法直接排盘');
-		}
+		const timeZone = action.payload.timeZone || deviceTimeZone();
+		const timestamp = civilToTimestamp(`${action.payload.date} ${action.payload.time}:00`, timeZone, 'reject');
 
 		const realname = normalizeAgentName(action.payload.realname);
 		const params = {
@@ -276,6 +284,8 @@ export function useAgentPage() {
 			gender,
 			timestamp,
 			recordId: null,
+			timeZone,
+			timeZoneSource: 'explicit' as const,
 		};
 
 		uni.showLoading({
@@ -285,7 +295,7 @@ export function useAgentPage() {
 		try {
 			if (action.type === 'run_bazi_chart') {
 				baziStore.pull(params);
-				await navigateToPage('/pages/index/detail');
+				if (navigate) await navigateToPage('/pages/index/detail');
 				return;
 			}
 
@@ -293,7 +303,7 @@ export function useAgentPage() {
 			if (action.payload.focusPalace) {
 				applyZiweiFocusByName(action.payload.focusPalace, false);
 			}
-			await navigateToPage('/pages/ziwei/result');
+			if (navigate) await navigateToPage('/pages/ziwei/result');
 		} finally {
 			uni.hideLoading();
 		}
@@ -322,6 +332,38 @@ export function useAgentPage() {
 		return false;
 	}
 
+
+	function chartContext(target: 'all' | 'bazi' | 'liuyao' | 'ziwei' | 'qimen' = 'all') {
+		return getStructuredChartContext({
+			bazi: baziStore, liuyao: liuyaoStore, ziwei: ziweiStore, qimen: qimenStore,
+		}, target);
+	}
+
+	async function executeTool(call: ToolCall): Promise<ToolResult> {
+		if (call.name === 'get_chart_context') {
+			return { ok: true, name: call.name, data: chartContext(call.args.target) };
+		}
+		if (call.name === 'navigate') {
+			pendingAction.value = {
+				type: 'navigate', target: call.args.target,
+				label: '打开相应页面', reason: '已为你准备好页面入口，请点击确认。',
+			};
+			return { ok: true, name: call.name, data: { navigationOffered: call.args.target } };
+		}
+		if (call.name === 'run_bazi_chart' || call.name === 'run_ziwei_chart' || call.name === 'run_liuyao_chart') {
+			await executeAgentAction({ type: call.name, label: call.name, payload: call.args } as ExecutableAction, false);
+			const target = call.name === 'run_bazi_chart' ? 'bazi' : call.name === 'run_ziwei_chart' ? 'ziwei' : 'liuyao';
+			pendingAction.value = { type: 'navigate', target, url: target === 'bazi' ? '/pages/index/detail' : target === 'ziwei' ? '/pages/ziwei/result' : '/pages/liuyao/result', label: '查看刚生成的排盘', reason: '排盘已生成，可以打开结果页面查看。' };
+			return { ok: true, name: call.name, data: chartContext(target) };
+		}
+		if (call.name === 'focus_ziwei_palace') {
+			await executeAgentAction({ type: call.name, label: '聚焦宫位', payload: call.args }, false);
+			pendingAction.value = { type: 'navigate', target: 'ziwei', url: '/pages/ziwei/result', label: '查看紫微宫位', reason: '宫位已选中，可以查看详细盘面。' };
+			return { ok: true, name: call.name, data: chartContext('ziwei') };
+		}
+		return { ok: false, name: call.name, error: '未注册的工具' };
+	}
+
 	async function sendPrompt(text: string) {
 		const content = String(text || '').trim();
 		if (!content || sending.value) return;
@@ -334,51 +376,28 @@ export function useAgentPage() {
 		const waitingId = createWaitingMessage();
 
 		try {
-			const res = await request('/api/llm/agent', {
-				method: 'POST',
-				needAuth: true,
-				timeout: LLM_REQUEST_TIMEOUT_MS,
-				data: {
-					stream: false,
-					messages: buildMessages(),
+			const initialMessages = buildMessages();
+			const sessionToken = getAccessToken();
+			const result = await runToolLoop({
+				messages: initialMessages,
+				askModel: async (messages) => {
+					if (!sessionToken || getAccessToken() !== sessionToken || !userStore.isLoggedIn) throw new Error('登录会话已改变，已停止继续调用');
+					const res = await request('/api/llm/agent', {
+						method: 'POST', needAuth: true, timeout: LLM_REQUEST_TIMEOUT_MS,
+						data: { stream: false, messages },
+					});
+					if (!res?.success) throw new Error(res?.error || res?.message || '调用失败');
+					const reply = extractTextFromPayload(res?.data) || (res?.data as any)?.reply || '';
+					if (!String(reply).trim()) throw new Error('模型未返回可显示内容');
+					return String(reply);
 				},
+				execute: async (call) => {
+					if (getAccessToken() !== sessionToken || !userStore.isLoggedIn) throw new Error('登录会话已改变，工具执行已取消');
+					return executeTool(call);
+				},
+				onProgress: (label) => replaceMessage(waitingId, label, 'waiting'),
 			});
-
-			if (!res?.success) {
-				throw new Error(res?.error || res?.message || '调用失败');
-			}
-
-			const rawReply = extractTextFromPayload(res?.data) || (res?.data as any)?.reply || '';
-			if (!String(rawReply).trim()) {
-				throw new Error('模型未返回可显示内容');
-			}
-
-			const parsed = extractAgentAction(rawReply, content, {
-				hasZiweiAstrolabe: !!ziweiStore.astrolabe,
-			});
-			replaceMessage(waitingId, parsed.cleanText, 'ready');
-
-			if (isExecutableAction(parsed.action)) {
-				try {
-					await executeAgentAction(parsed.action);
-					pendingAction.value = null;
-					return;
-				} catch (err) {
-					const fallbackTarget = getFallbackTargetForAction(parsed.action);
-					if (fallbackTarget) {
-						pendingAction.value = {
-							type: 'navigate',
-							target: fallbackTarget,
-							label: fallbackTarget === 'ziwei' ? '打开紫微排盘' : fallbackTarget === 'liuyao' ? '打开六爻排盘' : '打开对应页面',
-							reason: '自动执行失败，可先打开对应页面手动确认参数后再继续。',
-						};
-					}
-					pushMessage('assistant', `执行失败：${normalizeError(err)}`, 'error');
-					return;
-				}
-			}
-
-			pendingAction.value = parsed.action.type === 'navigate' ? parsed.action : null;
+			replaceMessage(waitingId, result.text, result.finish === 'completed' ? 'ready' : 'error');
 		} catch (err) {
 			replaceMessage(waitingId, `调用失败：${normalizeError(err)}`, 'error');
 		} finally {
@@ -410,7 +429,10 @@ export function useAgentPage() {
 
 	function applyPendingAction() {
 		if (!pendingAction.value) return;
-		openTarget(pendingAction.value.target);
+		const action = pendingAction.value;
+		pendingAction.value = null;
+		if (action.url) { void navigateToPage(action.url); return; }
+		openTarget(action.target);
 	}
 
 	return {

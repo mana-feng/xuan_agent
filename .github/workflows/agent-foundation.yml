@@ -1,0 +1,61 @@
+name: Agent foundation validation
+
+on:
+  push:
+    branches: [feat/agent-tool-loop-foundation]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  TZ: Asia/Shanghai
+
+permissions:
+  contents: read
+
+jobs:
+  agent-and-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend-docker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend-docker/package-lock.json
+      - run: npm ci
+      - name: Install admin UI dependencies used by cross-app tests
+        run: npm ci --prefix ../backend-docker/admin-ui
+      - name: Share Vue runtime with cross-app DOM tests
+        run: |
+          rm -rf ../backend-docker/admin-ui/node_modules/vue ../backend-docker/admin-ui/node_modules/@vue
+          ln -s ../../../frontend-docker/node_modules/vue ../backend-docker/admin-ui/node_modules/vue
+          ln -s ../../../frontend-docker/node_modules/@vue ../backend-docker/admin-ui/node_modules/@vue
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Agent tool loop regression
+        run: node --test tests/agent-tool-loop.test.cjs tests/agent-auth.test.cjs tests/agent-qimen-entry.test.cjs
+      - name: All frontend unit tests
+        run: npm test
+      - name: Build H5
+        run: npm run build:h5
+
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend-docker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: backend-docker/package-lock.json
+      - name: Install frontend test dependencies used by backend fixtures
+        run: npm ci --prefix ../frontend-docker
+      - run: npm ci
+      - run: node --test tests/*.test.cjs
