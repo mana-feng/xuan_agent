@@ -160,6 +160,8 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
        "about"->WebAboutPage()
        else->if(state.showResult && state.result!=null) {
         val record=state.result!!
+        var showExternalAi by rememberSaveable(record.id) { mutableStateOf(false) }
+        if (showExternalAi) ExternalAiDialog(record) { showExternalAi = false }
         Column(verticalArrangement=Arrangement.spacedBy(16.dp)) {
          WebHeading(when(record.result.type){"bazi"->"八字命盘";"ziwei"->"紫微命盘";"liuyao"->"六爻卦象";else->"奇门 · 九宫总览"},when(record.result.type){"bazi"->"从四柱结构出发，理解五行、十神与大运节律。";"ziwei"->"在十二宫与星曜之间，寻找人生的不同面向。";"liuyao"->"一次占问，一份当下的记录。";else->"把问题安放在此刻，从九宫之间找到思路。"})
          FlowRow(horizontalArrangement=Arrangement.spacedBy(7.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
@@ -177,6 +179,7 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
             }
            } catch(e:Exception) {model.reportError(e.message?:"导出失败，请重试")}
           },contentPadding=PaddingValues(10.dp)){Text(if(record.result.type=="liuyao")"复制排盘" else "导出 TOON",fontSize=11.sp)}
+          OutlinedButton(onClick={ showExternalAi = true },contentPadding=PaddingValues(10.dp)){Text("其他 AI 解读",fontSize=11.sp)}
           Button(onClick=model::saveResult,enabled=!state.busy,contentPadding=PaddingValues(10.dp),shape=RoundedCornerShape(8.dp)){Text(if(state.records.any{it.id==record.id})"更新本地记录" else "保存到本机",fontSize=11.sp)}
           if(record.result.type=="qimen") Button(onClick=::ask,contentPadding=PaddingValues(10.dp),shape=RoundedCornerShape(8.dp)){Text("携盘问 AI ↗",fontSize=11.sp)}
          }
