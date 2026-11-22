@@ -377,16 +377,22 @@ class OfflineSmokeRunner : Instrumentation() {
         val activity=startActivitySync(intent) as MainActivity
         val model=isolatedModel(activity)
         try {
+            awaitCondition("Bottom tabs missing"){ listOf("首页", "AI", "我的").all { node(it)?.isVisibleToUser == true } }
+            clickLabel("我的")
+            awaitCondition("My page missing"){ node("对话记录")!=null && node("主题外观")!=null }
+            clickLabel("AI")
             awaitCondition("Web AI home missing"){node("观象，知己。")!=null}
             capture("01-agent-home")
-            clickLabel("展开导航");capture("02-navigation");clickLabel("八字命理")
+            clickLabel("首页");capture("02-navigation");clickLabel("八字")
             awaitCondition("Bazi page heading missing"){node("八字排盘")!=null}
             capture("03-bazi-input")
+            scrollUntil("修改时间")
             clickLabel("修改时间")
             awaitCondition("Native date dialog missing"){node("公历出生时间")!=null && node("确认时间  →")!=null}
             capture("04-date-dialog");clickLabel("取消")
             check(!model.state.value.showResult) { "Dismissing date picker incorrectly opened a chart" }
-            clickLabel("展开导航");clickLabel("六爻问事")
+            scrollUntil("六爻",true)
+            clickLabel("六爻")
             awaitCondition("Liuyao route missing"){model.state.value.chartType=="liuyao"}
             check(model.state.value.options.casting=="电脑自动" && model.state.value.options.preview.isEmpty()) { "New Liuyao route pre-generated an unrequested chart" }
             runOnMainSync { model.editOptions(model.state.value.options.copy(casting="手工指定",manual=List(6){-1})) }
@@ -421,7 +427,7 @@ class OfflineSmokeRunner : Instrumentation() {
             awaitCondition("Agent time casting failed"){!model.state.value.busy && model.state.value.result?.input?.title=="isolated agent time question"}
             check(model.state.value.result?.result?.type=="liuyao" && model.state.value.options.casting=="时间起卦") { "Agent action did not use the requested time casting method" }
             check(model.state.value.contextItems.any {it.startsWith("八字 ")} && model.state.value.contextItems.any {it.startsWith("六爻")}) { "Agent lost active chart summaries" }
-            runOnMainSync {model.navigate("history")};awaitCondition("History page missing"){node("每一次探索，都有迹可循")!=null};capture("12-history")
+            clickLabel("我的");clickLabel("排盘记录");awaitCondition("History page missing"){node("筛选与排序")!=null};capture("12-history")
             runOnMainSync {model.navigate("settings")};awaitCondition("Settings page missing"){node("AI API 设置")!=null};capture("13-ai-settings")
             runOnMainSync {model.setPalette("sunset")}
             check(storageContext.getSharedPreferences("workbench-ui",0).getString("palette","")=="sunset") { "Palette was not persisted in isolated preferences" }

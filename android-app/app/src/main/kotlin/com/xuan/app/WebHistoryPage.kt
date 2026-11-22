@@ -17,7 +17,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalLayoutApi::class)
-@Composable fun WebHistoryPage(state:AppState,model:ChartViewModel,openRecord:(SavedChart)->Unit,openChat:(Conversation)->Unit,exportAll:()->Unit,importAll:()->Unit,exportChart:(SavedChart)->Unit,exportChat:(Conversation)->Unit,startExploring:()->Unit={}) {
+@Composable fun WebHistoryPage(state:AppState,model:ChartViewModel,openRecord:(SavedChart)->Unit,openChat:(Conversation)->Unit,exportAll:()->Unit,importAll:()->Unit,exportChart:(SavedChart)->Unit,exportChat:(Conversation)->Unit,startExploring:()->Unit={},chatOnly:Boolean=false) {
     val p=LocalWebPalette.current
     var query by rememberSaveable { mutableStateOf("") }
     var type by rememberSaveable { mutableStateOf("all") }
@@ -27,8 +27,9 @@ import java.time.format.DateTimeFormatter
     var page by rememberSaveable { mutableIntStateOf(1) }
     var pendingChart by remember { mutableStateOf<SavedChart?>(null) }
     var pendingChat by remember { mutableStateOf<Conversation?>(null) }
+    var filtersOpen by rememberSaveable { mutableStateOf(false) }
     val queryTrimmed=query.trim()
-    val charts=state.records.filter { record ->
+    val charts=if(chatOnly) emptyList() else state.records.filter { record ->
         (type=="all" || type==record.result.type) && (gender==null || record.result.type!="qimen" && record.input.gender==gender &&
             (record.result.type!="liuyao" || record.result.metadata["性别填写"]!="false")) &&
             "${record.result.title} ${record.input.title} ${record.input.civil} ${chartTypeName(record.result.type)}".contains(queryTrimmed,true)
@@ -36,8 +37,8 @@ import java.time.format.DateTimeFormatter
         val ordered=if(sortName) records.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.result.title }) else records.sortedBy { it.createdAt }
         if(descending) ordered.reversed() else ordered
     }
-    val chats=if(type in listOf("all","chat") && gender==null) state.conversations.filter { conversation ->
-        (conversation.title+" "+conversation.messages.joinToString(" ") { it.content }).contains(queryTrimmed,true)
+    val chats=if(chatOnly) state.conversations.filter { conversation ->
+        conversation.title.contains(queryTrimmed,true) || conversation.messages.any { it.content.contains(queryTrimmed,true) }
     }.let { if(sortName) it.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { chat -> chat.title }).let { sorted -> if(descending) sorted.reversed() else sorted } else if(descending) it else it.reversed() } else emptyList()
     val total=charts.size+chats.size
     val totalPages=maxOf(1,(total+11)/12)
@@ -47,27 +48,39 @@ import java.time.format.DateTimeFormatter
     fun reset() { query="";type="all";gender=null;sortName=false;descending=true;page=1 }
     val filtered=queryTrimmed.isNotEmpty() || type!="all" || gender!=null
     Column(verticalArrangement=Arrangement.spacedBy(16.dp)) {
-        WebHeading("每一次探索，都有迹可循","回到曾经的问题，也许会有新的理解。查看并管理保存在本机中的命盘。")
-        Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End) { OutlinedButton(onClick=model::refreshRecords) { Text("刷新记录",fontSize=11.sp) } }
-        OutlinedTextField(query,{query=it},placeholder={Text("搜索姓名或起卦主题",fontSize=13.sp)},leadingIcon={Text("⌕",fontSize=24.sp,color=p.muted)},trailingIcon={if(query.isNotEmpty()) TextButton(onClick={query=""}) { Text("×",fontSize=22.sp) }},singleLine=true,modifier=Modifier.fillMaxWidth())
-        Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End) {
-            OutlinedButton(onClick={sortName=!sortName}) { Text(if(sortName) "按姓名主题" else "按保存时间",fontSize=11.sp) }
-            Spacer(Modifier.width(8.dp))
-            OutlinedButton(onClick={descending=!descending}) { Text(if(descending) "↓ 降序" else "↑ 升序",fontSize=11.sp) }
+
+        OutlinedTextField(
+            query, { query=it },
+            placeholder={Text(if(chatOnly) "搜索对话" else "搜索姓名、问题或日期",fontSize=13.sp)},
+            trailingIcon={if(query.isNotEmpty()) TextButton(onClick={query=""}) { Text("清除") }},
+            singleLine=true, modifier=Modifier.fillMaxWidth(),
+        )
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            TextButton(onClick={filtersOpen=!filtersOpen}) { Text(if(filtersOpen) "收起筛选" else "筛选与排序") }
+            TextButton(onClick=model::refreshRecords) { Text("刷新记录") }
         }
-        FlowRow(horizontalArrangement=Arrangement.spacedBy(4.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
-            listOf("all" to "全部","bazi" to "八字","ziwei" to "紫微","liuyao" to "六爻","qimen" to "奇门","chat" to "对话").forEach { (id,label) -> WebPill(label,type==id,{type=id;if(id in listOf("qimen","chat")) gender=null}) }
-        }
-        if(type !in listOf("qimen","chat")) Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(4.dp)) {
-            Text("性别",fontSize=11.sp,color=p.muted,modifier=Modifier.padding(end=5.dp))
-            WebPill("全部",gender==null,{gender=null});WebPill("男",gender==0,{gender=0});WebPill("女",gender==1,{gender=1})
+        if(filtersOpen) {
+            Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick={sortName=!sortName}) { Text(if(sortName) "按标题" else "按保存时间",fontSize=12.sp) }
+                OutlinedButton(onClick={descending=!descending}) { Text(if(descending) "降序" else "升序",fontSize=12.sp) }
+            }
+            if(!chatOnly) {
+                FlowRow(horizontalArrangement=Arrangement.spacedBy(5.dp),verticalArrangement=Arrangement.spacedBy(5.dp)) {
+                    listOf("all" to "全部","bazi" to "八字","ziwei" to "紫微","liuyao" to "六爻","qimen" to "奇门").forEach { (id,label) ->
+                        WebPill(label,type==id) { type=id;if(id=="qimen") gender=null }
+                    }
+                }
+                if(type!="qimen") Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(5.dp)) {
+                    Text("性别",fontSize=12.sp,color=p.muted)
+                    WebPill("全部",gender==null,{gender=null});WebPill("男",gender==0,{gender=0});WebPill("女",gender==1,{gender=1})
+                }
+            }
         }
         WebCard {
             if(total==0) Column(Modifier.fillMaxWidth().padding(vertical=26.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(16.dp)) {
-                Text("◇",fontSize=38.sp,color=p.accent)
-                Text(if(filtered) "没有找到相关记录" else "你的探索，从这里开始",fontFamily=FontFamily.Serif,fontSize=20.sp,color=p.ink)
-                Text(if(filtered) "试试其他关键词、性别或排盘类型。" else "完成排盘后，点击「保存到本机」，就能在这里再次打开。",fontSize=12.sp,color=p.muted,lineHeight=22.sp)
-                if(filtered) OutlinedButton(onClick={reset()}) { Text("清除筛选") } else WebPrimaryButton("开始探索",startExploring)
+                Text(if(filtered) "没有符合条件的记录" else if(chatOnly) "暂无对话记录" else "暂无排盘记录",fontFamily=FontFamily.Serif,fontSize=20.sp,color=p.ink)
+                if(!filtered && !chatOnly) Text("排盘后点「保存到本机」，就能在这里打开。",fontSize=12.sp,color=p.muted,lineHeight=22.sp)
+                if(filtered) OutlinedButton(onClick={reset()}) { Text("清除筛选") } else WebPrimaryButton(if(chatOnly) "去对话" else "去排盘",startExploring)
             }
             charts.forEachIndexed { index,record -> if(index in start until start+12) {
                 Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
@@ -103,8 +116,8 @@ import java.time.format.DateTimeFormatter
                 HorizontalDivider(color=p.border)
             } }
         }
-        Text("共 $total 条记录 · ${charts.size} 条命盘 · ${chats.size} 个对话 · 第 $currentPage / $totalPages 页",fontSize=11.sp,color=p.muted,lineHeight=20.sp)
-        Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End) {
+        Text("共 $total 条记录",fontSize=12.sp,color=p.muted)
+        if(totalPages>1) Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End) {
             OutlinedButton(onClick={page=currentPage-1},enabled=currentPage>1) { Text("上一页",fontSize=11.sp) };Spacer(Modifier.width(8.dp));OutlinedButton(onClick={page=currentPage+1},enabled=currentPage<totalPages) { Text("下一页",fontSize=11.sp) }
         }
         if(filtered) TextButton(onClick={reset()}) { Text("清除筛选",fontSize=12.sp) }

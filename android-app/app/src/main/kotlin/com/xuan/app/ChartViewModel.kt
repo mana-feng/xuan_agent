@@ -11,6 +11,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
+internal const val START_PAGE = "liuyao"
+
 data class AppState(
     val form:ChartInput=ChartInput(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"))),
     val editingId:String?=null,val chartType:String="bazi",val result:SavedChart?=null,val saved:Boolean=false,
@@ -24,7 +26,7 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
     private val secrets=SecretStore(storageContext)
     private val calendar=CalendarEngine()
     private val client=AiClient()
-    private val mutable=MutableStateFlow(AppState())
+    private val mutable=MutableStateFlow(AppState(chartType=START_PAGE,page=START_PAGE,options=freshOptions(START_PAGE)))
     val state=mutable.asStateFlow()
     private var chatJob:Job?=null
     private var configEdited=false
