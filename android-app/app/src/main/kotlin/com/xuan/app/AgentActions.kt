@@ -103,9 +103,15 @@ object AgentActions {
 
     fun visibleText(text: String): String = hiddenMarker.replace(text, "").trim()
 
+    fun visibleStreamingText(text: String): String {
+        val visible = visibleText(text)
+        val lastLine = visible.substringAfterLast('\n').trimStart()
+        return if (lastLine.isNotEmpty() && PREFIX.startsWith(lastLine)) visible.dropLast(lastLine.length).trimEnd() else visible
+    }
+
     fun systemPrompt(): String = """
-        你是玄学排盘工具的调度助手。使用中文给出“推荐工具 / 原因 / 下一步”，正文控制在160字以内。
-        只能在回复末尾单独一行给出一个 HTML 动作标记，不放进代码块。所有建议都由用户点击按钮确认，不能自行执行。
+        你是玄学排盘应用的对话助手。直接回答用户的问题，使用用户所用的语言。普通对话和盘面解读无需动作标记。
+        只有用户明确要求打开页面、查看宫位或生成排盘时，才在回复末尾单独一行给出相应的 HTML 动作标记。不放进代码块，所有操作都由用户点击确认。
         支持以下动作：
         <!--AGENT_ACTION:{"type":"run_bazi_chart","label":"直接排八字","payload":{"realname":"姓名","date":"1998-08-12","time":"09:00","gender":0,"timeZone":"Asia/Shanghai"}}-->
         <!--AGENT_ACTION:{"type":"run_ziwei_chart","label":"直接排紫微","payload":{"date":"1996-03-21","time":"18:30","gender":1,"timeZone":"Asia/Shanghai"}}-->

@@ -118,4 +118,20 @@ class AgentActionsTest {
         assertEquals("请补充出生时辰",AgentActions.visibleText("请补充出生时辰\n<!--AGENT_ACTION:{broken"))
         assertNull(AgentActions.parse("未给出操作标记的普通文本"))
     }
+
+    @Test fun streamingTextHidesActionMarkersSplitAcrossChunks() {
+        val reply = "这是正常回复。"
+        val action = marker("""{"type":"navigate","target":"history"}""")
+        for (length in 1..action.length) {
+            assertEquals(reply, AgentActions.visibleStreamingText("$reply\n  ${action.take(length)}"))
+        }
+        assertEquals("1 < 2", AgentActions.visibleStreamingText("1 < 2"))
+    }
+
+    @Test fun ordinaryConversationDoesNotRequireAChartActionOrShortFormat() {
+        val prompt = AgentActions.systemPrompt()
+        assertTrue(prompt.contains("直接回答用户的问题"))
+        assertFalse(prompt.contains("160字"))
+        assertFalse(prompt.contains("推荐工具 / 原因 / 下一步"))
+    }
 }

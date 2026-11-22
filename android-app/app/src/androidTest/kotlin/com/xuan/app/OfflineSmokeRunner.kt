@@ -18,6 +18,8 @@ import com.google.gson.Gson
 import com.xuan.core.*
 import java.io.File
 import java.io.IOException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
@@ -57,6 +59,7 @@ class OfflineSmokeRunner : Instrumentation() {
         )
         if (launchActivity) {
             cases += "nativeActivityLaunches" to ::nativeActivityLaunches
+            cases += "directConversationShowsStreamingReplyAndStops" to ::directConversationShowsStreamingReplyAndStops
             cases += "webWorkbenchNavigationAndDateDialog" to ::webWorkbenchNavigationAndDateDialog
             cases += "recordRecalculationUpdatesIdentityAndModuleDrafts" to ::recordRecalculationUpdatesIdentityAndModuleDrafts
             cases += "activityRecreationRetainsAllUnsavedDrafts" to ::activityRecreationRetainsAllUnsavedDrafts
@@ -312,13 +315,17 @@ class OfflineSmokeRunner : Instrumentation() {
         while(System.nanoTime()<deadline) { if(condition()) return;Thread.sleep(50) }
         check(condition()) { message }
     }
-    private fun isolatedModel(activity:MainActivity):ChartViewModel {
+    private fun isolatedModel(
+        activity: MainActivity,
+        requestChat: (suspend (AiConfig, List<ChatMessage>, (String) -> Unit) -> AiReply)? = null,
+    ):ChartViewModel {
         lateinit var model:ChartViewModel
         runOnMainSync {
             val factory=object:androidx.lifecycle.ViewModelProvider.Factory {
                 override fun <T:androidx.lifecycle.ViewModel> create(modelClass:Class<T>):T {
                     @Suppress("UNCHECKED_CAST")
-                    return ChartViewModel(activity.application,storageContext) as T
+                    return (if (requestChat == null) ChartViewModel(activity.application, storageContext)
+                        else ChartViewModel(activity.application, storageContext, requestChat)) as T
                 }
             }
             model=ViewModelProvider(activity,factory).get("isolated-ui-smoke",ChartViewModel::class.java)
@@ -353,6 +360,57 @@ class OfflineSmokeRunner : Instrumentation() {
         val bitmap=uiAutomation.takeScreenshot()?:error("Screenshot unavailable")
         File(dir,"$name.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle()
     }
+
+    private fun directConversationShowsStreamingReplyAndStops() {
+        val intent = Intent(Intent.ACTION_MAIN).setClassName(targetContext.packageName, "com.xuan.app.MainActivity")
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val activity = startActivitySync(intent) as MainActivity
+        val finishFirstReply = CompletableDeferred<Unit>()
+        val endpoint = "https://example.invalid/v1/chat/completions"
+        val model = isolatedModel(activity) { config, messages, partial ->
+            check(config.baseUrl == endpoint)
+            if (messages.last().content == "你好") {
+                partial("你好，")
+                finishFirstReply.await()
+                AiReply("你好，很高兴认识你。")
+            } else {
+                check(messages.last().content == "继续说")
+                partial("这段已收到。\n<!--AGENT_AC")
+                awaitCancellation()
+            }
+        }
+        try {
+            clickLabel("AI")
+            awaitCondition("Chat composer missing") { node("消息输入框") != null && node("新对话") != null }
+            runOnMainSync { model.saveConfig(AiConfig(baseUrl = endpoint, model = "offline-test")) }
+            awaitCondition("Mock config missing") { model.state.value.config.baseUrl == endpoint }
+            runOnMainSync { model.editChatDraft("你好") }
+            clickLabel("发送")
+            awaitCondition("Partial reply was not rendered before completion") { node("你好，") != null && node("停止") != null }
+            check(model.state.value.chat?.messages?.lastOrNull()?.role == "user")
+            finishFirstReply.complete(Unit)
+            awaitCondition("Completed reply was not rendered or saved") {
+                node("你好，很高兴认识你。") != null && !model.state.value.sending &&
+                    model.state.value.conversations.any { it.messages.lastOrNull()?.role == "assistant" }
+            }
+
+            runOnMainSync { model.editChatDraft("继续说") }
+            clickLabel("发送")
+            awaitCondition("Second partial reply was not rendered") { node("这段已收到。") != null && node("停止") != null }
+            clickLabel("停止")
+            awaitCondition("Stopped partial reply did not reach conversation history") {
+                !model.state.value.sending && model.state.value.conversations.any { chat ->
+                    val text = chat.messages.lastOrNull()?.content.orEmpty()
+                    text.contains("这段已收到。") && text.contains("回复未完成") && !text.contains("<!--")
+                }
+            }
+            clickLabel("记录")
+            awaitCondition("Conversation history is unavailable") { node("对话记录") != null }
+        } finally {
+            finishFirstReply.complete(Unit)
+            runOnMainSync { model.cancelChat(); activity.finish() }
+        }
+    }
     private fun scrollUntil(label:String,backward:Boolean=false) {
         uiAutomation.waitForIdle(150,3000)
         val screen=android.graphics.Rect();uiAutomation.rootInActiveWindow.getBoundsInScreen(screen)
@@ -381,8 +439,8 @@ class OfflineSmokeRunner : Instrumentation() {
             clickLabel("我的")
             awaitCondition("My page missing"){ node("对话记录")!=null && node("主题外观")!=null }
             clickLabel("AI")
-            awaitCondition("Web AI home missing"){node("观象，知己。")!=null}
-            capture("01-agent-home")
+            awaitCondition("Direct AI chat missing"){node("消息输入框")!=null && node("新对话")!=null}
+            capture("01-ai-chat")
             clickLabel("首页");capture("02-navigation");clickLabel("八字")
             awaitCondition("Bazi page heading missing"){node("八字排盘")!=null}
             capture("03-bazi-input")

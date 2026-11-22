@@ -21,11 +21,14 @@ data class AppState(
     val contextItems:List<String> = emptyList(),val ziweiFocus:String?=null,val streamingText:String="",val page:String="agent",val showResult:Boolean=false,val palette:String="aurora",
     val notice:String="",val error:String="",val options:FormOptions=FormOptions(),val chatDraft:String="",val configDraft:AiConfig=AiConfig(),val chatUnsaved:Boolean=false,
 )
-class ChartViewModel @JvmOverloads constructor(application:Application,storageContext:android.content.Context=application):AndroidViewModel(application) {
+class ChartViewModel @JvmOverloads constructor(
+    application: Application,
+    storageContext: android.content.Context = application,
+    private val requestChat: suspend (AiConfig, List<ChatMessage>, (String) -> Unit) -> AiReply = AiClient()::send,
+) : AndroidViewModel(application) {
     private val store=LocalStore(storageContext)
     private val secrets=SecretStore(storageContext)
     private val calendar=CalendarEngine()
-    private val client=AiClient()
     private val mutable=MutableStateFlow(AppState(chartType=START_PAGE,page=START_PAGE,options=freshOptions(START_PAGE)))
     val state=mutable.asStateFlow()
     private var chatJob:Job?=null
@@ -186,17 +189,26 @@ class ChartViewModel @JvmOverloads constructor(application:Application,storageCo
         chatJob=viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO){store.saveConversation(pending)}
-                val reply=client.send(snapshot.config,listOf(ChatMessage("system",system))+entries) { partial -> mutable.update { it.copy(streamingText=partial) } }
+                val reply=requestChat(snapshot.config,listOf(ChatMessage("system",system))+entries) { partial -> mutable.update { it.copy(streamingText=partial) } }
                 ChatDelivery.receive(pending,reply,{ completed -> mutable.update { it.copy(chat=completed,chatUnsaved=true) } },{ completed -> withContext(Dispatchers.IO){store.saveConversation(completed)} })
-                mutable.update { it.copy(chatUnsaved=false,streamingText="") };reload()
-            } catch(e:CancellationException){retainPartial(pending);mutable.update { it.copy(notice="请求已取消，已收到的内容保留在本机") };throw e}
-            catch(e:Exception){ retainPartial(pending);if(state.value.chatUnsaved) mutable.update { it.copy(error="回复已收到，但本机保存失败；请点“仅保存回复”重试，不会再次调用 API") } else fail(e) }
-            finally { mutable.update { it.copy(sending=false) };try { reload() } catch(_:Exception){} }
+                mutable.update { it.copy(chatUnsaved=false) }
+            } catch (e: CancellationException) {
+                retainPartial(pending)
+                mutable.update { it.copy(notice=if(it.chatUnsaved) "请求已停止，请重试保存已收到的回复" else "请求已停止") }
+                throw e
+            } catch(e:Exception){ retainPartial(pending);if(state.value.chatUnsaved) mutable.update { it.copy(error="回复已收到，但本机保存失败；请点“重试保存”，不会再次调用 API") } else fail(e) }
+            finally {
+                // A stopped request can still have saved a partial reply that history must show.
+                withContext(NonCancellable) {
+                    try { reload() } catch (_: Exception) { }
+                    finally { mutable.update { it.copy(sending=false,streamingText="") } }
+                }
+            }
         }
         return true
     }
     private suspend fun retainPartial(pending:Conversation) { withContext(NonCancellable) {
-        val snapshot=state.value;val text=snapshot.streamingText
+        val snapshot=state.value;val text=AgentActions.visibleStreamingText(snapshot.streamingText)
         if(text.isBlank() || snapshot.chat?.id!=pending.id || snapshot.chat.messages.lastOrNull()?.role!="user" || snapshot.chatUnsaved) return@withContext
         val incomplete=pending.copy(messages=pending.messages+ChatMessage("assistant",text+"\n\n[回复未完成，连接已中断或请求已取消]"))
         mutable.update { it.copy(chat=incomplete,streamingText="",chatUnsaved=true) }

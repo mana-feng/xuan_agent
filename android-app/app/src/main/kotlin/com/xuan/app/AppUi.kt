@@ -90,7 +90,7 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
  }
  fun ask(){model.newChat(true);navigate("agent")}
  LaunchedEffect(state.notice){if(state.notice.isNotEmpty()){snackbar.showSnackbar(state.notice);model.clearNotice()}}
- LaunchedEffect(state.page,state.showResult,state.result){scroll.scrollToItem(0)}
+ LaunchedEffect(state.page,state.showResult,state.result){if(state.page!="agent") scroll.scrollToItem(0)}
  val viewingChart=state.showResult && state.page==state.chartType
  val mySubpage = state.page in mySubpages
  val chatChild = mySubpage && state.page == chatLaunchedPage
@@ -133,6 +133,13 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
         Text(pageLabels[state.page].orEmpty(), fontSize = 13.sp, color = p.ink, modifier = Modifier.weight(1f))
         if (chatScreen) {
          TextButton(onClick = { openFromChat("chatHistory") }) { Text("记录", fontSize = 13.sp) }
+         TextButton(onClick = { model.newChat() }, enabled = !state.sending && !state.chatUnsaved) {
+          Text("新对话", fontSize = 13.sp)
+         }
+         IconButton(
+          onClick = { openFromChat("settings") },
+          modifier = Modifier.semantics { contentDescription = "AI API 设置" },
+         ) { Text("⚙", fontSize = 21.sp, modifier = Modifier.clearAndSetSemantics {}) }
         }
        }
        HorizontalDivider(color = p.border)
@@ -140,7 +147,14 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
      }
     },
    ) { padding ->
-    LazyColumn(state=scroll,modifier=Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(),contentPadding=PaddingValues(horizontal=16.dp,vertical=23.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+    if (chatScreen) {
+     WebAgentPage(
+      state, model,
+      openSettings = { openFromChat("settings") },
+      openHistory = { openFromChat("history") },
+      modifier = Modifier.padding(padding).consumeWindowInsets(padding).imePadding(),
+     )
+    } else LazyColumn(state=scroll,modifier=Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(),contentPadding=PaddingValues(horizontal=16.dp,vertical=23.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
      if(state.error.isNotEmpty()) item {Surface(color=MaterialTheme.colorScheme.errorContainer,shape=RoundedCornerShape(10.dp)){Column(Modifier.padding(14.dp)){Text(state.error,color=MaterialTheme.colorScheme.onErrorContainer,fontSize=12.sp,lineHeight=21.sp);TextButton(onClick=model::clearError){Text("知道了")}}}}
      if (activeTab == "home") item {
       val modules = listOf("liuyao" to "六爻", "bazi" to "八字", "ziwei" to "紫微", "qimen" to "奇门")
@@ -150,9 +164,6 @@ private val mySubpages = setOf("history", "chatHistory", "settings", "appearance
      }
      item(key=state.page+state.showResult.toString()) {
       when(state.page) {
-       "agent" -> WebAgentPage(state, model) { page ->
-        if (page in mySubpages) openFromChat(page) else navigate(page)
-       }
        "my" -> MyPage(state, ::navigate)
        "appearance" -> AppearancePage(p.id, model::setPalette)
        "history","chatHistory"->WebHistoryPage(state,model,{model.openRecord(it)},{model.openChat(it);model.navigate("agent")},{exportChartId=null;exportChatId=null;exporter.launch("玄学AI-本机备份.json")},{importer.launch(arrayOf("application/json","text/plain"))},{r->exportChartId=r.id;exportChatId=null;exporter.launch("玄学AI-排盘-${r.id.take(8)}.json")},{c->exportChartId=null;exportChatId=c.id;exporter.launch("玄学AI-对话-${c.id.take(8)}.json")},{if(state.page=="chatHistory") navigate("agent") else openHome()}, chatOnly=state.page=="chatHistory")
